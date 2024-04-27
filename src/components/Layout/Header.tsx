@@ -9,8 +9,9 @@ export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const pathname = usePathname()
+  const paths = ['/login', '/onBoarding', '/onBoarding1', '/onBoarding2']
 
-  if (pathname === '/login') return null
+  if (paths.includes(pathname)) return null
 
   return (
     <header className="bg-[#fff] shadow-soft-shadow">
