@@ -3,9 +3,14 @@ import { useState } from 'react'
 import './Example.css' // CSS 스타일은 이전에 설명한 내용을 조금 수정하며 파일에 포함되어 있어야 합니다.
 import Image from 'next/image'
 import { BsList } from 'react-icons/bs'
+import { usePathname } from 'next/navigation'
 
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  const pathname = usePathname()
+
+  if (pathname === '/login') return null
 
   return (
     <header className="bg-[#fff] shadow-soft-shadow">
@@ -33,7 +38,7 @@ export default function Example() {
           <a href="#" className="hidden lg:flex text-sm font-medium leading-5 text-grey100">
             FAQ
           </a>
-          <a href="#" className="hidden lg:flex text-sm font-medium leading-5 text-grey100">
+          <a href="/login" className="hidden lg:flex text-sm font-medium leading-5 text-grey100">
             로그인
           </a>
         </div>
@@ -43,10 +48,7 @@ export default function Example() {
             className=" -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-grey100"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            <BsList
-              size="2
-            rem"
-            />
+            <BsList size="2rem" />
           </button>
         </div>
       </nav>

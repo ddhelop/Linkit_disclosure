@@ -1,7 +1,11 @@
-import Image from 'next/image'
-import Link from 'next/link'
+'use client'
+import { usePathname } from 'next/navigation'
 
 export default function Footer() {
+  const pathname = usePathname()
+
+  if (pathname === '/login') return null
+
   return (
     <>
       <div>123123</div>
