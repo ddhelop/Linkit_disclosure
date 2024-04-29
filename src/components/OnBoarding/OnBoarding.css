@@ -1,0 +1,6 @@
+.custom-select {
+  background-image: url('/assets/icons/pointer.svg');
+  background-position: right 0.7rem center;
+  background-size: 0.7em 0.7em;
+  background-repeat: no-repeat;
+}

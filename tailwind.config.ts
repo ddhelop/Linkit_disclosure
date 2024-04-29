@@ -35,6 +35,7 @@ const config: Config = {
       },
       boxShadow: {
         'soft-shadow': '0px 1.7px 22.32px 0px rgba(0, 0, 0, 0.05)',
+        'boarding-shadow': '0px 0px 20px 0px rgba(65, 76, 97, 0.07)',
       },
     },
   },
