@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation'
 
 export default function Footer() {
   const pathname = usePathname()
-  const paths = ['/login', '/onBoarding', '/onBoarding1', '/onBoarding2']
+  const paths = ['/login', '/onBoarding', '/onBoarding/step1', '/onBoarding/step2', '/onBoarding/step3']
 
   if (paths.includes(pathname)) return null
 
