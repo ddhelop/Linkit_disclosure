@@ -40,7 +40,7 @@ export default function OnBoardingPrivateInfo() {
         <OnBoardingHeader />
 
         <div className="w-full h-full flex items-center justify-center">
-          <div className="w-[26rem] h-[43.7rem] rounded-md bg-[#fff] shadow-boarding-shadow p-7">
+          <div className="w-full h-full sm:w-[26rem] sm:h-[43.7rem] sm:rounded-md bg-[#fff] sm:shadow-boarding-shadow p-7">
             <h2 className="pt-3 font-semibold">기본 정보를 입력해주세요.</h2>
             <div className="w-full pt-5 flex justify-center">
               <Image
