@@ -9,7 +9,15 @@ export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const pathname = usePathname()
-  const paths = ['/login', '/onBoarding', '/onBoarding/step1', '/onBoarding/step2', '/onBoarding/step3']
+  const paths = [
+    '/login',
+    '/onBoarding',
+    '/onBoarding/step1',
+    '/onBoarding/step2',
+    '/onBoarding/step2/person',
+    '/onBoarding/step2/team',
+    '/onBoarding/step3',
+  ]
 
   if (paths.includes(pathname)) return null
 
