@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import OnBoardingHeader from '../Layout/onBoardingHeader'
 
+import Link from 'next/link'
+
 export default function OnBoardingStep1() {
   return (
     <>
@@ -42,10 +44,13 @@ export default function OnBoardingStep1() {
 
               {/* button */}
               <div className="w-full flex justify-center">
-                <div className="flex w-44 h-11 bg-[#282C31] hover:bg-[#3c4249] rounded-full justify-center items-center gap-x-3 pl-2 cursor-pointer ">
+                <Link
+                  href={'/onBoarding/step2/person'}
+                  className="flex w-44 h-11 bg-[#282C31] hover:bg-[#3c4249] rounded-full justify-center items-center gap-x-3 pl-2 cursor-pointer "
+                >
                   <span className="text-sm text-[#fff]">내 이력서 등록하기</span>
                   <Image src="/assets/icons/addBtn.svg" width={24} height={24} alt="addButton" />
-                </div>
+                </Link>
               </div>
             </div>
 
@@ -69,10 +74,13 @@ export default function OnBoardingStep1() {
 
               {/* button */}
               <div className="w-full flex justify-center">
-                <div className="flex w-44 h-11 bg-[#282C31] hover:bg-[#3c4249] rounded-full justify-center items-center gap-x-3 pl-2 cursor-pointer">
+                <Link
+                  href={'/onBoarding/step2/team'}
+                  className="flex w-44 h-11 bg-[#282C31] hover:bg-[#3c4249] rounded-full justify-center items-center gap-x-3 pl-2 cursor-pointer"
+                >
                   <span className="text-sm text-[#fff]">팀 소개서 등록하기</span>
                   <Image src="/assets/icons/addBtn.svg" width={24} height={24} alt="addButton" />
-                </div>
+                </Link>
               </div>
             </div>
           </div>
