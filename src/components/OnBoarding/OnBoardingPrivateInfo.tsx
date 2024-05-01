@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from '@/context/schemaValidation'
 import { IFormData } from '@/lib/types'
-import './onBoarding.css'
+import './OnBoarding.css'
 
 export default function OnBoardingPrivateInfo() {
   const [inputValue, setInputValue] = useState('') // State is now managed here
