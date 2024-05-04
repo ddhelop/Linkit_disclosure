@@ -1,6 +1,35 @@
+'use client'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 export default function IntroComponent1() {
+  const [countdown, setCountdown] = useState('')
+
+  useEffect(() => {
+    const targetDate = new Date('2024-05-20T00:00:00').getTime() // 목표 날짜 설정 및 숫자로 변환
+    const interval = setInterval(() => {
+      const now = new Date().getTime() // 현재 날짜를 숫자로 변환
+      const difference = targetDate - now // 숫자형 Date 값들의 차이 계산
+
+      if (difference <= 0) {
+        clearInterval(interval)
+        setCountdown('00일 00시간 00분 00초')
+        return
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+      setCountdown(
+        `${days}일 ${hours.toString().padStart(2, '0')}시간 ${minutes.toString().padStart(2, '0')}분 ${seconds.toString().padStart(2, '0')}초`,
+      )
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <>
       <div className="relative snap-start h-screen text-center flex flex-col items-center justify-center p-8 min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
@@ -16,7 +45,7 @@ export default function IntroComponent1() {
 
         <div className="flex flex-col pt-24">
           <span className="text-2xl font-medium">얼리버드 마감까지</span>
-          <span className="text-[1.68rem] font-medium mt-4 bg-[#F1F4F980] p-5">13일 08시간 07분 35초</span>
+          <span className="text-[1.68rem] font-medium mt-4 bg-[#F1F4F980] p-5 rounded-lg">{countdown}</span>
         </div>
       </div>
     </>
