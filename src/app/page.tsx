@@ -1,9 +1,9 @@
-const Home = () => {
-  return (
-    <>
-      <div>home</div>
-    </>
-  );
-};
+import IntroLayout from '@/components/Intro/IntroLayout'
 
-export default Home;
+export default function Intropage() {
+  return (
+    <div>
+      <IntroLayout />
+    </div>
+  )
+}
