@@ -4,7 +4,7 @@ export default function IntroComponent2() {
   return (
     <>
       <div className="relative snap-start h-screen flex flex-col min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
-        <div className="w-full h-[55%] bg-[#F6F8FC] flex flex-col pt-24 pl-[11rem] relative">
+        <div className="w-full h-[72%] bg-[#F6F8FC] flex flex-col pt-24 pl-[11rem] relative">
           <span className="text-5xl font-bold">자유로운</span>
           <span className="text-5xl font-bold pt-4">자기 PR의 공간</span>
 
