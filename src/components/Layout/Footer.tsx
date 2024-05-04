@@ -1,9 +1,11 @@
 'use client'
 import { usePathname } from 'next/navigation'
+import FooterComponent from './FooterComponent'
 
 export default function Footer() {
   const pathname = usePathname()
   const paths = [
+    '/',
     '/login',
     '/onBoarding',
     '/onBoarding/step1',
@@ -15,9 +17,5 @@ export default function Footer() {
 
   if (paths.includes(pathname)) return null
 
-  return (
-    <>
-      <div>123123</div>
-    </>
-  )
+  return <FooterComponent />
 }
