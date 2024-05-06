@@ -1,6 +1,6 @@
 import IntroLayout from '@/components/Intro/IntroLayout'
 
-export default function Intropage() {
+export default async function Intropage() {
   return (
     <div>
       <IntroLayout />

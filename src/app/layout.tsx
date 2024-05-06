@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+import { Session } from 'next-auth'
+
+import SessionWrapper from '@/components/SessionWrapper'
 
 export const metadata: Metadata = {
   title: 'LinKit',
@@ -22,18 +23,22 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 })
 
-export default function RootLayout({
+export default function RootyLayout({
   children,
+  session,
 }: Readonly<{
   children: React.ReactNode
+  session?: Session | null
 }>) {
   return (
-    <html lang="ko" className={`${pretendard.variable}`}>
-      <body className={pretendard.className}>
-        <Header />
-        {children}
-        <Footer />
-      </body>
-    </html>
+    <SessionWrapper>
+      <html lang="ko" className={`${pretendard.variable}`}>
+        <body className={pretendard.className}>
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </html>
+    </SessionWrapper>
   )
 }

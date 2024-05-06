@@ -1,8 +1,14 @@
 'use client'
+
 import { motion } from 'framer-motion'
+import { signIn, signOut, useSession } from 'next-auth/react'
+
 import Image from 'next/image'
 
 export default function Login() {
+  const { data: session } = useSession()
+  console.log(session)
+
   return (
     <>
       <div className="w-full h-screen flex">
@@ -28,10 +34,15 @@ export default function Login() {
               <Image src={'/assets/login/naverLogo.png'} width={39} height={44} alt="naverLogin" />
               <span className="font-semibold text-[#fff]">네이버로 시작하기</span>
             </div>
-            <div className="flex w-[23rem] h-[3.5rem] px-24 bg-[#FFE500] rounded items-center gap-1 cursor-pointer">
+
+            <div
+              className="flex w-[23rem] h-[3.5rem] px-24 bg-[#FFE500] rounded items-center gap-1 cursor-pointer"
+              onClick={() => signIn('kakao')}
+            >
               <Image src={'/assets/login/kakaoLogo.svg'} width={39} height={56} alt="kakaoLogin" />
               <span className="font-semibold">카카오로 시작하기</span>
             </div>
+
             <div className="flex w-[23rem] h-[3.5rem] px-[6.5rem] items-cente gap-3 items-center border-[1px] border-grey30 rounded cursor-pointer">
               <Image src={'/assets/login/googleLogo.svg'} width={23} height={23} alt="NaverLogin" />
               <span className="font-semibold">구글로 시작하기</span>
