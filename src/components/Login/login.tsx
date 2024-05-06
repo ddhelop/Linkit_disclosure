@@ -37,13 +37,16 @@ export default function Login() {
 
             <div
               className="flex w-[23rem] h-[3.5rem] px-24 bg-[#FFE500] rounded items-center gap-1 cursor-pointer"
-              onClick={() => signIn('kakao')}
+              onClick={() => signIn('kakao', { redirect: true, callbackUrl: '/' })}
             >
               <Image src={'/assets/login/kakaoLogo.svg'} width={39} height={56} alt="kakaoLogin" />
               <span className="font-semibold">카카오로 시작하기</span>
             </div>
 
-            <div className="flex w-[23rem] h-[3.5rem] px-[6.5rem] items-cente gap-3 items-center border-[1px] border-grey30 rounded cursor-pointer">
+            <div
+              className="flex w-[23rem] h-[3.5rem] px-[6.5rem] items-cente gap-3 items-center border-[1px] border-grey30 rounded cursor-pointer"
+              onClick={() => signOut()}
+            >
               <Image src={'/assets/login/googleLogo.svg'} width={23} height={23} alt="NaverLogin" />
               <span className="font-semibold">구글로 시작하기</span>
             </div>
