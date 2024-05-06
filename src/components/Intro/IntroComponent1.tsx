@@ -32,7 +32,10 @@ export default function IntroComponent1() {
 
   return (
     <>
-      <div className="relative snap-start h-screen text-center flex flex-col items-center justify-center p-8 min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
+      <div
+        style={{ backgroundImage: `url('/assets/intro/introBg1.png')` }}
+        className="relative snap-start h-screen text-center flex flex-col items-center justify-center p-8 min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden"
+      >
         <div className="flex gap-4">
           <span className="text-3xl font-medium">성공을</span>
           <Image src={'/assets/intro/lineLink.svg'} alt="line" width={89} height={1} />
