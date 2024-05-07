@@ -39,6 +39,13 @@ const config: Config = {
         'box-shadow3': '17px 22px 22.32px 0px rgba(68, 77, 123, 0.05)',
       },
     },
+    theme: {
+      extend: {
+        fontFamily: {
+          pretendard: ['var(--font-pretendard)'],
+        },
+      },
+    },
   },
   plugins: [],
 }
