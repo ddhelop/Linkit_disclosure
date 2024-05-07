@@ -37,7 +37,7 @@ export default function Login() {
 
             <div
               className="flex w-[23rem] h-[3.5rem] px-24 bg-[#FFE500] rounded items-center gap-1 cursor-pointer"
-              onClick={() => signIn('kakao', { redirect: true, callbackUrl: '/' })}
+              onClick={() => signIn('kakao', { redirect: true, callbackUrl: '/onBoarding' })}
             >
               <Image src={'/assets/login/kakaoLogo.svg'} width={39} height={56} alt="kakaoLogin" />
               <span className="font-semibold">카카오로 시작하기</span>
