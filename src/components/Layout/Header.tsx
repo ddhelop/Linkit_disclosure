@@ -4,7 +4,6 @@ import './Example.css' // CSS 스타일은 이전에 설명한 내용을 조금 
 import Image from 'next/image'
 import { BsList } from 'react-icons/bs'
 import { usePathname } from 'next/navigation'
-import { useSession } from 'next-auth/react'
 
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)

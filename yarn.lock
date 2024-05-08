@@ -1055,6 +1055,11 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
+"@channel.io/channel-web-sdk-loader@^1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@channel.io/channel-web-sdk-loader/-/channel-web-sdk-loader-1.1.7.tgz#468f3c0e9eab215b05f8ba998532b54e853f47b3"
+  integrity sha512-wIHvOQpYTPpHGg0mS/CW/WKNONF1phmhHlGpfXGbHai81OgeUiyLtkwuNaiM7bR4QF8uIB+p0RrM/evn2Zb7pw==
+
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@eslint-community/eslint-utils/-/eslint-utils-4.4.0.tgz#a23514e8fb9af1269d5f7788aa556798d61c6b59"
