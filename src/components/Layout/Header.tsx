@@ -30,18 +30,7 @@ export default function Example() {
             <Image src="/assets/icons/headerLogo.svg" width={110} height={20} alt="logo" />
           </a>
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-between lg:items-center">
-          <a href="#" className="text-lg font-medium leading-5 text-grey100">
-            창업/공모전 정보
-          </a>
-          <a href="#" className="text-lg font-medium leading-5 text-grey100">
-            팀원 찾기
-          </a>
-          <a href="#" className="text-lg font-medium leading-5 text-grey100">
-            팀 찾기
-          </a>
-        </div>
-        <div className="flex lg:flex-1 lg:justify-end gap-10">
+        {/* <div className="flex lg:flex-1 lg:justify-end gap-10">
           <a href="#" className="hidden lg:flex text-sm font-medium leading-5 text-grey100">
             링킷 소개
           </a>
@@ -51,7 +40,7 @@ export default function Example() {
           <a href="/login" className="hidden lg:flex text-sm font-medium leading-5 text-grey100">
             로그인
           </a>
-        </div>
+        </div> */}
         <div className="flex lg:hidden ml-auto">
           <button
             type="button"

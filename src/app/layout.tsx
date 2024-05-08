@@ -4,10 +4,6 @@ import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
 import './globals.css'
 
-import { Session } from 'next-auth'
-
-import SessionWrapper from '@/components/SessionWrapper'
-
 export const metadata: Metadata = {
   title: 'LinKit',
   description: '',
@@ -25,20 +21,16 @@ const pretendard = localFont({
 
 export default function RootyLayout({
   children,
-  session,
 }: Readonly<{
   children: React.ReactNode
-  session?: Session | null
 }>) {
   return (
-    <SessionWrapper>
-      <html lang="ko" className={`${pretendard.variable}`}>
-        <body className={pretendard.className}>
-          <Header />
-          {children}
-          <Footer />
-        </body>
-      </html>
-    </SessionWrapper>
+    <html lang="ko" className={`${pretendard.variable}`}>
+      <body className={pretendard.className}>
+        <Header />
+        {children}
+        <Footer />
+      </body>
+    </html>
   )
 }
