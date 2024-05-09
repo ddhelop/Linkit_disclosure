@@ -34,16 +34,17 @@ const config: Config = {
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       boxShadow: {
-        'soft-shadow': '0px 1.7px 22.32px 0px rgba(0, 0, 0, 0.05)',
+        'soft-shadow': '0px 3px 50px 0px rgba(59, 59, 75, 0.05)',
         'boarding-shadow': '0px 0px 20px 0px rgba(65, 76, 97, 0.07)',
         'box-shadow3': '17px 22px 22.32px 0px rgba(68, 77, 123, 0.05)',
+        'card-shadow': ' 17.5px 10px 96.97px 0px rgba(0, 0, 0, 0.15)',
+        'frame-shaow': '53px 19px 86.97px 18px rgba(109, 114, 120, 0.18)',
       },
-    },
-    theme: {
-      extend: {
-        fontFamily: {
-          pretendard: ['var(--font-pretendard)'],
-        },
+      backdropFilter: {
+        'blur-lg': 'blur(32px)',
+      },
+      backgroundColor: {
+        'white-alpha-20': 'rgba(255, 255, 255, 0.20)',
       },
     },
   },
