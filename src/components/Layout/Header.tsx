@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { BsList } from 'react-icons/bs'
 import { usePathname } from 'next/navigation'
 
-export default function Example() {
+export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const pathname = usePathname()
@@ -22,8 +22,8 @@ export default function Example() {
   if (paths.includes(pathname)) return null
 
   return (
-    <header className="bg-[#fff] shadow-soft-shadow">
-      <nav className="mx-auto flex max-w-full items-center justify-between p-6 lg:pl-40 lg:pr-20" aria-label="Global">
+    <nav className="w-full bg-white-alpha-20 shadow-soft-shadow backdrop-blur-lg flex-shrink fixed top-0 z-50">
+      <nav className="mx-auto flex max-w-full items-center justify-between p-6 lg:pl-40 lg:pr-20">
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <Image src="/assets/icons/headerLogo.svg" width={110} height={20} alt="logo" />
@@ -63,6 +63,6 @@ export default function Example() {
           팀 찾기
         </a>
       </div>
-    </header>
+    </nav>
   )
 }
