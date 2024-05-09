@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
+
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -26,7 +27,7 @@ export default function RootyLayout({
 }>) {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
-      <body className={pretendard.className}>
+      <body className={`${pretendard.className}`}>
         <Header />
         {children}
         <Footer />
