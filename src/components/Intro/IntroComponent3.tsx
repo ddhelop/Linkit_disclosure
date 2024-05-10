@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 export default function IntroComponent3() {
   return (
     <div
-      style={{ backgroundImage: 'url("/assets/intro/section3bg.jpg")' }}
+      style={{ backgroundImage: 'url("/assets/intro/section3bg.png")' }}
       className="w-full snap-start h-screen flex items-center  min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden"
     >
       <div className="w-[50%] h-full flex items-center justify-center"></div>
