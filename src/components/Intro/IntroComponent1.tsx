@@ -1,11 +1,12 @@
 'use client'
 import Image from 'next/image'
 import { useState } from 'react'
+type PositionKey = '개발자' | '디자이너' | '마케터' | '기획자' | '리서처' | '비즈니스'
 
 export default function IntroComponentTemp() {
-  const [selectedRole, setSelectedRole] = useState('개발자')
+  const [selectedRole, setSelectedRole] = useState<PositionKey>('개발자')
 
-  const positions = {
+  const positions: Record<PositionKey, { text: string; image: string; bgImage: string }> = {
     개발자: {
       text: '개발자 포지션',
       image: '/assets/intro/developer.png',
@@ -54,7 +55,13 @@ export default function IntroComponentTemp() {
             </div>
 
             <div className="flex w-[22.4rem] justify-between pt-10">
-              <Image src={positions[selectedRole].image} width={124} height={124} className="rounded-[1.875rem]" />
+              <Image
+                src={positions[selectedRole].image}
+                width={124}
+                height={124}
+                alt=""
+                className="rounded-[1.875rem]"
+              />
               <div className="flex flex-col text-left justify-center">
                 <span className="font-medium ">7월 팀빌딩을 위한</span>
                 <span className="font-bold text-[2rem]">{positions[selectedRole].text}</span>
@@ -71,7 +78,7 @@ export default function IntroComponentTemp() {
             <span
               key={role}
               className={`cursor-pointer ${selectedRole === role ? 'text-xl font-bold grey100' : 'text-base font-medium text-grey70'}`}
-              onClick={() => setSelectedRole(role)}
+              onClick={() => setSelectedRole(role as PositionKey)}
             >
               {role}
             </span>
