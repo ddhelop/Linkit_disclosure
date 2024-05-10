@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 type PositionKey = '개발자' | '디자이너' | '마케터' | '기획자' | '리서처' | '비즈니스'
 
 export default function IntroComponentTemp() {
@@ -46,7 +47,11 @@ export default function IntroComponentTemp() {
         // style={{ backgroundImage: `url("${positions[selectedRole].bgImage}")` }}
       >
         <Image src={positions[selectedRole].bgImage} alt="line" fill objectFit="cover" className="z-0" />
-        <div className="z-50 shadow-frame-shaow rounded-[3.125rem] bg-[rgba(79, 81, 98, 0.07)] backdrop-blur-2xl">
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+          className="z-50 shadow-frame-shaow rounded-[3.125rem] bg-[rgba(79, 81, 98, 0.07)] backdrop-blur-2xl"
+        >
           <div className="w-[31.6rem] h-[21.9rem] py-[1.65rem] flex flex-col items-center z-50">
             <div className="flex gap-4 font-medium backdrop-blur-[37px]">
               <span className="">성공을</span>
@@ -72,7 +77,7 @@ export default function IntroComponentTemp() {
               <Image src={'/assets/icons/right_arrow.svg'} width={17} height={1} alt="right_arrow" />
             </div>
           </div>
-        </div>
+        </motion.div>
         <div className="flex justify-between mt-7 shadow-gray-07 items-center px-7 z-50 w-[39.5rem] h-[3.68rem] bg-[rgba(79, 81, 98, 0.07)] rounded-[3.91rem] backdrop-blur-2xl">
           {Object.keys(positions).map((role) => (
             <span
