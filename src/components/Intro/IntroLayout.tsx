@@ -13,7 +13,7 @@ import IntroComponent9 from './IntroComponent9'
 
 export default function IntroLayout() {
   return (
-    <div className="flex flex-col w-full h-screen overflow-y-scroll snap-y snap-mandatory">
+    <div className="flex flex-col w-full h-screen items-center overflow-y-scroll snap-y snap-mandatory">
       <IntroComponent1 />
       <IntroComponent2 />
       <IntroComponent3 />

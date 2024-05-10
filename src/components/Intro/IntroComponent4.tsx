@@ -35,9 +35,9 @@ export default function IntroComponent4() {
         backgroundImage:
           'linear-gradient(180deg, #F1F3F7 19.19%, rgba(252, 252, 253, 0) 112.86%), url("/assets/intro/section4bg.png")',
       }}
-      className="w-full snap-start h-screen flex flex-col items-center  min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden py-24"
+      className="w-full snap-start h-screen flex flex-col items-center justify-center min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden py-24"
     >
-      <div className="w-full flex flex-col items-center">
+      <div className="w-full flex flex-col items-center mt-12">
         <span className="w-[17.3rem] text-[1.25rem] text-grey70 font-medium bg-grey30 text-center py-[0.44rem] rounded-lg">
           {countdown}
         </span>

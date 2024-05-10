@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function IntroComponent9() {
   return (
     <div className="w-full snap-start h-screen flex flex-col items-center pt-16  min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
-      <div className="w-full h-full flex">
+      <div className="w-[1200px] h-full flex">
         {/* left */}
         <div className="w-1/2 h-full flex items-center justify-center">
           <div className=" flex flex-col items-left pb-20">

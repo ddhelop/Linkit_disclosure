@@ -43,7 +43,7 @@ export default function IntroComponentTemp() {
   return (
     <>
       <div
-        className="relative snap-start h-screen flex flex-col items-center justify-center min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-opacity-50 overflow-hidden"
+        className="w-full relative snap-start h-screen flex flex-col items-center justify-center min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-opacity-50 overflow-hidden"
         // style={{ backgroundImage: `url("${positions[selectedRole].bgImage}")` }}
       >
         <Image src={positions[selectedRole].bgImage} alt="line" fill objectFit="cover" className="z-0" />

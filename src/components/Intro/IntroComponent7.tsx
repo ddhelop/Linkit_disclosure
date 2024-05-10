@@ -7,9 +7,9 @@ export default function IntroComponent7() {
         backgroundImage:
           'linear-gradient(180deg, #F1F3F7 19.19%, rgba(252, 252, 253, 0) 112.86%), url("/assets/intro/section7bg.png")',
       }}
-      className="w-full snap-start h-screen flex flex-col items-center  min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden py-24"
+      className="w-full snap-start h-screen flex flex-col justify-center items-center  min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden py-24"
     >
-      <div className="w-full h-full flex">
+      <div className="w-[1200px] flex">
         {/* left */}
         <div className="w-1/2 h-full flex items-center justify-center">
           <div className=" flex flex-col items-left pb-20">

@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function IntroComponent8() {
   return (
-    <div className="w-full snap-start h-screen flex flex-col items-center pt-16  min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
+    <div className="w-full snap-start h-screen flex flex-col justify-center items-center pt-16  min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
       <div className="w-full h-full flex">
         {/* left */}
         <div className="w-1/2 h-full flex items-center justify-center">

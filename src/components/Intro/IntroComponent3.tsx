@@ -6,13 +6,11 @@ export default function IntroComponent3() {
   return (
     <div
       style={{ backgroundImage: 'url("/assets/intro/section3bg.png")' }}
-      className="w-full snap-start h-screen flex items-center  min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden"
+      className="w-full snap-start h-screen flex justify-center items-center  min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden"
     >
-      <div className="w-[50%] h-full flex items-center justify-center"></div>
-
-      <div className="w-[50%] h-full flex items-center justify-center">
-        <div className="flex  flex-col items-end justify-center ">
-          <span className="text-[2.62rem] font-bold pb-4 text-grey100">목표를 향해 모이세요</span>
+      <div className="w-[1200px] flex justify-end">
+        <div className="flex flex-col items-end mr-40 mt-16">
+          <span className="text-[2.62rem] font-bold pb-4 text-grey100">목표를 향해 모여볼까요?</span>
 
           <span className="text-[1.25rem] font-medium text-grey70 pt-5 text-right">
             같은 목표를 가진 사람들과 모이세요.
