@@ -41,6 +41,7 @@ const config: Config = {
         'card-shadow': ' 17.5px 10px 96.97px 0px rgba(0, 0, 0, 0.15)',
         'frame-shaow': '53px 19px 86.97px 18px rgba(109, 114, 120, 0.18)',
         'rec-shadow': '8.204px 6.381px 40.11px 0px rgba(148, 157, 186, 0.15)',
+        'faq-shadow': '8.204px 6.381px 40.11px 0px rgba(148, 157, 186, 0.15);',
         'alarm-shadow':
           '11.634px 6.648px 64.466px 0px rgba(36, 41, 62, 0.00), 11.634px 6.648px 64.466px 0px rgba(36, 41, 62, 0.10);',
       },

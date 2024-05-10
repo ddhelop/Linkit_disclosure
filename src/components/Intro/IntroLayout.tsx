@@ -1,6 +1,7 @@
 import FooterComponent from '../Layout/FooterComponent'
 import IntroComponent1 from './IntroComponent1'
 import IntroComponent10 from './IntroComponent10'
+import IntroComponent11 from './IntroComponent11'
 import IntroComponent2 from './IntroComponent2'
 import IntroComponent3 from './IntroComponent3'
 import IntroComponent4 from './IntroComponent4'
@@ -23,6 +24,7 @@ export default function IntroLayout() {
       <IntroComponent8 />
       <IntroComponent9 />
       <IntroComponent10 />
+      <IntroComponent11 />
 
       <div className="snap-start h-screen">
         <FooterComponent />
