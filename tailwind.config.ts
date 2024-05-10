@@ -44,6 +44,7 @@ const config: Config = {
         'faq-shadow': '8.204px 6.381px 40.11px 0px rgba(148, 157, 186, 0.15);',
         'alarm-shadow':
           '11.634px 6.648px 64.466px 0px rgba(36, 41, 62, 0.00), 11.634px 6.648px 64.466px 0px rgba(36, 41, 62, 0.10);',
+        'gray-07': '151.669px 78.968px 171.689px 0px rgba(109, 114, 120, 0.25)',
       },
       backdropFilter: {
         'blur-lg': 'blur(32px)',
@@ -51,6 +52,7 @@ const config: Config = {
       backgroundColor: {
         'white-alpha-20': 'rgba(255, 255, 255, 0.20)',
         'white-alpha-50': 'rgba(255, 255, 255, 0.50);',
+        'gray-07': 'rgba(79, 81, 98, 0.07)',
       },
     },
   },
