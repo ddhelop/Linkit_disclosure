@@ -32,6 +32,9 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  font-feature-settings:
+    'clig' 0,
+    'liga' 0;
 }
 
 html {

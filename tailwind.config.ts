@@ -40,6 +40,8 @@ const config: Config = {
         'box-shadow3': '17px 22px 22.32px 0px rgba(68, 77, 123, 0.05)',
         'card-shadow': ' 17.5px 10px 96.97px 0px rgba(0, 0, 0, 0.15)',
         'frame-shaow': '53px 19px 86.97px 18px rgba(109, 114, 120, 0.18)',
+        'alarm-shadow':
+          '11.634px 6.648px 64.466px 0px rgba(36, 41, 62, 0.00), 11.634px 6.648px 64.466px 0px rgba(36, 41, 62, 0.10);',
       },
       backdropFilter: {
         'blur-lg': 'blur(32px)',
