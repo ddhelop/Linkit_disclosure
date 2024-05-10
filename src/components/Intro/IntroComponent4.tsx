@@ -43,8 +43,9 @@ export default function IntroComponent4() {
         </span>
         <span className="text-[2.62rem] font-bold pt-3">현재 사전 신청 진행중이에요</span>
         <span className="text-xl text-grey70 font-medium pt-2">
-          사전예약 등록하고 팀빌딩 성사시 100% 스타벅스 커피쿠폰 지급
+          사전 신청 등록하고 정규 프로필까지 등록 완료하면 스타벅스 커피 쿠폰 지급
         </span>
+        <span className="text-[0.93rem] text-grey50 font-medium pt-2">*추첨 된 100명에게 지급될 예정입니다</span>
       </div>
 
       <div className="flex gap-6 mt-24">
@@ -64,6 +65,9 @@ export default function IntroComponent4() {
             <div className="w-[17.6rem] h-[3.1rem] bg-[#00704A] text-[#fff] font-me rounded-md flex justify-center items-center cursor-pointer">
               2. 1분만에 프로필 등록하기 ㅤ&gt;
             </div>
+            <span className="text-[0.68rem] text-grey50 font-medium text-center">
+              *추첨 된 100명에게 지급될 예정입니다
+            </span>
           </div>
         </div>
         <div className="flex flex-col items-center w-[24.1rem] h-[18.8rem] bg-grey20 rounded-[0.625rem] px-[3.25rem] py-7">
@@ -76,8 +80,9 @@ export default function IntroComponent4() {
           <span className="text-2xl font-bold">여름 팀빌딩 시작</span>
           <span className="text-sm text-grey70 font-medium pt-1">6월 30일부터</span>
 
-          <span className="text-[2.625rem] text-grey50 font-bold pt-9">Coming Soon</span>
-          <span className="text-2xl text-grey50 font-bold pt-1">06월 30일 오픈</span>
+          <span className="text-[1.81rem] text-grey50 font-bold pt-9 text-center">
+            프로필 작성 후<br /> 나와 맞는 팀원 찾기!
+          </span>
         </div>
       </div>
     </div>
