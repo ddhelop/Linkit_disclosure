@@ -1,4 +1,6 @@
+'use client'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 export default function IntroComponent3() {
   return (
@@ -20,10 +22,13 @@ export default function IntroComponent3() {
             <br />
           </span>
 
-          <div className="w-[17.18rem] h-[4.43rem] gap-4 mt-12 flex justify-center items-center bg-[#2F353C] text-[#fff] rounded-[3.75rem] cursor-pointer">
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            className="w-[17.18rem] h-[4.43rem] gap-4 mt-12 flex justify-center items-center bg-[#2F353C] text-[#fff] rounded-[3.75rem] cursor-pointer"
+          >
             <span className="font-medium ml-4">7월에 진행하는 프로젝트 찾기</span>
-            <Image src={'/assets/icons/right_arrow.svg'} width={17} height={1} alt="right arrow" className="" />
-          </div>
+            <Image src={'/assets/icons/right_arrow.svg'} width={17} height={1} alt="right arrow" />
+          </motion.div>
         </div>
       </div>
     </div>
