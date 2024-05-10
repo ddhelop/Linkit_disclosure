@@ -6,6 +6,7 @@ import IntroComponent4 from './IntroComponent4'
 import IntroComponent5 from './IntroComponent5'
 import IntroComponent6 from './IntroComponent6'
 import IntroComponent7 from './IntroComponent7'
+import IntroComponent8 from './IntroComponent8'
 
 export default function IntroLayout() {
   return (
@@ -17,6 +18,7 @@ export default function IntroLayout() {
       <IntroComponent5 />
       <IntroComponent6 />
       <IntroComponent7 />
+      <IntroComponent8 />
 
       <div className="snap-start h-screen">
         <FooterComponent />
