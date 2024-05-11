@@ -7,6 +7,11 @@ type OpenState = {
 }
 
 export default function IntroComponent11() {
+  const answers = [
+    '사전 예약을 한 분들은 서비스 오픈 후 회원가입까지 완료할 시~~~이 제공됩니다(확정해야 함)',
+    '네, 신청해주신 대부분이 주니어 레벨이며 학부 과정인 분들도 많습니다.',
+    '약 1달 뒤인 6월 30일에 서비스 오픈 예정이며, 기재해주신 연락처로 안내드릴 예정입니다.',
+  ]
   const [isOpen, setIsOpen] = useState<OpenState>({})
 
   const toggleAccordion = (index: number) => {
@@ -16,7 +21,10 @@ export default function IntroComponent11() {
     }))
   }
   return (
-    <div className="relative w-full snap-start h-screen flex flex-col items-center pt-32 min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
+    <div
+      id="FAQ"
+      className="relative w-full snap-start h-screen flex flex-col items-center pt-32 min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden"
+    >
       <div className="w-full flex flex-col items-center">
         <span className="text-[2.62rem] font-bold pt-3 leading-[3.625rem] text-center">FAQ</span>
         <span className="text-xl text-grey70 font-medium pt-5 text-center leading-8">
@@ -27,7 +35,7 @@ export default function IntroComponent11() {
       {/* Multiple FAQ entries */}
       <div className="mt-12">
         {[
-          'Q. 사전 예약을 하면 어떤 혜택이 있나요?',
+          'Q. 사전신청은 완료했는데, 언제부터 팀빌딩이 가능한가요?',
           'Q. 경력이 없어도 신청 가능한가요?',
           'Q. 사전신청은 완료했는데, 언제부터 팀빌딩이 가능한가요?',
         ].map((question, index) => (
@@ -48,11 +56,7 @@ export default function IntroComponent11() {
                   exit={{ opacity: 0 }}
                   className="pl-5 pb-5"
                 >
-                  <p>
-                    {index === 0
-                      ? '사전 예약을 한 분들은 서비스 오픈 후 회원가입까지 완료할 시~~~이 제공됩니다(확정해야 함)'
-                      : 'answer'}
-                  </p>
+                  <p>{answers[index]}</p>
                 </motion.div>
               )}
             </AnimatePresence>
