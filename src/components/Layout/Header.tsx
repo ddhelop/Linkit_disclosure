@@ -4,6 +4,7 @@ import './Example.css' // CSS 스타일은 이전에 설명한 내용을 조금 
 import Image from 'next/image'
 import { BsList } from 'react-icons/bs'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -21,6 +22,15 @@ export default function Header() {
 
   if (paths.includes(pathname)) return null
 
+  // smooth
+  const handleClick = (e: any) => {
+    e.preventDefault() // 기본 이벤트를 방지
+    const target = document.getElementById('FAQ')
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <nav className="w-full bg-white-alpha-20 shadow-soft-shadow backdrop-blur-lg flex-shrink fixed top-0 z-50">
       <nav className="mx-auto flex max-w-full items-center justify-between p-6 lg:pl-40 lg:pr-20">
@@ -29,17 +39,21 @@ export default function Header() {
             <Image src="/assets/icons/headerLogo.svg" width={110} height={20} alt="logo" />
           </a>
         </div>
-        {/* <div className="flex lg:flex-1 lg:justify-end gap-10">
-          <a href="#" className="hidden lg:flex text-sm font-medium leading-5 text-grey100">
+        <div className="flex lg:flex-1 lg:justify-end gap-10">
+          {/* <a href="#" className="hidden lg:flex text-sm font-medium leading-5 text-grey100">
             링킷 소개
-          </a>
-          <a href="#" className="hidden lg:flex text-sm font-medium leading-5 text-grey100">
+          </a> */}
+          <Link
+            href="/#FAQ"
+            onClick={handleClick}
+            className="hidden lg:flex text-sm font-medium leading-5 text-grey100"
+          >
             FAQ
-          </a>
-          <a href="/login" className="hidden lg:flex text-sm font-medium leading-5 text-grey100">
+          </Link>
+          {/* <a href="/login" className="hidden lg:flex text-sm font-medium leading-5 text-grey100">
             로그인
-          </a>
-        </div> */}
+          </a> */}
+        </div>
         <div className="flex lg:hidden ml-auto">
           <button
             type="button"
@@ -50,7 +64,7 @@ export default function Header() {
           </button>
         </div>
       </nav>
-      <div
+      {/* <div
         className={`mobile-menu absolute w-full transition-max-height duration-500 ease-in-out ${mobileMenuOpen ? 'max-h-96' : 'max-h-0'}`}
       >
         <a href="#" className="block text-sm font-semibold leading-6 text-grey100 p-4 pl-8">
@@ -62,7 +76,7 @@ export default function Header() {
         <a href="#" className="block text-sm font-semibold leading-6 text-grey100 p-4 pl-8">
           팀 찾기
         </a>
-      </div>
+      </div> */}
     </nav>
   )
 }
