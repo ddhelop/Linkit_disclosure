@@ -35,20 +35,22 @@ export default function IntroComponent4() {
         backgroundImage:
           'linear-gradient(180deg, #F1F3F7 19.19%, rgba(252, 252, 253, 0) 112.86%), url("/assets/intro/section4bg.png")',
       }}
-      className="w-full snap-start h-screen flex flex-col items-center justify-center min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden py-24"
+      className="w-full snap-start h-screen flex flex-col items-center justify-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden py-24"
     >
       <div className="w-full flex flex-col items-center mt-12">
         <span className="w-[17.3rem] text-[1.25rem] text-grey70 font-medium bg-grey30 text-center py-[0.44rem] rounded-lg">
           {countdown}
         </span>
-        <span className="text-[2.62rem] font-bold pt-3">현재 사전 신청 진행중이에요</span>
-        <span className="text-xl text-grey70 font-medium pt-2">
-          사전 신청 등록하고 정규 프로필까지 등록 완료하면 스타벅스 커피 쿠폰 지급
+        <span className="text-[1.8rem] lg:text-[2.62rem] font-bold pt-3">현재 사전 신청 진행중이에요</span>
+        <span className="text-base lg:text-xl text-grey70 font-medium pt-2">
+          사전 신청 등록하고 정규 프로필까지
+          <br className="lg:hidden" />
+          등록 완료하면 스타벅스 커피 쿠폰 지급
         </span>
         <span className="text-[0.93rem] text-grey50 font-medium pt-2">*추첨 된 100명에게 지급될 예정입니다</span>
       </div>
 
-      <div className="flex gap-6 mt-24">
+      <div className="flex flex-col lg:flex-row gap-6 mt-24">
         <div className="flex flex-col items-center w-[24.1rem] h-[18.8rem] bg-[#fff] rounded-[0.625rem] px-[3.25rem] py-7 ">
           <span className="text-2xl font-bold">사전 프로필 등록</span>
           <span className="text-sm text-grey70 font-medium pt-1 ">05월 15일부터 06월 30일까지</span>
@@ -70,13 +72,13 @@ export default function IntroComponent4() {
             </span>
           </div>
         </div>
-        <div className="flex flex-col items-center w-[24.1rem] h-[18.8rem] bg-grey20 rounded-[0.625rem] px-[3.25rem] py-7">
+        <div className="hidden lg:flex flex-col items-center w-[24.1rem] h-[18.8rem] bg-grey20 rounded-[0.625rem] px-[3.25rem] py-7">
           <span className="text-2xl font-bold text-grey70">정규 프로필 등록</span>
 
           <span className="text-[2.625rem] text-grey50 font-bold pt-[3.4rem]">Coming Soon</span>
           <span className="text-2xl text-grey50 font-bold pt-1">06월 30일 오픈</span>
         </div>
-        <div className="flex flex-col items-center w-[24.1rem] h-[18.8rem] bg-[#fff] rounded-[0.625rem] px-[3.25rem] py-7">
+        <div className="hidden lg:flex flex-col items-center w-[24.1rem] h-[18.8rem] bg-[#fff] rounded-[0.625rem] px-[3.25rem] py-7">
           <span className="text-2xl font-bold">여름 팀빌딩 시작</span>
           <span className="text-sm text-grey70 font-medium pt-1">6월 30일부터</span>
 

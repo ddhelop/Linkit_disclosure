@@ -30,21 +30,21 @@ export default function IntroComponent5() {
   const doubledLogos2 = [...logos2, ...logos2]
 
   return (
-    <div className="w-full snap-start h-screen flex flex-col items-center justify-center min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
+    <div className="w-full snap-start h-screen flex flex-col items-center justify-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
       <div className="w-full flex flex-col items-center">
-        <span className="text-[2.62rem] font-bold pt-3 leading-[3.625rem]">
+        <span className="text-[2rem] lg:text-[2.62rem] font-bold pt-3 lg:leading-[3.625rem]">
           프로필만 등록하면
           <br />
           올해 여름을 알차게
         </span>
-        <span className="text-xl text-grey70 font-medium pt-5 text-center leading-8">
+        <span className="text-base lg:text-xl text-grey70 font-medium pt-5 text-center lg:leading-8">
           성공을 위해, 빡세게 제대로 일해보고 싶은 사람들과 함께해요
           <br />
           전국 대학(원)생 및 창업팀에게 열려있습니다.
         </span>
       </div>
 
-      <div className="flex flex-col pt-28 gap-7 w-[min(100%,1920px)]">
+      <div className="flex flex-col pt-28 lg:gap-7 w-[min(100%,1920px)]">
         {/* 첫번째 줄 */}
         <div className="w-full max-h-[110px] flex  overflow-hidden [mask-image:linear-gradient(to_right,transparent_0%,_black_128px,_black_calc(100%-200px),transparent_100%)]">
           <ul className="w-full flex items-center justify-center md:justify-start [&>li]:mx-8 [&>img]:max-w-none animate-infiniteScroll">

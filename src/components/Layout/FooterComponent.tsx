@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function FooterComponent() {
   return (
-    <footer className="w-full pt-20 pb-8 px-44 text-xl font-medium text-grey100">
+    <footer className="w-full pt-20 pb-20 px-8 lg:px-44 text-sm lg:text-xl font-medium text-grey100">
       <Image src={'/assets/intro/footerLogo.svg'} width={169} height={31} alt="logo" />
 
       <div className="flex flex-col gap-[0.59rem] pt-5">

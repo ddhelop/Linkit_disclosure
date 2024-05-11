@@ -2,30 +2,30 @@ import Image from 'next/image'
 
 export default function IntroComponent6() {
   return (
-    <div className="w-full snap-start h-screen flex flex-col justify-center items-center pt-16  min-h-[540px] md:min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
-      <div className="w-[1200px] flex flex-col">
-        <div className="w-full flex gap-12 justify-center pt-12">
-          <span className="text-[2.18rem] text-[#C1C4C9]"># 공모전</span>
-          <span className="text-[2.18rem] text-[#C1C4C9]"># 사이드 프로젝트</span>
+    <div className="w-full snap-start h-screen flex flex-col justify-center items-center pt-20 lg:pt-16 min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
+      <div className="lg:w-[1200px] flex flex-col">
+        <div className="hidden w-full lg:flex gap-12 justify-center lg:pt-12">
+          <span className="text-xl lg:text-[2.18rem] text-[#C1C4C9]"># 공모전</span>
+          <span className="text-xl lg:text-[2.18rem] text-[#C1C4C9]"># 사이드 프로젝트</span>
         </div>
 
-        <div className="w-full h-full flex">
+        <div className="w-full h-full flex flex-col lg:flex-row ">
           {/* left */}
-          <div className="w-1/2 h-full flex items-center justify-center">
-            <div className=" flex flex-col items-left pb-20">
-              <div className="p-[0.6rem] w-[10.75rem] bg-grey20 rounded-lg">1. 팀원 구인 경로 최소화</div>
-              <span className="text-[2.62rem] font-bold pt-3 leading-[3.625rem] text-left">
+          <div className="lg:w-1/2 h-full flex items-center justify-center">
+            <div className="flex flex-col items-center lg:items-start lg:pb-20">
+              <div className="p-[0.6rem] w-[10.75rem] bg-grey20 rounded-lg ">1. 팀원 구인 경로 최소화</div>
+              <span className="text-[1.8rem] lg:text-[2.62rem] font-bold pt-3 lg:leading-[3.625rem] text-center lg:text-left">
                 나와 맞는 사람을 <br />
                 팀빌딩 해드립니다
                 <br />
-                <span className="text-xl text-grey70 font-medium pt-5 text-center leading-8">
+                <span className="text-base lg:text-xl text-grey70 font-medium pt-5 text-center leading-8">
                   조건을 설정하고 나와 같은 목적을 가진 사람을 만나보세요
                 </span>
               </span>
             </div>
           </div>
           {/* right */}
-          <div className="w-1/2 h-full flex gap-3 pt-2 items-center">
+          <div className="lg:w-1/2 h-full flex gap-3 pt-7 lg:pt-2 items-center justify-center">
             <div className="w-[17.5rem] h-[24.8rem] p-6 flex flex-col rounded-xl shadow-card-shadow bg-[#fff] mb-20">
               <span className="text-[1.23rem] font-bold ">
                 창업경진대회 기술 담당
@@ -61,7 +61,7 @@ export default function IntroComponent6() {
                 </div>
               </div>
             </div>
-            <div className="w-[17.5rem] h-[24.8rem] p-6 flex flex-col rounded-xl shadow-card-shadow bg-[#fff] mt-20">
+            <div className="hidden w-[17.5rem] h-[24.8rem] p-6 lg:flex flex-col rounded-xl shadow-card-shadow bg-[#fff] mt-20">
               <span className="text-[1.23rem] font-bold ">
                 창업경진대회 기술 담당
                 <br />
@@ -98,9 +98,9 @@ export default function IntroComponent6() {
             </div>
           </div>
         </div>
-        <div className="w-full flex gap-12 justify-end pb-12 pr-60">
-          <span className="text-[2.18rem] text-[#C1C4C9] opacity-80"># 공모전</span>
-          <span className="text-[2.18rem] text-[#C1C4C9] opacity-80"># 사이드 프로젝트</span>
+        <div className="hidden w-full lg:flex gap-12 justify-end pb-12 pr-60">
+          <span className="text-2xl lg:text-[2.18rem] text-[#C1C4C9] opacity-80"># 공모전</span>
+          <span className="text-2xl lg:text-[2.18rem] text-[#C1C4C9] opacity-80"># 사이드 프로젝트</span>
         </div>
       </div>
     </div>
