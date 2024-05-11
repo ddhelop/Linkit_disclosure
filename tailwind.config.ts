@@ -54,6 +54,21 @@ const config: Config = {
         'white-alpha-50': 'rgba(255, 255, 255, 0.50);',
         'gray-07': 'rgba(79, 81, 98, 0.07)',
       },
+      // animation library
+      keyframes: {
+        infiniteScroll: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        },
+        infiniteScrollLeft: {
+          from: { transform: 'translateX(-50%)' },
+          to: { transform: 'translateX(0%)' },
+        },
+      },
+      animation: {
+        infiniteScroll: 'infiniteScroll 60s linear infinite',
+        infiniteScrollLeft: 'infiniteScrollLeft 60s linear infinite',
+      },
     },
   },
   plugins: [],
