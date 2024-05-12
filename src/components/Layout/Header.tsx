@@ -35,9 +35,9 @@ export default function Header() {
     <nav className="w-full bg-white-alpha-20 shadow-soft-shadow backdrop-blur-lg flex-shrink fixed top-0 z-[100]">
       <nav className="mx-auto flex max-w-full items-center justify-between p-6 lg:pl-40 lg:pr-20">
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <Link href="#" className="-m-1.5 p-1.5">
             <Image src="/assets/icons/headerLogo.svg" width={110} height={20} alt="logo" />
-          </a>
+          </Link>
         </div>
         <div className="flex lg:flex-1 lg:justify-end gap-10">
           {/* <a href="#" className="hidden lg:flex text-sm font-medium leading-5 text-grey100">

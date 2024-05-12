@@ -13,7 +13,9 @@ export default function IntroComponent6() {
           {/* left */}
           <div className="lg:w-1/2 h-full flex items-center justify-center">
             <div className="flex flex-col items-center lg:items-start lg:pb-20">
-              <div className="p-[0.6rem] w-[10.75rem] bg-grey20 rounded-lg ">1. 팀원 구인 경로 최소화</div>
+              <div className="text-sm lg:text-base p-1 lg:p-[0.6rem] w-[9rem] lg:w-[10.75rem] bg-grey20 rounded-lg">
+                1. 팀원 구인 경로 최소화
+              </div>
               <span className="text-[1.8rem] lg:text-[2.62rem] font-bold pt-3 lg:leading-[3.625rem] text-center lg:text-left">
                 나와 맞는 사람을 <br />
                 팀빌딩 해드립니다

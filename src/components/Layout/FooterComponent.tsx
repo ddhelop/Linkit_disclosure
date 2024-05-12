@@ -1,6 +1,10 @@
 import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function FooterComponent() {
+  const router = useRouter()
+
   return (
     <footer className="w-full pt-20 pb-20 px-8 lg:px-44 text-sm lg:text-xl font-medium text-grey100">
       <Image src={'/assets/intro/footerLogo.svg'} width={169} height={31} alt="logo" />
@@ -11,11 +15,14 @@ export default function FooterComponent() {
         <div className="flex gap-x-6">
           <span>문의하기 (오전 9시 ~ 오후 6시)</span>
           <span>커뮤니티</span>
-          <span>FAQ</span>
+          <Link href={'/#FAQ'}>FAQ</Link>
         </div>
         <span className="">ⓒ 2024. liaison All rights reserved.</span>
         <div className="flex gap-x-7 pt-2">
           <Image
+            onClick={() => {
+              router.push('https://www.instagram.com/linkit_official/?igsh=MXRucng0aGE5ZXVoYw%3D%3D')
+            }}
             src={'/assets/icons/instagram_dark.svg'}
             width={37}
             height={37}
@@ -23,6 +30,9 @@ export default function FooterComponent() {
             className="cursor-pointer"
           />
           <Image
+            onClick={() => {
+              router.push('https://open.kakao.com/o/gee0u5kg')
+            }}
             src={'/assets/icons/kakao_dark.svg'}
             width={37}
             height={37}

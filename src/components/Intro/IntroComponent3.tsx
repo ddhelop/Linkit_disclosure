@@ -10,9 +10,9 @@ export default function IntroComponent3() {
     >
       <div className="lg:w-[1200px] flex lg:justify-end">
         <div className="flex flex-col items-center lg:items-end lg:mr-40 lg:mt-16">
-          <span className="text-[2.62rem] font-bold pb-4 text-grey100">목표를 향해 모이세요</span>
+          <span className="text-[1.8rem] lg:text-[2.62rem] font-bold pb-4 text-grey100">목표를 향해 모이세요</span>
 
-          <span className="text-[1.25rem] font-medium text-grey70 pt-5 text-right">
+          <span className="text-base lg:text-[1.25rem] font-medium text-grey70 pt-5 text-center lg:text-right">
             같은 목표를 가진 사람들과 모이세요.
             <br />
             원하는 프로젝트에 따라, <br />

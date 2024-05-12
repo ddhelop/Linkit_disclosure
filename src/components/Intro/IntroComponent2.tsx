@@ -4,9 +4,9 @@ export default function IntroComponent2() {
   return (
     <>
       <div className="w-full bg-[#F0F2F6] relative snap-start h-screen flex flex-col items-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
-        <div className="w-full h-[80%] pt-20 lg:pt-0 flex flex-col lg:justify-center items-center lg:pl-[11rem]  bg-[#fff]">
+        <div className="w-full h-[80%] pt-16 lg:pt-0 flex flex-col lg:justify-center items-center lg:pl-[11rem]  bg-[#fff]">
           <div className="w-full lg:w-[1200px] flex flex-col items-center lg:items-start lg:relative p-1 xs:p-9 lg:p-0">
-            <span className="text-3xl lg:text-[2.625rem] font-bold text-left lg:mt-24 lg:leading-10">
+            <span className="text-[1.8rem] lg:text-[2.625rem] font-bold text-center lg:text-left lg:mt-24 lg:leading-10">
               자유로운
               <br />
               자기 PR의 공간

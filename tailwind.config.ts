@@ -73,8 +73,8 @@ const config: Config = {
         },
       },
       animation: {
-        infiniteScroll: 'infiniteScroll 60s linear infinite',
-        infiniteScrollLeft: 'infiniteScrollLeft 60s linear infinite',
+        infiniteScroll: 'infiniteScroll 30s linear infinite',
+        infiniteScrollLeft: 'infiniteScrollLeft 30s linear infinite',
       },
     },
   },
