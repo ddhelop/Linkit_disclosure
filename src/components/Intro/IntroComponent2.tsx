@@ -8,7 +8,7 @@ export default function IntroComponent2() {
         <div className="w-full h-[80%] pt-20 lg:pt-28 flex flex-col lg:justify-center items-center lg:pl-[11rem]  bg-[#fff]">
           <div className="w-full lg:w-[1200px] flex flex-col md:flex-row items-center lg:items-start lg:relative">
             <motion.div
-              className="md:w-1/2 flex flex-col items-center"
+              className="md:w-1/2 flex flex-col items-center xl:items-start"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{

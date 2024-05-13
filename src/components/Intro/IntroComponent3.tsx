@@ -16,7 +16,7 @@ export default function IntroComponent3() {
         objectFit="cover"
         className="z-0 md:hidden flex"
       />
-      <div className="md:w-[700px] lg:w-[1200px] flex md:flex-row flex-col md:justify-end z-50">
+      <div className="md:w-[700px] lg:w-[1400px] flex md:flex-row flex-col md:justify-end z-50">
         <motion.div
           className="flex flex-col h-screen justify-around md:justify-center items-center md:items-end lg:mr-40 lg:mt-16"
           initial={{ opacity: 0, y: 30 }}
@@ -27,7 +27,7 @@ export default function IntroComponent3() {
             ease: 'easeOut',
           }}
         >
-          <div className="flex flex-col md:mb-0 mb-16">
+          <div className="flex flex-col md:mb-0 mb-16 ">
             <span className="text-[1.6rem] lg:text-[2.62rem] font-bold lg:pb-4 text-grey100">목표를 향해 모이세요</span>
 
             <span className="test-sm lg:text-base lg:text-[1.25rem] font-medium text-grey70 pt-5 text-center lg:text-right">

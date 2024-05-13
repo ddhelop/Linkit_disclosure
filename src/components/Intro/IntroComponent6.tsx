@@ -14,7 +14,7 @@ export default function IntroComponent6() {
           ease: 'easeOut',
         }}
       >
-        <div className="hidden w-full lg:flex gap-12 justify-center lg:pt-12">
+        <div className="hidden w-full lg:flex gap-12 justify-center lg:pt-12 pb-5">
           <span className="text-2xl text-[#C1C4C9]"># 공모전</span>
           <span className="text-2xl text-[#C1C4C9]"># 사이드 프로젝트</span>
         </div>
@@ -115,7 +115,7 @@ export default function IntroComponent6() {
             </div>
           </div>
         </div>
-        <div className="hidden w-full lg:flex gap-12 justify-end pb-12 pr-60">
+        <div className="hidden w-full lg:flex gap-12 justify-end pb-12 pt-5 pr-60">
           <span className="text-2xl text-[#C1C4C9] opacity-80"># 공모전</span>
           <span className="text-2xl  text-[#C1C4C9] opacity-80"># 사이드 프로젝트</span>
         </div>

@@ -5,7 +5,7 @@ export default function IntroComponent9() {
   return (
     <div className="w-full snap-start h-screen flex flex-col items-center pt-20 min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
       <motion.div
-        className="lg:w-[1200px] lg:h-full flex lg:flex-row flex-col"
+        className="lg:w-[1300px] lg:h-full flex lg:flex-row flex-col"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{
@@ -15,12 +15,12 @@ export default function IntroComponent9() {
         }}
       >
         {/* left */}
-        <div className="lg:w-1/2 lg:h-full flex items-center justify-center">
-          <div className=" flex flex-col items-center lg:items-left pb-4 lg:pb-20">
+        <div className="lg:w-1/2 lg:h-full flex items-center justify-start">
+          <div className=" flex flex-col items-center pb-4 lg:pb-20">
             <div className="text-sm lg:text-base text-center p-1 lg:p-[0.6rem] w-[9rem] lg:w-[11.2rem] bg-grey20 rounded-lg">
               4. 체계적인 매칭 시스템
             </div>
-            <span className="text-[1.6rem] lg:text-[2.62rem] font-bold pt-3 lg:leading-[3.625rem] text-center lg:text-left">
+            <span className="text-[1.6rem] lg:text-[2.62rem] font-bold pt-3 lg:leading-[3.625rem] text-center">
               함께 팀을 이루고 싶은 사람에게
               <br />
               매칭 요청을 보내요
@@ -33,7 +33,7 @@ export default function IntroComponent9() {
           </div>
         </div>
         {/* right */}
-        <div className="lg:w-1/2 lg:h-full flex gap-3 pt-2 items-center justify-center">
+        <div className="lg:w-1/2 lg:h-full flex gap-3 pt-2 items-center justify-end">
           <div className="w-[20.1rem] lg:w-[32.6rem] h-[18.5rem] lg:h-[29.5rem] shadow-card-shadow rounded-2xl flex flex-col px-4 py-4 lg:py-7 lg:px-12 items-center">
             <span className="text-xs lg:text-[1.1rem]">한가영님에게 매칭 요청하기</span>
             <div className="flex w-full gap-5 justify-center items-center lg:pt-5">

@@ -9,6 +9,8 @@ export default function IntroComponent7() {
       }}
       className="relative w-full  snap-start h-screen flex flex-col justify-center items-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden lg:py-24"
     >
+      <Image src={'/assets/intro/section7bg.png'} alt="line" fill objectFit="cover" className="z-0 md:flex hidden" />
+
       <Image
         src={'/assets/intro/mobile/section7bg.png'}
         alt="line"
@@ -18,7 +20,7 @@ export default function IntroComponent7() {
       />
 
       <motion.div
-        className="lg:w-[1200px] flex flex-col lg:flex-row z-50"
+        className="lg:w-[1400px] flex flex-col lg:flex-row z-50"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{
