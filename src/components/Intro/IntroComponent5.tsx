@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 export default function IntroComponent5() {
@@ -14,10 +14,6 @@ export default function IntroComponent5() {
     '/assets/icons/universityIcon/7.png',
     '/assets/icons/universityIcon/8.png',
     '/assets/icons/universityIcon/9.png',
-  ])
-  const doubledLogos = [...logos, ...logos]
-
-  const [logos2, setLogos2] = useState([
     '/assets/icons/universityIcon/10.png',
     '/assets/icons/universityIcon/11.png',
     '/assets/icons/universityIcon/12.png',
@@ -26,11 +22,47 @@ export default function IntroComponent5() {
     '/assets/icons/universityIcon/15.png',
     '/assets/icons/universityIcon/16.png',
     '/assets/icons/universityIcon/17.png',
+    '/assets/icons/universityIcon/18.png',
+    '/assets/icons/universityIcon/19.png',
+    '/assets/icons/universityIcon/20.png',
+  ])
+  const doubledLogos = [...logos, ...logos]
+
+  const [logos2, setLogos2] = useState([
+    '/assets/icons/universityIcon/21.png',
+    '/assets/icons/universityIcon/22.png',
+    '/assets/icons/universityIcon/23.png',
+    '/assets/icons/universityIcon/24.png',
+    '/assets/icons/universityIcon/25.png',
+    '/assets/icons/universityIcon/26.png',
+    '/assets/icons/universityIcon/27.png',
+    '/assets/icons/universityIcon/28.png',
+    '/assets/icons/universityIcon/29.png',
+    '/assets/icons/universityIcon/30.png',
+    '/assets/icons/universityIcon/31.png',
+    '/assets/icons/universityIcon/32.png',
+    '/assets/icons/universityIcon/33.png',
+    '/assets/icons/universityIcon/34.png',
+    '/assets/icons/universityIcon/35.png',
+    '/assets/icons/universityIcon/36.png',
+    '/assets/icons/universityIcon/37.png',
+    '/assets/icons/universityIcon/38.png',
+    '/assets/icons/universityIcon/39.png',
+    '/assets/icons/universityIcon/40.png',
   ])
   const doubledLogos2 = [...logos2, ...logos2]
 
   return (
-    <div className="w-full snap-start h-screen flex flex-col items-center justify-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
+    <motion.div
+      className="w-full snap-start h-screen flex flex-col items-center justify-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{
+        delay: 0.1,
+        duration: 0.9,
+        ease: 'easeOut',
+      }}
+    >
       <div className="w-full flex flex-col items-center">
         <span className="text-[1.6rem] lg:text-[2.62rem] font-bold pt-3 lg:leading-[3.625rem]">
           프로필만 등록하면
@@ -44,18 +76,19 @@ export default function IntroComponent5() {
         </span>
       </div>
 
-      <div className="flex flex-col pt-28 lg:gap-7 w-[min(100%,1920px)]">
+      <div className="flex flex-col pt-28 gap-4 lg:gap-7 w-[min(100%,1920px)]">
         {/* 첫번째 줄 */}
         <div className="w-full max-h-[110px] flex  overflow-hidden [mask-image:linear-gradient(to_right,transparent_0%,_black_128px,_black_calc(100%-200px),transparent_100%)]">
           <ul className="w-full flex items-center justify-center md:justify-start [&>li]:mx-3 [&>img]:max-w-none animate-infiniteScroll">
-            {doubledLogos.map((logo, index) => (
-              <li key={index} className="min-w-[210px] flex items-center justify-center">
+            {logos.map((logo, index) => (
+              <li key={index} className="min-w-[130px] md:min-w-[210px] flex items-center justify-center">
                 <Image
                   src={logo}
                   alt={`Partner2-${index}`}
                   width={180}
                   height={70}
-                  className="shadow-logo-shadow rounded-[40px]"
+                  objectFit="cover"
+                  className="shadow-logo-shadow rounded-[40px] "
                 />
               </li>
             ))}
@@ -72,14 +105,15 @@ export default function IntroComponent5() {
         {/* 두번째 줄 */}
         <div className="w-full max-h-[110px] inline-flex flex-nowrap overflow-hidden  [mask-image:linear-gradient(to_right,transparent_0%,_black_128px,_black_calc(100%-200px),transparent_100%)]">
           <ul className="w-full flex items-center justify-center md:justify-start [&>li]:mx-3 [&>img]:max-w-none animate-infiniteScrollLeft">
-            {doubledLogos2.map((logo, index) => (
-              <li key={index} className="min-w-[210px] flex items-center justify-center">
+            {logos2.map((logo, index) => (
+              <li key={index} className=" flex items-center justify-center min-w-[130px] md:min-w-[210px]">
                 <Image
                   src={logo}
                   alt={`Partner2-${index}`}
                   width={180}
                   height={70}
-                  className="shadow-logo-shadow rounded-[40px]"
+                  objectFit="cover"
+                  // className="shadow-logo-shadow rounded-[40px]"
                 />
               </li>
             ))}
@@ -93,6 +127,6 @@ export default function IntroComponent5() {
         </ul> */}
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
