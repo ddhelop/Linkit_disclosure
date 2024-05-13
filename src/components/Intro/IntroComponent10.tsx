@@ -16,12 +16,12 @@ export default function IntroComponent10() {
         className="absolute bottom-0 hidden lg:flex"
       />
       <div className="w-full flex flex-col items-center">
-        <span className="text-[1.8rem] lg:text-[2.62rem] font-bold pt-3 lg:leading-[3.625rem] text-center">
+        <span className="text-[1.6rem] lg:text-[2.62rem] font-bold pt-3 lg:leading-[3.625rem] text-center">
           링킷이
           <br />
           다시 돌아왔습니다
         </span>
-        <span className="text-base lg:text-xl text-grey70 font-medium pt-3 lg:pt-5 text-center leading-8">
+        <span className="text-xs lg:text-xl text-grey70 font-medium pt-3 lg:pt-5 text-center leading-8">
           성공을 위해, 빡세게 제대로 일해보고 싶은 사람들과 함께해요
         </span>
       </div>

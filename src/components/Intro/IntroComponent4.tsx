@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
 export default function IntroComponent4() {
   const [countdown, setCountdown] = useState('')
@@ -35,37 +36,56 @@ export default function IntroComponent4() {
         backgroundImage:
           'linear-gradient(180deg, #F1F3F7 19.19%, rgba(252, 252, 253, 0) 112.86%), url("/assets/intro/section4bg.png")',
       }}
-      className="w-full snap-start h-screen flex flex-col items-center justify-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden py-24"
+      className="w-full snap-start h-screen flex flex-col items-center justify-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden py-20"
     >
-      <div className="w-full flex flex-col items-center mt-12">
-        <span className="w-[12rem] lg:w-[17.3rem] text-base lg:text-[1.25rem] text-grey70 font-medium bg-grey30 text-center py-1 lg:py-[0.44rem] rounded-lg">
+      <motion.div
+        className="w-full flex flex-col items-center"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 0.1,
+          duration: 0.9,
+          ease: 'easeOut',
+        }}
+      >
+        <span className="w-[11rem] lg:w-[17.3rem] text-sm lg:text-[1.25rem] text-grey70 font-medium bg-grey30 text-center py-1 lg:py-[0.44rem] rounded-lg">
           {countdown}
         </span>
-        <span className="text-[1.8rem] lg:text-[2.62rem] font-bold pt-3">현재 사전 신청 진행중이에요</span>
-        <span className="text-base lg:text-xl text-grey70 font-medium pt-2">
+        <span className="text-[1.6rem] lg:text-[2.62rem] font-bold pt-3">현재 사전 신청 진행중이에요</span>
+        <span className="text-sm lg:text-xl text-grey70 font-medium pt-2">
           사전 신청 등록하고 정규 프로필까지
           <br className="lg:hidden" />
           등록 완료하면 스타벅스 커피 쿠폰 지급
         </span>
-        <span className="text-[0.93rem] text-grey50 font-medium pt-2">*추첨 된 100명에게 지급될 예정입니다</span>
-      </div>
+        <span className="text-sm text-grey50 font-medium pt-2">*추첨 된 100명에게 지급될 예정입니다</span>
+      </motion.div>
 
-      <div className="flex flex-col lg:flex-row items-center gap-6 mt-24">
-        <div className="flex flex-col items-center w-[90%] lg:w-[24.1rem] h-[18.8rem] bg-[#fff] rounded-[0.625rem] px-[3.25rem] py-7 ">
-          <span className="text-2xl font-bold">사전 프로필 등록</span>
-          <span className="text-sm text-grey70 font-medium pt-1 ">05월 15일부터 06월 30일까지</span>
+      <motion.div
+        className="flex flex-row items-center justify-center gap-6 mt-12 lg:mt-24"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 0.1,
+          duration: 0.9,
+          ease: 'easeOut',
+        }}
+      >
+        <div className="flex flex-col items-center w-[75%] lg:w-[24.1rem] h-[18.8rem] bg-[#fff] rounded-[0.625rem] px-[3.25rem] py-7 ">
+          <span className="text-xl lg:text-2xl font-bold">사전 프로필 등록</span>
+          <span className="text-xs lg:text-sm text-grey70 font-medium pt-1 ">05월 15일부터 06월 30일까지</span>
 
-          <div className="flex flex-col gap-2 pt-5">
-            <div className="w-[17.6rem] h-[3.1rem] bg-grey20 text-grey100 font-me rounded-md flex justify-center items-center cursor-pointer">
-              1. 참여하고 싶은 프로젝트 정하기 ㅤ&gt;
+          <div className="flex flex-col gap-2 pt-5 items-center">
+            <div className="w-[16.5rem] lg:w-[17.6rem] h-[3.1rem] text-sm lg:text-base gap-3 bg-grey20 text-grey100 font-me rounded-md flex justify-center items-center cursor-pointer">
+              1. 참여하고 싶은 프로젝트 정하기
+              <Image src={'/assets/icons/>.svg'} width={7} height={7} alt=">" className="" />
             </div>
 
-            <div className="w-[17.6rem] h-[3.1rem] bg-grey20 text-grey100 font-me rounded-md flex justify-center items-center cursor-pointer">
-              2. 1분만에 프로필 등록하기 ㅤ&gt;
+            <div className="w-[16.5rem] lg:w-[17.6rem] h-[3.1rem] text-sm lg:text-base  gap-3 bg-grey20 text-grey100 font-me rounded-md flex justify-center items-center cursor-pointer">
+              2. 1분만에 프로필 등록하기 <Image src={'/assets/icons/>.svg'} width={7} height={7} alt=">" className="" />
             </div>
 
-            <div className="w-[17.6rem] h-[3.1rem] bg-[#00704A] text-[#fff] font-me rounded-md flex justify-center items-center cursor-pointer">
-              2. 1분만에 프로필 등록하기 ㅤ&gt;
+            <div className="w-[16.5rem] lg:w-[17.6rem] h-[3.1rem] text-sm lg:text-base  bg-[#00704A] text-[#fff] font-me rounded-md flex justify-center items-center cursor-pointer">
+              추첨 100명 스타벅스 커피쿠폰 지급
             </div>
             <span className="text-[0.68rem] text-grey50 font-medium text-center">
               *추첨 된 100명에게 지급될 예정입니다
@@ -86,7 +106,7 @@ export default function IntroComponent4() {
             프로필 작성 후<br /> 나와 맞는 팀원 찾기!
           </span>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

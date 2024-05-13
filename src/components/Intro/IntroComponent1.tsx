@@ -61,14 +61,7 @@ export default function IntroComponentTemp() {
           transition={{ type: 'spring', stiffness: 260, damping: 20 }}
           className="absolute inset-0 z-0 sm:flex hidden"
         >
-          <Image
-            src={positions[selectedRole].bgImage}
-            alt="line"
-            fill
-            objectFit="cover"
-            className="z-0 sm:flex hidden"
-          />
-          \
+          <Image src={positions[selectedRole].bgImage} alt="line" fill objectFit="cover" className="" />\
         </motion.div>
 
         {/* 모바일 배경 */}

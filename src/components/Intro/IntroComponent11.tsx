@@ -26,8 +26,8 @@ export default function IntroComponent11() {
       className="relative w-full snap-start h-screen flex flex-col items-center pt-32 min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden"
     >
       <div className="w-full flex flex-col items-center">
-        <span className="text-[1.8rem] lg:text-[2.62rem] font-bold pt-3 leading-[3.625rem] text-center">FAQ</span>
-        <span className="text-sm lg:text-xl text-grey70 font-medium pt-5 text-center lg:leading-8">
+        <span className="text-[1.6rem] lg:text-[2.62rem] font-bold pt-3 leading-[3.625rem] text-center">FAQ</span>
+        <span className="text-xs lg:text-xl text-grey70 font-medium pt-5 text-center lg:leading-8">
           링킷에게 궁금한점이 있다면 우측 하단 채널톡으로 문의주세요
         </span>
       </div>

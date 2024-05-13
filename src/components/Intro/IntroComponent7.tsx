@@ -1,31 +1,48 @@
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 export default function IntroComponent7() {
   return (
     <div
       style={{
-        backgroundImage:
-          'linear-gradient(180deg, #F1F3F7 19.19%, rgba(252, 252, 253, 0) 112.86%), url("/assets/intro/section7bg.png")',
+        backgroundImage: 'linear-gradient(180deg, #F1F3F7 19.19%, rgba(252, 252, 253, 0) 112.86%))',
       }}
-      className="w-full pt-12 snap-start h-screen flex flex-col justify-center items-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden lg:py-24"
+      className="relative w-full  snap-start h-screen flex flex-col justify-center items-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden lg:py-24"
     >
-      <div className="lg:w-[1200px] flex flex-col lg:flex-row">
+      <Image
+        src={'/assets/intro/mobile/section7bg.png'}
+        alt="line"
+        fill
+        objectFit="cover"
+        className="z-0 md:hidden flex"
+      />
+
+      <motion.div
+        className="lg:w-[1200px] flex flex-col lg:flex-row z-50"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 0.1,
+          duration: 0.9,
+          ease: 'easeOut',
+        }}
+      >
         {/* left */}
         <div className="lg:w-1/2 lg:h-full flex items-center justify-center">
           <div className=" flex flex-col items-center lg:items-left pb-8 lg:pb-20">
-            <div className="text-sm lg:text-base text-center p-1 lg:p-[0.6rem] w-[9rem] lg:w-[9.75rem] bg-[#fff] rounded-lg">
+            <div className="text-sm lg:text-base text-center p-1 lg:p-[0.6rem] w-[9rem] lg:w-[9.75rem] bg-grey20 rounded-lg">
               2. 간결한 매칭 서비스
             </div>
-            <span className="text-[1.8rem] lg:text-[2.62rem] font-bold pt-3 lg:leading-[3.625rem] text-center lg:text-left">
+            <span className="text-[1.6rem] lg:text-[2.62rem] font-bold pt-3  lg:leading-[3.625rem] text-center lg:text-left">
               프로필만 등록하면
               <br />
               쏟아지는 추천 매칭
               <br />
-              <span className="text-base lg:text-xl text-grey70 font-medium pt-5 text-center sm:leading-8">
-                항목에 맞게 프로필만 등록해도
-                <br className="flex sm:hidden" />
-                다른 사용자들이 매칭을 요청해요
-              </span>
+            </span>
+            <span className="text-xs lg:text-xl text-grey70 font-medium pt-5 text-center leading-5">
+              항목에 맞게 프로필만 등록해도
+              <br className="flex sm:hidden" />
+              다른 사용자들이 매칭을 요청해요
             </span>
           </div>
         </div>
@@ -36,7 +53,8 @@ export default function IntroComponent7() {
             <div className="hidden lg:flex justify-start w-full">
               <div className="text-lg lg:text-[1.36rem] font-bold">내가 받은 매칭</div>
             </div>
-            <div className="w-[95%] sm:w-full h-[5.5rem] sm:h-[7.1rem] flex items-center justify-between bg-[#fff] rounded-[0.85rem] shadow-alarm-shadow p-3 px-6">
+
+            <div className="w-[95%] sm:w-full h-[5.5rem] sm:h-[7.1rem] flex items-center sm:justify-between bg-[#fff] rounded-[0.85rem] shadow-alarm-shadow p-3 px-6">
               <Image
                 src={'/assets/intro/profile3.png'}
                 width={75}
@@ -45,12 +63,24 @@ export default function IntroComponent7() {
                 className="w-[3.2rem] h-[3.2rem] sm:w-[4.88rem] sm:h-[4.88rem]"
               />
               <div className="flex flex-col pl-5">
-                <span className="font-semibold text-sm sm:text-[1.1rem]">Jina kim</span>
-                <span className="w-[160px] sm:w-auto text-[0.6rem] sm:text-[0.82rem]">
+                <span className="font-semibold text-xs sm:text-[1.1rem]">Jina kim</span>
+                <span className="w-full md:w-[160px] sm:w-auto text-[0.6rem] sm:text-[0.82rem]">
                   안녕하세요, AI 프로젝트 everywhere의 김진아입니다!...
                 </span>
+
+                {/* 모바일 버튼 버전 */}
+                <div className="flex sm:hidden flex-row  h-full justify-end items-end gap-1 pl-5 pt-2 ">
+                  <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#2563EB] rounded-[0.29rem] text-[0.6rem] flex items-center justify-center text-[#fff]">
+                    수락
+                  </div>
+                  <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#7E7E7E] rounded-[0.29rem] text-[0.6rem] flex items-center justify-center text-[#fff]">
+                    거절
+                  </div>
+                </div>
               </div>
-              <div className="flex sm:flex-row flex-col h-full justify-center items-end gap-1 pl-5 sm:pl-11">
+
+              {/* PC 버튼 버전 */}
+              <div className="hidden sm:flex flex-row h-full justify-center items-end gap-1 pl-5 sm:pl-11">
                 <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#2563EB] rounded-[0.29rem] text-xs flex items-center justify-center text-[#fff]">
                   수락
                 </div>
@@ -60,7 +90,7 @@ export default function IntroComponent7() {
               </div>
             </div>
 
-            <div className="w-[95%] sm:w-[33.5rem] h-[5.5rem] sm:h-[5rem] flex items-center justify-between bg-[#fff] rounded-[0.85rem] shadow-alarm-shadow p-3 px-6">
+            <div className="w-[95%] sm:w-[33.5rem] h-[5.5rem] sm:h-[5rem] flex items-center  sm:justify-between bg-[#fff] rounded-[0.85rem] shadow-alarm-shadow p-3 px-6">
               <Image
                 src={'/assets/intro/profile4.png'}
                 width={60}
@@ -70,15 +100,25 @@ export default function IntroComponent7() {
               />
               <div className="flex flex-col pl-5">
                 <span className="font-semibold text-sm">최서윤</span>
-                <span className="w-[160px] sm:w-auto text-[0.6rem]">
+                <span className="w-full md:w-[160px] sm:w-auto text-[0.6rem]">
                   저는 현재 경영학과 학사 과정에 있으며, 콘텐츠 마케팅을...{' '}
                 </span>
+                {/* 모바일 버튼 버전 */}
+                <div className="flex sm:hidden flex-row  h-full justify-end items-end gap-1 pl-5 pt-1 ">
+                  <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#2563EB] rounded-[0.29rem] text-[0.6rem] flex items-center justify-center text-[#fff]">
+                    수락
+                  </div>
+                  <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#7E7E7E] rounded-[0.29rem] text-[0.6rem] flex items-center justify-center text-[#fff]">
+                    거절
+                  </div>
+                </div>
               </div>
-              <div className="flex sm:flex-row flex-col h-full items-end justify-center gap-1 pl-5 sm:pl-11">
-                <div className="cursor-pointer w-16 sm:w-[4.4rem] h-6 sm:h-[1.4rem] bg-[#2563EB] rounded-[0.29rem] text-xs sm:text-[0.53rem] flex items-center justify-center text-[#fff]">
+              {/* PC 버튼 버전 */}
+              <div className="hidden sm:flex flex-row  h-full justify-center items-end gap-1 pl-5 sm:pl-11">
+                <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#2563EB] rounded-[0.29rem] text-xs flex items-center justify-center text-[#fff]">
                   수락
                 </div>
-                <div className="cursor-pointer w-16 sm:w-[4.4rem] h-6 sm:h-[1.4rem] bg-[#7E7E7E] rounded-[0.29rem] text-xs sm:text-[0.53rem] flex items-center justify-center text-[#fff]">
+                <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#7E7E7E] rounded-[0.29rem] text-xs flex items-center justify-center text-[#fff]">
                   거절
                 </div>
               </div>
@@ -93,7 +133,7 @@ export default function IntroComponent7() {
                 className="hidden sm:flex"
               />
 
-              <div className="w-[95%] sm:w-[31.5rem] h-[5.5rem] sm:h-[4.69rem] backdrop-blur-[53px] flex items-center bg-white-alpha-20 rounded-[0.85rem] shadow-alarm-shadow p-3 px-6">
+              <div className="w-[95%] sm:w-[31.5rem] h-[5.5rem] sm:h-[4.69rem] backdrop-blur-[53px]  hidden sm:flex items-center bg-white-alpha-20 rounded-[0.85rem] shadow-alarm-shadow p-3 px-6">
                 <Image
                   src={'/assets/intro/profile4.png'}
                   width={60}
@@ -114,7 +154,7 @@ export default function IntroComponent7() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }
