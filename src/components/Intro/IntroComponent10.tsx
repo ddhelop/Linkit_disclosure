@@ -27,7 +27,7 @@ export default function IntroComponent10() {
       </div>
 
       <div className="flex lg:flex-row flex-col items-center gap-5 w-full justify-end overflow-x-hidden lg:ml-[30rem] pt-12 lg:pt-28 z-10">
-        <div className="flex flex-col w-[21.8rem] lg:w-[32rem] h-[5.5rem] justify-center bg-white-alpha-50 rounded-lg px-10 py-4 shadow-rec-shadow">
+        <div className="flex flex-col  w-[21.8rem] lg:w-[32rem] h-[5.5rem] justify-center bg-white-alpha-50 rounded-lg px-10 py-4 shadow-rec-shadow">
           <span className="text-sm lg:text-lg">좋은 팀원 만나서 데이터 분석 공모전에서 수상했습니다!</span>
           <span className="w-full text-center lg:text-right pt-2 text-xs lg:text-sm">취업준비생 최00님</span>
         </div>

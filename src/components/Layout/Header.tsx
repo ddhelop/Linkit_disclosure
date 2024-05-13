@@ -33,10 +33,16 @@ export default function Header() {
 
   return (
     <nav className="w-full bg-white-alpha-20 shadow-soft-shadow backdrop-blur-lg flex-shrink fixed top-0 z-[100]">
-      <nav className="mx-auto flex max-w-full items-center justify-between p-6 lg:pl-40 lg:pr-20">
+      <nav className="mx-auto flex max-w-full items-center justify-between p-4 lg:p-6 lg:pl-40 lg:pr-20">
         <div className="flex lg:flex-1">
           <Link href="#" className="-m-1.5 p-1.5">
-            <Image src="/assets/icons/headerLogo.svg" width={110} height={20} alt="logo" />
+            <Image
+              src="/assets/icons/headerLogo.svg"
+              width={110}
+              height={20}
+              alt="logo"
+              className="w-[85px] h-[17px] lg:w-auto lg:h-auto"
+            />
           </Link>
         </div>
         <div className="flex lg:flex-1 lg:justify-end gap-10">

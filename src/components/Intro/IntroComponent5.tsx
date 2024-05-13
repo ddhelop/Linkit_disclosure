@@ -47,7 +47,7 @@ export default function IntroComponent5() {
       <div className="flex flex-col pt-28 lg:gap-7 w-[min(100%,1920px)]">
         {/* 첫번째 줄 */}
         <div className="w-full max-h-[110px] flex  overflow-hidden [mask-image:linear-gradient(to_right,transparent_0%,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-          <ul className="w-full flex items-center justify-center md:justify-start [&>li]:mx-8 [&>img]:max-w-none animate-infiniteScroll">
+          <ul className="w-full flex items-center justify-center md:justify-start [&>li]:mx-0 [&>img]:max-w-none animate-infiniteScroll">
             {doubledLogos.map((logo, index) => (
               <li key={index} className="min-w-[170px]">
                 <Image src={logo} alt={`Partner2-${index}`} width={180} height={70} />
@@ -65,7 +65,7 @@ export default function IntroComponent5() {
 
         {/* 두번째 줄 */}
         <div className="w-full max-h-[110px] inline-flex flex-nowrap overflow-hidden  [mask-image:linear-gradient(to_right,transparent_0%,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-          <ul className="w-full flex items-center justify-center md:justify-start [&>li]:mx-8 [&>img]:max-w-none animate-infiniteScrollLeft">
+          <ul className="w-full flex items-center justify-center md:justify-start [&>li]:mx-0 [&>img]:max-w-none animate-infiniteScrollLeft">
             {doubledLogos2.map((logo, index) => (
               <li key={index} className="min-w-[175px] ">
                 <Image src={logo} alt={`Partner2-${index}`} width={180} height={70} />
