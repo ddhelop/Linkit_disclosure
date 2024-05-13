@@ -8,8 +8,9 @@ type OpenState = {
 
 export default function IntroComponent11() {
   const answers = [
-    '사전 예약을 한 분들은 서비스 오픈 후 회원가입까지 완료할 시~~~이 제공됩니다(확정해야 함)',
+    '사전 예약을 한 분들은 서비스 오픈 후 회원가입까지 완료할 다양한 혜택이 제공됩니다.',
     '네, 신청해주신 대부분이 주니어 레벨이며 학부 과정인 분들도 많습니다.',
+    '약 1달 뒤인 6월 30일에 서비스 오픈 예정이며, 기재해주신 연락처로 안내드릴 예정입니다.',
     '약 1달 뒤인 6월 30일에 서비스 오픈 예정이며, 기재해주신 연락처로 안내드릴 예정입니다.',
   ]
   const [isOpen, setIsOpen] = useState<OpenState>({})
@@ -38,6 +39,7 @@ export default function IntroComponent11() {
           'Q. 사전신청은 완료했는데, 언제부터 팀빌딩이 가능한가요?',
           'Q. 경력이 없어도 신청 가능한가요?',
           'Q. 사전신청은 완료했는데, 언제부터 팀빌딩이 가능한가요?',
+          'Q. 서비스 오픈 전에 미리 진행 중인 프로젝트를 다른 사람들에게 오픈할 수 있나요?',
         ].map((question, index) => (
           <div key={index} className=" shadow-faq-shadow overflow-hidden rounded-xl mt-3">
             <motion.h2
