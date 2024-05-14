@@ -48,7 +48,7 @@ export default function IntroComponent10() {
           다시 돌아왔습니다
         </span>
         <span className="text-xs lg:text-xl text-grey70 font-medium pt-3 lg:pt-5 text-center leading-8">
-          성공을 위해, 빡세게 제대로 일해보고 싶은 사람들과 함께해요
+          베타서비스 이후 더욱 발전된 링킷의 팀빌딩 서비스를 만나보세요!
         </span>
       </div>
 

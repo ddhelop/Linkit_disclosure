@@ -23,7 +23,7 @@ export default function IntroComponent8() {
             <span className="text-[1.6rem] lg:text-[2.62rem] font-bold pt-3 lg:leading-[3.625rem] text-center lg:text-left">
               다른 사용자의 프로필을
               <br />
-              항목 별로 열람해요
+              자유롭게 열람해요
               <br />
             </span>
             <span className="text-xs lg:text-xl text-grey70 font-medium pt-5 text-center leading-6">

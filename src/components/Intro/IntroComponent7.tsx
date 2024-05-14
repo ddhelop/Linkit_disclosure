@@ -42,9 +42,9 @@ export default function IntroComponent7() {
               <br />
             </span>
             <span className="text-xs lg:text-xl text-grey70 font-medium pt-5 text-center leading-5">
-              항목에 맞게 프로필만 등록해도
+              가이드에 맞게 프로필을 등록하면
               <br className="flex sm:hidden" />
-              다른 사용자들이 매칭을 요청해요
+              사용자들이 매칭을 요청해요
             </span>
           </div>
         </div>

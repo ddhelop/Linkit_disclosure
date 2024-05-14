@@ -23,11 +23,9 @@ export default function IntroComponent2() {
                 자기 PR의 공간
               </span>
               <span className="text-sm lg:text-[1.25rem] font-medium text-grey70 pt-3 lg:pt-8 md:leading-6 lg:leading-8 text-center lg:text-left">
-                링킷에서 자유롭게 나를 홍보하세요,
+                링킷에서 자유롭게 나를 홍보하세요!
                 <br />
-                공모전, 대회, 프로젝트, 창업팀까지
-                <br />
-                다양한 팀빌딩이 가능해요.
+                공모전, 대회, 프로젝트, 창업팀까지 다양한 팀빌딩이 가능해요.
               </span>
             </motion.div>
 

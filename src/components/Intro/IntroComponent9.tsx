@@ -28,7 +28,7 @@ export default function IntroComponent9() {
             </span>
             <span className="text-xs lg:text-xl text-grey70 font-medium pt-2 lg:pt-5 text-center leading-5">
               매칭 요청을 보낼 시<br className="lg:hidden flex" />
-              본인을 어필하는 메시지를 보낼 수 있어요
+              본인을 어필하는 메시지를 함께 전달할 수 있어요
             </span>
           </div>
         </div>

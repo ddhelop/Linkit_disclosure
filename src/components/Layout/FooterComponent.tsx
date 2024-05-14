@@ -16,7 +16,7 @@ export default function FooterComponent() {
         <div className="flex gap-x-6">
           <span
             onClick={() => {
-              router.push('nn4e1.channel.io')
+              router.push('https://nn4e1.channel.io/home')
             }}
           >
             문의하기 (오전 9시 ~ 오후 6시)
