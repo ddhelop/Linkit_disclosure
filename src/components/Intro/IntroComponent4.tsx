@@ -36,7 +36,7 @@ export default function IntroComponent4() {
         backgroundImage:
           'linear-gradient(180deg, #F1F3F7 19.19%, rgba(252, 252, 253, 0) 112.86%), url("/assets/intro/section4bg.png")',
       }}
-      className="w-full snap-start h-screen flex flex-col items-center justify-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden py-20"
+      className="w-full snap-start snap-mandatory snap-always overflow-x-auto h-screen flex flex-col items-center justify-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden py-20"
     >
       <motion.div
         className="w-full flex flex-col items-center"

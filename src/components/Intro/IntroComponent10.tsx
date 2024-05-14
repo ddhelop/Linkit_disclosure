@@ -57,7 +57,7 @@ export default function IntroComponent10() {
 
   return (
     <motion.div
-      className="relative w-full snap-start h-screen  flex flex-col items-center pt-20 lg:pt-32 min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden"
+      className="relative w-full snap-star snap-mandatory snap-always overflow-x-auto h-screen  flex flex-col items-center pt-20 lg:pt-32 min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{

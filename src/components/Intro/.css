@@ -1,0 +1,4 @@
+.snap-always {
+  scroll-snap-type: x mandatory;
+  scroll-snap-stop: always;
+}

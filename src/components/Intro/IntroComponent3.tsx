@@ -6,7 +6,7 @@ export default function IntroComponent3() {
   return (
     <div
       // style={{ backgroundImage: 'url("/assets/intro/section3bg.png")' }}
-      className="relative w-full snap-start h-screen flex justify-center items-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden"
+      className="relative w-full snap-start snap-mandatory snap-always overflow-x-auto h-screen flex justify-center items-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden"
     >
       <Image src={'/assets/intro/section3bg.png'} alt="line" fill objectFit="cover" className="z-0 md:flex hidden" />
       <Image

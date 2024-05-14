@@ -24,7 +24,7 @@ export default function IntroComponent11() {
   return (
     <div
       id="FAQ"
-      className="relative w-full snap-start h-screen flex flex-col items-center pt-12 lg:pt-20 min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden"
+      className="relative w-full snap-start snap-mandatory snap-always overflow-x-auto h-screen flex flex-col items-center pt-12 lg:pt-20 min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden"
     >
       <div className="w-full flex flex-col items-center">
         <span className="text-[1.6rem] lg:text-[2.62rem] font-bold pt-3 leading-[3.625rem] text-center">FAQ</span>

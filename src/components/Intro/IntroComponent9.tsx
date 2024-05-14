@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 export default function IntroComponent9() {
   return (
-    <div className="w-full snap-start h-screen flex flex-col items-center pt-20 min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
+    <div className="w-full snap-start snap-mandatory snap-always overflow-x-auto h-screen flex flex-col items-center pt-20 min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
       <motion.div
         className="lg:w-[1300px] lg:h-full flex lg:flex-row flex-col"
         initial={{ opacity: 0, y: 30 }}

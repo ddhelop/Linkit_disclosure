@@ -49,7 +49,7 @@ export default function IntroComponentTemp() {
   return (
     <>
       <div
-        className="w-full relative pt-5 md:pt-0 snap-start h-screen flex flex-col items-center justify-center min-h-screen bg-no-repeat bg-cover bg-opacity-50 overflow-hidden"
+        className="w-full relative pt-5 md:pt-0 snap-start snap-mandatory snap-always overflow-x-auto h-screen flex flex-col items-center justify-center min-h-screen bg-no-repeat bg-cover bg-opacity-50 overflow-hidden"
         // style={{ backgroundImage: `url("${positions[selectedRole].bgImage}")` }}
       >
         {/* PC 배경 */}

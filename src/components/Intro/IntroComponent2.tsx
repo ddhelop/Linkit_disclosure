@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 export default function IntroComponent2() {
   return (
     <>
-      <div className="w-full bg-[#F0F2F6] relative snap-start h-screen flex flex-col items-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
+      <div className="w-full bg-[#F0F2F6] relative snap-start snap-mandatory snap-always overflow-x-auto h-screen flex flex-col items-center min-h-screen bg-no-repeat bg-cover bg-white bg-opacity-50 overflow-hidden">
         <div className="w-full h-[80%] pt-20 lg:pt-28 flex flex-col lg:justify-center items-center lg:pl-[11rem]  bg-[#fff]">
           <div className="w-full lg:w-[1200px] flex flex-col md:flex-row items-center lg:items-start lg:relative">
             <motion.div
