@@ -41,7 +41,7 @@ export default function IntroComponent7() {
               쏟아지는 추천 매칭
               <br />
             </span>
-            <span className="text-xs lg:text-xl text-grey70 font-medium pt-5 text-center leading-5">
+            <span className="text-xs lg:text-xl text-grey70 font-medium pt-2 text-center leading-4">
               가이드에 맞게 프로필을 등록하면 <br className="flex sm:hidden" />
               사용자들이 매칭을 요청해요
             </span>
@@ -51,109 +51,45 @@ export default function IntroComponent7() {
 
         <div className="w-full lg:w-[50%] lg:h-full flex flex-col gap-3 pt-2 justify-center items-center">
           <div className="sm:w-[41rem] flex flex-col gap-4 items-center ">
-            <div className="hidden lg:flex justify-start w-full">
-              <div className="text-lg lg:text-[1.36rem] font-bold">내가 받은 매칭</div>
-            </div>
-
-            {/* 1 */}
-            <div className="w-[95%] sm:w-full h-[5.5rem] sm:h-[7.1rem] flex items-center sm:justify-between bg-[#fff] rounded-[0.85rem] shadow-alarm-shadow p-3 px-6">
+            <div className="flex flex-col justify-start items-center gap-4 w-full">
+              <div className="text-lg lg:text-[1.36rem] font-bold flex justify-start w-full">내가 받은 매칭</div>
               <Image
-                src={'/assets/intro/profile3.png'}
-                width={75}
-                height={75}
-                alt="profile"
-                className="w-[3.2rem] h-[3.2rem] sm:w-[4.88rem] sm:h-[4.88rem]"
+                src={'/assets/intro/request/request1.png'}
+                width={652}
+                height={113}
+                alt="request1"
+                className="shadow-alarm-shadow md:flex hidden"
               />
-              <div className="flex flex-col pl-5 ">
-                <span className="font-semibold text-xs sm:text-[1.1rem]">Jina kim</span>
-                <span className="w-full md:w-[260px] sm:w-auto text-[0.6rem] sm:text-[0.82rem]">
-                  안녕하세요, AI 프로젝트 everywhere의 김진아입니다!...
-                </span>
-
-                {/* 모바일 버튼 버전 */}
-                <div className="flex sm:hidden flex-row  h-full justify-end items-end gap-1 pl-5 pt-2 ">
-                  <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#2563EB] rounded-[0.29rem] text-[0.6rem] flex items-center justify-center text-[#fff]">
-                    수락
-                  </div>
-                  <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#7E7E7E] rounded-[0.29rem] text-[0.6rem] flex items-center justify-center text-[#fff]">
-                    거절
-                  </div>
-                </div>
-              </div>
-
-              {/* PC 버튼 버전 */}
-              <div className="hidden sm:flex flex-row h-full justify-center items-end gap-1 pl-5 sm:pl-11">
-                <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#2563EB] rounded-[0.29rem] text-xs flex items-center justify-center text-[#fff]">
-                  수락
-                </div>
-                <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#7E7E7E] rounded-[0.29rem] text-xs flex items-center justify-center text-[#fff]">
-                  거절
-                </div>
-              </div>
-            </div>
-
-            {/* 2 */}
-            <div className="w-[95%] sm:w-[33.5rem] h-[5.5rem] sm:h-[5rem] flex items-center  sm:justify-between bg-[#fff] rounded-[0.85rem] shadow-alarm-shadow p-3 px-6">
               <Image
-                src={'/assets/intro/profile4.png'}
-                width={60}
-                height={60}
-                alt="profile"
-                className="rounded-full w-[3.2rem] h-[3.2rem] sm:w-[3.75rem] sm:h-[3.75rem]"
+                src={'/assets/intro/request/request2.png'}
+                width={537}
+                height={80}
+                alt="request1"
+                className="shadow-alarm-shadow md:flex hidden"
               />
-              <div className="flex flex-col pl-5">
-                <span className="font-semibold text-sm">최서윤</span>
-                <span className="w-full md:w-[160px] sm:w-auto text-[0.6rem]">
-                  저는 현재 경영학과 학사 과정에 있으며, 콘텐츠 마케팅을...{' '}
-                </span>
-                {/* 모바일 버튼 버전 */}
-                <div className="flex sm:hidden flex-row  h-full justify-end items-end gap-1 pl-5 pt-1 ">
-                  <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#2563EB] rounded-[0.29rem] text-[0.6rem] flex items-center justify-center text-[#fff]">
-                    수락
-                  </div>
-                  <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#7E7E7E] rounded-[0.29rem] text-[0.6rem] flex items-center justify-center text-[#fff]">
-                    거절
-                  </div>
-                </div>
-              </div>
-              {/* PC 버튼 버전 */}
-              <div className="hidden sm:flex flex-row  h-full justify-center items-end gap-1 pl-5 sm:pl-11">
-                <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#2563EB] rounded-[0.29rem] text-xs flex items-center justify-center text-[#fff]">
-                  수락
-                </div>
-                <div className="cursor-pointer w-16 h-6 sm:w-24 sm:h-9 bg-[#7E7E7E] rounded-[0.29rem] text-xs flex items-center justify-center text-[#fff]">
-                  거절
-                </div>
-              </div>
-            </div>
-
-            <div className="flex justify-center sm:gap-5 sm:pr-8">
               <Image
-                src={'assets/icons/blue_right_arrow.svg'}
-                width={20}
-                height={1}
-                alt="right arrow"
-                className="hidden sm:flex"
+                src={'/assets/intro/request/request3.png'}
+                width={503}
+                height={74}
+                alt="request1"
+                className="shadow-alarm-shadow md:flex hidden"
               />
 
-              <div className="w-[95%] sm:w-[31.5rem] h-[5.5rem] sm:h-[4.69rem] backdrop-blur-[53px]  hidden sm:flex items-center bg-white-alpha-20 rounded-[0.85rem] shadow-alarm-shadow p-3 px-6">
-                <Image
-                  src={'/assets/intro/profile4.png'}
-                  width={60}
-                  height={60}
-                  alt="profile"
-                  className="rounded-full"
-                />
-                <div className="w-full flex flex-col pl-5">
-                  <span className="font-semibold text-[0.7rem]">박서연님께 매칭 요청을 보냈습니다.</span>
-                  <span className=" text-[0.58rem]">안녕하세요, 공모전 참여건으로 문의 드립니다... </span>
-                </div>
-                <div className="flex h-full items-end justify-end gap-1 pl-11">
-                  <div className="cursor-pointer w-[4.4rem] h-[1.4rem] bg-[#BBBBBB78] rounded-[0.29rem] text-[0.53rem] flex items-center justify-center text-[#fff]">
-                    매칭 대기중
-                  </div>
-                </div>
-              </div>
+              {/* 모바알 */}
+              <Image
+                src={'/assets/intro/request/request1mobile.png'}
+                width={333}
+                height={104}
+                alt="request1"
+                className="shadow-alarm-shadow md:hidden flex"
+              />
+              <Image
+                src={'/assets/intro/request/request2mobile.png'}
+                width={285}
+                height={89}
+                alt="request1"
+                className="shadow-alarm-shadow md:hidden flex"
+              />
             </div>
           </div>
         </div>

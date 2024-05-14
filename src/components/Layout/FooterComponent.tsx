@@ -8,7 +8,7 @@ export default function FooterComponent() {
   return (
     <footer className="w-full pt-20 pb-20 px-8 lg:px-44 text-sm font-medium text-grey100">
       <Link href={'/'}>
-        <Image src={'/assets/intro/footerLogo.svg'} width={169} height={31} alt="logo" />
+        <Image src={'/assets/intro/footerLogo.svg'} width={169} height={31} alt="logo" className="w-24 lg:w-auto" />
       </Link>
       <div className="flex flex-col gap-[0.59rem] pt-5">
         <span className="">liaison ㅣ 서울특별시 종로구 동숭길 127</span>
@@ -26,14 +26,14 @@ export default function FooterComponent() {
           <Link href={'/#FAQ'}>FAQ</Link>
         </div>
         <span className="">ⓒ 2024. liaison All rights reserved.</span>
-        <div className="flex gap-x-7 pt-2">
+        <div className="flex gap-x-4 pt-2">
           <Image
             onClick={() => {
               router.push('https://www.instagram.com/linkit_official/?igsh=MXRucng0aGE5ZXVoYw%3D%3D')
             }}
             src={'/assets/icons/instagram_dark.svg'}
-            width={37}
-            height={37}
+            width={25}
+            height={25}
             alt="instagram"
             className="cursor-pointer"
           />
@@ -42,8 +42,8 @@ export default function FooterComponent() {
               router.push('https://open.kakao.com/o/gee0u5kg')
             }}
             src={'/assets/icons/kakao_dark.svg'}
-            width={37}
-            height={37}
+            width={25}
+            height={25}
             alt="kakaoTalk"
             className="cursor-pointer"
           />

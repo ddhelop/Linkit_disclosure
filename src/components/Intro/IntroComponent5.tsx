@@ -79,7 +79,7 @@ export default function IntroComponent5() {
       <div className="flex flex-col pt-28 gap-4 lg:gap-7 w-[min(100%,1920px)]">
         {/* 첫번째 줄 */}
         <div className="w-full max-h-[110px] flex  overflow-hidden [mask-image:linear-gradient(to_right,transparent_0%,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-          <ul className="w-full flex items-center justify-center md:justify-start [&>li]:mx-3 [&>img]:max-w-none animate-infiniteScroll">
+          <ul className="my-2 w-full flex items-center justify-center md:justify-start [&>li]:mx-3 [&>img]:max-w-none animate-infiniteScroll">
             {logos.map((logo, index) => (
               <li key={index} className="min-w-[130px] md:min-w-[210px] flex items-center justify-center">
                 <Image
@@ -104,7 +104,7 @@ export default function IntroComponent5() {
 
         {/* 두번째 줄 */}
         <div className="w-full max-h-[110px] inline-flex flex-nowrap overflow-hidden  [mask-image:linear-gradient(to_right,transparent_0%,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-          <ul className="w-full flex items-center justify-center md:justify-start [&>li]:mx-3 [&>img]:max-w-none animate-infiniteScrollLeft">
+          <ul className="w-full my-2 flex items-center justify-center md:justify-start [&>li]:mx-3 [&>img]:max-w-none animate-infiniteScrollLeft">
             {logos2.map((logo, index) => (
               <li key={index} className=" flex items-center justify-center min-w-[130px] md:min-w-[210px]">
                 <Image

@@ -34,7 +34,7 @@ export default function IntroComponent8() {
         </div>
         {/* right */}
         <div className="lg:w-1/2 h-full flex gap-3 pt-2 items-center relative">
-          <Image src={'/assets/intro/section8bg.png'} layout="fill" objectFit="cover" alt="background" />
+          <Image src={'/assets/intro/section8bg.png'} layout="fill" objectFit="contain" alt="background" />
         </div>
       </div>
     </motion.div>
