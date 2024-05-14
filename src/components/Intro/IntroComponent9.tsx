@@ -16,11 +16,11 @@ export default function IntroComponent9() {
       >
         {/* left */}
         <div className="lg:w-1/2 lg:h-full flex items-center justify-start">
-          <div className=" flex flex-col items-center pb-4 lg:pb-20">
+          <div className=" flex flex-col lg:items-start items-center pb-4 lg:pb-20">
             <div className="text-sm lg:text-base text-center p-1 lg:p-[0.6rem] w-[9rem] lg:w-[11.2rem] bg-grey20 rounded-lg">
               4. 체계적인 매칭 시스템
             </div>
-            <span className="text-[1.6rem] lg:text-[2.62rem] font-bold pt-3 lg:leading-[3.625rem] text-center">
+            <span className="text-[1.6rem] lg:text-[2.62rem] font-bold pt-3 lg:leading-[3.625rem] text-center lg:text-left">
               함께 팀을 이루고 싶은 사람에게
               <br />
               매칭 요청을 보내요

@@ -95,7 +95,7 @@ export default function IntroComponentTemp() {
               <span className="">잇는 팀빌딩</span>
             </div>
 
-            <div className="flex flex-col md:flex-row items-center w-[22.4rem] justify-between pt-10">
+            <div className="flex flex-col md:flex-row items-center w-[22.4rem] justify-start md:gap-10 pt-10">
               <motion.div
                 key={selectedRole + '-image'}
                 initial={{ opacity: 0 }}
@@ -114,7 +114,7 @@ export default function IntroComponentTemp() {
               </motion.div>
 
               <div className="flex flex-col text-left justify-center p-4 md:p-0">
-                <span className="text-sm font-medium text-center">7월 팀빌딩을 위한</span>
+                <span className="text-sm font-medium text-center md:text-left">7월 팀빌딩을 위한</span>
                 <motion.span
                   key={selectedRole + '-text'}
                   initial={{ opacity: 0 }}
@@ -122,7 +122,7 @@ export default function IntroComponentTemp() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
                   layout // Maintains text position and size during transitions
-                  className="font-bold text-[24px] md:text-[2rem]"
+                  className="font-bold text-[24px] md:text-[1.8rem]"
                 >
                   {positions[selectedRole].text}
                 </motion.span>

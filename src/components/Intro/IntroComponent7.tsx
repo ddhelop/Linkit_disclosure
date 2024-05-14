@@ -31,7 +31,7 @@ export default function IntroComponent7() {
       >
         {/* left */}
         <div className="lg:w-1/2 lg:h-full flex items-center justify-center">
-          <div className=" flex flex-col items-center lg:items-left pb-8 lg:pb-20">
+          <div className=" flex flex-col items-center lg:items-start pb-8 lg:pb-20">
             <div className="text-sm lg:text-base text-center p-1 lg:p-[0.6rem] w-[9rem] lg:w-[9.75rem] bg-grey20 rounded-lg">
               2. 간결한 매칭 서비스
             </div>
@@ -56,6 +56,7 @@ export default function IntroComponent7() {
               <div className="text-lg lg:text-[1.36rem] font-bold">내가 받은 매칭</div>
             </div>
 
+            {/* 1 */}
             <div className="w-[95%] sm:w-full h-[5.5rem] sm:h-[7.1rem] flex items-center sm:justify-between bg-[#fff] rounded-[0.85rem] shadow-alarm-shadow p-3 px-6">
               <Image
                 src={'/assets/intro/profile3.png'}
@@ -64,9 +65,9 @@ export default function IntroComponent7() {
                 alt="profile"
                 className="w-[3.2rem] h-[3.2rem] sm:w-[4.88rem] sm:h-[4.88rem]"
               />
-              <div className="flex flex-col pl-5">
+              <div className="flex flex-col pl-5 ">
                 <span className="font-semibold text-xs sm:text-[1.1rem]">Jina kim</span>
-                <span className="w-full md:w-[160px] sm:w-auto text-[0.6rem] sm:text-[0.82rem]">
+                <span className="w-full md:w-[260px] sm:w-auto text-[0.6rem] sm:text-[0.82rem]">
                   안녕하세요, AI 프로젝트 everywhere의 김진아입니다!...
                 </span>
 
@@ -92,6 +93,7 @@ export default function IntroComponent7() {
               </div>
             </div>
 
+            {/* 2 */}
             <div className="w-[95%] sm:w-[33.5rem] h-[5.5rem] sm:h-[5rem] flex items-center  sm:justify-between bg-[#fff] rounded-[0.85rem] shadow-alarm-shadow p-3 px-6">
               <Image
                 src={'/assets/intro/profile4.png'}

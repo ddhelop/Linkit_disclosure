@@ -19,7 +19,7 @@ export default function IntroComponent6() {
           <span className="text-2xl text-[#C1C4C9]"># 사이드 프로젝트</span>
         </div>
 
-        <div className="w-full h-full flex flex-col lg:flex-row ">
+        <div className="w-full h-full flex flex-col lg:flex-row">
           {/* left */}
           <div className="lg:w-1/2 h-full flex items-center justify-center">
             <div className="flex flex-col items-center lg:items-start lg:pb-20">
@@ -38,9 +38,9 @@ export default function IntroComponent6() {
           </div>
           {/* right */}
           <div className="lg:w-1/2 h-full flex gap-3 pt-6 lg:pt-2 items-center justify-center">
-            {/* profile */}
-            <div className="w-[14rem] lg:w-[17.5rem] h-[18rem] lg:h-[24.8rem] p-6 flex flex-col items-center rounded-xl shadow-card-shadow bg-[#fff] mb-20">
-              <span className="text-base lg:text-[1.23rem] font-bold ">
+            {/* profile 1 */}
+            <div className="w-[14rem] lg:w-[17.5rem] h-[18rem] lg:h-[24.8rem] p-6 flex flex-col rounded-xl shadow-card-shadow bg-[#fff] mb-20">
+              <span className="text-base lg:text-[1.23rem] font-bold lg:leading-7">
                 창업경진대회 기술 담당
                 <br />
                 팀원이 필요해요!
@@ -49,22 +49,22 @@ export default function IntroComponent6() {
 
               <div className="flex flex-col items-center pt-3 lg:gap-1">
                 <Image
-                  src={'/assets/intro/profile1.jpg'}
+                  src={'/assets/intro/profile/seonjun.png'}
                   width={95}
                   height={95}
                   alt="profile"
-                  className="rounded-3xl lg:rounded-[1.8rem] w-[60px] h-[60px] lg:w-auto lg:h-auto"
+                  className="rounded-3xl lg:rounded-[1.8rem] w-[60px] h-[60px] lg:w-[95px] lg:h-[95px]"
                 />
                 <span className="text-[#2563EB] font-bold text-[0.69rem] pt-3">SeonJun</span>
                 <span className="text-grey60 font-semibold text-[0.55rem] lg:text-[0.69rem]">
-                  기획, AI엔지니어, LLM
+                  디자이너, 3D 모델링, 제품
                 </span>
               </div>
 
               <div className="w-[100%] lg:w-full h-[1.4rem] lg:h-[3.5rem] bg-grey10 mt-2 lg:mt-5 flex items-center justify-center">
                 <span className="lg:font-semibold p-2 text-[0.5rem] lg:text-xs">
                   {' '}
-                  🔥 공동의 목표를 위해 가감없는 피드백
+                  🔥 마음껏 소통을 통한 밀도있는 프로젝트
                 </span>
               </div>
 
@@ -78,30 +78,30 @@ export default function IntroComponent6() {
               </div>
             </div>
 
+            {/* profile 2*/}
             <div className="hidden w-[17.5rem] h-[24.8rem] p-6 lg:flex flex-col rounded-xl shadow-card-shadow bg-[#fff] mt-20">
-              <span className="text-[1.23rem] font-bold ">
-                창업경진대회 기술 담당
+              <span className="text-[1.15rem] font-bold ">
+                공공 데이터 공모전 나가실 분
                 <br />
-                팀원이 필요해요!
+                있나요? 다른 공모전도 좋아요!
               </span>
-              <span className="text-[0.69rem] font-semibold text-grey60 pt-2">D-56</span>
+              <span className="text-[0.69rem] font-semibold text-grey60 pt-2">D-23</span>
 
-              {/* profile */}
               <div className="flex flex-col items-center pt-3 gap-1">
                 <Image
-                  src={'/assets/intro/profile1.jpg'}
+                  src={'/assets/intro/profile/minjung.png'}
                   width={95}
                   height={95}
                   alt="profile"
                   className="rounded-[1.8rem]"
                 />
-                <span className="text-[#2563EB] font-bold text-[0.69rem] pt-3">SeonJun</span>
+                <span className="text-[#2563EB] font-bold text-[0.69rem] pt-3">김민정</span>
                 <span className="text-grey60 font-semibold text-[0.69rem]">기획, AI엔지니어, LLM</span>
               </div>
 
               <div className="w-full h-[3.5rem] bg-grey10 mt-5 flex items-center justify-center">
-                🔥
-                <span className="font-semibold p-2 text-xs">공동의 목표를 위해 가감없는 피드백</span>
+                💬
+                <span className="font-semibold p-2 text-xs">7월에 빠르게 디벨롭하고 싶어요</span>
               </div>
 
               <div className="flex w-full justify-between pt-4 text-xs">
@@ -116,8 +116,8 @@ export default function IntroComponent6() {
           </div>
         </div>
         <div className="hidden w-full lg:flex gap-12 justify-end pb-12 pt-5 pr-60">
-          <span className="text-2xl text-[#C1C4C9] opacity-80"># 공모전</span>
-          <span className="text-2xl  text-[#C1C4C9] opacity-80"># 사이드 프로젝트</span>
+          <span className="text-2xl text-[#C1C4C9] opacity-80"># 개발자 구인</span>
+          <span className="text-2xl  text-[#C1C4C9] opacity-80"># 디자이너 구인</span>
         </div>
       </motion.div>
     </div>

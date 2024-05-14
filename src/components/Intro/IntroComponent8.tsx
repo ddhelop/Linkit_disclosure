@@ -16,7 +16,7 @@ export default function IntroComponent8() {
       <div className="w-full h-full flex flex-col lg:flex-row">
         {/* left */}
         <div className="lg:w-1/2 lg:h-full flex items-center justify-center">
-          <div className=" flex flex-col items-center lg:items-left lg:pb-20">
+          <div className="flex flex-col items-center lg:items-start lg:pb-20">
             <div className="text-sm lg:text-base text-center p-1 lg:p-[0.6rem] w-[9rem] lg:w-[9.75rem] bg-grey20 rounded-lg">
               3 편리한 정보 확인
             </div>
