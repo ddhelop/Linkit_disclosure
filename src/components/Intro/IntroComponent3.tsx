@@ -32,7 +32,7 @@ export default function IntroComponent3() {
               목표를 향해 함께 모여요
             </span>
 
-            <span className="test-sm lg:text-base lg:text-[1.25rem] font-medium text-grey70 pt-5 text-center lg:text-right">
+            <span className="test-sm lg:text-[1.25rem] font-medium text-grey70 pt-5 text-center lg:text-right">
               같은 목표를 가진 사람들과 함께하세요.
               <br />
               원하는 프로젝트에 따라, <br />

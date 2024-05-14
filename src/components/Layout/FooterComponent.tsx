@@ -18,8 +18,9 @@ export default function FooterComponent() {
             onClick={() => {
               router.push('https://nn4e1.channel.io/home')
             }}
+            className="cursor-pointer"
           >
-            문의하기 (오전 9시 ~ 오후 6시)
+            문의하기 (매일 09:00 ~ 18:00)
           </span>
           <span>커뮤니티</span>
           <Link href={'/#FAQ'}>FAQ</Link>

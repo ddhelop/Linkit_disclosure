@@ -113,7 +113,7 @@ export default function IntroComponent5() {
                   width={180}
                   height={70}
                   objectFit="cover"
-                  // className="shadow-logo-shadow rounded-[40px]"
+                  className="shadow-logo-shadow rounded-[40px]"
                 />
               </li>
             ))}

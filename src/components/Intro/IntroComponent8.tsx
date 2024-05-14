@@ -27,8 +27,7 @@ export default function IntroComponent8() {
               <br />
             </span>
             <span className="text-xs lg:text-xl text-grey70 font-medium pt-5 text-center leading-6">
-              프로필을 열람하고 마음에 드는
-              <br className="flex sm:hidden" />
+              프로필을 열람하고 마음에 드는 <br className="flex sm:hidden" />
               사용자에게 매칭 요청을 보내보세요
             </span>
           </div>

@@ -2,6 +2,43 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 export default function IntroComponent10() {
+  const reviews = [
+    { message: '좋은 팀원 만나서 데이터 분석 공모전에서 수상했습니다!', author: '취업준비생 최00님' },
+    { message: '사이드 프로젝트를 함께 할 팀원을 만났어요', author: '대학생 권00님' },
+    {
+      message:
+        '링킷에서 만난 팀원과 1월 이후로 다른 AI 프로젝트도 진행하고 있는데, 덕분에 좋은 팀원과 일하고 있습니다!',
+      author: '대학원생 박00님',
+    },
+    {
+      message: '캐글 대회에 혼자 도전했다가 성과가 안나서, 여기서 팀원 구해서 준비하고 있습니다!',
+      author: '대학생 이00님',
+    },
+    {
+      message: '데이터 분석 관련 국비지원 교육 수강하면서 링킷에서 만난 팀원과 함께 실무 프로젝트 진행하고 있어요',
+      author: '대학생 윤00님',
+    },
+    {
+      message: 'PLC 제어설계 직무 취업을 준비하며 팀 프로젝트 경험을 쌓을 수 있었습니다! 감사합니다!',
+      author: '취업준비생 최00님',
+    },
+    { message: '팀에 필요한 개발 인력을 구했습니다.', author: '스타트업 대표 배00님' },
+  ]
+
+  const loopAnimation = {
+    animate: {
+      x: ['0%', '-100%'],
+      transition: {
+        x: {
+          repeat: Infinity,
+          repeatType: 'loop',
+          duration: 20,
+          ease: 'linear',
+        },
+      },
+    },
+  }
+
   const burstAnimation = {
     initial: {
       scale: 0.9,
@@ -52,22 +89,29 @@ export default function IntroComponent10() {
         </span>
       </div>
 
-      <div className="flex lg:flex-row flex-col items-center gap-5 w-full justify-end overflow-x-hidden lg:ml-[30rem] pt-12 lg:pt-28 z-10">
-        <div className="flex flex-col  w-[21.8rem] lg:w-[32rem] h-[5.5rem] justify-center bg-white-alpha-50 rounded-lg px-10 py-4 shadow-rec-shadow">
-          <span className="text-sm lg:text-lg">좋은 팀원 만나서 데이터 분석 공모전에서 수상했습니다!</span>
-          <span className="w-full text-center lg:text-right pt-2 text-xs lg:text-sm">취업준비생 최00님</span>
-        </div>
-
-        <div className="flex flex-col w-[21.8rem] lg:w-[32rem] h-[5.5rem] justify-center bg-white-alpha-50 rounded-lg px-10 py-4 shadow-rec-shadow">
-          <span className="text-sm lg:text-lg">덕분에 창업팀 초기 멤버를 구했어요. 정말 감사합니다</span>
-          <span className="w-full text-center lg:text-right pt-2 text-xs lg:text-sm">예비 창업가 김00님</span>
-        </div>
-
-        <div className="flex flex-col w-[21.8rem] lg:w-[32rem] h-[5.5rem] justify-center bg-white-alpha-50 rounded-lg px-10 py-4 shadow-rec-shadow">
-          <span className="text-sm lg:text-lg">팀에 필요한 개발 인력을 구했습니다.</span>
-          <span className="w-full text-center lg:text-right pt-2 text-xs lg:text-sm">스타트업 대표 배00님</span>
-        </div>
-      </div>
+      <motion.div
+        className="flex gap-5 w-full overflow-hidden pt-16 z-10 [mask-image:linear-gradient(to_right,transparent_0%,_black_128px,_black_calc(100%-200px),transparent_100%)]"
+        {...loopAnimation}
+      >
+        {reviews.map((review, index) => (
+          <div
+            key={index}
+            className="flex flex-col min-w-min w-auto justify-center bg-white-alpha-50 rounded-lg px-5 py-4 shadow-rec-shadow whitespace-nowrap"
+          >
+            <span className="text-sm lg:text-lg">{review.message}</span>
+            <span className="w-full text-center lg:text-right pt-2 text-xs lg:text-sm">{review.author}</span>
+          </div>
+        ))}
+        {reviews.map((review, index) => (
+          <div
+            key={index + reviews.length}
+            className="flex flex-col min-w-min w-auto justify-center bg-white-alpha-50 rounded-lg px-5 py-4 shadow-rec-shadow whitespace-nowrap"
+          >
+            <span className="text-sm lg:text-lg">{review.message}</span>
+            <span className="w-full text-center lg:text-right pt-2 text-xs lg:text-sm">{review.author}</span>
+          </div>
+        ))}
+      </motion.div>
 
       <div className="hidden lg:flex gap-5 w-full justify-start overflow-x-hidden mr-[30rem] pt-16 z-10">
         <div className="flex flex-col w-[37.9rem] h-[5.5rem] bg-white-alpha-50 rounded-lg px-10 py-4 shadow-rec-shadow">
