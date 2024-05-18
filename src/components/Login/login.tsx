@@ -1,10 +1,24 @@
 'use client'
 
 import { motion } from 'framer-motion'
-
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 export default function Login() {
+  const [kakaoURL, setKakaoURL] = useState('')
+
+  useEffect(() => {
+    const protocol = window.location.protocol
+    const kakaoApiKey = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY
+    const kakaoRedirectUri = `${protocol}//localhost:3000/login/oauth2/callback/kakao`
+    const kakaoOAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoApiKey}&redirect_uri=${kakaoRedirectUri}&response_type=code`
+    setKakaoURL(kakaoOAuthURL)
+  }, [])
+
+  const handleKakaoLogin = () => {
+    window.location.href = kakaoURL
+  }
+
   return (
     <>
       <div className="flex h-screen w-full">
@@ -31,13 +45,16 @@ export default function Login() {
               <span className="font-semibold text-[#fff]">네이버로 시작하기</span>
             </div>
 
-            <div className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#FFE500] px-24">
+            <div
+              className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#FFE500] px-24"
+              onClick={handleKakaoLogin}
+            >
               <Image src={'/assets/login/kakaoLogo.svg'} width={39} height={56} alt="kakaoLogin" />
               <span className="font-semibold">카카오로 시작하기</span>
             </div>
 
             <div className="items-cente flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-3 rounded border-[1px] border-grey30 px-[6.5rem]">
-              <Image src={'/assets/login/googleLogo.svg'} width={23} height={23} alt="NaverLogin" />
+              <Image src={'/assets/login/googleLogo.svg'} width={23} height={23} alt="GoogleLogin" />
               <span className="font-semibold">구글로 시작하기</span>
             </div>
           </div>
