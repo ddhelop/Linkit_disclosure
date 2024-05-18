@@ -46,25 +46,25 @@ export default function OnBoardingStep2Person() {
 
   return (
     <div>
-      <div className="w-full h-screen flex flex-col ">
+      <div className="flex h-screen w-full flex-col ">
         <OnBoardingHeader />
-        <div className="w-2/3 h-[0.18rem] bg-[#2563EB]"></div>
+        <div className="h-[0.18rem] w-2/3 bg-[#2563EB]"></div>
 
-        <div className="w-full flex flex-col items-center py-16">
-          <div className="w-[80%] sm:w-[55%] flex justify-between text-sm font-medium text-grey60 leading-9">
+        <div className="flex w-full flex-col items-center py-16">
+          <div className="flex w-[80%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
             <span>가이드</span>
             <span>2/3</span>
           </div>
 
-          <div className="w-[80%] sm:w-[55%] flex flex-col items-start leading-9">
+          <div className="flex w-[80%] flex-col items-start leading-9 sm:w-[55%]">
             <span className="text-2xl font-bold">나의 정보 및 역량을 알려주세요</span>
             <span className="text-grey60">구체적으로 작성할 수록 매칭 확률이 올라가요</span>
           </div>
 
           {/* 본문 */}
-          <div className="w-[80%] sm:w-[55%] flex flex-col  pt-16">
+          <div className="flex w-[80%] flex-col pt-16  sm:w-[55%]">
             <span className="text-lg font-bold leading-5">
-              희망 팀빌딩 분야 <span className="text-sm font-normal text-grey80 pl-3">*중복선택 가능</span>
+              희망 팀빌딩 분야 <span className="pl-3 text-sm font-normal text-grey80">*중복선택 가능</span>
             </span>
 
             {/* 희망 팀빌딩 분야 */}
@@ -76,7 +76,7 @@ export default function OnBoardingStep2Person() {
                   control={control}
                   render={({ field }) => (
                     <button
-                      className={`px-3 py-1 border ${selectedFields.includes(el) ? ' border-[#2563EB] text-[#2563EB] bg-[#D3E1FE66]' : 'border-[#CBD4E1] text-[#64748B]'} rounded-md`}
+                      className={`border px-3 py-1 ${selectedFields.includes(el) ? ' border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]' : 'border-[#CBD4E1] text-[#64748B]'} rounded-md`}
                       onClick={() =>
                         field.onChange(
                           field.value.includes(el) ? field.value.filter((v) => v !== el) : [...field.value, el],
@@ -91,16 +91,16 @@ export default function OnBoardingStep2Person() {
             </div>
 
             {/* 보유 기술 */}
-            <span className="text-lg font-bold leading-5 pt-20">
-              보유 기술<span className="text-sm font-normal text-grey80 pl-3">*중복선택 가능</span>
+            <span className="pt-20 text-lg font-bold leading-5">
+              보유 기술<span className="pl-3 text-sm font-normal text-grey80">*중복선택 가능</span>
             </span>
 
             {/* 기술 목록 */}
-            <div className="flex gap-x-2 pt-5 flex-wrap">
+            <div className="flex flex-wrap gap-x-2 pt-5">
               {skills.map((skill, index) => (
                 <div key={index} className="flex items-center pb-4">
                   <button
-                    className="flex border px-4 py-1 border-[#2563EB] gap-x-2 items-center rounded-md"
+                    className="flex items-center gap-x-2 rounded-md border border-[#2563EB] px-4 py-1"
                     onClick={() => handleDeleteSkill(skill)}
                   >
                     <span className="font-semibold text-[#2563EB]">{skill}</span>
@@ -111,9 +111,9 @@ export default function OnBoardingStep2Person() {
             </div>
 
             {/* 입력창 */}
-            <form className="w-full h-11 flex border border-grey30" onSubmit={onSubmitTech}>
+            <form className="flex h-11 w-full border border-grey30" onSubmit={onSubmitTech}>
               <input
-                className="w-[96%] h-full outline-none p-4"
+                className="h-full w-[96%] p-4 outline-none"
                 placeholder="보유기술을 입력해주세요."
                 {...register('skillInput')} // 입력 필드에 react-hook-form 등록
               />

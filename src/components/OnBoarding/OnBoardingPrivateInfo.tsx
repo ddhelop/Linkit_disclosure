@@ -22,6 +22,7 @@ export default function OnBoardingPrivateInfo() {
     handleSubmit,
     setValue,
     getValues,
+    watch,
     formState: { errors },
   } = useForm<IFormData>({
     resolver: yupResolver(schema),
@@ -70,6 +71,9 @@ export default function OnBoardingPrivateInfo() {
     setValue('marketingAgree', !currentMarketingAgree) // 값 토글
   }
 
+  // 모든 필드가 채워졌는지 확인하는 함수
+  const isFormFilled = watch(['memberName', 'contact', 'roleName']).every((field) => field && field.trim() !== '')
+
   return (
     <>
       <div className="flex h-screen w-full flex-col bg-[#9A9A9A] ">
@@ -117,7 +121,7 @@ export default function OnBoardingPrivateInfo() {
                   {...register('roleName')}
                   className="custom-select h-[2.75rem] w-full appearance-none rounded-md border border-grey30 bg-right bg-no-repeat px-3 text-sm text-grey50 outline-none focus:border-2 focus:border-grey90"
                 >
-                  <option selected className="h-full">
+                  <option value="" className="h-full">
                     나의 직무를 선택해주세요.
                   </option>
                   <option value="기획">기획</option>
@@ -149,7 +153,13 @@ export default function OnBoardingPrivateInfo() {
               {errors.marketingAgree && <p className="text-red-500">{errors.marketingAgree.message}</p>}
 
               <div className="flex w-full justify-end ">
-                <button className="mt-7 h-9 w-36 rounded bg-[#7EA5F8] text-xs text-[#FFFFFF] ">완료</button>
+                <button
+                  type="submit"
+                  className={`mt-7 h-9 w-36 rounded text-xs text-[#fff] ${isFormFilled ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'}`}
+                  disabled={!isFormFilled}
+                >
+                  완료
+                </button>
               </div>
             </form>
           </div>
