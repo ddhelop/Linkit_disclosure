@@ -6,6 +6,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 import './globals.css'
 import Scripts from '@/components/script'
+import { UserProvider } from '@/context/store'
 
 export const metadata: Metadata = {
   title: 'Linkit',
@@ -22,20 +23,22 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 })
 
-export default function RootyLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
-      <body className={`${pretendard.className}`}>
-        <Header />
-        {children}
-        <Footer />
-      </body>
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
-      <Scripts />
+      <UserProvider>
+        <body className={`${pretendard.className}`}>
+          <Header />
+          {children}
+          <Footer />
+        </body>
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
+        <Scripts />
+      </UserProvider>
     </html>
   )
 }
