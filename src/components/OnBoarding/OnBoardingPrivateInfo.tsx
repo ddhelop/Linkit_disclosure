@@ -8,27 +8,62 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from '@/context/schemaValidation'
 import { IFormData } from '@/lib/types'
 import './OnBoarding.css'
-import { useSession } from 'next-auth/react'
+import { useUserContext } from '@/context/store'
+import { useRouter } from 'next/navigation'
 
 export default function OnBoardingPrivateInfo() {
-  const [inputValue, setInputValue] = useState('') // State is now managed here
-  const [checked, setChecked] = useState(false)
+  const router = useRouter()
+  const { state } = useUserContext()
+  const { accessToken, email } = state
 
-  const { register, handleSubmit, setValue, getValues } = useForm<IFormData>({
+  const [inputValues, setInputValues] = useState({ memberName: '', contact: '', code: '' })
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm<IFormData>({
     resolver: yupResolver(schema),
     mode: 'onChange',
   })
 
-  const onClickSubmit = (data: IFormData): void => {
-    console.log(data)
+  const onClickSubmit = async (data: IFormData): Promise<void> => {
+    try {
+      const response = await fetch(`https://dev.linkit.im/members/basic-inform`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          Authorization: accessToken ? `Bearer ${accessToken}` : '',
+        },
+        body: JSON.stringify({
+          memberName: data.memberName,
+          contact: data.contact,
+          roleName: data.roleName,
+          marketingAgree: data.marketingAgree,
+        }),
+        credentials: 'include', // 쿠키를 포함시키기 위해 필요
+      })
+
+      if (response.ok) {
+        const responseData = await response.json()
+        console.log('Success:', responseData)
+        // handle successful submission
+        router.push('/onBoarding/step1')
+      } else {
+        const errorText = await response.text()
+        console.error('Response not ok, status:', response.status, 'text:', errorText)
+        throw new Error(`온보딩 서버 요청에 실패했습니다. 상태 코드: ${response.status}, 메시지: ${errorText}`)
+      }
+    } catch (error) {
+      console.error('Error caught:', error)
+      // handle error
+    }
   }
 
-  // const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setInputValue(e.target.value)
-  // }
-
   const handleDelete = () => {
-    setInputValue('')
+    setInputValues({ memberName: '', contact: '', code: '' })
   }
 
   const toggleCheckbox = () => {
@@ -38,81 +73,84 @@ export default function OnBoardingPrivateInfo() {
 
   return (
     <>
-      <div className="w-full h-screen bg-[#9A9A9A] flex flex-col ">
+      <div className="flex h-screen w-full flex-col bg-[#9A9A9A] ">
         <OnBoardingHeader />
 
-        <div className="w-full h-full flex items-center justify-center">
-          <div className="w-full h-full sm:w-[24rem] sm:h-[37.5rem] sm:rounded-md bg-[#fff] sm:shadow-boarding-shadow p-7">
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="h-full w-full bg-[#fff] p-7 sm:h-[37.5rem] sm:w-[24rem] sm:rounded-md sm:shadow-boarding-shadow">
             <h2 className=" font-semibold">기본 정보를 입력해주세요.</h2>
 
-            <form className="flex flex-col items-left" onSubmit={handleSubmit(onClickSubmit)}>
+            <form className="items-left flex flex-col" onSubmit={handleSubmit(onClickSubmit)}>
               <div className="w-[100%] pt-[1.31rem]">
-                <h2 className="text-sm font-semibold pb-1">성함</h2>
+                <h2 className="pb-1 text-sm font-semibold">성함</h2>
                 <InputDelete
                   placeholder="name"
-                  inputValue={inputValue}
-                  // onInputChange={handleInputChange}
+                  inputValue={inputValues.memberName}
                   onDelete={handleDelete}
                   register={register}
                   data="memberName"
                 />
+                {errors.memberName && <p className="text-red-500">{errors.memberName.message}</p>}
               </div>
 
               <div className="w-[100%] pt-[1.1rem]">
-                <h2 className="text-sm font-semibold pb-1">전화번호</h2>
+                <h2 className="pb-1 text-sm font-semibold">전화번호</h2>
                 <InputDelete
                   placeholder="phoneNumber"
-                  inputValue={inputValue}
-                  // onInputChange={handleInputChange}
+                  inputValue={inputValues.contact}
                   onDelete={handleDelete}
                   register={register}
                   data="contact"
                 />
+                {errors.contact && <p className="text-red-500">{errors.contact.message}</p>}
               </div>
 
               <div className="w-[100%] pt-[1.1rem]">
-                <h2 className="text-sm font-semibold pb-1">이메일</h2>
-                <div className="flex items-center alw-full h-[2.75rem] p-4 text-sm text-grey90 border border-grey30 rounded-md focus:border-2 focus:border-grey90 outline-none">
-                  <span className="text-grey50">123</span>
+                <h2 className="pb-1 text-sm font-semibold">이메일</h2>
+                <div className="alw-full flex h-[2.75rem] items-center rounded-md border border-grey30 p-4 text-sm text-grey90 outline-none focus:border-2 focus:border-grey90">
+                  <span className="text-grey50">{email}</span>
                 </div>
               </div>
 
               <div className="w-[100%] pt-[1.1rem]">
-                <h2 className="text-sm font-semibold pb-1">직무/역할</h2>
+                <h2 className="pb-1 text-sm font-semibold">직무/역할</h2>
                 <select
                   {...register('roleName')}
-                  className="custom-select appearance-none w-full h-[2.75rem] px-3 text-sm text-grey50 border border-grey30 rounded-md focus:border-2 focus:border-grey90 outline-none bg-no-repeat bg-right"
+                  className="custom-select h-[2.75rem] w-full appearance-none rounded-md border border-grey30 bg-right bg-no-repeat px-3 text-sm text-grey50 outline-none focus:border-2 focus:border-grey90"
                 >
                   <option selected className="h-full">
                     나의 직무를 선택해주세요.
                   </option>
-                  <option value="US">1</option>
-                  <option value="CA">2</option>
-                  <option value="FR">3</option>
-                  <option value="DE">4</option>
+                  <option value="기획">기획</option>
+                  <option value="마케팅">마케팅</option>
+                  <option value="디자인">디자인</option>
+                  <option value="개발">개발</option>
+                  <option value="비즈니스">비즈니스</option>
                 </select>
+                {errors.roleName && <p className="text-red-500">{errors.roleName.message}</p>}
               </div>
 
               <div className="w-[100%] pt-[1.1rem]">
-                <h2 className="text-sm font-semibold pb-1">팀원에게서 받은 초대초대가 있나요?</h2>
+                <h2 className="pb-1 text-sm font-semibold">팀원에게서 받은 초대초대가 있나요?</h2>
                 <InputDelete
                   placeholder="code"
-                  inputValue={inputValue}
-                  // onInputChange={handleInputChange}
+                  inputValue={inputValues.code}
                   onDelete={handleDelete}
                   register={register}
                   data="code"
                 />
+                {errors.code && <p className="text-red-500">{errors.code.message}</p>}
               </div>
 
               {/* 체크 */}
-              <label className="pt-[1.1rem] flex items-center">
+              <label className="flex items-center pt-[1.1rem]">
                 <input type="checkbox" {...register('marketingAgree')} onClick={toggleCheckbox} />
                 <span className="pl-2 text-xs text-grey60">뉴스레터 및 마케팅 정보 수신 동의</span>
               </label>
+              {errors.marketingAgree && <p className="text-red-500">{errors.marketingAgree.message}</p>}
 
               <div className="flex w-full justify-end ">
-                <button className="w-36 h-9 bg-[#7EA5F8] rounded text-xs text-[#FFFFFF] mt-7 ">완료</button>
+                <button className="mt-7 h-9 w-36 rounded bg-[#7EA5F8] text-xs text-[#FFFFFF] ">완료</button>
               </div>
             </form>
           </div>
