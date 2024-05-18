@@ -7,19 +7,25 @@ import { useEffect, useState } from 'react'
 export default function Login() {
   const [kakaoURL, setKakaoURL] = useState('')
   const [googleURL, setGoogleURL] = useState('')
+  const [naverURL, setNaverURL] = useState('')
 
   useEffect(() => {
     const protocol = window.location.protocol
     const kakaoApiKey = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY
     const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_REST_API_KEY
+    const naverApiKey = process.env.NEXT_PUBLIC_NAVER_REST_API_KEY
+
     const kakaoRedirectUri = `${protocol}//localhost:3000/login/oauth2/callback/kakao`
     const googleRedirectUri = `${protocol}//localhost:3000/login/oauth2/callback/google`
+    const naverRedirectUri = `${protocol}//localhost:3000/login/oauth2/callback/naver`
 
     const kakaoOAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoApiKey}&redirect_uri=${kakaoRedirectUri}&response_type=code`
     const googleOAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleApiKey}&redirect_uri=${googleRedirectUri}&response_type=code&scope=email profile`
+    const naverOAuthURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${naverApiKey}&redirect_uri=${naverRedirectUri}&state=test`
 
     setKakaoURL(kakaoOAuthURL)
     setGoogleURL(googleOAuthURL)
+    setNaverURL(naverOAuthURL)
   }, [])
 
   const handleKakaoLogin = () => {
@@ -28,6 +34,10 @@ export default function Login() {
 
   const handleGoogleLogin = () => {
     window.location.href = googleURL
+  }
+
+  const handleNaverLogin = () => {
+    window.location.href = naverURL
   }
 
   return (
@@ -51,7 +61,10 @@ export default function Login() {
           </div>
 
           <div className="flex flex-col items-center gap-2 pt-6">
-            <div className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#00C73C] px-24">
+            <div
+              className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#00C73C] px-24"
+              onClick={handleNaverLogin}
+            >
               <Image src={'/assets/login/naverLogo.png'} width={39} height={44} alt="naverLogin" />
               <span className="font-semibold text-[#fff]">네이버로 시작하기</span>
             </div>
