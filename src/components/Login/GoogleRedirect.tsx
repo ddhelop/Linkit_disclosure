@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useUserContext } from '@/context/store'
 
-const KakaoRedirect = () => {
-  console.log('KakaoRedirect component rendered')
+const GoogleRedirect = () => {
   const [error, setError] = useState<Error | null>(null)
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -12,18 +11,15 @@ const KakaoRedirect = () => {
   const { dispatch } = useUserContext()
 
   useEffect(() => {
-    console.log('useEffect triggered with code:', code)
     if (code) {
-      const kakaoLogin = async () => {
-        console.log('kakaoLogin function called')
+      const googleLogin = async () => {
         try {
-          const response = await fetch(`https://dev.linkit.im/login/kakao`, {
+          const response = await fetch(`https://dev.linkit.im/login/google`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json;charset=utf-8' },
             credentials: 'include', // 쿠키를 포함시키기 위해 필요
             body: JSON.stringify({ code }), // 로그인 요청 본문에 인증 코드 포함
           })
-          console.log('response:', response)
           if (response.ok || response.status === 201) {
             const data = await response.json()
             dispatch({
@@ -31,7 +27,7 @@ const KakaoRedirect = () => {
               payload: {
                 accessToken: data.accessToken,
                 email: data.email,
-                name: data.name,
+                name: null,
               },
             })
             if (data.memberBasicInform === false) {
@@ -41,7 +37,6 @@ const KakaoRedirect = () => {
             }
           } else {
             const errorText = await response.text()
-            console.error('Response not ok, status:', response.status, 'text:', errorText)
             throw new Error(`로그인에 실패했습니다. 상태 코드: ${response.status}, 메시지: ${errorText}`)
           }
         } catch (error: any) {
@@ -50,7 +45,7 @@ const KakaoRedirect = () => {
         }
       }
 
-      kakaoLogin()
+      googleLogin()
     }
   }, [code, router, dispatch])
 
@@ -59,4 +54,4 @@ const KakaoRedirect = () => {
   return <div>로그인 처리 중...</div>
 }
 
-export default KakaoRedirect
+export default GoogleRedirect

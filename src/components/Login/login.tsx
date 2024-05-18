@@ -6,17 +6,28 @@ import { useEffect, useState } from 'react'
 
 export default function Login() {
   const [kakaoURL, setKakaoURL] = useState('')
+  const [googleURL, setGoogleURL] = useState('')
 
   useEffect(() => {
     const protocol = window.location.protocol
     const kakaoApiKey = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY
+    const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_REST_API_KEY
     const kakaoRedirectUri = `${protocol}//localhost:3000/login/oauth2/callback/kakao`
+    const googleRedirectUri = `${protocol}//localhost:3000/login/oauth2/callback/google`
+
     const kakaoOAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoApiKey}&redirect_uri=${kakaoRedirectUri}&response_type=code`
+    const googleOAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleApiKey}&redirect_uri=${googleRedirectUri}&response_type=code&scope=email profile`
+
     setKakaoURL(kakaoOAuthURL)
+    setGoogleURL(googleOAuthURL)
   }, [])
 
   const handleKakaoLogin = () => {
     window.location.href = kakaoURL
+  }
+
+  const handleGoogleLogin = () => {
+    window.location.href = googleURL
   }
 
   return (
@@ -53,7 +64,10 @@ export default function Login() {
               <span className="font-semibold">카카오로 시작하기</span>
             </div>
 
-            <div className="items-cente flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-3 rounded border-[1px] border-grey30 px-[6.5rem]">
+            <div
+              className="items-cente flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-3 rounded border-[1px] border-grey30 px-[6.5rem]"
+              onClick={handleGoogleLogin}
+            >
               <Image src={'/assets/login/googleLogo.svg'} width={23} height={23} alt="GoogleLogin" />
               <span className="font-semibold">구글로 시작하기</span>
             </div>

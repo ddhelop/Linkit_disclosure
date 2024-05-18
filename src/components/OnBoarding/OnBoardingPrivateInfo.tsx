@@ -1,5 +1,4 @@
 'use client'
-import Image from 'next/image'
 import OnBoardingHeader from '../Layout/onBoardingHeader'
 import InputDelete from '../common/onBoarding/inputDelete'
 import { useState } from 'react'
