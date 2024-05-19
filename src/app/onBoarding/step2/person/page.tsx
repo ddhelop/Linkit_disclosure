@@ -1,4 +1,4 @@
-import OnBoardingStep2Person from '@/components/OnBoarding/OnBoardingStep2Person'
+import OnBoardingStep2Person from '@/components/OnBoarding/private/OnBoardingStep2Person'
 
 export default function OnBoardingStep2PersonPage() {
   return (

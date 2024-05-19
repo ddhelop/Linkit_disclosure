@@ -1,6 +1,6 @@
 'use client'
 import { Controller, useForm } from 'react-hook-form'
-import OnBoardingHeader from '../Layout/onBoardingHeader'
+import OnBoardingHeader from '../../Layout/onBoardingHeader'
 import Image from 'next/image'
 import { useEffect } from 'react'
 

@@ -1,6 +1,6 @@
 'use client'
-import OnBoardingHeader from '../Layout/onBoardingHeader'
-import InputDelete from '../common/onBoarding/inputDelete'
+import OnBoardingHeader from '../../Layout/onBoardingHeader'
+import InputDelete from '../../common/onBoarding/inputDelete'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
