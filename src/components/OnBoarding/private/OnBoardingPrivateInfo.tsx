@@ -9,6 +9,7 @@ import { IFormData } from '@/lib/types'
 import './OnBoarding.css'
 import { useUserContext } from '@/context/store'
 import { useRouter } from 'next/navigation'
+import { getCookieValue } from '@/context/getCookieValue'
 
 export default function OnBoardingPrivateInfo() {
   const router = useRouter()
@@ -30,12 +31,15 @@ export default function OnBoardingPrivateInfo() {
   })
 
   const onClickSubmit = async (data: IFormData): Promise<void> => {
+    const refreshToken = getCookieValue('refresh-token')
+
     try {
       const response = await fetch(`https://dev.linkit.im/members/basic-inform`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           Authorization: accessToken ? `Bearer ${accessToken}` : '',
+          // Cookie 헤더를 수동으로 설정하지 않고, fetch 호출 시 함께 보내지도록 설정합니다.
         },
         body: JSON.stringify({
           memberName: data.memberName,
