@@ -14,6 +14,8 @@ interface FormValues {
 
 export default function OnBoardingStep2Team() {
   const teamBuilidngData = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
+  const activityWay = ['사무실 있음', '사무실 없음', '대면 활동 선호', '대면 + 비대면']
+  const hopeMember = ['기획', '마케팅', '디자이너', 'SW개발자', '리서치', '기타']
   const { control, watch, setValue, getValues, register } = useForm<FormValues>({
     defaultValues: {
       selectedFields: [],
@@ -72,7 +74,10 @@ export default function OnBoardingStep2Team() {
           {/* 본문 */}
           <div className="flex w-full flex-col pt-16">
             <span className="text-lg font-bold leading-5">
-              희망 팀빌딩 분야 <span className="pl-3 text-sm font-normal text-grey80">*중복선택 가능</span>
+              희망 팀빌딩 분야{' '}
+              <span className="pl-3 text-sm font-normal text-grey80">
+                <span className="font-sm text-[#FF345F]">*</span>중복선택 가능
+              </span>
             </span>
 
             <div className="flex flex-col gap-y-[3.75rem]">
@@ -151,32 +156,88 @@ export default function OnBoardingStep2Team() {
                 </div>
               </div>
 
-              {/* 기술 목록 */}
-              <div className="flex flex-wrap gap-x-2 pt-5">
-                {skills.map((skill, index) => (
-                  <div key={index} className="flex items-center pb-4">
-                    <button
-                      className="flex items-center gap-x-2 rounded-md border border-[#2563EB] px-4 py-1"
-                      onClick={() => handleDeleteSkill(skill)}
-                    >
-                      <span className="font-semibold text-[#2563EB]">{skill}</span>
-                      <Image src={'/assets/icons/x.svg'} width={7} height={7} alt="delete" />
-                    </button>
-                  </div>
-                ))}
+              {/* 활동방식 */}
+              <div>
+                <span className="text-lg font-bold leading-5">
+                  활동방식{' '}
+                  <span className="pl-3 text-sm font-normal text-grey80">
+                    <span className="font-sm text-[#FF345F]">*</span> 중복선택 가능
+                  </span>
+                </span>
+
+                <div className="flex gap-x-2 pt-5">
+                  {activityWay.map((el, index) => (
+                    <Controller
+                      key={index}
+                      name="selectedFields"
+                      control={control}
+                      render={({ field }) => (
+                        <button
+                          className={`border px-3 py-1 ${selectedFields.includes(el) ? ' border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]' : 'border-[#CBD4E1] text-[#64748B]'} rounded-md`}
+                          onClick={() =>
+                            field.onChange(
+                              field.value.includes(el) ? field.value.filter((v) => v !== el) : [...field.value, el],
+                            )
+                          }
+                        >
+                          {el}
+                        </button>
+                      )}
+                    />
+                  ))}
+                </div>
               </div>
 
-              {/* 입력창 */}
-              <form className="flex h-11 w-full border border-grey30" onSubmit={onSubmitTech}>
+              {/* 활동 지역/위치 */}
+              <div className="flex flex-col">
+                <span className="text-lg font-bold leading-5">
+                  활동 지역/위치 <span className="font-sm text-[#FF345F]">*</span>
+                </span>
+
                 <input
-                  className="h-full w-[96%] p-4 outline-none"
-                  placeholder="보유기술을 입력해주세요."
-                  {...register('skillInput')} // 입력 필드에 react-hook-form 등록
+                  className="mt-3 h-[2.75rem] w-[16.75rem] border border-grey30 px-3 text-sm"
+                  placeholder="ex) 서울특별시 동작구"
                 />
-                <button type="submit">
-                  <Image src={'/assets/icons/search.svg'} width={24} height={24} alt="search" />
-                </button>
-              </form>
+              </div>
+
+              {/* 희망 팀원 * */}
+              <div>
+                <span className="text-lg font-bold leading-5">
+                  희망팀원{' '}
+                  <span className="pl-3 text-sm font-normal text-grey80">
+                    <span className="font-sm text-[#FF345F]">*</span> 중복선택 가능
+                  </span>
+                </span>
+
+                <div className="flex gap-x-2 pt-5">
+                  {hopeMember.map((el, index) => (
+                    <Controller
+                      key={index}
+                      name="selectedFields"
+                      control={control}
+                      render={({ field }) => (
+                        <button
+                          className={`border px-3 py-1 ${selectedFields.includes(el) ? ' border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]' : 'border-[#CBD4E1] text-[#64748B]'} rounded-md`}
+                          onClick={() =>
+                            field.onChange(
+                              field.value.includes(el) ? field.value.filter((v) => v !== el) : [...field.value, el],
+                            )
+                          }
+                        >
+                          {el}
+                        </button>
+                      )}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* 활동 지역/위치 */}
+              <div className="flex flex-col">
+                <span className="text-lg font-bold leading-5">팀 링크</span>
+
+                <input className="mt-3 h-[2.75rem] w-[25.75rem] border border-grey30 px-3 text-sm" />
+              </div>
             </div>
           </div>
         </div>
