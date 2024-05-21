@@ -1,22 +1,24 @@
 'use client'
 import OnBoardingHeader from '../../Layout/onBoardingHeader'
 import InputDelete from '../../common/onBoarding/inputDelete'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from '@/context/schemaValidation'
 import { IFormData } from '@/lib/types'
+
 import './OnBoarding.css'
-import { useUserContext } from '@/context/store'
+
 import { useRouter } from 'next/navigation'
-import { getCookieValue } from '@/context/getCookieValue'
 
 export default function OnBoardingPrivateInfo() {
   const router = useRouter()
-  const { state } = useUserContext()
-  const { accessToken, email } = state
+
+  const accessToken = localStorage.getItem('accessToken') ?? ''
+  const email = localStorage.getItem('email') ?? ''
 
   const [inputValues, setInputValues] = useState({ memberName: '', contact: '', code: '' })
+  const [refreshToken, setRefreshToken] = useState<string | null>(null)
 
   const {
     register,
@@ -31,15 +33,13 @@ export default function OnBoardingPrivateInfo() {
   })
 
   const onClickSubmit = async (data: IFormData): Promise<void> => {
-    const refreshToken = getCookieValue('refresh-token')
-
     try {
       const response = await fetch(`https://dev.linkit.im/members/basic-inform`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           Authorization: accessToken ? `Bearer ${accessToken}` : '',
-          // Cookie 헤더를 수동으로 설정하지 않고, fetch 호출 시 함께 보내지도록 설정합니다.
+          Cookie: `refresh-token=${refreshToken}`,
         },
         body: JSON.stringify({
           memberName: data.memberName,
@@ -56,9 +56,8 @@ export default function OnBoardingPrivateInfo() {
         // handle successful submission
         router.push('/onBoarding/step1')
       } else {
-        const errorText = await response.text()
-        console.error('Response not ok, status:', response.status, 'text:', errorText)
-        throw new Error(`온보딩 서버 요청에 실패했습니다. 상태 코드: ${response.status}, 메시지: ${errorText}`)
+        // handle unsuccessful submission
+        console.error('Submission failed')
       }
     } catch (error) {
       console.error('Error caught:', error)
