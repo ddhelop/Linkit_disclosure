@@ -1,62 +1,46 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useUserContext } from '@/context/store'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
-const KakaoRedirect = () => {
-  console.log('KakaoRedirect component rendered')
-  const [error, setError] = useState<Error | null>(null)
+// 카카오 로그인 후 서버에 전송할 코드를 받아오는 페이지
+export default function KakaoRedirect() {
+  const params = useSearchParams()
+  const code = params.get('code')
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const code = searchParams.get('code')
-  const { dispatch } = useUserContext()
 
   useEffect(() => {
-    console.log('useEffect triggered with code:', code)
-    if (code) {
-      const kakaoLogin = async () => {
-        console.log('kakaoLogin function called')
-        try {
-          const response = await fetch(`https://dev.linkit.im/login/kakao`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json;charset=utf-8' },
-            credentials: 'include', // 쿠키를 포함시키기 위해 필요
-            body: JSON.stringify({ code }), // 로그인 요청 본문에 인증 코드 포함
-          })
-          console.log('response:', response)
-          if (response.ok || response.status === 201) {
-            const data = await response.json()
-            dispatch({
-              type: 'SET_USER_DATA',
-              payload: {
-                accessToken: data.accessToken,
-                email: data.email,
-                name: data.name,
-              },
-            })
-            if (data.memberBasicInform === false) {
-              router.push('/onBoarding')
-            } else {
-              router.push('/')
-            }
-          } else {
-            const errorText = await response.text()
-            console.error('Response not ok, status:', response.status, 'text:', errorText)
-            throw new Error(`로그인에 실패했습니다. 상태 코드: ${response.status}, 메시지: ${errorText}`)
-          }
-        } catch (error: any) {
-          console.error('Error caught:', error)
-          setError(error)
+    const kakaoLogin = async () => {
+      try {
+        const response = await fetch('https://dev.linkit.im/login/kakao', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json;charset=utf-8' },
+          credentials: 'include', // 쿠키를 포함시키기 위해 필요
+          body: JSON.stringify({ code: code }), // 로그인 요청 본문에 인증 코드 포함
+        })
+        if (response.ok) {
+          const responseData = await response.json()
+          // 로컬 스토리지에 데이터 저장
+          localStorage.setItem('accessToken', responseData.accessToken)
+          localStorage.setItem('email', responseData.email)
+          localStorage.setItem('memberBasicInform', JSON.stringify(responseData.memberBasicInform))
+
+          router.push('/onBoarding')
+        } else {
+          const errorText = await response.text()
+          console.error('Response not ok, status:', response.status, 'text:', errorText)
+          throw new Error(`로그인 요청에 실패했습니다. 상태 코드: ${response.status}, 메시지: ${errorText}`)
         }
+      } catch (error) {
+        console.log('로그인 요청에 실패했습니다.', error)
       }
-
-      kakaoLogin()
     }
-  }, [code, router, dispatch])
+    kakaoLogin()
+  }, [code, router])
 
-  if (error) return <div>로그인에 실패했습니다. {error.message}</div>
-
-  return <div>로그인 처리 중...</div>
+  return (
+    <div>
+      <h1>카카오 로그인 후 서버에 전송할 코드를 받아오는 페이지</h1>
+    </div>
+  )
 }
-
-export default KakaoRedirect

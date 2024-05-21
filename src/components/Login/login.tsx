@@ -1,44 +1,13 @@
 'use client'
-
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 export default function Login() {
-  const [kakaoURL, setKakaoURL] = useState('')
-  const [googleURL, setGoogleURL] = useState('')
-  const [naverURL, setNaverURL] = useState('')
-
-  useEffect(() => {
-    const protocol = window.location.protocol
-    const kakaoApiKey = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY
-    const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_REST_API_KEY
-    const naverApiKey = process.env.NEXT_PUBLIC_NAVER_REST_API_KEY
-
-    const kakaoRedirectUri = `${protocol}//localhost:3000/login/oauth2/callback/kakao`
-    const googleRedirectUri = `${protocol}//localhost:3000/login/oauth2/callback/google`
-    const naverRedirectUri = `${protocol}//localhost:3000/login/oauth2/callback/naver`
-
-    const kakaoOAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoApiKey}&redirect_uri=${kakaoRedirectUri}&response_type=code`
-    const googleOAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleApiKey}&redirect_uri=${googleRedirectUri}&response_type=code&scope=email profile`
-    const naverOAuthURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${naverApiKey}&redirect_uri=${naverRedirectUri}&state=test`
-
-    setKakaoURL(kakaoOAuthURL)
-    setGoogleURL(googleOAuthURL)
-    setNaverURL(naverOAuthURL)
-  }, [])
-
-  const handleKakaoLogin = () => {
-    window.location.href = kakaoURL
-  }
-
-  const handleGoogleLogin = () => {
-    window.location.href = googleURL
-  }
-
-  const handleNaverLogin = () => {
-    window.location.href = naverURL
-  }
+  // kakao_login
+  const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID
+  const KAKAO_REDIRECT_URI = 'http://localhost:3000/login/oauth2/callback/kakao'
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`
 
   return (
     <>
@@ -61,26 +30,19 @@ export default function Login() {
           </div>
 
           <div className="flex flex-col items-center gap-2 pt-6">
-            <div
-              className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#00C73C] px-24"
-              onClick={handleNaverLogin}
-            >
+            <div className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#00C73C] px-24">
               <Image src={'/assets/login/naverLogo.png'} width={39} height={44} alt="naverLogin" />
               <span className="font-semibold text-[#fff]">네이버로 시작하기</span>
             </div>
 
-            <div
-              className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#FFE500] px-24"
-              onClick={handleKakaoLogin}
-            >
-              <Image src={'/assets/login/kakaoLogo.svg'} width={39} height={56} alt="kakaoLogin" />
-              <span className="font-semibold">카카오로 시작하기</span>
-            </div>
+            <Link href={KAKAO_AUTH_URL}>
+              <div className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#FFE500] px-24">
+                <Image src={'/assets/login/kakaoLogo.svg'} width={39} height={56} alt="kakaoLogin" />
+                <span className="font-semibold">카카오로 시작하기</span>
+              </div>
+            </Link>
 
-            <div
-              className="items-cente flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-3 rounded border-[1px] border-grey30 px-[6.5rem]"
-              onClick={handleGoogleLogin}
-            >
+            <div className="items-cente flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-3 rounded border-[1px] border-grey30 px-[6.5rem]">
               <Image src={'/assets/login/googleLogo.svg'} width={23} height={23} alt="GoogleLogin" />
               <span className="font-semibold">구글로 시작하기</span>
             </div>
