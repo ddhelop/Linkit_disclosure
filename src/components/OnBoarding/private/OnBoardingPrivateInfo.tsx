@@ -6,9 +6,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from '@/context/schemaValidation'
 import { IFormData } from '@/lib/types'
-
 import './OnBoarding.css'
-
 import { useRouter } from 'next/navigation'
 
 export default function OnBoardingPrivateInfo() {
@@ -18,7 +16,6 @@ export default function OnBoardingPrivateInfo() {
   const email = localStorage.getItem('email') ?? ''
 
   const [inputValues, setInputValues] = useState({ memberName: '', contact: '', code: '' })
-  const [refreshToken, setRefreshToken] = useState<string | null>(null)
 
   const {
     register,
@@ -39,7 +36,7 @@ export default function OnBoardingPrivateInfo() {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           Authorization: accessToken ? `Bearer ${accessToken}` : '',
-          Cookie: `refresh-token=${refreshToken}`,
+          // Cookie: `refresh-token=${refreshToken}`,
         },
         body: JSON.stringify({
           memberName: data.memberName,

@@ -35,6 +35,7 @@ export default function KakaoRedirect() {
         console.log('로그인 요청에 실패했습니다.', error)
       }
     }
+
     kakaoLogin()
   }, [code, router])
 
