@@ -13,6 +13,7 @@ export default function Footer() {
     '/onBoarding/step2/person',
     '/onBoarding/step2/team',
     '/onBoarding/step3/person',
+    '/onBoarding/step3/team',
   ]
 
   if (paths.includes(pathname)) return null
