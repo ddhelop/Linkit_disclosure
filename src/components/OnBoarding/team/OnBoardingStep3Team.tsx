@@ -64,34 +64,31 @@ export default function OnBoardingStep3Team() {
 
           <div className="flex w-full justify-between gap-14 pt-12">
             {/* left */}
-            <div className="flex h-[31.4rem] w-[22.18rem] flex-col rounded-lg border-[1.67px] border-grey30 p-5">
+            <div className="flex h-[25.6rem]  w-[22.18rem] flex-col rounded-lg border-[1.67px] border-grey30 p-5">
               <h2 className="text-2xl font-bold leading-9 text-grey50">
                 {profileTitle || '사이드 프로젝트 함께 할 개발자를 찾고 있어요'}
               </h2>
               <span className="pt-2 font-medium text-grey60">D-59</span>
-              <div className="flex justify-center py-3">
+
+              <div className="flex gap-5 py-3">
                 {profileImage ? (
-                  <Image src={profileImage} width={125} height={125} alt="profile_image" className="rounded-3xl" />
+                  <Image src={profileImage} width={80} height={80} alt="profile_image" className="rounded-3xl" />
                 ) : (
-                  <Image src={'/assets/onBoarding/addImage.svg'} width={125} height={125} alt="add_image" />
+                  <Image src={'/assets/onBoarding/addImage.svg'} width={80} height={80} alt="add_image" />
                 )}
+
+                <div className="flex flex-col items-start ">
+                  <span className="text-lg font-semibold text-[#2563EB]">링킷(Linkit)</span>
+                  <span className="pt-[0.69rem] text-sm text-grey60">분야 | 플랫폼</span>
+                  <span className="text-sm text-grey60">규모 | 2-5인</span>
+                </div>
               </div>
 
-              <div className="flex flex-col items-center">
-                <span className="font-semibold text-[#2563EB]">유나</span>
-                <span className="text-grey60">{skills || '기획, AI 엔지니어, LLM'}</span>
-                <div className="mt-7 bg-grey10 px-4 py-3 pr-12 text-sm text-grey50">
-                  💬 &nbsp; {collaborationValue || '공동의 목표를 위해 가감없는 피드백'}
-                </div>
-                <div className="flex gap-2 pt-4">
-                  <div className="font-sm flex w-[8.7rem] justify-center rounded-md bg-grey10 px-[0.88rem] py-3 text-grey90">
-                    찜하기
-                  </div>
-                  <div className="font-sm flex w-[8.7rem] justify-center rounded-md bg-grey100 px-[0.88rem] py-3 text-[#fff]">
-                    연락하기
-                  </div>
-                </div>
+              <div className="mt-7 max-w-[18.8rem] bg-grey10 px-4 py-3 pr-12 text-sm text-grey50">
+                💬 &nbsp; {collaborationValue || '공동의 목표를 위해 가감없는 피드백'}
               </div>
+
+              <div className="pt-6 text-sm text-grey80">#해커톤 #사무실 있음 #서울시</div>
             </div>
 
             {/* right */}
@@ -112,7 +109,7 @@ export default function OnBoardingStep3Team() {
               {/* 프로필 업로드 기간 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  프로필 업로드 기간 <span className="font-sm text-[#FF345F]">*</span>
+                  공고 업로드 기간 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
                 <div className="mt-[1.19rem] flex items-center gap-3">
                   <input
@@ -158,7 +155,7 @@ export default function OnBoardingStep3Team() {
               {/* 프로필 이미지 */}
               <div className="flex flex-col">
                 <div>
-                  <span className="font-semibold text-grey100">프로필 이미지</span>
+                  <span className="font-semibold text-grey100">팀 로고</span>
                   <span className="font-sm pl-3 text-grey80">추천 사이즈: 512 x 512 px / JPG, PNG, 최대 2MB</span>
                 </div>
                 <div className="flex items-end gap-[1.19rem] pt-[1.19rem]">
@@ -177,26 +174,26 @@ export default function OnBoardingStep3Team() {
               {/* 나의 가치 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  협업 시 중요한 나의 가치를 알려주세요 <span className="font-sm text-[#FF345F]">*</span>
+                  팀을 홍보할 수 있는 가치를 써주세요 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
                 <input
                   className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
                   value={collaborationValue}
                   onChange={handleCollaborationValueChange}
-                  placeholder="공동의 목표를 위해 가감없는 피드백 (최대 20자)"
+                  placeholder="빠르게 성장하는 팀, 최단기간 투자유치 달성 (최대 40자)"
                 />
               </div>
 
               {/* 스킬셋 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  나의 스킬셋 <span className="font-sm text-[#FF345F]">*</span>
+                  팀의 세부정보 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
                 <input
                   className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
                   value={skills}
                   onChange={handleSkillsChange}
-                  placeholder="스킬셋 (최대 20자)"
+                  placeholder="팀 세부정보 (최대 20자)"
                 />
               </div>
               {/*  */}
