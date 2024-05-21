@@ -6,7 +6,6 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 import './globals.css'
 import Scripts from '@/components/script'
-import { UserProvider } from '@/context/store'
 
 export const metadata: Metadata = {
   title: 'Linkit',
@@ -30,15 +29,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
-      <UserProvider>
-        <body className={`${pretendard.className}`}>
-          <Header />
-          {children}
-          <Footer />
-        </body>
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
-        <Scripts />
-      </UserProvider>
+      <body className={`${pretendard.className}`}>
+        <Header />
+        {children}
+        <Footer />
+      </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
+      <Scripts />
     </html>
   )
 }
