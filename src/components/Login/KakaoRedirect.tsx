@@ -1,4 +1,6 @@
 'use client'
+import { setAuthData } from '@/features/auth/authSlice'
+import { useAppDispatch } from '@/hooks'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -8,6 +10,7 @@ export default function KakaoRedirect() {
   const params = useSearchParams()
   const code = params.get('code')
   const router = useRouter()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const kakaoLogin = async () => {
@@ -20,10 +23,13 @@ export default function KakaoRedirect() {
         })
         if (response.ok) {
           const responseData = await response.json()
-          // 로컬 스토리지에 데이터 저장
-          localStorage.setItem('accessToken', responseData.accessToken)
-          localStorage.setItem('email', responseData.email)
-          localStorage.setItem('memberBasicInform', JSON.stringify(responseData.memberBasicInform))
+          dispatch(
+            setAuthData({
+              accessToken: responseData.accessToken,
+              email: responseData.email,
+              memberBasicInform: responseData.memberBasicInform,
+            }),
+          )
 
           router.push('/onBoarding')
         } else {
@@ -37,7 +43,7 @@ export default function KakaoRedirect() {
     }
 
     kakaoLogin()
-  }, [code, router])
+  }, [code, router, dispatch])
 
   return (
     <div>

@@ -8,12 +8,11 @@ import { schema } from '@/context/schemaValidation'
 import { IFormData } from '@/lib/types'
 import './OnBoarding.css'
 import { useRouter } from 'next/navigation'
+import { useAppSelector } from '@/hooks'
 
 export default function OnBoardingPrivateInfo() {
   const router = useRouter()
-
-  const accessToken = localStorage.getItem('accessToken') ?? ''
-  const email = localStorage.getItem('email') ?? ''
+  const { accessToken, email } = useAppSelector((state) => state.auth)
 
   const [inputValues, setInputValues] = useState({ memberName: '', contact: '', code: '' })
 
