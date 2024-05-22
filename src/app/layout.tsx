@@ -3,9 +3,11 @@ import localFont from 'next/font/local'
 import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { Provider } from 'react-redux'
 
 import './globals.css'
 import Scripts from '@/components/script'
+import { store } from './store'
 
 export const metadata: Metadata = {
   title: 'Linkit',
@@ -29,11 +31,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
-      <body className={`${pretendard.className}`}>
-        <Header />
-        {children}
-        <Footer />
-      </body>
+      <Provider store={store}>
+        <body className={`${pretendard.className}`}>
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </Provider>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
       <Scripts />
     </html>
