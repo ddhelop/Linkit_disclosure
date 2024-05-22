@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { setAuthData, clearAuthData, initializeAuth } from '@/features/auth/authSlice'
-import { fetchWithCredentials } from '@/lib/fetchHelpers'
+import { setAuthData, initializeAuth } from '@/features/auth/authSlice'
+import DropdownMenu from './HeaderModal'
 
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -29,6 +29,7 @@ export default function Example() {
     dispatch(initializeAuth())
   }, [dispatch])
 
+  // 액세스토큰이 있는 경우에만 실행
   useEffect(() => {
     const refreshTokenCheck = async () => {
       if (!accessToken) return // accessToken이 없는 경우 실행하지 않음
@@ -62,18 +63,6 @@ export default function Example() {
     refreshTokenCheck()
   }, [accessToken, dispatch])
 
-  const handleLogout = async () => {
-    if (!accessToken) return // accessToken이 없는 경우 실행하지 않음
-
-    try {
-      await fetchWithCredentials('https://dev.linkit.im/logout', 'DELETE', accessToken)
-      dispatch(clearAuthData())
-      window.location.href = '/' // 로그아웃 후 로그인 페이지로 리다이렉트
-    } catch (error) {
-      console.error('Failed to logout', error)
-    }
-  }
-
   if (paths.includes(pathname)) return null
 
   return (
@@ -96,30 +85,32 @@ export default function Example() {
           </Link>
         </div>
         <div className="flex gap-10 lg:flex-1 lg:justify-end">
-          <Link href="/" className="hidden text-sm font-medium leading-5 text-grey100 lg:flex">
-            링킷 소개
-          </Link>
-          <Link href="#" className="hidden text-sm font-medium leading-5 text-grey100 lg:flex">
-            FAQ
-          </Link>
           {/* 액세스토큰 유무 UI  */}
           {accessToken ? (
             <>
-              <Image src="/assets/icons/user.svg" width={17} height={20} alt="user" />
-              <button onClick={handleLogout} className="hidden text-sm font-medium leading-5 text-grey100 lg:flex">
-                123
-              </button>
+              <Link href="#" className="hidden text-sm font-medium leading-5 text-grey100 lg:flex">
+                매칭관리
+              </Link>
+              <DropdownMenu accessToken={accessToken} />
             </>
           ) : (
-            <Link href="/login" className="hidden text-sm font-medium leading-5 text-grey100 lg:flex">
-              로그인
-            </Link>
+            <>
+              <Link href="/" className="hidden text-sm font-medium leading-5 text-grey100 lg:flex">
+                링킷 소개
+              </Link>
+              <Link href="#" className="hidden text-sm font-medium leading-5 text-grey100 lg:flex">
+                FAQ
+              </Link>
+              <Link href="/login" className="hidden text-sm font-medium leading-5 text-grey100 lg:flex">
+                로그인
+              </Link>
+            </>
           )}
         </div>
         <div className="ml-auto flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-grey100"
+            className="-m-2.5 inline-flex cursor-pointer items-center justify-center rounded-md p-2.5 text-grey100"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {/* 아이콘 추가할 곳 */}
