@@ -1,10 +1,10 @@
 'use client'
-import { setAuthData } from '@/features/auth/authSlice'
+import { setFullAuthData } from '@/features/auth/authSlice'
 import { useAppDispatch } from '@/hooks'
 import { AuthResponseData } from '@/lib/types'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 
 // 카카오 로그인 후 서버에 전송할 코드를 받아오는 페이지
 export default function KakaoRedirect() {
@@ -13,20 +13,8 @@ export default function KakaoRedirect() {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
-  // 로그인 성공 시 실행할 함수
-  const onLoginSuccess = (responseData: AuthResponseData) => {
-    dispatch(
-      setAuthData({
-        accessToken: responseData.accessToken,
-        email: responseData.email,
-        memberBasicInform: responseData.memberBasicInform,
-      }),
-      // 2시간-1분마다 silent refresh 요청
-      setTimeout(onSlientRefresh, 7200 * 1000 - 60000),
-    )
-  }
-
-  const onSlientRefresh = async () => {
+  // silent refresh 요청 함수
+  const onSilentRefresh = useCallback(async () => {
     try {
       const response = await fetch('https://dev.linkit.im/token', {
         method: 'POST',
@@ -37,7 +25,23 @@ export default function KakaoRedirect() {
     } catch (error) {
       console.log('silent refresh failed', error)
     }
-  }
+  }, [dispatch])
+
+  // 로그인 성공 시 실행할 함수
+  const onLoginSuccess = useCallback(
+    (responseData: AuthResponseData) => {
+      dispatch(
+        setFullAuthData({
+          accessToken: responseData.accessToken,
+          email: responseData.email,
+          memberBasicInform: responseData.memberBasicInform,
+        }),
+      )
+      // 2시간-1분마다 silent refresh 요청
+      setTimeout(onSilentRefresh, 7200 * 1000 - 60000)
+    },
+    [dispatch, onSilentRefresh],
+  )
 
   useEffect(() => {
     const kakaoLogin = async () => {

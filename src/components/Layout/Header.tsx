@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { setAuthData, initializeAuth } from '@/features/auth/authSlice'
+import { setSimpleAuthData, initializeAuth } from '@/features/auth/authSlice'
 import DropdownMenu from './HeaderModal'
 
 export default function Example() {
@@ -49,10 +49,8 @@ export default function Example() {
         const data = await response.json()
 
         dispatch(
-          setAuthData({
+          setSimpleAuthData({
             accessToken: data.accessToken,
-            email: 'email@example.com', // 필요에 따라 수정
-            memberBasicInform: {}, // 필요에 따라 수정
           }),
         )
       } catch (error) {
