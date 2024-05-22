@@ -1,6 +1,7 @@
 'use client'
 import { setAuthData } from '@/features/auth/authSlice'
 import { useAppDispatch } from '@/hooks'
+import { AuthResponseData } from '@/lib/types'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -11,6 +12,32 @@ export default function KakaoRedirect() {
   const code = params.get('code')
   const router = useRouter()
   const dispatch = useAppDispatch()
+
+  // 로그인 성공 시 실행할 함수
+  const onLoginSuccess = (responseData: AuthResponseData) => {
+    dispatch(
+      setAuthData({
+        accessToken: responseData.accessToken,
+        email: responseData.email,
+        memberBasicInform: responseData.memberBasicInform,
+      }),
+      // 2시간-1분마다 silent refresh 요청
+      setTimeout(onSlientRefresh, 7200 * 1000 - 60000),
+    )
+  }
+
+  const onSlientRefresh = async () => {
+    try {
+      const response = await fetch('https://dev.linkit.im/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json;charset=utf-8' },
+        credentials: 'include',
+      })
+      onLoginSuccess(await response.json())
+    } catch (error) {
+      console.log('silent refresh failed', error)
+    }
+  }
 
   useEffect(() => {
     const kakaoLogin = async () => {
@@ -23,15 +50,16 @@ export default function KakaoRedirect() {
         })
         if (response.ok) {
           const responseData = await response.json()
-          dispatch(
-            setAuthData({
-              accessToken: responseData.accessToken,
-              email: responseData.email,
-              memberBasicInform: responseData.memberBasicInform,
-            }),
-          )
-
+          onLoginSuccess(responseData)
           router.push('/onBoarding')
+
+          // dispatch(
+          //   setAuthData({
+          //     accessToken: responseData.accessToken,
+          //     email: responseData.email,
+          //     memberBasicInform: responseData.memberBasicInform,
+          //   }),
+          // )
         } else {
           const errorText = await response.text()
           console.error('Response not ok, status:', response.status, 'text:', errorText)
@@ -43,7 +71,7 @@ export default function KakaoRedirect() {
     }
 
     kakaoLogin()
-  }, [code, router, dispatch])
+  }, [code, router, dispatch, onLoginSuccess])
 
   return (
     <div>
