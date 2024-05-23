@@ -14,7 +14,12 @@ export default function Login() {
   const NAVER_REDIRECT_URI = 'http://localhost:3000/login/oauth2/callback/naver'
   const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_REST_API_KEY}&redirect_uri=${NAVER_REDIRECT_URI}&state=test`
 
-  return (
+  // google_login
+  const GOOGLE_REST_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
+  const GOOGLE_REDIRECT_URI = 'http://localhost:3000/login/oauth2/callback/google'
+  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_REST_API_KEY}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`
+
+  https: return (
     <>
       <div className="flex h-screen w-full">
         {/* left container */}
@@ -50,10 +55,12 @@ export default function Login() {
               </div>
             </Link>
 
-            <div className="items-cente flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-3 rounded border-[1px] border-grey30 px-[6.5rem]">
-              <Image src={'/assets/login/googleLogo.svg'} width={23} height={23} alt="GoogleLogin" />
-              <span className="font-semibold">구글로 시작하기</span>
-            </div>
+            <Link href={GOOGLE_AUTH_URL}>
+              <div className="items-cente flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-3 rounded border-[1px] border-grey30 px-[6.5rem]">
+                <Image src={'/assets/login/googleLogo.svg'} width={23} height={23} alt="GoogleLogin" />
+                <span className="font-semibold">구글로 시작하기</span>
+              </div>
+            </Link>
           </div>
 
           <div className="flex w-full justify-center pt-28">

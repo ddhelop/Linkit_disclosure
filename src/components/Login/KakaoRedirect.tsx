@@ -56,14 +56,6 @@ export default function KakaoRedirect() {
           const responseData = await response.json()
           onLoginSuccess(responseData)
           router.push('/onBoarding')
-
-          // dispatch(
-          //   setAuthData({
-          //     accessToken: responseData.accessToken,
-          //     email: responseData.email,
-          //     memberBasicInform: responseData.memberBasicInform,
-          //   }),
-          // )
         } else {
           const errorText = await response.text()
           console.error('Response not ok, status:', response.status, 'text:', errorText)
