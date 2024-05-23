@@ -9,6 +9,11 @@ export default function Login() {
   const KAKAO_REDIRECT_URI = 'http://localhost:3000/login/oauth2/callback/kakao'
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`
 
+  // naver_login
+  const NAVER_REST_API_KEY = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID
+  const NAVER_REDIRECT_URI = 'http://localhost:3000/login/oauth2/callback/naver'
+  const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_REST_API_KEY}&redirect_uri=${NAVER_REDIRECT_URI}&state=test`
+
   return (
     <>
       <div className="flex h-screen w-full">
@@ -30,10 +35,13 @@ export default function Login() {
           </div>
 
           <div className="flex flex-col items-center gap-2 pt-6">
-            <div className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#00C73C] px-24">
-              <Image src={'/assets/login/naverLogo.png'} width={39} height={44} alt="naverLogin" />
-              <span className="font-semibold text-[#fff]">네이버로 시작하기</span>
-            </div>
+            <Link href="#">
+              {/* <Link href={NAVER_AUTH_URL}> */}
+              <div className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#00C73C] px-24">
+                <Image src={'/assets/login/naverLogo.png'} width={39} height={44} alt="naverLogin" />
+                <span className="font-semibold text-[#fff]">네이버로 시작하기</span>
+              </div>
+            </Link>
 
             <Link href={KAKAO_AUTH_URL}>
               <div className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#FFE500] px-24">
