@@ -53,19 +53,18 @@ export default function NaverRedirect() {
           credentials: 'include', // 쿠키를 포함시키기 위해 필요
           body: JSON.stringify({ code: code }), // 로그인 요청 본문에 인증 코드 포함
         })
-        console.log('response:', response.json())
-        if (response.ok) {
+        if (response.status === 200 || response.status === 201) {
           const responseData = await response.json()
-          // onLoginSuccess(responseData)
+          onLoginSuccess(responseData)
           router.push('/onBoarding')
 
-          // dispatch(
-          //   setAuthData({
-          //     accessToken: responseData.accessToken,
-          //     email: responseData.email,
-          //     memberBasicInform: responseData.memberBasicInform,
-          //   }),
-          // )
+          dispatch(
+            setFullAuthData({
+              accessToken: responseData.accessToken,
+              email: responseData.email,
+              memberBasicInform: responseData.memberBasicInform,
+            }),
+          )
         } else {
           const errorText = await response.text()
           console.error('Response not ok, status:', response.status, 'text:', errorText)
