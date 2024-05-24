@@ -29,7 +29,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/api/auth/route.tsㅌ",
-    "src/app/api/get-refresh-token/route.tsㅌ"
+    "src/app/api/get-refresh-token/route.tsㅌ",
+    ".next/types/app/onBoarding/person/project/page.tsx"
   ],
   "exclude": ["node_modules"]
 }
