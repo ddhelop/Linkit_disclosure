@@ -17,6 +17,7 @@ export default function Footer() {
 
     '/onBoarding/team/teamCategory',
     '/onBoarding/team/activityWay',
+    '/onBoarding/team/member',
   ]
 
   if (paths.includes(pathname)) return null

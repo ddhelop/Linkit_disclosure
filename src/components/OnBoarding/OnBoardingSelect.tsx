@@ -104,7 +104,7 @@ export default function OnBoardingStep1() {
             {/* button */}
             <div className="flex w-full justify-center">
               <Link
-                href={'/onBoarding/step2/team'}
+                href={'/onBoarding/team/teamCategory'}
                 className="flex h-11 w-44 cursor-pointer items-center justify-center gap-x-3 rounded-full bg-[#282C31] pl-2 hover:bg-[#3c4249]"
               >
                 <span className="text-sm text-[#fff]">팀 소개서 등록하기</span>

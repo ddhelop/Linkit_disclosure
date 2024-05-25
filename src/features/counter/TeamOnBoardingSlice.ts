@@ -7,6 +7,7 @@ interface TeamOnBoardingState {
   selectedLongTermFields: string[]
   selectedArea: string
   selectedSubArea: string
+  selectedPositions: string[]
   formData: {
     teamName: string
     teamSize: string
@@ -19,6 +20,7 @@ const initialState: TeamOnBoardingState = {
   selectedLongTermFields: [],
   selectedArea: '',
   selectedSubArea: '',
+  selectedPositions: [],
   formData: {
     teamName: '',
     teamSize: '2~3명',
@@ -42,6 +44,9 @@ const teamOnBoardingSlice = createSlice({
     setSelectedSubArea(state, action: PayloadAction<string>) {
       state.selectedSubArea = action.payload
     },
+    setSelectedPositions(state, action: PayloadAction<string[]>) {
+      state.selectedPositions = action.payload
+    },
     setFormData(state, action: PayloadAction<Partial<TeamOnBoardingState['formData']>>) {
       state.formData = { ...state.formData, ...action.payload }
     },
@@ -53,6 +58,7 @@ export const {
   setSelectedLongTermFields,
   setSelectedArea,
   setSelectedSubArea,
+  setSelectedPositions,
   setFormData,
 } = teamOnBoardingSlice.actions
 export default teamOnBoardingSlice.reducer
