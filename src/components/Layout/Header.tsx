@@ -59,7 +59,8 @@ export default function Example() {
     '/onBoarding/person/project',
     '/onBoarding/person/role',
     '/onBoarding/person/school',
-    'onBoarding/person/career',
+    '/onBoarding/person/career',
+    '/onBoarding/person/profile',
   ]
 
   return (

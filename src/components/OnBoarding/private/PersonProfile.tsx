@@ -1,10 +1,10 @@
 'use client'
 import Image from 'next/image'
 import { useState } from 'react'
-import OnBoardingHeader from '../../Layout/onBoardingHeader'
-import OnBoardingFooter from '../../Layout/onBoardingFooter'
 
-export default function OnBoardingStep3Person() {
+import Link from 'next/link'
+
+export default function RegisterPersonProfile() {
   const [profileImage, setProfileImage] = useState<string | null>(null)
   const [profileTitle, setProfileTitle] = useState<string>('')
   const [collaborationValue, setCollaborationValue] = useState<string>('')
@@ -44,20 +44,14 @@ export default function OnBoardingStep3Person() {
 
   return (
     <>
-      <OnBoardingHeader />
-      <OnBoardingFooter />
       <div className="relative">
         <div className="fixed top-[4.5rem] z-40 h-[0.18rem] w-2/3 bg-[#2563EB]"></div>{' '}
       </div>
 
       <div className="flex w-full flex-col items-center py-16">
         <div className="flex w-[901px] flex-col items-center py-20">
-          <div className="flex w-full justify-between text-sm font-medium leading-9 text-grey60">
-            <span>가이드</span>
-            <span>3/3</span>
-          </div>
-
           <div className="flex w-full flex-col items-start leading-9">
+            <span className="text-sm font-medium leading-9 text-grey60">내 이력서 가이드</span>
             <span className="text-2xl font-bold">내 이력서가 거의 완성되었어요</span>
             <span className="text-grey60">다른사람들이 보는 나의 프로필이예요 수정할 사항을 완성해주세요</span>
           </div>
@@ -199,8 +193,19 @@ export default function OnBoardingStep3Person() {
                   placeholder="스킬셋 (최대 20자)"
                 />
               </div>
-              {/*  */}
             </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
+          <div className="flex justify-end p-4 pr-96">
+            <Link href="/onBoarding/project">
+              <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">이전</button>
+            </Link>
+            <Link href="/onBoarding/person/role">
+              <button className="mr-4 rounded px-16 py-2">다음</button>
+            </Link>
           </div>
         </div>
       </div>
