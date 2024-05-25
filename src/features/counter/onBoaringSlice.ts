@@ -12,6 +12,18 @@ const initialState: OnboardingState = {
   selectedLongTermFields: [],
   selectedPosition: [],
   selectedSkills: [],
+  educationList: [],
+}
+interface Education {
+  schoolName: string
+  major: string
+  startYear: string
+  endYear: string
+  status: string
+}
+
+interface OnboardingState {
+  educationList: Education[]
 }
 
 const onboardingSlice = createSlice({
@@ -30,9 +42,21 @@ const onboardingSlice = createSlice({
     setSelectedSkills: (state, action: PayloadAction<string[]>) => {
       state.selectedSkills = action.payload
     },
+
+    // Education
+    addEducation: (state, action: PayloadAction<Education>) => {
+      state.educationList.push(action.payload)
+    },
+    editEducation: (state, action: PayloadAction<{ index: number; education: Education }>) => {
+      state.educationList[action.payload.index] = action.payload.education
+    },
+    deleteEducation: (state, action: PayloadAction<number>) => {
+      state.educationList.splice(action.payload, 1)
+    },
   },
 })
 
+export const { addEducation, editEducation, deleteEducation } = onboardingSlice.actions
 export const { setSelectedShortTermFields, setSelectedLongTermFields, setSelectedPosition, setSelectedSkills } =
   onboardingSlice.actions
 

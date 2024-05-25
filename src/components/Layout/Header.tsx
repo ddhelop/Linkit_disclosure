@@ -55,7 +55,7 @@ export default function Example() {
 
   if (paths.includes(pathname)) return null
 
-  const hiddenPaths = ['/onBoarding/person/project']
+  const hiddenPaths = ['/onBoarding/person/project', '/onBoarding/person/role', '/onBoarding/person/school']
 
   return (
     <nav className="fixed top-0 z-[100] w-full flex-shrink bg-white-alpha-20 shadow-soft-shadow backdrop-blur-lg">
