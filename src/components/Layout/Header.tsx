@@ -14,15 +14,7 @@ export default function Example() {
   const { accessToken } = useAppSelector((state) => state.auth)
 
   const pathname = usePathname()
-  const paths = [
-    '/login',
-    '/onBoarding',
-    '/onBoarding/step1',
-    '/onBoarding/step2',
-    '/onBoarding/step2/person',
-    '/onBoarding/step2/team',
-    '/onBoarding/step3/person',
-  ]
+  const paths = ['/login', '']
 
   useEffect(() => {
     // 컴포넌트가 마운트될 때 Redux 상태 초기화
@@ -63,6 +55,8 @@ export default function Example() {
 
   if (paths.includes(pathname)) return null
 
+  const hiddenPaths = ['/onBoarding/person/project']
+
   return (
     <nav className="fixed top-0 z-[100] w-full flex-shrink bg-white-alpha-20 shadow-soft-shadow backdrop-blur-lg">
       <div className="mx-auto flex max-w-full items-center justify-between p-[16px] lg:p-6 lg:pl-40 lg:pr-20">
@@ -71,17 +65,19 @@ export default function Example() {
             <Image src="/assets/icons/headerLogo.svg" width={110} height={20} alt="logo" />
           </Link>
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-between">
-          <Link href="#" className="text-lg font-medium leading-5 text-grey100">
-            창업/공모전 정보
-          </Link>
-          <Link href="#" className="text-lg font-medium leading-5 text-grey100">
-            팀원 찾기
-          </Link>
-          <Link href="#" className="text-lg font-medium leading-5 text-grey100">
-            팀 찾기
-          </Link>
-        </div>
+        {!hiddenPaths.includes(pathname) && (
+          <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-between">
+            <Link href="#" className="text-lg font-medium leading-5 text-grey100">
+              창업/공모전 정보
+            </Link>
+            <Link href="#" className="text-lg font-medium leading-5 text-grey100">
+              팀원 찾기
+            </Link>
+            <Link href="#" className="text-lg font-medium leading-5 text-grey100">
+              팀 찾기
+            </Link>
+          </div>
+        )}
         <div className="flex gap-10 lg:flex-1 lg:justify-end">
           {/* 액세스토큰 유무 UI  */}
           {accessToken ? (

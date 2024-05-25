@@ -7,13 +7,10 @@ export default function Footer() {
   const paths = [
     '/',
     '/login',
-    '/onBoarding',
-    '/onBoarding/step1',
-    '/onBoarding/step2',
-    '/onBoarding/step2/person',
-    '/onBoarding/step2/team',
-    '/onBoarding/step3/person',
-    '/onBoarding/step3/team',
+    '/onBoarding/select',
+    '/onBoarding/person/project',
+    '/onBoarding/person/role',
+    '/onBoarding/person/school',
   ]
 
   if (paths.includes(pathname)) return null

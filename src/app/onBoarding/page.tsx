@@ -1,4 +1,4 @@
-import OnBoardingPrivateInfo from '@/components/OnBoarding/private/OnBoardingPrivateInfo'
+import OnBoardingPrivateInfo from '@/components/OnBoarding/OnBoardingPrivateInfo'
 
 export default function onBoardingPrivateInfoPage() {
   return (
