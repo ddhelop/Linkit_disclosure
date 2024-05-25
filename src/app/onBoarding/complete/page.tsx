@@ -1,9 +1,9 @@
-import RegisterCareer from '@/components/OnBoarding/private/Career'
+import CompleteOnBoarding from '@/components/OnBoarding/CompleteOnBoarding'
 
 export default function OnBoardingStep2PersonPage() {
   return (
     <div className="">
-      <RegisterCareer />
+      <CompleteOnBoarding />
     </div>
   )
 }
