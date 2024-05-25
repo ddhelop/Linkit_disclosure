@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { AppDispatch, RootState } from '@/app/store'
 import React, { useState } from 'react'
-import { addEducation, deleteEducation, editEducation } from '@/features/counter/onBoaringSlice'
+import { addEducation, deleteEducation, editEducation } from '@/features/counter/onBoardingSlice'
 
 interface FormInputs {
   schoolName: string

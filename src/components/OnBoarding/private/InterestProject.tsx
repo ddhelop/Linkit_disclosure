@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import Link from 'next/link'
 import { AppDispatch, RootState } from '@/app/store'
-import { setSelectedLongTermFields, setSelectedShortTermFields } from '@/features/counter/onBoaringSlice'
+import { setSelectedLongTermFields, setSelectedShortTermFields } from '@/features/counter/onBoardingSlice'
 
 const ShortTerm = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
 const LongTerm = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']

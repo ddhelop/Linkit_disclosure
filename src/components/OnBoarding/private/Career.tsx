@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { AppDispatch, RootState } from '@/app/store'
 import React, { useState, useEffect } from 'react'
-import { addCareer, deleteCareer, editCareer } from '@/features/counter/onBoaringSlice'
+import { addCareer, deleteCareer, editCareer } from '@/features/counter/onBoardingSlice'
 
 interface FormInputs {
   companyName: string

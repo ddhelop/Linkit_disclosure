@@ -61,6 +61,9 @@ export default function Example() {
     '/onBoarding/person/school',
     '/onBoarding/person/career',
     '/onBoarding/person/profile',
+
+    '/onBoarding/team/teamCategory',
+
     '/onBoarding/complete',
   ]
 

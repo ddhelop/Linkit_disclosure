@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 import { AppDispatch, RootState } from '@/app/store'
-import { setSelectedPosition, setSelectedSkills } from '@/features/counter/onBoaringSlice'
+import { setSelectedPosition, setSelectedSkills } from '@/features/counter/onBoardingSlice'
 
 const Positions = ['기획자', 'SW 개발자', '디자이너', '리서처', '마케터', '데이터 분석', '기타']
 const Skills = [
