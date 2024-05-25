@@ -11,6 +11,7 @@ export default function Footer() {
     '/onBoarding/person/project',
     '/onBoarding/person/role',
     '/onBoarding/person/school',
+    '/onBoarding/person/career',
   ]
 
   if (paths.includes(pathname)) return null

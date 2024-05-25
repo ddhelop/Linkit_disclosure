@@ -1,19 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface OnboardingState {
-  selectedShortTermFields: string[]
-  selectedLongTermFields: string[]
-  selectedPosition: string[]
-  selectedSkills: string[]
-}
-
-const initialState: OnboardingState = {
-  selectedShortTermFields: [],
-  selectedLongTermFields: [],
-  selectedPosition: [],
-  selectedSkills: [],
-  educationList: [],
-}
 interface Education {
   schoolName: string
   major: string
@@ -22,8 +8,32 @@ interface Education {
   status: string
 }
 
+interface Career {
+  companyName: string
+  position: string
+  startYear: string
+  startMonth: string
+  endYear: string
+  endMonth: string
+  status: string
+}
+
 interface OnboardingState {
+  selectedShortTermFields: string[]
+  selectedLongTermFields: string[]
+  selectedPosition: string[]
+  selectedSkills: string[]
   educationList: Education[]
+  careerList: Career[]
+}
+
+const initialState: OnboardingState = {
+  selectedShortTermFields: [],
+  selectedLongTermFields: [],
+  selectedPosition: [],
+  selectedSkills: [],
+  educationList: [],
+  careerList: [],
 }
 
 const onboardingSlice = createSlice({
@@ -53,11 +63,31 @@ const onboardingSlice = createSlice({
     deleteEducation: (state, action: PayloadAction<number>) => {
       state.educationList.splice(action.payload, 1)
     },
+
+    // Career
+    addCareer: (state, action: PayloadAction<Career>) => {
+      state.careerList.push(action.payload)
+    },
+    editCareer: (state, action: PayloadAction<{ index: number; career: Career }>) => {
+      state.careerList[action.payload.index] = action.payload.career
+    },
+    deleteCareer: (state, action: PayloadAction<number>) => {
+      state.careerList.splice(action.payload, 1)
+    },
   },
 })
 
-export const { addEducation, editEducation, deleteEducation } = onboardingSlice.actions
-export const { setSelectedShortTermFields, setSelectedLongTermFields, setSelectedPosition, setSelectedSkills } =
-  onboardingSlice.actions
+export const {
+  setSelectedShortTermFields,
+  setSelectedLongTermFields,
+  setSelectedPosition,
+  setSelectedSkills,
+  addEducation,
+  editEducation,
+  deleteEducation,
+  addCareer,
+  editCareer,
+  deleteCareer,
+} = onboardingSlice.actions
 
 export default onboardingSlice.reducer
