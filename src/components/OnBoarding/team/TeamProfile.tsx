@@ -1,65 +1,67 @@
 'use client'
 import Image from 'next/image'
-import { useState } from 'react'
-import OnBoardingHeader from '../../Layout/onBoardingHeader'
-import OnBoardingFooter from '../../Layout/onBoardingFooter'
+import Link from 'next/link'
+import { useForm, Controller } from 'react-hook-form'
+import { ChangeEvent } from 'react'
 
-export default function OnBoardingStep3Team() {
-  const [profileImage, setProfileImage] = useState<string | null>(null)
-  const [profileTitle, setProfileTitle] = useState<string>('')
-  const [collaborationValue, setCollaborationValue] = useState<string>('')
-  const [skills, setSkills] = useState<string>('')
+interface FormInputs {
+  profileTitle: string
+  collaborationValue: string
+  skills: string
+  year: string
+  month: string
+  day: string
+  profileImage?: string
+}
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+export default function TeamProfile() {
+  const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
+    defaultValues: {
+      profileTitle: '',
+      collaborationValue: '',
+      skills: '',
+      year: '',
+      month: '',
+      day: '',
+    },
+  })
+
+  const profileTitle = watch('profileTitle')
+  const collaborationValue = watch('collaborationValue')
+  const skills = watch('skills')
+  const year = watch('year')
+  const month = watch('month')
+  const day = watch('day')
+  const profileImage = watch('profileImage')
+
+  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
       const reader = new FileReader()
       reader.onloadend = () => {
-        setProfileImage(reader.result as string)
+        setValue('profileImage', reader.result as string)
       }
       reader.readAsDataURL(file)
     }
   }
 
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    if (value.length <= 20) {
-      setProfileTitle(value)
-    }
-  }
+  const isNextButtonEnabled = profileTitle && collaborationValue && skills && year && month && day
 
-  const handleCollaborationValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    if (value.length <= 20) {
-      setCollaborationValue(value)
-    }
-  }
-
-  const handleSkillsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    if (value.length <= 20) {
-      setSkills(value)
-    }
+  const onSubmit = (data: FormInputs) => {
+    console.log(data)
   }
 
   return (
     <>
-      <OnBoardingHeader />
-      <OnBoardingFooter />
       <div className="relative">
         <div className="fixed top-[4.5rem] z-40 h-[0.18rem] w-2/3 bg-[#2563EB]"></div>{' '}
       </div>
 
       <div className="flex w-full flex-col items-center py-16">
         <div className="flex w-[901px] flex-col items-center py-20">
-          <div className="flex w-full justify-between text-sm font-medium leading-9 text-grey60">
-            <span>가이드</span>
-            <span>3/3</span>
-          </div>
-
           <div className="flex w-full flex-col items-start leading-9">
-            <span className="text-2xl font-bold">내 이력서가 거의 완성되었어요</span>
-            <span className="text-grey60">다른사람들이 보는 나의 프로필이예요 수정할 사항을 완성해주세요</span>
+            <span className="text-2xl font-bold">팀 이력서가 거의 완성되었어요</span>
+            <span className="text-grey60">다른사람들이 보는 팀 프로필이예요. 수정할 사항을 완성해주세요</span>
           </div>
 
           <div className="flex w-full justify-between gap-14 pt-12">
@@ -92,17 +94,22 @@ export default function OnBoardingStep3Team() {
             </div>
 
             {/* right */}
-            <div className="flex w-[30.7rem] flex-col gap-11">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex w-[30.7rem] flex-col gap-11">
               {/* 제목 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  나의 프로필 제목을 입력해주세요 <span className="font-sm text-[#FF345F]">*</span>
+                  제목을 입력해주세요 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
-                <input
-                  className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
-                  value={profileTitle}
-                  onChange={handleTitleChange}
-                  placeholder="프로필 제목 (최대 20자)"
+                <Controller
+                  name="profileTitle"
+                  control={control}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
+                      placeholder="프로필 제목 (최대 20자)"
+                    />
+                  )}
                 />
               </div>
 
@@ -112,27 +119,46 @@ export default function OnBoardingStep3Team() {
                   공고 업로드 기간 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
                 <div className="mt-[1.19rem] flex items-center gap-3">
-                  <input
-                    type="number"
-                    defaultValue={2024}
-                    className="h-8 w-[5.5rem] rounded border border-grey30 px-[0.88rem] text-center"
+                  <Controller
+                    name="year"
+                    control={control}
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        type="number"
+                        defaultValue={2024}
+                        className="h-8 w-[5.5rem] rounded border border-grey30 px-[0.88rem] text-center"
+                      />
+                    )}
                   />
-                  <select className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60">
-                    <option value="">월</option>
-                    {[...Array(12).keys()].map((month) => (
-                      <option key={month + 1} value={month + 1}>
-                        {month + 1}월
-                      </option>
-                    ))}
-                  </select>
-                  <select className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60">
-                    <option value="">일</option>
-                    {[...Array(31).keys()].map((d) => (
-                      <option key={d + 1} value={d + 1}>
-                        {d + 1}일
-                      </option>
-                    ))}
-                  </select>
+                  <Controller
+                    name="month"
+                    control={control}
+                    render={({ field }) => (
+                      <select {...field} className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60">
+                        <option value="">월</option>
+                        {[...Array(12).keys()].map((month) => (
+                          <option key={month + 1} value={month + 1}>
+                            {month + 1}월
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                  />
+                  <Controller
+                    name="day"
+                    control={control}
+                    render={({ field }) => (
+                      <select {...field} className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60">
+                        <option value="">일</option>
+                        {[...Array(31).keys()].map((d) => (
+                          <option key={d + 1} value={d + 1}>
+                            {d + 1}일
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                  />
                   <div className="flex items-center gap-4">
                     <label className="flex items-center">
                       <input
@@ -176,11 +202,16 @@ export default function OnBoardingStep3Team() {
                 <span className="font-semibold text-grey100">
                   팀을 홍보할 수 있는 가치를 써주세요 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
-                <input
-                  className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
-                  value={collaborationValue}
-                  onChange={handleCollaborationValueChange}
-                  placeholder="빠르게 성장하는 팀, 최단기간 투자유치 달성 (최대 40자)"
+                <Controller
+                  name="collaborationValue"
+                  control={control}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
+                      placeholder="빠르게 성장하는 팀, 최단기간 투자유치 달성 (최대 40자)"
+                    />
+                  )}
                 />
               </div>
 
@@ -189,15 +220,37 @@ export default function OnBoardingStep3Team() {
                 <span className="font-semibold text-grey100">
                   팀의 세부정보 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
-                <input
-                  className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
-                  value={skills}
-                  onChange={handleSkillsChange}
-                  placeholder="팀 세부정보 (최대 20자)"
+                <Controller
+                  name="skills"
+                  control={control}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
+                      placeholder="팀 세부정보 (최대 20자)"
+                    />
+                  )}
                 />
               </div>
-              {/*  */}
-            </div>
+
+              {/* Footer */}
+              <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
+                <div className="flex justify-end p-4 pr-96">
+                  <Link href="/onBoarding/select">
+                    <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">이전</button>
+                  </Link>
+                  <button
+                    type="submit"
+                    className={`mr-4 rounded px-16 py-2 ${
+                      isNextButtonEnabled ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
+                    }`}
+                    disabled={!isNextButtonEnabled}
+                  >
+                    다음
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

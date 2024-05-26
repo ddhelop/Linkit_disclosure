@@ -65,6 +65,7 @@ export default function Example() {
     '/onBoarding/team/teamCategory',
     '/onBoarding/team/activityWay',
     '/onBoarding/team/member',
+    '/onBoarding/team/profile',
 
     '/onBoarding/complete',
   ]

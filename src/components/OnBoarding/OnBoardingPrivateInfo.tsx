@@ -35,7 +35,6 @@ export default function OnBoardingPrivateInfo() {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           Authorization: accessToken ? `Bearer ${accessToken}` : '',
-          // Cookie: `refresh-token=${refreshToken}`,
         },
         body: JSON.stringify({
           memberName: data.memberName,
@@ -45,12 +44,9 @@ export default function OnBoardingPrivateInfo() {
         }),
         credentials: 'include', // 쿠키를 포함시키기 위해 필요
       })
-
+      console.log(response)
+      router.push('/onBoarding/select')
       if (response.ok) {
-        const responseData = await response.json()
-        console.log('Success:', responseData)
-        // handle successful submission
-        router.push('/onBoarding/step1')
       } else {
         // handle unsuccessful submission
         console.error('Submission failed')
