@@ -1,8 +1,8 @@
 'use client'
-import { useDispatch, useSelector } from 'react-redux'
+
 import Link from 'next/link'
-import { AppDispatch, RootState } from '@/app/store'
-import { setSelectedPosition, setSelectedSkills } from '@/features/counter/onBoardingSlice'
+import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 
 const Positions = ['기획자', 'SW 개발자', '디자이너', '리서처', '마케터', '데이터 분석', '기타']
 const Skills = [
@@ -20,9 +20,36 @@ const Skills = [
   '디자이너 기술6',
 ]
 
+interface FormValues {
+  selectedRoleFields: string[]
+  selectedSkillFields: string[]
+}
+
 export default function Role() {
-  const dispatch = useDispatch<AppDispatch>()
-  const { selectedPosition, selectedSkills } = useSelector((state: RootState) => state.onBoarding)
+  const {
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>()
+  const [selectedRoleFields, setSelectedRoleFields] = useState<string[]>([])
+  const [selectedSkillFields, setSelectedSkillFields] = useState<string[]>([])
+
+  // 포지션 토글
+  const toggleRoleSelection = (field: string) => {
+    setSelectedRoleFields((prevSelected) =>
+      prevSelected.includes(field) ? prevSelected.filter((item) => item !== field) : [...prevSelected, field],
+    )
+  }
+
+  // 기술 토글
+  const toggleSkillSelection = (field: string) => {
+    setSelectedSkillFields((prevSelected) =>
+      prevSelected.includes(field) ? prevSelected.filter((item) => item !== field) : [...prevSelected, field],
+    )
+  }
+
+  const onSubmit = (data: FormValues) => {
+    // API 미완성
+  }
 
   return (
     <div className="flex h-screen flex-col pt-[69px]">
@@ -41,20 +68,8 @@ export default function Role() {
             {Positions.map((el, index) => (
               <button
                 key={index}
-                className={`border px-3 py-1 ${
-                  selectedPosition.includes(el)
-                    ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]'
-                    : 'border-[#CBD4E1] text-[#64748B]'
-                } rounded-md`}
-                onClick={() =>
-                  dispatch(
-                    setSelectedPosition(
-                      selectedPosition.includes(el)
-                        ? selectedPosition.filter((v) => v !== el)
-                        : [...selectedPosition, el],
-                    ),
-                  )
-                }
+                className={`rounded-md border px-3 py-1 ${selectedRoleFields.includes(el) ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]' : 'border-[#CBD4E1] text-[#64748B]'}`}
+                onClick={() => toggleRoleSelection(el)}
               >
                 {el}
               </button>
@@ -70,18 +85,8 @@ export default function Role() {
             {Skills.map((el, index) => (
               <button
                 key={index}
-                className={`mb-2 border px-3 py-1 ${
-                  selectedSkills.includes(el)
-                    ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]'
-                    : 'border-[#CBD4E1] text-[#64748B]'
-                } rounded-md`}
-                onClick={() =>
-                  dispatch(
-                    setSelectedSkills(
-                      selectedSkills.includes(el) ? selectedSkills.filter((v) => v !== el) : [...selectedSkills, el],
-                    ),
-                  )
-                }
+                className={`mt-2 rounded-md border px-3 py-1 ${selectedSkillFields.includes(el) ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]' : 'border-[#CBD4E1] text-[#64748B]'}`}
+                onClick={() => toggleSkillSelection(el)}
               >
                 {el}
               </button>
@@ -89,25 +94,21 @@ export default function Role() {
           </div>
         </div>
         {/* Footer */}
-        <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
           <div className="flex justify-end p-4 pr-96">
             <Link href="/onBoarding/project">
               <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">이전</button>
             </Link>
-            <Link href="/onBoarding/person/role">
-              <button
-                className={`mr-4 rounded px-16 py-2 ${
-                  selectedPosition.length > 0 && selectedSkills.length > 0
-                    ? 'bg-[#2563EB] text-[#fff]'
-                    : 'bg-[#7EA5F8] text-[#fff]'
-                }`}
-                disabled={!(selectedPosition.length > 0 && selectedSkills.length > 0)}
-              >
-                다음
-              </button>
-            </Link>
+
+            <button
+              className={`${selectedRoleFields.length > 0 && selectedSkillFields.length > 0 ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} mr-4 rounded  px-16 py-2 text-[#fff]`}
+              disabled={!(selectedRoleFields.length > 0 && selectedSkillFields.length > 0)}
+              type="submit"
+            >
+              다음
+            </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   )

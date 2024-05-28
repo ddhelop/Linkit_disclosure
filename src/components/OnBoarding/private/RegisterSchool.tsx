@@ -1,11 +1,10 @@
 'use client'
-import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { AppDispatch, RootState } from '@/app/store'
 import React, { useState } from 'react'
-import { addEducation, deleteEducation, editEducation } from '@/features/counter/onBoardingSlice'
+import { useRecoilState } from 'recoil'
+import { educationListState } from '@/context/recoil-context'
 
 interface FormInputs {
   schoolName: string
@@ -16,17 +15,16 @@ interface FormInputs {
 }
 
 export default function RegisterSchool() {
-  const dispatch = useDispatch<AppDispatch>()
-  const { educationList } = useSelector((state: RootState) => state.onBoarding)
+  const [educationList, setEducationList] = useRecoilState(educationListState)
   const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     if (editingIndex !== null) {
-      dispatch(editEducation({ index: editingIndex, education: data }))
+      setEducationList((prev) => prev.map((education, index) => (index === editingIndex ? data : education)))
       setEditingIndex(null)
     } else {
-      dispatch(addEducation(data))
+      setEducationList((prev) => [...prev, data])
     }
     reset()
   }
@@ -43,7 +41,7 @@ export default function RegisterSchool() {
 
   const handleDelete = (index: number) => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
-      dispatch(deleteEducation(index))
+      setEducationList((prev) => prev.filter((_, i) => i !== index))
       if (index === editingIndex) {
         setEditingIndex(null)
         reset()

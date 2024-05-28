@@ -1,57 +1,18 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './Example.css' // CSS 스타일은 파일에 포함되어 있어야 합니다.
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { useAppDispatch, useAppSelector } from '@/hooks'
-import { setSimpleAuthData, initializeAuth } from '@/features/auth/authSlice'
+
 import DropdownMenu from './HeaderModal'
 
-export default function Example() {
+export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const dispatch = useAppDispatch()
-  const { accessToken } = useAppSelector((state) => state.auth)
+  const accessToken = window.localStorage.getItem('accessToken')
 
   const pathname = usePathname()
   const paths = ['/login', '']
-
-  useEffect(() => {
-    // 컴포넌트가 마운트될 때 Redux 상태 초기화
-    dispatch(initializeAuth())
-  }, [dispatch])
-
-  // 액세스토큰이 있는 경우에만 실행
-  useEffect(() => {
-    const refreshTokenCheck = async () => {
-      if (!accessToken) return // accessToken이 없는 경우 실행하지 않음
-
-      // API 라우트를 설정하여 Refresh token을 재발급
-      try {
-        const response = await fetch('https://dev.linkit.im/token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`,
-          },
-          credentials: 'include', // 쿠키를 포함시키기 위해 필요
-        })
-
-        console.log('Refresh token response:', response)
-        const data = await response.json()
-
-        dispatch(
-          setSimpleAuthData({
-            accessToken: data.accessToken,
-          }),
-        )
-      } catch (error) {
-        console.error('Failed to refresh token', error)
-      }
-    }
-
-    refreshTokenCheck()
-  }, [accessToken, dispatch])
 
   if (paths.includes(pathname)) return null
 
@@ -68,6 +29,7 @@ export default function Example() {
     '/onBoarding/team/profile',
 
     '/onBoarding/complete',
+    '/onBoarding',
   ]
 
   return (

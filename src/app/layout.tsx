@@ -6,7 +6,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 import './globals.css'
 import Scripts from '@/components/script'
-import { store } from './store'
+
 import ClientProvider from '@/components/common/ClientProvider'
 
 export const metadata: Metadata = {

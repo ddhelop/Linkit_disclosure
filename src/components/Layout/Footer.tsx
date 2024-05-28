@@ -6,6 +6,7 @@ export default function Footer() {
   const pathname = usePathname()
   const paths = [
     '/',
+    '/onBoarding',
     '/login',
     '/onBoarding/select',
     '/onBoarding/person/project',

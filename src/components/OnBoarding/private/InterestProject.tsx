@@ -1,18 +1,41 @@
 'use client'
-import { useDispatch, useSelector } from 'react-redux'
-
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import Link from 'next/link'
-import { AppDispatch, RootState } from '@/app/store'
-import { setSelectedLongTermFields, setSelectedShortTermFields } from '@/features/counter/onBoardingSlice'
 
-const ShortTerm = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
-const LongTerm = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
+const ShortTerm: string[] = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
+
+interface FormValues {
+  selectedShortTermFields: string[]
+}
 
 export default function InterestProject() {
-  const dispatch = useDispatch<AppDispatch>()
-  const { selectedShortTermFields, selectedLongTermFields } = useSelector((state: RootState) => state.onBoarding)
+  const {
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>()
+  const [selectedShortTermFields, setSelectedShortTermFields] = useState<string[]>([])
 
-  const isNextButtonEnabled = selectedShortTermFields.length > 0 || selectedLongTermFields.length > 0
+  const onSubmit = (data: FormValues) => {
+    const response = fetch(`https://dev.linkit.im/profile_team_building_field`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+      },
+      body: JSON.stringify({
+        teamBuildingFieldNames: selectedShortTermFields,
+      }),
+      credentials: 'include', // 쿠키를 포함시키기 위해 필요
+    })
+    console.log('response', response)
+  }
+
+  const toggleSelection = (field: string) => {
+    setSelectedShortTermFields((prevSelected) =>
+      prevSelected.includes(field) ? prevSelected.filter((item) => item !== field) : [...prevSelected, field],
+    )
+  }
 
   return (
     <div>
@@ -35,73 +58,39 @@ export default function InterestProject() {
               {ShortTerm.map((el, index) => (
                 <button
                   key={index}
+                  type="button"
+                  onClick={() => toggleSelection(el)}
                   className={`border px-3 py-1 ${
                     selectedShortTermFields.includes(el)
                       ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]'
                       : 'border-[#CBD4E1] text-[#64748B]'
                   } rounded-md`}
-                  onClick={() =>
-                    dispatch(
-                      setSelectedShortTermFields(
-                        selectedShortTermFields.includes(el)
-                          ? selectedShortTermFields.filter((v) => v !== el)
-                          : [...selectedShortTermFields, el],
-                      ),
-                    )
-                  }
                 >
                   {el}
                 </button>
               ))}
             </div>
           </div>
-          {/* 장기 */}
-          <div className="flex w-[80%] flex-col pt-16 sm:w-[55%]">
-            <span className="text-lg font-bold leading-5">
-              장기 <span className=" text-sm font-normal text-grey80">(2개월 이상)</span>
-            </span>
-            <div className="flex gap-x-2 pt-5">
-              {LongTerm.map((el, index) => (
-                <button
-                  key={index}
-                  className={`border px-3 py-1 ${
-                    selectedLongTermFields.includes(el)
-                      ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]'
-                      : 'border-[#CBD4E1] text-[#64748B]'
-                  } rounded-md`}
-                  onClick={() =>
-                    dispatch(
-                      setSelectedLongTermFields(
-                        selectedLongTermFields.includes(el)
-                          ? selectedLongTermFields.filter((v) => v !== el)
-                          : [...selectedLongTermFields, el],
-                      ),
-                    )
-                  }
-                >
-                  {el}
-                </button>
-              ))}
-            </div>
-          </div>
+
           {/* Footer */}
-          <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
-            <div className="flex justify-end p-4 pr-96">
-              <Link href="/onBoarding/select">
-                <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">이전</button>
-              </Link>
-              <Link href="/onBoarding/person/role">
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+            <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
+              <div className="flex justify-end p-4 pr-96">
+                <Link href="/onBoarding/select">
+                  <button type="button" className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">
+                    이전
+                  </button>
+                </Link>
                 <button
-                  className={`mr-4 rounded px-16 py-2 ${
-                    isNextButtonEnabled ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
-                  }`}
-                  disabled={!isNextButtonEnabled}
+                  type="submit"
+                  className={`${selectedShortTermFields.length > 0 ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} mr-4 rounded  px-16 py-2 text-[#fff]`}
+                  disabled={!(selectedShortTermFields.length > 0)}
                 >
                   다음
                 </button>
-              </Link>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

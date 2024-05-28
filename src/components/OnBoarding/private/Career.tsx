@@ -1,11 +1,10 @@
 'use client'
-import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { AppDispatch, RootState } from '@/app/store'
 import React, { useState, useEffect } from 'react'
-import { addCareer, deleteCareer, editCareer } from '@/features/counter/onBoardingSlice'
+import { useRecoilState } from 'recoil'
+import { careerListState } from '@/context/recoil-context'
 
 interface FormInputs {
   companyName: string
@@ -18,8 +17,7 @@ interface FormInputs {
 }
 
 export default function RegisterCareer() {
-  const dispatch = useDispatch<AppDispatch>()
-  const { careerList } = useSelector((state: RootState) => state.onBoarding)
+  const [careerList, setCareerList] = useRecoilState(careerListState)
   const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
 
@@ -37,11 +35,12 @@ export default function RegisterCareer() {
   }, [editingIndex, setValue, careerList])
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    console.log(data)
     if (editingIndex !== null) {
-      dispatch(editCareer({ index: editingIndex, career: data }))
+      setCareerList((prev) => prev.map((career, index) => (index === editingIndex ? data : career)))
       setEditingIndex(null)
     } else {
-      dispatch(addCareer(data))
+      setCareerList((prev) => [...prev, data])
     }
     reset()
   }
@@ -52,7 +51,7 @@ export default function RegisterCareer() {
 
   const handleDelete = (index: number) => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
-      dispatch(deleteCareer(index))
+      setCareerList((prev) => prev.filter((_, i) => i !== index))
       if (index === editingIndex) {
         setEditingIndex(null)
         reset()

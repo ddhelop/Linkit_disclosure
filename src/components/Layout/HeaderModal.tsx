@@ -1,14 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useAppDispatch } from '@/hooks'
+
 import { clearAuthData } from '@/features/auth/authSlice'
 import { fetchWithCredentials } from '@/lib/fetchHelpers'
 
 const DropdownMenu = ({ accessToken }: { accessToken: string }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const dispatch = useAppDispatch()
 
   const handleOutsideClick = (e: MouseEvent) => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -33,7 +32,7 @@ const DropdownMenu = ({ accessToken }: { accessToken: string }) => {
 
     try {
       await fetchWithCredentials('https://dev.linkit.im/logout', 'DELETE', accessToken)
-      dispatch(clearAuthData())
+
       window.location.href = '/' // 로그아웃 후 로그인 페이지로 리다이렉트
     } catch (error) {
       console.error('Failed to logout', error)
