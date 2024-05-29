@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const ShortTerm: string[] = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
 
@@ -10,6 +11,7 @@ interface FormValues {
 }
 
 export default function InterestProject() {
+  const router = useRouter()
   const {
     handleSubmit,
     formState: { errors },
@@ -28,7 +30,7 @@ export default function InterestProject() {
       }),
       credentials: 'include', // 쿠키를 포함시키기 위해 필요
     })
-    console.log('response', response)
+    if (response) console.log('response', response)
   }
 
   const toggleSelection = (field: string) => {

@@ -32,7 +32,9 @@ export default function OnBoardingPrivateInfo() {
         }),
         credentials: 'include', // 쿠키를 포함시키기 위해 필요
       })
-      console.log('response', response)
+      if (response.status === 200 || response.status === 201 || response.status === 409) {
+        router.push('/onBoarding/select')
+      }
     } catch (error) {
       console.error('Error caught:', error)
       // handle error

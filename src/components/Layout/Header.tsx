@@ -20,6 +20,7 @@ export default function Header() {
     '/onBoarding/person/project',
     '/onBoarding/person/role',
     '/onBoarding/person/school',
+    '/onBoarding/person/location',
     '/onBoarding/person/career',
     '/onBoarding/person/profile',
 
