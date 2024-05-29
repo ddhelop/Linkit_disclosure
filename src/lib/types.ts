@@ -11,3 +11,20 @@ export interface AuthResponseData {
   email: string
   memberBasicInform: Record<string, any>
 }
+
+export interface Career {
+  companyName: string
+  position: string
+  startYear: string
+  startMonth: string
+  endYear: string
+  endMonth: string
+  status: string
+}
+export interface Education {
+  schoolName: string
+  major: string
+  startYear: string
+  endYear: string
+  status: string
+}

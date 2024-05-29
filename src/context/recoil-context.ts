@@ -1,23 +1,7 @@
+import { Career, Education } from '@/lib/types'
 import { atom } from 'recoil'
 import { recoilPersist } from 'recoil-persist'
 const { persistAtom } = recoilPersist()
-
-export interface Career {
-  companyName: string
-  position: string
-  startYear: string
-  startMonth: string
-  endYear: string
-  endMonth: string
-  status: string
-}
-export interface Education {
-  schoolName: string
-  major: string
-  startYear: string
-  endYear: string
-  status: string
-}
 
 export const educationListState = atom<Education[]>({
   key: 'educationListState',
@@ -35,4 +19,9 @@ export const careerListState = atom<Career[]>({
   key: 'careerListState',
   default: [],
   effects_UNSTABLE: [persistAtom],
+})
+
+export const accessTokenState = atom<string | null>({
+  key: 'accessTokenState',
+  default: null,
 })

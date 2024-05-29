@@ -8,6 +8,7 @@ import './globals.css'
 import Scripts from '@/components/script'
 
 import ClientProvider from '@/components/common/ClientProvider'
+import FetchSetting from '@/components/common/fetch/page'
 
 export const metadata: Metadata = {
   title: 'Linkit',
@@ -32,11 +33,13 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <ClientProvider>
-        <body className={`${pretendard.className}`}>
-          <Header />
-          {children}
-          <Footer />
-        </body>
+        <FetchSetting>
+          <body className={`${pretendard.className} bg-[#F6F8FC]`}>
+            <Header />
+            {children}
+            <Footer />
+          </body>
+        </FetchSetting>
       </ClientProvider>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
       <Scripts />
