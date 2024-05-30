@@ -53,7 +53,8 @@ const config: Config = {
         'alarm-shadow':
           '11.634px 6.648px 64.466px 0px rgba(36, 41, 62, 0.00), 11.634px 6.648px 64.466px 0px rgba(36, 41, 62, 0.10);',
         'gray-07': '151.669px 78.968px 171.689px 0px rgba(109, 114, 120, 0.25)',
-        'logo-shadow': '11.99px 5.595px 11.67px 0px rgba(53, 54, 66, 0.04);',
+        'logo-shadow': '11.99px 5.595px 11.67px 0px rgba(53, 54, 66, 0.04)',
+        'resume-box-shadow': '0px 9px 30px 0px rgba(31, 41, 53, 0.05);',
       },
       backdropFilter: {
         'blur-lg': 'blur(32px)',
