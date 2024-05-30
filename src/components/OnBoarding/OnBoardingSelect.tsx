@@ -4,7 +4,7 @@ import { motion, useAnimation } from 'framer-motion'
 import { useState } from 'react'
 import Link from 'next/link'
 
-export default function OnBoardingStep1() {
+export default function OnBoardingSelect() {
   const [isHovered, setIsHovered] = useState(false)
   const leftControls = useAnimation()
   const rightControls = useAnimation()
