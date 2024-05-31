@@ -39,8 +39,8 @@ export default function InterestProject() {
     formState: { errors },
   } = useForm<FormValues>()
 
-  const onSubmit = (data: FormValues) => {
-    const response = fetch(`https://dev.linkit.im/profile_team_building_field`, {
+  const onSubmit = async (data: FormValues) => {
+    const response = await fetch(`https://dev.linkit.im/profile_team_building_field`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -51,7 +51,10 @@ export default function InterestProject() {
       }),
       credentials: 'include', // 쿠키를 포함시키기 위해 필요
     })
-    if (response) console.log('response', response)
+
+    if (response.ok) {
+      router.push('/onBoarding/person/role')
+    }
   }
 
   const toggleSelection = (field: string) => {
