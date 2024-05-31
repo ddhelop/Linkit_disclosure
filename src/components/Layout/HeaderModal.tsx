@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-
-import { clearAuthData } from '@/features/auth/authSlice'
-import { fetchWithCredentials } from '@/lib/fetchHelpers'
+import { Logout } from '@/lib/action'
 
 const DropdownMenu = ({ accessToken }: { accessToken: string }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -31,9 +29,11 @@ const DropdownMenu = ({ accessToken }: { accessToken: string }) => {
     if (!accessToken) return // accessToken이 없는 경우 실행하지 않음
 
     try {
-      await fetchWithCredentials('https://dev.linkit.im/logout', 'DELETE', accessToken)
-
-      window.location.href = '/' // 로그아웃 후 로그인 페이지로 리다이렉트
+      const response = await Logout(accessToken)
+      if (response.ok) {
+        localStorage.removeItem('accessToken') // 로컬 스토리지에서 accessToken 제거
+        window.location.href = '/' // 로그아웃 후 로그인 페이지로 리다이렉트
+      }
     } catch (error) {
       console.error('Failed to logout', error)
     }
