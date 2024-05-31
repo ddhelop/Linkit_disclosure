@@ -1,8 +1,9 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { GetOnBoardingData } from '@/lib/action'
 
 const ShortTerm: string[] = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
 
@@ -12,18 +13,38 @@ interface FormValues {
 
 export default function InterestProject() {
   const router = useRouter()
+  const [selectedShortTermFields, setSelectedShortTermFields] = useState<string[]>([])
+  const accessToken = typeof window !== 'undefined' ? window.localStorage.getItem('accessToken') : null
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (accessToken) {
+        try {
+          const data = await GetOnBoardingData(accessToken)
+          console.log('onBoardingData', data)
+          if (data && data.profileTeamBuildingFieldResponse) {
+            const { teamBuildingFieldNames } = data.profileTeamBuildingFieldResponse
+            setSelectedShortTermFields(teamBuildingFieldNames)
+          }
+        } catch (error) {
+          console.error('Failed to fetch onboarding data', error)
+        }
+      }
+    }
+    fetchData()
+  }, [accessToken])
+
   const {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>()
-  const [selectedShortTermFields, setSelectedShortTermFields] = useState<string[]>([])
 
   const onSubmit = (data: FormValues) => {
     const response = fetch(`https://dev.linkit.im/profile_team_building_field`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
-        Authorization: `Bearer ${window.localStorage.getItem('accessToken')}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({
         teamBuildingFieldNames: selectedShortTermFields,

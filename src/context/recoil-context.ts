@@ -25,3 +25,8 @@ export const accessTokenState = atom<string | null>({
   key: 'accessTokenState',
   default: null,
 })
+
+export const myDataState = atom({
+  key: 'myDataState',
+  default: {},
+})
