@@ -13,18 +13,18 @@ export interface AuthResponseData {
 }
 
 export interface Career {
-  companyName: string
-  position: string
+  projectName: string
+  projectRole: string
   startYear: string
   startMonth: string
   endYear: string
   endMonth: string
-  status: string
+  retirement: boolean
 }
 export interface Education {
-  schoolName: string
-  major: string
-  startYear: string
-  endYear: string
-  status: string
+  universityName: string
+  majorName: string
+  admissionYear: string
+  graduationYear: string
+  degreeName: string
 }

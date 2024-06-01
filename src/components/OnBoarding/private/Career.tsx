@@ -1,51 +1,54 @@
 'use client'
-import Link from 'next/link'
 import Image from 'next/image'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React, { useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
-import { careerListState } from '@/context/recoil-context'
+import { accessTokenState, careerListState } from '@/context/recoil-context'
+import { PostAntecedentData } from '@/lib/action'
+import { useRouter } from 'next/navigation'
 
 interface FormInputs {
-  companyName: string
-  position: string
+  projectName: string
+  projectRole: string
   startYear: string
   startMonth: string
   endYear: string
   endMonth: string
-  status: string
+  retirement: boolean
 }
 
 export default function RegisterCareer() {
   const [careerList, setCareerList] = useRecoilState(careerListState)
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
   const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
+  const [isClient, setIsClient] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
-    if (editingIndex !== null) {
-      const career = careerList[editingIndex]
-      setValue('companyName', career.companyName)
-      setValue('position', career.position)
-      setValue('startYear', career.startYear)
-      setValue('startMonth', career.startMonth)
-      setValue('endYear', career.endYear)
-      setValue('endMonth', career.endMonth)
-      setValue('status', career.status)
-    }
-  }, [editingIndex, setValue, careerList])
+    setIsClient(true)
+  }, [])
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    console.log(data)
+    const formattedData = { ...data, retirement: data.retirement === true }
     if (editingIndex !== null) {
-      setCareerList((prev) => prev.map((career, index) => (index === editingIndex ? data : career)))
+      setCareerList((prev) => prev.map((career, index) => (index === editingIndex ? formattedData : career)))
       setEditingIndex(null)
     } else {
-      setCareerList((prev) => [...prev, data])
+      setCareerList((prev) => [...prev, formattedData])
     }
     reset()
   }
 
   const handleEdit = (index: number) => {
+    const career = careerList[index]
+    setValue('projectName', career.projectName)
+    setValue('projectRole', career.projectRole)
+    setValue('startYear', career.startYear)
+    setValue('startMonth', career.startMonth)
+    setValue('endYear', career.endYear)
+    setValue('endMonth', career.endMonth)
+    setValue('retirement', career.retirement)
     setEditingIndex(index)
   }
 
@@ -59,8 +62,35 @@ export default function RegisterCareer() {
     }
   }
 
+  const handleSave = async () => {
+    console.log('careerList', careerList)
+    if (accessToken) {
+      const response = await PostAntecedentData(accessToken, careerList)
+      if (response.ok) {
+        router.push('/onBoarding/person/profile')
+      }
+    }
+  }
+
+  const onClickPrev = async () => {
+    if (accessToken && careerList.length > 0) {
+      if (accessToken) {
+        const response = await PostAntecedentData(accessToken, careerList)
+        if (response.ok) {
+          router.push('/onBoarding/person/school')
+        }
+      }
+    } else {
+      router.push('/onBoarding/person/school')
+    }
+  }
+
+  if (!isClient) {
+    return null
+  }
+
   return (
-    <div className="flex flex-col py-[69px]">
+    <div className="flex flex-col bg-[#FCFCFD] py-[69px]">
       <div className="t-[69px] fixed h-[0.18rem] w-2/3 bg-[#2563EB]"></div>
       <div className="flex flex-grow flex-col items-center py-16">
         <div className="flex w-[80%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
@@ -74,10 +104,11 @@ export default function RegisterCareer() {
           <div key={index} className="mt-6 flex w-[55%] flex-col rounded-[0.63rem] border border-grey30 px-5 py-6">
             <div className="flex justify-between">
               <div className="flex flex-col">
-                <span className="font-semibold">{career.companyName}</span>
-                <span className="pt-2 text-sm text-grey60">{career.position}</span>
+                <span className="font-semibold">{career.projectName}</span>
+                <span className="pt-2 text-sm text-grey60">{career.projectRole}</span>
                 <span className="text-xs text-grey50">
-                  {career.startYear}.{career.startMonth} - {career.endYear}.{career.endMonth} ({career.status})
+                  {career.startYear}.{career.startMonth} - {career.endYear}.{career.endMonth} (
+                  {career.retirement ? '퇴직' : '재직중'})
                 </span>
               </div>
               <div className="flex items-center justify-end">
@@ -113,7 +144,7 @@ export default function RegisterCareer() {
                       type="text"
                       placeholder="ex. (주)링킷"
                       className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
-                      {...register('companyName', { required: true })}
+                      {...register('projectName', { required: true })}
                     />
                   </div>
 
@@ -125,7 +156,7 @@ export default function RegisterCareer() {
                       type="text"
                       placeholder="ex. Product Manager"
                       className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
-                      {...register('position', { required: true })}
+                      {...register('projectRole', { required: true })}
                     />
                   </div>
                 </div>
@@ -187,9 +218,9 @@ export default function RegisterCareer() {
                         <input
                           type="radio"
                           id="current"
-                          value="재직중"
+                          value="false"
                           className="mr-2"
-                          {...register('status', { required: true })}
+                          {...register('retirement', { required: true })}
                         />
                         <label htmlFor="current" className="text-sm text-grey100">
                           재직중
@@ -199,9 +230,9 @@ export default function RegisterCareer() {
                         <input
                           type="radio"
                           id="retired"
-                          value="퇴직"
+                          value="true"
                           className="ml-4 mr-2"
-                          {...register('status', { required: true })}
+                          {...register('retirement', { required: true })}
                         />
                         <label htmlFor="retired" className="text-sm text-grey100">
                           퇴직
@@ -234,7 +265,7 @@ export default function RegisterCareer() {
                 type="text"
                 placeholder="ex. (주)링킷"
                 className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
-                {...register('companyName', { required: true })}
+                {...register('projectName', { required: true })}
               />
             </div>
 
@@ -246,7 +277,7 @@ export default function RegisterCareer() {
                 type="text"
                 placeholder="ex. Product Manager"
                 className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
-                {...register('position', { required: true })}
+                {...register('projectRole', { required: true })}
               />
             </div>
           </div>
@@ -308,9 +339,9 @@ export default function RegisterCareer() {
                   <input
                     type="radio"
                     id="current"
-                    value="재직중"
+                    value="false"
                     className="mr-2"
-                    {...register('status', { required: true })}
+                    {...register('retirement', { required: true })}
                   />
                   <label htmlFor="current" className="text-sm text-grey100">
                     재직중
@@ -320,9 +351,9 @@ export default function RegisterCareer() {
                   <input
                     type="radio"
                     id="retired"
-                    value="퇴직"
+                    value="true"
                     className="ml-4 mr-2"
-                    {...register('status', { required: true })}
+                    {...register('retirement', { required: true })}
                   />
                   <label htmlFor="retired" className="text-sm text-grey100">
                     퇴직
@@ -339,19 +370,19 @@ export default function RegisterCareer() {
         {/* Footer */}
         <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
           <div className="flex justify-end p-4 pr-96">
-            <Link href="/onBoarding/project">
-              <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">이전</button>
-            </Link>
-            <Link href="/onBoarding/person/role">
-              <button
-                className={`mr-4 rounded px-16 py-2 ${
-                  careerList.length > 0 ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
-                }`}
-                disabled={careerList.length === 0}
-              >
-                다음
-              </button>
-            </Link>
+            <button onClick={onClickPrev} className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">
+              이전
+            </button>
+
+            <button
+              onClick={handleSave}
+              className={`mr-4 rounded px-16 py-2 ${
+                careerList.length > 0 ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
+              }`}
+              disabled={careerList.length === 0}
+            >
+              다음
+            </button>
           </div>
         </div>
       </div>

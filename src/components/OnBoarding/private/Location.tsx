@@ -1,6 +1,6 @@
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
-import { PostProfileRegion } from '@/lib/action'
+import { GetOnBoardingData, PostProfileRegion } from '@/lib/action'
 import { addressData } from '@/lib/addressSelectData'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -29,12 +29,32 @@ export default function Location() {
     }
   }, [accessToken, router])
 
+  // 온보딩 데이터 fetch
+  useEffect(() => {
+    if (accessToken) {
+      GetOnBoardingData(accessToken).then((data) => {
+        console.log(data)
+      })
+    }
+  }, [accessToken])
+
   const onSubmit = async () => {
     if (accessToken) {
       const response = await PostProfileRegion(accessToken, selectedArea, selectedSubArea)
       if (response.ok) {
         router.push('/onBoarding/person/role')
       }
+    }
+  }
+
+  const onClickPrev = async () => {
+    if (accessToken && selectedArea && selectedSubArea) {
+      const response = await PostProfileRegion(accessToken, selectedArea, selectedSubArea)
+      if (response.ok) {
+        router.push('/onBoarding/person/project')
+      }
+    } else {
+      router.push('/onBoarding/person/project')
     }
   }
 
@@ -116,11 +136,14 @@ export default function Location() {
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
               <div className="flex justify-end p-4 pr-96">
-                <Link href="/">
-                  <button type="button" className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">
-                    이전
-                  </button>
-                </Link>
+                <button
+                  type="button"
+                  onClick={onClickPrev}
+                  className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2"
+                >
+                  이전
+                </button>
+
                 <button
                   type="submit"
                   className={`${isNextButtonEnabled ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} mr-4 rounded px-16 py-2 text-[#fff]`}

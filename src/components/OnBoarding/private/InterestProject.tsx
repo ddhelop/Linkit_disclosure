@@ -24,7 +24,7 @@ export default function InterestProject() {
           console.log('onBoardingData', data)
           if (data && data.profileTeamBuildingFieldResponse) {
             const { teamBuildingFieldNames } = data.profileTeamBuildingFieldResponse
-            setSelectedShortTermFields(teamBuildingFieldNames)
+            setSelectedShortTermFields(teamBuildingFieldNames ?? [])
           }
         } catch (error) {
           console.error('Failed to fetch onboarding data', error)
@@ -39,7 +39,7 @@ export default function InterestProject() {
     formState: { errors },
   } = useForm<FormValues>()
 
-  const onSubmit = async (data: FormValues) => {
+  const onSubmit = async () => {
     const response = await fetch(`https://dev.linkit.im/profile_team_building_field`, {
       method: 'POST',
       headers: {
@@ -54,6 +54,28 @@ export default function InterestProject() {
 
     if (response.ok) {
       router.push('/onBoarding/person/location')
+    }
+  }
+
+  const onClickPrev = async () => {
+    if (accessToken && selectedShortTermFields.length > 0) {
+      const response = await fetch(`https://dev.linkit.im/profile_team_building_field`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          teamBuildingFieldNames: selectedShortTermFields,
+        }),
+        credentials: 'include', // 쿠키를 포함시키기 위해 필요
+      })
+
+      if (response.ok) {
+        router.push('/onBoarding/select')
+      }
+    } else {
+      router.push('/onBoarding/select')
     }
   }
 
@@ -102,11 +124,14 @@ export default function InterestProject() {
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
               <div className="flex justify-end p-4 pr-96">
-                <Link href="/onBoarding/select">
-                  <button type="button" className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">
-                    이전
-                  </button>
-                </Link>
+                <button
+                  type="button"
+                  onClick={onClickPrev}
+                  className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2"
+                >
+                  이전
+                </button>
+
                 <button
                   type="submit"
                   className={`${selectedShortTermFields.length > 0 ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} mr-4 rounded  px-16 py-2 text-[#fff]`}

@@ -1,14 +1,27 @@
 'use client'
 import Image from 'next/image'
-import { useState } from 'react'
-
+import { useState, useEffect } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import Link from 'next/link'
+import { PostProfileData } from '@/lib/action'
+import { useRecoilState } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
+
+interface FormInputs {
+  profileTitle: string
+  uploadYear: string
+  uploadMonth: string
+  uploadDay: string
+  myValue: string
+  skillSets: string
+}
 
 export default function RegisterPersonProfile() {
+  const { register, handleSubmit, watch, setValue } = useForm<FormInputs>()
   const [profileImage, setProfileImage] = useState<string | null>(null)
-  const [profileTitle, setProfileTitle] = useState<string>('')
-  const [collaborationValue, setCollaborationValue] = useState<string>('')
-  const [skills, setSkills] = useState<string>('')
+  const [dDay, setDDay] = useState<number | null>(null)
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
+  const [uploadDeadline, setUploadDeadline] = useState<boolean>(true) // 추가된 상태
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -21,35 +34,64 @@ export default function RegisterPersonProfile() {
     }
   }
 
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    if (value.length <= 20) {
-      setProfileTitle(value)
+  const calculateDDay = (year: string, month: string, day: string) => {
+    if (year && month && day) {
+      const endDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
+      const today = new Date()
+      const diffTime = endDate.getTime() - today.getTime()
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+      setDDay(diffDays)
     }
   }
 
-  const handleCollaborationValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    if (value.length <= 20) {
-      setCollaborationValue(value)
-    }
+  const handleDateChange = () => {
+    const year = (document.getElementById('year') as HTMLInputElement).value
+    const month = (document.getElementById('month') as HTMLSelectElement).value
+    const day = (document.getElementById('day') as HTMLSelectElement).value
+    calculateDDay(year, month, day)
   }
 
-  const handleSkillsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    if (value.length <= 20) {
-      setSkills(value)
+  useEffect(() => {
+    const subscription = watch(({ uploadYear = '', uploadMonth = '', uploadDay = '' }) => {
+      calculateDDay(uploadYear, uploadMonth, uploadDay)
+    })
+    return () => subscription.unsubscribe()
+  }, [watch])
+
+  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+    const { profileTitle, uploadYear, uploadMonth, uploadDay, myValue, skillSets } = data
+
+    const uploadPeriod = `${uploadYear}-${String(uploadMonth).padStart(2, '0')}-${String(uploadDay).padStart(2, '0')}`
+
+    const payload = {
+      profileTitle,
+      uploadPeriod,
+      uploadDeadline,
+      myValue: myValue.split(','),
+      skillSets: skillSets.split(','),
     }
+
+    console.log('Payload:', payload)
+    // 여기에 fetch API로 POST 요청을 보내는 코드를 추가하세요
+    if (!accessToken) return
+    await PostProfileData(accessToken, payload)
+      .then((response) => response.json())
+      .then((data) => console.log('Success:', data))
+      .catch((error) => console.error('Error:', error))
+  }
+
+  const handleUploadStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUploadDeadline(event.target.value === 'completed')
   }
 
   return (
     <>
       <div className="relative">
-        <div className="fixed top-[4.5rem] z-40 h-[0.18rem] w-2/3 bg-[#2563EB]"></div>{' '}
+        <div className="fixed top-[4.5rem] z-40 h-[0.18rem] w-2/3 bg-[#2563EB]"></div>
       </div>
 
-      <div className="flex w-full flex-col items-center py-16">
-        <div className="flex w-[901px] flex-col items-center py-20">
+      <div className="flex w-full flex-col items-center bg-[#fff] py-16">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex w-[901px] flex-col items-center py-20">
           <div className="flex w-full flex-col items-start leading-9">
             <span className="text-sm font-medium leading-9 text-grey60">내 이력서 가이드</span>
             <span className="text-2xl font-bold">내 이력서가 거의 완성되었어요</span>
@@ -60,9 +102,11 @@ export default function RegisterPersonProfile() {
             {/* left */}
             <div className="flex h-[31.4rem] w-[22.18rem] flex-col rounded-lg border-[1.67px] border-grey30 p-5">
               <h2 className="text-2xl font-bold leading-9 text-grey50">
-                {profileTitle || '사이드 프로젝트 함께 할 개발자를 찾고 있어요'}
+                {watch('profileTitle') || '사이드 프로젝트 함께 할 개발자를 찾고 있어요'}
               </h2>
-              <span className="pt-2 font-medium text-grey60">D-59</span>
+              <span className="pt-2 font-medium text-grey60">
+                D-<span>{dDay !== null ? dDay : 'day'}</span>
+              </span>
               <div className="flex justify-center py-3">
                 {profileImage ? (
                   <Image src={profileImage} width={125} height={125} alt="profile_image" className="rounded-3xl" />
@@ -73,9 +117,9 @@ export default function RegisterPersonProfile() {
 
               <div className="flex flex-col items-center">
                 <span className="font-semibold text-[#2563EB]">유나</span>
-                <span className="text-grey60">{skills || '기획, AI 엔지니어, LLM'}</span>
+                <span className="text-grey60">{watch('skillSets') || '기획, AI 엔지니어, LLM'}</span>
                 <div className="mt-7 bg-grey10 px-4 py-3 pr-12 text-sm text-grey50">
-                  💬 &nbsp; {collaborationValue || '공동의 목표를 위해 가감없는 피드백'}
+                  💬 &nbsp; {watch('myValue') || '공동의 목표를 위해 가감없는 피드백'}
                 </div>
                 <div className="flex gap-2 pt-4">
                   <div className="font-sm flex w-[8.7rem] justify-center rounded-md bg-grey10 px-[0.88rem] py-3 text-grey90">
@@ -97,8 +141,7 @@ export default function RegisterPersonProfile() {
                 </span>
                 <input
                   className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
-                  value={profileTitle}
-                  onChange={handleTitleChange}
+                  {...register('profileTitle')}
                   placeholder="프로필 제목 (최대 20자)"
                 />
               </div>
@@ -112,9 +155,17 @@ export default function RegisterPersonProfile() {
                   <input
                     type="number"
                     defaultValue={2024}
+                    id="year"
+                    {...register('uploadYear')}
+                    onChange={handleDateChange}
                     className="h-8 w-[5.5rem] rounded border border-grey30 px-[0.88rem] text-center"
                   />
-                  <select className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60">
+                  <select
+                    id="month"
+                    {...register('uploadMonth')}
+                    onChange={handleDateChange}
+                    className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60"
+                  >
                     <option value="">월</option>
                     {[...Array(12).keys()].map((month) => (
                       <option key={month + 1} value={month + 1}>
@@ -122,7 +173,12 @@ export default function RegisterPersonProfile() {
                       </option>
                     ))}
                   </select>
-                  <select className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60">
+                  <select
+                    id="day"
+                    {...register('uploadDay')}
+                    onChange={handleDateChange}
+                    className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60"
+                  >
                     <option value="">일</option>
                     {[...Array(31).keys()].map((d) => (
                       <option key={d + 1} value={d + 1}>
@@ -138,12 +194,19 @@ export default function RegisterPersonProfile() {
                         value="completed"
                         className="form-radio text-blue-500"
                         defaultChecked
+                        onChange={handleUploadStatusChange}
                       />
-                      <span className="ml-2 text-grey60">마감</span>
+                      <span className="ml-2 text-grey60">마감있음</span>
                     </label>
                     <label className="flex items-center">
-                      <input type="radio" name="uploadStatus" value="continuous" className="form-radio text-blue-500" />
-                      <span className="ml-2 text-grey60">업로드</span>
+                      <input
+                        type="radio"
+                        name="uploadStatus"
+                        value="continuous"
+                        className="form-radio text-blue-500"
+                        onChange={handleUploadStatusChange}
+                      />
+                      <span className="ml-2 text-grey60">계속 업로드</span>
                     </label>
                   </div>
                 </div>
@@ -175,8 +238,7 @@ export default function RegisterPersonProfile() {
                 </span>
                 <input
                   className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
-                  value={collaborationValue}
-                  onChange={handleCollaborationValueChange}
+                  {...register('myValue')}
                   placeholder="공동의 목표를 위해 가감없는 피드백 (최대 20자)"
                 />
               </div>
@@ -188,26 +250,27 @@ export default function RegisterPersonProfile() {
                 </span>
                 <input
                   className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
-                  value={skills}
-                  onChange={handleSkillsChange}
+                  {...register('skillSets')}
                   placeholder="스킬셋 (최대 20자)"
                 />
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Footer */}
-        <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
-          <div className="flex justify-end p-4 pr-96">
-            <Link href="/onBoarding/project">
-              <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">이전</button>
-            </Link>
-            <Link href="/onBoarding/person/role">
-              <button className="mr-4 rounded px-16 py-2">다음</button>
-            </Link>
+          {/* Footer */}
+          <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
+            <div className="flex justify-end p-4 pr-96">
+              <Link href="/onBoarding/project">
+                <button type="button" className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">
+                  이전
+                </button>
+              </Link>
+              <button type="submit" className="mr-4 rounded bg-[#2563EB] px-16 py-2 text-[#fff]">
+                다음
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </>
   )
