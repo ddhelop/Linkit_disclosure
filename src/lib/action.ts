@@ -26,6 +26,22 @@ export async function GetOnBoardingData(accessToken: string) {
   return await response.json()
 }
 
+// 온보딩 활동지역 POST
+export async function PostProfileRegion(access_token: string, selectedArea: string, selectedSubArea: string) {
+  return fetch('https://dev.linkit.im/profile-region', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${access_token}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      cityName: selectedArea,
+      divisionName: selectedSubArea,
+    }),
+  })
+}
+
 export const RefreshAccessToken = async (accessToken: string) => {
   const response = await fetch('https://dev.linkit.im/token', {
     method: 'POST',

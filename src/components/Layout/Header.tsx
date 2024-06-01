@@ -2,22 +2,43 @@
 import { useEffect, useState } from 'react'
 import './Example.css' // CSS 스타일은 파일에 포함되어 있어야 합니다.
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
-
 import DropdownMenu from './HeaderModal'
 import { useRecoilState } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
+import { RefreshAccessToken } from '@/lib/action'
+import { set } from 'react-hook-form'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
+  const router = useRouter()
+  const [token, setToken] = useRecoilState(accessTokenState)
 
-  // 액세스토큰 유무 확인
+  // 액세스토큰 최신화
   useEffect(() => {
-    const accessToken = window.localStorage.getItem('accessToken')
-    setAccessToken(accessToken)
-  }, [setAccessToken])
+    const accessToken = localStorage.getItem('accessToken')
+
+    if (!accessToken || accessToken === 'undefined') return
+
+    RefreshAccessToken(accessToken)
+      .then((newAccessToken) => {
+        console.log('최신화', newAccessToken)
+        if (newAccessToken === undefined) {
+          alert('로그인이 필요합니다.')
+          router.push('/login')
+        }
+        localStorage.setItem('accessToken', newAccessToken)
+        setToken(newAccessToken)
+      })
+      .catch((error) => {
+        console.log(error)
+        if (error.code === 9103) {
+          console.log('로그인 토큰 만료')
+          // router.push('/login')
+        }
+      })
+  }, [router, setToken])
 
   // 현재 경로 확인 및 숨김 경로 설정
   const pathname = usePathname()
@@ -65,12 +86,12 @@ export default function Header() {
         )}
         <div className="flex gap-10 lg:flex-1 lg:justify-end">
           {/* 액세스토큰 유무 UI  */}
-          {accessToken ? (
+          {token ? (
             <>
               <Link href="#" className="hidden text-sm font-medium leading-5 text-grey100 lg:flex">
                 매칭관리
               </Link>
-              <DropdownMenu accessToken={accessToken} />
+              <DropdownMenu accessToken={token} />
             </>
           ) : (
             <>
