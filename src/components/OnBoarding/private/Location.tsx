@@ -1,4 +1,12 @@
+'use client'
+import { accessTokenState } from '@/context/recoil-context'
+import { useRecoilState } from 'recoil'
+
 export default function Location() {
+  // recoil에서 accessTokenState를 가져옴
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
+  console.log('acc', accessToken)
+
   return (
     <div>
       <div className="flex h-screen w-full flex-col overflow-hidden pt-[69px]">

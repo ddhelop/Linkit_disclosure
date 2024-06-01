@@ -1,17 +1,9 @@
 'use client'
-import { useDispatch, useSelector } from 'react-redux'
-import Link from 'next/link'
-import { useForm, Controller } from 'react-hook-form'
-import { AppDispatch, RootState } from '@/app/store'
-import { addressData } from '@/lib/addressSelectData'
-
 import { ChangeEvent, useState } from 'react'
-import {
-  setFormData,
-  setSelectedArea,
-  setSelectedShortTermFields,
-  setSelectedSubArea,
-} from '@/features/counter/TeamOnBoardingSlice'
+import Link from 'next/link'
+import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
+import { addressData } from '@/lib/addressSelectData'
 
 const ShortTerm = ['사무실 있음', '사무실 없음', '대면 활동 선호', '대면 + 비대면']
 
@@ -19,45 +11,59 @@ interface FormInputs {
   teamName: string
   teamSize: string
   teamField: string
+  selectedArea: string
+  selectedSubArea: string
+  selectedShortTermFields: string[]
 }
 
 export default function ActivityWay() {
-  const dispatch = useDispatch<AppDispatch>()
-  const { selectedShortTermFields, selectedLongTermFields, selectedArea, selectedSubArea, formData } = useSelector(
-    (state: RootState) => state.teamOnboarding,
-  )
-  const { control, handleSubmit, watch } = useForm<FormInputs>({
-    defaultValues: formData,
+  const router = useRouter()
+  const [selectedShortTermFields, setSelectedShortTermFields] = useState<string[]>([])
+  const [selectedArea, setSelectedArea] = useState<string>('')
+  const [selectedSubArea, setSelectedSubArea] = useState<string>('')
+
+  const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
+    defaultValues: {
+      teamName: '',
+      teamSize: '',
+      teamField: '',
+      selectedArea: '',
+      selectedSubArea: '',
+      selectedShortTermFields: [],
+    },
   })
 
   const handleAreaChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setSelectedArea(e.target.value))
-    dispatch(setSelectedSubArea(''))
+    const value = e.target.value
+    setSelectedArea(value)
+    setValue('selectedArea', value)
+    setSelectedSubArea('')
+    setValue('selectedSubArea', '')
   }
 
   const handleSubAreaChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setSelectedSubArea(e.target.value))
+    const value = e.target.value
+    setSelectedSubArea(value)
+    setValue('selectedSubArea', value)
   }
 
   const subAreas = addressData.find((area) => area.name === selectedArea)?.subArea || []
 
   const onSubmit = (data: FormInputs) => {
-    dispatch(setFormData(data))
+    console.log('Form Data:', data)
   }
 
   const toggleShortTermField = (field: string) => {
     const newFields = selectedShortTermFields.includes(field)
       ? selectedShortTermFields.filter((v) => v !== field)
       : [...selectedShortTermFields, field]
-    dispatch(setSelectedShortTermFields(newFields))
+    setSelectedShortTermFields(newFields)
+    setValue('selectedShortTermFields', newFields)
   }
 
-  const { teamField } = watch()
+  const formValues = watch()
   const isNextButtonEnabled =
-    (selectedShortTermFields.length > 0 || selectedLongTermFields.length > 0) &&
-    selectedArea &&
-    selectedSubArea &&
-    teamField
+    selectedShortTermFields.length > 0 && selectedArea && selectedSubArea && formValues.teamField
 
   return (
     <div className="bg-[#FCFCFD]">

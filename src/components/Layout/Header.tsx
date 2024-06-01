@@ -1,16 +1,25 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Example.css' // CSS 스타일은 파일에 포함되어 있어야 합니다.
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 import DropdownMenu from './HeaderModal'
+import { useRecoilState } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const accessToken = window.localStorage.getItem('accessToken')
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
 
+  // 액세스토큰 유무 확인
+  useEffect(() => {
+    const accessToken = window.localStorage.getItem('accessToken')
+    setAccessToken(accessToken)
+  }, [setAccessToken])
+
+  // 현재 경로 확인 및 숨김 경로 설정
   const pathname = usePathname()
   const paths = ['/login', '']
 
@@ -38,7 +47,7 @@ export default function Header() {
       <div className="mx-auto flex max-w-full items-center justify-between p-[16px] lg:p-6 lg:pl-40 lg:pr-20">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
-            <Image src="/assets/icons/headerLogo.svg" width={110} height={20} alt="logo" />
+            <Image src="/assets/icons/headerLogo.svg" width={110} height={20} layout="reponsive" alt="logo" />
           </Link>
         </div>
         {!hiddenPaths.includes(pathname) && (

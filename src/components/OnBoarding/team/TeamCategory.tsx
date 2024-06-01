@@ -1,13 +1,7 @@
 'use client'
-import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
-import { AppDispatch, RootState } from '@/app/store'
-import {
-  setFormData,
-  setSelectedLongTermFields,
-  setSelectedShortTermFields,
-} from '@/features/counter/TeamOnBoardingSlice'
+import { useState } from 'react'
 
 const ShortTerm = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
 const LongTerm = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
@@ -16,36 +10,46 @@ interface FormInputs {
   teamName: string
   teamSize: string
   teamField: string
+  selectedShortTermFields: string[]
+  selectedLongTermFields: string[]
 }
 
 export default function TeamCategory() {
-  const dispatch = useDispatch<AppDispatch>()
-  const { selectedShortTermFields, selectedLongTermFields, formData } = useSelector(
-    (state: RootState) => state.teamOnboarding,
-  )
-  const { control, handleSubmit, watch } = useForm<FormInputs>({
-    defaultValues: formData,
+  const [selectedShortTermFields, setSelectedShortTermFields] = useState<string[]>([])
+  const [selectedLongTermFields, setSelectedLongTermFields] = useState<string[]>([])
+
+  const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
+    defaultValues: {
+      teamName: '',
+      teamSize: '2~3명',
+      teamField: '개발',
+      selectedShortTermFields: [],
+      selectedLongTermFields: [],
+    },
   })
 
   const onSubmit = (data: FormInputs) => {
-    dispatch(setFormData(data))
+    console.log('Form Data:', data)
   }
 
   const toggleShortTermField = (field: string) => {
     const newFields = selectedShortTermFields.includes(field)
       ? selectedShortTermFields.filter((v) => v !== field)
       : [...selectedShortTermFields, field]
-    dispatch(setSelectedShortTermFields(newFields))
+    setSelectedShortTermFields(newFields)
+    setValue('selectedShortTermFields', newFields)
   }
 
   const toggleLongTermField = (field: string) => {
     const newFields = selectedLongTermFields.includes(field)
       ? selectedLongTermFields.filter((v) => v !== field)
       : [...selectedLongTermFields, field]
-    dispatch(setSelectedLongTermFields(newFields))
+    setSelectedLongTermFields(newFields)
+    setValue('selectedLongTermFields', newFields)
   }
 
-  const { teamName, teamSize, teamField } = watch()
+  const formValues = watch()
+  const { teamName, teamSize, teamField } = formValues
   const isNextButtonEnabled =
     (selectedShortTermFields.length > 0 || selectedLongTermFields.length > 0) && teamName && teamSize && teamField
 
@@ -137,9 +141,9 @@ export default function TeamCategory() {
                   defaultValue="2~3명"
                   render={({ field }) => (
                     <select className="mt-[1.19rem] w-[17.5rem] rounded-lg border border-grey30 px-3 py-3" {...field}>
-                      <option value="2~3">2~3명</option>
-                      <option value="4~5">4~5명</option>
-                      <option value="6~7">6~7명</option>
+                      <option value="2~3명">2~3명</option>
+                      <option value="4~5명">4~5명</option>
+                      <option value="6~7명">6~7명</option>
                     </select>
                   )}
                 />

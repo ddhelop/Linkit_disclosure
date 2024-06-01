@@ -53,7 +53,7 @@ export default function InterestProject() {
     })
 
     if (response.ok) {
-      router.push('/onBoarding/person/role')
+      router.push('/onBoarding/person/location')
     }
   }
 

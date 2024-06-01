@@ -1,9 +1,7 @@
 'use client'
-import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
-import { AppDispatch, RootState } from '@/app/store'
-import { setFormData, setSelectedPositions } from '@/features/counter/TeamOnBoardingSlice'
+import { useState } from 'react'
 
 const positions = ['기획', '마케팅', '개발자', '디자이너', '리서치', '기타']
 
@@ -11,13 +9,18 @@ interface FormInputs {
   teamName: string
   teamSize: string
   teamField: string
+  selectedPositions: string[]
 }
 
 export default function LookingForMember() {
-  const dispatch = useDispatch<AppDispatch>()
-  const { selectedPositions, formData } = useSelector((state: RootState) => state.teamOnboarding)
+  const [selectedPositions, setSelectedPositions] = useState<string[]>([])
   const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
-    defaultValues: formData,
+    defaultValues: {
+      teamName: '',
+      teamSize: '',
+      teamField: '',
+      selectedPositions: [],
+    },
   })
 
   // Watch form fields
@@ -25,7 +28,7 @@ export default function LookingForMember() {
 
   // Handle form submission
   const onSubmit = (data: FormInputs) => {
-    dispatch(setFormData(data))
+    console.log('Form Data:', data)
   }
 
   // Toggle position selection
@@ -33,7 +36,8 @@ export default function LookingForMember() {
     const newPositions = selectedPositions.includes(position)
       ? selectedPositions.filter((v) => v !== position)
       : [...selectedPositions, position]
-    dispatch(setSelectedPositions(newPositions))
+    setSelectedPositions(newPositions)
+    setValue('selectedPositions', newPositions)
   }
 
   // Enable the "Next" button only if one or more positions are selected
