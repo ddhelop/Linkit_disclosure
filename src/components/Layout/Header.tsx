@@ -23,7 +23,6 @@ export default function Header() {
 
     RefreshAccessToken(accessToken)
       .then((newAccessToken) => {
-        console.log('최신화', newAccessToken)
         if (newAccessToken === undefined) {
           alert('로그인이 필요합니다.')
           router.push('/login')
@@ -34,8 +33,7 @@ export default function Header() {
       .catch((error) => {
         console.log(error)
         if (error.code === 9103) {
-          console.log('로그인 토큰 만료')
-          // router.push('/login')
+          router.push('/login')
         }
       })
   }, [router, setToken])
