@@ -32,15 +32,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
-      <ClientProvider>
-        <FetchSetting>
-          <body className={`${pretendard.className} bg-[#F6F8FC]`}>
+      <body className={`${pretendard.className} bg-[#F6F8FC]`}>
+        <ClientProvider>
+          <FetchSetting>
             <Header />
             {children}
             <Footer />
-          </body>
-        </FetchSetting>
-      </ClientProvider>
+          </FetchSetting>
+        </ClientProvider>
+      </body>
+
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
       <Scripts />
     </html>
