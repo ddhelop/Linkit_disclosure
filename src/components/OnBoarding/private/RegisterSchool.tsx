@@ -11,8 +11,8 @@ import { useRouter } from 'next/navigation'
 interface FormInputs {
   universityName: string
   majorName: string
-  admissionYear: string
-  graduationYear: string
+  admissionYear: number
+  graduationYear: number
   degreeName: string
 }
 
@@ -29,11 +29,17 @@ export default function RegisterSchool() {
   }, [])
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    const updatedData = {
+      ...data,
+      admissionYear: Number(data.admissionYear),
+      graduationYear: Number(data.graduationYear),
+    }
+
     if (editingIndex !== null) {
-      setEducationList((prev) => prev.map((education, index) => (index === editingIndex ? data : education)))
+      setEducationList((prev) => prev.map((education, index) => (index === editingIndex ? updatedData : education)))
       setEditingIndex(null)
     } else {
-      setEducationList((prev) => [...prev, data])
+      setEducationList((prev) => [...prev, updatedData])
     }
     reset()
   }
@@ -179,7 +185,7 @@ export default function RegisterSchool() {
                         className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
                         {...register('degreeName', { required: true })}
                       >
-                        <option value="재학중">재학중</option>
+                        <option value="재학 중">재학 중</option>
                         <option value="졸업">졸업</option>
                       </select>
                     </div>
@@ -247,7 +253,7 @@ export default function RegisterSchool() {
                   className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
                   {...register('degreeName', { required: true })}
                 >
-                  <option value="재학중">재학중</option>
+                  <option value="재학 중">재학 중</option>
                   <option value="졸업">졸업</option>
                 </select>
               </div>

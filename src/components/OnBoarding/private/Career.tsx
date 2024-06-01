@@ -10,10 +10,10 @@ import { useRouter } from 'next/navigation'
 interface FormInputs {
   projectName: string
   projectRole: string
-  startYear: string
-  startMonth: string
-  endYear: string
-  endMonth: string
+  startYear: number
+  startMonth: number
+  endYear: number
+  endMonth: number
   retirement: boolean
 }
 
@@ -30,7 +30,15 @@ export default function RegisterCareer() {
   }, [])
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    const formattedData = { ...data, retirement: data.retirement === true }
+    const formattedData = {
+      ...data,
+      startYear: Number(data.startYear),
+      startMonth: Number(data.startMonth),
+      endYear: Number(data.endYear),
+      endMonth: Number(data.endMonth),
+      retirement: data.retirement === true,
+    }
+
     if (editingIndex !== null) {
       setCareerList((prev) => prev.map((career, index) => (index === editingIndex ? formattedData : career)))
       setEditingIndex(null)
@@ -66,6 +74,7 @@ export default function RegisterCareer() {
     console.log('careerList', careerList)
     if (accessToken) {
       const response = await PostAntecedentData(accessToken, careerList)
+
       if (response.ok) {
         router.push('/onBoarding/person/profile')
       }

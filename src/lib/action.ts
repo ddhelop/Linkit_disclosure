@@ -30,7 +30,7 @@ export async function GetOnBoardingData(accessToken: string) {
 
 // 온보딩 활동지역 POST
 export async function PostProfileRegion(access_token: string, selectedArea: string, selectedSubArea: string) {
-  return fetch('https://dev.linkit.im/profile-region', {
+  return fetch('https://dev.linkit.im/profile_region', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export async function PostAntecedentData(accessToken: string, careerList: Career
       Authorization: `Bearer ${accessToken}`,
     },
     credentials: 'include',
-    body: JSON.stringify({ careerList }),
+    body: JSON.stringify(careerList),
   })
 }
 
