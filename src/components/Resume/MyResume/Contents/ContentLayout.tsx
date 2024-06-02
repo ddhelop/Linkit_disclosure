@@ -15,6 +15,8 @@ export default function ContentLayout() {
 
       {/* 자기소개 컴포넌트 */}
       <IntroduceComponent />
+
+      {/* 보유 기술 컴포넌트 */}
       <MySkillComponent />
       <TeamBuildingComponent />
       <MyLocationComponent />
