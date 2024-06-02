@@ -96,14 +96,13 @@ export default function Role() {
         {/* Footer */}
         <form onSubmit={handleSubmit(onSubmit)} className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
           <div className="flex justify-end p-4 pr-96">
-            <Link href="/onBoarding/project">
+            <Link href="/onBoarding/person/location">
               <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">이전</button>
             </Link>
 
             <button
               className={`${selectedRoleFields.length > 0 && selectedSkillFields.length > 0 ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} mr-4 rounded  px-16 py-2 text-[#fff]`}
               disabled={!(selectedRoleFields.length > 0 && selectedSkillFields.length > 0)}
-              type="submit"
             >
               다음
             </button>

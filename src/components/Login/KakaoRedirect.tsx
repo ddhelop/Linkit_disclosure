@@ -26,7 +26,13 @@ export default function KakaoRedirect() {
           window.localStorage.setItem('accessToken', responseData.accessToken)
           setToEmail(responseData.email)
 
-          router.push(`/onBoarding`)
+          if (responseData.existMemberBasicInform === true && responseData.existOnBoardingProfile === true) {
+            router.push('/')
+          } else if (responseData.existMemberBasicInform === true && responseData.existOnBoardingProfile === false) {
+            router.push(`/onBoarding/select`)
+          } else {
+            router.push(`/onBoarding`)
+          }
         }
       } catch (error) {
         console.log('로그인 요청에 실패했습니다.', error)
