@@ -4,7 +4,7 @@ const items = ['자기소개', '보유기술', '희망 팀빌딩 분야', '이�
 
 export default function MyResumeProgress() {
   return (
-    <div className="shadow-resume-box-shadow w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem]">
+    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
         <span className="text-lg font-semibold text-grey100">프로필 완성도 : 35%</span>

@@ -12,6 +12,8 @@ export default function ContentLayout() {
   return (
     <div className="flex flex-col gap-4">
       <MyResumeProgress />
+
+      {/* 자기소개 컴포넌트 */}
       <IntroduceComponent />
       <MySkillComponent />
       <TeamBuildingComponent />
