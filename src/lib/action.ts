@@ -44,6 +44,22 @@ export async function PostProfileRegion(access_token: string, selectedArea: stri
   })
 }
 
+// 온보딩 역할 POST
+export async function PostRoleData(accessToken: string, selectedRoleFields: string[], selectedSkillFields: string[]) {
+  return fetch('https://dev.linkit.im/profile_skill', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      selectedRoleFields,
+      selectedSkillFields,
+    }),
+  })
+}
+
 // 온보딩 학교이력 POST
 export async function PostSchoolData(accessToken: string, educationList: Education[]) {
   return fetch('https://dev.linkit.im/education', {

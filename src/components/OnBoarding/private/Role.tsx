@@ -1,8 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import { useForm } from 'react-hook-form'
+import { set, useForm } from 'react-hook-form'
 import { useState } from 'react'
+import { useRecoilState } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
+import { PostRoleData } from '@/lib/action'
+import { useRouter } from 'next/navigation'
 
 const Positions = ['기획자', 'SW 개발자', '디자이너', '리서처', '마케터', '데이터 분석', '기타']
 const Skills = [
@@ -32,6 +36,8 @@ export default function Role() {
   } = useForm<FormValues>()
   const [selectedRoleFields, setSelectedRoleFields] = useState<string[]>([])
   const [selectedSkillFields, setSelectedSkillFields] = useState<string[]>([])
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
+  const router = useRouter()
 
   // 포지션 토글
   const toggleRoleSelection = (field: string) => {
@@ -47,8 +53,14 @@ export default function Role() {
     )
   }
 
-  const onSubmit = (data: FormValues) => {
-    // API 미완성
+  const onSubmit = async (data: FormValues) => {
+    const accessToken = localStorage.getItem('accessToken')
+    if (accessToken) {
+      const response = await PostRoleData(accessToken, selectedRoleFields, selectedSkillFields)
+      if (response.ok) {
+        router.push('/onBoarding/person/school')
+      }
+    }
   }
 
   return (

@@ -64,7 +64,6 @@ export default function RegisterSchool() {
   }
 
   const handleSave = async () => {
-    console.log('educationList', educationList)
     const accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
       const response = await PostSchoolData(accessToken, educationList)
