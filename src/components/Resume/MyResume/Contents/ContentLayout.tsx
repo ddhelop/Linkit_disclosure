@@ -18,7 +18,11 @@ export default function ContentLayout() {
 
       {/* 보유 기술 컴포넌트 */}
       <MySkillComponent />
+
+      {/* 희망 팀빌딩 분야 컴포넌트 */}
       <TeamBuildingComponent />
+
+      {/*  */}
       <MyLocationComponent />
       <MyHistoryComponent />
       <MyAcademicComponent />
