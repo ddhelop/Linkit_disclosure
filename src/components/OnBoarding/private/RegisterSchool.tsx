@@ -186,7 +186,7 @@ export default function RegisterSchool() {
                         className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
                         {...register('degreeName', { required: true })}
                       >
-                        <option value="재학 중">재학 중</option>
+                        <option value="재학">재학</option>
                         <option value="졸업">졸업</option>
                       </select>
                     </div>
@@ -254,7 +254,7 @@ export default function RegisterSchool() {
                   className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
                   {...register('degreeName', { required: true })}
                 >
-                  <option value="재학 중">재학 중</option>
+                  <option value="재학">재학</option>
                   <option value="졸업">졸업</option>
                 </select>
               </div>
