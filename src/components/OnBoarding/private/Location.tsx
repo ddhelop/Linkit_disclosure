@@ -49,14 +49,7 @@ export default function Location() {
   }
 
   const onClickPrev = async () => {
-    if (accessToken && selectedArea && selectedSubArea) {
-      const response = await PostProfileRegion(accessToken, selectedArea, selectedSubArea)
-      if (response.ok) {
-        router.push('/onBoarding/person/project')
-      }
-    } else {
-      router.push('/onBoarding/person/project')
-    }
+    router.push('/onBoarding/person/project')
   }
 
   const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
@@ -146,6 +139,7 @@ export default function Location() {
                 </button>
 
                 <button
+                  type="submit"
                   className={`${isNextButtonEnabled ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} mr-4 rounded px-16 py-2 text-[#fff]`}
                   disabled={!isNextButtonEnabled}
                 >

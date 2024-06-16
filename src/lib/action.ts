@@ -45,7 +45,7 @@ export async function PostProfileRegion(access_token: string, selectedArea: stri
 }
 
 // 온보딩 역할 POST
-export async function PostRoleData(accessToken: string, selectedRoleFields: string[], selectedSkillFields: string[]) {
+export async function PostRoleData(accessToken: string, roleFields: string[], skillNames: string[]) {
   return fetch('https://dev.linkit.im/profile_skill', {
     method: 'POST',
     headers: {
@@ -54,8 +54,8 @@ export async function PostRoleData(accessToken: string, selectedRoleFields: stri
     },
     credentials: 'include',
     body: JSON.stringify({
-      selectedRoleFields,
-      selectedSkillFields,
+      roleFields,
+      skillNames,
     }),
   })
 }
@@ -89,7 +89,7 @@ export async function PostAntecedentData(accessToken: string, careerList: Career
 // 온보딩 미니프로필 POST
 // 여기에 fetch API로 POST 요청을 보내는 코드를 추가하세요
 export async function PostProfileData(accessToken: string, payload: any) {
-  return fetch('https://dev.linkit.im/profile', {
+  return fetch('https://dev.linkit.im/mini-profile', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

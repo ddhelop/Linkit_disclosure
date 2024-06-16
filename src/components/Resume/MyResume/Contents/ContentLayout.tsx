@@ -22,11 +22,19 @@ export default function ContentLayout() {
       {/* 희망 팀빌딩 분야 컴포넌트 */}
       <TeamBuildingComponent />
 
-      {/*  */}
+      {/* 활동 지역/위치 컴포넌트 */}
       <MyLocationComponent />
+
+      {/* 이력 */}
       <MyHistoryComponent />
+
+      {/* 학력 */}
       <MyAcademicComponent />
+
+      {/* 수상 */}
       <MyAwardComponent />
+
+      {/* 첨부 */}
       <MyAttachFile />
     </div>
   )

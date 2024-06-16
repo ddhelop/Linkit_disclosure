@@ -71,6 +71,9 @@ export default function RegisterSchool() {
       if (response.ok) {
         router.push('/onBoarding/person/career')
       }
+    } else {
+      alert('로그인이 필요합니다.')
+      router.push('/login')
     }
   }
 

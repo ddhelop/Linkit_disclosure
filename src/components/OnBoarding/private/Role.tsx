@@ -10,8 +10,8 @@ import { useRouter } from 'next/navigation'
 
 const Positions = ['기획자', 'SW 개발자', '디자이너', '리서처', '마케터', '데이터 분석', '기타']
 const Skills = [
-  '기획자 기술1',
-  '기획자 기술2',
+  'Java',
+  'React',
   '기획자 기술3',
   '기획자 기술4',
   '기획자 기술5',
@@ -25,8 +25,8 @@ const Skills = [
 ]
 
 interface FormValues {
-  selectedRoleFields: string[]
-  selectedSkillFields: string[]
+  roleFields: string[]
+  skillNames: string[]
 }
 
 export default function Role() {
@@ -34,8 +34,8 @@ export default function Role() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>()
-  const [selectedRoleFields, setSelectedRoleFields] = useState<string[]>([])
-  const [selectedSkillFields, setSelectedSkillFields] = useState<string[]>([])
+  const [roleFields, setSelectedRoleFields] = useState<string[]>([])
+  const [skillNames, setSelectedSkillFields] = useState<string[]>([])
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
   const router = useRouter()
 
@@ -56,7 +56,7 @@ export default function Role() {
   const onSubmit = async (data: FormValues) => {
     const accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
-      const response = await PostRoleData(accessToken, selectedRoleFields, selectedSkillFields)
+      const response = await PostRoleData(accessToken, roleFields, skillNames)
       if (response.ok) {
         router.push('/onBoarding/person/school')
       }
@@ -80,7 +80,7 @@ export default function Role() {
             {Positions.map((el, index) => (
               <button
                 key={index}
-                className={`rounded-md border px-3 py-1 ${selectedRoleFields.includes(el) ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]' : 'border-[#CBD4E1] text-[#64748B]'}`}
+                className={`rounded-md border px-3 py-1 ${roleFields.includes(el) ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]' : 'border-[#CBD4E1] text-[#64748B]'}`}
                 onClick={() => toggleRoleSelection(el)}
               >
                 {el}
@@ -97,7 +97,7 @@ export default function Role() {
             {Skills.map((el, index) => (
               <button
                 key={index}
-                className={`mt-2 rounded-md border px-3 py-1 ${selectedSkillFields.includes(el) ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]' : 'border-[#CBD4E1] text-[#64748B]'}`}
+                className={`mt-2 rounded-md border px-3 py-1 ${skillNames.includes(el) ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]' : 'border-[#CBD4E1] text-[#64748B]'}`}
                 onClick={() => toggleSkillSelection(el)}
               >
                 {el}
@@ -113,8 +113,8 @@ export default function Role() {
             </Link>
 
             <button
-              className={`${selectedRoleFields.length > 0 && selectedSkillFields.length > 0 ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} mr-4 rounded  px-16 py-2 text-[#fff]`}
-              disabled={!(selectedRoleFields.length > 0 && selectedSkillFields.length > 0)}
+              className={`${roleFields.length > 0 && skillNames.length > 0 ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} mr-4 rounded  px-16 py-2 text-[#fff]`}
+              disabled={!(roleFields.length > 0 && skillNames.length > 0)}
             >
               다음
             </button>
