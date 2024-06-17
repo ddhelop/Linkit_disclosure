@@ -4,17 +4,10 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { addressData } from '@/lib/addressSelectData'
+import { TeamOnBoardingActivityWay } from '@/lib/action'
+import { TeamOnBoardingActivityWayFormInputs } from '@/lib/types'
 
 const ShortTerm = ['사무실 있음', '사무실 없음', '대면 활동 선호', '대면 + 비대면']
-
-interface FormInputs {
-  teamName: string
-  teamSize: string
-  teamField: string
-  selectedArea: string
-  selectedSubArea: string
-  selectedShortTermFields: string[]
-}
 
 export default function ActivityWay() {
   const router = useRouter()
@@ -22,11 +15,8 @@ export default function ActivityWay() {
   const [selectedArea, setSelectedArea] = useState<string>('')
   const [selectedSubArea, setSelectedSubArea] = useState<string>('')
 
-  const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
+  const { control, handleSubmit, watch, setValue } = useForm<TeamOnBoardingActivityWayFormInputs>({
     defaultValues: {
-      teamName: '',
-      teamSize: '',
-      teamField: '',
       selectedArea: '',
       selectedSubArea: '',
       selectedShortTermFields: [],
@@ -49,8 +39,12 @@ export default function ActivityWay() {
 
   const subAreas = addressData.find((area) => area.name === selectedArea)?.subArea || []
 
-  const onSubmit = (data: FormInputs) => {
-    console.log('Form Data:', data)
+  const onSubmit = async (data: TeamOnBoardingActivityWayFormInputs) => {
+    const accessToken = localStorage.getItem('accessToken') || ''
+
+    const response = await TeamOnBoardingActivityWay(accessToken, data)
+
+    console.log(response)
   }
 
   const toggleShortTermField = (field: string) => {
@@ -62,8 +56,7 @@ export default function ActivityWay() {
   }
 
   const formValues = watch()
-  const isNextButtonEnabled =
-    selectedShortTermFields.length > 0 && selectedArea && selectedSubArea && formValues.teamField
+  const isNextButtonEnabled = selectedShortTermFields.length > 0 && selectedArea && selectedSubArea
 
   return (
     <div className="bg-[#FCFCFD]">

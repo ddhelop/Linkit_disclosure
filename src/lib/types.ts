@@ -35,3 +35,9 @@ export interface TeamOnBoadingFieldFormInputs {
   teamField: string
   teamBuildingFieldNames: string[]
 }
+
+export interface TeamOnBoardingActivityWayFormInputs {
+  selectedArea: string
+  selectedSubArea: string
+  selectedShortTermFields: string[]
+}

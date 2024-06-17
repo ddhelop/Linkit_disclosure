@@ -1,4 +1,4 @@
-import { Career, Education, TeamOnBoadingFieldFormInputs } from './types'
+import { Career, Education, TeamOnBoadingFieldFormInputs, TeamOnBoardingActivityWayFormInputs } from './types'
 
 // 로그아웃
 export async function Logout(accessToken: string) {
@@ -127,6 +127,26 @@ export const TeamOnBoardingField = async (accessToken: string, data: TeamOnBoadi
       sizeType: data.teamSize,
       sectorName: data.teamField,
       teamBuildingFieldNames: data.teamBuildingFieldNames,
+    }),
+    credentials: 'include',
+  })
+
+  const responseData = await response.json()
+  return responseData
+}
+
+// 팀 온보딩 - 활동 방식
+export const TeamOnBoardingActivityWay = async (accessToken: string, data: TeamOnBoardingActivityWayFormInputs) => {
+  const response = await fetch('https://dev.linkit.im/activity-method', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      selectedArea: data.selectedArea,
+      selectedSubArea: data.selectedSubArea,
+      selectedShortTermFields: data.selectedShortTermFields,
     }),
     credentials: 'include',
   })
