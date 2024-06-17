@@ -28,3 +28,10 @@ export interface Education {
   graduationYear: number
   degreeName: string
 }
+
+export interface TeamOnBoadingFieldFormInputs {
+  teamName: string
+  teamSize: string
+  teamField: string
+  teamBuildingFieldNames: string[]
+}

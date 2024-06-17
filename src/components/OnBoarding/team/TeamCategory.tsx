@@ -2,56 +2,48 @@
 import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
 import { useState } from 'react'
+import { TeamOnBoardingField } from '@/lib/action'
+import { access } from 'fs'
 
 const ShortTerm = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
-const LongTerm = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
 
 interface FormInputs {
   teamName: string
   teamSize: string
   teamField: string
-  selectedShortTermFields: string[]
-  selectedLongTermFields: string[]
+  teamBuildingFieldNames: string[]
 }
 
 export default function TeamCategory() {
-  const [selectedShortTermFields, setSelectedShortTermFields] = useState<string[]>([])
-  const [selectedLongTermFields, setSelectedLongTermFields] = useState<string[]>([])
+  const [teamBuildingFieldNames, setTeamBuildingFieldNames] = useState<string[]>([])
 
   const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
     defaultValues: {
       teamName: '',
-      teamSize: '2~3명',
-      teamField: '개발',
-      selectedShortTermFields: [],
-      selectedLongTermFields: [],
+      teamSize: '',
+      teamField: '',
+      teamBuildingFieldNames: [],
     },
   })
 
-  const onSubmit = (data: FormInputs) => {
-    console.log('Form Data:', data)
+  const onSubmit = async (data: FormInputs) => {
+    const accessToken = localStorage.getItem('accessToken') || ''
+    const response = await TeamOnBoardingField(accessToken, data)
+
+    console.log('Data:', response)
   }
 
   const toggleShortTermField = (field: string) => {
-    const newFields = selectedShortTermFields.includes(field)
-      ? selectedShortTermFields.filter((v) => v !== field)
-      : [...selectedShortTermFields, field]
-    setSelectedShortTermFields(newFields)
-    setValue('selectedShortTermFields', newFields)
-  }
-
-  const toggleLongTermField = (field: string) => {
-    const newFields = selectedLongTermFields.includes(field)
-      ? selectedLongTermFields.filter((v) => v !== field)
-      : [...selectedLongTermFields, field]
-    setSelectedLongTermFields(newFields)
-    setValue('selectedLongTermFields', newFields)
+    const newFields = teamBuildingFieldNames.includes(field)
+      ? teamBuildingFieldNames.filter((v) => v !== field)
+      : [...teamBuildingFieldNames, field]
+    setTeamBuildingFieldNames(newFields)
+    setValue('teamBuildingFieldNames', newFields)
   }
 
   const formValues = watch()
   const { teamName, teamSize, teamField } = formValues
-  const isNextButtonEnabled =
-    (selectedShortTermFields.length > 0 || selectedLongTermFields.length > 0) && teamName && teamSize && teamField
+  const isNextButtonEnabled = teamBuildingFieldNames.length > 0 && teamName && teamSize && teamField
 
   return (
     <div className="bg-[#FCFCFD]">
@@ -68,43 +60,18 @@ export default function TeamCategory() {
 
           <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col items-center">
             {/* 단기 */}
-            <div className="flex w-[80%] flex-col pt-16 sm:w-[55%]">
-              <span className="text-lg font-bold leading-5">
-                단기 <span className="text-sm font-normal text-grey80">(2개월 이내)</span>
-              </span>
-              <div className="flex gap-x-2 pt-5">
+            <div className="flex w-[80%] flex-col pt-8 sm:w-[55%]">
+              <div className="flex gap-x-2">
                 {ShortTerm.map((el, index) => (
                   <button
                     key={index}
                     type="button"
                     className={`border px-3 py-1 ${
-                      selectedShortTermFields.includes(el)
+                      teamBuildingFieldNames.includes(el)
                         ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]'
                         : 'border-[#CBD4E1] text-[#64748B]'
                     } rounded-md`}
                     onClick={() => toggleShortTermField(el)}
-                  >
-                    {el}
-                  </button>
-                ))}
-              </div>
-            </div>
-            {/* 장기 */}
-            <div className="flex w-[80%] flex-col pt-16 sm:w-[55%]">
-              <span className="text-lg font-bold leading-5">
-                장기 <span className="text-sm font-normal text-grey80">(2개월 이상)</span>
-              </span>
-              <div className="flex gap-x-2 pt-5">
-                {LongTerm.map((el, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    className={`border px-3 py-1 ${
-                      selectedLongTermFields.includes(el)
-                        ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]'
-                        : 'border-[#CBD4E1] text-[#64748B]'
-                    } rounded-md`}
-                    onClick={() => toggleLongTermField(el)}
                   >
                     {el}
                   </button>
@@ -141,9 +108,10 @@ export default function TeamCategory() {
                   defaultValue="2~3명"
                   render={({ field }) => (
                     <select className="mt-[1.19rem] w-[17.5rem] rounded-lg border border-grey30 px-3 py-3" {...field}>
-                      <option value="2~3명">2~3명</option>
-                      <option value="4~5명">4~5명</option>
-                      <option value="6~7명">6~7명</option>
+                      <option value="1-5인">1-5인</option>
+                      <option value="5-10인">5-10인</option>
+                      <option value="10-20인">10-20인</option>
+                      <option value="20인 이상">20인 이상</option>
                     </select>
                   )}
                 />
@@ -159,11 +127,15 @@ export default function TeamCategory() {
                   defaultValue="개발"
                   render={({ field }) => (
                     <select className="mt-[1.19rem] w-[17.5rem] rounded-lg border border-grey30 px-3 py-3" {...field}>
-                      <option value="개발">개발</option>
-                      <option value="디자인">디자인</option>
-                      <option value="기획">기획</option>
-                      <option value="마케팅">마케팅</option>
-                      <option value="기타">기타</option>
+                      <option value="딥테크">딥테크</option>
+                      <option value="핀테크">핀테크</option>
+                      <option value="이커머스">이커머스</option>
+                      <option value="패션/뷰티">패션/뷰티</option>
+                      <option value="바이오/의료">바이오/의료</option>
+                      <option value="물류/유통">물류/유통</option>
+                      <option value="블록체인">블록체인</option>
+                      <option value="AI">AI</option>
+                      <option value="SaaS">SaaS</option>
                     </select>
                   )}
                 />

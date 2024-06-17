@@ -1,4 +1,4 @@
-import { Career, Education } from './types'
+import { Career, Education, TeamOnBoadingFieldFormInputs } from './types'
 
 // 로그아웃
 export async function Logout(accessToken: string) {
@@ -112,4 +112,25 @@ export const RefreshAccessToken = async (accessToken: string) => {
 
   const data = await response.json()
   return data.accessToken
+}
+
+// 팀 온보딩 - 희망 팀빌딩 분야
+export const TeamOnBoardingField = async (accessToken: string, data: TeamOnBoadingFieldFormInputs) => {
+  const response = await fetch('https://dev.linkit.im/team_profile/field/basic-team', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      teamName: data.teamName,
+      sizeType: data.teamSize,
+      sectorName: data.teamField,
+      teamBuildingFieldNames: data.teamBuildingFieldNames,
+    }),
+    credentials: 'include',
+  })
+
+  const responseData = await response.json()
+  return responseData
 }
