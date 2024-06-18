@@ -55,8 +55,7 @@ export default function Login() {
               </div>
             </Link>
 
-            <Link href={'#'}>
-              {/* <Link href={GOOGLE_AUTH_URL}> */}
+            <Link href={GOOGLE_AUTH_URL}>
               <div className="items-cente flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-3 rounded border-[1px] border-grey30 px-[6.5rem]">
                 <Image src={'/assets/login/googleLogo.svg'} width={23} height={23} alt="GoogleLogin" />
                 <span className="font-semibold">구글로 시작하기</span>
