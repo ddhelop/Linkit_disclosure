@@ -82,7 +82,7 @@ export default function Header() {
             </Link>
           </div>
         )}
-        <div className="flex gap-10 lg:flex-1 lg:justify-end">
+        <div className="flex flex-1 justify-end gap-10">
           {/* 액세스토큰 유무 UI  */}
           {token ? (
             <>

@@ -1,10 +1,10 @@
 'use client'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { addressData } from '@/lib/addressSelectData'
-import { TeamOnBoardingActivityWay } from '@/lib/action'
+import { TeamOnBoardingActivityWay, TeamOnBoardingData } from '@/lib/action'
 import { TeamOnBoardingActivityWayFormInputs } from '@/lib/types'
 
 const ShortTerm = ['사무실 있음', '사무실 없음', '대면 활동 선호', '대면 + 비대면']
@@ -39,12 +39,39 @@ export default function ActivityWay() {
 
   const subAreas = addressData.find((area) => area.name === selectedArea)?.subArea || []
 
+  // 팀온보딩 데이터 가져오기
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken') || ''
+    const fetchData = async () => {
+      if (accessToken) {
+        try {
+          const data = await TeamOnBoardingData(accessToken)
+          console.log('onBoardingData', data)
+
+          if (data.activityResponse) {
+            const { activityTagName, cityName, divisionName } = data.activityResponse
+            setValue('selectedArea', cityName || '')
+            setValue('selectedSubArea', divisionName || '')
+            setValue('selectedShortTermFields', activityTagName ? [activityTagName] : [])
+            setSelectedArea(cityName || '')
+            setSelectedSubArea(divisionName || '')
+            setSelectedShortTermFields(activityTagName ? [activityTagName] : [])
+          }
+        } catch (error) {
+          console.error('Failed to fetch onboarding data', error)
+        }
+      }
+    }
+    fetchData()
+  }, [setValue])
+
   const onSubmit = async (data: TeamOnBoardingActivityWayFormInputs) => {
     const accessToken = localStorage.getItem('accessToken') || ''
-
     const response = await TeamOnBoardingActivityWay(accessToken, data)
-
     console.log(response)
+    if (response.ok) {
+      router.push('/onBoarding/person/member')
+    }
   }
 
   const toggleShortTermField = (field: string) => {

@@ -135,6 +135,21 @@ export const TeamOnBoardingField = async (accessToken: string, data: TeamOnBoadi
   return responseData
 }
 
+// 팀 온보딩 - GET
+export const TeamOnBoardingData = async (accessToken: string) => {
+  const response = await fetch('https://dev.linkit.im/team_profile/onBoarding', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  const responseData = await response.json()
+  return responseData
+}
+
 // 팀 온보딩 - 활동 방식
 export const TeamOnBoardingActivityWay = async (accessToken: string, data: TeamOnBoardingActivityWayFormInputs) => {
   const response = await fetch('https://dev.linkit.im/activity-method', {
@@ -144,9 +159,9 @@ export const TeamOnBoardingActivityWay = async (accessToken: string, data: TeamO
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
-      selectedArea: data.selectedArea,
-      selectedSubArea: data.selectedSubArea,
-      selectedShortTermFields: data.selectedShortTermFields,
+      cityName: data.selectedArea,
+      divisionName: data.selectedSubArea,
+      activityTagNames: data.selectedShortTermFields,
     }),
     credentials: 'include',
   })

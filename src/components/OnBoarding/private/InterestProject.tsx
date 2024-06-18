@@ -16,6 +16,7 @@ export default function InterestProject() {
   const [selectedShortTermFields, setSelectedShortTermFields] = useState<string[]>([])
   const accessToken = typeof window !== 'undefined' ? window.localStorage.getItem('accessToken') : null
 
+  // 온보딩 데이터 가져오기
   useEffect(() => {
     const fetchData = async () => {
       if (accessToken) {
@@ -39,6 +40,7 @@ export default function InterestProject() {
     formState: { errors },
   } = useForm<FormValues>()
 
+  // 온보딩 데이터 저장하기
   const onSubmit = async () => {
     const response = await fetch(`https://dev.linkit.im/profile_team_building_field`, {
       method: 'POST',

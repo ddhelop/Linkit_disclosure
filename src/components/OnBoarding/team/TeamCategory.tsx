@@ -1,9 +1,9 @@
 'use client'
 import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
-import { useState } from 'react'
-import { TeamOnBoardingField } from '@/lib/action'
-import { access } from 'fs'
+import { useEffect, useState } from 'react'
+import { TeamOnBoardingData, TeamOnBoardingField } from '@/lib/action'
+import { useRouter } from 'next/navigation'
 
 const ShortTerm = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
 
@@ -16,7 +16,9 @@ interface FormInputs {
 
 export default function TeamCategory() {
   const [teamBuildingFieldNames, setTeamBuildingFieldNames] = useState<string[]>([])
+  const router = useRouter()
 
+  // useForm
   const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
     defaultValues: {
       teamName: '',
@@ -26,11 +28,39 @@ export default function TeamCategory() {
     },
   })
 
+  // 팀온보딩 데이터 가져오기
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken') || ''
+    const fetchData = async () => {
+      if (accessToken) {
+        try {
+          const data = await TeamOnBoardingData(accessToken)
+          console.log('onBoardingData', data)
+
+          if (data.onBoardingFieldTeamInformResponse) {
+            const { teamName, sizeType, sectorName, teamBuildingFieldNames } = data.onBoardingFieldTeamInformResponse
+            setValue('teamName', teamName || '')
+            setValue('teamSize', sizeType || '')
+            setValue('teamField', sectorName || '')
+            setValue('teamBuildingFieldNames', teamBuildingFieldNames || [])
+            setTeamBuildingFieldNames(teamBuildingFieldNames || [])
+          }
+        } catch (error) {
+          console.error('Failed to fetch onboarding data', error)
+        }
+      }
+    }
+    fetchData()
+  }, [setValue])
+
+  // 팀온보딩 데이터 저장하기
   const onSubmit = async (data: FormInputs) => {
     const accessToken = localStorage.getItem('accessToken') || ''
     const response = await TeamOnBoardingField(accessToken, data)
 
-    console.log('Data:', response)
+    if (response.ok) {
+      router.push('/onBoarding/team/activityWay')
+    }
   }
 
   const toggleShortTermField = (field: string) => {
