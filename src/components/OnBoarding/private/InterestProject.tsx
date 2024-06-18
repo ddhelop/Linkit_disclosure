@@ -87,28 +87,25 @@ export default function InterestProject() {
 
   return (
     <div>
-      <div className="flex h-screen w-full flex-col overflow-hidden pt-[69px]">
-        <div className="t-[69px] fixed h-[0.18rem] w-2/3 bg-[#2563EB]"></div>
+      <div className="flex h-screen w-full flex-col overflow-hidden lg:pt-[69px]">
+        <div className="fixed mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-0"></div>
         <div className="flex w-full flex-col items-center py-16">
-          <div className="flex w-[80%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
+          <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
             <span>내 이력서 가이드</span>
           </div>
-          <div className="flex w-[80%] flex-col items-start leading-9 sm:w-[55%]">
+          <div className="flex w-[90%] flex-col items-start leading-9 sm:w-[55%]">
             <span className="text-2xl font-bold">관심있는 프로젝트를 선택해주세요</span>
-            <span className="text-grey60">*중복선택 가능</span>
+            <span className="pt-1 text-sm text-grey60">*중복선택 가능</span>
           </div>
           {/* 단기 */}
-          <div className="flex w-[80%] flex-col pt-16 sm:w-[55%]">
-            <span className="text-lg font-bold leading-5">
-              단기 <span className=" text-sm font-normal text-grey80">(2개월 이내)</span>
-            </span>
-            <div className="flex gap-x-2 pt-5">
+          <div className="flex w-[90%] flex-col pt-8 sm:w-[55%]">
+            <div className="flex flex-col gap-x-2 gap-y-3 lg:flex-row">
               {ShortTerm.map((el, index) => (
                 <button
                   key={index}
                   type="button"
                   onClick={() => toggleSelection(el)}
-                  className={`border px-3 py-1 ${
+                  className={`border px-3 py-2 lg:py-1 ${
                     selectedShortTermFields.includes(el)
                       ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]'
                       : 'border-[#CBD4E1] text-[#64748B]'
@@ -122,19 +119,19 @@ export default function InterestProject() {
 
           {/* Footer */}
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-            <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
-              <div className="flex justify-end p-4 pr-96">
+            <div className="fixed bottom-0 left-0 w-full shadow-soft-shadow lg:bg-[#fff]">
+              <div className="flex justify-center gap-4 p-2 lg:justify-end lg:pr-96">
                 <button
                   type="button"
                   onClick={onClickPrev}
-                  className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2"
+                  className="bg-blue-100 text-blue-700 rounded bg-grey20 px-12 py-2 lg:px-16"
                 >
                   이전
                 </button>
 
                 <button
                   type="submit"
-                  className={`${selectedShortTermFields.length > 0 ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} mr-4 rounded  px-16 py-2 text-[#fff]`}
+                  className={`${selectedShortTermFields.length > 0 ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} rounded  px-12 py-2 text-[#fff] lg:px-16`}
                   disabled={!(selectedShortTermFields.length > 0)}
                 >
                   다음

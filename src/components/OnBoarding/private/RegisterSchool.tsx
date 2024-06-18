@@ -95,18 +95,21 @@ export default function RegisterSchool() {
   }
 
   return (
-    <div className="flex h-full flex-col bg-[#FCFCFD] py-[69px]">
-      <div className="t-[69px] fixed h-[0.18rem] w-2/3 bg-[#2563EB]"></div>
+    <div className="flex h-full flex-col bg-[#FCFCFD] lg:py-[69px]">
+      <div className="fixed mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-0"></div>
       <div className="flex flex-grow flex-col items-center py-16">
-        <div className="flex w-[80%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
+        <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
           <span>내 이력서 가이드</span>
         </div>
-        <div className="flex w-[80%] flex-col items-start leading-9 sm:w-[55%]">
+        <div className="flex w-[90%] flex-col items-start leading-9 sm:w-[55%]">
           <span className="text-2xl font-bold">학교 이력을 등록해주세요</span>
         </div>
 
         {educationList.map((education, index) => (
-          <div key={index} className="mt-6 flex w-[55%] flex-col rounded-[0.63rem] border border-grey30 px-5 py-6">
+          <div
+            key={index}
+            className="mt-6 flex w-[90%] flex-col rounded-[0.63rem] border border-grey30 px-5 py-6 lg:w-[55%]"
+          >
             <div className="flex justify-between">
               <div className="flex flex-col">
                 <span className="font-semibold">{education.universityName}</span>
@@ -205,7 +208,7 @@ export default function RegisterSchool() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="mt-6 flex w-[55%] flex-col rounded-[0.63rem] border border-grey30 px-5 py-6"
+          className="mt-6 flex w-[90%] flex-col rounded-[0.63rem] border border-grey30 px-5 py-6 lg:w-[55%]"
         >
           <div className="flex gap-3">
             <div className="flex w-[49%] flex-col">
@@ -237,7 +240,7 @@ export default function RegisterSchool() {
             <span className="text-sm font-normal text-grey100">
               재학 기간<span className="pl-1 text-[#2563EB]">*</span>
             </span>
-            <div className="flex justify-between">
+            <div className="flex flex-col justify-between gap-5 lg:flex-row">
               <div className="mt-2 flex gap-4">
                 <input
                   className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
@@ -258,7 +261,10 @@ export default function RegisterSchool() {
                   <option value="졸업">졸업</option>
                 </select>
               </div>
-              <button type="submit" className="cursor-pointer rounded-md bg-[#2563EB] px-[0.88rem] text-sm text-[#fff]">
+              <button
+                type="submit"
+                className="cursor-pointer rounded-md bg-[#2563EB] px-[0.88rem] py-2 text-sm text-[#fff] lg:py-0"
+              >
                 추가하기
               </button>
             </div>
@@ -267,14 +273,14 @@ export default function RegisterSchool() {
 
         {/* Footer */}
         <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
-          <div className="flex justify-end p-4 pr-96">
-            <button onClick={onClickPrev} className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">
+          <div className="flex justify-center gap-4 p-2 lg:justify-end lg:pr-96">
+            <button onClick={onClickPrev} className="bg-blue-100 text-blue-700 rounded bg-grey20 px-16 py-2">
               이전
             </button>
 
             <button
               onClick={handleSave}
-              className={`mr-4 rounded px-16 py-2 ${
+              className={` rounded px-16 py-2 ${
                 educationList.length > 0 ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
               }`}
               disabled={educationList.length === 0}

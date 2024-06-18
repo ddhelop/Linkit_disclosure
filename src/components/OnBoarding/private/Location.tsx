@@ -79,17 +79,17 @@ export default function Location() {
 
   return (
     <div className="bg-[#FCFCFD]">
-      <div className="flex h-screen w-full flex-col overflow-hidden pt-[69px]">
-        <div className="t-[69px] fixed h-[0.18rem] w-2/3 bg-[#2563EB]"></div>
+      <div className="flex h-screen w-full flex-col overflow-hidden lg:pt-[69px]">
+        <div className="fixed mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-0"></div>
         <div className="flex w-full flex-col items-center py-16">
-          <div className="flex w-[80%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
+          <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
             <span>내 이력서 가이드</span>
           </div>
-          <div className="flex w-[80%] flex-col items-start leading-9 sm:w-[55%]">
+          <div className="flex w-[90%] flex-col items-start leading-9 sm:w-[55%]">
             <span className="text-2xl font-bold">활동 지역 및 위치를 알려주세요</span>
           </div>
 
-          <div className="flex w-[80%] gap-5 pt-8 sm:w-[55%]">
+          <div className="flex w-[90%] flex-col gap-5 pt-8 sm:w-[55%] lg:flex-row">
             <div className="flex flex-col">
               <span className="text-lg font-bold leading-5">시/도</span>
               {/* 시/도 */}
@@ -129,18 +129,18 @@ export default function Location() {
           {/* Footer */}
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
-              <div className="flex justify-end p-4 pr-96">
+              <div className="flex justify-center gap-4 p-2 lg:justify-end lg:pr-96">
                 <button
                   type="button"
                   onClick={onClickPrev}
-                  className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2"
+                  className="bg-blue-100 text-blue-700 rounded bg-grey20 px-12 py-2 lg:px-16"
                 >
                   이전
                 </button>
 
                 <button
                   type="submit"
-                  className={`${isNextButtonEnabled ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} mr-4 rounded px-16 py-2 text-[#fff]`}
+                  className={`${isNextButtonEnabled ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} rounded px-12 py-2 text-[#fff] lg:px-16`}
                   disabled={!isNextButtonEnabled}
                 >
                   다음

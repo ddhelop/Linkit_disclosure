@@ -28,24 +28,24 @@ export default function OnBoardingSelect() {
   }
 
   return (
-    <div className="flex h-screen w-full flex-col items-center pt-[69px]">
-      <div className="flex w-[838px] flex-col items-center py-20">
-        <div className="flex w-full justify-between text-sm font-medium leading-9 text-grey60">
+    <div className="flex h-screen w-full flex-col items-center lg:pt-[69px]">
+      <div className="flex w-[90%]  flex-col items-center py-20 lg:w-[838px]">
+        <div className="flex w-full justify-between text-xs font-medium leading-9 text-grey60 lg:text-sm">
           <span>가이드</span>
           <span>1/3</span>
         </div>
 
         <div className="flex w-full flex-col items-start leading-9">
-          <span className="text-2xl font-bold">링킷에서 활동할 프로필을 선택해주세요</span>
-          <span className="text-grey60">
+          <span className="text-xl font-bold lg:text-2xl">링킷에서 활동할 프로필을 선택해주세요</span>
+          <span className="pt-1 text-sm text-grey60 lg:text-base">
             언제든 두 프로필 모두 만들 수 있어요. 먼저 만들 프로필 양식을 선택해주세요
           </span>
         </div>
 
-        <div className="flex flex-col items-center gap-[0.5rem] pt-16 lg:flex-row">
+        <div className="flex flex-col items-center gap-[0.5rem] pt-3 md:pt-8 lg:flex-row lg:pt-16">
           {/* left box */}
           <motion.div
-            className="flex h-56 w-[415px] flex-col justify-between rounded-xl border border-grey30 p-7 shadow-box-shadow3 sm:w-[418px]"
+            className="flex h-56 flex-col justify-between rounded-xl border border-grey30 p-7 shadow-box-shadow3 md:w-[415px]"
             animate={leftControls}
             onMouseEnter={handleMouseEnterLeft}
             onMouseLeave={handleMouseLeave}
@@ -80,7 +80,7 @@ export default function OnBoardingSelect() {
 
           {/* right box */}
           <motion.div
-            className="flex h-56 w-[415px] flex-col justify-between rounded-xl border border-grey30 p-7 shadow-box-shadow3 sm:w-[418px]"
+            className="flex h-56 flex-col justify-between rounded-xl border border-grey30 p-7 shadow-box-shadow3 md:w-[415px]"
             animate={rightControls}
             onMouseEnter={handleMouseEnterRight}
             onMouseLeave={handleMouseLeave}
