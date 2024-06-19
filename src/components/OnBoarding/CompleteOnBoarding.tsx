@@ -1,15 +1,31 @@
+import Link from 'next/link'
+
 export default function CompleteOnBoarding() {
   return (
-    <div className="flex h-screen items-center justify-center bg-[#FCFCFD] pt-[68px]">
-      <div className="flex w-[37.25rem] flex-col items-center rounded-3xl border border-grey40 p-9">
-        <span className="text-[2rem] font-bold">가입을 축하합니다!</span>
-        <span className="text-[2rem] font-bold">프로필 마저 작성 해봐요</span>
+    <div className="bg-[#FCFCFD]">
+      <div className="flex h-screen w-full flex-col overflow-hidden lg:pt-[69px]">
+        <div className="fixed mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-0"></div>
 
-        <button className="mt-9 rounded-full bg-grey80 px-14 py-[1.37rem] text-[1.66rem] text-[#fff]">
-          프로필 마저 작성하기
-        </button>
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="flex flex-col items-center rounded-[1.875rem] border border-grey30 bg-[#fff] px-[4.4rem] pb-[1.82rem] pt-[5.25rem]">
+            <div className="flex flex-col items-center text-[2rem] font-bold">
+              <p>가입을 축하합니다!</p>
+              <p>프로필을 마저 작성하러 가시겠어요?</p>
+            </div>
 
-        <div className="cursor-pointer border-b border-grey60 pt-4 text-grey60">예비 팀원 둘러보기</div>
+            <Link href="/myResume">
+              <button className="mt-[5.19rem] rounded-[21rem] bg-grey80 px-[5.8rem] py-[1.37rem] text-[1.66rem] text-[#fff]">
+                네, 채우러 갈래요!
+              </button>
+            </Link>
+
+            <Link href="/">
+              <div className="cursor-pointer border-b border-grey60 pt-[1rem] text-grey60">
+                아니오, 먼저 둘러볼래요!
+              </div>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   )
