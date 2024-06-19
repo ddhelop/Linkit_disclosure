@@ -1,7 +1,8 @@
 'use client'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { TeamOnBoardingData } from '@/lib/action'
 
 const positions = ['기획', '마케팅', '개발자', '디자이너', '리서치', '기타']
 
@@ -22,6 +23,22 @@ export default function LookingForMember() {
       selectedPositions: [],
     },
   })
+
+  // 팀온보딩 데이터 가져오기
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken') || ''
+    const fetchData = async () => {
+      if (accessToken) {
+        try {
+          const data = await TeamOnBoardingData(accessToken)
+          console.log('onBoardingData', data)
+        } catch (error) {
+          console.error('Failed to fetch onboarding data', error)
+        }
+      }
+    }
+    fetchData()
+  }, [setValue])
 
   // Watch form fields
   const { teamName, teamSize, teamField } = watch()

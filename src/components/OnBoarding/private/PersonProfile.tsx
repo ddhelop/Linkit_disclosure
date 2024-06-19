@@ -87,20 +87,22 @@ export default function RegisterPersonProfile() {
   return (
     <>
       <div className="relative">
-        <div className="fixed top-[4.5rem] z-40 h-[0.18rem] w-2/3 bg-[#2563EB]"></div>
+        <div className="fixed z-40 mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-[69px]"></div>
       </div>
 
-      <div className="flex w-full flex-col items-center bg-[#fff] py-16">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex w-[901px] flex-col items-center py-20">
+      <div className="flex w-full flex-col items-center bg-[#fff] p-4 pb-20 pt-16">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col items-center lg:w-[901px] lg:py-20">
           <div className="flex w-full flex-col items-start leading-9">
             <span className="text-sm font-medium leading-9 text-grey60">내 이력서 가이드</span>
             <span className="text-2xl font-bold">내 이력서가 거의 완성되었어요</span>
-            <span className="text-grey60">다른사람들이 보는 나의 프로필이예요 수정할 사항을 완성해주세요</span>
+            <span className="pt-1 text-sm text-grey60 lg:text-base">
+              다른사람들이 보는 나의 프로필이예요. 수정할 사항을 완성해주세요
+            </span>
           </div>
 
-          <div className="flex w-full justify-between gap-14 pt-12">
+          <div className="flex w-full pt-12 lg:justify-between lg:gap-14">
             {/* left */}
-            <div className="flex h-[31.4rem] w-[22.18rem] flex-col rounded-lg border-[1.67px] border-grey30 p-5">
+            <div className="hidden h-[31.4rem] w-[22.18rem] flex-col rounded-lg border-[1.67px] border-grey30 p-5 lg:flex">
               <h2 className="text-2xl font-bold leading-9 text-grey50">
                 {watch('profileTitle') || '사이드 프로젝트 함께 할 개발자를 찾고 있어요'}
               </h2>
@@ -133,7 +135,7 @@ export default function RegisterPersonProfile() {
             </div>
 
             {/* right */}
-            <div className="flex w-[30.7rem] flex-col gap-11">
+            <div className="flex w-full flex-col gap-11 lg:w-[30.7rem]">
               {/* 제목 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
@@ -151,42 +153,44 @@ export default function RegisterPersonProfile() {
                 <span className="font-semibold text-grey100">
                   프로필 업로드 기간 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
-                <div className="mt-[1.19rem] flex items-center gap-3">
-                  <input
-                    type="number"
-                    defaultValue={2024}
-                    id="year"
-                    {...register('uploadYear')}
-                    onChange={handleDateChange}
-                    className="h-8 w-[5.5rem] rounded border border-grey30 px-[0.88rem] text-center"
-                  />
-                  <select
-                    id="month"
-                    {...register('uploadMonth')}
-                    onChange={handleDateChange}
-                    className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60"
-                  >
-                    <option value="">월</option>
-                    {[...Array(12).keys()].map((month) => (
-                      <option key={month + 1} value={month + 1}>
-                        {month + 1}월
-                      </option>
-                    ))}
-                  </select>
-                  <select
-                    id="day"
-                    {...register('uploadDay')}
-                    onChange={handleDateChange}
-                    className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60"
-                  >
-                    <option value="">일</option>
-                    {[...Array(31).keys()].map((d) => (
-                      <option key={d + 1} value={d + 1}>
-                        {d + 1}일
-                      </option>
-                    ))}
-                  </select>
-                  <div className="flex items-center gap-4">
+                <div className="mt-[1.19rem] flex flex-col gap-3 lg:flex-row lg:items-center">
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      defaultValue={2024}
+                      id="year"
+                      {...register('uploadYear')}
+                      onChange={handleDateChange}
+                      className="h-8 w-[5.5rem] rounded border border-grey30 px-[0.88rem] text-center"
+                    />
+                    <select
+                      id="month"
+                      {...register('uploadMonth')}
+                      onChange={handleDateChange}
+                      className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60"
+                    >
+                      <option value="">월</option>
+                      {[...Array(12).keys()].map((month) => (
+                        <option key={month + 1} value={month + 1}>
+                          {month + 1}월
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      id="day"
+                      {...register('uploadDay')}
+                      onChange={handleDateChange}
+                      className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60"
+                    >
+                      <option value="">일</option>
+                      {[...Array(31).keys()].map((d) => (
+                        <option key={d + 1} value={d + 1}>
+                          {d + 1}일
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="flex items-center gap-4 pl-1 lg:pl-0">
                     <label className="flex items-center">
                       <input
                         type="radio"
@@ -258,14 +262,14 @@ export default function RegisterPersonProfile() {
           </div>
 
           {/* Footer */}
-          <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
-            <div className="flex justify-end p-4 pr-96">
+          <div className="fixed bottom-0 left-0 w-full bg-[#fff] shadow-soft-shadow">
+            <div className="flex justify-center p-4 lg:justify-end lg:pr-96">
               <Link href="/onBoarding/project">
-                <button type="button" className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">
+                <button type="button" className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-12 py-2 lg:px-16">
                   이전
                 </button>
               </Link>
-              <button type="submit" className="mr-4 rounded bg-[#2563EB] px-16 py-2 text-[#fff]">
+              <button type="submit" className="mr-4 rounded bg-[#2563EB] px-12 py-2 text-[#fff] lg:px-16">
                 다음
               </button>
             </div>
