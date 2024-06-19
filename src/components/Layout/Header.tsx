@@ -115,7 +115,7 @@ export default function Header() {
           </button>
         </div>
       </div>
-      <div
+      {/* <div
         className={`mobile-menu transition-max-height absolute w-full duration-500 ease-in-out ${
           mobileMenuOpen ? 'max-h-96' : 'max-h-0'
         }`}
@@ -129,7 +129,7 @@ export default function Header() {
         <Link href="#" className="block p-4 pl-8 text-sm font-semibold leading-6 text-grey100">
           팀 찾기
         </Link>
-      </div>
+      </div> */}
     </nav>
   )
 }
