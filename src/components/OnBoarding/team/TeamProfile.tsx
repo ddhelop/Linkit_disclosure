@@ -54,11 +54,11 @@ export default function TeamProfile() {
   return (
     <>
       <div className="relative">
-        <div className="fixed top-[4.5rem] z-40 h-[0.18rem] w-2/3 bg-[#2563EB]"></div>{' '}
+        <div className="fixed z-40 mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-[67px]"></div>{' '}
       </div>
 
-      <div className="flex w-full flex-col items-center py-16">
-        <div className="flex w-[901px] flex-col items-center py-20">
+      <div className="flex w-full flex-col items-center bg-[#fff] p-4 lg:py-16">
+        <div className="flex w-full flex-col items-center pb-24 pt-16 lg:w-[901px]">
           <div className="flex w-full flex-col items-start leading-9">
             <span className="text-2xl font-bold">팀 이력서가 거의 완성되었어요</span>
             <span className="text-grey60">다른사람들이 보는 팀 프로필이예요. 수정할 사항을 완성해주세요</span>
@@ -66,7 +66,7 @@ export default function TeamProfile() {
 
           <div className="flex w-full justify-between gap-14 pt-12">
             {/* left */}
-            <div className="flex h-[25.6rem]  w-[22.18rem] flex-col rounded-lg border-[1.67px] border-grey30 p-5">
+            <div className="hidden h-[25.6rem] w-[22.18rem]  flex-col rounded-lg border-[1.67px] border-grey30 p-5 lg:flex">
               <h2 className="text-2xl font-bold leading-9 text-grey50">
                 {profileTitle || '사이드 프로젝트 함께 할 개발자를 찾고 있어요'}
               </h2>
@@ -94,7 +94,7 @@ export default function TeamProfile() {
             </div>
 
             {/* right */}
-            <form onSubmit={handleSubmit(onSubmit)} className="flex w-[30.7rem] flex-col gap-11">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-11 lg:w-[30.7rem]">
               {/* 제목 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
@@ -118,47 +118,49 @@ export default function TeamProfile() {
                 <span className="font-semibold text-grey100">
                   공고 업로드 기간 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
-                <div className="mt-[1.19rem] flex items-center gap-3">
-                  <Controller
-                    name="year"
-                    control={control}
-                    render={({ field }) => (
-                      <input
-                        {...field}
-                        type="number"
-                        defaultValue={2024}
-                        className="h-8 w-[5.5rem] rounded border border-grey30 px-[0.88rem] text-center"
-                      />
-                    )}
-                  />
-                  <Controller
-                    name="month"
-                    control={control}
-                    render={({ field }) => (
-                      <select {...field} className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60">
-                        <option value="">월</option>
-                        {[...Array(12).keys()].map((month) => (
-                          <option key={month + 1} value={month + 1}>
-                            {month + 1}월
-                          </option>
-                        ))}
-                      </select>
-                    )}
-                  />
-                  <Controller
-                    name="day"
-                    control={control}
-                    render={({ field }) => (
-                      <select {...field} className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60">
-                        <option value="">일</option>
-                        {[...Array(31).keys()].map((d) => (
-                          <option key={d + 1} value={d + 1}>
-                            {d + 1}일
-                          </option>
-                        ))}
-                      </select>
-                    )}
-                  />
+                <div className="mt-[1.19rem] flex flex-col items-start gap-3 lg:flex-row lg:items-center">
+                  <div className="flex gap-2">
+                    <Controller
+                      name="year"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          type="number"
+                          defaultValue={2024}
+                          className="h-8 w-[5.5rem] rounded border border-grey30 px-[0.88rem] text-center"
+                        />
+                      )}
+                    />
+                    <Controller
+                      name="month"
+                      control={control}
+                      render={({ field }) => (
+                        <select {...field} className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60">
+                          <option value="">월</option>
+                          {[...Array(12).keys()].map((month) => (
+                            <option key={month + 1} value={month + 1}>
+                              {month + 1}월
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    />
+                    <Controller
+                      name="day"
+                      control={control}
+                      render={({ field }) => (
+                        <select {...field} className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60">
+                          <option value="">일</option>
+                          {[...Array(31).keys()].map((d) => (
+                            <option key={d + 1} value={d + 1}>
+                              {d + 1}일
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    />
+                  </div>
                   <div className="flex items-center gap-4">
                     <label className="flex items-center">
                       <input
@@ -235,19 +237,24 @@ export default function TeamProfile() {
 
               {/* Footer */}
               <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
-                <div className="flex justify-end p-4 pr-96">
-                  <Link href="/onBoarding/select">
-                    <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">이전</button>
+                <div className="flex justify-center p-4 lg:justify-end lg:pr-96">
+                  <Link href="/onBoarding/team/member">
+                    <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-12 py-2 lg:px-16">
+                      이전
+                    </button>
                   </Link>
-                  <button
-                    type="submit"
-                    className={`mr-4 rounded px-16 py-2 ${
-                      isNextButtonEnabled ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
-                    }`}
-                    disabled={!isNextButtonEnabled}
-                  >
-                    다음
-                  </button>
+
+                  <Link href="/onBoarding/complete">
+                    <button
+                      type="submit"
+                      className={`mr-4 rounded px-12 py-2 lg:px-16 ${
+                        isNextButtonEnabled ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
+                      }`}
+                      disabled={!isNextButtonEnabled}
+                    >
+                      다음
+                    </button>
+                  </Link>
                 </div>
               </div>
             </form>

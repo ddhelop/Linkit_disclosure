@@ -62,21 +62,21 @@ export default function LookingForMember() {
 
   return (
     <div className="bg-[#FCFCFD]">
-      <div className="flex w-full flex-col py-[69px]">
-        <div className="t-[69px] fixed h-[0.18rem] w-2/3 bg-[#2563EB]"></div>
+      <div className="flex w-full flex-col lg:py-[69px]">
+        <div className="fixed mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-0"></div>
         <div className="flex w-full flex-col items-center py-16">
-          <div className="flex w-[80%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
+          <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
             <span>팀 이력서 가이드</span>
           </div>
-          <div className="flex w-[80%] flex-col items-start leading-9 sm:w-[55%]">
+          <div className="flex w-[90%] flex-col items-start leading-9 sm:w-[55%]">
             <span className="text-2xl font-bold">구하는 팀원을 알려주세요</span>
             <span className="text-grey60">*중복선택 가능</span>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col items-center">
             {/* 구하는 팀원 */}
-            <div className="flex w-[80%] flex-col pt-5 sm:w-[55%]">
-              <div className="flex gap-x-2 pt-5">
+            <div className="flex w-[90%] flex-col pt-5 sm:w-[55%]">
+              <div className="flex flex-wrap gap-2  lg:pt-5">
                 {positions.map((position, index) => (
                   <button
                     key={index}
@@ -112,12 +112,12 @@ export default function LookingForMember() {
       </div>
       {/* Footer */}
       <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
-        <div className="flex justify-end p-4 pr-96">
+        <div className="flex justify-center p-4 lg:justify-end lg:pr-96">
           <Link href="/onBoarding/select">
-            <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-16 py-2">이전</button>
+            <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-12 py-2 lg:px-16">이전</button>
           </Link>
           <button
-            className={`mr-4 rounded px-16 py-2 ${
+            className={`mr-4 rounded px-12 py-2 lg:px-16 ${
               isNextButtonEnabled ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
             }`}
             disabled={!isNextButtonEnabled}
