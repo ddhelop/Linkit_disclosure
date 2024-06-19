@@ -68,9 +68,10 @@ export default function ActivityWay() {
   const onSubmit = async (data: TeamOnBoardingActivityWayFormInputs) => {
     const accessToken = localStorage.getItem('accessToken') || ''
     const response = await TeamOnBoardingActivityWay(accessToken, data)
+
     console.log(response)
     if (response.ok) {
-      router.push('/onBoarding/person/member')
+      router.push('/onBoarding/team/member')
     }
   }
 

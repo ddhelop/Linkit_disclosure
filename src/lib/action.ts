@@ -131,8 +131,7 @@ export const TeamOnBoardingField = async (accessToken: string, data: TeamOnBoadi
     credentials: 'include',
   })
 
-  const responseData = await response.json()
-  return responseData
+  return response
 }
 
 // 팀 온보딩 - GET
@@ -166,6 +165,5 @@ export const TeamOnBoardingActivityWay = async (accessToken: string, data: TeamO
     credentials: 'include',
   })
 
-  const responseData = await response.json()
-  return responseData
+  return response
 }
