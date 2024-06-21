@@ -52,10 +52,10 @@ export default function ActivityWay() {
             const { activityTagName, cityName, divisionName } = data.activityResponse
             setValue('selectedArea', cityName || '')
             setValue('selectedSubArea', divisionName || '')
-            setValue('selectedShortTermFields', activityTagName ? [activityTagName] : [])
+            setValue('selectedShortTermFields', activityTagName || [])
             setSelectedArea(cityName || '')
             setSelectedSubArea(divisionName || '')
-            setSelectedShortTermFields(activityTagName ? [activityTagName] : [])
+            setSelectedShortTermFields(activityTagName || [])
           }
         } catch (error) {
           console.error('Failed to fetch onboarding data', error)
@@ -71,7 +71,7 @@ export default function ActivityWay() {
 
     console.log(response)
     if (response.ok) {
-      router.push('/onBoarding/team/member')
+      router.push('/onBoarding/team/profile')
     }
   }
 
