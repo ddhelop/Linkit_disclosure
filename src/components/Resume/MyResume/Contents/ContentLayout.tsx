@@ -34,7 +34,7 @@ export default function ContentLayout({ data }: MyResumContentsProps) {
       <MyHistoryComponent />
 
       {/* 학력 */}
-      <MyAcademicComponent />
+      <MyAcademicComponent data={data.educationResponse} />
 
       {/* 수상 */}
       <MyAwardComponent />
