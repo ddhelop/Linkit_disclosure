@@ -25,7 +25,7 @@ export default function ContentLayout({ data }: MyResumContentsProps) {
       <MySkillComponent />
 
       {/* 희망 팀빌딩 분야 컴포넌트 */}
-      <TeamBuildingComponent />
+      <TeamBuildingComponent data={data.profileTeamBuildingFieldResponse} />
 
       {/* 활동 지역/위치 컴포넌트 */}
       <MyLocationComponent />

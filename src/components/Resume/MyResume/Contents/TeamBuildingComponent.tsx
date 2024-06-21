@@ -1,10 +1,20 @@
 'use client'
-import { useState } from 'react'
+import { ProfileTeamBuildingFieldResponse } from '@/lib/types'
+import { useState, useEffect } from 'react'
 
-export default function TeamBuildingComponent() {
+interface MyResumTeamBuildingFieldProps {
+  data: ProfileTeamBuildingFieldResponse
+}
+
+export default function TeamBuildingComponent({ data }: MyResumTeamBuildingFieldProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
   const [options, setOptions] = useState(['해커톤', '공모전', '대회', '사이드 프로젝트', '포트폴리오'])
+
+  useEffect(() => {
+    setSelectedOptions(data.teamBuildingFieldNames)
+    setOptions(options.filter((option) => !data.teamBuildingFieldNames.includes(option)))
+  }, [data.teamBuildingFieldNames])
 
   const handleEditClick = () => {
     setIsEditing(!isEditing)
@@ -40,7 +50,7 @@ export default function TeamBuildingComponent() {
               <div
                 key={index}
                 onClick={() => handleRemoveOption(option)}
-                className="flex cursor-pointer items-center rounded-lg border border-[#2563Eb] bg-[#E0E7FF] px-3 py-1"
+                className="flex cursor-pointer items-center rounded-lg border border-[#2563Eb] bg-[#D3E1FE] bg-opacity-40 px-3 py-1"
               >
                 <span className="text-[#2563EB]">{option}</span>
                 <button
@@ -71,10 +81,10 @@ export default function TeamBuildingComponent() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-wrap gap-2 pt-2">
+        <div className="flex flex-wrap gap-2 pt-[1.56rem]">
           {selectedOptions.map((option, index) => (
-            <div key={index} className="flex items-center rounded-lg bg-[#E0E7FF] px-3 py-1">
-              <span className="text-[#2563EB]">{option}</span>
+            <div key={index} className="flex items-center rounded-lg border border-grey40 px-3 py-1">
+              <span className="text-grey60">{option}</span>
             </div>
           ))}
         </div>
