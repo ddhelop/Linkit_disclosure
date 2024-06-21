@@ -167,3 +167,16 @@ export const TeamOnBoardingActivityWay = async (accessToken: string, data: TeamO
 
   return response
 }
+
+// 팀 온보딩 - 미니 프로필
+export async function PostTeamProfile(accessToken: string, payload: any) {
+  return fetch('https://dev.linkit.im/team/mini-profile', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify(payload),
+  })
+}

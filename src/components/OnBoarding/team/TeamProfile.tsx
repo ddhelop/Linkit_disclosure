@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
 import { ChangeEvent } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface FormInputs {
   profileTitle: string
@@ -11,10 +12,45 @@ interface FormInputs {
   year: string
   month: string
   day: string
-  profileImage?: string
+  profileImage?: FileList
+}
+
+interface ApiPayload {
+  teamProfileTitle: string
+  teamUploadPeriod: string
+  teamUploadDeadline: boolean
+  teamValue: string
+  teamDetailInform: string
+}
+
+interface PostTeamProfileResponse {
+  ok: boolean
+}
+
+export async function PostTeamProfile(
+  accessToken: string,
+  payload: ApiPayload,
+  image?: File,
+): Promise<PostTeamProfileResponse> {
+  const formData = new FormData()
+  formData.append('teamMiniProfileCreateRequest', new Blob([JSON.stringify(payload)], { type: 'application/json' }))
+  if (image) {
+    formData.append('teamMiniProfileImage', image)
+  }
+
+  const response = await fetch('https://linkit.im/team/mini-profile', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: formData,
+  })
+
+  return response.json()
 }
 
 export default function TeamProfile() {
+  const router = useRouter()
   const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
     defaultValues: {
       profileTitle: '',
@@ -35,26 +71,36 @@ export default function TeamProfile() {
   const profileImage = watch('profileImage')
 
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setValue('profileImage', reader.result as string)
-      }
-      reader.readAsDataURL(file)
+    const files = event.target.files
+    if (files && files.length > 0) {
+      setValue('profileImage', files)
     }
   }
 
   const isNextButtonEnabled = profileTitle && collaborationValue && skills && year && month && day
 
-  const onSubmit = (data: FormInputs) => {
-    console.log(data)
+  const onSubmit = async (data: FormInputs) => {
+    const accessToken = localStorage.getItem('accessToken') || ''
+    const payload: ApiPayload = {
+      teamProfileTitle: data.profileTitle,
+      teamUploadPeriod: `${data.year}-${data.month}-${data.day}`,
+      teamUploadDeadline: true, // You can change this based on the radio button selection
+      teamValue: data.collaborationValue,
+      teamDetailInform: data.skills,
+    }
+
+    const image = data.profileImage && data.profileImage.length > 0 ? data.profileImage[0] : undefined
+    const response: PostTeamProfileResponse = await PostTeamProfile(accessToken, payload, image)
+
+    if (response.ok) {
+      router.push('/onBoarding/complete')
+    }
   }
 
   return (
     <>
       <div className="relative">
-        <div className="fixed z-40 mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-[67px]"></div>{' '}
+        <div className="fixed z-40 mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-[69px]"></div>{' '}
       </div>
 
       <div className="flex w-full flex-col items-center bg-[#fff] p-4 lg:py-16">
@@ -73,8 +119,14 @@ export default function TeamProfile() {
               <span className="pt-2 font-medium text-grey60">D-59</span>
 
               <div className="flex gap-5 py-3">
-                {profileImage ? (
-                  <Image src={profileImage} width={80} height={80} alt="profile_image" className="rounded-3xl" />
+                {profileImage && profileImage.length > 0 ? (
+                  <Image
+                    src={URL.createObjectURL(profileImage[0])}
+                    width={80}
+                    height={80}
+                    alt="profile_image"
+                    className="rounded-3xl"
+                  />
                 ) : (
                   <Image src={'/assets/onBoarding/addImage.svg'} width={80} height={80} alt="add_image" />
                 )}
@@ -187,8 +239,14 @@ export default function TeamProfile() {
                   <span className="font-sm pl-3 text-grey80">추천 사이즈: 512 x 512 px / JPG, PNG, 최대 2MB</span>
                 </div>
                 <div className="flex items-end gap-[1.19rem] pt-[1.19rem]">
-                  {profileImage ? (
-                    <Image src={profileImage} width={125} height={125} alt="profile_image" className="rounded-3xl" />
+                  {profileImage && profileImage.length > 0 ? (
+                    <Image
+                      src={URL.createObjectURL(profileImage[0])}
+                      width={125}
+                      height={125}
+                      alt="profile_image"
+                      className="rounded-3xl"
+                    />
                   ) : (
                     <Image src={'/assets/onBoarding/addImage.svg'} width={125} height={125} alt="add_image" />
                   )}
@@ -236,7 +294,7 @@ export default function TeamProfile() {
               </div>
 
               {/* Footer */}
-              <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
+              <div className="fixed bottom-0 left-0 w-full bg-[#fff] shadow-soft-shadow">
                 <div className="flex justify-center p-4 lg:justify-end lg:pr-96">
                   <Link href="/onBoarding/team/member">
                     <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-12 py-2 lg:px-16">
@@ -244,17 +302,15 @@ export default function TeamProfile() {
                     </button>
                   </Link>
 
-                  <Link href="/onBoarding/complete">
-                    <button
-                      type="submit"
-                      className={`mr-4 rounded px-12 py-2 lg:px-16 ${
-                        isNextButtonEnabled ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
-                      }`}
-                      disabled={!isNextButtonEnabled}
-                    >
-                      다음
-                    </button>
-                  </Link>
+                  <button
+                    type="submit"
+                    className={`mr-4 rounded px-12 py-2 lg:px-16 ${
+                      isNextButtonEnabled ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
+                    }`}
+                    disabled={!isNextButtonEnabled}
+                  >
+                    다음
+                  </button>
                 </div>
               </div>
             </form>
