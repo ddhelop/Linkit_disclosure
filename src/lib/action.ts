@@ -180,3 +180,17 @@ export async function PostTeamProfile(accessToken: string, payload: any) {
     body: JSON.stringify(payload),
   })
 }
+
+// 내 이력서 전체 조회
+export async function GetMyResume(accessToken: string) {
+  const response = await fetch('https://dev.linkit.im/profile', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  return await response.json()
+}

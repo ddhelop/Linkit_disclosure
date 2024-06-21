@@ -41,3 +41,101 @@ export interface TeamOnBoardingActivityWayFormInputs {
   selectedSubArea: string
   selectedShortTermFields: string[]
 }
+
+// 미니프로필 조회
+// lib/types.ts
+export interface MiniProfileResponse {
+  profileTitle: string
+  uploadPeriod: string
+  uploadDeadline: boolean
+  miniProfileImg: string
+  myValue: string
+  skillSets: string
+}
+
+export interface CompletionResponse {
+  completion: number
+  awards: boolean
+  attach: boolean
+  introduction: boolean
+  profileSkill: boolean
+  profileTeamBuildingField: boolean
+  profileRegion: boolean
+  antecedents: boolean
+  education: boolean
+}
+
+export interface ProfileIntroductionResponse {
+  introduction: string
+}
+
+export interface ProfileSkillResponse {
+  roleFields: string[]
+  skillNames: string[]
+}
+
+export interface ProfileTeamBuildingFieldResponse {
+  teamBuildingFieldNames: string[]
+}
+
+export interface AntecedentResponse {
+  id: number
+  projectName: string
+  projectRole: string
+  startYear: number
+  startMonth: number
+  endYear: number
+  endMonth: number
+  retirement: boolean
+}
+
+export interface EducationResponse {
+  id: number
+  admissionYear: number
+  graduationYear: number
+  universityName: string
+  majorName: string
+  degreeName: string
+}
+
+export interface AwardResponse {
+  id: number
+  awardsName: string
+  ranking: string
+  organizer: string
+  awardsYear: number
+  awardsMonth: number
+  awardsDescription: string
+}
+
+export interface AttachUrlResponse {
+  id: number
+  attachUrlName: string
+  attachUrl: string
+}
+
+export interface AttachFileResponse {
+  id: number
+  attachFile: string
+}
+
+export interface AttachResponse {
+  attachUrlResponseList: AttachUrlResponse[]
+  attachFileResponseList: AttachFileResponse[]
+}
+
+export interface MyResumeResponse {
+  miniProfileResponse: MiniProfileResponse
+  completionResponse: CompletionResponse
+  profileIntroductionResponse: ProfileIntroductionResponse
+  profileSkillResponse: ProfileSkillResponse
+  profileTeamBuildingFieldResponse: ProfileTeamBuildingFieldResponse
+  antecedentsResponse: AntecedentResponse[]
+  educationResponse: EducationResponse[]
+  awardsResponse: AwardResponse[]
+  attachResponse: AttachResponse
+}
+
+export interface MyResumNavProps {
+  data: MyResumeResponse
+}
