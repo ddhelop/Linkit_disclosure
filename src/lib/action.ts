@@ -194,3 +194,16 @@ export async function GetMyResume(accessToken: string) {
 
   return await response.json()
 }
+
+// 내 이력서 - 자기소개 작성 POST
+export async function PostProfileIntroduction(accessToken: string, introduction: string) {
+  return fetch('https://dev.linkit.im/profile/introduction', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({ introduction }),
+    credentials: 'include',
+  })
+}

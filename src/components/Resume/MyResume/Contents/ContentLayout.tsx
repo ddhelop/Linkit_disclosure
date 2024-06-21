@@ -19,7 +19,7 @@ export default function ContentLayout({ data }: MyResumContentsProps) {
       <MyResumeProgress data={data.completionResponse} />
 
       {/* 자기소개 컴포넌트 */}
-      <IntroduceComponent />
+      <IntroduceComponent data={data.profileIntroductionResponse} />
 
       {/* 보유 기술 컴포넌트 */}
       <MySkillComponent />

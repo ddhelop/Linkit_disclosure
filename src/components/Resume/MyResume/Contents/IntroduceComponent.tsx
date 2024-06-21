@@ -1,4 +1,5 @@
 'use client'
+import { PostProfileIntroduction } from '@/lib/action'
 import { ProfileIntroductionResponse } from '@/lib/types'
 import { ChangeEvent, useState } from 'react'
 
@@ -12,7 +13,22 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
   const [charCount, setCharCount] = useState(data.introduction ? data.introduction.length : 0)
 
   const handleEditClick = () => {
-    setIsEditing(true)
+    if (isEditing) {
+      saveIntroduction()
+    } else {
+      setIsEditing(true)
+    }
+  }
+
+  const saveIntroduction = async () => {
+    const accessToken = localStorage.getItem('accessToken') || ''
+    const response = await PostProfileIntroduction(accessToken, introduction)
+    if (response.ok) {
+      alert('저장되었습니다.')
+      setIsEditing(false)
+    } else {
+      alert('저장에 실패했습니다.')
+    }
   }
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -21,6 +37,12 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
       setIntroduction(value)
       setCharCount(value.length)
     }
+  }
+
+  const handleCancelClick = () => {
+    setIsEditing(false)
+    setIntroduction(data.introduction || '')
+    setCharCount(data.introduction ? data.introduction.length : 0)
   }
 
   return (
@@ -38,7 +60,7 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
         {isEditing ? (
           <div>
             <textarea
-              className="border-grey200 text-black w-full resize-none rounded border p-2"
+              className="w-full resize-none rounded border border-grey30 p-4 text-[#000]"
               rows={4}
               value={introduction}
               onChange={handleInputChange}
@@ -47,14 +69,19 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
             <div className="text-right text-sm text-grey100">{charCount} / 300자</div>
           </div>
         ) : (
-          <span className={introduction ? 'text-black' : 'text-grey50'}>{introduction || '자기소개가 없습니다.'}</span>
+          <span className={introduction ? 'text-[#000]' : 'text-grey50'}>{introduction || '자기소개가 없습니다.'}</span>
         )}
       </div>
 
-      {/* button */}
-      <div className="mt-[0.94rem] flex w-full justify-end">
+      {/* buttons */}
+      <div className="mt-[0.94rem] flex w-full justify-end gap-2">
+        {isEditing && (
+          <button className="h-10 rounded bg-grey60 px-4 text-sm text-[#fff]" onClick={handleCancelClick}>
+            취소하기
+          </button>
+        )}
         <button className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]" onClick={handleEditClick}>
-          수정하기
+          {isEditing ? '저장하기' : '수정하기'}
         </button>
       </div>
     </div>
