@@ -63,44 +63,47 @@ export default function Header() {
 
   return (
     <nav className="fixed top-0 z-[100] w-full flex-shrink bg-white-alpha-20 shadow-soft-shadow backdrop-blur-lg">
-      <div className="mx-auto flex max-w-full items-center justify-between p-[16px] lg:p-6 lg:pl-40 lg:pr-20">
-        <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5">
-            <Image src="/assets/icons/headerLogo.svg" width={110} height={20} layout="reponsive" alt="logo" />
-          </Link>
-        </div>
-        {!hiddenPaths.includes(pathname) && (
-          <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-between">
-            <Link href="#" className="text-lg font-medium leading-5 text-grey100">
-              창업/공모전 정보
-            </Link>
-            <Link href="#" className="text-lg font-medium leading-5 text-grey100">
-              팀원 찾기
-            </Link>
-            <Link href="#" className="text-lg font-medium leading-5 text-grey100">
-              팀 찾기
+      <div className="flex w-full items-center justify-between px-[2.5rem] py-[1.3rem]">
+        <div className="flex gap-[2.19rem]">
+          <div className="flex">
+            <Link href="/" className="-m-1.5 p-1.5">
+              <Image src="/assets/colorLogo.svg" width={110} height={20} layout="reponsive" alt="logo" />
             </Link>
           </div>
-        )}
+          {!hiddenPaths.includes(pathname) && (
+            <div className="hidden gap-[1.88rem] lg:flex lg:flex-1 lg:items-center lg:justify-between">
+              <Link href="#" className="font-medium leading-5 text-grey90">
+                창업/공모전 정보
+              </Link>
+              <Link href="#" className="font-medium leading-5 text-grey90">
+                팀원 찾기
+              </Link>
+              <Link href="#" className="font-medium leading-5 text-grey90">
+                팀 찾기
+              </Link>
+            </div>
+          )}
+        </div>
+
         <div className="flex flex-1 justify-end gap-10">
           {/* 액세스토큰 유무 UI  */}
           {token ? (
             <>
-              <Link href="#" className="hidden text-sm font-medium leading-5 text-grey100 lg:flex">
+              <Link href="#" className="hidden text-sm font-medium leading-5 text-grey80 lg:flex">
                 매칭관리
               </Link>
               <DropdownMenu accessToken={token} />
             </>
           ) : (
             <>
-              <Link href="/" className="hidden text-sm font-medium leading-5 text-grey100 lg:flex">
+              <Link href="/login" className="hidden text-sm font-medium leading-5 text-grey80 lg:flex">
+                로그인
+              </Link>
+              <Link href="/" className="hidden text-sm font-medium leading-5 text-grey80 lg:flex">
                 링킷 소개
               </Link>
-              <Link href="#" className="hidden text-sm font-medium leading-5 text-grey100 lg:flex">
+              <Link href="#" className="hidden text-sm font-medium leading-5 text-grey80 lg:flex">
                 FAQ
-              </Link>
-              <Link href="/login" className="hidden text-sm font-medium leading-5 text-grey100 lg:flex">
-                로그인
               </Link>
             </>
           )}

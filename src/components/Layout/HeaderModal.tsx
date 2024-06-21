@@ -41,16 +41,15 @@ const DropdownMenu = ({ accessToken }: { accessToken: string }) => {
 
   return (
     <div ref={dropdownRef} className="relative">
-      <Image
-        src="/assets/icons/user.svg"
-        width={17}
-        height={20}
-        alt="user"
+      <div
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="cursor-pointer"
-      />
+        className="cursor-pointer text-sm font-medium leading-5 text-grey80 lg:flex"
+      >
+        마이페이지
+        <Image src="/assets/icons/bottom>.svg" width={7} height={3} alt="arrow-down" className="ml-2" />
+      </div>
       {dropdownOpen && (
-        <div className="absolute right-0 mt-7 flex w-[7.93rem] flex-col items-center rounded-md bg-[#fff] text-center shadow-lg ring-1 ring-grey40 ring-opacity-5">
+        <div className="absolute right-[-20px] mt-7 flex w-[7.93rem] flex-col items-center rounded-md bg-[#fff] text-center shadow-lg ring-1 ring-grey40 ring-opacity-5">
           <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             <Link href="/myResume" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem">
               마이페이지
