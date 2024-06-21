@@ -1,10 +1,12 @@
 'use client'
+import { AntecedentResponse } from '@/lib/types'
+import Image from 'next/image'
 import React, { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 interface FormInputs {
-  companyName: string
-  position: string
+  projectName: string
+  projectRole: string
   startYear: number
   startMonth: number
   endYear: number
@@ -12,20 +14,24 @@ interface FormInputs {
   retirement: boolean
 }
 
-export default function MyHistoryComponent() {
+interface MyResumAntecedentProps {
+  data: AntecedentResponse[]
+}
+
+export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
   const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
-  const [histories, setHistories] = useState<FormInputs[]>([])
+  const [histories, setHistories] = useState<FormInputs[]>(data)
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [isAdding, setIsAdding] = useState(false)
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+  const onSubmit: SubmitHandler<FormInputs> = (formData) => {
     const formattedData = {
-      ...data,
-      startYear: Number(data.startYear),
-      startMonth: Number(data.startMonth),
-      endYear: Number(data.endYear),
-      endMonth: Number(data.endMonth),
-      retirement: data.retirement === true,
+      ...formData,
+      startYear: Number(formData.startYear),
+      startMonth: Number(formData.startMonth),
+      endYear: Number(formData.endYear),
+      endMonth: Number(formData.endMonth),
+      retirement: formData.retirement === true,
     }
 
     if (editingIndex !== null) {
@@ -40,8 +46,8 @@ export default function MyHistoryComponent() {
 
   const handleEdit = (index: number) => {
     const history = histories[index]
-    setValue('companyName', history.companyName)
-    setValue('position', history.position)
+    setValue('projectName', history.projectName)
+    setValue('projectRole', history.projectRole)
     setValue('startYear', history.startYear)
     setValue('startMonth', history.startMonth)
     setValue('endYear', history.endYear)
@@ -70,26 +76,34 @@ export default function MyHistoryComponent() {
       </div>
 
       {/* contents */}
-      {histories.length === 0 && !isAdding && <div className="pt-[0.94rem] text-grey50">이력이 없습니다.</div>}
+      {histories.length === 0 && !isAdding && <div className="pt-[0.94rem] text-grey50">이력사항이 없습니다.</div>}
 
       {histories.map((history, index) => (
         <div key={index} className="mt-6 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6">
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <span className="font-semibold">{history.position}</span>
-              <span className="pt-2 text-sm text-grey60">{history.companyName}</span>
-              <span className="text-xs text-grey50">
-                {history.startYear}.{history.startMonth} - {history.endYear}.{history.endMonth} (
+              <span className="font-semibold text-grey100">{history.projectRole}</span>
+              <span className="pt-1 text-sm text-grey60">{history.projectName}</span>
+              <span className="pt-1 text-xs text-grey50">
+                {history.startYear}년 {history.startMonth}월 - {history.endYear}년 {history.endMonth}월 (
                 {history.retirement ? '퇴직' : '재직중'})
               </span>
             </div>
             <div className="flex items-center justify-end">
-              <button onClick={() => handleEdit(index)} className="text-blue-500 mr-2 cursor-pointer">
-                수정
-              </button>
-              <button onClick={() => handleDelete(index)} className="text-red-500 cursor-pointer">
-                삭제
-              </button>
+              <Image
+                onClick={() => handleEdit(index)}
+                src="/assets/icons/pencil.svg"
+                width={27}
+                height={27}
+                alt="edit"
+              />
+              <Image
+                onClick={() => handleDelete(index)}
+                src="/assets/icons/delete.svg"
+                width={27}
+                height={27}
+                alt="delete"
+              />
             </div>
           </div>
         </div>
@@ -103,13 +117,13 @@ export default function MyHistoryComponent() {
           <div className="flex gap-3">
             <div className="flex w-[49%] flex-col">
               <span className="text-sm font-normal text-grey100">
-                회사명<span className="pl-1 text-[#2563EB]">*</span>
+                프로젝트명<span className="pl-1 text-[#2563EB]">*</span>
               </span>
               <input
                 type="text"
                 placeholder="ex. (주)링킷"
                 className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
-                {...register('companyName', { required: true })}
+                {...register('projectName', { required: true })}
               />
             </div>
 
@@ -121,7 +135,7 @@ export default function MyHistoryComponent() {
                 type="text"
                 placeholder="ex. Product Manager"
                 className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
-                {...register('position', { required: true })}
+                {...register('projectRole', { required: true })}
               />
             </div>
           </div>
@@ -141,18 +155,11 @@ export default function MyHistoryComponent() {
                   className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
                   {...register('startMonth', { required: true })}
                 >
-                  <option value="1">1월</option>
-                  <option value="2">2월</option>
-                  <option value="3">3월</option>
-                  <option value="4">4월</option>
-                  <option value="5">5월</option>
-                  <option value="6">6월</option>
-                  <option value="7">7월</option>
-                  <option value="8">8월</option>
-                  <option value="9">9월</option>
-                  <option value="10">10월</option>
-                  <option value="11">11월</option>
-                  <option value="12">12월</option>
+                  {[...Array(12).keys()].map((month) => (
+                    <option key={month + 1} value={month + 1}>
+                      {month + 1}월
+                    </option>
+                  ))}
                 </select>
                 <span>~</span>
                 <input
@@ -164,18 +171,11 @@ export default function MyHistoryComponent() {
                   className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
                   {...register('endMonth', { required: true })}
                 >
-                  <option value="1">1월</option>
-                  <option value="2">2월</option>
-                  <option value="3">3월</option>
-                  <option value="4">4월</option>
-                  <option value="5">5월</option>
-                  <option value="6">6월</option>
-                  <option value="7">7월</option>
-                  <option value="8">8월</option>
-                  <option value="9">9월</option>
-                  <option value="10">10월</option>
-                  <option value="11">11월</option>
-                  <option value="12">12월</option>
+                  {[...Array(12).keys()].map((month) => (
+                    <option key={month + 1} value={month + 1}>
+                      {month + 1}월
+                    </option>
+                  ))}
                 </select>
 
                 {/* input radio 재직중 */}

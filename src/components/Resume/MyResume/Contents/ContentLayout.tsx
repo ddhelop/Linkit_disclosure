@@ -31,7 +31,7 @@ export default function ContentLayout({ data }: MyResumContentsProps) {
       <MyLocationComponent />
 
       {/* 이력 */}
-      <MyHistoryComponent />
+      <MyHistoryComponent data={data.antecedentsResponse} />
 
       {/* 학력 */}
       <MyAcademicComponent data={data.educationResponse} />
