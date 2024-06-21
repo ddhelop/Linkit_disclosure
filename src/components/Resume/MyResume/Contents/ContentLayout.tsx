@@ -1,3 +1,4 @@
+import { MyResumeResponse } from '@/lib/types'
 import IntroduceComponent from './IntroduceComponent'
 import MyAcademicComponent from './MyAcademicComponent'
 import MyAttachFile from './MyAttachFile'
@@ -8,10 +9,14 @@ import MyResumeProgress from './MyResumeProgress'
 import MySkillComponent from './MySkillComponent'
 import TeamBuildingComponent from './TeamBuildingComponent'
 
-export default function ContentLayout() {
+interface MyResumContentsProps {
+  data: MyResumeResponse
+}
+
+export default function ContentLayout({ data }: MyResumContentsProps) {
   return (
     <div className="flex flex-col gap-4">
-      <MyResumeProgress />
+      <MyResumeProgress data={data.completionResponse} />
 
       {/* 자기소개 컴포넌트 */}
       <IntroduceComponent />

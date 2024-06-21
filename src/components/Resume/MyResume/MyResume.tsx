@@ -7,15 +7,6 @@ import { useRouter } from 'next/navigation'
 import { GetMyResume } from '@/lib/action'
 import { MyResumeResponse } from '@/lib/types'
 
-interface MiniProfileResponse {
-  profileTitle: string
-  uploadPeriod: string
-  uploadDeadline: boolean
-  miniProfileImg: string
-  myValue: string
-  skillSets: string
-}
-
 export default function MyResume() {
   const [accessToken, setAccessToken] = useState<string | null>(null)
   const [data, setData] = useState<MyResumeResponse | null>(null)
@@ -86,7 +77,7 @@ export default function MyResume() {
 
         {/* right contents */}
         <div className="w-[47.31rem]">
-          <ContentLayout />
+          <ContentLayout data={data} />
         </div>
       </div>
     </div>
