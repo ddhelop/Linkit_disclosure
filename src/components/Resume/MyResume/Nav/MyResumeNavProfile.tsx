@@ -1,11 +1,11 @@
-import { MiniProfileResponse, MyResumNavProps } from '@/lib/types'
+import { MiniProfileResponse } from '@/lib/types'
 import Image from 'next/image'
+
 interface MyResumeNavProfileProps {
   data: MiniProfileResponse
 }
 
 export default function MyResumeNavProfile({ data }: MyResumeNavProfileProps) {
-  console.log('미니프로필', data)
   return (
     <div className="flex w-full flex-col rounded-2xl bg-[#fff] px-[1.37rem] py-[1.31rem]">
       {/* title */}
@@ -14,12 +14,12 @@ export default function MyResumeNavProfile({ data }: MyResumeNavProfileProps) {
         <Image src="/assets/icons/option.svg" width={24} height={24} alt="option" />
       </div>
 
-      <span className="pt-[0.57rem] text-sm text-[#2563EB]">{data.uploadDeadline}</span>
+      <span className="pt-[0.57rem] text-sm text-[#2563EB]">{data.uploadDeadline ? '마감' : '마감 없음'}</span>
 
       {/* profile */}
       <div className="flex w-full flex-col items-center pt-[1.56rem]">
         <Image
-          src="/assets/intro/profile/seonjun.png"
+          src={data.miniProfileImg ? data.miniProfileImg : '/assets/images/DefaultProfile.png'}
           width={110}
           height={110}
           alt="profile"
