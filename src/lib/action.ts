@@ -85,19 +85,25 @@ export async function PostAntecedentData(accessToken: string, careerList: Career
     body: JSON.stringify(careerList),
   })
 }
-
 // 온보딩 미니프로필 POST
 // 여기에 fetch API로 POST 요청을 보내는 코드를 추가하세요
-export async function PostProfileData(accessToken: string, payload: any) {
-  return fetch('https://dev.linkit.im/mini-profile', {
+export async function PostProfileData(accessToken: string, payload: any, profileImage: File | null) {
+  const formData = new FormData()
+  formData.append('miniProfileCreateRequest', new Blob([JSON.stringify(payload)], { type: 'application/json' }))
+  if (profileImage) {
+    formData.append('miniProfileImage', profileImage)
+  }
+
+  const response = await fetch('https://dev.linkit.im/mini-profile', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
     credentials: 'include',
-    body: JSON.stringify(payload),
+    body: formData,
   })
+
+  return response
 }
 
 export const RefreshAccessToken = async (accessToken: string) => {

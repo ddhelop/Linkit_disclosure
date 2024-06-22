@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import Link from 'next/link'
 import { PostProfileData } from '@/lib/action'
 import { useRecoilState } from 'recoil'
@@ -9,16 +9,16 @@ import { accessTokenState } from '@/context/recoil-context'
 
 interface FormInputs {
   profileTitle: string
-  uploadYear: string
-  uploadMonth: string
-  uploadDay: string
+  uploadYear: number
+  uploadMonth: number
+  uploadDay: number
   myValue: string
   skillSets: string
 }
 
 export default function RegisterPersonProfile() {
-  const { register, handleSubmit, watch, setValue } = useForm<FormInputs>()
-  const [profileImage, setProfileImage] = useState<string | null>(null)
+  const { register, handleSubmit, watch, setValue, control } = useForm<FormInputs>()
+  const [profileImage, setProfileImage] = useState<File | null>(null)
   const [dDay, setDDay] = useState<number | null>(null)
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
   const [uploadDeadline, setUploadDeadline] = useState<boolean>(true) // 추가된 상태
@@ -26,17 +26,18 @@ export default function RegisterPersonProfile() {
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
+      setProfileImage(file)
       const reader = new FileReader()
       reader.onloadend = () => {
-        setProfileImage(reader.result as string)
+        setProfileImage(file)
       }
       reader.readAsDataURL(file)
     }
   }
 
-  const calculateDDay = (year: string, month: string, day: string) => {
+  const calculateDDay = (year: number, month: number, day: number) => {
     if (year && month && day) {
-      const endDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
+      const endDate = new Date(year, month - 1, day)
       const today = new Date()
       const diffTime = endDate.getTime() - today.getTime()
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
@@ -44,16 +45,15 @@ export default function RegisterPersonProfile() {
     }
   }
 
-  const handleDateChange = () => {
-    const year = (document.getElementById('year') as HTMLInputElement).value
-    const month = (document.getElementById('month') as HTMLSelectElement).value
-    const day = (document.getElementById('day') as HTMLSelectElement).value
-    calculateDDay(year, month, day)
+  const handleDateChange = (year: number, month: number, day: number) => {
+    if (year && month && day) {
+      calculateDDay(year, month, day)
+    }
   }
 
   useEffect(() => {
-    const subscription = watch(({ uploadYear = '', uploadMonth = '', uploadDay = '' }) => {
-      calculateDDay(uploadYear, uploadMonth, uploadDay)
+    const subscription = watch(({ uploadYear = 2024, uploadMonth = 1, uploadDay = 1 }) => {
+      handleDateChange(uploadYear, uploadMonth, uploadDay)
     })
     return () => subscription.unsubscribe()
   }, [watch])
@@ -67,17 +67,19 @@ export default function RegisterPersonProfile() {
       profileTitle,
       uploadPeriod,
       uploadDeadline,
-      myValue: myValue.split(','),
-      skillSets: skillSets.split(','),
+      myValue,
+      skillSets,
     }
 
     console.log('Payload:', payload)
     // 여기에 fetch API로 POST 요청을 보내는 코드를 추가하세요
     if (!accessToken) return
-    await PostProfileData(accessToken, payload)
-      .then((response) => response.json())
-      .then((data) => console.log('Success:', data))
-      .catch((error) => console.error('Error:', error))
+    const response = await PostProfileData(accessToken, payload, profileImage)
+    if (response.ok) {
+      console.log('Success:', await response.json())
+    } else {
+      console.error('Error:', await response.json())
+    }
   }
 
   const handleUploadStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,7 +113,13 @@ export default function RegisterPersonProfile() {
               </span>
               <div className="flex justify-center py-3">
                 {profileImage ? (
-                  <Image src={profileImage} width={125} height={125} alt="profile_image" className="rounded-3xl" />
+                  <Image
+                    src={URL.createObjectURL(profileImage)}
+                    width={125}
+                    height={125}
+                    alt="profile_image"
+                    className="rounded-3xl"
+                  />
                 ) : (
                   <Image src={'/assets/onBoarding/addImage.svg'} width={125} height={125} alt="add_image" />
                 )}
@@ -155,40 +163,69 @@ export default function RegisterPersonProfile() {
                 </span>
                 <div className="mt-[1.19rem] flex flex-col gap-3 lg:flex-row lg:items-center">
                   <div className="flex gap-2">
-                    <input
-                      type="number"
+                    <Controller
+                      name="uploadYear"
+                      control={control}
                       defaultValue={2024}
-                      id="year"
-                      {...register('uploadYear')}
-                      onChange={handleDateChange}
-                      className="h-8 w-[5.5rem] rounded border border-grey30 px-[0.88rem] text-center"
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          type="number"
+                          id="year"
+                          onChange={(e) => {
+                            field.onChange(e)
+                            handleDateChange(Number(e.target.value), watch('uploadMonth'), watch('uploadDay'))
+                          }}
+                          className="h-8 w-[5.5rem] rounded border border-grey30 px-[0.88rem] text-center"
+                        />
+                      )}
                     />
-                    <select
-                      id="month"
-                      {...register('uploadMonth')}
-                      onChange={handleDateChange}
-                      className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60"
-                    >
-                      <option value="">월</option>
-                      {[...Array(12).keys()].map((month) => (
-                        <option key={month + 1} value={month + 1}>
-                          {month + 1}월
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      id="day"
-                      {...register('uploadDay')}
-                      onChange={handleDateChange}
-                      className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60"
-                    >
-                      <option value="">일</option>
-                      {[...Array(31).keys()].map((d) => (
-                        <option key={d + 1} value={d + 1}>
-                          {d + 1}일
-                        </option>
-                      ))}
-                    </select>
+                    <Controller
+                      name="uploadMonth"
+                      control={control}
+                      defaultValue={1}
+                      render={({ field }) => (
+                        <select
+                          {...field}
+                          id="month"
+                          onChange={(e) => {
+                            field.onChange(e)
+                            handleDateChange(watch('uploadYear'), Number(e.target.value), watch('uploadDay'))
+                          }}
+                          className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60"
+                        >
+                          <option value="">월</option>
+                          {[...Array(12).keys()].map((month) => (
+                            <option key={month + 1} value={month + 1}>
+                              {month + 1}월
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    />
+                    <Controller
+                      name="uploadDay"
+                      control={control}
+                      defaultValue={1}
+                      render={({ field }) => (
+                        <select
+                          {...field}
+                          id="day"
+                          onChange={(e) => {
+                            field.onChange(e)
+                            handleDateChange(watch('uploadYear'), watch('uploadMonth'), Number(e.target.value))
+                          }}
+                          className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60"
+                        >
+                          <option value="">일</option>
+                          {[...Array(31).keys()].map((d) => (
+                            <option key={d + 1} value={d + 1}>
+                              {d + 1}일
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    />
                   </div>
                   <div className="flex items-center gap-4 pl-1 lg:pl-0">
                     <label className="flex items-center">
@@ -224,7 +261,13 @@ export default function RegisterPersonProfile() {
                 </div>
                 <div className="flex items-end gap-[1.19rem] pt-[1.19rem]">
                   {profileImage ? (
-                    <Image src={profileImage} width={125} height={125} alt="profile_image" className="rounded-3xl" />
+                    <Image
+                      src={URL.createObjectURL(profileImage)}
+                      width={125}
+                      height={125}
+                      alt="profile_image"
+                      className="rounded-3xl"
+                    />
                   ) : (
                     <Image src={'/assets/onBoarding/addImage.svg'} width={125} height={125} alt="add_image" />
                   )}
