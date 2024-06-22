@@ -13,7 +13,7 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
 
   useEffect(() => {
     setSelectedOptions(data.teamBuildingFieldNames)
-    setOptions(options.filter((option) => !data.teamBuildingFieldNames.includes(option)))
+    setOptions(options.filter((option) => !data.teamBuildingFieldNames?.includes(option)))
   }, [data.teamBuildingFieldNames])
 
   const handleEditClick = () => {
@@ -46,7 +46,7 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
       {isEditing ? (
         <div className="flex flex-col gap-[0.88rem]">
           <div className="flex flex-wrap gap-2 pt-5">
-            {selectedOptions.map((option, index) => (
+            {selectedOptions?.map((option, index) => (
               <div
                 key={index}
                 onClick={() => handleRemoveOption(option)}
@@ -68,7 +68,7 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
           <div className="border-t border-grey40 pt-2">
             <span className="text-sm font-normal text-grey100">희망 팀빌딩 분야를 선택해주세요</span>
             <div className="mt-2 flex flex-wrap gap-2">
-              {options.map((option, index) => (
+              {options?.map((option, index) => (
                 <button
                   key={index}
                   onClick={() => handleOptionClick(option)}
@@ -82,7 +82,7 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
         </div>
       ) : (
         <div className="flex flex-wrap gap-2 pt-[1.56rem]">
-          {selectedOptions.map((option, index) => (
+          {selectedOptions?.map((option, index) => (
             <div key={index} className="flex items-center rounded-lg border border-grey40 px-3 py-1">
               <span className="text-grey60">{option}</span>
             </div>

@@ -76,9 +76,9 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
       </div>
 
       {/* contents */}
-      {histories.length === 0 && !isAdding && <div className="pt-[0.94rem] text-grey50">이력사항이 없습니다.</div>}
+      {histories?.length === 0 && !isAdding && <div className="pt-[0.94rem] text-grey50">이력사항이 없습니다.</div>}
 
-      {histories.map((history, index) => (
+      {histories?.map((history, index) => (
         <div key={index} className="mt-6 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6">
           <div className="flex justify-between">
             <div className="flex flex-col">

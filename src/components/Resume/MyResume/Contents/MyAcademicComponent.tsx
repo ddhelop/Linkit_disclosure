@@ -14,10 +14,10 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
       </div>
 
       {/* contents */}
-      {data.length === 0 ? (
+      {data?.length === 0 ? (
         <div className="pt-[0.94rem] text-grey50">학력사항이 없습니다.</div>
       ) : (
-        data.map((education) => (
+        data?.map((education) => (
           <div key={education.id} className="mt-4 rounded-lg border border-grey20 p-[1.25rem]">
             <div className="flex justify-between">
               <div>
