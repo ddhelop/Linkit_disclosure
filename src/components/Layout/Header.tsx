@@ -78,7 +78,7 @@ export default function Header() {
                 <Link href="#" className="font-medium leading-5 text-grey90">
                   창업/공모전 정보
                 </Link>
-                <Link href="#" className="font-medium leading-5 text-grey90">
+                <Link href="/findMember" className="font-medium leading-5 text-grey90">
                   팀원 찾기
                 </Link>
                 <Link href="#" className="font-medium leading-5 text-grey90">
