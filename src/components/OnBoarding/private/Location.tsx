@@ -39,6 +39,7 @@ export default function Location() {
   }, [accessToken])
 
   const onSubmit = async () => {
+    const accessToken = localStorage.getItem('accessToken') || ''
     if (accessToken) {
       const response = await PostProfileRegion(accessToken, selectedArea, selectedSubArea)
 

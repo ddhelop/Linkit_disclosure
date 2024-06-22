@@ -38,15 +38,16 @@ export async function PostTeamProfile(
     formData.append('teamMiniProfileImage', image)
   }
 
-  const response = await fetch('https://linkit.im/team/mini-profile', {
+  const response = await fetch('https://dev.linkit.im/team/mini-profile', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
+    credentials: 'include',
     body: formData,
   })
 
-  return response.json()
+  return response
 }
 
 export default function TeamProfile() {
