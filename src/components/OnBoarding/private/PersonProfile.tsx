@@ -3,9 +3,10 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import Link from 'next/link'
-import { PostProfileData } from '@/lib/action'
+import { GetOnBoardingData, PostProfileData } from '@/lib/action'
 import { useRecoilState } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
+import { useRouter } from 'next/navigation'
 
 interface FormInputs {
   profileTitle: string
@@ -19,9 +20,11 @@ interface FormInputs {
 export default function RegisterPersonProfile() {
   const { register, handleSubmit, watch, setValue, control } = useForm<FormInputs>()
   const [profileImage, setProfileImage] = useState<File | null>(null)
+  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null)
   const [dDay, setDDay] = useState<number | null>(null)
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
-  const [uploadDeadline, setUploadDeadline] = useState<boolean>(true) // 추가된 상태
+  const [uploadDeadline, setUploadDeadline] = useState<boolean>(true)
+  const router = useRouter()
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -30,6 +33,7 @@ export default function RegisterPersonProfile() {
       const reader = new FileReader()
       reader.onloadend = () => {
         setProfileImage(file)
+        setProfileImageUrl(URL.createObjectURL(file))
       }
       reader.readAsDataURL(file)
     }
@@ -50,6 +54,36 @@ export default function RegisterPersonProfile() {
       calculateDDay(year, month, day)
     }
   }
+
+  // 개인 온보딩 데이터 GET
+  useEffect(() => {
+    const fetchData = async () => {
+      const accessToken = localStorage.getItem('accessToken') || ''
+      try {
+        const response = await GetOnBoardingData(accessToken)
+        console.log('OnBoarding Data:', response)
+
+        if (response.miniProfileResponse) {
+          const { profileTitle, uploadPeriod, myValue, skillSets, miniProfileImg } = response.miniProfileResponse
+          const [uploadYear, uploadMonth, uploadDay] = uploadPeriod.split('-').map(Number)
+
+          setValue('profileTitle', profileTitle)
+          setValue('uploadYear', uploadYear)
+          setValue('uploadMonth', uploadMonth)
+          setValue('uploadDay', uploadDay)
+          setValue('myValue', myValue)
+          setValue('skillSets', skillSets)
+
+          if (miniProfileImg) {
+            setProfileImageUrl(miniProfileImg)
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch onboarding data:', error)
+      }
+    }
+    fetchData()
+  }, [setValue])
 
   useEffect(() => {
     const subscription = watch(({ uploadYear = 2024, uploadMonth = 1, uploadDay = 1 }) => {
@@ -74,11 +108,16 @@ export default function RegisterPersonProfile() {
     console.log('Payload:', payload)
     // 여기에 fetch API로 POST 요청을 보내는 코드를 추가하세요
     if (!accessToken) return
-    const response = await PostProfileData(accessToken, payload, profileImage)
-    if (response.ok) {
-      console.log('Success:', await response.json())
-    } else {
-      console.error('Error:', await response.json())
+    try {
+      const response = await PostProfileData(accessToken, payload, profileImage)
+      console.log('Success:', response)
+      if (response.ok) {
+        router.push('/onBoarding/complete')
+      } else {
+        console.error('Error:', response)
+      }
+    } catch (error) {
+      console.error('Error in POST request:', error)
     }
   }
 
@@ -112,14 +151,8 @@ export default function RegisterPersonProfile() {
                 D-<span>{dDay !== null ? dDay : 'day'}</span>
               </span>
               <div className="flex justify-center py-3">
-                {profileImage ? (
-                  <Image
-                    src={URL.createObjectURL(profileImage)}
-                    width={125}
-                    height={125}
-                    alt="profile_image"
-                    className="rounded-3xl"
-                  />
+                {profileImageUrl ? (
+                  <Image src={profileImageUrl} width={125} height={125} alt="profile_image" className="rounded-3xl" />
                 ) : (
                   <Image src={'/assets/onBoarding/addImage.svg'} width={125} height={125} alt="add_image" />
                 )}
@@ -260,14 +293,8 @@ export default function RegisterPersonProfile() {
                   <span className="font-sm pl-3 text-grey80">추천 사이즈: 512 x 512 px / JPG, PNG, 최대 2MB</span>
                 </div>
                 <div className="flex items-end gap-[1.19rem] pt-[1.19rem]">
-                  {profileImage ? (
-                    <Image
-                      src={URL.createObjectURL(profileImage)}
-                      width={125}
-                      height={125}
-                      alt="profile_image"
-                      className="rounded-3xl"
-                    />
+                  {profileImageUrl ? (
+                    <Image src={profileImageUrl} width={125} height={125} alt="profile_image" className="rounded-3xl" />
                   ) : (
                     <Image src={'/assets/onBoarding/addImage.svg'} width={125} height={125} alt="add_image" />
                   )}

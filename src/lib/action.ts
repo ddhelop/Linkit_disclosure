@@ -1,4 +1,11 @@
-import { Career, Education, TeamOnBoadingFieldFormInputs, TeamOnBoardingActivityWayFormInputs } from './types'
+import {
+  ApiPayload,
+  Career,
+  Education,
+  PostTeamProfileResponse,
+  TeamOnBoadingFieldFormInputs,
+  TeamOnBoardingActivityWayFormInputs,
+} from './types'
 
 // 로그아웃
 export async function Logout(accessToken: string) {
@@ -174,17 +181,28 @@ export const TeamOnBoardingActivityWay = async (accessToken: string, data: TeamO
   return response
 }
 
-// 팀 온보딩 - 미니 프로필
-export async function PostTeamProfile(accessToken: string, payload: any) {
-  return fetch('https://dev.linkit.im/team/mini-profile', {
+// 팀 온보딩 - 미니프로필
+export async function PostTeamProfile(
+  accessToken: string,
+  payload: ApiPayload,
+  image?: File,
+): Promise<PostTeamProfileResponse> {
+  const formData = new FormData()
+  formData.append('teamMiniProfileCreateRequest', new Blob([JSON.stringify(payload)], { type: 'application/json' }))
+  if (image) {
+    formData.append('teamMiniProfileImage', image)
+  }
+
+  const response = await fetch('https://dev.linkit.im/team/mini-profile', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
     credentials: 'include',
-    body: JSON.stringify(payload),
+    body: formData,
   })
+
+  return response
 }
 
 // 내 이력서 전체 조회

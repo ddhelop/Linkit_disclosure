@@ -2,53 +2,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-
-interface FormInputs {
-  profileTitle: string
-  collaborationValue: string
-  skills: string
-  year: string
-  month: string
-  day: string
-  profileImage?: FileList
-}
-
-interface ApiPayload {
-  teamProfileTitle: string
-  teamUploadPeriod: string
-  teamUploadDeadline: boolean
-  teamValue: string
-  teamDetailInform: string
-}
-
-interface PostTeamProfileResponse {
-  ok: boolean
-}
-
-export async function PostTeamProfile(
-  accessToken: string,
-  payload: ApiPayload,
-  image?: File,
-): Promise<PostTeamProfileResponse> {
-  const formData = new FormData()
-  formData.append('teamMiniProfileCreateRequest', new Blob([JSON.stringify(payload)], { type: 'application/json' }))
-  if (image) {
-    formData.append('teamMiniProfileImage', image)
-  }
-
-  const response = await fetch('https://dev.linkit.im/team/mini-profile', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: 'include',
-    body: formData,
-  })
-
-  return response
-}
+import { ApiPayload, FormInputs, PostTeamProfileResponse } from '@/lib/types'
+import { PostTeamProfile, TeamOnBoardingData } from '@/lib/action'
 
 export default function TeamProfile() {
   const router = useRouter()
@@ -63,6 +20,37 @@ export default function TeamProfile() {
     },
   })
 
+  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null)
+  const [uploadDeadline, setUploadDeadline] = useState<boolean>(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const accessToken = localStorage.getItem('accessToken') || ''
+      const response = await TeamOnBoardingData(accessToken)
+      console.log(response)
+
+      if (response.teamMiniProfileResponse) {
+        const { miniProfileTitle, teamUploadPeriod, teamValue, teamDetailInform, teamLogoImageUrl } =
+          response.teamMiniProfileResponse
+        const [uploadYear, uploadMonth, uploadDay] = teamUploadPeriod
+          ? teamUploadPeriod.split('-')
+          : ['2024', '01', '01']
+
+        setValue('profileTitle', miniProfileTitle || '')
+        setValue('year', uploadYear || '')
+        setValue('month', uploadMonth || '')
+        setValue('day', uploadDay || '')
+        setValue('collaborationValue', teamValue || '')
+        setValue('skills', teamDetailInform || '')
+
+        if (teamLogoImageUrl) {
+          setProfileImageUrl(teamLogoImageUrl)
+        }
+      }
+    }
+    fetchData()
+  }, [setValue])
+
   const profileTitle = watch('profileTitle')
   const collaborationValue = watch('collaborationValue')
   const skills = watch('skills')
@@ -75,9 +63,12 @@ export default function TeamProfile() {
     const files = event.target.files
     if (files && files.length > 0) {
       setValue('profileImage', files)
+      setProfileImageUrl(URL.createObjectURL(files[0]))
     }
   }
-
+  const handleUploadStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUploadDeadline(event.target.value === 'completed')
+  }
   const isNextButtonEnabled = profileTitle && collaborationValue && skills && year && month && day
 
   const onSubmit = async (data: FormInputs) => {
@@ -120,14 +111,8 @@ export default function TeamProfile() {
               <span className="pt-2 font-medium text-grey60">D-59</span>
 
               <div className="flex gap-5 py-3">
-                {profileImage && profileImage.length > 0 ? (
-                  <Image
-                    src={URL.createObjectURL(profileImage[0])}
-                    width={80}
-                    height={80}
-                    alt="profile_image"
-                    className="rounded-3xl"
-                  />
+                {profileImageUrl ? (
+                  <Image src={profileImageUrl} width={80} height={80} alt="profile_image" className="rounded-3xl" />
                 ) : (
                   <Image src={'/assets/onBoarding/addImage.svg'} width={80} height={80} alt="add_image" />
                 )}
@@ -161,6 +146,7 @@ export default function TeamProfile() {
                       {...field}
                       className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
                       placeholder="프로필 제목 (최대 20자)"
+                      value={field.value || ''}
                     />
                   )}
                 />
@@ -180,8 +166,8 @@ export default function TeamProfile() {
                         <input
                           {...field}
                           type="number"
-                          defaultValue={2024}
                           className="h-8 w-[5.5rem] rounded border border-grey30 px-[0.88rem] text-center"
+                          value={field.value || ''}
                         />
                       )}
                     />
@@ -222,12 +208,19 @@ export default function TeamProfile() {
                         value="completed"
                         className="form-radio text-blue-500"
                         defaultChecked
+                        onChange={handleUploadStatusChange}
                       />
-                      <span className="ml-2 text-grey60">마감</span>
+                      <span className="ml-2 text-grey60">마감있음</span>
                     </label>
                     <label className="flex items-center">
-                      <input type="radio" name="uploadStatus" value="continuous" className="form-radio text-blue-500" />
-                      <span className="ml-2 text-grey60">업로드</span>
+                      <input
+                        type="radio"
+                        name="uploadStatus"
+                        value="continuous"
+                        className="form-radio text-blue-500"
+                        onChange={handleUploadStatusChange}
+                      />
+                      <span className="ml-2 text-grey60">계속 업로드</span>
                     </label>
                   </div>
                 </div>
@@ -240,14 +233,8 @@ export default function TeamProfile() {
                   <span className="font-sm pl-3 text-grey80">추천 사이즈: 512 x 512 px / JPG, PNG, 최대 2MB</span>
                 </div>
                 <div className="flex items-end gap-[1.19rem] pt-[1.19rem]">
-                  {profileImage && profileImage.length > 0 ? (
-                    <Image
-                      src={URL.createObjectURL(profileImage[0])}
-                      width={125}
-                      height={125}
-                      alt="profile_image"
-                      className="rounded-3xl"
-                    />
+                  {profileImageUrl ? (
+                    <Image src={profileImageUrl} width={125} height={125} alt="profile_image" className="rounded-3xl" />
                   ) : (
                     <Image src={'/assets/onBoarding/addImage.svg'} width={125} height={125} alt="add_image" />
                   )}
@@ -271,6 +258,7 @@ export default function TeamProfile() {
                       {...field}
                       className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
                       placeholder="빠르게 성장하는 팀, 최단기간 투자유치 달성 (최대 40자)"
+                      value={field.value || ''}
                     />
                   )}
                 />
@@ -289,6 +277,7 @@ export default function TeamProfile() {
                       {...field}
                       className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
                       placeholder="팀 세부정보 (최대 20자)"
+                      value={field.value || ''}
                     />
                   )}
                 />
