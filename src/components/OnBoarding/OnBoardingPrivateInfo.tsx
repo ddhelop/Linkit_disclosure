@@ -1,7 +1,7 @@
 'use client'
 import { IFormData } from '@/lib/types'
 import './OnBoarding.css'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
 import { emailState } from '@/context/recoil-context'
@@ -11,9 +11,12 @@ export default function OnBoardingPrivateInfo() {
   const router = useRouter()
   const email = useRecoilValue(emailState)
 
-  const { register, handleSubmit } = useForm<IFormData>({
+  const { register, handleSubmit, watch } = useForm<IFormData>({
     mode: 'onChange',
   })
+
+  const watchedFields = watch(['memberName', 'contact'])
+  const isButtonEnabled = watchedFields[0] && watchedFields[1] && email
 
   const onClickSubmit = async (data: IFormData): Promise<void> => {
     console.log(data)
@@ -93,7 +96,13 @@ export default function OnBoardingPrivateInfo() {
               </label>
 
               <div className="flex w-full justify-end ">
-                <button type="submit" className={`mt-7 h-9 w-36 rounded bg-[#7EA5F8] text-xs text-[#fff]`}>
+                <button
+                  type="submit"
+                  className={`mt-7 h-9 w-36 rounded text-xs text-[#fff] ${
+                    isButtonEnabled ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'
+                  }`}
+                  disabled={!isButtonEnabled}
+                >
                   완료
                 </button>
               </div>
