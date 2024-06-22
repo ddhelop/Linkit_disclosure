@@ -1,11 +1,12 @@
-import { MiniProfileResponse } from '@/lib/types'
+import { MemberNameResponse, MiniProfileResponse } from '@/lib/types'
 import Image from 'next/image'
 
 interface MyResumeNavProfileProps {
   data: MiniProfileResponse
+  name: MemberNameResponse
 }
 
-export default function MyResumeNavProfile({ data }: MyResumeNavProfileProps) {
+export default function MyResumeNavProfile({ data, name }: MyResumeNavProfileProps) {
   return (
     <div className="flex w-full flex-col rounded-2xl bg-[#fff] px-[1.37rem] py-[1.31rem]">
       {/* title */}
@@ -26,7 +27,7 @@ export default function MyResumeNavProfile({ data }: MyResumeNavProfileProps) {
           className="rounded-[2.1rem]"
         />
 
-        <span className="pt-5 text-sm font-semibold text-[#2563EB]">선준</span>
+        <span className="pt-5 text-sm font-semibold text-[#2563EB]">{name.memberName}</span>
         <span className="pt-1 text-sm text-grey60 opacity-60">{data.skillSets}</span>
       </div>
 

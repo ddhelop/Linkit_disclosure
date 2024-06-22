@@ -134,8 +134,35 @@ export interface MyResumeResponse {
   educationResponse: EducationResponse[]
   awardsResponse: AwardResponse[]
   attachResponse: AttachResponse
+  memberNameResponse: MemberNameResponse
+}
+
+export interface MemberNameResponse {
+  memberName: string
 }
 
 export interface MyResumNavProps {
   data: MyResumeResponse
+}
+
+export interface FormInputs {
+  profileTitle: string
+  collaborationValue: string
+  skills: string
+  year: string
+  month: string
+  day: string
+  profileImage?: FileList
+}
+
+export interface ApiPayload {
+  teamProfileTitle: string
+  teamUploadPeriod: string
+  teamUploadDeadline: boolean
+  teamValue: string
+  teamDetailInform: string
+}
+
+export interface PostTeamProfileResponse {
+  ok: boolean
 }
