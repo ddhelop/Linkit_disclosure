@@ -1,11 +1,22 @@
 'use client'
+
 import { addressData } from '@/lib/addressSelectData'
-import { ChangeEvent, useState } from 'react'
+import { selectStyle } from '@/style/toggleStyle'
+import { ChangeEvent, useState, useEffect } from 'react'
 
 export default function MyLocationComponent() {
   const [isEditing, setIsEditing] = useState(false)
   const [selectedCity, setSelectedCity] = useState('')
   const [selectedDistrict, setSelectedDistrict] = useState('')
+
+  useEffect(() => {
+    const style = document.createElement('style')
+    style.textContent = selectStyle
+    document.head.append(style)
+    return () => {
+      document.head.removeChild(style)
+    }
+  }, [])
 
   const handleEditClick = () => {
     setIsEditing(!isEditing)
@@ -36,9 +47,13 @@ export default function MyLocationComponent() {
       {isEditing ? (
         <div className="mt-4">
           <div className="flex gap-4">
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-grey100">시/도</label>
-              <select value={selectedCity} onChange={handleCityChange} className="rounded border p-2">
+            <div className="flex flex-col gap-3">
+              <label className=" font-semibold text-grey100">시/도</label>
+              <select
+                value={selectedCity}
+                onChange={handleCityChange}
+                className="select-with-padding-right rounded border border-grey40 p-3 font-medium text-grey60"
+              >
                 <option value="">시/도를 선택해주세요</option>
                 {addressData.map((city, index) => (
                   <option key={index} value={city.name}>
@@ -47,9 +62,13 @@ export default function MyLocationComponent() {
                 ))}
               </select>
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-grey100">시/군/구</label>
-              <select value={selectedDistrict} onChange={handleDistrictChange} className="rounded border p-2">
+            <div className="flex flex-col gap-3">
+              <label className=" font-semibold text-grey100">시/군/구</label>
+              <select
+                value={selectedDistrict}
+                onChange={handleDistrictChange}
+                className="select-with-padding-right rounded border border-grey40 p-3 font-medium text-grey60"
+              >
                 <option value="">시/군/구를 선택해주세요</option>
                 {getDistricts().map((district, index) => (
                   <option key={index} value={district}>
