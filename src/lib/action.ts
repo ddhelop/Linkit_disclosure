@@ -1,7 +1,9 @@
 import {
   ApiPayload,
+  AwardFormInputs,
   Career,
   Education,
+  FormInputs,
   PostTeamProfileResponse,
   TeamOnBoadingFieldFormInputs,
   TeamOnBoardingActivityWayFormInputs,
@@ -228,6 +230,19 @@ export async function PostProfileIntroduction(accessToken: string, introduction:
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({ introduction }),
+    credentials: 'include',
+  })
+}
+
+// 내 이력서 - 수상내역 POST
+export async function PostProfileAward(accessToken: string, data: AwardFormInputs[]) {
+  return fetch('https://dev.linkit.im/awards', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(data), // 배열을 직접 변환
     credentials: 'include',
   })
 }

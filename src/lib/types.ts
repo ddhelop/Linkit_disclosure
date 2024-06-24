@@ -166,3 +166,12 @@ export interface ApiPayload {
 export interface PostTeamProfileResponse {
   ok: boolean
 }
+
+export interface AwardFormInputs {
+  awardsName: string
+  ranking: string
+  organizer: string
+  awardsYear: number
+  awardsMonth: number
+  awardsDescription: string
+}

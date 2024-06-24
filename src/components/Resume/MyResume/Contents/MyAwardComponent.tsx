@@ -1,21 +1,34 @@
-import { useState } from 'react'
+'use client'
+import { PostProfileAward } from '@/lib/action'
+import { AwardFormInputs } from '@/lib/types'
+import { selectStyle } from '@/style/toggleStyle'
+import { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
-interface FormInputs {
-  awardName: string
-  ranking: string
-  organizer: string
-  year: number
-  description: string
-}
-
 export default function MyAwardComponent() {
-  const { register, handleSubmit, reset } = useForm<FormInputs>()
+  const { register, handleSubmit, reset } = useForm<AwardFormInputs>()
   const [isAdding, setIsAdding] = useState(false)
-  const [awards, setAwards] = useState<FormInputs[]>([])
+  const [awards, setAwards] = useState<AwardFormInputs[]>([])
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    setAwards((prev) => [...prev, data])
+  // select style
+  useEffect(() => {
+    const style = document.createElement('style')
+    style.textContent = selectStyle
+    document.head.append(style)
+    return () => {
+      document.head.removeChild(style)
+    }
+  }, [])
+
+  const onSubmit: SubmitHandler<AwardFormInputs> = async (data) => {
+    const accessToken = localStorage.getItem('accessToken') || ''
+    setAwards((prev) => {
+      const newAwards = [...prev, data]
+
+      const response = PostProfileAward(accessToken, newAwards)
+      console.log(response)
+      return newAwards
+    })
     reset()
     setIsAdding(false)
   }
@@ -42,7 +55,7 @@ export default function MyAwardComponent() {
                   type="text"
                   placeholder="예: 홍익대학교 창업경진대회"
                   className="mt-2 rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm"
-                  {...register('awardName', { required: true })}
+                  {...register('awardsName', { required: true })}
                 />
               </div>
               <div className="flex w-[49%] flex-col">
@@ -72,16 +85,28 @@ export default function MyAwardComponent() {
               <label className="text-sm font-normal text-grey100">
                 시기<span className="pl-1 text-[#2563EB]">*</span>
               </label>
-              <select
-                className="mt-2 w-[14%] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm text-grey60"
-                {...register('year', { required: true })}
-              >
-                {[...Array(50).keys()].map((i) => (
-                  <option key={i} value={2022 - i}>
-                    {2022 - i}년
-                  </option>
-                ))}
-              </select>
+              <div className="flex gap-3">
+                <select
+                  className="select-with-padding-right mt-2 w-[17%] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm text-grey60"
+                  {...register('awardsYear', { required: true, valueAsNumber: true })}
+                >
+                  {[...Array(50).keys()].map((i) => (
+                    <option key={i} value={2022 - i}>
+                      {2022 - i}년
+                    </option>
+                  ))}
+                </select>
+                <select
+                  className="select-with-padding-right mt-2 w-[13%] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm text-grey60"
+                  {...register('awardsMonth', { required: true, valueAsNumber: true })}
+                >
+                  {[...Array(12).keys()].map((i) => (
+                    <option key={i} value={i + 1}>
+                      {i + 1}월
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div className="flex flex-col">
               <label className="text-sm font-normal text-grey100">
@@ -90,7 +115,7 @@ export default function MyAwardComponent() {
               <textarea
                 placeholder=""
                 className="mt-2 rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm"
-                {...register('description', { required: true })}
+                {...register('awardsDescription', { required: true })}
               />
             </div>
             <div className="mt-[0.94rem] flex w-full justify-end gap-2">
@@ -121,10 +146,12 @@ export default function MyAwardComponent() {
             <div key={index} className="mt-4 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6">
               <div className="flex justify-between">
                 <div className="flex flex-col">
-                  <span className="font-semibold">{award.awardName}</span>
+                  <span className="font-semibold">{award.awardsName}</span>
                   <span className="pt-2 text-sm text-grey60">{award.organizer}</span>
-                  <span className="text-xs text-grey50">{award.year}년</span>
-                  <span className="pt-2 text-sm text-grey60">{award.description}</span>
+                  <span className="text-xs text-grey50">
+                    {award.awardsYear}년 {award.awardsMonth}월
+                  </span>
+                  <span className="pt-2 text-sm text-grey60">{award.awardsDescription}</span>
                 </div>
               </div>
             </div>
