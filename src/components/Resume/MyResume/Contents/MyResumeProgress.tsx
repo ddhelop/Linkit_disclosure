@@ -20,7 +20,7 @@ export default function MyResumeProgress({ data }: MyResumeCompletionProps) {
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">프로필 완성도 : {data.completion}%</span>
+        <span className="text-lg font-semibold text-grey100">프로필 완성도 : {data?.completion}%</span>
         <span className="text-grey60">완성도를 높일 수록 매칭 확률이 높아져요! </span>
       </div>
 
@@ -34,7 +34,7 @@ export default function MyResumeProgress({ data }: MyResumeCompletionProps) {
 
         {/* 진행바 */}
         <div className="mt-8 w-full rounded-lg bg-grey20 py-1">
-          <div className="rounded-lg bg-[#2563EB] py-1" style={{ width: `${data.completion}%` }}></div>
+          <div className="rounded-lg bg-[#2563EB] py-1" style={{ width: `${data?.completion}%` }}></div>
         </div>
 
         {/* 수치 설명 */}
@@ -62,7 +62,7 @@ export default function MyResumeProgress({ data }: MyResumeCompletionProps) {
                 alt={data[item.key as keyof CompletionResponse] ? 'Check' : 'NotCheck'}
               />
               <span className="text-grey60">
-                {item.label} {item.required && <span className="text-[#2563EB]">*</span>}
+                {item.label} {item?.required && <span className="text-[#2563EB]">*</span>}
               </span>
             </div>
           ))}

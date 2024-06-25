@@ -1,13 +1,15 @@
 import { MyResumeResponse } from '@/lib/types'
 import IntroduceComponent from './IntroduceComponent'
 import MyAcademicComponent from './MyAcademicComponent'
-import MyAttachFile from './MyAttachFile'
+
 import MyAwardComponent from './MyAwardComponent'
 import MyHistoryComponent from './MyHistoryComponent'
 import MyLocationComponent from './MyLocationComponent'
 import MyResumeProgress from './MyResumeProgress'
 import MySkillComponent from './MySkillComponent'
 import TeamBuildingComponent from './TeamBuildingComponent'
+import MyAttachUrl from './MyAttachUrl'
+import MyAttachFile from './MyAttachFile'
 
 interface MyResumContentsProps {
   data: MyResumeResponse
@@ -39,7 +41,10 @@ export default function ContentLayout({ data }: MyResumContentsProps) {
       {/* 수상 */}
       <MyAwardComponent data={data.awardsResponse} />
 
-      {/* 첨부 */}
+      {/* 첨부 링크 */}
+      <MyAttachUrl data={data.attachResponse.attachUrlResponseList} />
+
+      {/* 첨부 파일 */}
       <MyAttachFile />
     </div>
   )

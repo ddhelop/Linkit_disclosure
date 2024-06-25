@@ -1,17 +1,31 @@
 import { PostProfileAttchURL } from '@/lib/action'
-import { URLFormInputs } from '@/lib/types'
+import { AttachResponse, AttachUrlResponse, URLFormInputs } from '@/lib/types'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
-export default function MyAttachUrl() {
+interface MyResumURLProps {
+  data: AttachUrlResponse[]
+}
+
+export default function MyAttachUrl({ data }: MyResumURLProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [links, setLinks] = useState<{ name: string; url: string }[]>([])
   const [editingLinks, setEditingLinks] = useState<{ name: string; url: string }[]>([{ name: '', url: '' }])
-
   const [attachments, setAttachments] = useState<{ links: { name: string; url: string }[]; file: File | null }>({
     links: [],
     file: null,
   })
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      const initialLinks = data.map((item) => ({
+        name: item.attachUrlName,
+        url: item.attachUrl,
+      }))
+      setLinks(initialLinks)
+      setAttachments((prev) => ({ ...prev, links: initialLinks }))
+    }
+  }, [data])
 
   const handleAddLink = () => {
     setEditingLinks([...editingLinks, { name: '', url: '' }])
@@ -34,19 +48,12 @@ export default function MyAttachUrl() {
     }
   }
 
-  const handleRemoveLink = (index: number) => {
-    const newLinks = links.filter((_, i) => i !== index)
-    setLinks(newLinks)
-    setAttachments({ ...attachments, links: newLinks })
-  }
-
   const handleRemoveEditingLink = (index: number) => {
     const newEditingLinks = editingLinks.filter((_, i) => i !== index)
     setEditingLinks(newEditingLinks)
   }
 
   const handleLinkSubmit = async () => {
-    // API 호출
     const accessToken = localStorage.getItem('accessToken') || ''
     const formattedLinks: URLFormInputs[] = links.map((link) => ({
       attachUrlName: link.name,
@@ -67,6 +74,23 @@ export default function MyAttachUrl() {
       {/* contents */}
       {!isEditing ? (
         <>
+          {attachments.links.length === 0 ? (
+            <div className="pt-[0.94rem] text-grey50">첨부 링크가 없습니다.</div>
+          ) : (
+            <div className="mt-4">
+              <p className="pb-4 text-grey60">웹 링크</p>
+              {attachments.links.map((link, index) => (
+                <div key={index} className="mb-4 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3 text-grey80">
+                    <Image src="/assets/icons/link.svg" alt="link" width={20} height={20} />
+                    <a href={link.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+                      {link.name}
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           <div className="mt-[0.94rem] flex w-full justify-end">
             <button onClick={() => setIsEditing(true)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
               추가하기
@@ -77,26 +101,6 @@ export default function MyAttachUrl() {
         <form className="mt-4">
           <div className="flex flex-col gap-4">
             <p className="text-sm text-grey60">웹 링크명</p>
-
-            {attachments.links.length === 0 ? (
-              <div className="pt-[0.94rem] text-grey50">첨부 링크가 없습니다.</div>
-            ) : (
-              <div className="mt-4">
-                {attachments.links.map((link, index) => (
-                  <div key={index} className="mb-4 flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <Image src="/assets/icons/link.svg" alt="link" width={20} height={20} />
-                      <a href={link.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-                        {link.name}
-                      </a>
-                    </div>
-                    <button type="button" onClick={() => handleRemoveLink(index)} className="text-red-500">
-                      ×
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
             {editingLinks.map((link, index) => (
               <div key={index} className="flex items-center gap-1">
                 <input
