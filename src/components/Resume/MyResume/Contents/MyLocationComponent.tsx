@@ -1,10 +1,16 @@
 'use client'
 
 import { addressData } from '@/lib/addressSelectData'
+import { LocationResponse } from '@/lib/types'
 import { selectStyle } from '@/style/toggleStyle'
+import Image from 'next/image'
 import { ChangeEvent, useState, useEffect } from 'react'
 
-export default function MyLocationComponent() {
+interface MyResumLocationFieldProps {
+  data: LocationResponse
+}
+
+export default function MyLocationComponent({ data }: MyResumLocationFieldProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [selectedCity, setSelectedCity] = useState('')
   const [selectedDistrict, setSelectedDistrict] = useState('')
@@ -17,6 +23,13 @@ export default function MyLocationComponent() {
       document.head.removeChild(style)
     }
   }, [])
+
+  useEffect(() => {
+    if (data) {
+      setSelectedCity(data.cityName)
+      setSelectedDistrict(data.divisionName)
+    }
+  }, [data])
 
   const handleEditClick = () => {
     setIsEditing(!isEditing)
@@ -81,12 +94,13 @@ export default function MyLocationComponent() {
         </div>
       ) : (
         <div className="mt-4">
-          <div className="flex gap-4">
-            <div className="flex flex-col">
-              <div className="text-grey50">{selectedCity || '활동지역을 선택해주세요.'}</div>
+          <div className="flex gap-2">
+            <Image src="/assets/icons/location.svg" width={23} height={23} alt="location" />
+            <div className="flex items-center">
+              <div className="text-grey100">{selectedCity + ',' || '활동지역을 선택해주세요.'}</div>
             </div>
-            <div className="flex flex-col">
-              <div className="">{selectedDistrict || ''}</div>
+            <div className="flex items-center">
+              <div className="text-grey100">{selectedDistrict || ''}</div>
             </div>
           </div>
         </div>

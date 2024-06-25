@@ -108,6 +108,11 @@ export interface AwardResponse {
   awardsDescription: string
 }
 
+export interface LocationResponse {
+  cityName: string
+  divisionName: string
+}
+
 export interface AttachUrlResponse {
   id: number
   attachUrlName: string
@@ -135,6 +140,7 @@ export interface MyResumeResponse {
   awardsResponse: AwardResponse[]
   attachResponse: AttachResponse
   memberNameResponse: MemberNameResponse
+  profileRegionResponse: LocationResponse
 }
 
 export interface MemberNameResponse {

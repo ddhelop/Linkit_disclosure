@@ -11,7 +11,7 @@ export default function MyResumeNavProfile({ data, name }: MyResumeNavProfilePro
     <div className="flex w-full flex-col rounded-2xl bg-[#fff] px-[1.37rem] py-[1.31rem]">
       {/* title */}
       <div className="flex w-full justify-between">
-        <h3 className="w-[60%] text-lg font-bold text-grey90">{data.profileTitle}</h3>
+        <h3 className="w-[60%] text-lg font-bold text-grey90">{data?.profileTitle}</h3>
         <Image src="/assets/icons/option.svg" width={24} height={24} alt="option" />
       </div>
 
