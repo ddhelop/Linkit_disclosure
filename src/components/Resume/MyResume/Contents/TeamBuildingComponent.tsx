@@ -1,4 +1,5 @@
 'use client'
+import { PostProfileTeamBuildingField, TeamOnBoardingField } from '@/lib/action'
 import { ProfileTeamBuildingFieldResponse } from '@/lib/types'
 import { useState, useEffect } from 'react'
 
@@ -17,7 +18,16 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
   }, [data.teamBuildingFieldNames])
 
   const handleEditClick = () => {
-    setIsEditing(!isEditing)
+    setIsEditing(true)
+  }
+
+  const handleSaveClick = async () => {
+    const accessToken = localStorage.getItem('accessToken') || ''
+    const response = await PostProfileTeamBuildingField(accessToken, selectedOptions)
+    if (response.ok) {
+      alert('수정이 완료되었습니다.')
+      setIsEditing(false)
+    }
   }
 
   const handleOptionClick = (option: string) => {
@@ -92,9 +102,15 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
 
       {/* button */}
       <div className="mt-[0.94rem] flex w-full justify-end">
-        <button onClick={handleEditClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
-          {isEditing ? '수정완료' : '수정하기'}
-        </button>
+        {isEditing ? (
+          <button onClick={handleSaveClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+            수정완료
+          </button>
+        ) : (
+          <button onClick={handleEditClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+            수정하기
+          </button>
+        )}
       </div>
     </div>
   )

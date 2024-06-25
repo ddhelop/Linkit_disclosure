@@ -42,7 +42,7 @@ export default function ContentLayout({ data }: MyResumContentsProps) {
       <MyAwardComponent data={data.awardsResponse} />
 
       {/* 첨부 링크 */}
-      <MyAttachUrl data={data.attachResponse.attachUrlResponseList} />
+      <MyAttachUrl data={data.attachResponse?.attachUrlResponseList} />
 
       {/* 첨부 파일 */}
       <MyAttachFile />

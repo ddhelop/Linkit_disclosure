@@ -3,7 +3,6 @@ import {
   AwardFormInputs,
   Career,
   Education,
-  FormInputs,
   PostTeamProfileResponse,
   TeamOnBoadingFieldFormInputs,
   TeamOnBoardingActivityWayFormInputs,
@@ -36,6 +35,22 @@ export async function GetOnBoardingData(accessToken: string) {
   })
 
   return await response.json()
+}
+
+// 온보딩 - 희망 분야 POST
+export async function PostProfileTeamBuildingField(accessToken: string, selectedShortTermFields: string[]) {
+  const response = await fetch(`https://dev.linkit.im/profile_team_building_field`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      teamBuildingFieldNames: selectedShortTermFields,
+    }),
+    credentials: 'include', // 쿠키를 포함시키기 위해 필요
+  })
+  return response
 }
 
 // 온보딩 활동지역 POST
