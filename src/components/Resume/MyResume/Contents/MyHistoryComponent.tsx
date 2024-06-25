@@ -1,7 +1,8 @@
 'use client'
+import { PostAntecedentData } from '@/lib/action'
 import { AntecedentResponse } from '@/lib/types'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 interface FormInputs {
@@ -12,6 +13,7 @@ interface FormInputs {
   endYear: number
   endMonth: number
   retirement: boolean
+  antecedentsDescription: string
 }
 
 interface MyResumAntecedentProps {
@@ -20,11 +22,37 @@ interface MyResumAntecedentProps {
 
 export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
   const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
-  const [histories, setHistories] = useState<FormInputs[]>(data)
+  const [histories, setHistories] = useState<FormInputs[]>(() =>
+    data.map((item) => ({
+      projectName: item.projectName,
+      projectRole: item.projectRole,
+      startYear: item.startYear,
+      startMonth: item.startMonth,
+      endYear: item.endYear,
+      endMonth: item.endMonth,
+      retirement: item.retirement,
+      antecedentsDescription: item.antecedentsDescription || '', // 기본값 설정
+    })),
+  )
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [isAdding, setIsAdding] = useState(false)
 
-  const onSubmit: SubmitHandler<FormInputs> = (formData) => {
+  useEffect(() => {
+    if (editingIndex !== null) {
+      const history = histories[editingIndex]
+      setValue('projectName', history.projectName)
+      setValue('projectRole', history.projectRole)
+      setValue('startYear', history.startYear)
+      setValue('startMonth', history.startMonth)
+      setValue('endYear', history.endYear)
+      setValue('endMonth', history.endMonth)
+      setValue('retirement', history.retirement)
+      setValue('antecedentsDescription', history.antecedentsDescription)
+    }
+  }, [editingIndex, histories, setValue])
+
+  const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
+    const accessToken = localStorage.getItem('accessToken') || ''
     const formattedData = {
       ...formData,
       startYear: Number(formData.startYear),
@@ -34,32 +62,38 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
       retirement: formData.retirement === true,
     }
 
+    let updatedHistories
     if (editingIndex !== null) {
-      setHistories((prev) => prev.map((history, index) => (index === editingIndex ? formattedData : history)))
+      updatedHistories = histories.map((history, index) => (index === editingIndex ? formattedData : history))
       setEditingIndex(null)
     } else {
-      setHistories((prev) => [...prev, formattedData])
+      updatedHistories = [...histories, formattedData]
     }
-    reset()
-    setIsAdding(false)
+
+    setHistories(updatedHistories)
+
+    const response = await PostAntecedentData(accessToken, updatedHistories) // 배열로 전달
+    if (response.ok) {
+      reset()
+      setIsAdding(false)
+      alert('수정이 완료되었습니다.')
+    }
   }
 
   const handleEdit = (index: number) => {
-    const history = histories[index]
-    setValue('projectName', history.projectName)
-    setValue('projectRole', history.projectRole)
-    setValue('startYear', history.startYear)
-    setValue('startMonth', history.startMonth)
-    setValue('endYear', history.endYear)
-    setValue('endMonth', history.endMonth)
-    setValue('retirement', history.retirement)
     setEditingIndex(index)
     setIsAdding(true)
   }
 
-  const handleDelete = (index: number) => {
+  const handleDelete = async (index: number) => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
-      setHistories((prev) => prev.filter((_, i) => i !== index))
+      const updatedHistories = histories.filter((_, i) => i !== index)
+      setHistories(updatedHistories)
+      const accessToken = localStorage.getItem('accessToken') || ''
+      const response = await PostAntecedentData(accessToken, updatedHistories) // 업데이트된 배열을 서버에 전달
+      if (response.ok) {
+        alert('삭제가 완료되었습니다.')
+      }
       if (index === editingIndex) {
         setEditingIndex(null)
         reset()
@@ -72,7 +106,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">이력</span>
+        <span className="text-lg font-semibold text-grey100">경력</span>
       </div>
 
       {/* contents */}
@@ -88,6 +122,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
                 {history.startYear}년 {history.startMonth}월 - {history.endYear}년 {history.endMonth}월 (
                 {history.retirement ? '퇴직' : '재직중'})
               </span>
+              <span className="pt-1 text-sm text-grey60">{history.antecedentsDescription}</span>
             </div>
             <div className="flex items-center justify-end">
               <Image
@@ -112,12 +147,12 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
       {isAdding && (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="mt-6 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6"
+          className="mt-3 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6"
         >
           <div className="flex gap-3">
             <div className="flex w-[49%] flex-col">
               <span className="text-sm font-normal text-grey100">
-                프로젝트명<span className="pl-1 text-[#2563EB]">*</span>
+                회사/프로젝트명<span className="pl-1 text-[#2563EB]">*</span>
               </span>
               <input
                 type="text"
@@ -140,7 +175,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-col">
+          <div className="mt-[0.81rem] flex flex-col">
             <span className="text-sm font-normal text-grey100">
               기간<span className="pl-1 text-[#2563EB]">*</span>
             </span>
@@ -180,34 +215,35 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
 
                 {/* input radio 재직중 */}
                 <div className="flex items-center">
-                  <input
-                    type="radio"
-                    id="current"
-                    value="false"
-                    className="mr-2"
-                    {...register('retirement', { required: true })}
-                  />
+                  <input type="radio" id="current" value="false" {...register('retirement', { required: true })} />
                   <label htmlFor="current" className="text-sm text-grey100">
                     재직중
                   </label>
 
                   {/* radio 퇴직 */}
-                  <input
-                    type="radio"
-                    id="retired"
-                    value="true"
-                    className="ml-4 mr-2"
-                    {...register('retirement', { required: true })}
-                  />
+                  <input type="radio" id="retired" value="true" {...register('retirement', { required: true })} />
                   <label htmlFor="retired" className="text-sm text-grey100">
                     퇴직
                   </label>
                 </div>
               </div>
-              <button type="submit" className="cursor-pointer rounded-md bg-[#2563EB] px-[0.88rem] text-sm text-[#fff]">
-                수정완료
-              </button>
             </div>
+            <div className="mt-[0.81rem] flex flex-col">
+              <span className="text-sm font-normal text-grey100">
+                설명<span className="pl-1 text-[#2563EB]">*</span>
+              </span>
+              <textarea
+                className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
+                placeholder="경력 설명"
+                {...register('antecedentsDescription', { required: true })}
+              />
+            </div>
+            <button
+              type="submit"
+              className="mt-4 cursor-pointer rounded-md bg-[#2563EB] px-[0.88rem] py-2 text-sm text-[#fff]"
+            >
+              수정완료
+            </button>
           </div>
         </form>
       )}

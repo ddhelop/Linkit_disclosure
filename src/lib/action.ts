@@ -110,6 +110,7 @@ export async function PostAntecedentData(accessToken: string, careerList: Career
     body: JSON.stringify(careerList),
   })
 }
+
 // 온보딩 미니프로필 POST
 // 여기에 fetch API로 POST 요청을 보내는 코드를 추가하세요
 export async function PostProfileData(accessToken: string, payload: any, profileImage: File | null) {

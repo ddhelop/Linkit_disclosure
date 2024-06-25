@@ -20,6 +20,7 @@ export interface Career {
   endYear: number
   endMonth: number
   retirement: boolean
+  antecedentsDescription: string
 }
 export interface Education {
   universityName: string
@@ -87,6 +88,7 @@ export interface AntecedentResponse {
   endYear: number
   endMonth: number
   retirement: boolean
+  antecedentsDescription: string
 }
 
 export interface EducationResponse {
