@@ -28,7 +28,7 @@ export default function ContentLayout({ data }: MyResumContentsProps) {
       <TeamBuildingComponent data={data.profileTeamBuildingFieldResponse} />
 
       {/* 활동 지역/위치 컴포넌트 */}
-      <MyLocationComponent />
+      <MyLocationComponent data={data.profileRegionResponse} />
 
       {/* 이력 */}
       <MyHistoryComponent data={data.antecedentsResponse} />
