@@ -20,6 +20,13 @@ export default function Location() {
   const [selectedSubArea, setSelectedSubArea] = useState<string>('')
   const router = useRouter()
 
+  const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
+    defaultValues: {
+      selectedArea: '',
+      selectedSubArea: '',
+    },
+  })
+
   // accessToken이 없을 경우 로그인 페이지로 이동
   useEffect(() => {
     const storedAccessToken = localStorage.getItem('accessToken')
@@ -33,10 +40,16 @@ export default function Location() {
   useEffect(() => {
     if (accessToken) {
       GetOnBoardingData(accessToken).then((data) => {
-        console.log(data)
+        const profileRegionResponse = data.profileRegionResponse
+        if (profileRegionResponse) {
+          setSelectedArea(profileRegionResponse.cityName)
+          setValue('selectedArea', profileRegionResponse.cityName)
+          setSelectedSubArea(profileRegionResponse.divisionName)
+          setValue('selectedSubArea', profileRegionResponse.divisionName)
+        }
       })
     }
-  }, [accessToken])
+  }, [accessToken, setValue])
 
   const onSubmit = async () => {
     const accessToken = localStorage.getItem('accessToken') || ''
@@ -52,13 +65,6 @@ export default function Location() {
   const onClickPrev = async () => {
     router.push('/onBoarding/person/project')
   }
-
-  const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
-    defaultValues: {
-      selectedArea: '',
-      selectedSubArea: '',
-    },
-  })
 
   const handleAreaChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value
