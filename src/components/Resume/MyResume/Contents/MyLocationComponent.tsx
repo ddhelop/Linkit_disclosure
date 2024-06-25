@@ -1,5 +1,6 @@
 'use client'
 
+import { PostProfileRegion } from '@/lib/action'
 import { addressData } from '@/lib/addressSelectData'
 import { LocationResponse } from '@/lib/types'
 import { selectStyle } from '@/style/toggleStyle'
@@ -31,8 +32,15 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
     }
   }, [data])
 
-  const handleEditClick = () => {
-    setIsEditing(!isEditing)
+  const handleEditClick = async () => {
+    const accessToken = localStorage.getItem('accessToken') || ''
+    if (accessToken) {
+      const response = await PostProfileRegion(accessToken, selectedCity, selectedDistrict)
+
+      if (response.ok) {
+        setIsEditing(!isEditing)
+      }
+    }
   }
 
   const handleCityChange = (event: ChangeEvent<HTMLSelectElement>) => {
