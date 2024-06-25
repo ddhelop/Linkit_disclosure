@@ -164,9 +164,9 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
         </div>
       )}
 
-      <div className="mt-6 flex w-full justify-end">
-        <button onClick={() => setIsAdding(true)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
-          추가하기
+      <div className="mt-6 flex w-full justify-end border-t border-grey30 pt-8">
+        <button onClick={() => setIsAdding(!isAdding)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+          {isAdding ? '닫기' : '추가하기'}
         </button>
       </div>
     </div>
