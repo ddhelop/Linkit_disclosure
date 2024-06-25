@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { GetOnBoardingData } from '@/lib/action'
+import { GetOnBoardingData, PostProfileTeamBuildingField } from '@/lib/action'
 
 const ShortTerm: string[] = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
 
@@ -42,18 +42,8 @@ export default function InterestProject() {
 
   // 온보딩 데이터 저장하기
   const onSubmit = async () => {
-    const response = await fetch(`https://dev.linkit.im/profile_team_building_field`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify({
-        teamBuildingFieldNames: selectedShortTermFields,
-      }),
-      credentials: 'include', // 쿠키를 포함시키기 위해 필요
-    })
-
+    const accessToken = localStorage.getItem('accessToken') || ''
+    const response = await PostProfileTeamBuildingField(accessToken, selectedShortTermFields)
     if (response.ok) {
       router.push('/onBoarding/person/location')
     }
