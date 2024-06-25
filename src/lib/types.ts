@@ -181,3 +181,8 @@ export interface AwardFormInputs {
   awardsMonth: number
   awardsDescription: string
 }
+
+export interface URLFormInputs {
+  attachUrlName: string
+  attachUrlPath: string
+}

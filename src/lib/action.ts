@@ -7,6 +7,7 @@ import {
   PostTeamProfileResponse,
   TeamOnBoadingFieldFormInputs,
   TeamOnBoardingActivityWayFormInputs,
+  URLFormInputs,
 } from './types'
 
 // 로그아웃
@@ -237,6 +238,19 @@ export async function PostProfileIntroduction(accessToken: string, introduction:
 // 내 이력서 - 수상내역 POST
 export async function PostProfileAward(accessToken: string, data: AwardFormInputs[]) {
   return fetch('https://dev.linkit.im/awards', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(data), // 배열을 직접 변환
+    credentials: 'include',
+  })
+}
+
+// 내 이력서 - 첨부 URL POST
+export async function PostProfileAttchURL(accessToken: string, data: URLFormInputs[]) {
+  return fetch('https://dev.linkit.im/attach/url', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
