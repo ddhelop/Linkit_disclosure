@@ -37,7 +37,7 @@ export default function ContentLayout({ data }: MyResumContentsProps) {
       <MyAcademicComponent data={data.educationResponse} />
 
       {/* 수상 */}
-      <MyAwardComponent />
+      <MyAwardComponent data={data.awardsResponse} />
 
       {/* 첨부 */}
       <MyAttachFile />

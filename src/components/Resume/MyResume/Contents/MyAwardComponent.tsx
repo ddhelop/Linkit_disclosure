@@ -1,11 +1,15 @@
 'use client'
 import { PostProfileAward } from '@/lib/action'
-import { AwardFormInputs } from '@/lib/types'
+import { AwardFormInputs, AwardResponse } from '@/lib/types'
 import { selectStyle } from '@/style/toggleStyle'
 import { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
-export default function MyAwardComponent() {
+interface MyResumAwardProps {
+  data: AwardResponse[]
+}
+
+export default function MyAwardComponent({ data }: MyResumAwardProps) {
   const { register, handleSubmit, reset } = useForm<AwardFormInputs>()
   const [isAdding, setIsAdding] = useState(false)
   const [awards, setAwards] = useState<AwardFormInputs[]>([])
@@ -20,10 +24,17 @@ export default function MyAwardComponent() {
     }
   }, [])
 
-  const onSubmit: SubmitHandler<AwardFormInputs> = async (data) => {
+  // 초기 데이터 설정
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setAwards(data)
+    }
+  }, [data])
+
+  const onSubmit: SubmitHandler<AwardFormInputs> = async (formData) => {
     const accessToken = localStorage.getItem('accessToken') || ''
     setAwards((prev) => {
-      const newAwards = [...prev, data]
+      const newAwards = [...prev, formData]
 
       const response = PostProfileAward(accessToken, newAwards)
       console.log(response)
@@ -132,13 +143,7 @@ export default function MyAwardComponent() {
             </div>
           </div>
         </form>
-      ) : (
-        <div className="mt-[0.94rem] flex w-full justify-end">
-          <button onClick={() => setIsAdding(true)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
-            추가하기
-          </button>
-        </div>
-      )}
+      ) : null}
 
       {awards.length > 0 && (
         <div className="mt-6">
@@ -158,6 +163,12 @@ export default function MyAwardComponent() {
           ))}
         </div>
       )}
+
+      <div className="mt-6 flex w-full justify-end">
+        <button onClick={() => setIsAdding(true)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+          추가하기
+        </button>
+      </div>
     </div>
   )
 }
