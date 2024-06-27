@@ -52,14 +52,14 @@ export default function MyResumeProgress({ data }: MyResumeCompletionProps) {
         {/* 항목들 */}
         <div className="flex w-full flex-col items-start pt-[3.81rem]">
           {items.map((item) => (
-            <div key={item.key} className="flex gap-2 pt-2">
+            <div key={item?.key} className="flex gap-2 pt-2">
               <Image
                 src={
-                  data[item.key as keyof CompletionResponse] ? '/assets/icons/check.svg' : '/assets/icons/NotCheck.svg'
+                  data[item?.key as keyof CompletionResponse] ? '/assets/icons/check.svg' : '/assets/icons/NotCheck.svg'
                 }
                 width={16}
                 height={16}
-                alt={data[item.key as keyof CompletionResponse] ? 'Check' : 'NotCheck'}
+                alt={data[item?.key as keyof CompletionResponse] ? 'Check' : 'NotCheck'}
               />
               <span className="text-grey60">
                 {item.label} {item?.required && <span className="text-[#2563EB]">*</span>}
