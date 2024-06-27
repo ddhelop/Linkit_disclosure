@@ -188,3 +188,89 @@ export interface URLFormInputs {
   attachUrlName: string
   attachUrlPath: string
 }
+
+// 팀 프로필 데이터 전체 조회
+export interface TeamMiniProfileResponse {
+  sectorName: string
+  sizeType: string
+  teamName: string
+  miniProfileTitle: string
+  teamUploadPeriod: string
+  teamUploadDeadline: boolean
+  teamLogoImageUrl: string
+  teamValue: string
+  teamDetailInform: string
+}
+
+export interface TeamCompletionResponse {
+  teamCompletion: string
+  teamMemberAnnouncement: boolean
+  teamIntroduction: boolean
+  teamMemberIntroduction: boolean
+  teamAttach: boolean
+  activity: boolean
+  history: boolean
+  teamProfileTeamBuildingField: boolean
+}
+
+export interface TeamProfileTeamBuildingFieldResponse {
+  teamProfileTeamBuildingFieldNames: string[]
+}
+
+export interface TeamMemberAnnouncementResponse {
+  mainBusiness: string
+}
+
+export interface ActivityResponse {
+  activityTagName: string[]
+  cityName: string
+  divisionName: string
+}
+
+export interface TeamProfileIntroductionResponse {
+  teamIntroduction: string
+}
+
+export interface TeamMemberIntroductionResponse {
+  id: number
+  teamMemberName: string
+  teamMemberRole: string
+  teamMemberIntroductionText: string
+}
+
+export interface HistoryResponse {
+  historyOneLineIntroduction: string
+  startYear: number
+  endYear: number
+  historyIntroduction: string
+  inProgress: boolean
+}
+
+export interface TeamAttachUrlResponse {
+  id: number
+  teamAttachUrlName: string
+  teamAttachUrlPath: string
+}
+
+export interface TeamAttachFileResponse {
+  id: number
+  teamAttachFileName: string
+  teamAttachFilePath: string
+}
+
+export interface TeamAttachResponse {
+  teamAttachUrlResponseList: TeamAttachUrlResponse[]
+  teamAttachFileResponseList: TeamAttachFileResponse[]
+}
+
+export interface TeamIntroductionResponse {
+  teamMiniProfileResponse: TeamMiniProfileResponse
+  teamCompletionResponse: TeamCompletionResponse
+  teamProfileTeamBuildingFieldResponse: TeamProfileTeamBuildingFieldResponse
+  teamMemberAnnouncementResponses: TeamMemberAnnouncementResponse[]
+  activityResponse: ActivityResponse
+  teamProfileIntroductionResponse: TeamProfileIntroductionResponse
+  teamMemberIntroductionResponses: TeamMemberIntroductionResponse[]
+  historyResponses: HistoryResponse[]
+  teamAttachResponse: TeamAttachResponse
+}

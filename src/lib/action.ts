@@ -276,3 +276,17 @@ export async function PostProfileAttchURL(accessToken: string, data: URLFormInpu
     credentials: 'include',
   })
 }
+
+// 팀 이력서 전체 조회
+export async function GetTeamResume(accessToken: string) {
+  const response = await fetch('https://dev.linkit.im/team_profile', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  return await response.json()
+}
