@@ -5,9 +5,9 @@ import Link from 'next/link'
 
 export default function TeamResumePage() {
   return (
-    <div className="flex flex-col pt-[70px]">
+    <div className="flex flex-col pt-[61px]">
       {/* Header */}
-      <div className="flex h-[4rem] w-full items-center gap-[3.17rem] bg-[#fff] px-[9.72rem]">
+      <div className="fixed flex h-[4rem] w-full items-center gap-[3.17rem] bg-white-alpha-50 px-[9.72rem] backdrop-blur-2xl">
         <Link href={'/myResume'}>
           <span className="cursor-pointer  text-lg text-grey100 opacity-50">내 이력서</span>
         </Link>
@@ -17,7 +17,7 @@ export default function TeamResumePage() {
       </div>
 
       {/* contents */}
-      <div className="flex justify-center gap-[1.87rem] pt-6">
+      <div className="flex justify-center gap-[1.87rem] pt-[101px]">
         {/* left navBar */}
         <div className="w-[21.25rem]">
           <TeamResumeNav />

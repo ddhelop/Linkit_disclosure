@@ -23,7 +23,7 @@ interface MyResumAntecedentProps {
 export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
   const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
   const [histories, setHistories] = useState<FormInputs[]>(() =>
-    data.map((item) => ({
+    data?.map((item) => ({
       projectName: item.projectName,
       projectRole: item.projectRole,
       startYear: item.startYear,
