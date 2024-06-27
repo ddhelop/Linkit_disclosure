@@ -290,3 +290,19 @@ export async function GetTeamResume(accessToken: string) {
 
   return await response.json()
 }
+
+// 팀 이력서 - 희망 팀 빌딩 POST
+export async function PostTeamBuildingField(accessToken: string, selectedShortTermFields: string[]) {
+  const response = await fetch(`https://dev.linkit.im/team_profile_team_building_field`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      teamBuildingFieldNames: selectedShortTermFields,
+    }),
+    credentials: 'include', // 쿠키를 포함시키기 위해 필요
+  })
+  return response
+}
