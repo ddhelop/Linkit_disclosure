@@ -72,7 +72,7 @@ export default function TeamResume() {
       <div className="flex justify-center gap-[1.87rem] pt-[101px]">
         {/* left navBar */}
         <div className="w-[21.25rem]">
-          <TeamResumeNav />
+          <TeamResumeNav data={data.teamMiniProfileResponse} />
         </div>
 
         {/* right contents */}

@@ -1,9 +1,14 @@
+import { TeamMiniProfileResponse } from '@/lib/types'
 import TeamResumeNavProfile from './TeamResumeNavProfile'
 
-export default function TeamResumeNav() {
+interface TeamResumNavProps {
+  data: TeamMiniProfileResponse
+}
+
+export default function TeamResumeNav({ data }: TeamResumNavProps) {
   return (
     <div className="flex flex-col">
-      <TeamResumeNavProfile />
+      <TeamResumeNavProfile data={data} />
     </div>
   )
 }
