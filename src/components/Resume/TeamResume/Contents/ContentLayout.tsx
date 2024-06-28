@@ -2,6 +2,7 @@ import { TeamIntroductionResponse } from '@/lib/types'
 import TeamResumeProgress from './TeamResumeProgress'
 import TeamBuildingComponent2 from './TeamBuildingComponent2'
 import TeamMemberAnouncement from './TeamMemberAnouncement'
+import TeamActivityWay from './TeamActivityWay'
 
 interface TeamResumContentsProps {
   data: TeamIntroductionResponse
@@ -17,6 +18,9 @@ export default function TeamContentLayout({ data }: TeamResumContentsProps) {
 
       {/* 팀원 공고 */}
       <TeamMemberAnouncement />
+
+      {/* 활동 방식 */}
+      <TeamActivityWay />
     </div>
   )
 }
