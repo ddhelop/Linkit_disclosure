@@ -4,6 +4,7 @@ import TeamBuildingComponent2 from './TeamBuildingComponent2'
 import TeamMemberAnouncement from './TeamMemberAnouncement'
 import TeamActivityWay from './TeamActivityWay'
 import TeamIntroduce from './TeamIntroduce'
+import TeamMember from './TeamMember'
 
 interface TeamResumContentsProps {
   data: TeamIntroductionResponse
@@ -25,6 +26,9 @@ export default function TeamContentLayout({ data }: TeamResumContentsProps) {
 
       {/* 팀 소개 */}
       <TeamIntroduce data={data?.teamProfileIntroductionResponse} />
+
+      {/* 팀원 소개 */}
+      <TeamMember />
     </div>
   )
 }
