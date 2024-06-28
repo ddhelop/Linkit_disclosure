@@ -136,8 +136,27 @@ export default function TeamMemberAnnouncement() {
               />
             </div>
 
-            <div className="mt-4 flex justify-end">
-              <button className="bg-blue-500 text-white rounded px-4 py-2">저장하기</button>
+            <div className="mt-4 flex justify-end border-b border-grey30 pb-4">
+              <button className="text-white rounded bg-[#2563EB] px-4 py-2 text-[#fff]">저장하기</button>
+            </div>
+
+            <div className="flex  items-center justify-between border border-grey30 p-5">
+              <div className="flex flex-col">
+                <p className="text-sm text-grey60">(주)링킷</p>
+                <p className="pt-[0.44rem]">마케팅</p>
+                <div className="flex gap-2 pt-[0.88rem]">
+                  <div className="rounded-[0.31rem] border border-grey40 px-[0.88rem] py-[0.25rem] text-sm text-grey60">
+                    Figma
+                  </div>
+                  <div className="rounded-[0.31rem] border border-grey40 px-[0.88rem] py-[0.25rem] text-sm text-grey60">
+                    Notion
+                  </div>
+                </div>
+              </div>
+              <div className="flex ">
+                <Image src="/assets/icons/pencil.svg" width={27} height={27} alt="plus" className="cursor-pointer" />
+                <Image src="/assets/icons/delete.svg" width={27} height={27} alt="plus" className="cursor-pointer" />
+              </div>
             </div>
           </div>
         </div>
