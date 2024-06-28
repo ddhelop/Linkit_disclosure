@@ -306,3 +306,16 @@ export async function PostTeamBuildingField(accessToken: string, selectedShortTe
   })
   return response
 }
+
+// 팀 이력서 - 팀 소개 작성 POST
+export async function PostTeamIntroduction(accessToken: string, introduction: string) {
+  return fetch('https://dev.linkit.im/team_profile/introduction', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({ introduction }),
+    credentials: 'include',
+  })
+}

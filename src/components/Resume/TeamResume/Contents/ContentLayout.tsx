@@ -3,6 +3,7 @@ import TeamResumeProgress from './TeamResumeProgress'
 import TeamBuildingComponent2 from './TeamBuildingComponent2'
 import TeamMemberAnouncement from './TeamMemberAnouncement'
 import TeamActivityWay from './TeamActivityWay'
+import TeamIntroduce from './TeamIntroduce'
 
 interface TeamResumContentsProps {
   data: TeamIntroductionResponse
@@ -21,6 +22,9 @@ export default function TeamContentLayout({ data }: TeamResumContentsProps) {
 
       {/* 활동 방식 */}
       <TeamActivityWay />
+
+      {/* 팀 소개 */}
+      <TeamIntroduce data={data?.teamProfileIntroductionResponse} />
     </div>
   )
 }
