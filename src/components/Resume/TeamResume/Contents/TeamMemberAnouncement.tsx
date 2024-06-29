@@ -7,6 +7,7 @@ export default function TeamMemberAnnouncement() {
   const [selectedRole, setSelectedRole] = useState<string | null>(null)
 
   const handleButtonClick = () => {
+    alert('API 연결 필요')
     setIsFormVisible(!isFormVisible)
   }
 

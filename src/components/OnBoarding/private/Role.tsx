@@ -41,13 +41,15 @@ export default function Role() {
   }
 
   const onSubmit = async (data: FormValues) => {
-    const accessToken = localStorage.getItem('accessToken')
-    if (accessToken) {
-      const response = await PostRoleData(accessToken, roleFields, skillNames)
-      if (response.ok) {
-        router.push('/onBoarding/person/school')
-      }
-    }
+    // const accessToken = localStorage.getItem('accessToken')
+    // if (accessToken) {
+    //   const response = await PostRoleData(accessToken, roleFields, skillNames)
+    //   if (response.ok) {
+    //     router.push('/onBoarding/person/school')
+    //   }
+    // }
+    alert('역할/기술 개발 대기')
+    router.push('/onBoarding/person/school')
   }
 
   return (

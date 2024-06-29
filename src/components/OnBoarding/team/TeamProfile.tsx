@@ -69,24 +69,26 @@ export default function TeamProfile() {
   const handleUploadStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUploadDeadline(event.target.value === 'completed')
   }
-  const isNextButtonEnabled = profileTitle && collaborationValue && skills && year && month && day
+  const isNextButtonEnabled = profileTitle && collaborationValue && year && month && day
 
   const onSubmit = async (data: FormInputs) => {
-    const accessToken = localStorage.getItem('accessToken') || ''
-    const payload: ApiPayload = {
-      teamProfileTitle: data.profileTitle,
-      teamUploadPeriod: `${data.year}-${data.month}-${data.day}`,
-      teamUploadDeadline: true, // You can change this based on the radio button selection
-      teamValue: data.collaborationValue,
-      teamDetailInform: data.skills,
-    }
+    alert('팀 미니프로필 기획 수정 중')
+    router.push('/onBoarding/complete')
+    // const accessToken = localStorage.getItem('accessToken') || ''
+    // const payload: ApiPayload = {
+    //   teamProfileTitle: data.profileTitle,
+    //   teamUploadPeriod: `${data.year}-${data.month}-${data.day}`,
+    //   teamUploadDeadline: true, // You can change this based on the radio button selection
+    //   teamValue: data.collaborationValue,
+    //   teamDetailInform: data.skills,
+    // }
 
-    const image = data.profileImage && data.profileImage.length > 0 ? data.profileImage[0] : undefined
-    const response: PostTeamProfileResponse = await PostTeamProfile(accessToken, payload, image)
+    // const image = data.profileImage && data.profileImage.length > 0 ? data.profileImage[0] : undefined
+    // const response: PostTeamProfileResponse = await PostTeamProfile(accessToken, payload, image)
 
-    if (response.ok) {
-      router.push('/onBoarding/complete')
-    }
+    // if (response.ok) {
+    //   router.push('/onBoarding/complete')
+    // }
   }
 
   return (
@@ -258,25 +260,6 @@ export default function TeamProfile() {
                       {...field}
                       className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
                       placeholder="빠르게 성장하는 팀, 최단기간 투자유치 달성 (최대 40자)"
-                      value={field.value || ''}
-                    />
-                  )}
-                />
-              </div>
-
-              {/* 스킬셋 */}
-              <div className="flex flex-col">
-                <span className="font-semibold text-grey100">
-                  팀의 세부정보 <span className="font-sm text-[#FF345F]">*</span>
-                </span>
-                <Controller
-                  name="skills"
-                  control={control}
-                  render={({ field }) => (
-                    <input
-                      {...field}
-                      className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
-                      placeholder="팀 세부정보 (최대 20자)"
                       value={field.value || ''}
                     />
                   )}
