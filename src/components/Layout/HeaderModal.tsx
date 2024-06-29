@@ -43,7 +43,7 @@ const DropdownMenu = ({ accessToken }: { accessToken: string }) => {
     <div ref={dropdownRef} className="relative">
       <div
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="cursor-pointer text-sm font-medium leading-5 text-grey80 lg:flex"
+        className="hidden cursor-pointer text-sm font-medium leading-5 text-grey80 lg:flex"
       >
         마이페이지
         <Image src="/assets/icons/bottom>.svg" width={7} height={3} alt="arrow-down" className="ml-2" />

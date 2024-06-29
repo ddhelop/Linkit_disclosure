@@ -1,4 +1,3 @@
-// components/Header.tsx
 'use client'
 import { useEffect, useState } from 'react'
 import './Example.css' // CSS 스타일은 파일에 포함되어 있어야 합니다.
@@ -8,7 +7,7 @@ import Link from 'next/link'
 import DropdownMenu from './HeaderModal'
 import { useRecoilState } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
-import { RefreshAccessToken } from '@/lib/action'
+import { Logout, RefreshAccessToken } from '@/lib/action'
 import LoginModal from '../Login/LoginModal'
 
 export default function Header() {
@@ -16,6 +15,22 @@ export default function Header() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
   const router = useRouter()
   const [token, setToken] = useRecoilState(accessTokenState)
+
+  const handleLogout = async () => {
+    const accessToken = localStorage.getItem('accessToken') || ''
+
+    if (!accessToken) return // accessToken이 없는 경우 실행하지 않음
+
+    try {
+      const response = await Logout(accessToken)
+      if (response.ok) {
+        localStorage.removeItem('accessToken') // 로컬 스토리지에서 accessToken 제거
+        window.location.href = '/' // 로그아웃 후 로그인 페이지로 리다이렉트
+      }
+    } catch (error) {
+      console.error('Failed to logout', error)
+    }
+  }
 
   // 액세스토큰 최신화
   useEffect(() => {
@@ -120,25 +135,33 @@ export default function Header() {
               className="-m-2.5 inline-flex cursor-pointer items-center justify-center rounded-md p-2.5 text-grey100"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {/* 아이콘 추가할 곳 */}
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
             </button>
           </div>
         </div>
-        {/* <div
+        <div
           className={`mobile-menu transition-max-height absolute w-full duration-500 ease-in-out ${
             mobileMenuOpen ? 'max-h-96' : 'max-h-0'
           }`}
         >
-          <Link href="#" className="block p-4 pl-8 text-sm font-semibold leading-6 text-grey100">
-            창업/공모전 소개
+          <Link href="/myResume" className="block p-4 pl-8 text-sm font-semibold leading-6 text-grey100">
+            마이페이지
           </Link>
           <Link href="#" className="block p-4 pl-8 text-sm font-semibold leading-6 text-grey100">
-            팀원 찾기
+            매칭관리
           </Link>
-          <Link href="#" className="block p-4 pl-8 text-sm font-semibold leading-6 text-grey100">
-            팀 찾기
-          </Link>
-        </div> */}
+          <div onClick={handleLogout} className="block p-4 pl-8 text-sm font-semibold leading-6 text-[#FF345F]">
+            로그아웃
+          </div>
+        </div>
       </nav>
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
     </>
