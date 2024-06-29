@@ -17,7 +17,7 @@ const NaverRedirect: React.FC = () => {
   useEffect(() => {
     const naverLogin = async () => {
       try {
-        const response = await fetch(`${process.env.LINKIT_SERVER_URL}/login/naver`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/login/naver`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json;charset=utf-8' },
           credentials: 'include', // 쿠키를 포함시키기 위해 필요
