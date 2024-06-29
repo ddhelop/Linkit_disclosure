@@ -22,7 +22,7 @@ export default function OnBoardingPrivateInfo() {
     console.log(data)
     try {
       const accessToken = window.localStorage.getItem('accessToken')
-      const response = await fetch(`https://dev.linkit.im/members/basic-inform`, {
+      const response = await fetch(`${process.env.LINKIT_SERVER_URL}/members/basic-inform`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',

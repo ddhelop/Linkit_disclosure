@@ -51,7 +51,7 @@ export default function InterestProject() {
 
   const onClickPrev = async () => {
     if (accessToken && selectedShortTermFields.length > 0) {
-      const response = await fetch(`https://dev.linkit.im/profile_team_building_field`, {
+      const response = await fetch(`${process.env.LINKIT_SERVER_URL}/profile_team_building_field`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',

@@ -11,7 +11,7 @@ import {
 
 // 로그아웃
 export async function Logout(accessToken: string) {
-  const response = await fetch('https://dev.linkit.im/logout', {
+  const response = await fetch(`${process.env.LINKIT_SERVER_URL}/logout`, {
     method: 'DELETE',
     headers: {
       // 'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export async function Logout(accessToken: string) {
 
 // 온보딩 데이터 fetch
 export async function GetOnBoardingData(accessToken: string) {
-  const response = await fetch(`https://dev.linkit.im/profile/onBoarding`, {
+  const response = await fetch(`${process.env.LINKIT_SERVER_URL}/profile/onBoarding`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export async function GetOnBoardingData(accessToken: string) {
 
 // 온보딩 - 희망 분야 POST
 export async function PostProfileTeamBuildingField(accessToken: string, selectedShortTermFields: string[]) {
-  const response = await fetch(`https://dev.linkit.im/profile_team_building_field`, {
+  const response = await fetch(`${process.env.LINKIT_SERVER_URL}/profile_team_building_field`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -55,7 +55,7 @@ export async function PostProfileTeamBuildingField(accessToken: string, selected
 
 // 온보딩 활동지역 POST
 export async function PostProfileRegion(access_token: string, selectedArea: string, selectedSubArea: string) {
-  return fetch('https://dev.linkit.im/profile_region', {
+  return fetch(`${process.env.LINKIT_SERVER_URL}/profile_region`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export async function PostProfileRegion(access_token: string, selectedArea: stri
 
 // 온보딩 역할 POST
 export async function PostRoleData(accessToken: string, roleFields: string[], skillNames: string[]) {
-  return fetch('https://dev.linkit.im/profile_skill', {
+  return fetch(`${process.env.LINKIT_SERVER_URL}/profile_skill`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export async function PostRoleData(accessToken: string, roleFields: string[], sk
 
 // 온보딩 학교이력 POST
 export async function PostSchoolData(accessToken: string, educationList: Education[]) {
-  return fetch('https://dev.linkit.im/education', {
+  return fetch(`${process.env.LINKIT_SERVER_URL}/education`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ export async function PostSchoolData(accessToken: string, educationList: Educati
 
 // 온보딩 경력 POST
 export async function PostAntecedentData(accessToken: string, careerList: Career[]) {
-  return fetch('https://dev.linkit.im/antecedents', {
+  return fetch(`${process.env.LINKIT_SERVER_URL}/antecedents`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ export async function PostProfileData(accessToken: string, payload: any, profile
     formData.append('miniProfileImage', profileImage)
   }
 
-  const response = await fetch('https://dev.linkit.im/mini-profile', {
+  const response = await fetch(`${process.env.LINKIT_SERVER_URL}/mini-profile`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -133,7 +133,7 @@ export async function PostProfileData(accessToken: string, payload: any, profile
 }
 
 export const RefreshAccessToken = async (accessToken: string) => {
-  const response = await fetch('https://dev.linkit.im/token', {
+  const response = await fetch(`${process.env.LINKIT_SERVER_URL}/token`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ export const RefreshAccessToken = async (accessToken: string) => {
 
 // 팀 온보딩 - 희망 팀빌딩 분야
 export const TeamOnBoardingField = async (accessToken: string, data: TeamOnBoadingFieldFormInputs) => {
-  const response = await fetch('https://dev.linkit.im/team_profile/field/basic-team', {
+  const response = await fetch(`${process.env.LINKIT_SERVER_URL}/team_profile/field/basic-team`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -168,7 +168,7 @@ export const TeamOnBoardingField = async (accessToken: string, data: TeamOnBoadi
 
 // 팀 온보딩 - GET
 export const TeamOnBoardingData = async (accessToken: string) => {
-  const response = await fetch('https://dev.linkit.im/team_profile/onBoarding', {
+  const response = await fetch(`${process.env.LINKIT_SERVER_URL}/team_profile/onBoarding`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -183,7 +183,7 @@ export const TeamOnBoardingData = async (accessToken: string) => {
 
 // 팀 온보딩 - 활동 방식
 export const TeamOnBoardingActivityWay = async (accessToken: string, data: TeamOnBoardingActivityWayFormInputs) => {
-  const response = await fetch('https://dev.linkit.im/activity-method', {
+  const response = await fetch(`${process.env.LINKIT_SERVER_URL}/activity-method`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -212,7 +212,7 @@ export async function PostTeamProfile(
     formData.append('teamMiniProfileImage', image)
   }
 
-  const response = await fetch('https://dev.linkit.im/team/mini-profile', {
+  const response = await fetch(`${process.env.LINKIT_SERVER_URL}/team/mini-profile`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -226,7 +226,7 @@ export async function PostTeamProfile(
 
 // 내 이력서 전체 조회
 export async function GetMyResume(accessToken: string) {
-  const response = await fetch('https://dev.linkit.im/profile', {
+  const response = await fetch(`${process.env.LINKIT_SERVER_URL}/profile`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -240,7 +240,7 @@ export async function GetMyResume(accessToken: string) {
 
 // 내 이력서 - 자기소개 작성 POST
 export async function PostProfileIntroduction(accessToken: string, introduction: string) {
-  return fetch('https://dev.linkit.im/profile/introduction', {
+  return fetch(`${process.env.LINKIT_SERVER_URL}/profile/introduction`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -253,7 +253,7 @@ export async function PostProfileIntroduction(accessToken: string, introduction:
 
 // 내 이력서 - 수상내역 POST
 export async function PostProfileAward(accessToken: string, data: AwardFormInputs[]) {
-  return fetch('https://dev.linkit.im/awards', {
+  return fetch(`${process.env.LINKIT_SERVER_URL}/awards`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -266,7 +266,7 @@ export async function PostProfileAward(accessToken: string, data: AwardFormInput
 
 // 내 이력서 - 첨부 URL POST
 export async function PostProfileAttchURL(accessToken: string, data: URLFormInputs[]) {
-  return fetch('https://dev.linkit.im/attach/url', {
+  return fetch(`${process.env.LINKIT_SERVER_URL}/attach/url`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -279,7 +279,7 @@ export async function PostProfileAttchURL(accessToken: string, data: URLFormInpu
 
 // 팀 이력서 전체 조회
 export async function GetTeamResume(accessToken: string) {
-  const response = await fetch('https://dev.linkit.im/team_profile', {
+  const response = await fetch(`${process.env.LINKIT_SERVER_URL}/team_profile`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -293,7 +293,7 @@ export async function GetTeamResume(accessToken: string) {
 
 // 팀 이력서 - 희망 팀 빌딩 POST
 export async function PostTeamBuildingField(accessToken: string, selectedShortTermFields: string[]) {
-  const response = await fetch(`https://dev.linkit.im/team_profile_team_building_field`, {
+  const response = await fetch(`${process.env.LINKIT_SERVER_URL}/team_profile_team_building_field`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -309,7 +309,7 @@ export async function PostTeamBuildingField(accessToken: string, selectedShortTe
 
 // 팀 이력서 - 팀 소개 작성 POST
 export async function PostTeamIntroduction(accessToken: string, introduction: string) {
-  return fetch('https://dev.linkit.im/team_profile/introduction', {
+  return fetch(`${process.env.LINKIT_SERVER_URL}/team_profile/introduction`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -17,7 +17,7 @@ const GoogleRedirect: React.FC = () => {
   useEffect(() => {
     const googleLogin = async () => {
       try {
-        const response = await fetch(`https://dev.linkit.im/login/google`, {
+        const response = await fetch(`${process.env.LINKIT_SERVER_URL}/login/google`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json;charset=utf-8' },
           credentials: 'include', // 쿠키를 포함시키기 위해 필요
