@@ -43,9 +43,6 @@ export default function ContentLayout({ data }: MyResumContentsProps) {
 
       {/* 첨부 링크 */}
       <MyAttachUrl data={data?.attachResponse?.attachUrlResponseList} />
-
-      {/* 첨부 파일 */}
-      <MyAttachFile />
     </div>
   )
 }

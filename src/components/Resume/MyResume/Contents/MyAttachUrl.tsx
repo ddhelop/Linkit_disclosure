@@ -143,19 +143,22 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
                   onChange={(e) => handleLinkChange(index, 'url', e.target.value)}
                   className="w-[55%] rounded border border-grey30 px-[0.88rem] py-3 text-sm"
                 />
-                <button
-                  type="button"
+
+                <Image
                   onClick={() => handleConfirmLink(index)}
-                  className="rounded-md bg-[#2563EB] px-3 py-2 text-[#fff]"
-                >
-                  O
-                </button>
+                  src={'/assets/images/plusbtn.svg'}
+                  alt="check"
+                  width={43}
+                  height={43}
+                  className="cursor-pointer"
+                />
+
                 <button
                   type="button"
                   onClick={() => handleRemoveEditingLink(index)}
-                  className="rounded-md bg-grey30 px-3 py-2 text-[#fff]"
+                  className="h-[43px] w-[43px] rounded-md bg-grey30 text-[#fff]"
                 >
-                  X
+                  -
                 </button>
               </div>
             ))}
