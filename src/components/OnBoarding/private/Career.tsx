@@ -17,8 +17,19 @@ interface FormInputs {
   retirement: boolean
 }
 
+interface Career {
+  projectName: string
+  projectRole: string
+  startYear: number
+  startMonth: number
+  endYear: number
+  endMonth: number
+  retirement: boolean
+  antecedentsDescription: string // 추가된 속성
+}
+
 export default function RegisterCareer() {
-  const [careerList, setCareerList] = useRecoilState(careerListState)
+  const [careerList, setCareerList] = useRecoilState<Career[]>(careerListState)
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
   const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
@@ -30,13 +41,14 @@ export default function RegisterCareer() {
   }, [])
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    const formattedData = {
+    const formattedData: Career = {
       ...data,
       startYear: Number(data.startYear),
       startMonth: Number(data.startMonth),
       endYear: Number(data.endYear),
       endMonth: Number(data.endMonth),
       retirement: data.retirement === true,
+      antecedentsDescription: '', // 기본값 추가
     }
 
     if (editingIndex !== null) {
