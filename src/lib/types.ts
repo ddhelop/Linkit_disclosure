@@ -237,6 +237,12 @@ export interface TeamMemberIntroductionResponse {
   teamMemberRole: string
   teamMemberIntroductionText: string
 }
+export interface TeamIntroductionResponse {
+  TeamCompletionResponse: TeamCompletionResponse
+  teamProfileTeamBuildingFieldResponse: TeamProfileTeamBuildingFieldResponse
+  teamProfileIntroductionResponse: TeamProfileIntroductionResponse
+  teamMemberIntroductionResponses: TeamMemberIntroductionResponse[]
+}
 
 export interface HistoryResponse {
   historyOneLineIntroduction: string
@@ -273,4 +279,14 @@ export interface TeamIntroductionResponse {
   teamMemberIntroductionResponses: TeamMemberIntroductionResponse[]
   historyResponses: HistoryResponse[]
   teamAttachResponse: TeamAttachResponse
+}
+
+export interface TeamMemberData {
+  teamMemberName: string
+  teamMemberRole: string
+  teamMemberIntroductionText: string
+}
+
+export interface PostTeamMemberData {
+  data: TeamMemberData[]
 }

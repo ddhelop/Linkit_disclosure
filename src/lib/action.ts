@@ -3,7 +3,9 @@ import {
   AwardFormInputs,
   Career,
   Education,
+  PostTeamMemberData,
   PostTeamProfileResponse,
+  TeamMemberData,
   TeamOnBoadingFieldFormInputs,
   TeamOnBoardingActivityWayFormInputs,
   URLFormInputs,
@@ -316,6 +318,19 @@ export async function PostTeamIntroduction(accessToken: string, introduction: st
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({ introduction }),
+    credentials: 'include',
+  })
+}
+
+// 팀 이력서 - 팀원 소개 작성 POST
+export async function PostTeamMember(accessToken: string, data: TeamMemberData[]) {
+  return await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/team_member`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(data),
     credentials: 'include',
   })
 }
