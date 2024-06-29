@@ -13,17 +13,17 @@ interface LoginModalProps {
 export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   // kakao_login
   const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID
-  const KAKAO_REDIRECT_URI = 'http://localhost:3000/login/oauth2/callback/kakao'
+  const KAKAO_REDIRECT_URI = `${process.env.NEXT_PUBLIC_LINKIT_REDIRECT_URL}/login/oauth2/callback/kakao`
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`
 
   // naver_login
   const NAVER_REST_API_KEY = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID
-  const NAVER_REDIRECT_URI = 'http://localhost:3000/login/oauth2/callback/naver'
+  const NAVER_REDIRECT_URI = `${process.env.NEXT_PUBLIC_LINKIT_REDIRECT_URL}/login/oauth2/callback/naver`
   const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_REST_API_KEY}&redirect_uri=${NAVER_REDIRECT_URI}&state=test`
 
   // google_login
   const GOOGLE_REST_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
-  const GOOGLE_REDIRECT_URI = 'http://localhost:3000/login/oauth2/callback/google'
+  const GOOGLE_REDIRECT_URI = `${process.env.NEXT_PUBLIC_LINKIT_REDIRECT_URL}/login/oauth2/callback/google`
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_REST_API_KEY}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`
 
   if (!isOpen) return null
