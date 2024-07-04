@@ -2,10 +2,10 @@
 
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
-import { ChangeEvent, KeyboardEvent, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Skills } from '@/lib/data'
-import { PostRoleData } from '@/lib/action'
+import { GetOnBoardingData, PostRoleData } from '@/lib/action'
 
 const Positions = ['기획·경영', '개발·데이터', '마케팅·광고', '디자인']
 
@@ -18,6 +18,27 @@ export default function Role() {
   const [skills, setSkills] = useState<string[]>([])
   const [inputValue, setInputValue] = useState('')
   const [filteredSkills, setFilteredSkills] = useState<string[]>([])
+  const {
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>()
+  const [roleFields, setSelectedRoleFields] = useState<string[]>([])
+  const router = useRouter()
+
+  // 온보딩 데이터 fetch
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken') || ''
+    if (accessToken) {
+      GetOnBoardingData(accessToken).then((data) => {
+        console.log(data)
+        const profileRegionResponse = data.jobAndSkillResponse
+        if (profileRegionResponse) {
+          setSelectedRoleFields(profileRegionResponse.jobRoleNames || [])
+          setSkills(profileRegionResponse.skillNames || [])
+        }
+      })
+    }
+  }, [])
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
@@ -46,13 +67,6 @@ export default function Role() {
       handleAddSkill(inputValue)
     }
   }
-
-  const {
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>()
-  const [roleFields, setSelectedRoleFields] = useState<string[]>([])
-  const router = useRouter()
 
   // 포지션 토글
   const toggleRoleSelection = (field: string) => {
