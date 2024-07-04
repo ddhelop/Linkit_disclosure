@@ -11,129 +11,7 @@ import {
   URLFormInputs,
 } from './types'
 
-// 로그아웃
-export async function Logout(accessToken: string) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/logout`, {
-    method: 'DELETE',
-    headers: {
-      // 'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: 'include',
-  })
-
-  return response
-}
-
-// 온보딩 데이터 fetch
-export async function GetOnBoardingData(accessToken: string) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/profile/onBoarding`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: 'include',
-  })
-
-  return await response.json()
-}
-
-// 온보딩 - 희망 분야 POST
-export async function PostProfileTeamBuildingField(accessToken: string, selectedShortTermFields: string[]) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/profile_team_building_field`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8',
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify({
-      teamBuildingFieldNames: selectedShortTermFields,
-    }),
-    credentials: 'include', // 쿠키를 포함시키기 위해 필요
-  })
-  return response
-}
-
-// 온보딩 활동지역 POST
-export async function PostProfileRegion(access_token: string, selectedArea: string, selectedSubArea: string) {
-  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/profile_region`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${access_token}`,
-    },
-    credentials: 'include',
-    body: JSON.stringify({
-      cityName: selectedArea,
-      divisionName: selectedSubArea,
-    }),
-  })
-}
-
-// 온보딩 역할 POST
-export async function PostRoleData(accessToken: string, roleFields: string[], skillNames: string[]) {
-  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/profile_skill`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: 'include',
-    body: JSON.stringify({
-      roleFields,
-      skillNames,
-    }),
-  })
-}
-
-// 온보딩 학교이력 POST
-export async function PostSchoolData(accessToken: string, educationList: Education[]) {
-  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/education`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: 'include',
-    body: JSON.stringify({ educationList }),
-  })
-}
-
-// 온보딩 경력 POST
-export async function PostAntecedentData(accessToken: string, careerList: Career[]) {
-  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/antecedents`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: 'include',
-    body: JSON.stringify(careerList),
-  })
-}
-
-// 온보딩 미니프로필 POST
-// 여기에 fetch API로 POST 요청을 보내는 코드를 추가하세요
-export async function PostProfileData(accessToken: string, payload: any, profileImage: File | null) {
-  const formData = new FormData()
-  formData.append('miniProfileCreateRequest', new Blob([JSON.stringify(payload)], { type: 'application/json' }))
-  if (profileImage) {
-    formData.append('miniProfileImage', profileImage)
-  }
-
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/mini-profile`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: 'include',
-    body: formData,
-  })
-
-  return response
-}
-
+// 리프레쉬 토큰
 export const RefreshAccessToken = async (accessToken: string) => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/token`, {
     method: 'POST',
@@ -148,9 +26,146 @@ export const RefreshAccessToken = async (accessToken: string) => {
   return data.accessToken
 }
 
-// 팀 온보딩 - 희망 팀빌딩 분야
+// 로그아웃
+export async function Logout(accessToken: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/logout`, {
+    method: 'DELETE',
+    headers: {
+      // 'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  return response
+}
+
+// 내 온보딩 데이터 전체조회 - 내 이력서
+export async function GetOnBoardingData(accessToken: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/onBoarding`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  return await response.json()
+}
+
+// 내 온보딩 - 희망/팀빌딩 분야 생성,수정
+export async function PostProfileTeamBuildingField(accessToken: string, selectedShortTermFields: string[]) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/team_building_field`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      teamBuildingFieldNames: selectedShortTermFields,
+    }),
+    credentials: 'include', // 쿠키를 포함시키기 위해 필요
+  })
+  return response
+}
+
+// 내 온보딩 - 활동지역 및 위치 생성
+export async function PostProfileRegion(access_token: string, selectedArea: string, selectedSubArea: string) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/region`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${access_token}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      cityName: selectedArea,
+      divisionName: selectedSubArea,
+    }),
+  })
+}
+
+// 내 온보딩 - 희망 역할, 보유 기술 생성
+export async function PostRoleData(accessToken: string, roleFields: string[], skillNames: string[]) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/job/skill`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      roleFields,
+      skillNames,
+    }),
+  })
+}
+
+// 내 온보딩 - 학력 생성
+export async function PostSchoolData(accessToken: string, educationList: Education[]) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/education`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify({ educationList }),
+  })
+}
+
+// 내 온보딩 - 경력 생성
+export async function PostAntecedentData(accessToken: string, careerList: Career[]) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/antecedents`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify(careerList),
+  })
+}
+
+// 내 온보딩 - 미니프로필 생성
+export async function PostProfileData(accessToken: string, payload: any, profileImage: File | null) {
+  const formData = new FormData()
+  formData.append('miniProfileCreateRequest', new Blob([JSON.stringify(payload)], { type: 'application/json' }))
+  if (profileImage) {
+    formData.append('miniProfileImage', profileImage)
+  }
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/mini-profile`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: formData,
+  })
+
+  return response
+}
+
+// 팀 온보딩 - 전체조회
+export const TeamOnBoardingData = async (accessToken: string) => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/onBoarding`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  const responseData = await response.json()
+  return responseData
+}
+
+// 팀 온보딩 - 희망 팀빌딩 분야 생성,수정
 export const TeamOnBoardingField = async (accessToken: string, data: TeamOnBoadingFieldFormInputs) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team_profile/field/basic-team`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/team_building_field/basic_inform`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -168,24 +183,9 @@ export const TeamOnBoardingField = async (accessToken: string, data: TeamOnBoadi
   return response
 }
 
-// 팀 온보딩 - GET
-export const TeamOnBoardingData = async (accessToken: string) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team_profile/onBoarding`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: 'include',
-  })
-
-  const responseData = await response.json()
-  return responseData
-}
-
-// 팀 온보딩 - 활동 방식
+// 팀 온보딩 - 활동 방식 및 활동 지역 생성
 export const TeamOnBoardingActivityWay = async (accessToken: string, data: TeamOnBoardingActivityWayFormInputs) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/activity-method`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/activity`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ export const TeamOnBoardingActivityWay = async (accessToken: string, data: TeamO
   return response
 }
 
-// 팀 온보딩 - 미니프로필
+// 팀 온보딩 - 미니프로필 생성
 export async function PostTeamProfile(
   accessToken: string,
   payload: ApiPayload,
@@ -226,9 +226,9 @@ export async function PostTeamProfile(
   return response
 }
 
-// 내 이력서 전체 조회
+// 내 이력서 - 전체 조회
 export async function GetMyResume(accessToken: string) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/profile`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/profile`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -240,9 +240,9 @@ export async function GetMyResume(accessToken: string) {
   return await response.json()
 }
 
-// 내 이력서 - 자기소개 작성 POST
+// 내 이력서 - 자기소개 생성
 export async function PostProfileIntroduction(accessToken: string, introduction: string) {
-  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/profile/introduction`, {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/introduction`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -253,9 +253,9 @@ export async function PostProfileIntroduction(accessToken: string, introduction:
   })
 }
 
-// 내 이력서 - 수상내역 POST
+// 내 이력서 - 수상내역 생성
 export async function PostProfileAward(accessToken: string, data: AwardFormInputs[]) {
-  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/awards`, {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/awards`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -268,7 +268,7 @@ export async function PostProfileAward(accessToken: string, data: AwardFormInput
 
 // 내 이력서 - 첨부 URL POST
 export async function PostProfileAttchURL(accessToken: string, data: URLFormInputs[]) {
-  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/attach/url`, {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/attach/url`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -279,9 +279,9 @@ export async function PostProfileAttchURL(accessToken: string, data: URLFormInpu
   })
 }
 
-// 팀 이력서 전체 조회
+// 팀 소개서 - 전체 조회
 export async function GetTeamResume(accessToken: string) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team_profile`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/profile`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -293,9 +293,9 @@ export async function GetTeamResume(accessToken: string) {
   return await response.json()
 }
 
-// 팀 이력서 - 희망 팀 빌딩 POST
+// 팀 이력서 - 희망 팀 빌딩 생성
 export async function PostTeamBuildingField(accessToken: string, selectedShortTermFields: string[]) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team_profile_team_building_field`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/team_building_field`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -309,9 +309,9 @@ export async function PostTeamBuildingField(accessToken: string, selectedShortTe
   return response
 }
 
-// 팀 이력서 - 팀 소개 작성 POST
+// 팀 이력서 - 팀 소개 작성 생성
 export async function PostTeamIntroduction(accessToken: string, introduction: string) {
-  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team_profile/introduction`, {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/introduction`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -324,7 +324,7 @@ export async function PostTeamIntroduction(accessToken: string, introduction: st
 
 // 팀 이력서 - 팀원 소개 작성 POST
 export async function PostTeamMember(accessToken: string, data: TeamMemberData[]) {
-  return await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/team_member`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/members`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
