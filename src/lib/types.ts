@@ -155,7 +155,7 @@ export interface MyResumNavProps {
 
 export interface FormInputs {
   profileTitle: string
-  collaborationValue: string
+  teamKeywordNames: string
   skills: string
   year: string
   month: string
@@ -167,8 +167,7 @@ export interface ApiPayload {
   teamProfileTitle: string
   teamUploadPeriod: string
   teamUploadDeadline: boolean
-  teamValue: string
-  teamDetailInform: string
+  teamKeywordNames: string[]
 }
 
 export interface PostTeamProfileResponse {
