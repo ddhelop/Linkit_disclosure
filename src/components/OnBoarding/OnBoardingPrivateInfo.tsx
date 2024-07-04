@@ -81,13 +81,13 @@ export default function OnBoardingPrivateInfo() {
                 </div>
               </div>
 
-              <div className="w-[100%] pt-[1.1rem]">
+              {/* <div className="w-[100%] pt-[1.1rem]">
                 <h2 className="pb-1 text-sm font-semibold">팀원에게서 받은 초대초대가 있나요?</h2>
                 <input
                   placeholder="code"
                   className="h-[2.75rem] w-full rounded-md border border-grey30 p-4 text-sm text-grey90 outline-none focus:border-2 focus:border-grey90"
                 />
-              </div>
+              </div> */}
 
               {/* 체크 */}
               <label className="flex items-center pt-[1.1rem]">
