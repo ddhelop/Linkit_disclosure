@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import Link from 'next/link'
 import { GetOnBoardingData, PostProfileData } from '@/lib/action'
@@ -25,6 +25,32 @@ export default function RegisterPersonProfile() {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
   const [uploadDeadline, setUploadDeadline] = useState<boolean>(true)
   const router = useRouter()
+
+  // 소개 항목
+  const [skills, setSkills] = useState<string[]>([])
+  const [inputValue, setInputValue] = useState('')
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value)
+  }
+
+  const handleAddSkill = () => {
+    event?.preventDefault()
+    if (inputValue.trim() !== '') {
+      setSkills([...skills, inputValue.trim()])
+      setInputValue('')
+    }
+  }
+
+  const handleRemoveSkill = (skillToRemove: string) => {
+    setSkills(skills.filter((skill) => skill !== skillToRemove))
+  }
+
+  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleAddSkill()
+    }
+  }
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -64,7 +90,7 @@ export default function RegisterPersonProfile() {
         console.log('OnBoarding Data:', response)
 
         if (response.miniProfileResponse) {
-          const { profileTitle, uploadPeriod, myValue, skillSets, miniProfileImg } = response.miniProfileResponse
+          const { profileTitle, uploadPeriod, myValue, myKeywordNames, miniProfileImg } = response.miniProfileResponse
           const [uploadYear, uploadMonth, uploadDay] = uploadPeriod.split('-').map(Number)
 
           setValue('profileTitle', profileTitle)
@@ -72,7 +98,7 @@ export default function RegisterPersonProfile() {
           setValue('uploadMonth', uploadMonth)
           setValue('uploadDay', uploadDay)
           setValue('myValue', myValue)
-          setValue('skillSets', skillSets)
+          setSkills(myKeywordNames)
 
           if (miniProfileImg) {
             setProfileImageUrl(miniProfileImg)
@@ -93,19 +119,22 @@ export default function RegisterPersonProfile() {
   }, [watch])
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    const { profileTitle, uploadYear, uploadMonth, uploadDay, myValue, skillSets } = data
+    const { profileTitle, uploadYear, uploadMonth, uploadDay, myValue } = data
 
     const uploadPeriod = `${uploadYear}-${String(uploadMonth).padStart(2, '0')}-${String(uploadDay).padStart(2, '0')}`
+    const myKeywordNames = skills
 
     const payload = {
       profileTitle,
       uploadPeriod,
       uploadDeadline,
       myValue,
-      skillSets,
+      myKeywordNames,
     }
 
-    console.log('Payload:', payload)
+    console.log(payload)
+    console.log(profileImage)
+
     // 여기에 fetch API로 POST 요청을 보내는 코드를 추가하세요
     if (!accessToken) return
     try {
@@ -128,7 +157,7 @@ export default function RegisterPersonProfile() {
   return (
     <>
       <div className="relative">
-        <div className="fixed z-40 mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-[69px]"></div>
+        <div className="fixed z-40 mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-[62px]"></div>
       </div>
 
       <div className="flex w-full flex-col items-center bg-[#fff] p-4 pb-20 pt-16">
@@ -137,41 +166,42 @@ export default function RegisterPersonProfile() {
             <span className="text-sm font-medium leading-9 text-grey60">내 이력서 가이드</span>
             <span className="text-2xl font-bold">내 이력서가 거의 완성되었어요</span>
             <span className="pt-1 text-sm text-grey60 lg:text-base">
-              다른사람들이 보는 나의 프로필이예요. 수정할 사항을 완성해주세요
+              다른사람들이 보는 나의 프로필이예요. 수정할 사항을 완성해주세요 :)
             </span>
           </div>
 
           <div className="flex w-full pt-12 lg:justify-between lg:gap-14">
             {/* left */}
-            <div className="hidden h-[31.4rem] w-[22.18rem] flex-col rounded-lg border-[1.67px] border-grey30 p-5 lg:flex">
-              <h2 className="text-2xl font-bold leading-9 text-grey50">
-                {watch('profileTitle') || '사이드 프로젝트 함께 할 개발자를 찾고 있어요'}
-              </h2>
-              <span className="pt-2 font-medium text-grey60">
+            <div className="hidden h-[16.7rem] w-[22.18rem] flex-col rounded-lg border-[1.67px] border-grey30 p-[0.77rem] lg:flex">
+              <span className="pt-2 text-[0.76rem] font-medium text-grey60">
                 D-<span>{dDay !== null ? dDay : 'day'}</span>
               </span>
-              <div className="flex justify-center py-3">
-                {profileImageUrl ? (
-                  <Image src={profileImageUrl} width={125} height={125} alt="profile_image" className="rounded-3xl" />
-                ) : (
-                  <Image src={'/assets/onBoarding/addImage.svg'} width={125} height={125} alt="add_image" />
-                )}
+              <h2 className="text-[1.1rem] font-bold leading-9 text-grey50">
+                {watch('profileTitle') || '사이드 프로젝트 함께 할 개발자를 찾고 있어요'}
+              </h2>
+              <div className="my-4 flex flex-wrap">
+                {skills.map((skill, index) => (
+                  <div className="rounded-[0.45rem] bg-[#D3E1FE33] bg-opacity-20 px-[0.57rem] text-[0.94rem] text-[#2563EB]">
+                    {skill}
+                  </div>
+                ))}
               </div>
 
-              <div className="flex flex-col items-center">
-                <span className="font-semibold text-[#2563EB]">유나</span>
-                <span className="text-grey60">{watch('skillSets') || '기획, AI 엔지니어, LLM'}</span>
-                <div className="mt-7 bg-grey10 px-4 py-3 pr-12 text-sm text-grey50">
-                  💬 &nbsp; {watch('myValue') || '공동의 목표를 위해 가감없는 피드백'}
+              <div className="flex items-center gap-4">
+                <div className="flex justify-center py-3">
+                  {profileImageUrl ? (
+                    <Image src={profileImageUrl} width={45} height={45} alt="profile_image" className="rounded-3xl" />
+                  ) : (
+                    <Image src={'/assets/onBoarding/addImage.svg'} width={45} height={45} alt="add_image" />
+                  )}
                 </div>
-                <div className="flex gap-2 pt-4">
-                  <div className="font-sm flex w-[8.7rem] justify-center rounded-md bg-grey10 px-[0.88rem] py-3 text-grey90">
-                    찜하기
-                  </div>
-                  <div className="font-sm flex w-[8.7rem] justify-center rounded-md bg-grey100 px-[0.88rem] py-3 text-[#fff]">
-                    연락하기
-                  </div>
+                <div className="flex flex-col">
+                  <span className="font-semibold text-[#2563EB]">유나</span>
+                  <span className="text-grey60">{watch('skillSets') || '기획, AI 엔지니어, LLM'}</span>
                 </div>
+              </div>
+              <div className="mt-[0.51rem] bg-grey10 px-4 py-3 pr-12 text-sm text-grey50">
+                💬 &nbsp; {watch('myValue') || '공동의 목표를 위해 가감없는 피드백'}
               </div>
             </div>
 
@@ -320,13 +350,51 @@ export default function RegisterPersonProfile() {
               {/* 스킬셋 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  나의 스킬셋 <span className="font-sm text-[#FF345F]">*</span>
+                  나를 소개할 수 있는 항목을 소개해주세요 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
-                <input
-                  className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
-                  {...register('skillSets')}
-                  placeholder="스킬셋 (최대 20자)"
-                />
+
+                {/* contents */}
+
+                <div>
+                  {/* 버튼들 */}
+                  <div className="flex flex-wrap gap-2 pt-4">
+                    {skills.map((skill, index) => (
+                      <div
+                        key={index}
+                        onClick={() => handleRemoveSkill(skill)}
+                        className="flex cursor-pointer items-center rounded-lg border border-[#2563EB] bg-[#E0E7FF] px-3 py-1"
+                      >
+                        <span className="text-[#2563EB]">{skill}</span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleRemoveSkill(skill)
+                          }}
+                          className="ml-2 flex h-4 w-4 items-center justify-center rounded-full text-[#2563EB]"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* input container */}
+                  <div className="mt-[0.88rem] flex flex-col border-t border-grey40">
+                    <span className="py-[0.88rem] text-sm font-normal">희망 팀빌딩 분야를 선택해주세요</span>
+                    <div className="flex w-[16.1rem] items-center gap-[0.63rem]">
+                      <input
+                        type="text"
+                        className="flex-1 rounded border border-grey40 p-2"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        onClick={handleAddSkill}
+                        onKeyPress={handleKeyPress}
+                        placeholder="ex. Notion"
+                      />
+                      <button className="rounded bg-[#2563EB] px-4 py-2 text-sm text-[#fff]">추가</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -131,7 +131,7 @@ export async function PostAntecedentData(accessToken: string, careerList: Career
 // 내 온보딩 - 미니프로필 생성
 export async function PostProfileData(accessToken: string, payload: any, profileImage: File | null) {
   const formData = new FormData()
-  formData.append('miniProfileCreateRequest', new Blob([JSON.stringify(payload)], { type: 'application/json' }))
+  formData.append('miniProfileRequest', new Blob([JSON.stringify(payload)], { type: 'application/json' }))
   if (profileImage) {
     formData.append('miniProfileImage', profileImage)
   }
@@ -144,7 +144,6 @@ export async function PostProfileData(accessToken: string, payload: any, profile
     credentials: 'include',
     body: formData,
   })
-
   return response
 }
 
