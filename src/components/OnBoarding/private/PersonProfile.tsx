@@ -354,7 +354,6 @@ export default function RegisterPersonProfile() {
                 </span>
 
                 {/* contents */}
-
                 <div>
                   {/* 버튼들 */}
                   <div className="flex flex-wrap gap-2 pt-4">

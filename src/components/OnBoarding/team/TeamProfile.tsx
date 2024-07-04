@@ -2,17 +2,22 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ApiPayload, FormInputs, PostTeamProfileResponse } from '@/lib/types'
 import { PostTeamProfile, TeamOnBoardingData } from '@/lib/action'
+
+interface BasicData {
+  teamName: string
+  sectorName: string
+  sizeType: string
+}
 
 export default function TeamProfile() {
   const router = useRouter()
   const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
     defaultValues: {
       profileTitle: '',
-      collaborationValue: '',
       skills: '',
       year: '',
       month: '',
@@ -22,12 +27,43 @@ export default function TeamProfile() {
 
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null)
   const [uploadDeadline, setUploadDeadline] = useState<boolean>(true)
+  const [basicData, setBasicData] = useState<BasicData | undefined>(undefined)
+
+  // 소개 항목
+  const [skills, setSkills] = useState<string[]>([])
+  const [inputValue, setInputValue] = useState('')
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value)
+  }
+
+  const handleAddSkill = () => {
+    event?.preventDefault()
+    if (inputValue.trim() !== '') {
+      setSkills([...skills, inputValue.trim()])
+      setInputValue('')
+    }
+  }
+
+  const handleRemoveSkill = (skillToRemove: string) => {
+    setSkills(skills.filter((skill) => skill !== skillToRemove))
+  }
+
+  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleAddSkill()
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       const accessToken = localStorage.getItem('accessToken') || ''
       const response = await TeamOnBoardingData(accessToken)
       console.log(response)
+
+      if (response.onBoardingFieldTeamInformResponse) {
+        setBasicData(response.onBoardingFieldTeamInformResponse)
+      }
 
       if (response.teamMiniProfileResponse) {
         const { miniProfileTitle, teamUploadPeriod, teamValue, teamDetailInform, teamLogoImageUrl } =
@@ -40,7 +76,6 @@ export default function TeamProfile() {
         setValue('year', uploadYear || '')
         setValue('month', uploadMonth || '')
         setValue('day', uploadDay || '')
-        setValue('collaborationValue', teamValue || '')
         setValue('skills', teamDetailInform || '')
 
         if (teamLogoImageUrl) {
@@ -52,8 +87,7 @@ export default function TeamProfile() {
   }, [setValue])
 
   const profileTitle = watch('profileTitle')
-  const collaborationValue = watch('collaborationValue')
-  const skills = watch('skills')
+
   const year = watch('year')
   const month = watch('month')
   const day = watch('day')
@@ -69,32 +103,29 @@ export default function TeamProfile() {
   const handleUploadStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUploadDeadline(event.target.value === 'completed')
   }
-  const isNextButtonEnabled = profileTitle && collaborationValue && year && month && day
+  const isNextButtonEnabled = profileTitle && skills && year && month && day
 
   const onSubmit = async (data: FormInputs) => {
-    alert('팀 미니프로필 기획 수정 중')
-    router.push('/onBoarding/complete')
-    // const accessToken = localStorage.getItem('accessToken') || ''
-    // const payload: ApiPayload = {
-    //   teamProfileTitle: data.profileTitle,
-    //   teamUploadPeriod: `${data.year}-${data.month}-${data.day}`,
-    //   teamUploadDeadline: true, // You can change this based on the radio button selection
-    //   teamValue: data.collaborationValue,
-    //   teamDetailInform: data.skills,
-    // }
+    const accessToken = localStorage.getItem('accessToken') || ''
+    const payload: ApiPayload = {
+      teamProfileTitle: data.profileTitle,
+      teamUploadPeriod: `${data.year}-${String(data.month).padStart(2, '0')}-${String(data.day).padStart(2, '0')}`,
+      teamUploadDeadline: uploadDeadline,
+      teamKeywordNames: skills,
+    }
 
-    // const image = data.profileImage && data.profileImage.length > 0 ? data.profileImage[0] : undefined
-    // const response: PostTeamProfileResponse = await PostTeamProfile(accessToken, payload, image)
+    const image = data.profileImage && data.profileImage.length > 0 ? data.profileImage[0] : undefined
+    const response: PostTeamProfileResponse = await PostTeamProfile(accessToken, payload, image)
 
-    // if (response.ok) {
-    //   router.push('/onBoarding/complete')
-    // }
+    if (response.ok) {
+      router.push('/onBoarding/complete')
+    }
   }
 
   return (
     <>
       <div className="relative">
-        <div className="fixed z-40 mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-[69px]"></div>{' '}
+        <div className="fixed z-40 mt-[53px] h-[0.18rem] w-4/5 bg-[#2563EB] lg:mt-[62px]"></div>{' '}
       </div>
 
       <div className="flex w-full flex-col items-center bg-[#fff] p-4 lg:py-16">
@@ -106,31 +137,35 @@ export default function TeamProfile() {
 
           <div className="flex w-full justify-between gap-14 pt-12">
             {/* left */}
-            <div className="hidden h-[25.6rem] w-[22.18rem]  flex-col rounded-lg border-[1.67px] border-grey30 p-5 lg:flex">
-              <h2 className="text-2xl font-bold leading-9 text-grey50">
-                {profileTitle || '사이드 프로젝트 함께 할 개발자를 찾고 있어요'}
-              </h2>
-              <span className="pt-2 font-medium text-grey60">D-59</span>
+            <div>
+              <div className="hidden w-[22.18rem]  flex-col rounded-lg border-[1.67px] border-grey30 p-3 pb-5 lg:flex">
+                <span className="pt-2 text-xs font-medium text-grey60">D-59</span>
+                <h2 className="text-[1.125rem] font-bold leading-9 text-grey50">
+                  {profileTitle || '사이드 프로젝트 함께 할 개발자를 찾고 있어요'}
+                </h2>
+                <div className="flex flex-wrap gap-2">
+                  {skills.map((skill, index) => (
+                    <div key={index} className="my-4 bg-[#D3E1FE33] bg-opacity-20 px-[0.56rem] text-sm text-grey50">
+                      {skill}
+                    </div>
+                  ))}
+                </div>
+                <div className="flex gap-4 rounded-[0.43rem] bg-grey10 p-[0.62rem]">
+                  {profileImageUrl ? (
+                    <Image src={profileImageUrl} width={46} height={46} alt="profile_image" className="rounded-3xl" />
+                  ) : (
+                    <Image src={'/assets/onBoarding/addImage2.svg'} width={46} height={46} alt="add_image" />
+                  )}
 
-              <div className="flex gap-5 py-3">
-                {profileImageUrl ? (
-                  <Image src={profileImageUrl} width={80} height={80} alt="profile_image" className="rounded-3xl" />
-                ) : (
-                  <Image src={'/assets/onBoarding/addImage.svg'} width={80} height={80} alt="add_image" />
-                )}
-
-                <div className="flex flex-col items-start ">
-                  <span className="text-lg font-semibold text-[#2563EB]">링킷(Linkit)</span>
-                  <span className="pt-[0.69rem] text-sm text-grey60">분야 | 플랫폼</span>
-                  <span className="text-sm text-grey60">규모 | 2-5인</span>
+                  <div className="flex flex-col items-start justify-center gap-[0.12rem]">
+                    <span className="text-sm font-semibold text-[#2563EB]">{basicData?.teamName}</span>
+                    <div className="flex">
+                      <span className="text-xs text-grey60">분야 | {basicData?.sectorName}</span>
+                      <span className="text-xs text-grey60">규모 | {basicData?.sizeType}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <div className="mt-7 max-w-[18.8rem] bg-grey10 px-4 py-3 pr-12 text-sm text-grey50">
-                💬 &nbsp; {collaborationValue || '공동의 목표를 위해 가감없는 피드백'}
-              </div>
-
-              <div className="pt-6 text-sm text-grey80">#해커톤 #사무실 있음 #서울시</div>
             </div>
 
             {/* right */}
@@ -250,20 +285,50 @@ export default function TeamProfile() {
               {/* 나의 가치 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  팀을 홍보할 수 있는 가치를 써주세요 <span className="font-sm text-[#FF345F]">*</span>
+                  팀을 홍보할 수 있는 항목을 써주세요 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
-                <Controller
-                  name="collaborationValue"
-                  control={control}
-                  render={({ field }) => (
-                    <input
-                      {...field}
-                      className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
-                      placeholder="빠르게 성장하는 팀, 최단기간 투자유치 달성 (최대 40자)"
-                      value={field.value || ''}
-                    />
-                  )}
-                />
+
+                {/* contents */}
+                <div>
+                  {/* 버튼들 */}
+                  <div className="flex flex-wrap gap-2 pt-4">
+                    {skills.map((skill, index) => (
+                      <div
+                        key={index}
+                        onClick={() => handleRemoveSkill(skill)}
+                        className="flex cursor-pointer items-center rounded-lg border border-[#2563EB] bg-[#E0E7FF] px-3 py-1"
+                      >
+                        <span className="text-[#2563EB]">{skill}</span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleRemoveSkill(skill)
+                          }}
+                          className="ml-2 flex h-4 w-4 items-center justify-center rounded-full text-[#2563EB]"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* input container */}
+                  <div className="mt-[0.88rem] flex flex-col border-t border-grey40">
+                    <span className="py-[0.88rem] text-sm font-normal">희망 팀빌딩 분야를 선택해주세요</span>
+                    <div className="flex w-[16.1rem] items-center gap-[0.63rem]">
+                      <input
+                        type="text"
+                        className="flex-1 rounded border border-grey40 p-2"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        onClick={handleAddSkill}
+                        onKeyPress={handleKeyPress}
+                        placeholder="ex. Notion"
+                      />
+                      <button className="rounded bg-[#2563EB] px-4 py-2 text-sm text-[#fff]">추가</button>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Footer */}
