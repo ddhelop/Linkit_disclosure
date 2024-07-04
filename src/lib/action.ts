@@ -87,7 +87,7 @@ export async function PostProfileRegion(access_token: string, selectedArea: stri
 }
 
 // 내 온보딩 - 희망 역할, 보유 기술 생성
-export async function PostRoleData(accessToken: string, roleFields: string[], skillNames: string[]) {
+export async function PostRoleData(accessToken: string, jobRoleNames: string[], skillNames: string[]) {
   return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/job/skill`, {
     method: 'POST',
     headers: {
@@ -96,7 +96,7 @@ export async function PostRoleData(accessToken: string, roleFields: string[], sk
     },
     credentials: 'include',
     body: JSON.stringify({
-      roleFields,
+      jobRoleNames,
       skillNames,
     }),
   })
