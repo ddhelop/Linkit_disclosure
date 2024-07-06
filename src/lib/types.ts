@@ -52,6 +52,7 @@ export interface MiniProfileResponse {
   miniProfileImg: string
   myValue: string
   skillSets: string
+  myKeywordNames: string[]
 }
 
 export interface CompletionResponse {
@@ -143,6 +144,12 @@ export interface MyResumeResponse {
   attachResponse: AttachResponse
   memberNameResponse: MemberNameResponse
   profileRegionResponse: LocationResponse
+  jobAndSkillResponse: JobAndSkillResponse
+}
+
+export interface JobAndSkillResponse {
+  jobRoleNames: string[]
+  skillNames: string[]
 }
 
 export interface MemberNameResponse {
