@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React, { useState, useEffect } from 'react'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { accessTokenState, careerListState } from '@/context/recoil-context'
 import { PostAntecedentData } from '@/lib/action'
 import { useRouter } from 'next/navigation'
@@ -30,7 +30,7 @@ interface Career {
 
 export default function RegisterCareer() {
   const [careerList, setCareerList] = useRecoilState<Career[]>(careerListState)
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
+  const accessToken = useRecoilValue(accessTokenState)
   const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [isClient, setIsClient] = useState(false)

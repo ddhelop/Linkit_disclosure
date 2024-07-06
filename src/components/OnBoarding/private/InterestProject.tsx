@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { GetOnBoardingData, PostProfileTeamBuildingField } from '@/lib/action'
+import { useRecoilValue } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
 
 const ShortTerm: string[] = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
 
@@ -14,7 +16,7 @@ interface FormValues {
 export default function InterestProject() {
   const router = useRouter()
   const [selectedShortTermFields, setSelectedShortTermFields] = useState<string[]>([])
-  const accessToken = typeof window !== 'undefined' ? window.localStorage.getItem('accessToken') : null
+  const accessToken = useRecoilValue(accessTokenState)
 
   // 온보딩 데이터 가져오기
   useEffect(() => {

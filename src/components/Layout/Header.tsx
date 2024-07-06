@@ -1,12 +1,13 @@
+// Header.tsx
 'use client'
 import { useEffect, useState } from 'react'
-import './Example.css' // CSS 스타일은 파일에 포함되어 있어야 합니다.
+import './Example.css'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import DropdownMenu from './HeaderModal'
-import { useRecoilState } from 'recoil'
-import { accessTokenState } from '@/context/recoil-context'
+import { useRecoilState, useResetRecoilState } from 'recoil'
+import { accessTokenState, authState } from '@/context/recoil-context'
 import { Logout, RefreshAccessToken } from '@/lib/action'
 import LoginModal from '../Login/LoginModal'
 
@@ -15,30 +16,28 @@ export default function Header() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
   const router = useRouter()
   const [token, setToken] = useRecoilState(accessTokenState)
+  const resetAccessTokenState = useResetRecoilState(accessTokenState)
+  const [isAuth, setIsAuth] = useRecoilState(authState)
 
   const handleLogout = async () => {
-    const accessToken = localStorage.getItem('accessToken') || ''
-
-    if (!accessToken) return // accessToken이 없는 경우 실행하지 않음
+    if (!token) return
 
     try {
-      const response = await Logout(accessToken)
+      const response = await Logout(token)
       if (response.ok) {
-        localStorage.removeItem('accessToken') // 로컬 스토리지에서 accessToken 제거
-        window.location.href = '/' // 로그아웃 후 로그인 페이지로 리다이렉트
+        setIsAuth(false)
+        resetAccessTokenState()
+        window.location.href = '/'
       }
     } catch (error) {
       console.error('Failed to logout', error)
     }
   }
 
-  // 액세스토큰 최신화
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken')
+    if (!token || token === 'undefined') return
 
-    if (!accessToken || accessToken === 'undefined') return
-
-    RefreshAccessToken(accessToken)
+    RefreshAccessToken(token)
       .then((newAccessToken) => {
         if (newAccessToken === undefined) {
           alert('로그인이 필요합니다.')
@@ -46,6 +45,7 @@ export default function Header() {
         }
         localStorage.setItem('accessToken', newAccessToken)
         setToken(newAccessToken)
+        setIsAuth(true)
       })
       .catch((error) => {
         console.log(error)
@@ -53,9 +53,8 @@ export default function Header() {
           router.push('/login')
         }
       })
-  }, [router, setToken])
+  }, [router, setToken, setIsAuth])
 
-  // 현재 경로 확인 및 숨김 경로 설정
   const pathname = usePathname()
   const paths = ['/login', '']
 
@@ -80,7 +79,7 @@ export default function Header() {
 
   return (
     <>
-      <nav className="fixed top-0 z-[100] w-full flex-shrink bg-white-alpha-50  backdrop-blur-3xl">
+      <nav className="fixed top-0 z-[100] w-full flex-shrink bg-white-alpha-50 backdrop-blur-3xl">
         <div className="flex w-full items-center justify-between px-[2.5rem] py-[1.3rem]">
           <div className="flex gap-[2.19rem]">
             <div className="flex">
@@ -104,13 +103,12 @@ export default function Header() {
           </div>
 
           <div className="flex flex-1 justify-end gap-10">
-            {/* 액세스토큰 유무 UI  */}
-            {token ? (
+            {isAuth ? (
               <>
                 <Link href="#" className="hidden text-sm font-medium leading-5 text-grey80 lg:flex">
                   매칭관리
                 </Link>
-                <DropdownMenu accessToken={token} />
+                <DropdownMenu />
               </>
             ) : (
               <>

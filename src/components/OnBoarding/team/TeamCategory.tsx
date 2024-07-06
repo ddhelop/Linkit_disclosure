@@ -4,6 +4,8 @@ import { useForm, Controller } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { TeamOnBoardingData, TeamOnBoardingField } from '@/lib/action'
 import { useRouter } from 'next/navigation'
+import { useRecoilValue } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
 
 const ShortTerm = ['공모전', '대회', '해커톤', '창업', '포트폴리오', '스터디', '사이드 프로젝트']
 
@@ -16,6 +18,7 @@ interface FormInputs {
 
 export default function TeamCategory() {
   const [teamBuildingFieldNames, setTeamBuildingFieldNames] = useState<string[]>([])
+  const accessToken = useRecoilValue(accessTokenState)
   const router = useRouter()
 
   // useForm
@@ -30,7 +33,6 @@ export default function TeamCategory() {
 
   // 팀온보딩 데이터 가져오기
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const fetchData = async () => {
       if (accessToken) {
         try {

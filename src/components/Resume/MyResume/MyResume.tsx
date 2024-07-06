@@ -6,24 +6,15 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { GetMyResume } from '@/lib/action'
 import { MyResumeResponse } from '@/lib/types'
+import { useRecoilValue } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
 
 export default function MyResume() {
-  const [accessToken, setAccessToken] = useState<string | null>(null)
+  const accessToken = useRecoilValue(accessTokenState)
   const [data, setData] = useState<MyResumeResponse | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
   const router = useRouter()
-
-  // 로그인 체크
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken')
-    if (!token) {
-      alert('로그인이 필요합니다')
-      router.push('/')
-    } else {
-      setAccessToken(token)
-    }
-  }, [router])
 
   // 이력서 데이터 가져오기
   useEffect(() => {

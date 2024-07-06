@@ -1,29 +1,20 @@
 'use client'
 import TeamContentLayout from '@/components/Resume/TeamResume/Contents/ContentLayout'
 import TeamResumeNav from '@/components/Resume/TeamResume/Nav/TeamResumeNav'
+import { accessTokenState } from '@/context/recoil-context'
 import { GetTeamResume } from '@/lib/action'
 import { TeamIntroductionResponse } from '@/lib/types'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 
 export default function TeamResume() {
-  const [accessToken, setAccessToken] = useState<string | null>(null)
+  const accessToken = useRecoilValue(accessTokenState)
   const [data, setData] = useState<TeamIntroductionResponse | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
   const router = useRouter()
-
-  // 로그인 체크
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken')
-    if (!token) {
-      alert('로그인이 필요합니다')
-      router.push('/')
-    } else {
-      setAccessToken(token)
-    }
-  }, [router])
 
   // 이력서 데이터 가져오기
   useEffect(() => {

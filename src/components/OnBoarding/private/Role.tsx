@@ -6,6 +6,8 @@ import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Skills } from '@/lib/data'
 import { GetOnBoardingData, PostRoleData } from '@/lib/action'
+import { useRecoilValue } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
 
 const Positions = ['기획·경영', '개발·데이터', '마케팅·광고', '디자인']
 
@@ -24,10 +26,10 @@ export default function Role() {
   } = useForm<FormValues>()
   const [roleFields, setSelectedRoleFields] = useState<string[]>([])
   const router = useRouter()
+  const accessToken = useRecoilValue(accessTokenState)
 
   // 온보딩 데이터 fetch
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     if (accessToken) {
       GetOnBoardingData(accessToken).then((data) => {
         console.log(data)

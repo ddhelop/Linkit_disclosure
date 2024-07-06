@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react'
+import { useState, useEffect, ChangeEvent, KeyboardEvent, use } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import Link from 'next/link'
 import { GetOnBoardingData, PostProfileData } from '@/lib/action'
@@ -22,7 +22,7 @@ export default function RegisterPersonProfile() {
   const [profileImage, setProfileImage] = useState<File | null>(null)
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null)
   const [dDay, setDDay] = useState<number | null>(null)
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
+  const accessToken = useRecoilState(accessTokenState)[0] || ''
   const [uploadDeadline, setUploadDeadline] = useState<boolean>(true)
   const router = useRouter()
 
@@ -84,7 +84,6 @@ export default function RegisterPersonProfile() {
   // 개인 온보딩 데이터 GET
   useEffect(() => {
     const fetchData = async () => {
-      const accessToken = localStorage.getItem('accessToken') || ''
       try {
         const response = await GetOnBoardingData(accessToken)
         console.log('OnBoarding Data:', response)

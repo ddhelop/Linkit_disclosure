@@ -4,12 +4,13 @@ import './OnBoarding.css'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
-import { emailState } from '@/context/recoil-context'
+import { accessTokenState, emailState } from '@/context/recoil-context'
 import OnBoardingSelect from './OnBoardingSelect'
 
 export default function OnBoardingPrivateInfo() {
   const router = useRouter()
   const email = useRecoilValue(emailState)
+  const token = useRecoilValue(accessTokenState)
 
   const { register, handleSubmit, watch } = useForm<IFormData>({
     mode: 'onChange',
@@ -21,12 +22,11 @@ export default function OnBoardingPrivateInfo() {
   const onClickSubmit = async (data: IFormData): Promise<void> => {
     console.log(data)
     try {
-      const accessToken = window.localStorage.getItem('accessToken')
       const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/members/basic-inform`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
-          Authorization: accessToken ? `Bearer ${accessToken}` : '',
+          Authorization: token ? `Bearer ${token}` : '',
         },
         body: JSON.stringify({
           memberName: data.memberName,

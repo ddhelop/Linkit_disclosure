@@ -6,6 +6,8 @@ import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ApiPayload, FormInputs, PostTeamProfileResponse } from '@/lib/types'
 import { PostTeamProfile, TeamOnBoardingData } from '@/lib/action'
+import { useRecoilValue } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
 
 interface BasicData {
   teamName: string
@@ -14,6 +16,7 @@ interface BasicData {
 }
 
 export default function TeamProfile() {
+  const accessToken = useRecoilValue(accessTokenState) || ''
   const router = useRouter()
   const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
     defaultValues: {
@@ -57,7 +60,6 @@ export default function TeamProfile() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const accessToken = localStorage.getItem('accessToken') || ''
       const response = await TeamOnBoardingData(accessToken)
       console.log(response)
 

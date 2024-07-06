@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation'
 import { addressData } from '@/lib/addressSelectData'
 import { TeamOnBoardingActivityWay, TeamOnBoardingData } from '@/lib/action'
 import { TeamOnBoardingActivityWayFormInputs } from '@/lib/types'
+import { accessTokenState } from '@/context/recoil-context'
+import { useRecoilValue } from 'recoil'
 
 const ShortTerm = ['사무실 있음', '사무실 없음', '대면 활동 선호', '대면 + 비대면']
 
@@ -14,6 +16,7 @@ export default function ActivityWay() {
   const [selectedShortTermFields, setSelectedShortTermFields] = useState<string[]>([])
   const [selectedArea, setSelectedArea] = useState<string>('')
   const [selectedSubArea, setSelectedSubArea] = useState<string>('')
+  const accessToken = useRecoilValue(accessTokenState)
 
   const { control, handleSubmit, watch, setValue } = useForm<TeamOnBoardingActivityWayFormInputs>({
     defaultValues: {
@@ -41,7 +44,6 @@ export default function ActivityWay() {
 
   // 팀온보딩 데이터 가져오기
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const fetchData = async () => {
       if (accessToken) {
         try {

@@ -1,17 +1,19 @@
+// KakaoRedirect.tsx
 'use client'
-import { emailState } from '@/context/recoil-context'
+import { authState, emailState, accessTokenState } from '@/context/recoil-context'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { motion } from 'framer-motion'
 
-// 카카오 로그인 후 서버에 전송할 코드를 받아오는 페이지
 const KakaoRedirect: React.FC = () => {
   const params = useSearchParams()
   const code = params.get('code')
   const router = useRouter()
   const [toEmail, setToEmail] = useRecoilState(emailState)
+  const [isAuth, setIsAuth] = useRecoilState(authState)
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -20,13 +22,14 @@ const KakaoRedirect: React.FC = () => {
         const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/login/kakao`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json;charset=utf-8' },
-          credentials: 'include', // 쿠키를 포함시키기 위해 필요
-          body: JSON.stringify({ code: code }), // 로그인 요청 본문에 인증 코드 포함
+          credentials: 'include',
+          body: JSON.stringify({ code }),
         })
         if (response.ok) {
           const responseData = await response.json()
-          window.localStorage.setItem('accessToken', responseData.accessToken)
+          setAccessToken(responseData.accessToken)
           setToEmail(responseData.email)
+          setIsAuth(true)
 
           if (responseData.existMemberBasicInform === true && responseData.existOnBoardingProfile === true) {
             router.push('/')
@@ -42,8 +45,10 @@ const KakaoRedirect: React.FC = () => {
         setLoading(false)
       }
     }
-    kakaoLogin()
-  }, [code, router, setToEmail])
+    if (code) {
+      kakaoLogin()
+    }
+  }, [code, router, setToEmail, setIsAuth, setAccessToken])
 
   return loading ? (
     <div className="flex h-screen flex-col items-center justify-center">

@@ -15,7 +15,7 @@ interface FormInputs {
 
 export default function Location() {
   // recoil에서 accessTokenState를 가져옴
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
+  const accessToken = useRecoilState(accessTokenState)[0]
   const [selectedArea, setSelectedArea] = useState<string>('')
   const [selectedSubArea, setSelectedSubArea] = useState<string>('')
   const router = useRouter()
@@ -26,15 +26,6 @@ export default function Location() {
       selectedSubArea: '',
     },
   })
-
-  // accessToken이 없을 경우 로그인 페이지로 이동
-  useEffect(() => {
-    const storedAccessToken = localStorage.getItem('accessToken')
-    if (!storedAccessToken || storedAccessToken === 'undefined') {
-      alert('로그인이 필요한 페이지입니다.')
-      router.push('/login')
-    }
-  }, [accessToken, router])
 
   // 온보딩 데이터 fetch
   useEffect(() => {

@@ -2,10 +2,15 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Logout } from '@/lib/action'
+import { useRecoilState, useResetRecoilState } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
 
-const DropdownMenu = ({ accessToken }: { accessToken: string }) => {
+const DropdownMenu = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const [token, setToken] = useRecoilState(accessTokenState)
+  const resetAccessTokenState = useResetRecoilState(accessTokenState)
 
   const handleOutsideClick = (e: MouseEvent) => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -26,12 +31,12 @@ const DropdownMenu = ({ accessToken }: { accessToken: string }) => {
   }, [dropdownOpen])
 
   const handleLogout = async () => {
-    if (!accessToken) return // accessToken이 없는 경우 실행하지 않음
+    if (!token) return // accessToken이 없는 경우 실행하지 않음
 
     try {
-      const response = await Logout(accessToken)
+      const response = await Logout(token)
       if (response.ok) {
-        localStorage.removeItem('accessToken') // 로컬 스토리지에서 accessToken 제거
+        resetAccessTokenState()
         window.location.href = '/' // 로그아웃 후 로그인 페이지로 리다이렉트
       }
     } catch (error) {

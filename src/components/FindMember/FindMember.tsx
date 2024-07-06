@@ -1,7 +1,9 @@
+import TeamMemberMiniProfile from '../units/TeamMemberMiniProfile'
+
 export default function FindMember() {
   return (
-    <div>
-      <>123123</>
+    <div className="flex flex-wrap">
+      <TeamMemberMiniProfile />
     </div>
   )
 }

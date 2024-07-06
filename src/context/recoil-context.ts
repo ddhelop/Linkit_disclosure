@@ -24,9 +24,15 @@ export const careerListState = atom<Career[]>({
 export const accessTokenState = atom<string | null>({
   key: 'accessTokenState',
   default: null,
+  effects_UNSTABLE: [persistAtom],
 })
 
 export const myDataState = atom({
   key: 'myDataState',
   default: {},
+})
+
+export const authState = atom<boolean>({
+  key: 'authState',
+  default: false, // Default to not logged in
 })

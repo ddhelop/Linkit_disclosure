@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React, { useEffect, useState } from 'react'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { accessTokenState, educationListState } from '@/context/recoil-context'
 import { PostSchoolData } from '@/lib/action'
 import { useRouter } from 'next/navigation'
@@ -21,7 +21,7 @@ export default function RegisterSchool() {
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [isClient, setIsClient] = useState(false)
   const router = useRouter()
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
+  const accessToken = useRecoilValue(accessTokenState)
 
   useEffect(() => {
     setIsClient(true)
