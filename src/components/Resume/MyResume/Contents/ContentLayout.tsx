@@ -9,7 +9,6 @@ import MyResumeProgress from './MyResumeProgress'
 import MySkillComponent from './MySkillComponent'
 import TeamBuildingComponent from './TeamBuildingComponent'
 import MyAttachUrl from './MyAttachUrl'
-import MyAttachFile from './MyAttachFile'
 
 interface MyResumContentsProps {
   data: MyResumeResponse
@@ -24,7 +23,7 @@ export default function ContentLayout({ data }: MyResumContentsProps) {
       <IntroduceComponent data={data?.profileIntroductionResponse} />
 
       {/* 보유 기술 컴포넌트 */}
-      <MySkillComponent />
+      <MySkillComponent data={data?.jobAndSkillResponse} />
 
       {/* 희망 팀빌딩 분야 컴포넌트 */}
       <TeamBuildingComponent data={data?.profileTeamBuildingFieldResponse} />
