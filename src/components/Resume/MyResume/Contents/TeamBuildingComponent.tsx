@@ -15,7 +15,7 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
   useEffect(() => {
     setSelectedOptions(data.teamBuildingFieldNames)
     setOptions(options.filter((option) => !data.teamBuildingFieldNames?.includes(option)))
-  }, [data.teamBuildingFieldNames, options])
+  }, [data.teamBuildingFieldNames])
 
   const handleEditClick = () => {
     setIsEditing(true)
