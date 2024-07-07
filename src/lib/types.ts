@@ -296,3 +296,14 @@ export interface TeamMemberData {
 export interface PostTeamMemberData {
   data: TeamMemberData[]
 }
+
+// 팀원 찾기 미니프로필
+
+export interface PrivateProfile {
+  id: string
+  miniProfileImg: string
+  profileTitle: string
+  myKeywordNames: string[]
+  uploadPeriod: string
+  uploadDeadline: boolean
+}

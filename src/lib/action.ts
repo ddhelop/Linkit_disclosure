@@ -333,3 +333,16 @@ export async function PostTeamMember(accessToken: string, data: TeamMemberData[]
     credentials: 'include',
   })
 }
+
+// 팀원 찾기
+export async function GetTeamMembers() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/search/private/profile`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  })
+
+  return await response.json()
+}

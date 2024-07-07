@@ -14,7 +14,7 @@ export default function FindingMemberPage() {
       </div>
 
       <div className="flex w-full justify-center">
-        <div className="flex w-[64%] gap-[2.69rem] pt-[2.63rem]">
+        <div className="flex w-[66%] gap-[2.69rem] pt-[2.63rem]">
           <FindMemberLeftNav />
           <FindMember />
         </div>

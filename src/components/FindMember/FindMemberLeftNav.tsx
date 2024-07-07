@@ -18,7 +18,7 @@ export default function FindMemberLeftNav() {
               id="countries"
               className="bg-gray-50 focus:ring-blue-500 focus:border-blue-500 block w-full rounded-lg  border border-grey40 p-2.5 text-sm text-grey50"
             >
-              <option selected disabled className="">
+              <option disabled className="">
                 선택
               </option>
               <option value="공모전">공모전</option>
@@ -37,7 +37,7 @@ export default function FindMemberLeftNav() {
               id="countries"
               className="bg-gray-50 focus:ring-blue-500 focus:border-blue-500 block w-full rounded-lg  border border-grey40 p-2.5 text-sm text-grey50"
             >
-              <option selected disabled className="">
+              <option disabled className="">
                 선택
               </option>
               <option value="PM">PM</option>
