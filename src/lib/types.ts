@@ -298,7 +298,6 @@ export interface PostTeamMemberData {
 }
 
 // 팀원 찾기 미니프로필
-
 export interface PrivateProfile {
   id: string
   miniProfileImg: string
@@ -306,4 +305,17 @@ export interface PrivateProfile {
   myKeywordNames: string[]
   uploadPeriod: string
   uploadDeadline: boolean
+}
+
+export interface TeamProfile {
+  id: string
+  sectorName: string
+  sizeType: string
+  teamName: string
+  uploadPeriod: string
+  miniProfileTitle: string
+  teamUploadPeriod: string
+  teamUploadDeadline: boolean
+  teamLogoImageUrl: string
+  teamKeywordNames: string[]
 }

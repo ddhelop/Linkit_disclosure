@@ -346,3 +346,16 @@ export async function GetTeamMembers() {
 
   return await response.json()
 }
+
+// 팀 찾기
+export async function GetTeams() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/search/team/profile`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  })
+
+  return await response.json()
+}
