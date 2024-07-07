@@ -1,5 +1,5 @@
-import FindMember from '@/components/FindMember/FindMember'
-import FindMemberLeftNav from '@/components/FindMember/FindMemberLeftNav'
+import FindMember from '@/components/Find/Member/FindMember'
+import FindMemberLeftNav from '@/components/Find/Member/FindMemberLeftNav'
 
 export default function FindingMemberPage() {
   return (

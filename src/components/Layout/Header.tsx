@@ -95,7 +95,7 @@ export default function Header() {
                 <Link href="/findMember" className="font-medium leading-5 text-grey90">
                   팀원 찾기
                 </Link>
-                <Link href="#" className="font-medium leading-5 text-grey90">
+                <Link href="/findTeam" className="font-medium leading-5 text-grey90">
                   팀 찾기
                 </Link>
               </div>
