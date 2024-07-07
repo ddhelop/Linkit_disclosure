@@ -18,7 +18,7 @@ export default function TeamBuildingComponent2({ data }: TeamResumTeamBuildingPr
       setSelectedOptions(data.teamProfileTeamBuildingFieldNames)
       setOptions(options.filter((option) => !data.teamProfileTeamBuildingFieldNames.includes(option)))
     }
-  }, [data.teamProfileTeamBuildingFieldNames])
+  }, [data.teamProfileTeamBuildingFieldNames, options])
 
   const handleEditClick = () => {
     setIsEditing(true)

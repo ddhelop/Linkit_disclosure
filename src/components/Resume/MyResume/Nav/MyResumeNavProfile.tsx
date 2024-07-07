@@ -20,7 +20,10 @@ export default function MyResumeNavProfile({ data, name, jobAndSkill }: MyResume
 
       <div className="flex flex-wrap gap-[0.26rem] py-4">
         {data.myKeywordNames.map((keyword, index) => (
-          <span className="rounded-[0.45rem] bg-[#D3E1FE33] bg-opacity-20 px-[0.57rem] py-[0.18rem] text-[0.76rem] text-[#2563EB]">
+          <span
+            key={index}
+            className="rounded-[0.45rem] bg-[#D3E1FE33] bg-opacity-20 px-[0.57rem] py-[0.18rem] text-[0.76rem] text-[#2563EB]"
+          >
             {keyword}
           </span>
         ))}

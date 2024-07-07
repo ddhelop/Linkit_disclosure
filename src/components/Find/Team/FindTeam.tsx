@@ -1,8 +1,8 @@
 'use client'
 import { GetTeams } from '@/lib/action'
-import TeamMemberMiniProfile from '../../units/TeamMemberMiniProfile'
 import { useEffect, useState } from 'react'
 import { TeamProfile } from '@/lib/types'
+import TeamMiniProfile from './TeamMiniProfile'
 
 export default function FindTeam() {
   const [TeamData, setTeamData] = useState<TeamProfile[] | null>(null)
@@ -17,7 +17,7 @@ export default function FindTeam() {
 
   return (
     <div className="flex w-full flex-col gap-4 pt-[2rem]">
-      {TeamData?.map((team) => <TeamMemberMiniProfile key={team.id} profile={team} />)}
+      {TeamData?.map((team) => <TeamMiniProfile key={team.id} profile={team} />)}
     </div>
   )
 }

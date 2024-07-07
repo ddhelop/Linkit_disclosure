@@ -53,7 +53,7 @@ export default function TeamCategory() {
       }
     }
     fetchData()
-  }, [setValue])
+  }, [setValue, accessToken])
 
   // 팀온보딩 데이터 저장하기
   const onSubmit = async (data: FormInputs) => {

@@ -86,7 +86,7 @@ export default function TeamProfile() {
       }
     }
     fetchData()
-  }, [setValue])
+  }, [setValue, accessToken])
 
   const profileTitle = watch('profileTitle')
 

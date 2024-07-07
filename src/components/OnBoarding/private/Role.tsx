@@ -40,7 +40,7 @@ export default function Role() {
         }
       })
     }
-  }, [])
+  }, [accessToken])
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value

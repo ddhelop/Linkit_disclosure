@@ -108,7 +108,7 @@ export default function RegisterPersonProfile() {
       }
     }
     fetchData()
-  }, [setValue])
+  }, [setValue, accessToken, setSkills, setProfileImageUrl, setDDay, calculateDDay, handleDateChange])
 
   useEffect(() => {
     const subscription = watch(({ uploadYear = 2024, uploadMonth = 1, uploadDay = 1 }) => {
@@ -180,7 +180,10 @@ export default function RegisterPersonProfile() {
               </h2>
               <div className="my-4 flex flex-wrap">
                 {skills.map((skill, index) => (
-                  <div className="rounded-[0.45rem] bg-[#D3E1FE33] bg-opacity-20 px-[0.57rem] text-[0.94rem] text-[#2563EB]">
+                  <div
+                    key={index}
+                    className="rounded-[0.45rem] bg-[#D3E1FE33] bg-opacity-20 px-[0.57rem] text-[0.94rem] text-[#2563EB]"
+                  >
                     {skill}
                   </div>
                 ))}

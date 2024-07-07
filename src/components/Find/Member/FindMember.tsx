@@ -1,6 +1,6 @@
 'use client'
 import { GetTeamMembers } from '@/lib/action'
-import TeamMemberMiniProfile from '../../units/TeamMemberMiniProfile'
+import TeamMemberMiniProfile from './TeamMemberMiniProfile'
 import { useEffect, useState } from 'react'
 import { PrivateProfile } from '@/lib/types'
 

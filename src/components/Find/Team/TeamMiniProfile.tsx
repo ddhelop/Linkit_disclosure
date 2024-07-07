@@ -6,7 +6,7 @@ interface TeamMemberMiniProfileProps {
   profile: TeamProfile
 }
 
-export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfileProps) {
+export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps) {
   const [dDay, setDDay] = useState<number | null>(null)
 
   useEffect(() => {

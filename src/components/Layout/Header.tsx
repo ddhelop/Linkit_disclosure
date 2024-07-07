@@ -53,7 +53,7 @@ export default function Header() {
           router.push('/login')
         }
       })
-  }, [router, setToken, setIsAuth])
+  }, [router, setToken, setIsAuth, token])
 
   const pathname = usePathname()
   const paths = ['/login', '']

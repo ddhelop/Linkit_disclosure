@@ -65,7 +65,7 @@ export default function ActivityWay() {
       }
     }
     fetchData()
-  }, [setValue])
+  }, [setValue, accessToken])
 
   const onSubmit = async (data: TeamOnBoardingActivityWayFormInputs) => {
     const accessToken = localStorage.getItem('accessToken') || ''
