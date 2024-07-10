@@ -16,7 +16,7 @@ export default function ActivityWay() {
   const [selectedShortTermFields, setSelectedShortTermFields] = useState<string[]>([])
   const [selectedArea, setSelectedArea] = useState<string>('')
   const [selectedSubArea, setSelectedSubArea] = useState<string>('')
-  const accessToken = useRecoilValue(accessTokenState)
+  const accessToken = useRecoilValue(accessTokenState) || ''
 
   const { control, handleSubmit, watch, setValue } = useForm<TeamOnBoardingActivityWayFormInputs>({
     defaultValues: {
@@ -68,7 +68,6 @@ export default function ActivityWay() {
   }, [setValue, accessToken])
 
   const onSubmit = async (data: TeamOnBoardingActivityWayFormInputs) => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const response = await TeamOnBoardingActivityWay(accessToken, data)
 
     console.log(response)
@@ -91,7 +90,6 @@ export default function ActivityWay() {
   return (
     <div className="bg-[#FCFCFD]">
       <div className="flex w-full flex-col lg:py-[69px]">
-        <div className="fixed mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-0"></div>
         <div className="flex w-full flex-col items-center pb-24 pt-16">
           <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
             <span>팀 이력서 가이드</span>

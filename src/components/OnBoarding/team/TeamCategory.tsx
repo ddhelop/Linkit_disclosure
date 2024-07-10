@@ -4,8 +4,8 @@ import { useForm, Controller } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { TeamOnBoardingData, TeamOnBoardingField } from '@/lib/action'
 import { useRouter } from 'next/navigation'
-import { useRecoilValue } from 'recoil'
-import { accessTokenState } from '@/context/recoil-context'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { accessTokenState, authState } from '@/context/recoil-context'
 
 const ShortTerm = ['공모전', '대회', '해커톤', '창업', '포트폴리오', '스터디', '사이드 프로젝트']
 
@@ -18,7 +18,8 @@ interface FormInputs {
 
 export default function TeamCategory() {
   const [teamBuildingFieldNames, setTeamBuildingFieldNames] = useState<string[]>([])
-  const accessToken = useRecoilValue(accessTokenState)
+  const accessToken = useRecoilValue(accessTokenState) || ''
+  const [isAuth, setIsAuth] = useRecoilState(authState)
   const router = useRouter()
 
   // useForm
@@ -57,11 +58,17 @@ export default function TeamCategory() {
 
   // 팀온보딩 데이터 저장하기
   const onSubmit = async (data: FormInputs) => {
-    const accessToken = localStorage.getItem('accessToken') || ''
-    const response = await TeamOnBoardingField(accessToken, data)
+    try {
+      const response = await TeamOnBoardingField(accessToken, data)
 
-    if (response.ok) {
-      router.push('/onBoarding/team/activityWay')
+      if (response.ok) {
+        router.push('/onBoarding/team/activityWay')
+      } else {
+        alert('에러가 발생했습니다.')
+      }
+    } catch (error) {
+      console.error('Failed to submit onboarding data', error)
+      alert('에러가 발생했습니다.')
     }
   }
 
@@ -78,9 +85,8 @@ export default function TeamCategory() {
   const isNextButtonEnabled = teamBuildingFieldNames.length > 0 && teamName && teamSize && teamField
 
   return (
-    <div className="bg-[#FCFCFD]">
+    <div className="h-screen bg-[#FCFCFD]">
       <div className="flex w-full flex-col lg:py-[69px]">
-        <div className="fixed mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-0"></div>
         <div className="flex w-full flex-col items-center pb-24 pt-16">
           <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
             <span>팀 이력서 가이드</span>

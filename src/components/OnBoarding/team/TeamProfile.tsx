@@ -126,10 +126,6 @@ export default function TeamProfile() {
 
   return (
     <>
-      <div className="relative">
-        <div className="fixed z-40 mt-[53px] h-[0.18rem] w-4/5 bg-[#2563EB] lg:mt-[62px]"></div>{' '}
-      </div>
-
       <div className="flex w-full flex-col items-center bg-[#fff] p-4 lg:py-16">
         <div className="flex w-full flex-col items-center pb-24 pt-16 lg:w-[901px]">
           <div className="flex w-full flex-col items-start leading-9">
