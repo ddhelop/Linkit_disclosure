@@ -6,11 +6,12 @@ import { useForm } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState, emailState } from '@/context/recoil-context'
 import OnBoardingSelect from './OnBoardingSelect'
+import { OnBoardingPrivateData } from '@/lib/action'
 
 export default function OnBoardingPrivateInfo() {
   const router = useRouter()
   const email = useRecoilValue(emailState)
-  const token = useRecoilValue(accessTokenState)
+  const token = useRecoilValue(accessTokenState) || ''
 
   const { register, handleSubmit, watch } = useForm<IFormData>({
     mode: 'onChange',
@@ -22,22 +23,19 @@ export default function OnBoardingPrivateInfo() {
   const onClickSubmit = async (data: IFormData): Promise<void> => {
     console.log(data)
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/members/basic-inform`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          Authorization: token ? `Bearer ${token}` : '',
-        },
-        body: JSON.stringify({
-          memberName: data.memberName,
-          contact: data.contact,
-          marketingAgree: data.marketingAgree,
-        }),
-        credentials: 'include', // 쿠키를 포함시키기 위해 필요
-      })
+      const response = await OnBoardingPrivateData(data, token)
       if (response.status === 200 || response.status === 201 || response.status === 409) {
         router.push('/onBoarding/select')
       }
+      if (response.code === 9102) {
+        alert('다시 로그인해주세요.')
+        router.push('/')
+      }
+
+      // if (response.code === 9102) {
+      //   alert('올바르지 않은 접근입니다.')
+      //   router.push('/')
+      // }
     } catch (error) {
       console.error('Error caught:', error)
       // handle error
@@ -80,14 +78,6 @@ export default function OnBoardingPrivateInfo() {
                   <span className="text-grey50">{email}</span>
                 </div>
               </div>
-
-              {/* <div className="w-[100%] pt-[1.1rem]">
-                <h2 className="pb-1 text-sm font-semibold">팀원에게서 받은 초대초대가 있나요?</h2>
-                <input
-                  placeholder="code"
-                  className="h-[2.75rem] w-full rounded-md border border-grey30 p-4 text-sm text-grey90 outline-none focus:border-2 focus:border-grey90"
-                />
-              </div> */}
 
               {/* 체크 */}
               <label className="flex items-center pt-[1.1rem]">

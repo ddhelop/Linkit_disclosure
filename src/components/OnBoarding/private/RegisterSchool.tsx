@@ -2,10 +2,10 @@
 import Image from 'next/image'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React, { useEffect, useState } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { accessTokenState, educationListState } from '@/context/recoil-context'
-import { PostSchoolData } from '@/lib/action'
+import { GetOnBoardingData, PostSchoolData } from '@/lib/action'
 import { useRouter } from 'next/navigation'
+import { useRecoilValue } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
 
 interface FormInputs {
   universityName: string
@@ -16,16 +16,37 @@ interface FormInputs {
 }
 
 export default function RegisterSchool() {
-  const [educationList, setEducationList] = useRecoilState(educationListState)
+  const [educationList, setEducationList] = useState<FormInputs[]>([])
   const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [isClient, setIsClient] = useState(false)
   const router = useRouter()
-  const accessToken = useRecoilValue(accessTokenState)
+  const accessToken = useRecoilValue(accessTokenState) || ''
 
   useEffect(() => {
     setIsClient(true)
   }, [])
+
+  // 온보딩 데이터 fetch
+  useEffect(() => {
+    if (accessToken) {
+      GetOnBoardingData(accessToken).then((data) => {
+        console.log(data)
+        const educationResponses = data.educationResponses
+        if (educationResponses) {
+          setEducationList(
+            educationResponses.map((school: any) => ({
+              universityName: school.universityName,
+              majorName: school.majorName,
+              admissionYear: school.admissionYear,
+              graduationYear: school.graduationYear,
+              degreeName: school.degreeName,
+            })),
+          )
+        }
+      })
+    }
+  }, [accessToken])
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     const updatedData = {
@@ -64,16 +85,15 @@ export default function RegisterSchool() {
   }
 
   const handleSave = async () => {
-    const accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
       const response = await PostSchoolData(accessToken, educationList)
 
       if (response.ok) {
         router.push('/onBoarding/person/career')
+      } else {
+        alert('에러가 발생했습니다.')
+        console.log(response)
       }
-    } else {
-      alert('로그인이 필요합니다.')
-      router.push('/login')
     }
   }
 
@@ -96,7 +116,6 @@ export default function RegisterSchool() {
 
   return (
     <div className="flex h-full flex-col bg-[#FCFCFD] lg:py-[69px]">
-      <div className="fixed mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-0"></div>
       <div className="flex flex-grow flex-col items-center py-16">
         <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
           <span>내 이력서 가이드</span>
@@ -206,70 +225,72 @@ export default function RegisterSchool() {
           </div>
         ))}
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="mt-6 flex w-[90%] flex-col rounded-[0.63rem] border border-grey30 px-5 py-6 lg:w-[55%]"
-        >
-          <div className="flex gap-3">
-            <div className="flex w-[49%] flex-col">
-              <span className="text-sm font-normal text-grey100">
-                학교명<span className="pl-1 text-[#2563EB]">*</span>
-              </span>
-              <input
-                type="text"
-                placeholder="ex. 대학교(원)"
-                className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
-                {...register('universityName', { required: true })}
-              />
-            </div>
-
-            <div className="flex w-[49%] flex-col">
-              <span className="text-sm font-normal text-grey100">
-                전공명<span className="pl-1 text-[#2563EB]">*</span>
-              </span>
-              <input
-                type="text"
-                placeholder="ex. 경영학과"
-                className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
-                {...register('majorName', { required: true })}
-              />
-            </div>
-          </div>
-
-          <div className="mt-6 flex flex-col">
-            <span className="text-sm font-normal text-grey100">
-              재학 기간<span className="pl-1 text-[#2563EB]">*</span>
-            </span>
-            <div className="flex flex-col justify-between gap-5 lg:flex-row">
-              <div className="mt-2 flex gap-4">
+        {editingIndex === null && (
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mt-6 flex w-[90%] flex-col rounded-[0.63rem] border border-grey30 px-5 py-6 lg:w-[55%]"
+          >
+            <div className="flex gap-3">
+              <div className="flex w-[49%] flex-col">
+                <span className="text-sm font-normal text-grey100">
+                  학교명<span className="pl-1 text-[#2563EB]">*</span>
+                </span>
                 <input
-                  className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
-                  placeholder="입학연도"
-                  {...register('admissionYear', { required: true })}
+                  type="text"
+                  placeholder="ex. 대학교(원)"
+                  className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
+                  {...register('universityName', { required: true })}
                 />
-                <Image src="/assets/icons/~.svg" width={8} height={29} alt="~" />
-                <input
-                  className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
-                  placeholder="졸업연도"
-                  {...register('graduationYear', { required: true })}
-                />
-                <select
-                  className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
-                  {...register('degreeName', { required: true })}
-                >
-                  <option value="재학">재학</option>
-                  <option value="졸업">졸업</option>
-                </select>
               </div>
-              <button
-                type="submit"
-                className="cursor-pointer rounded-md bg-[#2563EB] px-[0.88rem] py-2 text-sm text-[#fff] lg:py-0"
-              >
-                추가하기
-              </button>
+
+              <div className="flex w-[49%] flex-col">
+                <span className="text-sm font-normal text-grey100">
+                  전공명<span className="pl-1 text-[#2563EB]">*</span>
+                </span>
+                <input
+                  type="text"
+                  placeholder="ex. 경영학과"
+                  className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
+                  {...register('majorName', { required: true })}
+                />
+              </div>
             </div>
-          </div>
-        </form>
+
+            <div className="mt-6 flex flex-col">
+              <span className="text-sm font-normal text-grey100">
+                재학 기간<span className="pl-1 text-[#2563EB]">*</span>
+              </span>
+              <div className="flex flex-col justify-between gap-5 lg:flex-row">
+                <div className="mt-2 flex gap-4">
+                  <input
+                    className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
+                    placeholder="입학연도"
+                    {...register('admissionYear', { required: true })}
+                  />
+                  <Image src="/assets/icons/~.svg" width={8} height={29} alt="~" />
+                  <input
+                    className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
+                    placeholder="졸업연도"
+                    {...register('graduationYear', { required: true })}
+                  />
+                  <select
+                    className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
+                    {...register('degreeName', { required: true })}
+                  >
+                    <option value="재학">재학</option>
+                    <option value="졸업">졸업</option>
+                  </select>
+                </div>
+                <button
+                  type="submit"
+                  className="cursor-pointer rounded-md bg-[#2563EB] px-[0.88rem] py-2 text-sm text-[#fff] lg:py-0"
+                >
+                  추가하기
+                </button>
+              </div>
+            </div>
+          </form>
+        )}
 
         {/* Footer */}
         <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
@@ -280,7 +301,7 @@ export default function RegisterSchool() {
 
             <button
               onClick={handleSave}
-              className={` rounded px-16 py-2 ${
+              className={`rounded px-16 py-2 ${
                 educationList.length > 0 ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
               }`}
               disabled={educationList.length === 0}

@@ -16,7 +16,7 @@ interface FormValues {
 export default function InterestProject() {
   const router = useRouter()
   const [selectedShortTermFields, setSelectedShortTermFields] = useState<string[]>([])
-  const accessToken = useRecoilValue(accessTokenState)
+  const accessToken = useRecoilValue(accessTokenState) || ''
 
   // 온보딩 데이터 가져오기
   useEffect(() => {
@@ -24,7 +24,6 @@ export default function InterestProject() {
       if (accessToken) {
         try {
           const data = await GetOnBoardingData(accessToken)
-          console.log('onBoardingData', data)
           if (data && data.profileTeamBuildingFieldResponse) {
             const { teamBuildingFieldNames } = data.profileTeamBuildingFieldResponse
             setSelectedShortTermFields(teamBuildingFieldNames ?? [])
@@ -44,10 +43,16 @@ export default function InterestProject() {
 
   // 온보딩 데이터 저장하기
   const onSubmit = async () => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const response = await PostProfileTeamBuildingField(accessToken, selectedShortTermFields)
     if (response.ok) {
       router.push('/onBoarding/person/location')
+    }
+
+    const responseJson = await response.json()
+
+    if (responseJson.code === 9102) {
+      alert('다시 로그인해주세요.')
+      router.push('/')
     }
   }
 
@@ -82,7 +87,6 @@ export default function InterestProject() {
   return (
     <div>
       <div className="flex h-screen w-full flex-col overflow-hidden lg:pt-[69px]">
-        <div className="fixed mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-0"></div>
         <div className="flex w-full flex-col items-center py-16">
           <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
             <span>내 이력서 가이드</span>

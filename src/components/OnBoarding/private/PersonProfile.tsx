@@ -155,9 +155,7 @@ export default function RegisterPersonProfile() {
 
   return (
     <>
-      <div className="relative">
-        <div className="fixed z-40 mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-[62px]"></div>
-      </div>
+      <div className="relative"></div>
 
       <div className="flex w-full flex-col items-center bg-[#fff] p-4 pb-20 pt-16">
         <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col items-center lg:w-[901px] lg:py-20">

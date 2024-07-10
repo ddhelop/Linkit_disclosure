@@ -43,7 +43,6 @@ export default function Location() {
   }, [accessToken, setValue])
 
   const onSubmit = async () => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     if (accessToken) {
       const response = await PostProfileRegion(accessToken, selectedArea, selectedSubArea)
 
@@ -78,7 +77,6 @@ export default function Location() {
   return (
     <div className="bg-[#FCFCFD]">
       <div className="flex h-screen w-full flex-col overflow-hidden lg:pt-[69px]">
-        <div className="fixed mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-0"></div>
         <div className="flex w-full flex-col items-center py-16">
           <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
             <span>내 이력서 가이드</span>

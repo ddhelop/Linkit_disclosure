@@ -26,7 +26,7 @@ export default function Role() {
   } = useForm<FormValues>()
   const [roleFields, setSelectedRoleFields] = useState<string[]>([])
   const router = useRouter()
-  const accessToken = useRecoilValue(accessTokenState)
+  const accessToken = useRecoilValue(accessTokenState) || ''
 
   // 온보딩 데이터 fetch
   useEffect(() => {
@@ -78,7 +78,6 @@ export default function Role() {
   }
 
   const onSubmit = async () => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const response = await PostRoleData(accessToken, roleFields, skills)
 
     if (response.ok) {
@@ -90,7 +89,6 @@ export default function Role() {
 
   return (
     <div className="flex h-screen flex-col lg:pt-[62px]">
-      <div className="fixed mt-[40px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-0"></div>
       <div className="flex flex-grow flex-col items-center py-16">
         <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
           <span>내 이력서 가이드</span>
@@ -153,7 +151,7 @@ export default function Role() {
                   value={inputValue}
                   onChange={handleInputChange}
                   onKeyPress={handleKeyPress}
-                  placeholder="ex. Notion"
+                  placeholder="Text Field"
                 />
                 <button
                   onClick={() => handleAddSkill(inputValue)}

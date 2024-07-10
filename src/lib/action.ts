@@ -3,6 +3,7 @@ import {
   AwardFormInputs,
   Career,
   Education,
+  IFormData,
   PostTeamMemberData,
   PostTeamProfileResponse,
   TeamMemberData,
@@ -40,6 +41,24 @@ export async function Logout(accessToken: string) {
   return response
 }
 
+// 온보딩 개인정보 생성
+export async function OnBoardingPrivateData(data: IFormData, accessToken: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/members/basic-inform`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: accessToken ? `Bearer ${accessToken}` : '',
+    },
+    body: JSON.stringify({
+      memberName: data.memberName,
+      contact: data.contact,
+      marketingAgree: data.marketingAgree,
+    }),
+    credentials: 'include', // 쿠키를 포함시키기 위해 필요
+  })
+  return response.json()
+}
+
 // 내 온보딩 데이터 전체조회 - 내 이력서
 export async function GetOnBoardingData(accessToken: string) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/onBoarding`, {
@@ -54,7 +73,7 @@ export async function GetOnBoardingData(accessToken: string) {
   return await response.json()
 }
 
-// 내 온보딩 - 희망/팀빌딩 분야 생성,수정
+// 내 온보딩 - 팀빌딩 분야 생성,수정
 export async function PostProfileTeamBuildingField(accessToken: string, selectedShortTermFields: string[]) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/team_building_field`, {
     method: 'POST',
@@ -72,7 +91,7 @@ export async function PostProfileTeamBuildingField(accessToken: string, selected
 
 // 내 온보딩 - 활동지역 및 위치 생성
 export async function PostProfileRegion(access_token: string, selectedArea: string, selectedSubArea: string) {
-  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/region`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/region`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
