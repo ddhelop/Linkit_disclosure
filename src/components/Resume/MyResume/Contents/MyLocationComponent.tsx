@@ -103,7 +103,7 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
       ) : (
         <div className="mt-4">
           <div className="flex gap-2">
-            <Image src="/assets/icons/location.svg" width={23} height={23} alt="location" />
+            <Image src="/assets/icons/location.svg" width={24} height={24} alt="location" />
             <div className="flex items-center">
               <div className="text-grey100">{selectedCity + ',' || '활동지역을 선택해주세요.'}</div>
             </div>

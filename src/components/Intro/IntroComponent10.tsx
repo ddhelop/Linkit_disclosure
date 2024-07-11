@@ -59,7 +59,7 @@ export default function IntroComponent10() {
       }}
     >
       <motion.div variants={burstAnimation} initial="initial" whileInView="animate" className="absolute inset-0 z-0">
-        <Image src={'/assets/intro/section10bg.png'} alt="line" layout="fill" objectFit="cover" />
+        <Image src={'/assets/intro/section10bg.png'} alt="line" fill objectFit="cover" />
       </motion.div>
 
       <Image

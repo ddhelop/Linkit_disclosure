@@ -40,11 +40,11 @@ export default function MyResumeProgress({ data }: MyResumeCompletionProps) {
         {/* 수치 설명 */}
         <div className="relative flex w-full pt-3">
           <div className="absolute right-[45%] flex flex-col items-center">
-            <Image src="/assets/icons/reTriangle.svg" width={15} height={15} alt="re" />
+            <Image src="/assets/icons/reTriangle.svg" width={15} height={15} alt="re" className="h-auto w-auto" />
             <span className="pt-1 text-grey100">프로필 열람 가능</span>
           </div>
           <div className="absolute right-[15%] flex flex-col items-center">
-            <Image src="/assets/icons/reTriangle.svg" width={15} height={15} alt="re" />
+            <Image src="/assets/icons/reTriangle.svg" width={15} height={15} alt="re" className="h-auto w-auto" />
             <span className="pt-1 text-grey100">매칭 요청 가능</span>
           </div>
         </div>
@@ -60,6 +60,7 @@ export default function MyResumeProgress({ data }: MyResumeCompletionProps) {
                 width={16}
                 height={16}
                 alt={data[item?.key as keyof CompletionResponse] ? 'Check' : 'NotCheck'}
+                className="h-auto w-auto"
               />
               <span className="text-grey60">
                 {item.label} {item?.required && <span className="text-[#2563EB]">*</span>}

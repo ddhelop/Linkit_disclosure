@@ -1,4 +1,3 @@
-// Header.tsx
 'use client'
 import { useEffect, useState } from 'react'
 import './Example.css'
@@ -40,42 +39,38 @@ export default function Header() {
     RefreshAccessToken(token)
       .then((newAccessToken) => {
         if (newAccessToken === undefined) {
-          alert('로그인이 필요합니다.')
-          router.push('/login')
+          setIsAuth(false)
         }
-        localStorage.setItem('accessToken', newAccessToken)
         setToken(newAccessToken)
         setIsAuth(true)
       })
       .catch((error) => {
         console.log(error)
         if (error.code === 9103) {
-          router.push('/login')
+          alert('세션이 만료되었습니다. 다시 로그인해주세요.')
+          router.push('/')
         }
       })
   }, [router, setToken, setIsAuth, token])
 
   const pathname = usePathname()
-  const paths = ['/login', '']
-
-  if (paths.includes(pathname)) return null
-
   const hiddenPaths = [
+    '/onBoarding/select',
     '/onBoarding/person/project',
     '/onBoarding/person/role',
     '/onBoarding/person/school',
     '/onBoarding/person/location',
     '/onBoarding/person/career',
     '/onBoarding/person/profile',
-
     '/onBoarding/team/teamCategory',
     '/onBoarding/team/activityWay',
     '/onBoarding/team/member',
     '/onBoarding/team/profile',
-
     '/onBoarding/complete',
     '/onBoarding',
   ]
+
+  if (hiddenPaths.includes(pathname)) return null
 
   return (
     <>
@@ -84,22 +79,23 @@ export default function Header() {
           <div className="flex gap-[2.19rem]">
             <div className="flex">
               <Link href="/" className="-m-1.5 p-1.5">
-                <Image src="/assets/colorLogo.svg" width={110} height={20} layout="responsive" alt="logo" />
+                <div className="relative h-[20px] w-[110px]">
+                  <Image src="/assets/colorLogo.svg" fill style={{ objectFit: 'contain' }} alt="logo" />
+                </div>
               </Link>
             </div>
-            {!hiddenPaths.includes(pathname) && (
-              <div className="hidden gap-[1.88rem] lg:flex lg:flex-1 lg:items-center lg:justify-between">
-                <Link href="#" className="font-medium leading-5 text-grey90">
-                  창업/공모전 정보
-                </Link>
-                <Link href="/findMember" className="font-medium leading-5 text-grey90">
-                  팀원 찾기
-                </Link>
-                <Link href="/findTeam" className="font-medium leading-5 text-grey90">
-                  팀 찾기
-                </Link>
-              </div>
-            )}
+
+            <div className="hidden gap-[1.88rem] lg:flex lg:flex-1 lg:items-center lg:justify-between">
+              <Link href="#" className="font-medium leading-5 text-grey90">
+                창업/공모전 정보
+              </Link>
+              <Link href="/findMember" className="font-medium leading-5 text-grey90">
+                팀원 찾기
+              </Link>
+              <Link href="/findTeam" className="font-medium leading-5 text-grey90">
+                팀 찾기
+              </Link>
+            </div>
           </div>
 
           <div className="flex flex-1 justify-end gap-10">
@@ -127,6 +123,7 @@ export default function Header() {
               </>
             )}
           </div>
+
           <div className="ml-auto flex lg:hidden">
             <button
               type="button"
