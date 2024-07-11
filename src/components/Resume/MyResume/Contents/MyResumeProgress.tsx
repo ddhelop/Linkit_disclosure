@@ -49,24 +49,12 @@ export default function MyResumeProgress({ data }: MyResumeCompletionProps) {
           </div>
         </div>
 
-        {/* 항목들 */}
-        <div className="flex w-full flex-col items-start pt-[3.81rem]">
-          {items.map((item) => (
-            <div key={item?.key} className="flex gap-2 pt-2">
-              <Image
-                src={
-                  data[item?.key as keyof CompletionResponse] ? '/assets/icons/check.svg' : '/assets/icons/NotCheck.svg'
-                }
-                width={16}
-                height={16}
-                alt={data[item?.key as keyof CompletionResponse] ? 'Check' : 'NotCheck'}
-                className="h-auto w-auto"
-              />
-              <span className="text-grey60">
-                {item.label} {item?.required && <span className="text-[#2563EB]">*</span>}
-              </span>
-            </div>
-          ))}
+        {/* 버튼 */}
+        <div className="flex w-full justify-end pt-20">
+          <button className="flex items-center gap-2 rounded-lg bg-grey20 p-[0.88rem]">
+            <p>자기소개 작성하러 가기</p>
+            <Image src="/assets/icons/>.svg" width={15} height={15} alt="arrow" className="h-auto w-auto" />
+          </button>
         </div>
       </div>
     </div>
