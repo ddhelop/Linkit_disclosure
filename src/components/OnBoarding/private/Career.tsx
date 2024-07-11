@@ -4,10 +4,11 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import React, { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
-import { GetOnBoardingData, PostAntecedentData } from '@/lib/action'
+import { DeleteAntecedentData, DeleteSchoolData, GetOnBoardingData, PostAntecedentData } from '@/lib/action'
 import { useRouter } from 'next/navigation'
 
 interface FormInputs {
+  id: number
   projectName: string
   projectRole: string
   startYear: number
@@ -18,6 +19,7 @@ interface FormInputs {
 }
 
 interface Career {
+  id: number
   projectName: string
   projectRole: string
   startYear: number
@@ -30,7 +32,7 @@ interface Career {
 
 export default function RegisterCareer() {
   const [careerList, setCareerList] = useState<Career[]>([])
-  const accessToken = useRecoilValue(accessTokenState)
+  const accessToken = useRecoilValue(accessTokenState) || ''
   const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [isClient, setIsClient] = useState(false)
@@ -40,6 +42,7 @@ export default function RegisterCareer() {
     setIsClient(true)
   }, [])
 
+  // 이전에 입력한 경력 데이터 불러오기
   useEffect(() => {
     if (accessToken) {
       GetOnBoardingData(accessToken).then((data) => {
@@ -47,6 +50,7 @@ export default function RegisterCareer() {
         if (antecedentsResponses) {
           setCareerList(
             antecedentsResponses.map((career: any) => ({
+              id: career.id,
               projectName: career.projectName,
               projectRole: career.projectRole,
               startYear: career.startYear,
@@ -94,8 +98,18 @@ export default function RegisterCareer() {
     setEditingIndex(index)
   }
 
-  const handleDelete = (index: number) => {
+  const handleDelete = async (index: number) => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
+      console.log('id', careerList[index])
+      const response = await DeleteAntecedentData(accessToken, careerList[index].id)
+      if (response.ok) {
+        setCareerList((prev) => prev.filter((_, i) => i !== index))
+        if (index === editingIndex) {
+          setEditingIndex(null)
+          reset()
+        }
+      }
+
       setCareerList((prev) => prev.filter((_, i) => i !== index))
       if (index === editingIndex) {
         setEditingIndex(null)
@@ -106,22 +120,25 @@ export default function RegisterCareer() {
 
   const handleSave = async () => {
     console.log('careerList', careerList)
-    if (accessToken) {
+    if (accessToken && careerList.length > 0) {
       const response = await PostAntecedentData(accessToken, careerList)
 
       if (response.ok) {
         router.push('/onBoarding/person/profile')
       }
+    } else {
+      router.push('/onBoarding/person/profile')
     }
   }
 
   const onClickPrev = async () => {
     if (accessToken && careerList.length > 0) {
-      if (accessToken) {
-        const response = await PostAntecedentData(accessToken, careerList)
-        if (response.ok) {
-          router.push('/onBoarding/person/school')
-        }
+      const response = await PostAntecedentData(accessToken, careerList)
+      if (response.ok) {
+        router.push('/onBoarding/person/school')
+      } else {
+        alert('에러가 발생했습니다.')
+        console.log(response)
       }
     } else {
       router.push('/onBoarding/person/school')
@@ -426,10 +443,8 @@ export default function RegisterCareer() {
 
             <button
               onClick={handleSave}
-              className={` rounded px-16 py-2 ${
-                careerList.length > 0 ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
-              }`}
-              disabled={careerList.length === 0}
+              className={` 
+                rounded bg-[#2563EB] px-16 py-2 text-[#fff]`}
             >
               다음
             </button>

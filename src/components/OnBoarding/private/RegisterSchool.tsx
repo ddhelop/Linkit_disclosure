@@ -2,12 +2,13 @@
 import Image from 'next/image'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React, { useEffect, useState } from 'react'
-import { DeleteSchoolData, GetOnBoardingData, PostSchoolData } from '@/lib/action'
+import { DeleteSchoolData, GetOnBoardingData, PostOneSchoolData, PostSchoolData } from '@/lib/action'
 import { useRouter } from 'next/navigation'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
+import Link from 'next/link'
 
-interface FormInputs {
+export interface SchoolFormInputs {
   id: number
   universityName: string
   majorName: string
@@ -17,10 +18,11 @@ interface FormInputs {
 }
 
 export default function RegisterSchool() {
-  const [educationList, setEducationList] = useState<FormInputs[]>([])
-  const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
+  const [educationList, setEducationList] = useState<SchoolFormInputs[]>([])
+  const { register, handleSubmit, reset, setValue } = useForm<SchoolFormInputs>()
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [isClient, setIsClient] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null)
   const router = useRouter()
   const accessToken = useRecoilValue(accessTokenState) || ''
 
@@ -37,6 +39,7 @@ export default function RegisterSchool() {
         if (educationResponses) {
           setEducationList(
             educationResponses.map((school: any) => ({
+              id: school.id,
               universityName: school.universityName,
               majorName: school.majorName,
               admissionYear: school.admissionYear,
@@ -49,23 +52,39 @@ export default function RegisterSchool() {
     }
   }, [accessToken])
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+  const onSubmit: SubmitHandler<SchoolFormInputs> = async (data) => {
+    const educationData = {
+      admissionYear: Number(data.admissionYear), // 숫자로 변환
+      graduationYear: Number(data.graduationYear), // 숫자로 변환
+      universityName: data.universityName,
+      majorName: data.majorName,
+      degreeName: data.degreeName,
+    }
+
+    const response = await PostOneSchoolData(accessToken, educationData)
+    if (response.ok) {
+      console.log('학력 정보가 성공적으로 업데이트되었습니다.')
+    } else {
+      console.log('학력 정보 업데이트 중 에러가 발생했습니다.', response)
+    }
+
     const updatedData = {
       ...data,
       admissionYear: Number(data.admissionYear),
       graduationYear: Number(data.graduationYear),
     }
 
-    if (editingIndex !== null) {
-      setEducationList((prev) => prev.map((education, index) => (index === editingIndex ? updatedData : education)))
+    if (currentIndex !== null) {
+      setEducationList((prev) => prev.map((education, index) => (index === currentIndex ? updatedData : education)))
       setEditingIndex(null)
+      setCurrentIndex(null)
     } else {
       setEducationList((prev) => [...prev, updatedData])
     }
     reset()
   }
 
-  const handleEdit = (index: number) => {
+  const handleEdit = async (index: number) => {
     const education = educationList[index]
     setValue('universityName', education.universityName)
     setValue('majorName', education.majorName)
@@ -73,6 +92,7 @@ export default function RegisterSchool() {
     setValue('graduationYear', education.graduationYear)
     setValue('degreeName', education.degreeName)
     setEditingIndex(index)
+    setCurrentIndex(index)
   }
 
   const handleDelete = async (index: number) => {
@@ -303,17 +323,18 @@ export default function RegisterSchool() {
         {/* Footer */}
         <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
           <div className="flex justify-center gap-4 p-2 lg:justify-end lg:pr-96">
-            <button onClick={onClickPrev} className="bg-blue-100 text-blue-700 rounded bg-grey20 px-16 py-2">
-              이전
-            </button>
+            <Link href="/onBoarding/person/role">
+              <button className="bg-blue-100 text-blue-700 rounded bg-grey20 px-16 py-2">이전</button>
+            </Link>
 
-            <button
-              onClick={handleSave}
-              className={`rounded bg-[#2563EB] px-16 
+            <Link href="/onBoarding/person/career">
+              <button
+                className={`rounded bg-[#2563EB] px-16 
                 py-2 text-[#fff] `}
-            >
-              다음
-            </button>
+              >
+                다음
+              </button>
+            </Link>
           </div>
         </div>
       </div>
