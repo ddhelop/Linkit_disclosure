@@ -4,8 +4,6 @@ export default function CompleteOnBoarding() {
   return (
     <div className="bg-[#FCFCFD]">
       <div className="flex h-screen w-full flex-col overflow-hidden lg:pt-[69px]">
-        <div className="fixed mt-[53px] h-[0.18rem] w-2/3 bg-[#2563EB] lg:mt-0"></div>
-
         <div className="flex h-full w-full items-center justify-center">
           <div className="flex flex-col items-center rounded-[1.875rem] border border-grey30 bg-[#fff] px-[4.4rem] pb-[1.82rem] pt-[5.25rem]">
             <div className="flex flex-col items-center text-[2rem] font-bold">
