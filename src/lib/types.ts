@@ -198,11 +198,11 @@ export interface TeamMiniProfileResponse {
   sectorName: string
   sizeType: string
   teamName: string
-  miniProfileTitle: string
+  teamProfileTitle: string
   teamUploadPeriod: string
   teamUploadDeadline: boolean
   teamLogoImageUrl: string
-  teamValue: string
+  teamKeywordNames: string[]
   teamDetailInform: string
 }
 

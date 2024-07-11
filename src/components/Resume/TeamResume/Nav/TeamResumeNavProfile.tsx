@@ -6,28 +6,33 @@ interface TeamResumNavProps {
 }
 
 export default function TeamResumeNavProfile({ data }: TeamResumNavProps) {
+  console.log('data', data)
   return (
     <div className="flex w-full flex-col rounded-2xl bg-[#fff] p-5">
-      <div className="text-xs text-[#2563EB]">D-56</div>
-      <div className="pt-[0.42rem] text-lg font-bold leading-[1.375rem]">{data ? data.miniProfileTitle : 'null'}</div>
-
-      <div className="w-full pt-4">
-        <span className="rounded-[0.44rem] bg-[#D3E1FE33] bg-opacity-20 px-[0.56rem] text-sm text-[#2563EB]">
-          재택 가능
-        </span>
-
-        <span className="rounded-[0.44rem] bg-[#D3E1FE33] bg-opacity-20 px-[0.56rem] text-sm text-[#2563EB]">
-          신입 초봉
-        </span>
-
-        <span className="rounded-[0.44rem] bg-[#D3E1FE33] bg-opacity-20 px-[0.56rem] text-sm text-[#2563EB]">
-          Pre-A
-        </span>
+      <div className="pt-[0.42rem] text-[1.25rem] font-bold leading-[1.375rem]">
+        {data ? data.teamProfileTitle : 'null'}
       </div>
 
-      <div className="mt-4 flex w-full items-center gap-4 rounded-[0.44rem] bg-grey10 p-[0.62rem]">
-        <div className="w-auto rounded-[14.8rem] bg-grey30 p-[0.92rem]">
-          <Image src={data?.teamLogoImageUrl || '/assets/icons/flag.svg'} width={16} height={16} alt="flag" />
+      <div className="mt-3 w-full gap-1">
+        {data?.teamKeywordNames.map((keyword, index) => (
+          <span
+            key={index}
+            className="rounded-[0.44rem] bg-[#D3E1FE33] bg-opacity-20 px-[0.56rem] py-1 text-sm text-grey60"
+          >
+            {keyword}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-8 flex w-full items-center gap-4 rounded-[0.44rem] p-[0.62rem]">
+        <div className="relative w-auto rounded-[14.8rem] bg-grey30 ">
+          <Image
+            src={data?.teamLogoImageUrl || '/assets/icons/flag.svg'}
+            width={41}
+            height={41}
+            alt="flag"
+            className="rounded-full"
+          />
         </div>
 
         <div className="flex flex-col gap-[0.12rem] pr-9">
@@ -37,8 +42,6 @@ export default function TeamResumeNavProfile({ data }: TeamResumNavProps) {
             <p className="text-sm text-grey60">규모 | {data ? data.sizeType : 'null'}</p>
           </div>
         </div>
-
-        <Image src="/assets/icons/gray>.svg" width={6} height={6} alt="arrow-right" />
       </div>
     </div>
   )
