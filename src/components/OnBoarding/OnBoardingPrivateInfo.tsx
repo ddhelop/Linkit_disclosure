@@ -27,15 +27,6 @@ export default function OnBoardingPrivateInfo() {
       if (response.status === 200 || response.status === 201 || response.status === 409) {
         router.push('/onBoarding/select')
       }
-      if (response.code === 9102) {
-        alert('다시 로그인해주세요.')
-        router.push('/')
-      }
-
-      // if (response.code === 9102) {
-      //   alert('올바르지 않은 접근입니다.')
-      //   router.push('/')
-      // }
     } catch (error) {
       console.error('Error caught:', error)
       // handle error
