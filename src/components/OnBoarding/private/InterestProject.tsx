@@ -44,37 +44,15 @@ export default function InterestProject() {
   // 온보딩 데이터 저장하기
   const onSubmit = async () => {
     const response = await PostProfileTeamBuildingField(accessToken, selectedShortTermFields)
-    if (response.ok) {
+    if (response?.ok) {
       router.push('/onBoarding/person/location')
-    }
-
-    const responseJson = await response.json()
-
-    if (responseJson.code === 9102) {
-      alert('다시 로그인해주세요.')
-      router.push('/')
     }
   }
 
   const onClickPrev = async () => {
-    if (accessToken && selectedShortTermFields.length > 0) {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/profile_team_building_field`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({
-          teamBuildingFieldNames: selectedShortTermFields,
-        }),
-        credentials: 'include', // 쿠키를 포함시키기 위해 필요
-      })
-
-      if (response.ok) {
-        router.push('/onBoarding/select')
-      }
-    } else {
-      router.push('/onBoarding/select')
+    const response = await PostProfileTeamBuildingField(accessToken, selectedShortTermFields)
+    if (response?.ok) {
+      router.push('/onBoarding/person/select')
     }
   }
 
@@ -86,7 +64,7 @@ export default function InterestProject() {
 
   return (
     <div>
-      <div className="flex h-screen w-full flex-col overflow-hidden lg:pt-[69px]">
+      <div className="flex h-screen w-full flex-col overflow-hidden bg-[#fff] lg:pt-[69px]">
         <div className="flex w-full flex-col items-center py-16">
           <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
             <span>내 이력서 가이드</span>

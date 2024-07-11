@@ -401,7 +401,7 @@ export default function RegisterPersonProfile() {
           {/* Footer */}
           <div className="fixed bottom-0 left-0 w-full bg-[#fff] shadow-soft-shadow">
             <div className="flex justify-center p-4 lg:justify-end lg:pr-96">
-              <Link href="/onBoarding/project">
+              <Link href="/onBoarding/person/career">
                 <button type="button" className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-12 py-2 lg:px-16">
                   이전
                 </button>

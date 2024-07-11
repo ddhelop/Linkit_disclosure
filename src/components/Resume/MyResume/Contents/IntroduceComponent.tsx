@@ -1,7 +1,9 @@
 'use client'
+import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileIntroduction } from '@/lib/action'
 import { ProfileIntroductionResponse } from '@/lib/types'
 import { ChangeEvent, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 
 interface MyResumeCompletionProps {
   data: ProfileIntroductionResponse
@@ -11,6 +13,7 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [introduction, setIntroduction] = useState(data.introduction || '')
   const [charCount, setCharCount] = useState(data.introduction ? data.introduction.length : 0)
+  const accessToken = useRecoilValue(accessTokenState) || ''
 
   const handleEditClick = () => {
     if (isEditing) {
@@ -21,7 +24,6 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
   }
 
   const saveIntroduction = async () => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const response = await PostProfileIntroduction(accessToken, introduction)
     if (response.ok) {
       alert('저장되었습니다.')

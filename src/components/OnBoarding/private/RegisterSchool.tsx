@@ -2,12 +2,13 @@
 import Image from 'next/image'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React, { useEffect, useState } from 'react'
-import { GetOnBoardingData, PostSchoolData } from '@/lib/action'
+import { DeleteSchoolData, GetOnBoardingData, PostSchoolData } from '@/lib/action'
 import { useRouter } from 'next/navigation'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 
 interface FormInputs {
+  id: number
   universityName: string
   majorName: string
   admissionYear: number
@@ -74,18 +75,22 @@ export default function RegisterSchool() {
     setEditingIndex(index)
   }
 
-  const handleDelete = (index: number) => {
+  const handleDelete = async (index: number) => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
-      setEducationList((prev) => prev.filter((_, i) => i !== index))
-      if (index === editingIndex) {
-        setEditingIndex(null)
-        reset()
+      console.log('id', educationList[index].id)
+      const response = await DeleteSchoolData(accessToken, educationList[index].id)
+      if (response.ok) {
+        setEducationList((prev) => prev.filter((_, i) => i !== index))
+        if (index === editingIndex) {
+          setEditingIndex(null)
+          reset()
+        }
       }
     }
   }
 
   const handleSave = async () => {
-    if (accessToken) {
+    if (accessToken && educationList.length > 0) {
       const response = await PostSchoolData(accessToken, educationList)
 
       if (response.ok) {
@@ -94,16 +99,19 @@ export default function RegisterSchool() {
         alert('에러가 발생했습니다.')
         console.log(response)
       }
+    } else {
+      router.push('/onBoarding/person/career')
     }
   }
 
   const onClickPrev = async () => {
     if (accessToken && educationList.length > 0) {
-      if (accessToken) {
-        const response = await PostSchoolData(accessToken, educationList)
-        if (response.ok) {
-          router.push('/onBoarding/person/role')
-        }
+      const response = await PostSchoolData(accessToken, educationList)
+      if (response.ok) {
+        router.push('/onBoarding/person/role')
+      } else {
+        alert('에러가 발생했습니다.')
+        console.log(response)
       }
     } else {
       router.push('/onBoarding/person/role')
@@ -115,7 +123,7 @@ export default function RegisterSchool() {
   }
 
   return (
-    <div className="flex h-full flex-col bg-[#FCFCFD] lg:py-[69px]">
+    <div className="flex h-screen flex-col bg-[#fff] lg:py-[69px]">
       <div className="flex flex-grow flex-col items-center py-16">
         <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
           <span>내 이력서 가이드</span>
@@ -301,10 +309,8 @@ export default function RegisterSchool() {
 
             <button
               onClick={handleSave}
-              className={`rounded px-16 py-2 ${
-                educationList.length > 0 ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
-              }`}
-              disabled={educationList.length === 0}
+              className={`rounded bg-[#2563EB] px-16 
+                py-2 text-[#fff] `}
             >
               다음
             </button>

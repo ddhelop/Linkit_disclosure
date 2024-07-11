@@ -88,7 +88,7 @@ export default function Role() {
   }
 
   return (
-    <div className="flex h-screen flex-col lg:pt-[62px]">
+    <div className="flex h-screen flex-col bg-[#fff] lg:pt-[62px]">
       <div className="flex flex-grow flex-col items-center py-16">
         <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
           <span>내 이력서 가이드</span>
