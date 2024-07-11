@@ -319,3 +319,21 @@ export interface TeamProfile {
   teamLogoImageUrl: string
   teamKeywordNames: string[]
 }
+
+export interface OneSchoolFormInputs {
+  universityName: string
+  majorName: string
+  admissionYear: number
+  graduationYear: number
+  degreeName: string
+}
+
+export interface AntecedentFormInputs {
+  projectName: string
+  projectRole: string
+  startYear: number
+  startMonth: number
+  endYear: number
+  endMonth: number
+  retirement: boolean
+}

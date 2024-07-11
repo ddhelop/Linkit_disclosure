@@ -4,8 +4,15 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import React, { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
-import { DeleteAntecedentData, DeleteSchoolData, GetOnBoardingData, PostAntecedentData } from '@/lib/action'
+import {
+  DeleteAntecedentData,
+  DeleteSchoolData,
+  GetOnBoardingData,
+  PostAntecedentData,
+  PostOneAntecedentData,
+} from '@/lib/action'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 interface FormInputs {
   id: number
@@ -66,22 +73,41 @@ export default function RegisterCareer() {
     }
   }, [accessToken])
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    const formattedData: Career = {
+  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+    const antecedentData = {
+      projectName: data.projectName,
+      projectRole: data.projectRole,
+      startYear: Number(data.startYear),
+      startMonth: Number(data.startMonth),
+      endYear: Number(data.endYear),
+      endMonth: Number(data.endMonth),
+      retirement: data.retirement,
+      antecedentsDescription: '경력 설명입니다.', // 기본 설명 추가
+    }
+
+    const response = await PostOneAntecedentData(accessToken, antecedentData)
+
+    if (response.ok) {
+      console.log('경력 정보가 성공적으로 업데이트되었습니다.')
+    } else {
+      console.log('경력 정보 업데이트 중 에러가 발생했습니다.', response)
+    }
+
+    const updatedData = {
       ...data,
       startYear: Number(data.startYear),
       startMonth: Number(data.startMonth),
       endYear: Number(data.endYear),
       endMonth: Number(data.endMonth),
-      retirement: data.retirement === true,
-      antecedentsDescription: '', // 기본값 추가
+      retirement: data.retirement,
+      antecedentsDescription: '경력 설명입니다.', // 기본 설명 추가
     }
 
     if (editingIndex !== null) {
-      setCareerList((prev) => prev.map((career, index) => (index === editingIndex ? formattedData : career)))
+      setCareerList((prev) => prev.map((career, index) => (index === editingIndex ? updatedData : career)))
       setEditingIndex(null)
     } else {
-      setCareerList((prev) => [...prev, formattedData])
+      setCareerList((prev) => [...prev, updatedData])
     }
     reset()
   }
@@ -150,7 +176,7 @@ export default function RegisterCareer() {
   }
 
   return (
-    <div className="flex flex-col bg-[#FCFCFD] lg:py-[69px]">
+    <div className="flex h-screen flex-col bg-[#fff] lg:py-[69px]">
       <div className="flex flex-grow flex-col items-center py-16">
         <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 lg:w-[55%]">
           <span>내 이력서 가이드</span>
@@ -437,17 +463,19 @@ export default function RegisterCareer() {
         {/* Footer */}
         <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
           <div className="flex justify-center gap-4 p-2 lg:justify-end lg:pr-96">
-            <button onClick={onClickPrev} className="bg-blue-100 text-blue-700 rounded bg-grey20 px-16 py-2">
-              이전
-            </button>
+            <Link href="/onBoarding/person/profile">
+              <button className="bg-blue-100 text-blue-700 rounded bg-grey20 px-16 py-2">이전</button>
+            </Link>
 
-            <button
-              onClick={handleSave}
-              className={` 
+            <Link href="/onBoarding/person/profile">
+              <button
+                onClick={handleSave}
+                className={` 
                 rounded bg-[#2563EB] px-16 py-2 text-[#fff]`}
-            >
-              다음
-            </button>
+              >
+                다음
+              </button>
+            </Link>
           </div>
         </div>
       </div>

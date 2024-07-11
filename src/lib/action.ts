@@ -1,9 +1,13 @@
+import { SchoolFormInputs } from '@/components/OnBoarding/private/RegisterSchool'
 import {
+  AntecedentFormInputs,
   ApiPayload,
   AwardFormInputs,
   Career,
   Education,
+  FormInputs,
   IFormData,
+  OneSchoolFormInputs,
   PostTeamMemberData,
   PostTeamProfileResponse,
   TeamMemberData,
@@ -86,6 +90,7 @@ export async function PostProfileTeamBuildingField(accessToken: string, selected
     }),
     credentials: 'include', // 쿠키를 포함시키기 위해 필요
   })
+
   return response
 }
 
@@ -134,6 +139,32 @@ export async function PostSchoolData(accessToken: string, educationList: Educati
   })
 }
 
+// 내 온보딩 - 학력 단일 생성
+export async function PostOneSchoolData(accessToken: string, education: OneSchoolFormInputs) {
+  // education 단일 객체로 받기
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/education`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify(education), // 단일 객체로 전달
+  })
+}
+
+// 내 온보딩 - 학력 삭제
+export async function DeleteSchoolData(accessToken: string, educationId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/education/${educationId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+}
+
 // 내 온보딩 - 경력 생성
 export async function PostAntecedentData(accessToken: string, careerList: Career[]) {
   return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/antecedents`, {
@@ -144,6 +175,31 @@ export async function PostAntecedentData(accessToken: string, careerList: Career
     },
     credentials: 'include',
     body: JSON.stringify(careerList),
+  })
+}
+
+// 내 온보딩 - 경력 단일 생성
+export async function PostOneAntecedentData(accessToken: string, antecedent: AntecedentFormInputs) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/antecedent`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify(antecedent), // 단일 객체로 전달
+  })
+}
+
+// 내 온보딩 - 경력 삭제
+export async function DeleteAntecedentData(accessToken: string, antecedentsId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/antecedents/${antecedentsId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
   })
 }
 
