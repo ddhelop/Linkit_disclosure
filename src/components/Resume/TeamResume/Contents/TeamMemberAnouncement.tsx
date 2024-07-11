@@ -73,7 +73,7 @@ export default function TeamMemberAnnouncement() {
 
             <div className="pt-8">
               <label className="flex font-normal text-grey100">
-                요구 기술 <p className="pl-1 font-normal text-[#2563EB]">*</p>
+                주요 업무 <p className="pl-1 font-normal text-[#2563EB]">*</p>
               </label>
               <textarea
                 className="mt-2 block w-full resize-none rounded-md border border-grey30 p-[0.56rem] text-grey50 shadow-sm"

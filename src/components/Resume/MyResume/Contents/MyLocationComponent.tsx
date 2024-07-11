@@ -1,11 +1,13 @@
 'use client'
 
+import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileRegion } from '@/lib/action'
 import { addressData } from '@/lib/addressSelectData'
 import { LocationResponse } from '@/lib/types'
 import { selectStyle } from '@/style/toggleStyle'
 import Image from 'next/image'
 import { ChangeEvent, useState, useEffect } from 'react'
+import { useRecoilValue } from 'recoil'
 
 interface MyResumLocationFieldProps {
   data: LocationResponse
@@ -15,6 +17,7 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
   const [isEditing, setIsEditing] = useState(false)
   const [selectedCity, setSelectedCity] = useState('')
   const [selectedDistrict, setSelectedDistrict] = useState('')
+  const accessToken = useRecoilValue(accessTokenState) || ''
 
   useEffect(() => {
     const style = document.createElement('style')
@@ -33,7 +36,6 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
   }, [data])
 
   const handleEditClick = async () => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     if (accessToken) {
       const response = await PostProfileRegion(accessToken, selectedCity, selectedDistrict)
 

@@ -1,9 +1,11 @@
 'use client'
+import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileAward } from '@/lib/action'
 import { AwardFormInputs, AwardResponse } from '@/lib/types'
 import { selectStyle } from '@/style/toggleStyle'
 import { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { useRecoilValue } from 'recoil'
 
 interface MyResumAwardProps {
   data: AwardResponse[]
@@ -13,6 +15,7 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
   const { register, handleSubmit, reset } = useForm<AwardFormInputs>()
   const [isAdding, setIsAdding] = useState(false)
   const [awards, setAwards] = useState<AwardFormInputs[]>([])
+  const accessToken = useRecoilValue(accessTokenState) || ''
 
   // select style
   useEffect(() => {
@@ -32,7 +35,6 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
   }, [data])
 
   const onSubmit: SubmitHandler<AwardFormInputs> = async (formData) => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     setAwards((prev) => {
       const newAwards = [...prev, formData]
 

@@ -1,7 +1,9 @@
+import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileAttchURL } from '@/lib/action'
 import { AttachResponse, AttachUrlResponse, URLFormInputs } from '@/lib/types'
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
+import { useRecoilValue } from 'recoil'
 
 interface MyResumURLProps {
   data: AttachUrlResponse[]
@@ -15,6 +17,7 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
     links: [],
     file: null,
   })
+  const accessToken = useRecoilValue(accessTokenState) || ''
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -54,7 +57,6 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
   }
 
   const handleLinkSubmit = async () => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const formattedLinks: URLFormInputs[] = links.map((link) => ({
       attachUrlName: link.name,
       attachUrlPath: link.url,

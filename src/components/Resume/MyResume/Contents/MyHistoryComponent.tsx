@@ -1,9 +1,11 @@
 'use client'
+import { accessTokenState } from '@/context/recoil-context'
 import { PostAntecedentData } from '@/lib/action'
 import { AntecedentResponse } from '@/lib/types'
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { useRecoilValue } from 'recoil'
 
 interface FormInputs {
   projectName: string
@@ -36,6 +38,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
   )
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [isAdding, setIsAdding] = useState(false)
+  const accessToken = useRecoilValue(accessTokenState) || ''
 
   useEffect(() => {
     if (editingIndex !== null) {
@@ -52,7 +55,6 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
   }, [editingIndex, histories, setValue])
 
   const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const formattedData = {
       ...formData,
       startYear: Number(formData.startYear),
