@@ -24,7 +24,7 @@ export const RefreshAccessToken = async (accessToken: string) => {
   })
 
   const data = await response.json()
-  return data.accessToken
+  return data
 }
 
 // 로그아웃

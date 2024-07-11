@@ -37,12 +37,19 @@ export default function Header() {
     if (!token || token === 'undefined') return
 
     RefreshAccessToken(token)
-      .then((newAccessToken) => {
-        if (newAccessToken === undefined) {
-          setIsAuth(false)
+      .then((response) => {
+        if (!response.existMemberBasicInform) {
+          router.push('/onBoarding')
         }
-        setToken(newAccessToken)
-        setIsAuth(true)
+
+        if (!response.existDefaultProfile) {
+          router.push('/onBoarding/select')
+        }
+
+        if (response.accessToken) {
+          setToken(response.accessToken)
+          setIsAuth(true)
+        }
       })
       .catch((error) => {
         console.log(error)
