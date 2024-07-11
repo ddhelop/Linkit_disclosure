@@ -1,7 +1,9 @@
 'use client'
+import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileTeamBuildingField, TeamOnBoardingField } from '@/lib/action'
 import { ProfileTeamBuildingFieldResponse } from '@/lib/types'
 import { useState, useEffect } from 'react'
+import { useRecoilValue } from 'recoil'
 
 interface MyResumTeamBuildingFieldProps {
   data: ProfileTeamBuildingFieldResponse
@@ -11,6 +13,7 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
   const [isEditing, setIsEditing] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
   const [options, setOptions] = useState(['해커톤', '공모전', '대회', '사이드 프로젝트', '포트폴리오'])
+  const accessToken = useRecoilValue(accessTokenState) || ''
 
   useEffect(() => {
     setSelectedOptions(data.teamBuildingFieldNames)
@@ -22,7 +25,6 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
   }
 
   const handleSaveClick = async () => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const response = await PostProfileTeamBuildingField(accessToken, selectedOptions)
     if (response.ok) {
       alert('수정이 완료되었습니다.')
