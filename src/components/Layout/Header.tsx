@@ -17,23 +17,27 @@ export default function Header() {
   const [token, setToken] = useRecoilState(accessTokenState)
   const resetAccessTokenState = useResetRecoilState(accessTokenState)
   const [isAuth, setIsAuth] = useRecoilState(authState)
+  const pathname = usePathname()
 
-  const handleLogout = async () => {
-    if (!token) return
-
-    try {
-      const response = await Logout(token)
-      if (response.ok) {
-        setIsAuth(false)
-        resetAccessTokenState()
-        window.location.href = '/'
-      }
-    } catch (error) {
-      console.error('Failed to logout', error)
-    }
-  }
+  const hiddenPaths = [
+    '/onBoarding/select',
+    '/onBoarding/person/project',
+    '/onBoarding/person/role',
+    '/onBoarding/person/school',
+    '/onBoarding/person/location',
+    '/onBoarding/person/career',
+    '/onBoarding/person/profile',
+    '/onBoarding/team/teamCategory',
+    '/onBoarding/team/activityWay',
+    '/onBoarding/team/member',
+    '/onBoarding/team/profile',
+    '/onBoarding/complete',
+    '/onBoarding',
+  ]
 
   useEffect(() => {
+    if (hiddenPaths.includes(pathname)) return
+
     if (!token || token === 'undefined') return
 
     RefreshAccessToken(token)
@@ -58,26 +62,27 @@ export default function Header() {
           router.push('/')
         }
       })
-  }, [router, setToken, setIsAuth, token])
+  }, [router, setToken, setIsAuth, token, pathname])
 
-  const pathname = usePathname()
-  const hiddenPaths = [
-    '/onBoarding/select',
-    '/onBoarding/person/project',
-    '/onBoarding/person/role',
-    '/onBoarding/person/school',
-    '/onBoarding/person/location',
-    '/onBoarding/person/career',
-    '/onBoarding/person/profile',
-    '/onBoarding/team/teamCategory',
-    '/onBoarding/team/activityWay',
-    '/onBoarding/team/member',
-    '/onBoarding/team/profile',
-    '/onBoarding/complete',
-    '/onBoarding',
-  ]
+  const handleLogout = async () => {
+    if (!token) return
 
-  if (hiddenPaths.includes(pathname)) return null
+    try {
+      const response = await Logout(token)
+      if (response.ok) {
+        setIsAuth(false)
+        resetAccessTokenState()
+        window.location.href = '/'
+      }
+    } catch (error) {
+      console.error('Failed to logout', error)
+    }
+  }
+
+  // 조건부 렌더링을 JSX 내부로 옮김
+  if (hiddenPaths.includes(pathname)) {
+    return null
+  }
 
   return (
     <>

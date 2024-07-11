@@ -463,7 +463,7 @@ export default function RegisterCareer() {
         {/* Footer */}
         <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
           <div className="flex justify-center gap-4 p-2 lg:justify-end lg:pr-96">
-            <Link href="/onBoarding/person/profile">
+            <Link href="/onBoarding/person/school">
               <button className="bg-blue-100 text-blue-700 rounded bg-grey20 px-16 py-2">이전</button>
             </Link>
 
