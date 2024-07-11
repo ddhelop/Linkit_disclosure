@@ -5,18 +5,7 @@ interface TeamResumContentsProps {
   data: TeamCompletionResponse
 }
 
-const items = [
-  { key: 'introduction', label: '희망 팀빌딩 분야', required: true },
-  { key: 'profileSkill', label: '활동 방식 및 지역', required: true },
-  { key: 'profileTeamBuildingField', label: '팀원공고', required: true },
-  { key: 'antecedents', label: '팀 소개' },
-  { key: 'education', label: '팀원 소개' },
-  { key: 'awards', label: '연혁' },
-  { key: 'attach', label: '첨부' },
-]
-
 export default function TeamResumeProgress({ data }: TeamResumContentsProps) {
-  console.log(data)
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
@@ -50,25 +39,12 @@ export default function TeamResumeProgress({ data }: TeamResumContentsProps) {
           </div>
         </div>
 
-        {/* 항목들 */}
-        <div className="flex w-full flex-col items-start pt-[3.81rem]">
-          {items.map((item) => (
-            <div key={item?.key} className="flex gap-2 pt-2">
-              <Image
-                src={
-                  data[item?.key as keyof TeamCompletionResponse]
-                    ? '/assets/icons/check.svg'
-                    : '/assets/icons/NotCheck.svg'
-                }
-                width={16}
-                height={16}
-                alt={data[item?.key as keyof TeamCompletionResponse] ? 'Check' : 'NotCheck'}
-              />
-              <span className="text-grey60">
-                {item.label} {item?.required && <span className="text-[#2563EB]">*</span>}
-              </span>
-            </div>
-          ))}
+        {/* 버튼 */}
+        <div className="mt-24 flex justify-end">
+          <button className="flex items-center gap-4 rounded-[0.5rem] bg-grey20 px-[1.44rem] py-[0.88rem] text-grey100">
+            <p>팀원 공고 작성하러 가기</p>
+            <Image src="/assets/icons/>.svg" width={7} height={7} alt="arrow" />
+          </button>
         </div>
       </div>
     </div>
