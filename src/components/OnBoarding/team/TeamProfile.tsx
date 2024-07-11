@@ -20,16 +20,13 @@ export default function TeamProfile() {
   const router = useRouter()
   const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
     defaultValues: {
-      profileTitle: '',
+      teamProfileTitle: '',
+      isTeamActivate: true,
       skills: '',
-      year: '',
-      month: '',
-      day: '',
     },
   })
 
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null)
-  const [uploadDeadline, setUploadDeadline] = useState<boolean>(true)
   const [basicData, setBasicData] = useState<BasicData | undefined>(undefined)
 
   // 소개 항목
@@ -40,9 +37,11 @@ export default function TeamProfile() {
     setInputValue(event.target.value)
   }
 
-  const handleAddSkill = () => {
+  const handleAddSkill = (
+    event?: React.MouseEvent<HTMLButtonElement, MouseEvent> | KeyboardEvent<HTMLInputElement>,
+  ) => {
     event?.preventDefault()
-    if (inputValue.trim() !== '') {
+    if (inputValue.trim() !== '' && skills.length < 3) {
       setSkills([...skills, inputValue.trim()])
       setInputValue('')
     }
@@ -54,7 +53,7 @@ export default function TeamProfile() {
 
   const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      handleAddSkill()
+      handleAddSkill(event)
     }
   }
 
@@ -68,17 +67,10 @@ export default function TeamProfile() {
       }
 
       if (response.teamMiniProfileResponse) {
-        const { miniProfileTitle, teamUploadPeriod, teamValue, teamDetailInform, teamLogoImageUrl } =
-          response.teamMiniProfileResponse
-        const [uploadYear, uploadMonth, uploadDay] = teamUploadPeriod
-          ? teamUploadPeriod.split('-')
-          : ['2024', '01', '01']
+        const { teamProfileTitle, isTeamActivate, teamLogoImageUrl } = response.teamMiniProfileResponse
 
-        setValue('profileTitle', miniProfileTitle || '')
-        setValue('year', uploadYear || '')
-        setValue('month', uploadMonth || '')
-        setValue('day', uploadDay || '')
-        setValue('skills', teamDetailInform || '')
+        setValue('teamProfileTitle', teamProfileTitle || '')
+        setValue('isTeamActivate', isTeamActivate || false)
 
         if (teamLogoImageUrl) {
           setProfileImageUrl(teamLogoImageUrl)
@@ -88,11 +80,8 @@ export default function TeamProfile() {
     fetchData()
   }, [setValue, accessToken])
 
-  const profileTitle = watch('profileTitle')
-
-  const year = watch('year')
-  const month = watch('month')
-  const day = watch('day')
+  const teamProfileTitle = watch('teamProfileTitle')
+  const isTeamActivate = watch('isTeamActivate')
   const profileImage = watch('profileImage')
 
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
@@ -102,17 +91,17 @@ export default function TeamProfile() {
       setProfileImageUrl(URL.createObjectURL(files[0]))
     }
   }
+
   const handleUploadStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUploadDeadline(event.target.value === 'completed')
+    setValue('isTeamActivate', event.target.value === '활성화')
   }
-  const isNextButtonEnabled = profileTitle && skills && year && month && day
+
+  const isNextButtonEnabled = teamProfileTitle && skills.length > 0 && skills.length <= 3
 
   const onSubmit = async (data: FormInputs) => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const payload: ApiPayload = {
-      teamProfileTitle: data.profileTitle,
-      teamUploadPeriod: `${data.year}-${String(data.month).padStart(2, '0')}-${String(data.day).padStart(2, '0')}`,
-      teamUploadDeadline: uploadDeadline,
+      teamProfileTitle: data.teamProfileTitle,
+      isTeamActivate: data.isTeamActivate,
       teamKeywordNames: skills,
     }
 
@@ -126,8 +115,8 @@ export default function TeamProfile() {
 
   return (
     <>
-      <div className="flex w-full flex-col items-center bg-[#fff] p-4 lg:py-16">
-        <div className="flex w-full flex-col items-center pb-24 pt-16 lg:w-[901px]">
+      <div className="flex h-screen w-full flex-col items-center bg-[#fff] p-4">
+        <div className="flex w-full flex-col items-center pb-24 pt-16 lg:w-[988px]">
           <div className="flex w-full flex-col items-start leading-9">
             <span className="text-2xl font-bold">팀 이력서가 거의 완성되었어요</span>
             <span className="text-grey60">다른사람들이 보는 팀 프로필이예요. 수정할 사항을 완성해주세요</span>
@@ -136,10 +125,9 @@ export default function TeamProfile() {
           <div className="flex w-full justify-between gap-14 pt-12">
             {/* left */}
             <div>
-              <div className="hidden w-[22.18rem]  flex-col rounded-lg border-[1.67px] border-grey30 p-3 pb-5 lg:flex">
-                <span className="pt-2 text-xs font-medium text-grey60">D-59</span>
-                <h2 className="text-[1.125rem] font-bold leading-9 text-grey50">
-                  {profileTitle || '사이드 프로젝트 함께 할 개발자를 찾고 있어요'}
+              <div className="hidden w-[23rem]  flex-col rounded-lg border-[1.67px] border-grey30 p-3 pb-5 lg:flex">
+                <h2 className="text-[1.25rem] font-bold leading-9 text-grey50">
+                  {teamProfileTitle || '사이드 프로젝트 함께 할 개발자를 찾고 있어요'}
                 </h2>
                 <div className="flex flex-wrap gap-2">
                   {skills.map((skill, index) => (
@@ -148,18 +136,24 @@ export default function TeamProfile() {
                     </div>
                   ))}
                 </div>
-                <div className="flex gap-4 rounded-[0.43rem] bg-grey10 p-[0.62rem]">
+                <div className="mt-5 flex gap-4 rounded-[0.43rem]">
                   {profileImageUrl ? (
-                    <Image src={profileImageUrl} width={46} height={46} alt="profile_image" className="rounded-3xl" />
+                    <Image src={profileImageUrl} width={46} height={46} alt="profile_image" className="rounded-full" />
                   ) : (
-                    <Image src={'/assets/onBoarding/addImage2.svg'} width={46} height={46} alt="add_image" />
+                    <Image
+                      src={'/assets/onBoarding/addImage2.svg'}
+                      width={46}
+                      height={46}
+                      alt="add_image"
+                      className="rounded-full"
+                    />
                   )}
 
-                  <div className="flex flex-col items-start justify-center gap-[0.12rem]">
-                    <span className="text-sm font-semibold text-[#2563EB]">{basicData?.teamName}</span>
-                    <div className="flex">
-                      <span className="text-xs text-grey60">분야 | {basicData?.sectorName}</span>
-                      <span className="text-xs text-grey60">규모 | {basicData?.sizeType}</span>
+                  <div className="flex flex-col items-start justify-center gap-1">
+                    <span className="text-xs font-semibold text-grey70">{basicData?.teamName}</span>
+                    <div className="flex text-xs text-grey60">
+                      <span className="">분야 | {basicData?.sectorName}</span>
+                      <span className="">규모 | {basicData?.sizeType}</span>
                     </div>
                   </div>
                 </div>
@@ -167,14 +161,14 @@ export default function TeamProfile() {
             </div>
 
             {/* right */}
-            <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-11 lg:w-[30.7rem]">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-[3.44rem] lg:w-[30.7rem]">
               {/* 제목 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
                   제목을 입력해주세요 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
                 <Controller
-                  name="profileTitle"
+                  name="teamProfileTitle"
                   control={control}
                   render={({ field }) => (
                     <input
@@ -187,103 +181,10 @@ export default function TeamProfile() {
                 />
               </div>
 
-              {/* 프로필 업로드 기간 */}
-              <div className="flex flex-col">
-                <span className="font-semibold text-grey100">
-                  공고 업로드 기간 <span className="font-sm text-[#FF345F]">*</span>
-                </span>
-                <div className="mt-[1.19rem] flex flex-col items-start gap-3 lg:flex-row lg:items-center">
-                  <div className="flex gap-2">
-                    <Controller
-                      name="year"
-                      control={control}
-                      render={({ field }) => (
-                        <input
-                          {...field}
-                          type="number"
-                          className="h-8 w-[5.5rem] rounded border border-grey30 px-[0.88rem] text-center"
-                          value={field.value || ''}
-                        />
-                      )}
-                    />
-                    <Controller
-                      name="month"
-                      control={control}
-                      render={({ field }) => (
-                        <select {...field} className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60">
-                          <option value="">월</option>
-                          {[...Array(12).keys()].map((month) => (
-                            <option key={month + 1} value={month + 1}>
-                              {month + 1}월
-                            </option>
-                          ))}
-                        </select>
-                      )}
-                    />
-                    <Controller
-                      name="day"
-                      control={control}
-                      render={({ field }) => (
-                        <select {...field} className="h-8 w-[5.5rem] rounded border border-grey30 text-grey60">
-                          <option value="">일</option>
-                          {[...Array(31).keys()].map((d) => (
-                            <option key={d + 1} value={d + 1}>
-                              {d + 1}일
-                            </option>
-                          ))}
-                        </select>
-                      )}
-                    />
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <label className="flex items-center">
-                      <input
-                        type="radio"
-                        name="uploadStatus"
-                        value="completed"
-                        className="form-radio text-blue-500"
-                        defaultChecked
-                        onChange={handleUploadStatusChange}
-                      />
-                      <span className="ml-2 text-grey60">마감있음</span>
-                    </label>
-                    <label className="flex items-center">
-                      <input
-                        type="radio"
-                        name="uploadStatus"
-                        value="continuous"
-                        className="form-radio text-blue-500"
-                        onChange={handleUploadStatusChange}
-                      />
-                      <span className="ml-2 text-grey60">계속 업로드</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              {/* 프로필 이미지 */}
-              <div className="flex flex-col">
-                <div>
-                  <span className="font-semibold text-grey100">팀 로고</span>
-                  <span className="font-sm pl-3 text-grey80">추천 사이즈: 512 x 512 px / JPG, PNG, 최대 2MB</span>
-                </div>
-                <div className="flex items-end gap-[1.19rem] pt-[1.19rem]">
-                  {profileImageUrl ? (
-                    <Image src={profileImageUrl} width={125} height={125} alt="profile_image" className="rounded-3xl" />
-                  ) : (
-                    <Image src={'/assets/onBoarding/addImage.svg'} width={125} height={125} alt="add_image" />
-                  )}
-                  <label className="font-sm flex h-[2rem] cursor-pointer items-center rounded-md bg-[#4D82F3] px-[0.88rem] text-[#fff]">
-                    이미지 업로드
-                    <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
-                  </label>
-                </div>
-              </div>
-
               {/* 나의 가치 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  팀을 홍보할 수 있는 항목을 써주세요 <span className="font-sm text-[#FF345F]">*</span>
+                  팀을 소개하는 키워드를 3개 이내로 작성해주세요 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
 
                 {/* contents */}
@@ -319,12 +220,73 @@ export default function TeamProfile() {
                         className="flex-1 rounded border border-grey40 p-2"
                         value={inputValue}
                         onChange={handleInputChange}
-                        onClick={handleAddSkill}
                         onKeyPress={handleKeyPress}
                         placeholder="ex. Notion"
                       />
-                      <button className="rounded bg-[#2563EB] px-4 py-2 text-sm text-[#fff]">추가</button>
+                      <button
+                        onClick={handleAddSkill}
+                        className="rounded bg-[#2563EB] px-4 py-2 text-sm text-[#fff]"
+                        disabled={skills.length >= 3}
+                      >
+                        추가
+                      </button>
                     </div>
+                    {skills.length >= 3 && (
+                      <span className="text-red-500 text-sm">최대 3개의 항목만 추가할 수 있습니다.</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* 프로필 이미지 */}
+              <div className="flex flex-col">
+                <div>
+                  <span className="font-semibold text-grey100">팀 로고</span>
+                  <span className="font-sm pl-3 text-grey80">추천 사이즈: 512 x 512 px / JPG, PNG, 최대 2MB</span>
+                </div>
+                <div className="flex items-end gap-[1.19rem] pt-[1.19rem]">
+                  {profileImageUrl ? (
+                    <Image src={profileImageUrl} width={125} height={125} alt="profile_image" className="rounded-3xl" />
+                  ) : (
+                    <Image src={'/assets/onBoarding/addImage.svg'} width={125} height={125} alt="add_image" />
+                  )}
+                  <label className="font-sm flex h-[2rem] cursor-pointer items-center rounded-md bg-[#4D82F3] px-[0.88rem] text-[#fff]">
+                    이미지 업로드
+                    <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+                  </label>
+                </div>
+              </div>
+
+              {/* 프로필 활성화 */}
+              <div className="flex flex-col gap-[1.2rem]">
+                <p className="font-semibold text-grey100">다른 사람들이 볼 수 있도록 프로필을 게시할까요?</p>
+                <div className="flex gap-[1.19rem]">
+                  <div className="flex gap-2">
+                    <input
+                      type="radio"
+                      id="active"
+                      name="uploadStatus"
+                      value="활성화"
+                      checked={isTeamActivate === true}
+                      onChange={handleUploadStatusChange}
+                    />
+                    <label htmlFor="active" className=" text-grey60">
+                      활성화
+                    </label>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <input
+                      type="radio"
+                      id="inactive"
+                      name="uploadStatus"
+                      value="비활성화"
+                      checked={isTeamActivate === false}
+                      onChange={handleUploadStatusChange}
+                    />
+                    <label htmlFor="inactive" className=" text-grey60">
+                      비활성화
+                    </label>
                   </div>
                 </div>
               </div>
@@ -332,7 +294,7 @@ export default function TeamProfile() {
               {/* Footer */}
               <div className="fixed bottom-0 left-0 w-full bg-[#fff] shadow-soft-shadow">
                 <div className="flex justify-center p-4 lg:justify-end lg:pr-96">
-                  <Link href="/onBoarding/team/member">
+                  <Link href="/onBoarding/team/activityWay">
                     <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-12 py-2 lg:px-16">
                       이전
                     </button>

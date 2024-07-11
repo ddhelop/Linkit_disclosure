@@ -60,7 +60,7 @@ export async function OnBoardingPrivateData(data: IFormData, accessToken: string
     }),
     credentials: 'include', // 쿠키를 포함시키기 위해 필요
   })
-  return response.json()
+  return response
 }
 
 // 내 온보딩 데이터 전체조회 - 내 이력서

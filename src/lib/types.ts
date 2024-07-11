@@ -161,19 +161,16 @@ export interface MyResumNavProps {
 }
 
 export interface FormInputs {
-  profileTitle: string
+  teamProfileTitle: string
   teamKeywordNames: string
   skills: string
-  year: string
-  month: string
-  day: string
+  isTeamActivate: boolean
   profileImage?: FileList
 }
 
 export interface ApiPayload {
   teamProfileTitle: string
-  teamUploadPeriod: string
-  teamUploadDeadline: boolean
+  isTeamActivate: boolean
   teamKeywordNames: string[]
 }
 
