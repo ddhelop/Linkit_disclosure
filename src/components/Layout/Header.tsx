@@ -37,26 +37,33 @@ export default function Header() {
 
   useEffect(() => {
     if (hiddenPaths.includes(pathname)) return
-
     if (!token || token === 'undefined') return
 
     RefreshAccessToken(token)
       .then((response) => {
-        if (!response.existMemberBasicInform) {
+        if (response.existMemberBasicInform === false) {
           router.push('/onBoarding')
-        } else if (!response.existDefaultProfile) {
+        } else if (response.existDefaultProfile === false) {
           router.push('/onBoarding/select')
         }
 
-        if (response.accessToken) {
+        if (response.existMemberBasicInform && response.existDefaultProfile) {
           setToken(response.accessToken)
           setIsAuth(true)
+        }
+
+        if (response.code === 9103) {
+          alert('세션이 만료되었습니다. 다시 로그인해주세요.')
+          setIsAuth(false)
+          setToken(null)
+          router.push('/')
         }
       })
       .catch((error) => {
         console.log(error)
         if (error.code === 9103) {
           alert('세션이 만료되었습니다. 다시 로그인해주세요.')
+          setIsAuth(false)
           router.push('/')
         }
       })
