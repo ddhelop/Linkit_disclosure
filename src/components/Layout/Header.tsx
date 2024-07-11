@@ -44,9 +44,7 @@ export default function Header() {
       .then((response) => {
         if (!response.existMemberBasicInform) {
           router.push('/onBoarding')
-        }
-
-        if (!response.existDefaultProfile) {
+        } else if (!response.existDefaultProfile) {
           router.push('/onBoarding/select')
         }
 

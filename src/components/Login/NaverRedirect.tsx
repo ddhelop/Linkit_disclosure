@@ -31,13 +31,10 @@ const NaverRedirect: React.FC = () => {
           setToEmail(responseData.email)
 
           if (responseData.existMemberBasicInform === true && responseData.existDefaultProfile === true) {
-            setIsAuth(true)
             router.push('/')
           } else if (responseData.existMemberBasicInform === true && responseData.existDefaultProfile === false) {
-            setIsAuth(false)
             router.push(`/onBoarding/select`)
           } else {
-            setIsAuth(false)
             router.push(`/onBoarding`)
           }
         }

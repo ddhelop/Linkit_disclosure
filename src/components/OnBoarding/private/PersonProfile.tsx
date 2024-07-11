@@ -127,7 +127,7 @@ export default function RegisterPersonProfile() {
   return (
     <>
       <div className="flex w-full flex-col items-center bg-[#fff] p-4 pb-20">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col items-center lg:w-[901px] lg:py-20">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col items-center lg:w-[988px] lg:py-20">
           <div className="flex w-full flex-col items-start leading-9">
             <span className="text-sm font-medium leading-9 text-grey60">내 이력서 가이드</span>
             <span className="text-2xl font-bold">내 이력서가 거의 완성되었어요</span>
@@ -175,7 +175,7 @@ export default function RegisterPersonProfile() {
               {/* 제목 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  나의 프로필 제목을 입력해주세요 <span className="font-sm text-[#FF345F]">*</span>
+                  나를 소개하는 프로필 제목을 입력해주세요 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
                 <input
                   className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
@@ -187,7 +187,7 @@ export default function RegisterPersonProfile() {
               {/* 스킬셋 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  나를 소개할 수 있는 항목을 소개해주세요 <span className="font-sm text-[#FF345F]">*</span>
+                  나를 소개하는 키워드를 3개 이내로 작성해주세요 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
 
                 {/* contents */}
