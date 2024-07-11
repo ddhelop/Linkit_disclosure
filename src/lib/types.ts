@@ -52,6 +52,7 @@ export interface MiniProfileResponse {
   miniProfileImg: string
   myValue: string
   skillSets: string
+  memberName: string
   myKeywordNames: string[]
 }
 

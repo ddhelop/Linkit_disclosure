@@ -3,7 +3,7 @@ import Link from 'next/link'
 import MyResumNav from './Nav/MyResumeNav'
 import ContentLayout from './Contents/ContentLayout'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+
 import { GetMyResume } from '@/lib/action'
 import { MyResumeResponse } from '@/lib/types'
 import { useRecoilValue } from 'recoil'
@@ -14,7 +14,6 @@ export default function MyResume() {
   const [data, setData] = useState<MyResumeResponse | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
-  const router = useRouter()
 
   // 이력서 데이터 가져오기
   useEffect(() => {
@@ -52,10 +51,10 @@ export default function MyResume() {
       {/* Header */}
       <div className="fixed flex h-[4rem] w-full items-center gap-[3.17rem] bg-white-alpha-50 px-[9.72rem] backdrop-blur-2xl">
         <Link href={'/myResume'}>
-          <span className="cursor-pointer border-b-4 border-[#2563EB] py-4 text-lg text-grey100">내 이력서</span>
+          <span className="cursor-pointer border-b-4 border-[#2563EB] py-4 text-grey100">내 이력서</span>
         </Link>
         <Link href={'/TeamResume'}>
-          <span className="cursor-pointer text-lg text-grey100 opacity-50">팀 소개서</span>
+          <span className="cursor-pointer text-grey100 opacity-50">팀 소개서</span>
         </Link>
       </div>
 
