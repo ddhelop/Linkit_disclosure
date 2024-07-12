@@ -56,8 +56,27 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
       {/* contents */}
       {awards.length === 0 && !isAdding && <div className="pt-[0.94rem] text-grey50">수상이력이 없습니다.</div>}
 
+      {awards.length > 0 && (
+        <div className="mt-6">
+          {awards.map((award, index) => (
+            <div key={index} className="mt-4 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6">
+              <div className="flex justify-between">
+                <div className="flex flex-col">
+                  <span className="font-semibold">{award.awardsName}</span>
+                  <span className="pt-2 text-sm text-grey60">{award.organizer}</span>
+                  <span className="text-xs text-grey50">
+                    {award.awardsYear}년 {award.awardsMonth}월
+                  </span>
+                  <span className="pt-2 text-sm text-grey60">{award.awardsDescription}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       {isAdding ? (
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-6 rounded-[0.44rem] border border-grey40 bg-grey10 p-4">
           <div className="flex flex-col gap-4">
             <div className="flex gap-3">
               <div className="flex w-[49%] flex-col">
@@ -100,12 +119,12 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
               </label>
               <div className="flex gap-3">
                 <select
-                  className="select-with-padding-right mt-2 w-[17%] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm text-grey60"
+                  className="select-with-padding-right mt-2 w-[17%] rounded-[0.44rem] border border-grey30  px-[0.88rem] py-3 text-sm text-grey60"
                   {...register('awardsYear', { required: true, valueAsNumber: true })}
                 >
                   {[...Array(50).keys()].map((i) => (
-                    <option key={i} value={2022 - i}>
-                      {2022 - i}년
+                    <option key={i} value={2024 - i}>
+                      {2024 - i}년
                     </option>
                   ))}
                 </select>
@@ -147,26 +166,7 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
         </form>
       ) : null}
 
-      {awards.length > 0 && (
-        <div className="mt-6">
-          {awards.map((award, index) => (
-            <div key={index} className="mt-4 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6">
-              <div className="flex justify-between">
-                <div className="flex flex-col">
-                  <span className="font-semibold">{award.awardsName}</span>
-                  <span className="pt-2 text-sm text-grey60">{award.organizer}</span>
-                  <span className="text-xs text-grey50">
-                    {award.awardsYear}년 {award.awardsMonth}월
-                  </span>
-                  <span className="pt-2 text-sm text-grey60">{award.awardsDescription}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      <div className="mt-6 flex w-full justify-end border-t border-grey30 pt-8">
+      <div className="mt-6 flex w-full justify-end  pt-8">
         <button onClick={() => setIsAdding(!isAdding)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
           {isAdding ? '닫기' : '추가하기'}
         </button>

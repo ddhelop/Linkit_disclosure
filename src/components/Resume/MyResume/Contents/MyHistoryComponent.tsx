@@ -1,6 +1,6 @@
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
-import { PostAntecedentData } from '@/lib/action'
+import { PostAntecedentData, PutAntecedentData } from '@/lib/action'
 import { AntecedentResponse } from '@/lib/types'
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
@@ -26,6 +26,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
   const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
   const [histories, setHistories] = useState<FormInputs[]>(() =>
     data?.map((item) => ({
+      id: item.id,
       projectName: item.projectName,
       projectRole: item.projectRole,
       startYear: item.startYear,
@@ -64,21 +65,26 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
       retirement: formData.retirement === true,
     }
 
-    let updatedHistories
     if (editingIndex !== null) {
-      updatedHistories = histories.map((history, index) => (index === editingIndex ? formattedData : history))
-      setEditingIndex(null)
+      const antecedentId = data[editingIndex].id
+      const response = await PutAntecedentData(accessToken, formattedData, antecedentId) // 수정 API 호출
+      if (response.ok) {
+        const updatedHistories = histories.map((history, index) => (index === editingIndex ? formattedData : history))
+        setHistories(updatedHistories)
+        setEditingIndex(null)
+        reset()
+        setIsAdding(false)
+        alert('수정이 완료되었습니다.')
+      }
     } else {
-      updatedHistories = [...histories, formattedData]
-    }
-
-    setHistories(updatedHistories)
-
-    const response = await PostAntecedentData(accessToken, updatedHistories) // 배열로 전달
-    if (response.ok) {
-      reset()
-      setIsAdding(false)
-      alert('수정이 완료되었습니다.')
+      const updatedHistories = [...histories, formattedData]
+      const response = await PostAntecedentData(accessToken, updatedHistories) // 추가 API 호출
+      if (response.ok) {
+        setHistories(updatedHistories)
+        reset()
+        setIsAdding(false)
+        alert('추가가 완료되었습니다.')
+      }
     }
   }
 

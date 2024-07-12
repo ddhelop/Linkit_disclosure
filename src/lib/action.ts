@@ -179,7 +179,7 @@ export async function PostAntecedentData(accessToken: string, careerList: Career
   })
 }
 
-// 내 온보딩 - 경력 단일 생성
+// 내 온보딩,이력서 - 경력 단일 생성
 export async function PostOneAntecedentData(accessToken: string, antecedent: AntecedentFormInputs) {
   return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/antecedent`, {
     method: 'POST',
@@ -192,7 +192,7 @@ export async function PostOneAntecedentData(accessToken: string, antecedent: Ant
   })
 }
 
-// 내 온보딩 - 경력 삭제
+// 내 온보딩,이력서 - 경력 삭제
 export async function DeleteAntecedentData(accessToken: string, antecedentsId: number) {
   return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/antecedents/${antecedentsId}`, {
     method: 'DELETE',
@@ -201,6 +201,19 @@ export async function DeleteAntecedentData(accessToken: string, antecedentsId: n
       Authorization: `Bearer ${accessToken}`,
     },
     credentials: 'include',
+  })
+}
+
+// 내 이력서 - 경력 수정
+export async function PutAntecedentData(accessToken: string, antecedent: AntecedentFormInputs, antecedentsId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/antecedents/${antecedentsId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify(antecedent), // 단일 객체로 전달
   })
 }
 

@@ -179,7 +179,7 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
             <button
               type="button"
               onClick={() => setIsEditing(false)}
-              className="bg-gray-500 h-10 rounded px-4 text-sm text-[#fff]"
+              className="h-10 rounded bg-grey50 px-4 text-sm text-[#fff]"
             >
               취소
             </button>

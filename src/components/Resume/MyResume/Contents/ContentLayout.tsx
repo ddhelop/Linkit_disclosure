@@ -31,7 +31,7 @@ export default function ContentLayout({ data }: MyResumContentsProps) {
       {/* 활동 지역/위치 컴포넌트 */}
       <MyLocationComponent data={data?.profileRegionResponse} />
 
-      {/* 이력 */}
+      {/* 경력 */}
       <MyHistoryComponent data={data?.antecedentsResponse} />
 
       {/* 학력 */}
