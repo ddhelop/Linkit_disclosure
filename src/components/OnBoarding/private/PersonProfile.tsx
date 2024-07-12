@@ -22,6 +22,11 @@ export default function RegisterPersonProfile() {
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null)
   const accessToken = useRecoilState(accessTokenState)[0] || ''
   const [uploadDeadline, setUploadDeadline] = useState<boolean>(true)
+
+  // 이름, 역할 항목
+  const [memberName, setMemberName] = useState<string>('')
+  const [role, setRole] = useState<string[]>([])
+
   const router = useRouter()
 
   // 소개 항목
@@ -73,10 +78,13 @@ export default function RegisterPersonProfile() {
 
         if (response.miniProfileResponse) {
           const { profileTitle, isActivate, memberName, myKeywordNames, miniProfileImg } = response.miniProfileResponse
+          const {} = response.jobAndSkillResponse
 
           setValue('profileTitle', profileTitle)
           setValue('isActivate', isActivate)
           setValue('memberName', memberName)
+          setMemberName(memberName)
+          setRole(response.jobAndSkillResponse.jobRoleNames || [])
 
           setSkills(myKeywordNames || [])
 
@@ -163,8 +171,8 @@ export default function RegisterPersonProfile() {
                     )}
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span className="text-xs font-semibold text-grey70">유나</span>
-                    <span className="text-xs text-grey60">{watch('skillSets') || '기획, AI 엔지니어, LLM'}</span>
+                    <span className="text-xs font-semibold text-grey70">{memberName}</span>
+                    <span className="text-xs text-grey60">{role.join(', ')}</span>
                   </div>
                 </div>
               </div>
