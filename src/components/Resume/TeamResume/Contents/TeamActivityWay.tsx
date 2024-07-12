@@ -1,31 +1,51 @@
 'use client'
+import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileTeamBuildingField, PostTeamBuildingField } from '@/lib/action'
 import { addressData } from '@/lib/addressSelectData'
-import { TeamProfileTeamBuildingFieldResponse } from '@/lib/types'
+import { ActivityResponse, TeamProfileTeamBuildingFieldResponse } from '@/lib/types'
+import Image from 'next/image'
 
 import { useState, useEffect, ChangeEvent } from 'react'
+import { useRecoilValue } from 'recoil'
 
 interface TeamResumTeamBuildingProps {
-  data: TeamProfileTeamBuildingFieldResponse
+  data: ActivityResponse
 }
 
-export default function TeamActivityWay() {
+export default function TeamActivityWay({ data }: TeamResumTeamBuildingProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
-  const [options, setOptions] = useState(['오피스 있음', '주 1회 회의', '비대면 활동', '활동방식', '활동방식'])
+  const [options, setOptions] = useState([
+    '사무실 있음',
+    '사무실 없음',
+    '대면 활동 선호',
+    '비대면 활동 선호',
+    '대면+비대면',
+  ])
   const [selectedCity, setSelectedCity] = useState('')
   const [selectedDistrict, setSelectedDistrict] = useState('')
+  const accessToken = useRecoilValue(accessTokenState) || ''
+
+  useEffect(() => {
+    if (isEditing) {
+      setSelectedOptions(data.activityTagName || [])
+      setSelectedCity(data.cityName || '')
+      setSelectedDistrict(data.divisionName || '')
+      setOptions((prevOptions) => prevOptions.filter((option) => !data.activityTagName.includes(option)))
+    }
+  }, [isEditing, data])
 
   const handleEditClick = () => {
     setIsEditing(true)
   }
 
   const handleSaveClick = async () => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const response = await PostTeamBuildingField(accessToken, selectedOptions)
     if (response.ok) {
       alert('수정이 완료되었습니다.')
       setIsEditing(false)
+      // 옵션 초기화
+      setOptions(['사무실 있음', '사무실 없음', '대면 활동 선호', '비대면 활동 선호', '대면+비대면'])
     }
   }
 
@@ -58,7 +78,7 @@ export default function TeamActivityWay() {
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">희망 팀빌딩 분야</span>
+        <span className="text-lg font-semibold text-grey100">활동 방식</span>
         {isEditing && <span className="text-sm text-[#2563EB]">Tip : 현재 팀의 활동 방식에 대해 소개해주세요!</span>}
       </div>
 
@@ -135,13 +155,26 @@ export default function TeamActivityWay() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-wrap gap-2 pt-[1.56rem]">
-          {selectedOptions?.map((option, index) => (
-            <div key={index} className="flex items-center rounded-lg border border-grey40 px-3 py-1">
-              <span className="text-grey60">{option}</span>
+        <>
+          {/* 활동 방식 */}
+          <div className="flex w-full gap-x-2 pt-4">
+            {data?.activityTagName.map((tag, index) => (
+              <span key={index} className="w-auto rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-grey60">
+                {tag}
+              </span>
+            ))}
+          </div>
+          {/* 활동 지역/위치 */}
+          <div className="flex flex-col pt-[2.19rem]">
+            <p className="text-lg font-semibold">활동지역/위치</p>
+            <div className="flex gap-[0.38rem] pt-4">
+              <Image src="/assets/icons/location.svg" width={24} height={24} alt="location" />
+              <p>
+                {data?.cityName}, {data?.divisionName}
+              </p>
             </div>
-          ))}
-        </div>
+          </div>
+        </>
       )}
 
       {/* button */}

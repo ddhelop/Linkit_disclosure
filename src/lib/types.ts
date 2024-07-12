@@ -335,3 +335,11 @@ export interface AntecedentFormInputs {
   endMonth: number
   retirement: boolean
 }
+
+// 팀소개서 - 팀원 공고 데이터 셋
+export interface TeamAnnouncementMemberInterface {
+  jobRoleNames: string[]
+  mainBusiness: string
+  skillNames: string[]
+  applicationProcess: string
+}

@@ -22,7 +22,7 @@ export default function TeamContentLayout({ data }: TeamResumContentsProps) {
       <TeamMemberAnouncement />
 
       {/* 활동 방식 */}
-      <TeamActivityWay />
+      <TeamActivityWay data={data?.activityResponse} />
 
       {/* 팀 소개 */}
       <TeamIntroduce data={data?.teamProfileIntroductionResponse} />

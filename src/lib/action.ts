@@ -1,15 +1,14 @@
-import { SchoolFormInputs } from '@/components/OnBoarding/private/RegisterSchool'
 import {
   AntecedentFormInputs,
   ApiPayload,
   AwardFormInputs,
   Career,
   Education,
-  FormInputs,
   IFormData,
   OneSchoolFormInputs,
   PostTeamMemberData,
   PostTeamProfileResponse,
+  TeamAnnouncementMemberInterface,
   TeamMemberData,
   TeamOnBoadingFieldFormInputs,
   TeamOnBoardingActivityWayFormInputs,
@@ -399,6 +398,19 @@ export async function PostTeamIntroduction(accessToken: string, introduction: st
 // 팀 이력서 - 팀원 소개 작성 POST
 export async function PostTeamMember(accessToken: string, data: TeamMemberData[]) {
   return await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/members`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(data),
+    credentials: 'include',
+  })
+}
+
+// 팀 이력서 - 팀원 공고 작성
+export async function PostTeamMemberAnnouncement(accessToken: string, data: TeamAnnouncementMemberInterface) {
+  return await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/members/announcements`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

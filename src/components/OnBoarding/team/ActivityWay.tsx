@@ -9,7 +9,7 @@ import { TeamOnBoardingActivityWayFormInputs } from '@/lib/types'
 import { accessTokenState } from '@/context/recoil-context'
 import { useRecoilValue } from 'recoil'
 
-const ShortTerm = ['사무실 있음', '사무실 없음', '대면 활동 선호', '대면 + 비대면']
+const ShortTerm = ['사무실 있음', '사무실 없음', '대면 활동 선호', '비대면 활동 선호', '대면 + 비대면']
 
 export default function ActivityWay() {
   const router = useRouter()
@@ -88,7 +88,7 @@ export default function ActivityWay() {
   const isNextButtonEnabled = selectedShortTermFields.length > 0 && selectedArea && selectedSubArea
 
   return (
-    <div className="bg-[#FCFCFD]">
+    <div className="h-screen bg-[#FFF]">
       <div className="flex w-full flex-col lg:py-[69px]">
         <div className="flex w-full flex-col items-center pb-24 pt-16">
           <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
@@ -133,7 +133,7 @@ export default function ActivityWay() {
                 <select
                   value={selectedArea}
                   onChange={handleAreaChange}
-                  className="mt-5 rounded-md border px-2 py-3 text-grey60"
+                  className="mt-5 rounded-md border border-grey40 px-2 py-3 text-grey60"
                 >
                   <option value="">지역을 선택해주세요</option>
                   {addressData.map((area) => (
@@ -151,7 +151,7 @@ export default function ActivityWay() {
                 <select
                   value={selectedSubArea}
                   onChange={handleSubAreaChange}
-                  className="mt-5 rounded-md border px-2 py-3 text-grey60"
+                  className="mt-5 rounded-md border border-grey40 px-2 py-3 text-grey60"
                 >
                   <option value="">시,군,구를 선택해주세요</option>
                   {subAreas.map((subArea) => (
