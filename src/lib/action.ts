@@ -9,6 +9,7 @@ import {
   PostTeamMemberData,
   PostTeamProfileResponse,
   TeamAnnouncementMemberInterface,
+  TeamHistoryDataSet,
   TeamMemberData,
   TeamOnBoadingFieldFormInputs,
   TeamOnBoardingActivityWayFormInputs,
@@ -411,6 +412,19 @@ export async function PostTeamMember(accessToken: string, data: TeamMemberData[]
 // 팀 이력서 - 팀원 공고 작성
 export async function PostTeamMemberAnnouncement(accessToken: string, data: TeamAnnouncementMemberInterface) {
   return await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/members/announcements`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(data),
+    credentials: 'include',
+  })
+}
+
+// 팀 이력서 - 팀 연혁 작성
+export async function PostTeamHistory(accessToken: string, data: TeamHistoryDataSet) {
+  return await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/history`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

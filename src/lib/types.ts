@@ -343,3 +343,12 @@ export interface TeamAnnouncementMemberInterface {
   skillNames: string[]
   applicationProcess: string
 }
+
+// 팀 소개서- 팀 연혁 데이터 셋
+export interface TeamHistoryDataSet {
+  historyOneLineIntroduction: string
+  startYear: number
+  endYear: number | null
+  inProgress: boolean
+  historyIntroduction: string
+}

@@ -5,7 +5,6 @@ import TeamActivityWay from './TeamActivityWay'
 import TeamIntroduce from './TeamIntroduce'
 import TeamMember from './TeamMember'
 import { TeamIntroductionResponse } from '@/lib/types'
-import TeamResumeHistory from './TeamResumeHistory'
 
 interface TeamResumContentsProps {
   data: TeamIntroductionResponse
@@ -23,16 +22,13 @@ export default function TeamContentLayout({ data }: TeamResumContentsProps) {
       <TeamMemberAnouncement />
 
       {/* 활동 방식 */}
-      <TeamActivityWay data={data?.activityResponse} />
+      <TeamActivityWay />
 
       {/* 팀 소개 */}
       <TeamIntroduce data={data?.teamProfileIntroductionResponse} />
 
       {/* 팀원 소개 */}
       <TeamMember data={data?.teamMemberIntroductionResponses} />
-
-      {/* 팀 연혁 */}
-      <TeamResumeHistory data={data?.historyResponses} />
     </div>
   )
 }
