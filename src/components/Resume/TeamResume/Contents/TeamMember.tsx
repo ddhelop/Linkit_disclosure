@@ -12,25 +12,24 @@ interface TeamMemberProps {
 }
 
 export default function TeamMember({ data }: TeamMemberProps) {
-  const [isFormVisible, setIsFormVisible] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
   const [teamMembers, setTeamMembers] = useState<TeamMemberData[]>(Array.isArray(data) ? data : [])
   const { register, handleSubmit, reset } = useForm<TeamMemberData>()
   const accessToken = useRecoilValue(accessTokenState) || ''
 
-  const handleFormSubmit: SubmitHandler<TeamMemberData> = (formData) => {
+  const handleFormSubmit: SubmitHandler<TeamMemberData> = async (formData) => {
     const newMember: TeamMemberData = {
       teamMemberName: formData.teamMemberName,
       teamMemberRole: formData.teamMemberRole,
       teamMemberIntroductionText: formData.teamMemberIntroductionText,
     }
-    setTeamMembers([...teamMembers, newMember])
-    reset()
-    setIsFormVisible(false)
-  }
 
-  const handleSaveClick = async () => {
+    setTeamMembers([...teamMembers, newMember])
+    setIsEditing(false)
+    reset()
+
     try {
-      const response = await PostTeamMember(accessToken, teamMembers)
+      const response = await PostTeamMember(accessToken, [...teamMembers, newMember])
       if (response.ok) {
         alert('저장되었습니다.')
       } else {
@@ -42,8 +41,6 @@ export default function TeamMember({ data }: TeamMemberProps) {
     }
   }
 
-  const handleEditClick = () => setIsFormVisible(true)
-
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
@@ -51,76 +48,87 @@ export default function TeamMember({ data }: TeamMemberProps) {
         <span className="text-lg font-semibold text-grey100">팀원 소개</span>
       </div>
 
-      {teamMembers.map((member, index) => (
-        <div key={index} className="mt-[0.94rem] flex items-center justify-between border border-grey30 p-5">
-          <div className="flex flex-col">
-            <p className="text-sm text-grey60">(주)링킷</p>
-            <p className="pt-[0.44rem]">
-              {member.teamMemberName} | {member.teamMemberRole}
-            </p>
-            <div className="flex pt-[0.44rem]">
-              <div className="text-sm text-grey60">{member.teamMemberIntroductionText}</div>
+      {teamMembers.length > 0
+        ? teamMembers.map((member, index) => (
+            <div key={index} className="mt-[0.94rem] flex items-center justify-between border border-grey30 p-5">
+              <div className="flex flex-col">
+                <p className="text-sm text-grey60">(주)링킷</p>
+                <p className="pt-[0.44rem]">
+                  {member.teamMemberName} | {member.teamMemberRole}
+                </p>
+                <div className="flex pt-[0.44rem]">
+                  <div className="text-sm text-grey60">{member.teamMemberIntroductionText}</div>
+                </div>
+              </div>
+              <div className="flex">
+                <Image src="/assets/icons/pencil.svg" width={27} height={27} alt="edit" className="cursor-pointer" />
+                <Image src="/assets/icons/delete.svg" width={27} height={27} alt="delete" className="cursor-pointer" />
+              </div>
             </div>
-          </div>
-          <div className="flex">
-            <Image src="/assets/icons/pencil.svg" width={27} height={27} alt="edit" className="cursor-pointer" />
-            <Image src="/assets/icons/delete.svg" width={27} height={27} alt="delete" className="cursor-pointer" />
-          </div>
-        </div>
-      ))}
+          ))
+        : !isEditing && <div className="pt-4 text-grey60">팀원을 등록하지 않았어요.</div>}
 
-      {isFormVisible && (
+      {isEditing ? (
         <form
           onSubmit={handleSubmit(handleFormSubmit)}
-          className="mt-[1.56rem] flex w-full flex-col gap-[0.81rem] rounded-2xl border border-[#2563EB] p-6"
+          className="mb-4 mt-[1.56rem] flex flex-col gap-[0.81rem] rounded-lg border border-grey40 bg-grey10 p-3"
         >
-          <div className="flex gap-4">
-            <div>
-              <label className="block text-sm font-normal text-grey100">이름 *</label>
+          {/* 이름 */}
+          <div className="flex gap-[0.81rem]">
+            <div className="flex flex-col gap-2">
+              <p className="text-sm font-normal">이름</p>
               <input
-                type="text"
-                {...register('teamMemberName', { required: true })}
-                className="mt-2 rounded-md border border-grey50 px-[0.88rem] py-[0.25rem] shadow-sm placeholder:text-sm focus:outline-none"
-                placeholder="예: 주서영"
+                {...register('teamMemberName')}
+                className="w-[13.25rem] rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 outline-none"
+                placeholder="이름"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-grey100">직무/역할 *</label>
+            {/* 직무/역할 */}
+            <div className="flex flex-col gap-2">
+              <p className="text-sm font-normal">직무/역할</p>
               <input
-                type="text"
-                {...register('teamMemberRole', { required: true })}
-                className="mt-2 rounded-md border border-grey50 px-[0.88rem] py-[0.25rem] shadow-sm placeholder:text-sm focus:outline-none"
-                placeholder="예: 마케팅"
+                {...register('teamMemberRole')}
+                className="w-[13.25rem] rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 outline-none"
+                placeholder="직무/역할"
               />
             </div>
           </div>
 
-          <div className="mt-4">
-            <label className="text-grey100">팀원 소개 *</label>
+          {/* 팀원 소개 */}
+          <div className="flex flex-col gap-2">
+            <p className="text-sm font-normal">팀원 소개</p>
             <textarea
-              {...register('teamMemberIntroductionText', { required: true })}
-              className="mt-1 block w-full resize-none rounded-md border border-grey50 p-[0.62rem] shadow-sm focus:outline-none "
-              rows={3}
-              placeholder="예시: 어쩌고 저쩌고 어쩌고 저쩌고"
+              {...register('teamMemberIntroductionText')}
+              className="h-[6.25rem] w-full resize-none rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 outline-none"
+              placeholder="팀원 소개"
             />
           </div>
 
-          <div className="mt-4 flex justify-end">
-            <button type="submit" className="rounded bg-[#2563EB] px-4 py-2 text-[#fff]">
-              수정완료
+          <div className="flex w-full justify-end gap-2">
+            <button
+              className="rounded-[0.25rem] bg-grey60 px-4 py-2 text-[#fff]"
+              type="button"
+              onClick={() => setIsEditing(false)}
+            >
+              취소하기
+            </button>
+            <button className="rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]" type="submit">
+              저장하기
             </button>
           </div>
         </form>
+      ) : (
+        !isEditing && (
+          <div className="flex w-full justify-end gap-2">
+            <button
+              className="mt-3 rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]"
+              onClick={() => setIsEditing(true)}
+            >
+              추가하기
+            </button>
+          </div>
+        )
       )}
-
-      <div className="mt-4 flex justify-end pb-4">
-        <button onClick={handleEditClick} className="rounded bg-[#2563EB] px-4 py-2 text-[#fff]">
-          추가하기
-        </button>
-        <button onClick={handleSaveClick} className="ml-2 rounded bg-[#2563EB] px-4 py-2 text-[#fff]">
-          저장하기
-        </button>
-      </div>
     </div>
   )
 }
