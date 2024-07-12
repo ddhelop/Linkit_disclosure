@@ -1,6 +1,6 @@
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
-import { PostProfileIntroduction } from '@/lib/action'
+import { PostProfileIntroduction, PostTeamIntroduction } from '@/lib/action'
 import { TeamProfileIntroductionResponse } from '@/lib/types'
 import { ChangeEvent, useState } from 'react'
 import { useRecoilValue } from 'recoil'
@@ -11,7 +11,7 @@ interface TeamCompletionProps {
 
 export default function TeamIntroduce({ data }: TeamCompletionProps) {
   const [isEditing, setIsEditing] = useState(false)
-  const [introduction, setIntroduction] = useState(data.teamIntroduction || '')
+  const [teamIntroduction, setTeamIntroduction] = useState(data.teamIntroduction || '')
   const [charCount, setCharCount] = useState(data.teamIntroduction ? data.teamIntroduction.length : 0)
   const accessToken = useRecoilValue(accessTokenState) || ''
 
@@ -24,7 +24,7 @@ export default function TeamIntroduce({ data }: TeamCompletionProps) {
   }
 
   const saveIntroduction = async () => {
-    const response = await PostProfileIntroduction(accessToken, introduction)
+    const response = await PostTeamIntroduction(accessToken, teamIntroduction)
     if (response.ok) {
       alert('저장되었습니다.')
       setIsEditing(false)
@@ -36,14 +36,14 @@ export default function TeamIntroduce({ data }: TeamCompletionProps) {
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value
     if (value.length <= 300) {
-      setIntroduction(value)
+      setTeamIntroduction(value)
       setCharCount(value.length)
     }
   }
 
   const handleCancelClick = () => {
     setIsEditing(false)
-    setIntroduction(data.teamIntroduction || '')
+    setTeamIntroduction(data.teamIntroduction || '')
     setCharCount(data.teamIntroduction ? data.teamIntroduction.length : 0)
   }
 
@@ -64,14 +64,16 @@ export default function TeamIntroduce({ data }: TeamCompletionProps) {
             <textarea
               className="w-full resize-none rounded border border-grey30 p-4 text-[#000]"
               rows={4}
-              value={introduction}
+              value={teamIntroduction}
               onChange={handleInputChange}
               placeholder="팀소개를 입력해주세요..."
             ></textarea>
             <div className="text-right text-sm text-grey100">{charCount} / 300자</div>
           </div>
         ) : (
-          <span className={introduction ? 'text-[#000]' : 'text-grey50'}>{introduction || '팀소개가 없습니다.'}</span>
+          <span className={teamIntroduction ? 'text-[#000]' : 'text-grey50'}>
+            {teamIntroduction || '팀소개가 없습니다.'}
+          </span>
         )}
       </div>
 

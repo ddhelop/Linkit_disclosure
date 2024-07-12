@@ -383,14 +383,14 @@ export async function PostTeamBuildingField(accessToken: string, selectedShortTe
 }
 
 // 팀 이력서 - 팀 소개 작성 생성
-export async function PostTeamIntroduction(accessToken: string, introduction: string) {
+export async function PostTeamIntroduction(accessToken: string, teamIntroduction: string) {
   return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/introduction`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
-    body: JSON.stringify({ introduction }),
+    body: JSON.stringify({ teamIntroduction }),
     credentials: 'include',
   })
 }
