@@ -499,3 +499,17 @@ export async function GetTeams() {
 
   return await response.json()
 }
+
+// 개인 프로필 조회
+export async function GetPrivateData(accessToken: string, miniProfileId: number) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/browse/private/profile/${miniProfileId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  return await response.json()
+}

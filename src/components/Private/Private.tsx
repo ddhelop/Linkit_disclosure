@@ -1,10 +1,9 @@
 'use client'
 import Link from 'next/link'
-import MyResumNav from './Nav/PrivateNav'
-import ContentLayout from './Contents/PrivateContentLayout'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { GetMyResume } from '@/lib/action'
+import { usePathname } from 'next/navigation'
+
+import { GetPrivateData } from '@/lib/action'
 import { MyResumeResponse } from '@/lib/types'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
@@ -16,14 +15,16 @@ export default function Private() {
   const [data, setData] = useState<MyResumeResponse | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
-  const router = useRouter()
+  const pathname = usePathname()
+  const pathSegments = pathname.split('/')
+  const miniProfileId = pathSegments[pathSegments.length - 1]
 
   // 이력서 데이터 가져오기
   useEffect(() => {
-    if (accessToken) {
+    if (accessToken && miniProfileId) {
       const fetchData = async () => {
         try {
-          const result = await GetMyResume(accessToken)
+          const result = await GetPrivateData(accessToken, parseInt(miniProfileId, 10))
           setData(result)
         } catch (error) {
           setError(error as Error)
@@ -33,7 +34,7 @@ export default function Private() {
       }
       fetchData()
     }
-  }, [accessToken])
+  }, [accessToken, miniProfileId])
 
   if (loading) {
     return <div>Loading...</div>
