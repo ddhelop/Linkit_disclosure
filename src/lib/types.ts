@@ -254,6 +254,7 @@ export interface TeamIntroductionResponse {
 }
 
 export interface HistoryResponse {
+  id: number
   historyOneLineIntroduction: string
   startYear: number
   endYear: number
@@ -291,6 +292,7 @@ export interface TeamIntroductionResponse {
 }
 
 export interface TeamMemberData {
+  id: number
   teamMemberName: string
   teamMemberRole: string
   teamMemberIntroductionText: string

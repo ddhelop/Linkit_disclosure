@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { TeamMemberData } from '@/lib/types'
-import { PostTeamMember } from '@/lib/action'
+import { PostTeamMember, DeleteTeamMember } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 
@@ -19,9 +19,8 @@ export default function TeamMember({ data }: TeamMemberProps) {
 
   const handleFormSubmit: SubmitHandler<TeamMemberData> = async (formData) => {
     const newMember: TeamMemberData = {
-      teamMemberName: formData.teamMemberName,
-      teamMemberRole: formData.teamMemberRole,
-      teamMemberIntroductionText: formData.teamMemberIntroductionText,
+      ...formData,
+      id: teamMembers.length, // 임시 ID 할당
     }
 
     setTeamMembers([...teamMembers, newMember])
@@ -41,6 +40,23 @@ export default function TeamMember({ data }: TeamMemberProps) {
     }
   }
 
+  const handleDelete = async (id: number) => {
+    // 삭제 확인
+    const isConfirmed = window.confirm('정말로 삭제하시겠습니까?')
+    if (!isConfirmed) return
+
+    try {
+      const response = await DeleteTeamMember(accessToken, id)
+      if (response.ok) {
+        setTeamMembers((prevMembers) => prevMembers.filter((member) => member.id !== id))
+      } else {
+        console.error('Error:', response)
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
+
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
@@ -50,7 +66,7 @@ export default function TeamMember({ data }: TeamMemberProps) {
 
       {teamMembers.length > 0
         ? teamMembers.map((member, index) => (
-            <div key={index} className="mt-[0.94rem] flex items-center justify-between border border-grey30 p-5">
+            <div key={member.id} className="mt-[0.94rem] flex items-center justify-between border border-grey30 p-5">
               <div className="flex flex-col">
                 <p className="text-sm text-grey60">(주)링킷</p>
                 <p className="pt-[0.44rem]">
@@ -62,7 +78,14 @@ export default function TeamMember({ data }: TeamMemberProps) {
               </div>
               <div className="flex">
                 <Image src="/assets/icons/pencil.svg" width={27} height={27} alt="edit" className="cursor-pointer" />
-                <Image src="/assets/icons/delete.svg" width={27} height={27} alt="delete" className="cursor-pointer" />
+                <Image
+                  src="/assets/icons/delete.svg"
+                  width={27}
+                  height={27}
+                  alt="delete"
+                  className="cursor-pointer"
+                  onClick={() => handleDelete(member.id)}
+                />
               </div>
             </div>
           ))
