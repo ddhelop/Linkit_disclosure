@@ -37,9 +37,12 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
         alert('팀 연혁이 성공적으로 저장되었습니다.')
         setIsEditing(false)
 
+        const responseData = await response.json()
+
         // HistoryResponse 형식으로 변환
         const newHistoryResponse: HistoryResponse = {
           ...newData,
+          id: responseData.id, // Use the id from the response
           endYear: newData.endYear ?? newData.startYear, // endYear가 null이면 startYear로 설정 (임시 조치)
         }
 
@@ -136,10 +139,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
         <div className="flex w-full justify-end gap-2">
           {isEditing ? (
             <>
-              <button
-                className="bg-gray-400 rounded-[0.25rem] px-4 py-2 text-[#fff]"
-                onClick={() => setIsEditing(false)}
-              >
+              <button className="rounded-[0.25rem] bg-grey60 px-4 py-2 text-[#fff]" onClick={() => setIsEditing(false)}>
                 취소하기
               </button>
               <button className="rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]" onClick={handleSave}>
