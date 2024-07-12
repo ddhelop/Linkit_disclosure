@@ -12,7 +12,7 @@ interface TeamResumTeamBuildingProps {
   data: ActivityResponse
 }
 
-export default function TeamActivityWay({ data }: TeamResumTeamBuildingProps) {
+export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
   const [options, setOptions] = useState([

@@ -11,7 +11,7 @@ interface TeamMemberProps {
   data: TeamMemberData[]
 }
 
-export default function TeamMember({ data }: TeamMemberProps) {
+export default function TeamResumeMember({ data }: TeamMemberProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [teamMembers, setTeamMembers] = useState<TeamMemberData[]>(Array.isArray(data) ? data : [])
   const { register, handleSubmit, reset } = useForm<TeamMemberData>()

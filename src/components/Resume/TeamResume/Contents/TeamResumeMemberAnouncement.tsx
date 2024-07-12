@@ -6,7 +6,7 @@ import { accessTokenState } from '@/context/recoil-context'
 import { PostTeamMemberAnnouncement } from '@/lib/action'
 import { PostTeamMemberData, TeamAnnouncementMemberInterface, TeamMemberData } from '@/lib/types'
 
-export default function TeamMemberAnnouncement() {
+export default function TeamResumeMemberAnnouncement() {
   const accessToken = useRecoilValue(accessTokenState) || ''
   const [isFormVisible, setIsFormVisible] = useState(false)
   const [selectedRole, setSelectedRole] = useState<string[]>([])

@@ -9,7 +9,7 @@ interface TeamCompletionProps {
   data: TeamProfileIntroductionResponse
 }
 
-export default function TeamIntroduce({ data }: TeamCompletionProps) {
+export default function TeamResumeIntroduce({ data }: TeamCompletionProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [teamIntroduction, setTeamIntroduction] = useState(data.teamIntroduction || '')
   const [charCount, setCharCount] = useState(data.teamIntroduction ? data.teamIntroduction.length : 0)

@@ -9,7 +9,7 @@ interface MyResumURLProps {
   data: TeamAttachUrlResponse[]
 }
 
-export default function TeamAttachUrl({ data }: MyResumURLProps) {
+export default function TeamResumeAttachUrl({ data }: MyResumURLProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [links, setLinks] = useState<{ name: string; url: string }[]>([])
   const [editingLinks, setEditingLinks] = useState<{ name: string; url: string }[]>([{ name: '', url: '' }])

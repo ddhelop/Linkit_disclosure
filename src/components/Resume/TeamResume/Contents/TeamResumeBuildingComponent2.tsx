@@ -8,7 +8,7 @@ interface TeamResumTeamBuildingProps {
   data: TeamProfileTeamBuildingFieldResponse
 }
 
-export default function TeamBuildingComponent2({ data }: TeamResumTeamBuildingProps) {
+export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuildingProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
   const [options, setOptions] = useState(['해커톤', '공모전', '대회', '사이드 프로젝트', '포트폴리오'])
