@@ -6,6 +6,7 @@ import TeamIntroduce from './TeamIntroduce'
 import TeamMember from './TeamMember'
 import { TeamIntroductionResponse } from '@/lib/types'
 import TeamResumeHistory from './TeamResumeHistory'
+import TeamAttachUrl from './TeamAttachUrl'
 
 interface TeamResumContentsProps {
   data: TeamIntroductionResponse
@@ -33,6 +34,9 @@ export default function TeamContentLayout({ data }: TeamResumContentsProps) {
 
       {/* 팀 연혁 */}
       <TeamResumeHistory data={data?.historyResponses} />
+
+      {/* 팀 첨부 URL */}
+      <TeamAttachUrl data={data?.teamAttachResponse.teamAttachUrlResponseList} />
     </div>
   )
 }

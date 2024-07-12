@@ -193,6 +193,11 @@ export interface URLFormInputs {
   attachUrlPath: string
 }
 
+export interface TeamURLFormInputs {
+  teamAttachUrlName: string
+  teamAttachUrlPath: string
+}
+
 // 팀 프로필 데이터 전체 조회
 export interface TeamMiniProfileResponse {
   sectorName: string

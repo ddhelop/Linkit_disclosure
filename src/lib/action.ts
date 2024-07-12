@@ -13,6 +13,7 @@ import {
   TeamMemberData,
   TeamOnBoadingFieldFormInputs,
   TeamOnBoardingActivityWayFormInputs,
+  TeamURLFormInputs,
   URLFormInputs,
 } from './types'
 
@@ -431,6 +432,19 @@ export async function PostTeamHistory(accessToken: string, data: TeamHistoryData
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(data),
+    credentials: 'include',
+  })
+}
+
+// 팀 이력서 - 첨부 URL POST
+export async function PostTeamAttchURL(accessToken: string, data: TeamURLFormInputs[]) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/attach/url`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(data), // 배열을 직접 변환
     credentials: 'include',
   })
 }
