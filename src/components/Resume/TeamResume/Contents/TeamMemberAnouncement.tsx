@@ -1,29 +1,75 @@
 'use client'
 import { ChangeEvent, KeyboardEvent, useState } from 'react'
 import Image from 'next/image'
+import { useRecoilValue } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
+import { PostTeamMemberAnnouncement } from '@/lib/action'
+import { PostTeamMemberData, TeamAnnouncementMemberInterface, TeamMemberData } from '@/lib/types'
 
 export default function TeamMemberAnnouncement() {
+  const accessToken = useRecoilValue(accessTokenState) || ''
   const [isFormVisible, setIsFormVisible] = useState(false)
-  const [selectedRole, setSelectedRole] = useState<string | null>(null)
+  const [selectedRole, setSelectedRole] = useState<string[]>([])
 
-  const handleButtonClick = () => {
-    alert('API 연결 필요')
+  const [skills, setSkills] = useState<string[]>([])
+  const [inputValue, setInputValue] = useState('')
+  const [mainBusiness, setMainBusiness] = useState('')
+  const [applicationProcess, setApplicationProcess] = useState('')
+
+  const handleButtonClick = async () => {
+    if (isFormVisible) {
+      if (selectedRole.length === 0 || skills.length === 0 || !mainBusiness || !applicationProcess) {
+        alert('모든 필수 항목을 입력해주세요.')
+        return
+      }
+
+      const TeamData: TeamAnnouncementMemberInterface = {
+        jobRoleNames: selectedRole,
+        mainBusiness: mainBusiness,
+        skillNames: skills,
+        applicationProcess: applicationProcess,
+      }
+
+      try {
+        const response = await PostTeamMemberAnnouncement(accessToken, TeamData)
+        if (response.ok) {
+          alert('팀원 공고가 성공적으로 저장되었습니다.')
+        } else {
+          alert('저장 중 오류가 발생했습니다.')
+        }
+      } catch (error) {
+        console.error('API 요청 실패:', error)
+        alert('저장 중 오류가 발생했습니다.')
+      }
+    }
+
     setIsFormVisible(!isFormVisible)
   }
 
   const handleRoleClick = (role: string) => {
-    setSelectedRole(role)
+    setSelectedRole((prevRoles) => {
+      if (prevRoles.includes(role)) {
+        return prevRoles.filter((r) => r !== role)
+      } else {
+        return [...prevRoles, role]
+      }
+    })
   }
-
-  const [skills, setSkills] = useState<string[]>([])
-  const [inputValue, setInputValue] = useState('')
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
   }
 
+  const handleMainBusinessChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setMainBusiness(event.target.value)
+  }
+
+  const handleApplicationProcessChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setApplicationProcess(event.target.value)
+  }
+
   const handleAddSkill = () => {
-    if (inputValue.trim() !== '') {
+    if (inputValue.trim() !== '' && skills.length < 3) {
       setSkills([...skills, inputValue.trim()])
       setInputValue('')
     }
@@ -35,15 +81,20 @@ export default function TeamMemberAnnouncement() {
 
   const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
+      event.preventDefault()
       handleAddSkill()
     }
   }
 
   return (
-    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
+    <div className="flex w-full flex-col gap-[0.94rem] rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
         <span className="text-lg font-semibold text-grey100">팀원 공고</span>
+      </div>
+
+      <div className="w-full text-sm ">
+        <span className="w-auto bg-grey10 px-[0.81rem] py-1">필요로 하는 팀원에 대한 공고 내용을 추가해주세요!</span>
       </div>
 
       {/* Form */}
@@ -59,7 +110,7 @@ export default function TeamMemberAnnouncement() {
                   <button
                     key={role}
                     className={`rounded border px-4 py-2 ${
-                      selectedRole === role
+                      selectedRole.includes(role)
                         ? 'bg-blue-500 border border-[#2563EB] bg-[#D3E1FE66] bg-opacity-40 font-semibold text-[#2563EB]'
                         : 'border-grey40 text-grey60'
                     }`}
@@ -79,12 +130,14 @@ export default function TeamMemberAnnouncement() {
                 className="mt-2 block w-full resize-none rounded-md border border-grey30 p-[0.56rem] text-grey50 shadow-sm"
                 rows={3}
                 placeholder="주요 업무"
+                value={mainBusiness}
+                onChange={handleMainBusinessChange}
               />
             </div>
 
             {/* 요구 기술 */}
             <label className="mt-8 flex font-normal text-grey100">
-              직무/역할 <p className="pl-1 font-normal text-[#2563EB]">*</p>
+              요구 기술 <p className="pl-1 font-normal text-[#2563EB]">*</p>
             </label>
             <div>
               {/* 버튼들 */}
@@ -134,11 +187,15 @@ export default function TeamMemberAnnouncement() {
                 className="mt-2 block w-full resize-none rounded-md border border-grey30 p-[0.56rem] text-grey50 shadow-sm"
                 rows={3}
                 placeholder="지원 절차"
+                value={applicationProcess}
+                onChange={handleApplicationProcessChange}
               />
             </div>
 
             <div className="mt-4 flex justify-end border-b border-grey30 pb-4">
-              <button className="text-white rounded bg-[#2563EB] px-4 py-2 text-[#fff]">저장하기</button>
+              <button onClick={handleButtonClick} className="text-white rounded bg-[#2563EB] px-4 py-2 text-[#fff]">
+                저장하기
+              </button>
             </div>
 
             <div className="flex  items-center justify-between border border-grey30 p-5">
@@ -164,7 +221,7 @@ export default function TeamMemberAnnouncement() {
       )}
 
       <button
-        onClick={handleButtonClick}
+        onClick={() => setIsFormVisible(!isFormVisible)}
         className="mt-[0.38rem] flex w-full items-center justify-center rounded-[0.63rem] border border-grey30 bg-grey20 py-[1.2rem]"
       >
         <Image src="/assets/icons/plus.svg" width={20} height={20} alt="plus" />
