@@ -1,7 +1,9 @@
 'use client'
+import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileIntroduction } from '@/lib/action'
 import { TeamProfileIntroductionResponse } from '@/lib/types'
 import { ChangeEvent, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 
 interface TeamCompletionProps {
   data: TeamProfileIntroductionResponse
@@ -11,6 +13,7 @@ export default function TeamIntroduce({ data }: TeamCompletionProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [introduction, setIntroduction] = useState(data.teamIntroduction || '')
   const [charCount, setCharCount] = useState(data.teamIntroduction ? data.teamIntroduction.length : 0)
+  const accessToken = useRecoilValue(accessTokenState) || ''
 
   const handleEditClick = () => {
     if (isEditing) {
@@ -21,7 +24,6 @@ export default function TeamIntroduce({ data }: TeamCompletionProps) {
   }
 
   const saveIntroduction = async () => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const response = await PostProfileIntroduction(accessToken, introduction)
     if (response.ok) {
       alert('저장되었습니다.')

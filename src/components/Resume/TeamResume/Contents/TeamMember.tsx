@@ -4,6 +4,8 @@ import Image from 'next/image'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { TeamMemberData } from '@/lib/types'
 import { PostTeamMember } from '@/lib/action'
+import { useRecoilValue } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
 
 interface TeamMemberProps {
   data: TeamMemberData[]
@@ -13,6 +15,7 @@ export default function TeamMember({ data }: TeamMemberProps) {
   const [isFormVisible, setIsFormVisible] = useState(false)
   const [teamMembers, setTeamMembers] = useState<TeamMemberData[]>(Array.isArray(data) ? data : [])
   const { register, handleSubmit, reset } = useForm<TeamMemberData>()
+  const accessToken = useRecoilValue(accessTokenState) || ''
 
   const handleFormSubmit: SubmitHandler<TeamMemberData> = (formData) => {
     const newMember: TeamMemberData = {
@@ -26,7 +29,6 @@ export default function TeamMember({ data }: TeamMemberProps) {
   }
 
   const handleSaveClick = async () => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     try {
       const response = await PostTeamMember(accessToken, teamMembers)
       if (response.ok) {
