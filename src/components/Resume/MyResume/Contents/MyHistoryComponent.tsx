@@ -23,7 +23,7 @@ interface MyResumAntecedentProps {
 }
 
 export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
-  const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
+  const { register, handleSubmit, reset, setValue, watch } = useForm<FormInputs>()
   const [histories, setHistories] = useState<FormInputs[]>(() =>
     data?.map((item) => ({
       id: item.id,
@@ -110,6 +110,8 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
     }
   }
 
+  const retirementValue = watch('retirement')
+
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
@@ -139,6 +141,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
                 width={27}
                 height={27}
                 alt="edit"
+                className="cursor-pointer"
               />
               <Image
                 onClick={() => handleDelete(index)}
@@ -146,6 +149,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
                 width={27}
                 height={27}
                 alt="delete"
+                className="cursor-pointer"
               />
             </div>
           </div>
@@ -223,13 +227,25 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
 
                 {/* input radio 재직중 */}
                 <div className="flex items-center">
-                  <input type="radio" id="current" value="false" {...register('retirement', { required: true })} />
+                  <input
+                    type="radio"
+                    id="current"
+                    value="false"
+                    {...register('retirement')}
+                    checked={retirementValue === false}
+                  />
                   <label htmlFor="current" className="text-sm text-grey100">
                     재직중
                   </label>
 
                   {/* radio 퇴직 */}
-                  <input type="radio" id="retired" value="true" {...register('retirement', { required: true })} />
+                  <input
+                    type="radio"
+                    id="retired"
+                    value="true"
+                    {...register('retirement')}
+                    checked={retirementValue === true}
+                  />
                   <label htmlFor="retired" className="text-sm text-grey100">
                     퇴직
                   </label>
@@ -256,7 +272,6 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
         </form>
       )}
 
-      {/* button */}
       {!isAdding && (
         <div className="mt-[0.94rem] flex w-full justify-end">
           <button onClick={() => setIsAdding(true)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
