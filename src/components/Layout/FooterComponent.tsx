@@ -6,7 +6,7 @@ export default function FooterComponent() {
   const router = useRouter()
 
   return (
-    <footer className="w-full px-8 pb-20 pt-56 text-sm font-medium text-grey100 lg:px-44">
+    <footer className="w-full px-8 py-20 text-sm font-medium text-grey100 lg:px-44">
       <Link href={'/'}>
         <Image src={'/assets/intro/footerLogo.svg'} width={121} height={23} alt="logo" className="w-24 lg:w-auto" />
       </Link>

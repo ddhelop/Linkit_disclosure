@@ -7,28 +7,16 @@ interface TeamMemberMiniProfileProps {
 }
 
 export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfileProps) {
-  const [dDay, setDDay] = useState<number | null>(null)
-
-  useEffect(() => {
-    const calculateDDay = () => {
-      const uploadDate = new Date(profile.uploadPeriod)
-      const currentDate = new Date()
-      const diffTime = uploadDate.getTime() - currentDate.getTime()
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-      setDDay(diffDays)
-    }
-
-    calculateDDay()
-  }, [profile.uploadPeriod])
+  console.log(profile)
   return (
-    <div className="flex h-[18.5rem] w-[23rem] flex-col gap-[2.69rem] rounded-[0.63rem] bg-[#fff] p-5">
+    <div className="flex w-[25rem] flex-col gap-[2rem] rounded-[0.63rem] bg-[#fff] p-5">
       <div className="flex w-full justify-between">
-        <p className="text-sm font-semibold text-[#2563EB]">{dDay !== null ? `D-${dDay}` : 'D-Loading...'}</p>
+        <div className="w-[80%] text-xl font-semibold leading-8 opacity-80">{profile.profileTitle}</div>
         <Image src="/assets/icons/saveIcon.svg" width={17} height={20} alt="save" className="cursor-pointer" />
       </div>
-      <div className="w-[80%] text-xl font-semibold leading-8 opacity-80">{profile.profileTitle}</div>
+
       <div className="flex flex-col">
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap gap-2">
           {profile.myKeywordNames.map((keyword, index) => (
             <div
               key={index}
@@ -48,7 +36,7 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
               className="rounded-full"
             />
             <div className="flex flex-col justify-center gap-1">
-              <p className="font-semibold text-grey70">이름</p>
+              <p className="font-semibold text-grey70">{profile.memberName}</p>
               <p className="text-sm text-grey60">역할1, 역할2</p>
             </div>
           </div>

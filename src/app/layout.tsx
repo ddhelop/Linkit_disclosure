@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
-      <body className={`${pretendard.className} bg-[#F6F8FC]`}>
+      <body className={`${pretendard.className} bg-[#fff]`}>
         <ClientProvider>
           <FetchSetting>
             <Header />

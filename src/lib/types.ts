@@ -305,6 +305,7 @@ export interface PostTeamMemberData {
 // 팀원 찾기 미니프로필
 export interface PrivateProfile {
   id: string
+  memberName: string
   miniProfileImg: string
   profileTitle: string
   myKeywordNames: string[]
