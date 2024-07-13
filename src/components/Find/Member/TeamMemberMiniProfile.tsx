@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PrivateProfile } from '@/lib/types'
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface TeamMemberMiniProfileProps {
   profile: PrivateProfile
@@ -40,7 +41,9 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
               <p className="text-sm text-grey60">역할1, 역할2</p>
             </div>
           </div>
-          <button className="rounded-[0.29rem] bg-grey100 px-7 py-[0.57rem] text-[#fff]">보기</button>
+          <Link href={`/private/${profile.id}`}>
+            <button className="rounded-[0.29rem] bg-grey100 px-7 py-[0.57rem] text-[#fff]">보기</button>
+          </Link>
         </div>
       </div>
     </div>
