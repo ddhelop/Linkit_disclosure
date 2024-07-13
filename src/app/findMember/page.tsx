@@ -14,9 +14,16 @@ export default function FindingMemberPage() {
       </div>
 
       <div className="flex w-full justify-center">
-        <div className="flex w-[66%] gap-[2.69rem] pt-[2.63rem]">
-          <FindMemberLeftNav />
-          <FindMember />
+        <div className="flex w-[68%] justify-start gap-[2.69rem] pt-[2.63rem]">
+          {/* 팀원 찾기 왼쪽 필터 */}
+          <div>
+            <FindMemberLeftNav />
+          </div>
+
+          {/* 팀원 프로필 리스트 */}
+          <div>
+            <FindMember />
+          </div>
         </div>
       </div>
     </div>
