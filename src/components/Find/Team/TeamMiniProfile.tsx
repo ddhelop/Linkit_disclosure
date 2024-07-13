@@ -1,74 +1,72 @@
 import { useEffect, useState } from 'react'
 import { TeamProfile } from '@/lib/types'
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface TeamMemberMiniProfileProps {
   profile: TeamProfile
 }
 
 export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps) {
-  const [dDay, setDDay] = useState<number | null>(null)
-
-  useEffect(() => {
-    const calculateDDay = () => {
-      if (typeof profile.teamUploadDeadline === 'string' || typeof profile.teamUploadDeadline === 'number') {
-        const uploadDate = new Date(profile.teamUploadDeadline)
-        const currentDate = new Date()
-        const diffTime = uploadDate.getTime() - currentDate.getTime()
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-        setDDay(diffDays)
-      } else {
-        setDDay(null) // teamUploadDeadline이 유효한 날짜가 아닌 경우
-      }
-    }
-
-    calculateDDay()
-  }, [profile.teamUploadDeadline])
+  console.log(profile)
 
   return (
-    <div className="flex h-[17.6rem] w-[41.5rem] flex-col rounded-[0.63rem] bg-[#fff] p-5">
-      <div className="flex w-full justify-between">
-        <p className="text-sm font-semibold text-[#2563EB]">{dDay !== null ? `D-${dDay}` : 'D-Loading...'}</p>
-        <Image src="/assets/icons/saveIcon.svg" width={17} height={20} alt="save" className="cursor-pointer" />
-      </div>
+    <div className="flex w-[42.5rem] flex-col rounded-[0.63rem] bg-[#fff] p-5">
+      <Link href={`/team/${profile.id}`}>
+        <div className="flex cursor-pointer flex-col rounded-lg p-2 hover:bg-grey10">
+          <div className="flex w-full items-center justify-between ">
+            <div className="flex items-center gap-2">
+              <Image
+                src={profile.teamLogoImageUrl || '/assets/images/DefaultProfile.png'}
+                width={34}
+                height={34}
+                alt="TeamLogo"
+                className="rounded-full"
+              />
 
-      <div className="w-[80%] pt-[0.42rem] text-xl font-semibold leading-8 opacity-80">{profile.miniProfileTitle}</div>
-
-      <div className="flex flex-col">
-        <div className="flex flex-wrap py-4">
-          {profile.teamKeywordNames.map((keyword, index) => (
-            <div
-              key={index}
-              className="rounded-[0.45rem] bg-[#D3E1FE33] bg-opacity-20 px-[0.57rem] py-1 text-[#2563EB]"
-            >
-              {keyword}
+              <p className="text-sm font-semibold text-[#2563EB]">{profile.teamName}</p>
+              <p className="pl-2 text-xs text-grey50">
+                분야 | {profile.sectorName} 규모 | {profile.sizeType}
+              </p>
             </div>
-          ))}
-        </div>
-
-        <div className="flex justify-between rounded-[0.44rem] bg-grey10 p-[0.62rem]">
-          <div className="flex gap-4">
-            <Image
-              src={profile.teamLogoImageUrl || '/assets/images/DefaultProfile.png'}
-              width={46}
-              height={46}
-              alt="Team Image"
-              className="rounded-full"
-            />
-            <div className="flex flex-col justify-center gap-1">
-              <p className="text-sm font-semibold text-[#2563EB] ">{profile.teamName}</p>
-              <div className="flex gap-3 text-xs text-grey60">
-                <p className="">분야 | {profile.sectorName}</p>
-                <p className="">규모 | {profile.sizeType}</p>
-              </div>
+            <div className="flex cursor-pointer gap-2 text-xs text-grey60">
+              <p>자세히 보기</p>
+              <Image src="/assets/icons/gray>.svg" width={6} height={10} alt="arrow" />
             </div>
           </div>
-          <Image src="/assets/icons/>.svg" width={6} height={10} alt="arrow" />
+
+          <div className="py-4 text-sm">{profile.miniProfileTitle}</div>
+          <div className="flex flex-col">
+            <div className="flex flex-wrap">
+              {profile.teamKeywordNames.map((keyword, index) => (
+                <div
+                  key={index}
+                  className="rounded-[0.45rem] bg-grey10 bg-opacity-20 px-[0.57rem] py-1 text-xs text-grey60"
+                >
+                  {keyword}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Link>
+
+      {/* 구분선 */}
+      <div className="my-4 w-full border border-grey30"></div>
+
+      <div className="flex items-center gap-2 py-3">
+        <Image src="/assets/icons/drawingPin.svg" width={14} height={14} alt="calendar" />
+        <p className="text-xs font-bold text-[#2563EB]">모집중인 공고</p>
+      </div>
+
+      <div className="flex cursor-pointer flex-col rounded-lg border border-grey30 p-4 hover:bg-grey10">
+        <div className="mb-4 flex items-center justify-between text-sm font-semibold">
+          <p>포지션[미적용]</p>
+          <Image src="/assets/icons/saveIcon.svg" width={18} height={18} alt="arrow" className="cursor-pointer" />
         </div>
 
-        <div className="mt-4 flex justify-end gap-[0.38rem] ">
-          <button className="rounded-[0.28rem] bg-grey20 px-8 py-[0.56rem] text-sm">찜하기</button>
-          <button className="rounded-[0.28rem] bg-grey100 px-8 py-[0.56rem] text-sm text-[#fff] ">열람하기</button>
+        <div className="flex gap-2">
+          <div className="rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">태그[미적용]</div>
         </div>
       </div>
     </div>

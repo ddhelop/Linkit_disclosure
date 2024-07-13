@@ -49,7 +49,7 @@ export default function Team() {
   console.log(data)
 
   return (
-    <div className="flex flex-col pt-[61px]">
+    <div className="flex flex-col bg-grey10 pb-20 pt-[61px]">
       {/* Header */}
       <div className="fixed flex h-[4rem] w-full items-center gap-[3.17rem] bg-white-alpha-50 px-[9.72rem] backdrop-blur-2xl">
         <Link href={'/myResume'}>
