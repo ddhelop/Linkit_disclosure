@@ -16,7 +16,7 @@ export default function FindMember() {
   }, []) // 빈 배열을 의존성 배열로 전달하여 컴포넌트가 마운트될 때 한 번만 실행되도록 함
 
   return (
-    <div className="flex w-full flex-wrap gap-6 pt-[2rem]">
+    <div className="flex w-full flex-wrap gap-4 pt-[2rem]">
       {profileData?.map((profile) => <TeamMemberMiniProfile key={profile.id} profile={profile} />)}
     </div>
   )
