@@ -228,6 +228,10 @@ export interface TeamProfileTeamBuildingFieldResponse {
 
 export interface TeamMemberAnnouncementResponse {
   mainBusiness: string
+  jobRoleNames: string[]
+  id: number
+  applicationProcess: string
+  skillNames: string[]
 }
 
 export interface ActivityResponse {
@@ -251,6 +255,7 @@ export interface TeamIntroductionResponse {
   teamProfileTeamBuildingFieldResponse: TeamProfileTeamBuildingFieldResponse
   teamProfileIntroductionResponse: TeamProfileIntroductionResponse
   teamMemberIntroductionResponses: TeamMemberIntroductionResponse[]
+  // teamMemberAnnouncementResponses: TeamMemberAnnouncementResponse[]
 }
 
 export interface HistoryResponse {

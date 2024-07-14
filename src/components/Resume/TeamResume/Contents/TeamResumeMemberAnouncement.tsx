@@ -4,9 +4,13 @@ import Image from 'next/image'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostTeamMemberAnnouncement } from '@/lib/action'
-import { PostTeamMemberData, TeamAnnouncementMemberInterface, TeamMemberData } from '@/lib/types'
+import { TeamAnnouncementMemberInterface, TeamMemberAnnouncementResponse } from '@/lib/types'
 
-export default function TeamResumeMemberAnnouncement() {
+interface TeamResumeMemberAnnouncementProps {
+  data: TeamMemberAnnouncementResponse[]
+}
+
+export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberAnnouncementProps) {
   const accessToken = useRecoilValue(accessTokenState) || ''
   const [isFormVisible, setIsFormVisible] = useState(false)
   const [selectedRole, setSelectedRole] = useState<string[]>([])
@@ -97,9 +101,37 @@ export default function TeamResumeMemberAnnouncement() {
         <span className="w-auto bg-grey10 px-[0.81rem] py-1">필요로 하는 팀원에 대한 공고 내용을 추가해주세요!</span>
       </div>
 
+      {/* 팀원 공고 조회 */}
+      <div className="flex flex-col">
+        {data.map((announcement) => (
+          <div className="flex w-full justify-between rounded-[0.63rem] border border-grey30 p-[1.25rem]">
+            <div className="flex w-auto flex-col">
+              <p className="text-sm text-grey60">팀 데이터 필요</p>
+              <p className="pt-[0.44rem] font-semibold text-grey100">{announcement.mainBusiness}</p>
+
+              <div className="flex flex-wrap">
+                {announcement.skillNames.map((skill, index) => (
+                  <div
+                    key={index}
+                    className="mt-[0.88rem] rounded-[0.31rem] border border-grey40 px-3 py-2 text-center text-sm text-grey60"
+                  >
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex">
+              <Image src="/assets/icons/pencil.svg" width={27} height={27} alt="plus" className="cursor-pointer" />
+              <Image src="/assets/icons/delete.svg" width={27} height={27} alt="plus" className="cursor-pointer" />
+            </div>
+          </div>
+        ))}
+      </div>
+
       {/* Form */}
       {isFormVisible && (
-        <div className="mt-4">
+        <div className="mt-4 rounded border border-grey30 bg-grey10 p-4">
           <div className="flex flex-col gap-4">
             <div>
               <label className="flex font-normal text-grey100">
@@ -163,7 +195,7 @@ export default function TeamResumeMemberAnnouncement() {
               </div>
 
               {/* input container */}
-              <div className="mt-[0.88rem] flex flex-col border-t border-grey40">
+              <div className="mt-[0.88rem] flex flex-col">
                 <span className="py-[0.88rem] text-sm font-normal text-grey60">보유 기술을 하나씩 입력해주세요</span>
                 <div className="flex w-[16.1rem] items-center gap-[0.63rem]">
                   <input
@@ -192,29 +224,18 @@ export default function TeamResumeMemberAnnouncement() {
               />
             </div>
 
-            <div className="mt-4 flex justify-end border-b border-grey30 pb-4">
+            <div className="mt-4 flex justify-end gap-2 pb-4">
+              <button
+                onClick={() => {
+                  setIsFormVisible(false)
+                }}
+                className="rounded bg-grey30 px-4 py-2 "
+              >
+                취소하기
+              </button>
               <button onClick={handleButtonClick} className="text-white rounded bg-[#2563EB] px-4 py-2 text-[#fff]">
                 저장하기
               </button>
-            </div>
-
-            <div className="flex  items-center justify-between border border-grey30 p-5">
-              <div className="flex flex-col">
-                <p className="text-sm text-grey60">(주)링킷</p>
-                <p className="pt-[0.44rem]">마케팅</p>
-                <div className="flex gap-2 pt-[0.88rem]">
-                  <div className="rounded-[0.31rem] border border-grey40 px-[0.88rem] py-[0.25rem] text-sm text-grey60">
-                    Figma
-                  </div>
-                  <div className="rounded-[0.31rem] border border-grey40 px-[0.88rem] py-[0.25rem] text-sm text-grey60">
-                    Notion
-                  </div>
-                </div>
-              </div>
-              <div className="flex ">
-                <Image src="/assets/icons/pencil.svg" width={27} height={27} alt="plus" className="cursor-pointer" />
-                <Image src="/assets/icons/delete.svg" width={27} height={27} alt="plus" className="cursor-pointer" />
-              </div>
             </div>
           </div>
         </div>

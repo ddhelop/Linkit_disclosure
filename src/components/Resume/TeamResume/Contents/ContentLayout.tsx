@@ -21,7 +21,7 @@ export default function TeamContentLayout({ data }: TeamResumContentsProps) {
       <TeamResumeBuildingComponent2 data={data?.teamProfileTeamBuildingFieldResponse} />
 
       {/* 팀원 공고 */}
-      <TeamResumeMemberAnnouncement />
+      <TeamResumeMemberAnnouncement data={data?.teamMemberAnnouncementResponses} />
 
       {/* 활동 방식 */}
       <TeamResumeActivityWay data={data?.activityResponse} />
