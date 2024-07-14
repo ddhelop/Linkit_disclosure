@@ -10,6 +10,7 @@ export default function FindTeam() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await GetTeams()
+      console.log(data)
       setTeamData(data.content)
     }
     fetchData()

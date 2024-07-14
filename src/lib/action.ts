@@ -437,7 +437,7 @@ export async function DeleteTeamMember(accessToken: string, teamMemberIntroducti
 
 // 팀 이력서 - 팀원 공고 작성
 export async function PostTeamMemberAnnouncement(accessToken: string, data: TeamAnnouncementMemberInterface) {
-  return await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/members/announcements`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/member/announcement`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
