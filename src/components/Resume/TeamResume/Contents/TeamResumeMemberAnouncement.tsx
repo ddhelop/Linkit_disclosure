@@ -3,7 +3,7 @@ import { ChangeEvent, KeyboardEvent, useState } from 'react'
 import Image from 'next/image'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
-import { PostTeamMemberAnnouncement } from '@/lib/action'
+import { PostTeamMemberAnnouncement, DeleteTeamMemberAnnouncement } from '@/lib/action'
 import { TeamAnnouncementMemberInterface, TeamMemberAnnouncementResponse } from '@/lib/types'
 
 interface TeamResumeMemberAnnouncementProps {
@@ -19,6 +19,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
   const [inputValue, setInputValue] = useState('')
   const [mainBusiness, setMainBusiness] = useState('')
   const [applicationProcess, setApplicationProcess] = useState('')
+  const [announcements, setAnnouncements] = useState(data)
 
   const handleButtonClick = async () => {
     if (isFormVisible) {
@@ -38,6 +39,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
         const response = await PostTeamMemberAnnouncement(accessToken, TeamData)
         if (response.ok) {
           alert('팀원 공고가 성공적으로 저장되었습니다.')
+          setAnnouncements([...announcements, { ...TeamData, id: Date.now() }]) // 새 공고 추가
         } else {
           alert('저장 중 오류가 발생했습니다.')
         }
@@ -90,6 +92,23 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
     }
   }
 
+  const handleDeleteAnnouncement = async (id: number) => {
+    confirm('팀원 공고를 삭제하시겠습니까?') // 확인창을 띄웁니다.
+    if (!confirm) return
+
+    try {
+      const response = await DeleteTeamMemberAnnouncement(accessToken, id)
+      if (response.ok) {
+        setAnnouncements(announcements.filter((announcement) => announcement.id !== id))
+      } else {
+        alert('삭제 중 오류가 발생했습니다.')
+      }
+    } catch (error) {
+      console.error('API 요청 실패:', error)
+      alert('삭제 중 오류가 발생했습니다.')
+    }
+  }
+
   return (
     <div className="flex w-full flex-col gap-[0.94rem] rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
@@ -103,8 +122,11 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
 
       {/* 팀원 공고 조회 */}
       <div className="flex flex-col">
-        {data.map((announcement) => (
-          <div className="flex w-full justify-between rounded-[0.63rem] border border-grey30 p-[1.25rem]">
+        {announcements.map((announcement) => (
+          <div
+            key={announcement.id}
+            className="flex w-full justify-between rounded-[0.63rem] border border-grey30 p-[1.25rem]"
+          >
             <div className="flex w-auto flex-col">
               <p className="text-sm text-grey60">팀 데이터 필요</p>
               <p className="pt-[0.44rem] font-semibold text-grey100">{announcement.mainBusiness}</p>
@@ -122,8 +144,22 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
             </div>
 
             <div className="flex">
-              <Image src="/assets/icons/pencil.svg" width={27} height={27} alt="plus" className="cursor-pointer" />
-              <Image src="/assets/icons/delete.svg" width={27} height={27} alt="plus" className="cursor-pointer" />
+              <Image
+                src="/assets/icons/pencil.svg"
+                width={27}
+                height={27}
+                alt="edit"
+                className="cursor-pointer"
+                // 수정 로직을 추가하려면 여기에 추가
+              />
+              <Image
+                src="/assets/icons/delete.svg"
+                width={27}
+                height={27}
+                alt="delete"
+                className="cursor-pointer"
+                onClick={() => handleDeleteAnnouncement(announcement.id)}
+              />
             </div>
           </div>
         ))}

@@ -448,6 +448,18 @@ export async function PostTeamMemberAnnouncement(accessToken: string, data: Team
   })
 }
 
+// 팀 이력서 - 팀원 공고 삭제
+export async function DeleteTeamMemberAnnouncement(accessToken: string, teamMemberAnnouncementId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/members/announcements/${teamMemberAnnouncementId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+}
+
 // 팀 이력서 - 팀 연혁 작성
 export async function PostTeamHistory(accessToken: string, data: TeamHistoryDataSet) {
   return await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/history`, {
