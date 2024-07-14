@@ -128,7 +128,7 @@ export async function PostRoleData(accessToken: string, jobRoleNames: string[], 
 }
 
 // 내 온보딩 - 학력 생성
-export async function PostSchoolData(accessToken: string, educationList: Education[]) {
+export async function PostSchoolData(accessToken: string, educationList: Education) {
   return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/education`, {
     method: 'POST',
     headers: {
@@ -136,7 +136,7 @@ export async function PostSchoolData(accessToken: string, educationList: Educati
       Authorization: `Bearer ${accessToken}`,
     },
     credentials: 'include',
-    body: JSON.stringify({ educationList }),
+    body: JSON.stringify(educationList),
   })
 }
 
