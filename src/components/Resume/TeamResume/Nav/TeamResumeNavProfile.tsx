@@ -1,12 +1,23 @@
 import { TeamMiniProfileResponse } from '@/lib/types'
 import Image from 'next/image'
+import { useState } from 'react'
+import TeamProfileModal from './TeamProfileModal'
 
 interface TeamResumNavProps {
   data: TeamMiniProfileResponse | null // 데이터가 null일 수 있으므로 타입을 변경합니다.
 }
 
 export default function TeamResumeNavProfile({ data }: TeamResumNavProps) {
-  console.log('data', data)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleModalClose = () => {
+    setIsModalOpen(false)
+  }
+
   return (
     <div className="flex w-full flex-col rounded-2xl bg-[#fff] p-5">
       <div className="pt-[0.42rem] text-[1.25rem] font-bold leading-[1.375rem]">
@@ -43,6 +54,11 @@ export default function TeamResumeNavProfile({ data }: TeamResumNavProps) {
           </div>
         </div>
       </div>
+      <button onClick={handleModalOpen} className="mt-[0.88rem] rounded-[0.25rem] bg-grey20 py-[0.56rem] text-sm">
+        수정하기
+      </button>
+
+      <TeamProfileModal isOpen={isModalOpen} onClose={handleModalClose} data={data} />
     </div>
   )
 }
