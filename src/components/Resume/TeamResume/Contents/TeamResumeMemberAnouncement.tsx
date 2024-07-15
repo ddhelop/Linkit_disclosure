@@ -3,7 +3,7 @@ import { ChangeEvent, KeyboardEvent, useState } from 'react'
 import Image from 'next/image'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
-import { PostTeamMemberAnnouncement, DeleteTeamMemberAnnouncement } from '@/lib/action'
+import { PostTeamMemberAnnouncement, PutTeamMemberAnnouncement, DeleteTeamMemberAnnouncement } from '@/lib/action'
 import { TeamAnnouncementMemberInterface, TeamMemberAnnouncementResponse } from '@/lib/types'
 
 interface TeamResumeMemberAnnouncementProps {
@@ -14,42 +14,56 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
   const accessToken = useRecoilValue(accessTokenState) || ''
   const [isFormVisible, setIsFormVisible] = useState(false)
   const [selectedRole, setSelectedRole] = useState<string[]>([])
-
   const [skills, setSkills] = useState<string[]>([])
   const [inputValue, setInputValue] = useState('')
   const [mainBusiness, setMainBusiness] = useState('')
   const [applicationProcess, setApplicationProcess] = useState('')
   const [announcements, setAnnouncements] = useState(data)
+  const [editingAnnouncementId, setEditingAnnouncementId] = useState<number | null>(null)
 
   const handleButtonClick = async () => {
-    if (isFormVisible) {
-      if (selectedRole.length === 0 || skills.length === 0 || !mainBusiness || !applicationProcess) {
-        alert('모든 필수 항목을 입력해주세요.')
-        return
-      }
-
-      const TeamData: TeamAnnouncementMemberInterface = {
-        jobRoleNames: selectedRole,
-        mainBusiness: mainBusiness,
-        skillNames: skills,
-        applicationProcess: applicationProcess,
-      }
-
-      try {
-        const response = await PostTeamMemberAnnouncement(accessToken, TeamData)
-        if (response.ok) {
-          alert('팀원 공고가 성공적으로 저장되었습니다.')
-          setAnnouncements([...announcements, { ...TeamData, id: Date.now() }]) // 새 공고 추가
-        } else {
-          alert('저장 중 오류가 발생했습니다.')
-        }
-      } catch (error) {
-        console.error('API 요청 실패:', error)
-        alert('저장 중 오류가 발생했습니다.')
-      }
+    if (selectedRole.length === 0 || skills.length === 0 || !mainBusiness || !applicationProcess) {
+      alert('모든 필수 항목을 입력해주세요.')
+      return
     }
 
-    setIsFormVisible(!isFormVisible)
+    const TeamData: TeamAnnouncementMemberInterface = {
+      jobRoleNames: selectedRole,
+      mainBusiness: mainBusiness,
+      skillNames: skills,
+      applicationProcess: applicationProcess,
+    }
+
+    try {
+      let response
+      if (editingAnnouncementId !== null) {
+        response = await PutTeamMemberAnnouncement(accessToken, TeamData, editingAnnouncementId)
+        if (response.ok) {
+          setAnnouncements(
+            announcements.map((announcement) =>
+              announcement.id === editingAnnouncementId ? { ...TeamData, id: editingAnnouncementId } : announcement,
+            ),
+          )
+        }
+      } else {
+        response = await PostTeamMemberAnnouncement(accessToken, TeamData)
+        if (response.ok) {
+          setAnnouncements([...announcements, { ...TeamData, id: Date.now() }])
+        }
+      }
+
+      if (response.ok) {
+        alert('팀원 공고가 성공적으로 저장되었습니다.')
+        resetForm()
+      } else {
+        alert('저장 중 오류가 발생했습니다.')
+      }
+    } catch (error) {
+      console.error('API 요청 실패:', error)
+      alert('저장 중 오류가 발생했습니다.')
+    }
+
+    setIsFormVisible(false)
   }
 
   const handleRoleClick = (role: string) => {
@@ -93,8 +107,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
   }
 
   const handleDeleteAnnouncement = async (id: number) => {
-    confirm('팀원 공고를 삭제하시겠습니까?') // 확인창을 띄웁니다.
-    if (!confirm) return
+    if (!confirm('팀원 공고를 삭제하시겠습니까?')) return
 
     try {
       const response = await DeleteTeamMemberAnnouncement(accessToken, id)
@@ -107,6 +120,24 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
       console.error('API 요청 실패:', error)
       alert('삭제 중 오류가 발생했습니다.')
     }
+  }
+
+  const handleEditAnnouncement = (announcement: TeamMemberAnnouncementResponse) => {
+    setEditingAnnouncementId(announcement.id)
+    setSelectedRole(announcement.jobRoleNames)
+    setMainBusiness(announcement.mainBusiness)
+    setSkills(announcement.skillNames)
+    setApplicationProcess(announcement.applicationProcess)
+    setIsFormVisible(true)
+  }
+
+  const resetForm = () => {
+    setEditingAnnouncementId(null)
+    setSelectedRole([])
+    setSkills([])
+    setInputValue('')
+    setMainBusiness('')
+    setApplicationProcess('')
   }
 
   return (
@@ -122,7 +153,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
 
       {/* 팀원 공고 조회 */}
       <div className="flex flex-col">
-        {announcements.map((announcement) => (
+        {announcements?.map((announcement) => (
           <div
             key={announcement.id}
             className="flex w-full justify-between rounded-[0.63rem] border border-grey30 p-[1.25rem]"
@@ -150,7 +181,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
                 height={27}
                 alt="edit"
                 className="cursor-pointer"
-                // 수정 로직을 추가하려면 여기에 추가
+                onClick={() => handleEditAnnouncement(announcement)}
               />
               <Image
                 src="/assets/icons/delete.svg"
@@ -173,14 +204,14 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
               <label className="flex font-normal text-grey100">
                 직무/역할 <p className="pl-1 font-normal text-[#2563EB]">*</p>
               </label>
-              <div className="mt-2 flex flex-wrap gap-2">
+              <div className="mt-2 flex flex-wrap gap-2 ">
                 {['기획', '마케팅', '디자이너', 'SW개발자', '리서처', '기타'].map((role) => (
                   <button
                     key={role}
                     className={`rounded border px-4 py-2 ${
                       selectedRole.includes(role)
                         ? 'bg-blue-500 border border-[#2563EB] bg-[#D3E1FE66] bg-opacity-40 font-semibold text-[#2563EB]'
-                        : 'border-grey40 text-grey60'
+                        : 'border-grey40 bg-[#fff] text-grey60'
                     }`}
                     onClick={() => handleRoleClick(role)}
                   >
@@ -264,13 +295,14 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
               <button
                 onClick={() => {
                   setIsFormVisible(false)
+                  resetForm()
                 }}
                 className="rounded bg-grey30 px-4 py-2 "
               >
                 취소하기
               </button>
               <button onClick={handleButtonClick} className="text-white rounded bg-[#2563EB] px-4 py-2 text-[#fff]">
-                저장하기
+                {editingAnnouncementId !== null ? '수정하기' : '저장하기'}
               </button>
             </div>
           </div>

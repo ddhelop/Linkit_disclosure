@@ -38,7 +38,7 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
           <div className="py-4 text-sm">{profile.miniProfileTitle}</div>
           <div className="flex flex-col">
             <div className="flex flex-wrap">
-              {profile.teamKeywordNames.map((keyword, index) => (
+              {profile?.teamKeywordNames?.map((keyword, index) => (
                 <div
                   key={index}
                   className="rounded-[0.45rem] bg-grey10 bg-opacity-20 px-[0.57rem] py-1 text-xs text-grey60"
