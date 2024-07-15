@@ -1,8 +1,10 @@
 'use client'
+import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileTeamBuildingField, PostTeamBuildingField } from '@/lib/action'
 import { TeamProfileTeamBuildingFieldResponse } from '@/lib/types'
 
 import { useState, useEffect } from 'react'
+import { useRecoilValue } from 'recoil'
 
 interface TeamResumTeamBuildingProps {
   data: TeamProfileTeamBuildingFieldResponse
@@ -12,6 +14,7 @@ export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuil
   const [isEditing, setIsEditing] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
   const [options, setOptions] = useState(['해커톤', '공모전', '대회', '사이드 프로젝트', '포트폴리오'])
+  const accessToken = useRecoilValue(accessTokenState) || ''
 
   useEffect(() => {
     if (data.teamProfileTeamBuildingFieldNames) {
@@ -25,7 +28,6 @@ export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuil
   }
 
   const handleSaveClick = async () => {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const response = await PostTeamBuildingField(accessToken, selectedOptions)
     if (response.ok) {
       alert('수정이 완료되었습니다.')
@@ -106,9 +108,14 @@ export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuil
       {/* button */}
       <div className="mt-[0.94rem] flex w-full justify-end">
         {isEditing ? (
-          <button onClick={handleSaveClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
-            수정완료
-          </button>
+          <div className="flex gap-2">
+            <button onClick={() => setIsEditing(false)} className="h-10 rounded bg-grey20 px-4 text-sm">
+              취소
+            </button>
+            <button onClick={handleSaveClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+              수정완료
+            </button>
+          </div>
         ) : (
           <button onClick={handleEditClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
             수정하기
