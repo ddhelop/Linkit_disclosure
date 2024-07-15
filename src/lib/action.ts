@@ -503,6 +503,18 @@ export async function PutTeamHistory(accessToken: string, data: TeamHistoryDataS
   })
 }
 
+// 팀 이력서 - 팀 연혁 삭제
+export async function DeleteTeamHistory(accessToken: string, teamHistoryId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/history/${teamHistoryId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+}
+
 // 팀 이력서 - 첨부 URL POST
 export async function PostTeamAttchURL(accessToken: string, data: TeamURLFormInputs[]) {
   return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/attach/url`, {

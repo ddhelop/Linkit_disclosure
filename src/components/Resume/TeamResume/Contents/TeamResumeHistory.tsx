@@ -1,7 +1,7 @@
 'use client'
 
 import { accessTokenState } from '@/context/recoil-context'
-import { PostTeamHistory, PutTeamHistory } from '@/lib/action'
+import { PostTeamHistory, PutTeamHistory, DeleteTeamHistory } from '@/lib/action'
 import { HistoryResponse, TeamHistoryDataSet } from '@/lib/types'
 import Image from 'next/image'
 import { useState } from 'react'
@@ -86,6 +86,20 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
     setHistoryIntroduction('')
   }
 
+  const handleDelete = async (index: number) => {
+    const history = data[index]
+    try {
+      const response = await DeleteTeamHistory(accessToken, history.id)
+      if (response.ok) {
+        confirm('팀 연혁을 삭제하시겠습니까?') && setData((prevData) => prevData.filter((item, idx) => idx !== index))
+      } else {
+        console.error('Failed to delete team history:', response)
+      }
+    } catch (error) {
+      console.error('Error deleting team history:', error)
+    }
+  }
+
   return (
     <>
       <div className="flex w-full flex-col gap-[0.94rem] rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
@@ -93,6 +107,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
         <p className="text-lg font-semibold">연혁</p>
 
         <div className="flex flex-col gap-4">
+          {data && data.length === 0 && <p className="text-grey60">등록된 팀 연혁이 없습니다.</p>}
           {data?.map((history, index) => (
             <div key={index} className="rounded-[0.63rem] border border-grey30 px-[1.31rem] py-[1.38rem]">
               <div className="flex justify-between">
@@ -103,7 +118,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                     <p className="text-sm text-grey60">{history?.historyIntroduction}</p>
                   </div>
                 </div>
-                <div className="flex">
+                <div className="flex gap-2">
                   <Image
                     src="/assets/icons/pencil.svg"
                     width={27}
@@ -117,6 +132,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                     width={27}
                     height={27}
                     alt="delete"
+                    onClick={() => handleDelete(index)}
                     className="cursor-pointer"
                   />
                 </div>
@@ -258,9 +274,14 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
         ) : null}
 
         {!isEditing && (
-          <button className="rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]" onClick={() => setIsEditing(true)}>
-            추가하기
-          </button>
+          <div className="mt-4 flex w-full justify-end gap-2">
+            <button
+              className=" rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]"
+              onClick={() => setIsEditing(true)}
+            >
+              추가하기
+            </button>
+          </div>
         )}
       </div>
     </>
