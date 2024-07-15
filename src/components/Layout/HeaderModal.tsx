@@ -59,9 +59,9 @@ const DropdownMenu = () => {
             <Link href="/myResume" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem">
               마이페이지
             </Link>
-            <Link href="#FAQ" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem">
+            {/* <Link href="#FAQ" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem">
               FAQ
-            </Link>
+            </Link> */}
             <Link href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem">
               설정
             </Link>
