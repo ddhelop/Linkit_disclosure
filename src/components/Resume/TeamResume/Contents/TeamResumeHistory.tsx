@@ -5,32 +5,39 @@ import { PostTeamHistory, PutTeamHistory, DeleteTeamHistory } from '@/lib/action
 import { HistoryResponse, TeamHistoryDataSet } from '@/lib/types'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
 
 interface TeamHistoryProps {
   data: HistoryResponse[]
 }
 
+interface FormInputs {
+  historyOneLineIntroduction: string
+  startYear: string
+  endYear: string
+  inProgress: boolean
+  historyIntroduction: string
+}
+
 export default function TeamResumeHistory({ data: initialData }: TeamHistoryProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [editIndex, setEditIndex] = useState<number | null>(null)
-  const [historyOneLineIntroduction, setHistoryOneLineIntroduction] = useState('')
-  const [startYear, setStartYear] = useState('')
-  const [endYear, setEndYear] = useState('')
-  const [inProgress, setInProgress] = useState(false)
-  const [historyIntroduction, setHistoryIntroduction] = useState('')
   const [data, setData] = useState<HistoryResponse[]>(initialData)
+  const { register, handleSubmit, reset, setValue, watch } = useForm<FormInputs>()
 
   const accessToken = useRecoilValue(accessTokenState) || ''
 
-  const handleSave = async () => {
+  const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
     const newData: TeamHistoryDataSet = {
-      historyOneLineIntroduction,
-      startYear: parseInt(startYear),
-      endYear: inProgress ? null : parseInt(endYear),
-      inProgress,
-      historyIntroduction,
+      id: data.length, // 임시 ID 할당
+      historyOneLineIntroduction: formData.historyOneLineIntroduction,
+      startYear: parseInt(formData.startYear),
+      endYear: formData.inProgress ? null : parseInt(formData.endYear),
+      inProgress: formData.inProgress,
+      historyIntroduction: formData.historyIntroduction,
     }
+    setData([...data, newData])
 
     try {
       let response
@@ -44,21 +51,8 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
       if (response.ok) {
         alert('팀 연혁이 성공적으로 저장되었습니다.')
         setIsEditing(false)
-        setEditIndex(null)
 
-        const responseData = await response.json()
-
-        const newHistoryResponse: HistoryResponse = {
-          ...newData,
-          id: responseData.id,
-          endYear: newData.endYear ?? newData.startYear,
-        }
-
-        if (editIndex !== null) {
-          setData((prevData) => prevData.map((item, index) => (index === editIndex ? newHistoryResponse : item)))
-        } else {
-          setData((prevData) => [...prevData, newHistoryResponse])
-        }
+        reset()
       }
     } catch (error) {
       console.error('Failed to save team history:', error)
@@ -67,11 +61,11 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
 
   const handleEdit = (index: number) => {
     const history = data[index]
-    setHistoryOneLineIntroduction(history.historyOneLineIntroduction)
-    setStartYear(history.startYear.toString())
-    setEndYear(history.endYear?.toString() || '')
-    setInProgress(history.inProgress)
-    setHistoryIntroduction(history.historyIntroduction)
+    setValue('historyOneLineIntroduction', history.historyOneLineIntroduction)
+    setValue('startYear', history.startYear.toString())
+    setValue('endYear', history.endYear?.toString() || '')
+    setValue('inProgress', history.inProgress)
+    setValue('historyIntroduction', history.historyIntroduction)
     setIsEditing(true)
     setEditIndex(index)
   }
@@ -79,11 +73,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
   const handleCancel = () => {
     setIsEditing(false)
     setEditIndex(null)
-    setHistoryOneLineIntroduction('')
-    setStartYear('')
-    setEndYear('')
-    setInProgress(false)
-    setHistoryIntroduction('')
+    reset()
   }
 
   const handleDelete = async (index: number) => {
@@ -139,15 +129,17 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
               </div>
 
               {isEditing && editIndex === index && (
-                <div className="mt-4 flex flex-col gap-[0.94rem] rounded-[0.44rem] border border-grey30 bg-grey10 p-5">
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="mt-4 flex flex-col gap-[0.94rem] rounded-[0.44rem] border border-grey30 bg-grey10 p-5"
+                >
                   {/* 한줄 소개 */}
                   <div className="flex flex-col gap-2">
                     <p className="text-sm font-normal">한줄소개</p>
                     <input
+                      {...register('historyOneLineIntroduction')}
                       placeholder="Text Field"
                       className="rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3"
-                      value={historyOneLineIntroduction}
-                      onChange={(e) => setHistoryOneLineIntroduction(e.target.value)}
                     />
                   </div>
 
@@ -156,26 +148,23 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                     <p className="text-sm font-normal">기간</p>
                     <div className="flex items-center gap-4">
                       <input
+                        {...register('startYear')}
                         placeholder="시작"
                         className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
-                        value={startYear}
-                        onChange={(e) => setStartYear(e.target.value)}
                       />
                       <p>~</p>
                       <input
+                        {...register('endYear')}
                         placeholder="종료"
                         className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
-                        value={endYear}
-                        onChange={(e) => setEndYear(e.target.value)}
-                        disabled={inProgress}
+                        disabled={watch('inProgress')}
                       />
                       <select
+                        {...register('inProgress')}
                         className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
-                        value={inProgress ? '진행중' : '종료'}
-                        onChange={(e) => setInProgress(e.target.value === '진행중')}
                       >
-                        <option value="진행중">진행중</option>
-                        <option value="종료">종료</option>
+                        <option value="true">진행중</option>
+                        <option value="false">종료</option>
                       </select>
                     </div>
                   </div>
@@ -184,39 +173,44 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                   <div className="flex flex-col">
                     <p className="text-sm font-normal">설명</p>
                     <textarea
+                      {...register('historyIntroduction')}
                       className="mt-2 resize-none rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 "
                       rows={3}
                       placeholder="Text Field"
-                      value={historyIntroduction}
-                      onChange={(e) => setHistoryIntroduction(e.target.value)}
                     />
                   </div>
 
                   {/* buttons */}
                   <div className="mt-4 flex w-full justify-end gap-2">
-                    <button className="rounded-[0.25rem] bg-grey60 px-4 py-2 text-[#fff]" onClick={handleCancel}>
+                    <button
+                      className="rounded-[0.25rem] bg-grey60 px-4 py-2 text-[#fff]"
+                      type="button"
+                      onClick={handleCancel}
+                    >
                       취소하기
                     </button>
-                    <button className="rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]" onClick={handleSave}>
+                    <button className="rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]" type="submit">
                       저장하기
                     </button>
                   </div>
-                </div>
+                </form>
               )}
             </div>
           ))}
         </div>
 
-        {isEditing && editIndex === null ? (
-          <div className="mt-4 flex flex-col gap-[0.94rem] rounded-[0.44rem] border border-grey30 bg-grey10 p-5">
+        {isEditing && editIndex === null && (
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mt-4 flex flex-col gap-[0.94rem] rounded-[0.44rem] border border-grey30 bg-grey10 p-5"
+          >
             {/* 한줄 소개 */}
             <div className="flex flex-col gap-2">
               <p className="text-sm font-normal">한줄소개</p>
               <input
+                {...register('historyOneLineIntroduction')}
                 placeholder="Text Field"
                 className="rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3"
-                value={historyOneLineIntroduction}
-                onChange={(e) => setHistoryOneLineIntroduction(e.target.value)}
               />
             </div>
 
@@ -225,26 +219,23 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
               <p className="text-sm font-normal">기간</p>
               <div className="flex items-center gap-4">
                 <input
+                  {...register('startYear')}
                   placeholder="시작"
                   className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
-                  value={startYear}
-                  onChange={(e) => setStartYear(e.target.value)}
                 />
                 <p>~</p>
                 <input
+                  {...register('endYear')}
                   placeholder="종료"
                   className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
-                  value={endYear}
-                  onChange={(e) => setEndYear(e.target.value)}
-                  disabled={inProgress}
+                  disabled={watch('inProgress')}
                 />
                 <select
+                  {...register('inProgress')}
                   className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
-                  value={inProgress ? '진행중' : '종료'}
-                  onChange={(e) => setInProgress(e.target.value === '진행중')}
                 >
-                  <option value="진행중">진행중</option>
-                  <option value="종료">종료</option>
+                  <option value="true">진행중</option>
+                  <option value="false">종료</option>
                 </select>
               </div>
             </div>
@@ -253,25 +244,28 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
             <div className="flex flex-col">
               <p className="text-sm font-normal">설명</p>
               <textarea
+                {...register('historyIntroduction')}
                 className="mt-2 resize-none rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 "
                 rows={3}
                 placeholder="Text Field"
-                value={historyIntroduction}
-                onChange={(e) => setHistoryIntroduction(e.target.value)}
               />
             </div>
 
             {/* buttons */}
             <div className="mt-4 flex w-full justify-end gap-2">
-              <button className="rounded-[0.25rem] bg-grey60 px-4 py-2 text-[#fff]" onClick={handleCancel}>
+              <button
+                className="rounded-[0.25rem] bg-grey60 px-4 py-2 text-[#fff]"
+                type="button"
+                onClick={handleCancel}
+              >
                 취소하기
               </button>
-              <button className="rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]" onClick={handleSave}>
+              <button className="rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]" type="submit">
                 저장하기
               </button>
             </div>
-          </div>
-        ) : null}
+          </form>
+        )}
 
         {!isEditing && (
           <div className="mt-4 flex w-full justify-end gap-2">

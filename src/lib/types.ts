@@ -262,7 +262,7 @@ export interface HistoryResponse {
   id: number
   historyOneLineIntroduction: string
   startYear: number
-  endYear: number
+  endYear: number | null
   historyIntroduction: string
   inProgress: boolean
 }
@@ -359,6 +359,7 @@ export interface TeamAnnouncementMemberInterface {
 
 // 팀 소개서- 팀 연혁 데이터 셋
 export interface TeamHistoryDataSet {
+  id: number
   historyOneLineIntroduction: string
   startYear: number
   endYear: number | null

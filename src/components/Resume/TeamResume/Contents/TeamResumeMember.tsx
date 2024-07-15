@@ -24,13 +24,13 @@ export default function TeamResumeMember({ data }: TeamMemberProps) {
     }
 
     setTeamMembers([...teamMembers, newMember])
-    setIsEditing(false)
-    reset()
 
     try {
       const response = await PostTeamMember(accessToken, [...teamMembers, newMember])
       if (response.ok) {
         alert('저장되었습니다.')
+        setIsEditing(false)
+        reset()
       } else {
         // Handle error response
         console.error('Error:', response)
