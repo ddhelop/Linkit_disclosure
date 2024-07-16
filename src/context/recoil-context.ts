@@ -1,4 +1,4 @@
-import { Career, Education } from '@/lib/types'
+import { Career, Education, FindTeamInterface, TeamProfile } from '@/lib/types'
 import { atom } from 'recoil'
 import { recoilPersist } from 'recoil-persist'
 const { persistAtom } = recoilPersist()
@@ -43,5 +43,9 @@ import { PrivateProfile } from '@/lib/types'
 
 export const filteredProfilesState = atom<PrivateProfile[]>({
   key: 'filteredProfilesState',
+  default: [],
+})
+export const filteredTeamsState = atom<FindTeamInterface[]>({
+  key: 'filteredTeamsState',
   default: [],
 })

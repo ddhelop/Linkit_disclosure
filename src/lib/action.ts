@@ -598,3 +598,21 @@ export async function GetTeamMembersFiltering(accessToken: string, queryParams: 
 
   return await response.json()
 }
+
+// 팀 찾기 - 필터링
+export async function GetTeamsFiltering(accessToken: string, queryParams: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/search/team/profile?${queryParams}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch filtered teams')
+  }
+
+  return await response.json()
+}
