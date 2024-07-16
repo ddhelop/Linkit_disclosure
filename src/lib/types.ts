@@ -332,6 +332,30 @@ export interface TeamProfile {
   teamKeywordNames: string[]
 }
 
+export interface teamMiniProfileResponse {
+  id: number
+  isTeamActivate: boolean
+  sectorName: string
+  sizeType: string
+  teamKeywordNames: string[]
+  teamLogoImageUrl: string
+  teamName: string
+  teamProfileTitle: string
+}
+
+export interface teamMemberAnnouncementResponse {
+  applicationProcess: string
+  id: number
+  jobRoleNames: string[]
+  mainBusiness: string
+  skillNames: string[]
+  teamName: string
+}
+export interface FindTeamInterface {
+  teamMiniProfileResponse: teamMiniProfileResponse
+  teamMemberAnnouncementResponse: teamMemberAnnouncementResponse
+}
+
 export interface OneSchoolFormInputs {
   universityName: string
   majorName: string

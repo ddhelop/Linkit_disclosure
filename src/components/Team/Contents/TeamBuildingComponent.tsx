@@ -1,8 +1,6 @@
 'use client'
-import { PostProfileTeamBuildingField, PostTeamBuildingField } from '@/lib/action'
-import { TeamProfileTeamBuildingFieldResponse } from '@/lib/types'
-
 import { useState, useEffect } from 'react'
+import { TeamProfileTeamBuildingFieldResponse } from '@/lib/types'
 
 interface TeamResumTeamBuildingProps {
   data: TeamProfileTeamBuildingFieldResponse
@@ -15,9 +13,11 @@ export default function TeamBuildingComponent({ data }: TeamResumTeamBuildingPro
   useEffect(() => {
     if (data.teamProfileTeamBuildingFieldNames) {
       setSelectedOptions(data.teamProfileTeamBuildingFieldNames)
-      setOptions(options.filter((option) => !data.teamProfileTeamBuildingFieldNames.includes(option)))
+      setOptions((prevOptions) =>
+        prevOptions.filter((option) => !data.teamProfileTeamBuildingFieldNames.includes(option)),
+      )
     }
-  }, [data.teamProfileTeamBuildingFieldNames, options])
+  }, [data.teamProfileTeamBuildingFieldNames])
 
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
@@ -27,7 +27,6 @@ export default function TeamBuildingComponent({ data }: TeamResumTeamBuildingPro
       </div>
 
       {/* contents */}
-
       <div className="flex flex-wrap gap-2 pt-[1.56rem]">
         {selectedOptions?.map((option, index) => (
           <div key={index} className="flex items-center rounded-lg border border-grey40 px-3 py-1">

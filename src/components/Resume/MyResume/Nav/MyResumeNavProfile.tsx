@@ -43,7 +43,7 @@ export default function MyResumeNavProfile({ data, name, jobAndSkill }: MyResume
 
   useEffect(() => {
     fetchProfileData()
-  }, [accessToken, fetchProfileData])
+  }, [accessToken])
 
   return (
     <div className="flex w-full flex-col rounded-2xl border border-grey30 bg-[#fff] px-[1.02rem] py-[0.77rem]">
