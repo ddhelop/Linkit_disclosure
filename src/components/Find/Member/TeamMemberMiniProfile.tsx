@@ -8,15 +8,14 @@ interface TeamMemberMiniProfileProps {
 }
 
 export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfileProps) {
-  console.log(profile)
   return (
-    <div className="flex w-[25rem] flex-col gap-[2rem] rounded-[0.63rem] bg-[#fff] p-5">
+    <div className="flex w-[25rem] flex-col justify-between gap-[2rem] rounded-[0.63rem] bg-[#fff] p-5">
       <div className="flex w-full justify-between">
         <div className="w-[80%] text-xl font-semibold leading-8 opacity-80">{profile.profileTitle}</div>
         <Image src="/assets/icons/saveIcon.svg" width={17} height={20} alt="save" className="cursor-pointer" />
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col ">
         <div className="flex flex-wrap gap-2">
           {profile.myKeywordNames.map((keyword, index) => (
             <div
