@@ -36,3 +36,12 @@ export const authState = atom<boolean>({
   key: 'authState',
   default: false, // Default to not logged in
 })
+
+// context/recoil-context.ts
+
+import { PrivateProfile } from '@/lib/types'
+
+export const filteredProfilesState = atom<PrivateProfile[]>({
+  key: 'filteredProfilesState',
+  default: [],
+})

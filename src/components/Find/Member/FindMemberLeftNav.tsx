@@ -1,24 +1,67 @@
 // FindMemberLeftNav.tsx
 'use client'
 import Image from 'next/image'
-import { useState } from 'react'
-import SkillModal from './\bSkillModal'
+import { useState, useEffect } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { accessTokenState, filteredProfilesState } from '@/context/recoil-context'
 import { SkillOptions } from '@/lib/data'
 import { addressData } from '@/lib/addressSelectData'
+import { GetTeamMembersFiltering } from '@/lib/action'
+import SkillModal from './\bSkillModal'
 
 export default function FindMemberLeftNav() {
+  const accessToken = useRecoilValue(accessTokenState) || ''
+  const [filteredProfiles, setFilteredProfiles] = useRecoilState(filteredProfilesState)
   const [showTeamBuildingOptions, setShowTeamBuildingOptions] = useState<boolean>(false)
   const [showRoleOptions, setShowRoleOptions] = useState<boolean>(false)
   const [showSkillModal, setShowSkillModal] = useState<boolean>(false)
   const [showMainLocationOptions, setShowMainLocationOptions] = useState<boolean>(false)
-  const [showLocationOptions, setShowLocationOptions] = useState<boolean>(false)
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([])
+  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({
+    teamBuildingFieldName: [],
+    jobRoleName: [],
+    skillName: [],
+    cityName: [],
+    divisionName: [],
+  })
+
   const TeamBuildingfilterOptions: string[] = ['공모전', '대회', '창업', '사이드 프로젝트', '포트폴리오']
   const RoleFilterOptions: string[] = ['기획·경영', '개발·데이터', '마케팅·광고', '디자인']
 
-  const handleFilterChange = (filters: string[]) => {
-    setSelectedFilters(filters)
+  const handleFilterChange = (filterType: string, filterValue: string | string[]) => {
+    setSelectedFilters((prevFilters) => {
+      const filters = { ...prevFilters }
+      if (Array.isArray(filterValue)) {
+        filters[filterType] = filterValue
+      } else {
+        if (filters[filterType].includes(filterValue)) {
+          filters[filterType] = filters[filterType].filter((item) => item !== filterValue)
+        } else {
+          filters[filterType].push(filterValue)
+        }
+      }
+      return filters
+    })
   }
+
+  const fetchFilteredMembers = async () => {
+    const queryParams = new URLSearchParams()
+    Object.entries(selectedFilters).forEach(([key, values]) => {
+      values.forEach((value) => {
+        queryParams.append(key, value)
+      })
+    })
+
+    try {
+      const response = await GetTeamMembersFiltering(accessToken, queryParams.toString())
+      setFilteredProfiles(response.content)
+    } catch (error) {
+      console.error('API 요청 실패:', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchFilteredMembers()
+  }, [selectedFilters])
 
   return (
     <div className="flex w-[17.3rem] flex-col">
@@ -48,14 +91,8 @@ export default function FindMemberLeftNav() {
                   <input
                     type="checkbox"
                     className="mr-2"
-                    checked={selectedFilters.includes(option)}
-                    onChange={() =>
-                      handleFilterChange(
-                        selectedFilters.includes(option)
-                          ? selectedFilters.filter((item) => item !== option)
-                          : [...selectedFilters, option],
-                      )
-                    }
+                    checked={selectedFilters.teamBuildingFieldName.includes(option)}
+                    onChange={() => handleFilterChange('teamBuildingFieldName', option)}
                   />
                   <span>{option}</span>
                 </label>
@@ -83,14 +120,8 @@ export default function FindMemberLeftNav() {
                   <input
                     type="checkbox"
                     className="mr-2"
-                    checked={selectedFilters.includes(option)}
-                    onChange={() =>
-                      handleFilterChange(
-                        selectedFilters.includes(option)
-                          ? selectedFilters.filter((item) => item !== option)
-                          : [...selectedFilters, option],
-                      )
-                    }
+                    checked={selectedFilters.jobRoleName.includes(option)}
+                    onChange={() => handleFilterChange('jobRoleName', option)}
                   />
                   <span>{option}</span>
                 </label>
@@ -130,14 +161,8 @@ export default function FindMemberLeftNav() {
                   <input
                     type="checkbox"
                     className="mr-2"
-                    checked={selectedFilters.includes(option.name)}
-                    onChange={() =>
-                      handleFilterChange(
-                        selectedFilters.includes(option.name)
-                          ? selectedFilters.filter((item) => item !== option.name)
-                          : [...selectedFilters, option.name],
-                      )
-                    }
+                    checked={selectedFilters.cityName.includes(option.name)}
+                    onChange={() => handleFilterChange('cityName', option.name)}
                   />
                   <span>{option.name}</span>
                 </label>
@@ -149,30 +174,26 @@ export default function FindMemberLeftNav() {
 
       {/* Selected Filters */}
       <div className="mt-4 flex flex-wrap gap-2">
-        {selectedFilters.map((filter, index) => (
-          <div
-            onClick={() =>
-              handleFilterChange(
-                selectedFilters.includes(filter)
-                  ? selectedFilters.filter((item) => item !== filter)
-                  : [...selectedFilters, filter],
-              )
-            }
-            key={index}
-            className="flex cursor-pointer items-center rounded-[0.31rem] border border-[#2563EB] bg-[#D3E1FE66] bg-opacity-40 px-3 py-1 text-[#2563EB]"
-          >
-            <span>{filter}</span>
-            <button className="ml-2">×</button>
-          </div>
-        ))}
+        {Object.entries(selectedFilters).flatMap(([filterType, filters]) =>
+          filters.map((filter, index) => (
+            <div
+              key={index}
+              onClick={() => handleFilterChange(filterType, filter)}
+              className="flex cursor-pointer items-center rounded-[0.31rem] border border-[#2563EB] bg-[#D3E1FE66] bg-opacity-40 px-3 py-1 text-[#2563EB]"
+            >
+              <span>{filter}</span>
+              <button className="ml-2">×</button>
+            </div>
+          )),
+        )}
       </div>
 
       {/* 보유 역량 모달 */}
       <SkillModal
         show={showSkillModal}
         onClose={() => setShowSkillModal(false)}
-        selectedFilters={selectedFilters}
-        handleFilterChange={handleFilterChange}
+        selectedFilters={selectedFilters.skillName}
+        handleFilterChange={(filters) => handleFilterChange('skillName', filters)}
         skillOptions={SkillOptions}
       />
     </div>
