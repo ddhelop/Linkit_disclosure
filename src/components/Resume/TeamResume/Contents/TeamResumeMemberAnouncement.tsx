@@ -2,6 +2,7 @@
 import { ChangeEvent, KeyboardEvent, useState } from 'react'
 import Image from 'next/image'
 import { useRecoilValue } from 'recoil'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostTeamMemberAnnouncement, PutTeamMemberAnnouncement, DeleteTeamMemberAnnouncement } from '@/lib/action'
 import { TeamAnnouncementMemberInterface, TeamMemberAnnouncementResponse } from '@/lib/types'
@@ -10,28 +11,39 @@ interface TeamResumeMemberAnnouncementProps {
   data: TeamMemberAnnouncementResponse[]
 }
 
+interface FormInputs {
+  selectedRole: string
+  mainBusiness: string
+  skills: string[]
+  applicationProcess: string
+  inputValue: string
+}
+
 export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberAnnouncementProps) {
   const accessToken = useRecoilValue(accessTokenState) || ''
   const [isFormVisible, setIsFormVisible] = useState(false)
-  const [selectedRole, setSelectedRole] = useState<string[]>([])
-  const [skills, setSkills] = useState<string[]>([])
-  const [inputValue, setInputValue] = useState('')
-  const [mainBusiness, setMainBusiness] = useState('')
-  const [applicationProcess, setApplicationProcess] = useState('')
   const [announcements, setAnnouncements] = useState(data)
   const [editingAnnouncementId, setEditingAnnouncementId] = useState<number | null>(null)
 
-  const handleButtonClick = async () => {
-    if (selectedRole.length === 0 || skills.length === 0 || !mainBusiness || !applicationProcess) {
-      alert('모든 필수 항목을 입력해주세요.')
-      return
-    }
+  const { register, handleSubmit, setValue, reset, watch } = useForm<FormInputs>({
+    defaultValues: {
+      selectedRole: '',
+      mainBusiness: '',
+      skills: [],
+      applicationProcess: '',
+      inputValue: '',
+    },
+  })
 
+  const watchSkills = watch('skills', [])
+  const watchInputValue = watch('inputValue', '')
+
+  const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
     const TeamData: TeamAnnouncementMemberInterface = {
-      jobRoleNames: selectedRole,
-      mainBusiness: mainBusiness,
-      skillNames: skills,
-      applicationProcess: applicationProcess,
+      jobRoleNames: [formData.selectedRole],
+      mainBusiness: formData.mainBusiness,
+      skillNames: formData.skills,
+      applicationProcess: formData.applicationProcess,
     }
 
     try {
@@ -41,14 +53,15 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
         if (response.ok) {
           setAnnouncements(
             announcements.map((announcement) =>
-              announcement.id === editingAnnouncementId ? { ...TeamData, id: editingAnnouncementId } : announcement,
+              announcement.id === editingAnnouncementId ? { ...announcement, ...TeamData } : announcement,
             ),
           )
         }
       } else {
         response = await PostTeamMemberAnnouncement(accessToken, TeamData)
         if (response.ok) {
-          setAnnouncements([...announcements, { ...TeamData, id: Date.now() }])
+          const responseData = await response.json()
+          setAnnouncements([...announcements, { ...TeamData, id: responseData.id, teamName: '팀 이름' }])
         }
       }
 
@@ -67,36 +80,21 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
   }
 
   const handleRoleClick = (role: string) => {
-    setSelectedRole((prevRoles) => {
-      if (prevRoles.includes(role)) {
-        return prevRoles.filter((r) => r !== role)
-      } else {
-        return [...prevRoles, role]
-      }
-    })
-  }
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value)
-  }
-
-  const handleMainBusinessChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setMainBusiness(event.target.value)
-  }
-
-  const handleApplicationProcessChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setApplicationProcess(event.target.value)
+    setValue('selectedRole', role)
   }
 
   const handleAddSkill = () => {
-    if (inputValue.trim() !== '' && skills.length < 3) {
-      setSkills([...skills, inputValue.trim()])
-      setInputValue('')
+    if (watchInputValue.trim() !== '' && watchSkills.length < 3) {
+      setValue('skills', [...watchSkills, watchInputValue.trim()])
+      setValue('inputValue', '')
     }
   }
 
   const handleRemoveSkill = (skillToRemove: string) => {
-    setSkills(skills.filter((skill) => skill !== skillToRemove))
+    setValue(
+      'skills',
+      watchSkills.filter((skill) => skill !== skillToRemove),
+    )
   }
 
   const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -124,20 +122,16 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
 
   const handleEditAnnouncement = (announcement: TeamMemberAnnouncementResponse) => {
     setEditingAnnouncementId(announcement.id)
-    setSelectedRole(announcement.jobRoleNames)
-    setMainBusiness(announcement.mainBusiness)
-    setSkills(announcement.skillNames)
-    setApplicationProcess(announcement.applicationProcess)
+    setValue('selectedRole', announcement.jobRoleNames[0])
+    setValue('mainBusiness', announcement.mainBusiness)
+    setValue('skills', announcement.skillNames)
+    setValue('applicationProcess', announcement.applicationProcess)
     setIsFormVisible(true)
   }
 
   const resetForm = () => {
     setEditingAnnouncementId(null)
-    setSelectedRole([])
-    setSkills([])
-    setInputValue('')
-    setMainBusiness('')
-    setApplicationProcess('')
+    reset()
   }
 
   return (
@@ -152,17 +146,17 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
       </div>
 
       {/* 팀원 공고 조회 */}
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-2">
         {announcements?.map((announcement) => (
           <div
             key={announcement.id}
             className="flex w-full justify-between rounded-[0.63rem] border border-grey30 p-[1.25rem]"
           >
             <div className="flex w-auto flex-col">
-              <p className="text-sm text-grey60">팀 데이터 필요</p>
+              <p className="text-sm text-grey60">{announcement.teamName}</p>
               <p className="pt-[0.44rem] font-semibold text-grey100">{announcement.mainBusiness}</p>
 
-              <div className="flex flex-wrap">
+              <div className="flex flex-wrap gap-2">
                 {announcement.skillNames.map((skill, index) => (
                   <div
                     key={index}
@@ -198,7 +192,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
 
       {/* Form */}
       {isFormVisible && (
-        <div className="mt-4 rounded border border-grey30 bg-grey10 p-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 rounded border border-grey30 bg-grey10 p-4">
           <div className="flex flex-col gap-4">
             <div>
               <label className="flex font-normal text-grey100">
@@ -208,8 +202,9 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
                 {['기획', '마케팅', '디자이너', 'SW개발자', '리서처', '기타'].map((role) => (
                   <button
                     key={role}
+                    type="button"
                     className={`rounded border px-4 py-2 ${
-                      selectedRole.includes(role)
+                      watch('selectedRole') === role
                         ? 'bg-blue-500 border border-[#2563EB] bg-[#D3E1FE66] bg-opacity-40 font-semibold text-[#2563EB]'
                         : 'border-grey40 bg-[#fff] text-grey60'
                     }`}
@@ -226,11 +221,10 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
                 주요 업무 <p className="pl-1 font-normal text-[#2563EB]">*</p>
               </label>
               <textarea
-                className="mt-2 block w-full resize-none rounded-md border border-grey30 p-[0.56rem] text-grey50 shadow-sm"
+                {...register('mainBusiness')}
+                className="mt-2 block w-full resize-none rounded-md border border-grey30 p-[0.56rem] shadow-sm outline-none"
                 rows={3}
                 placeholder="주요 업무"
-                value={mainBusiness}
-                onChange={handleMainBusinessChange}
               />
             </div>
 
@@ -241,7 +235,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
             <div>
               {/* 버튼들 */}
               <div className="flex flex-wrap gap-2 pt-1">
-                {skills.map((skill, index) => (
+                {watchSkills.map((skill, index) => (
                   <div
                     key={index}
                     onClick={() => handleRemoveSkill(skill)}
@@ -249,6 +243,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
                   >
                     <span className="text-[#2563EB]">{skill}</span>
                     <button
+                      type="button"
                       onClick={(e) => {
                         e.stopPropagation()
                         handleRemoveSkill(skill)
@@ -268,12 +263,19 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
                   <input
                     type="text"
                     className="flex-1 rounded border border-grey40 p-2"
-                    value={inputValue}
-                    onChange={handleInputChange}
+                    value={watchInputValue}
+                    onChange={(e) => setValue('inputValue', e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder="ex. Notion"
                   />
-                  <button onClick={handleAddSkill} className="rounded bg-[#2563EB] px-4 py-2 text-sm text-[#fff]">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleAddSkill()
+                      setValue('inputValue', '')
+                    }}
+                    className="rounded bg-[#2563EB] px-4 py-2 text-sm text-[#fff]"
+                  >
                     추가
                   </button>
                 </div>
@@ -283,38 +285,41 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
             <div className="pt-8">
               <label className="block font-normal text-grey100">지원 절차</label>
               <textarea
-                className="mt-2 block w-full resize-none rounded-md border border-grey30 p-[0.56rem] text-grey50 shadow-sm"
+                {...register('applicationProcess')}
+                className="mt-2 block w-full resize-none rounded-md border border-grey30 p-[0.56rem] shadow-sm outline-none"
                 rows={3}
                 placeholder="지원 절차"
-                value={applicationProcess}
-                onChange={handleApplicationProcessChange}
               />
             </div>
-
-            <div className="mt-4 flex justify-end gap-2 pb-4">
-              <button
-                onClick={() => {
-                  setIsFormVisible(false)
-                  resetForm()
-                }}
-                className="rounded bg-grey30 px-4 py-2 "
-              >
-                취소하기
-              </button>
-              <button onClick={handleButtonClick} className="text-white rounded bg-[#2563EB] px-4 py-2 text-[#fff]">
-                {editingAnnouncementId !== null ? '수정하기' : '저장하기'}
-              </button>
-            </div>
           </div>
-        </div>
+          <div className="mt-4 flex justify-end gap-2 pb-4">
+            <button
+              type="button"
+              onClick={() => {
+                setIsFormVisible(false)
+                resetForm()
+              }}
+              className="rounded bg-grey30 px-4 py-2 "
+            >
+              취소하기
+            </button>
+            <button type="submit" className="text-white rounded bg-[#2563EB] px-4 py-2 text-[#fff]">
+              {editingAnnouncementId !== null ? '수정하기' : '저장하기'}
+            </button>
+          </div>
+        </form>
       )}
 
-      <button
-        onClick={() => setIsFormVisible(!isFormVisible)}
-        className="mt-[0.38rem] flex w-full items-center justify-center rounded-[0.63rem] border border-grey30 bg-grey20 py-[1.2rem]"
-      >
-        <Image src="/assets/icons/plus.svg" width={20} height={20} alt="plus" />
-      </button>
+      {!isFormVisible && (
+        <div className="flex w-full justify-end">
+          <button
+            className="mt-3 rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]"
+            onClick={() => setIsFormVisible(true)}
+          >
+            추가하기
+          </button>
+        </div>
+      )}
     </div>
   )
 }

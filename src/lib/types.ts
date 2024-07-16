@@ -230,6 +230,7 @@ export interface TeamMemberAnnouncementResponse {
   mainBusiness: string
   jobRoleNames: string[]
   id: number
+  teamName: string
   applicationProcess: string
   skillNames: string[]
 }
