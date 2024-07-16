@@ -109,8 +109,11 @@ export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuil
       <div className="mt-[0.94rem] flex w-full justify-end">
         {isEditing ? (
           <div className="flex gap-2">
-            <button onClick={() => setIsEditing(false)} className="h-10 rounded bg-grey20 px-4 text-sm">
-              취소
+            <button
+              onClick={() => setIsEditing(false)}
+              className="mr-2 h-10 rounded border border-[#2563EB] bg-[#fff] px-4 text-sm text-[#2563EB]"
+            >
+              취소하기
             </button>
             <button onClick={handleSaveClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
               수정완료

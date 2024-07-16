@@ -180,9 +180,17 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
       {/* button */}
       <div className="mt-[0.94rem] flex w-full justify-end">
         {isEditing ? (
-          <button onClick={handleSaveClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
-            수정완료
-          </button>
+          <div className="flex">
+            <button
+              onClick={() => setIsEditing(false)}
+              className="mr-2 h-10 rounded border border-[#2563EB] bg-[#fff] px-4 text-sm text-[#2563EB]"
+            >
+              취소하기
+            </button>
+            <button onClick={handleSaveClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+              수정완료
+            </button>
+          </div>
         ) : (
           <button onClick={handleEditClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
             수정하기
