@@ -17,7 +17,7 @@ export default function TeamBuildingComponent({ data }: TeamResumTeamBuildingPro
       setSelectedOptions(data.teamProfileTeamBuildingFieldNames)
       setOptions(options.filter((option) => !data.teamProfileTeamBuildingFieldNames.includes(option)))
     }
-  }, [data.teamProfileTeamBuildingFieldNames])
+  }, [data.teamProfileTeamBuildingFieldNames, options])
 
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">

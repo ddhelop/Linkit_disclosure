@@ -109,35 +109,6 @@ export default function RegisterSchool() {
     }
   }
 
-  const handleSave = async () => {
-    if (accessToken && educationList.length > 0) {
-      const response = await PostSchoolData(accessToken, educationList)
-
-      if (response.ok) {
-        router.push('/onBoarding/person/career')
-      } else {
-        alert('에러가 발생했습니다.')
-        console.log(response)
-      }
-    } else {
-      router.push('/onBoarding/person/career')
-    }
-  }
-
-  const onClickPrev = async () => {
-    if (accessToken && educationList.length > 0) {
-      const response = await PostSchoolData(accessToken, educationList)
-      if (response.ok) {
-        router.push('/onBoarding/person/role')
-      } else {
-        alert('에러가 발생했습니다.')
-        console.log(response)
-      }
-    } else {
-      router.push('/onBoarding/person/role')
-    }
-  }
-
   if (!isClient) {
     return null
   }

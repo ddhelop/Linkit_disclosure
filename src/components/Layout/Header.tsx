@@ -67,7 +67,7 @@ export default function Header() {
           router.push('/')
         }
       })
-  }, [router, setToken, setIsAuth, token, pathname])
+  }, [router, setToken, setIsAuth, token, pathname, hiddenPaths])
 
   const handleLogout = async () => {
     if (!token) return

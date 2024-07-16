@@ -61,7 +61,7 @@ export default function FindMemberLeftNav() {
 
   useEffect(() => {
     fetchFilteredMembers()
-  }, [selectedFilters])
+  }, [selectedFilters, fetchFilteredMembers])
 
   return (
     <div className="flex w-[17.3rem] flex-col">
