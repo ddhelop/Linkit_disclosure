@@ -13,6 +13,7 @@ export default function PrivateNavProfile({ data, name, jobAndSkill }: MyResumeN
       {/* title */}
       <div className="flex w-full justify-between pt-[0.43rem]">
         <h3 className="text-grey-100 w-[60%] text-[1.149rem] font-bold">{data?.profileTitle}</h3>
+        <Image src="/assets/icons/saveIcon.svg" width={16} height={16} alt="edit" className="cursor-pointer" />
       </div>
 
       <div className="flex flex-wrap gap-[0.26rem] py-4">
@@ -48,6 +49,10 @@ export default function PrivateNavProfile({ data, name, jobAndSkill }: MyResumeN
           </div>
         </div>
       </div>
+
+      <button className="mt-[0.88rem] w-full rounded bg-grey100 py-[0.56rem] text-center text-sm text-[#fff]">
+        매칭하기
+      </button>
     </div>
   )
 }

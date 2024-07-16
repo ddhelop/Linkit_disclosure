@@ -5,6 +5,7 @@ interface MyResumEducationProps {
 }
 
 export default function PrivateAcademic({ data }: MyResumEducationProps) {
+  console.log('학력', data)
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
@@ -13,7 +14,7 @@ export default function PrivateAcademic({ data }: MyResumEducationProps) {
       </div>
 
       {/* contents */}
-      {data?.length === 0 ? (
+      {!data ? (
         <div className="pt-[0.94rem] text-grey50">학력사항이 없습니다.</div>
       ) : (
         data?.map((education) => (

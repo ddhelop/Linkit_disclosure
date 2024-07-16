@@ -57,7 +57,7 @@ export default function PrivateHistory({ data }: MyResumAntecedentProps) {
       </div>
 
       {/* contents */}
-      {histories?.length === 0 && <div className="pt-[0.94rem] text-grey50">이력사항이 없습니다.</div>}
+      {!histories && <div className="pt-[0.94rem] text-grey50">경력사항이 없습니다.</div>}
 
       {histories?.map((history, index) => (
         <div key={index} className="mt-6 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6">

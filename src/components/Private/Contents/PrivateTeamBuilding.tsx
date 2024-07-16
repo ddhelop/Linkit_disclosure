@@ -16,7 +16,7 @@ export default function PrivateTeamBuilding({ data }: MyResumTeamBuildingFieldPr
   useEffect(() => {
     setSelectedOptions(data.teamBuildingFieldNames)
     setOptions(options.filter((option) => !data.teamBuildingFieldNames?.includes(option)))
-  }, [data.teamBuildingFieldNames, options])
+  }, [data.teamBuildingFieldNames])
 
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
