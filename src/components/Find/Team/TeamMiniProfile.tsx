@@ -66,7 +66,9 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
 
         <div className="flex gap-2">
           {profile.teamMemberAnnouncementResponse.skillNames?.map((keyword, index) => (
-            <div className="rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">태그[미적용]</div>
+            <div key={index} className="rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">
+              태그[미적용]
+            </div>
           ))}
         </div>
       </div>
