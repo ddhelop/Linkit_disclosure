@@ -1,11 +1,31 @@
 'use client'
 import { GetTeams } from '@/lib/action'
 import { useEffect, useState } from 'react'
-import { TeamProfile } from '@/lib/types'
 import TeamMiniProfile from './TeamMiniProfile'
 
+interface TeamProfile {
+  teamMiniProfileResponse: {
+    id: number
+    sectorName: string
+    sizeType: string
+    teamName: string
+    teamProfileTitle: string
+    isTeamActivate: boolean
+    teamLogoImageUrl: string
+    teamKeywordNames: string[]
+  }
+  teamMemberAnnouncementResponse: {
+    id: number
+    teamName: string
+    jobRoleNames: string[]
+    mainBusiness: string
+    skillNames: string[]
+    applicationProcess: string
+  }
+}
+
 export default function FindTeam() {
-  const [TeamData, setTeamData] = useState<TeamProfile[] | null>(null)
+  const [teamData, setTeamData] = useState<TeamProfile[] | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +38,7 @@ export default function FindTeam() {
 
   return (
     <div className="flex w-full flex-col gap-4 pt-[2rem]">
-      {TeamData?.map((team) => <TeamMiniProfile key={team.id} profile={team} />)}
+      {teamData?.map((team) => <TeamMiniProfile key={team.teamMiniProfileResponse.id} profile={team} />)}
     </div>
   )
 }
