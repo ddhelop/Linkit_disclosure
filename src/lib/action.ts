@@ -423,6 +423,19 @@ export async function PostTeamMember(accessToken: string, data: TeamMemberData[]
   })
 }
 
+// 팀이력서 - 팀원 소개 수정
+export async function PutTeamMember(accessToken: string, data: TeamMemberData, teamMemberIntroductionId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/member/${teamMemberIntroductionId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify(data),
+  })
+}
+
 //팀 이력서 - 팀원 소개 삭제
 export async function DeleteTeamMember(accessToken: string, teamMemberIntroductionId: number) {
   return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/members/${teamMemberIntroductionId}`, {
