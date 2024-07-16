@@ -31,7 +31,7 @@ export default function TeamNavProfile({ data }: TeamResumNavProps) {
             width={41}
             height={41}
             alt="flag"
-            className="rounded-full"
+            className="min-h-[41px] min-w-[41px] rounded-full"
           />
         </div>
 
@@ -43,6 +43,9 @@ export default function TeamNavProfile({ data }: TeamResumNavProps) {
           </div>
         </div>
       </div>
+      <button className="mt-[0.88rem] w-full rounded bg-grey100 py-[0.56rem] text-center text-sm text-[#fff]">
+        지원하기
+      </button>
     </div>
   )
 }

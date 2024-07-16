@@ -18,7 +18,10 @@ export default function TeamMember({ data }: TeamMemberProps) {
 
       {teamMembers.length > 0 ? (
         teamMembers.map((member, index) => (
-          <div key={member.id} className="mt-[0.94rem] flex items-center justify-between border border-grey30 p-5">
+          <div
+            key={member.id}
+            className="mt-[0.94rem] flex items-center justify-between rounded-[0.31rem] border border-grey30 p-5"
+          >
             <div className="flex flex-col">
               <p className="text-sm text-grey60">(주)링킷</p>
               <p className="pt-[0.44rem]">

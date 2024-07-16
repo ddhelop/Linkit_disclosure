@@ -16,6 +16,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
         {/* Title */}
         <p className="text-lg font-semibold">연혁</p>
 
+        {!data && <div className=" text-grey50">연혁이 없습니다.</div>}
         <div className="flex flex-col gap-4">
           {data?.map((history, index) => (
             <div key={index} className="rounded-[0.63rem] border border-grey30 px-[1.31rem] py-[1.38rem]">
