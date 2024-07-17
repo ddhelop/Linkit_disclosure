@@ -118,7 +118,7 @@ export default function Header() {
           <div className="flex flex-1 justify-end gap-10">
             {isAuth ? (
               <>
-                <Link href="#" className="hidden text-sm font-medium leading-5 text-grey80 lg:flex">
+                <Link href="/match/from" className="hidden text-sm font-medium leading-5 text-grey80 lg:flex">
                   매칭관리
                 </Link>
                 <DropdownMenu />
