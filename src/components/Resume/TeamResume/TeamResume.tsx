@@ -60,17 +60,21 @@ export default function TeamResume() {
       </div>
 
       {/* contents */}
-      <div className="flex justify-center gap-[1.87rem] pt-[101px]">
-        {/* left navBar */}
-        <div className="w-[21.25rem]">
-          <TeamResumeNav data={data.teamMiniProfileResponse} />
-        </div>
+      {data.teamProfileEssential ? (
+        <div className="flex justify-center gap-[1.87rem] pt-[101px]">
+          {/* left navBar */}
+          <div className="w-[21.25rem]">
+            <TeamResumeNav data={data.teamMiniProfileResponse} />
+          </div>
 
-        {/* right contents */}
-        <div className="w-[47.31rem]">
-          <TeamContentLayout data={data} />
+          {/* right contents */}
+          <div className="w-[47.31rem]">
+            <TeamContentLayout data={data} />
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex items-center justify-center">팀 소개서가 없습니다.</div>
+      )}
     </div>
   )
 }

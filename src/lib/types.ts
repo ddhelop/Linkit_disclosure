@@ -252,6 +252,7 @@ export interface TeamMemberIntroductionResponse {
   teamMemberIntroductionText: string
 }
 export interface TeamIntroductionResponse {
+  teamProfileEssential: boolean
   TeamCompletionResponse: TeamCompletionResponse
   teamProfileTeamBuildingFieldResponse: TeamProfileTeamBuildingFieldResponse
   teamProfileIntroductionResponse: TeamProfileIntroductionResponse

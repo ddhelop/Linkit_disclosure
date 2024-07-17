@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostTeamMemberAnnouncement, PutTeamMemberAnnouncement, DeleteTeamMemberAnnouncement } from '@/lib/action'
 import { TeamAnnouncementMemberInterface, TeamMemberAnnouncementResponse } from '@/lib/types'
+import { SkillOptions } from '@/lib/data'
 
 interface TeamResumeMemberAnnouncementProps {
   data: TeamMemberAnnouncementResponse[]
@@ -24,6 +25,8 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
   const [isFormVisible, setIsFormVisible] = useState(false)
   const [announcements, setAnnouncements] = useState(data)
   const [editingAnnouncementId, setEditingAnnouncementId] = useState<number | null>(null)
+  const [filteredSkills, setFilteredSkills] = useState<string[]>([])
+  const [selectedSkillIndex, setSelectedSkillIndex] = useState<number>(-1)
 
   const { register, handleSubmit, setValue, reset, watch } = useForm<FormInputs>({
     defaultValues: {
@@ -51,6 +54,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
       if (editingAnnouncementId !== null) {
         response = await PutTeamMemberAnnouncement(accessToken, TeamData, editingAnnouncementId)
         if (response.ok) {
+          // 수정된 공고 업데이트
           setAnnouncements(
             announcements.map((announcement) =>
               announcement.id === editingAnnouncementId ? { ...announcement, ...TeamData } : announcement,
@@ -58,7 +62,9 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
           )
         }
       } else {
+        // 새로운 공고 추가
         response = await PostTeamMemberAnnouncement(accessToken, TeamData)
+        console.log('새로운 공고', response)
         if (response.ok) {
           const responseData = await response.json()
           setAnnouncements([...announcements, { ...TeamData, id: responseData.id, teamName: '팀 이름' }])
@@ -83,10 +89,28 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
     setValue('selectedRole', role)
   }
 
-  const handleAddSkill = () => {
-    if (watchInputValue.trim() !== '' && watchSkills.length < 3) {
-      setValue('skills', [...watchSkills, watchInputValue.trim()])
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value
+    setValue('inputValue', inputValue)
+    if (inputValue.trim() !== '') {
+      setFilteredSkills(SkillOptions.filter((skill) => skill.includes(inputValue)))
+      setSelectedSkillIndex(-1)
+    } else {
+      setFilteredSkills([])
+    }
+  }
+
+  const handleAddSkill = (skill?: string) => {
+    const skillToAdd = skill || watchInputValue.trim()
+    if (
+      skillToAdd !== '' &&
+      watchSkills.length < 3 &&
+      !watchSkills.includes(skillToAdd) &&
+      SkillOptions.includes(skillToAdd)
+    ) {
+      setValue('skills', [...watchSkills, skillToAdd])
       setValue('inputValue', '')
+      setFilteredSkills([])
     }
   }
 
@@ -100,7 +124,17 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
   const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault()
-      handleAddSkill()
+      if (selectedSkillIndex >= 0 && selectedSkillIndex < filteredSkills.length) {
+        handleAddSkill(filteredSkills[selectedSkillIndex])
+      } else {
+        handleAddSkill()
+      }
+    } else if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      setSelectedSkillIndex((prevIndex) => (prevIndex + 1) % filteredSkills.length)
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      setSelectedSkillIndex((prevIndex) => (prevIndex - 1 + filteredSkills.length) % filteredSkills.length)
     }
   }
 
@@ -259,13 +293,14 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
               {/* input container */}
               <div className="mt-[0.88rem] flex flex-col">
                 <span className="py-[0.88rem] text-sm font-normal text-grey60">보유 기술을 하나씩 입력해주세요</span>
-                <div className="flex w-[16.1rem] items-center gap-[0.63rem]">
+                <div className="relative flex w-[16.1rem] items-center gap-[0.63rem]">
                   <input
                     type="text"
-                    className="flex-1 rounded border border-grey40 p-2"
+                    className="flex-1 rounded border border-grey40 p-2 outline-none"
                     value={watchInputValue}
-                    onChange={(e) => setValue('inputValue', e.target.value)}
+                    onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
+                    onKeyDown={handleKeyPress}
                     placeholder="ex. Notion"
                   />
                   <button
@@ -278,6 +313,22 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
                   >
                     추가
                   </button>
+                  {/* Filtered Skills */}
+                  {filteredSkills.length > 0 && (
+                    <div className="absolute top-11 w-full rounded border border-grey30 bg-[#fff] p-2">
+                      {filteredSkills.map((skill, index) => (
+                        <div
+                          key={index}
+                          className={`cursor-pointer p-1 hover:bg-grey10 ${
+                            selectedSkillIndex === index ? 'bg-grey10' : ''
+                          }`}
+                          onClick={() => handleAddSkill(skill)}
+                        >
+                          {skill}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
