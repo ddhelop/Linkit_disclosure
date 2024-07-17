@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 
-export default function FromMyMatch() {
+export default function ToMyMatch() {
   return (
     <div className="flex w-full flex-col pt-12">
       <div className="flex flex-col gap-[0.31rem]">
@@ -21,8 +21,8 @@ export default function FromMyMatch() {
           <Image src="/assets/images/DefaultProfile.png" width={65} height={65} alt="empty" className="rounded-full" />
           <div className="flex w-full justify-between">
             <div className="flex flex-col justify-center gap-1">
-              <p className="text-xs text-[#2563EB]">내 이력서에 알림이 왔어요</p>
-              <p className="font-semibold">[상대방]님이 매칭 요청을 보냈습니다</p>
+              <p className="text-xs text-[#2563EB]">팀원찾기 &gt; 수신확인</p>
+              <p className="font-semibold">[수신자 이름]께 매칭 요청을 보냈습니다.</p>
               <p className="text-sm text-grey60">인삿말과 소개 문구가 미리보기로 보여집니다.</p>
             </div>
             <p className="text-xs text-grey50">3일 전</p>
