@@ -41,6 +41,7 @@ export default function FromMyMatch() {
 
         {matchReceived.map((match) => (
           <motion.div
+            key={match.id}
             className="flex w-[48.5rem] cursor-pointer gap-[1.44rem] rounded-lg bg-[#fff] p-5 shadow-sm"
             whileHover={{
               y: -3,
