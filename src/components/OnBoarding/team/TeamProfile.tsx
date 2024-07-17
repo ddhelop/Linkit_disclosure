@@ -118,7 +118,7 @@ export default function TeamProfile() {
       <div className="flex h-screen w-full flex-col items-center bg-[#fff] p-4">
         <div className="flex w-full flex-col items-center pb-24 pt-16 lg:w-[988px]">
           <div className="flex w-full flex-col items-start leading-9">
-            <span className="text-2xl font-bold">팀 이력서가 거의 완성되었어요</span>
+            <span className="text-2xl font-bold">팀 소개서가 거의 완성되었어요</span>
             <span className="text-grey60">다른사람들이 보는 팀 프로필이예요. 수정할 사항을 완성해주세요</span>
           </div>
 
@@ -127,7 +127,7 @@ export default function TeamProfile() {
             <div>
               <div className="hidden w-[23rem]  flex-col rounded-lg border-[1.67px] border-grey30 p-3 pb-5 lg:flex">
                 <h2 className="text-[1.25rem] font-bold leading-9 text-grey50">
-                  {teamProfileTitle || '사이드 프로젝트 함께 할 개발자를 찾고 있어요'}
+                  {teamProfileTitle || '팀을 소개하는 프로필 제목을 입력해 주세요'}
                 </h2>
                 <div className="flex flex-wrap gap-2">
                   {skills.map((skill, index) => (
@@ -165,7 +165,7 @@ export default function TeamProfile() {
               {/* 제목 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  제목을 입력해주세요 <span className="font-sm text-[#FF345F]">*</span>
+                  팀을 소개하는 프로필 제목을 입력해 주세요 <span className="font-sm text-[#FF345F]">*</span>
                 </span>
                 <Controller
                   name="teamProfileTitle"

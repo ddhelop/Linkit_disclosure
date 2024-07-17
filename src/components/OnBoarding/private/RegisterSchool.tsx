@@ -120,7 +120,7 @@ export default function RegisterSchool() {
           <span>내 이력서 가이드</span>
         </div>
         <div className="flex w-[90%] flex-col items-start leading-9 sm:w-[55%]">
-          <span className="text-2xl font-bold">학교 이력을 등록해주세요</span>
+          <span className="text-2xl font-bold">나의 학력을 등록해 주세요</span>
         </div>
 
         {educationList.map((education, index) => (

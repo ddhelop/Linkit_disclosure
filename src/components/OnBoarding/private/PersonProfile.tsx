@@ -110,9 +110,6 @@ export default function RegisterPersonProfile() {
       activate: uploadDeadline,
     }
 
-    console.log(miniProfileRequest)
-    console.log(profileImage)
-
     // 여기에 fetch API로 POST 요청을 보내는 코드를 추가하세요
     if (!accessToken) return
     try {
@@ -149,7 +146,7 @@ export default function RegisterPersonProfile() {
             <div className="">
               <div className="hidden h-auto w-[22.18rem] flex-col rounded-lg border-[1.67px] border-grey30 p-[0.77rem] lg:flex">
                 <h2 className="text-xl font-bold leading-9 text-grey50">
-                  {watch('profileTitle') || '사이드 프로젝트 함께 할 개발자를 찾고 있어요'}
+                  {watch('profileTitle') || ' 나를 소개하는 프로필 제목을 입력해 주세요'}
                 </h2>
                 <div className="flex  flex-wrap gap-1 pt-3">
                   {skills.map((skill, index) => (
@@ -183,7 +180,7 @@ export default function RegisterPersonProfile() {
               {/* 제목 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  나를 소개하는 프로필 제목을 입력해주세요 <span className="font-sm text-[#FF345F]">*</span>
+                  나를 소개하는 프로필 제목을 입력해주세요 <span className="font-sm text-[#2563EB]">*</span>
                 </span>
                 <input
                   className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
@@ -195,7 +192,7 @@ export default function RegisterPersonProfile() {
               {/* 스킬셋 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  나를 소개하는 키워드를 3개 이내로 작성해주세요 <span className="font-sm text-[#FF345F]">*</span>
+                  나를 소개하는 키워드를 3개 이내로 작성해주세요 <span className="font-sm text-[#2563EB]">*</span>
                 </span>
 
                 {/* contents */}

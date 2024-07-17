@@ -94,7 +94,7 @@ export default function Role() {
           <span>내 이력서 가이드</span>
         </div>
         <div className="flex w-[90%] flex-col items-start leading-9 sm:w-[55%]">
-          <span className="text-2xl font-bold">희망하는 역할을 알려주세요</span>
+          <span className="text-2xl font-bold">나의 역할을 알려주세요</span>
           <span className="text-grey60">*중복선택 가능</span>
         </div>
 
@@ -115,7 +115,7 @@ export default function Role() {
         {/* 보유한 기술 */}
         <div className="flex w-[90%] flex-col pt-8 sm:w-[55%] lg:pt-16">
           <span className="text-lg font-bold leading-5">
-            보유한 기술을 알려주세요 <span className="text-sm font-normal text-grey80">*중복선택가능</span>
+            보유 역량을 알려주세요 <span className="text-sm font-normal text-grey80">*중복선택가능</span>
           </span>
           {/* contents */}
           <div>
@@ -143,7 +143,7 @@ export default function Role() {
 
             {/* input container */}
             <div className="mt-[0.88rem] flex flex-col border-t border-grey40">
-              <span className="py-[0.88rem] text-sm font-normal">보유 기술을 추가해주세요</span>
+              <span className="py-[0.88rem] text-sm font-normal">보유 역량을 하나씩 입력해주세요</span>
               <div className="flex w-[16.1rem] items-center gap-[0.63rem]">
                 <input
                   type="text"
@@ -151,7 +151,7 @@ export default function Role() {
                   value={inputValue}
                   onChange={handleInputChange}
                   onKeyPress={handleKeyPress}
-                  placeholder="Text Field"
+                  placeholder="ex.기획"
                 />
                 <button
                   onClick={() => handleAddSkill(inputValue)}

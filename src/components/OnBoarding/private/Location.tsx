@@ -82,7 +82,7 @@ export default function Location() {
             <span>내 이력서 가이드</span>
           </div>
           <div className="flex w-[90%] flex-col items-start leading-9 sm:w-[55%]">
-            <span className="text-2xl font-bold">활동 지역 및 위치를 알려주세요</span>
+            <span className="text-2xl font-bold">활동 지역을 알려주세요</span>
           </div>
 
           <div className="flex w-[90%] flex-col gap-5 pt-8 sm:w-[55%] lg:flex-row">

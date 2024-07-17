@@ -95,7 +95,7 @@ export default function ActivityWay() {
             <span>팀 이력서 가이드</span>
           </div>
           <div className="flex w-[90%] flex-col items-start leading-9 sm:w-[55%]">
-            <span className="text-2xl font-bold">활동방식을 선택해주세요</span>
+            <span className="text-2xl font-bold">활동 형태를 선택해 주세요</span>
             <span className="text-grey60">*중복선택 가능</span>
           </div>
 
@@ -122,7 +122,7 @@ export default function ActivityWay() {
 
             <div className="flex w-[90%] flex-col pt-16 sm:w-[55%]">
               <span className="text-lg font-bold leading-5">
-                활동 지역/위치 <span className="pl-1 text-sm font-normal text-[#FF345F]">*</span>
+                활동 지역 <span className="pl-1 text-sm font-normal text-[#FF345F]">*</span>
               </span>
             </div>
 

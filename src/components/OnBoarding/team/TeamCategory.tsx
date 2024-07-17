@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { accessTokenState, authState } from '@/context/recoil-context'
 
-const ShortTerm = ['공모전', '대회', '해커톤', '창업', '포트폴리오', '스터디', '사이드 프로젝트']
+const ShortTerm = ['창업', '공모전', '대회', '사이드 프로젝트', '포트폴리오']
 
 interface FormInputs {
   teamName: string
@@ -92,7 +92,7 @@ export default function TeamCategory() {
             <span>팀 이력서 가이드</span>
           </div>
           <div className="flex w-[90%] flex-col items-start leading-9 sm:w-[55%]">
-            <span className="text-2xl font-bold">희망하는 팀 빌딩분야를 알려주세요</span>
+            <span className="text-2xl font-bold">희망 팀빌딩 분야를 선택해 주세요</span>
             <span className="text-grey60">*중복선택 가능</span>
           </div>
 
@@ -119,7 +119,7 @@ export default function TeamCategory() {
 
             <div className="flex w-[90%] flex-col pt-16 sm:w-[55%]">
               <span className="text-lg font-bold leading-5">
-                팀명을 입력해주세요 <span className="pl-1 text-sm font-normal text-[#FF345F]">*</span>
+                팀명을 입력해 주세요 <span className="pl-1 text-sm font-normal text-[#FF345F]">*</span>
               </span>
               <Controller
                 name="teamName"
@@ -180,6 +180,10 @@ export default function TeamCategory() {
                       <option value="블록체인">블록체인</option>
                       <option value="AI">AI</option>
                       <option value="SaaS">SaaS</option>
+                      <option value="플랫폼">플랫폼</option>
+                      <option value="ESG">ESG</option>
+                      <option value="라이프스타일">라이프스타일</option>
+                      <option value="기타">기타</option>
                     </select>
                   )}
                 />

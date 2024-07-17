@@ -48,7 +48,7 @@ export default function OnBoardingPrivateInfo() {
               <div className="w-[100%] pt-[1.31rem]">
                 <h2 className="pb-1 text-sm font-semibold">성함</h2>
                 <input
-                  placeholder="name"
+                  placeholder="Name"
                   className="h-[2.75rem] w-full rounded-md border border-grey30 p-4 text-sm text-grey90 outline-none focus:border-2 focus:border-grey90"
                   {...register('memberName', { required: true })}
                 />
@@ -58,7 +58,7 @@ export default function OnBoardingPrivateInfo() {
                 <h2 className="pb-1 text-sm font-semibold">연락처</h2>
                 <input
                   {...register('contact', { required: true })}
-                  placeholder="phoneNumber"
+                  placeholder="010-XXXX-XXXX"
                   className="h-[2.75rem] w-full rounded-md border border-grey30 p-4 text-sm text-grey90 outline-none focus:border-2 focus:border-grey90"
                 />
               </div>
