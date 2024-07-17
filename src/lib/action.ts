@@ -616,3 +616,17 @@ export async function GetTeamsFiltering(accessToken: string, queryParams: string
 
   return await response.json()
 }
+
+// 매칭 관리 - 내가 받은 매칭
+export async function GetMatchReceived(accessToken: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/matching/received`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  return await response.json()
+}

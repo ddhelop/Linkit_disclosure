@@ -392,3 +392,12 @@ export interface TeamHistoryDataSet {
   inProgress: boolean
   historyIntroduction: string
 }
+
+// 내게 온 매칭 알림
+export interface MatchReceivedType {
+  id: number
+  receivedTeamProfile: boolean
+  senderName: string
+  requestMessage: string
+  requestOccurTime: string
+}
