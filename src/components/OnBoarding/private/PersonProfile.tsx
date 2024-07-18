@@ -107,7 +107,7 @@ export default function RegisterPersonProfile() {
     const miniProfileRequest = {
       profileTitle,
       myKeywordNames,
-      activate: uploadDeadline,
+      isActivate: uploadDeadline,
     }
 
     // 여기에 fetch API로 POST 요청을 보내는 코드를 추가하세요

@@ -2,11 +2,7 @@
 import { useState } from 'react'
 import { TeamMemberData } from '@/lib/types'
 
-interface TeamMemberProps {
-  data: TeamMemberData[]
-}
-
-export default function TeamMember({ data }: TeamMemberProps) {
+export default function TeamMember({ data }: { data: TeamMemberData }) {
   const [teamMembers, setTeamMembers] = useState<TeamMemberData[]>(Array.isArray(data) ? data : [])
 
   return (
