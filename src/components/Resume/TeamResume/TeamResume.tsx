@@ -4,6 +4,7 @@ import TeamResumeNav from '@/components/Resume/TeamResume/Nav/TeamResumeNav'
 import { accessTokenState } from '@/context/recoil-context'
 import { GetTeamResume } from '@/lib/action'
 import { TeamIntroductionResponse } from '@/lib/types'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -73,7 +74,18 @@ export default function TeamResume() {
           </div>
         </div>
       ) : (
-        <div className="flex items-center justify-center">팀 소개서가 없습니다.</div>
+        <div className="flex h-screen items-center justify-center">
+          <div className="flex w-[25rem] flex-col items-center bg-[#fff] p-4">
+            <Image src={'/assets/icons/gray-warning.svg'} width={70} height={70} alt="empty" />
+            <p className="pt-3 text-xl font-bold text-grey100">등록된 팀 소개서가 없어요</p>
+
+            <div className="flex gap-[0.6rem] pt-[2.25rem]">
+              <Link href={'/onBoarding/team/activityWay'}>
+                <button className="rounded-[0.6rem] bg-grey90 px-16 py-4 text-[#fff]"> 작성하러 가기</button>
+              </Link>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )
