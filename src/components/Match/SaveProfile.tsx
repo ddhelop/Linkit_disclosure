@@ -2,10 +2,10 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { GetMatchReceived } from '@/lib/action'
+import { GetMatchReceived, GetSavedTeams } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
-import { MatchReceivedType, SaveProfileType } from '@/lib/types'
+import { FindTeamInterface, MatchReceivedType, SaveProfileType, SaveTeamType } from '@/lib/types'
 import Link from 'next/link'
 
 import MatchingPrivateMiniProfile from '../common/component/MatchingPrivateMiniProfile'
@@ -15,6 +15,7 @@ import { usePathname } from 'next/navigation'
 export default function SaveProfile() {
   const accessToken = useRecoilValue(accessTokenState) || ''
   const [privateMatchReceived, setPrivateMatchReceived] = useState<SaveProfileType[]>([])
+  const [teamMatchedReceived, setTeamMatchedReceived] = useState<FindTeamInterface[]>([])
   const pathname = usePathname()
 
   // 찜한 팀원 프로필 리스트 불러오기
@@ -29,6 +30,20 @@ export default function SaveProfile() {
     }
     getMatchReceived()
   }, [])
+
+  // // 찜한 팀 프로필 리스트 불러오기
+  // useEffect(() => {
+  //   const getMatchTeamReceived = async () => {
+  //     try {
+  //       const response = await GetSavedTeams(accessToken)
+  //       setTeamMatchedReceived(response)
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+  //   }
+  //   getMatchTeamReceived()
+  // }, [])
+  // console.log(teamMatchedReceived)
 
   return (
     <div className="flex w-full flex-col">
@@ -73,7 +88,18 @@ export default function SaveProfile() {
         ))}
 
       {/* 찜한 팀 */}
-      <div className="mt-3">{pathname === '/match/save/team' && <MatchingTeamMiniProfile />}</div>
+
+      {pathname === '/match/save/team' &&
+        // teamMatchedReceived 데이터가 없으면 '찜한 팀이 없어요' 메세지 출력
+        (teamMatchedReceived?.length === 0 ? (
+          <>
+            <div className="mt-3 text-grey60">찜한 팀이 없어요</div>
+          </>
+        ) : (
+          <div className="mt-3">
+            {teamMatchedReceived?.map((profile) => <MatchingTeamMiniProfile profile={profile} />)}
+          </div>
+        ))}
     </div>
   )
 }

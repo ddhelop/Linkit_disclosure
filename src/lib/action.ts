@@ -672,3 +672,17 @@ export async function GetSavedMembers(accessToken: string) {
 
   return await response.json()
 }
+
+// 찜한 내역 - 찜한 팀 조회
+export async function GetSavedTeams(accessToken: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/wish/team/profile/list`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  return await response.json()
+}

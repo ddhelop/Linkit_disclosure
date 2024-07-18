@@ -428,3 +428,9 @@ export interface SaveProfileType {
   memberName: string
   jobRoleNames: string[]
 }
+
+// 찜한 팀 리스트
+export interface SaveTeamType {
+  teamMiniProfileResponse: teamMiniProfileResponse[]
+  teamMemberAnnouncementResponse: teamMemberAnnouncementResponse[]
+}
