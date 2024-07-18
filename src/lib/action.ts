@@ -155,6 +155,18 @@ export async function PostOneSchoolData(accessToken: string, education: OneSchoo
   })
   return response
 }
+// 내 온보딩 - 학력 수정
+export async function PutSchoolData(accessToken: string, education: OneSchoolFormInputs, educationId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/education/${educationId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify(education), // 단일 객체로 전달
+  })
+}
 
 // 내 온보딩 - 학력 삭제
 export async function DeleteSchoolData(accessToken: string, educationId: number) {
