@@ -10,8 +10,10 @@ export default function MatchingPrivateMiniProfile({ data }: { data: SaveProfile
       </div>
 
       <div className="mt-8 flex gap-2">
-        {data.myKeywordNames.map((keyword) => (
-          <div className="rounded-[0.45rem] bg-grey10 px-[0.57rem] py-1 text-sm text-grey60">{keyword}</div>
+        {data.myKeywordNames.map((keyword, index) => (
+          <div key={index} className="rounded-[0.45rem] bg-grey10 px-[0.57rem] py-1 text-sm text-grey60">
+            {keyword}
+          </div>
         ))}
       </div>
 

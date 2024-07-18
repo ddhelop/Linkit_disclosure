@@ -81,8 +81,8 @@ export default function SaveProfile() {
           </>
         ) : (
           <div className="mt-3 flex flex-wrap">
-            {privateMatchReceived.map((match) => (
-              <MatchingPrivateMiniProfile data={match} />
+            {privateMatchReceived.map((match, index) => (
+              <MatchingPrivateMiniProfile data={match} key={index} />
             ))}
           </div>
         ))}
@@ -97,7 +97,7 @@ export default function SaveProfile() {
           </>
         ) : (
           <div className="mt-3">
-            {teamMatchedReceived?.map((profile) => <MatchingTeamMiniProfile profile={profile} />)}
+            {teamMatchedReceived?.map((profile, index) => <MatchingTeamMiniProfile key={index} profile={profile} />)}
           </div>
         ))}
     </div>
