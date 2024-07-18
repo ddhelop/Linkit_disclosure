@@ -4,9 +4,11 @@ import Link from 'next/link'
 import { Logout } from '@/lib/action'
 import { useRecoilState, useResetRecoilState } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
+import UserOption from '../common/user/UserOption'
 
 const DropdownMenu = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const [token, setToken] = useRecoilState(accessTokenState)
@@ -44,6 +46,15 @@ const DropdownMenu = () => {
     }
   }
 
+  const handleSettingClick = () => {
+    setModalOpen(true)
+    setDropdownOpen(false)
+  }
+
+  const closeModal = () => {
+    setModalOpen(false)
+  }
+
   return (
     <div ref={dropdownRef} className="relative">
       <div
@@ -59,18 +70,20 @@ const DropdownMenu = () => {
             <Link href="/myResume" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem">
               마이페이지
             </Link>
-            {/* <Link href="#FAQ" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem">
-              FAQ
-            </Link> */}
-            <Link href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem">
+            <div
+              onClick={handleSettingClick}
+              className="text-gray-700 block cursor-pointer px-4 py-2 text-sm"
+              role="menuitem"
+            >
               설정
-            </Link>
+            </div>
             <button onClick={handleLogout} className="block w-full py-2 text-sm text-[#FF345F]" role="menuitem">
               로그아웃
             </button>
           </div>
         </div>
       )}
+      {modalOpen && <UserOption onClose={closeModal} />}
     </div>
   )
 }
