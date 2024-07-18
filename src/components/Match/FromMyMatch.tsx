@@ -42,7 +42,7 @@ export default function FromMyMatch() {
         {matchReceived.map((match) => (
           <motion.div
             key={match.id}
-            className="flex w-[48.5rem] cursor-pointer gap-[1.44rem] rounded-lg bg-[#fff] p-5 shadow-sm"
+            className="flex w-[48.5rem] cursor-pointer  gap-[1.44rem] rounded-lg bg-[#fff] p-5 shadow-sm"
             whileHover={{
               y: -3,
               boxShadow: '0px 8px 30px rgba(0, 0, 0, 0.05)',

@@ -401,3 +401,12 @@ export interface MatchReceivedType {
   requestMessage: string
   requestOccurTime: string
 }
+
+// 내가 보낸 매칭 알림
+export interface MatchSentType {
+  id: number
+  requestTeamProfile: boolean
+  receiverName: string
+  requestMessage: string
+  requestOccurTime: string
+}

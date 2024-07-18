@@ -630,3 +630,17 @@ export async function GetMatchReceived(accessToken: string) {
 
   return await response.json()
 }
+
+// 매칭 관리 - 내가 보낸 매칭
+export async function GetMatchSent(accessToken: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/matching/request`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  return await response.json()
+}
