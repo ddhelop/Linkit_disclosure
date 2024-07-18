@@ -83,10 +83,8 @@ export interface AntecedentResponse {
   id: number
   projectName: string
   projectRole: string
-  startYear: number
-  startMonth: number
-  endYear: number
-  endMonth: number
+  startDate: string
+  endDate: string
   retirement: boolean
   antecedentsDescription: string
 }

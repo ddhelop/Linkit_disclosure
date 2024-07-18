@@ -7,10 +7,8 @@ import { useForm } from 'react-hook-form'
 interface FormInputs {
   projectName: string
   projectRole: string
-  startYear: number
-  startMonth: number
-  endYear: number
-  endMonth: number
+  startDate: string
+  endDate: string
   retirement: boolean
   antecedentsDescription: string
 }
@@ -25,10 +23,8 @@ export default function PrivateHistory({ data }: MyResumAntecedentProps) {
     data?.map((item) => ({
       projectName: item.projectName,
       projectRole: item.projectRole,
-      startYear: item.startYear,
-      startMonth: item.startMonth,
-      endYear: item.endYear,
-      endMonth: item.endMonth,
+      startDate: item.startDate,
+      endDate: item.endDate,
       retirement: item.retirement,
       antecedentsDescription: item.antecedentsDescription || '', // 기본값 설정
     })),
@@ -40,10 +36,8 @@ export default function PrivateHistory({ data }: MyResumAntecedentProps) {
       const history = histories[editingIndex]
       setValue('projectName', history.projectName)
       setValue('projectRole', history.projectRole)
-      setValue('startYear', history.startYear)
-      setValue('startMonth', history.startMonth)
-      setValue('endYear', history.endYear)
-      setValue('endMonth', history.endMonth)
+      setValue('startDate', history.startDate)
+      setValue('endDate', history.endDate)
       setValue('retirement', history.retirement)
       setValue('antecedentsDescription', history.antecedentsDescription)
     }
@@ -66,8 +60,7 @@ export default function PrivateHistory({ data }: MyResumAntecedentProps) {
               <span className="font-semibold text-grey100">{history.projectRole}</span>
               <span className="pt-1 text-sm text-grey60">{history.projectName}</span>
               <span className="pt-1 text-xs text-grey50">
-                {history.startYear}년 {history.startMonth}월 - {history.endYear}년 {history.endMonth}월 (
-                {history.retirement ? '퇴직' : '재직중'})
+                {history.startDate} - {history.endDate} ({history.retirement ? '퇴직' : '재직중'})
               </span>
               <span className="pt-1 text-sm text-grey60">{history.antecedentsDescription}</span>
             </div>
