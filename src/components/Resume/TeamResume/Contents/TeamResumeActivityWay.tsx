@@ -120,7 +120,7 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
             </div>
           </div>
 
-          <p className="pb-3 pt-8 text-lg font-semibold">활동 지역/위치</p>
+          <p className="pb-3 pt-8 text-lg font-semibold">활동 지역</p>
           <div className="flex gap-4">
             <div className="flex flex-col gap-3">
               <label className=" font-semibold text-grey100">시/도</label>

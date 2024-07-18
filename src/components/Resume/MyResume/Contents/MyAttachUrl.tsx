@@ -108,9 +108,8 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
       ) : (
         <form className="mt-4">
           <div className="flex flex-col gap-4">
-            <p className="text-sm text-grey60">웹 링크명</p>
             {attachments.links.length === 0 ? (
-              <div className="pt-[0.94rem] text-grey50">첨부 링크가 없습니다.</div>
+              <div className="pt-1 text-grey50">첨부 링크가 없습니다.</div>
             ) : (
               <div className="mt-4">
                 {attachments.links.map((link, index) => (

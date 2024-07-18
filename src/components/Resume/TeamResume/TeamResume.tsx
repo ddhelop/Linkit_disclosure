@@ -80,7 +80,7 @@ export default function TeamResume() {
             <p className="pt-3 text-xl font-bold text-grey100">등록된 팀 소개서가 없어요</p>
 
             <div className="flex gap-[0.6rem] pt-[2.25rem]">
-              <Link href={'/onBoarding/team/activityWay'}>
+              <Link href={'/onBoarding/team/teamCategory'}>
                 <button className="rounded-[0.6rem] bg-grey90 px-16 py-4 text-[#fff]"> 작성하러 가기</button>
               </Link>
             </div>

@@ -247,6 +247,7 @@ export interface TeamProfileIntroductionResponse {
 
 export interface TeamMemberIntroductionResponse {
   id: number
+  teamName: string
   teamMemberName: string
   teamMemberRole: string
   teamMemberIntroductionText: string
@@ -256,7 +257,7 @@ export interface TeamIntroductionResponse {
   TeamCompletionResponse: TeamCompletionResponse
   teamProfileTeamBuildingFieldResponse: TeamProfileTeamBuildingFieldResponse
   teamProfileIntroductionResponse: TeamProfileIntroductionResponse
-  teamMemberIntroductionResponses: TeamMemberIntroductionResponse[]
+  teamMemberIntroductionResponses: TeamMemberIntroductionResponse
   // teamMemberAnnouncementResponses: TeamMemberAnnouncementResponse[]
 }
 
@@ -293,13 +294,14 @@ export interface TeamIntroductionResponse {
   teamMemberAnnouncementResponses: TeamMemberAnnouncementResponse[]
   activityResponse: ActivityResponse
   teamProfileIntroductionResponse: TeamProfileIntroductionResponse
-  teamMemberIntroductionResponses: TeamMemberIntroductionResponse[]
+  teamMemberIntroductionResponses: TeamMemberIntroductionResponse
   historyResponses: HistoryResponse[]
   teamAttachResponse: TeamAttachResponse
 }
 
 export interface TeamMemberData {
   id: number
+  teamName: string
   teamMemberName: string
   teamMemberRole: string
   teamMemberIntroductionText: string

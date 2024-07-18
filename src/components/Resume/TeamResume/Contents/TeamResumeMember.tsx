@@ -7,11 +7,7 @@ import { PostTeamMember, DeleteTeamMember, PutTeamMember } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 
-interface TeamMemberProps {
-  data: TeamMemberData[]
-}
-
-export default function TeamResumeMember({ data }: TeamMemberProps) {
+export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
   const [isEditing, setIsEditing] = useState(false)
   const [editIndex, setEditIndex] = useState<number | null>(null)
   const [teamMembers, setTeamMembers] = useState<TeamMemberData[]>(Array.isArray(data) ? data : [])
@@ -101,7 +97,7 @@ export default function TeamResumeMember({ data }: TeamMemberProps) {
             <div key={member.id} className="mt-[0.94rem] flex flex-col items-center border border-grey30 p-5">
               <div className="flex w-full justify-between">
                 <div className="flex flex-col">
-                  <p className="text-sm text-grey60">(주)링킷</p>
+                  <p className="text-sm text-grey60">{member.teamName}</p>
                   <p className="pt-[0.44rem]">
                     {member.teamMemberName} | {member.teamMemberRole}
                   </p>

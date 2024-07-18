@@ -8,11 +8,7 @@ import TeamResumeMember from './TeamResumeMember'
 import TeamResumeHistory from './TeamResumeHistory'
 import TeamResumeAttachUrl from './TeamResumeAttachUrl'
 
-interface TeamResumContentsProps {
-  data: TeamIntroductionResponse
-}
-
-export default function TeamContentLayout({ data }: TeamResumContentsProps) {
+export default function TeamContentLayout({ data }: { data: TeamIntroductionResponse }) {
   return (
     <div className="flex flex-col gap-4">
       <TeamResumeProgress data={data?.teamCompletionResponse} />
