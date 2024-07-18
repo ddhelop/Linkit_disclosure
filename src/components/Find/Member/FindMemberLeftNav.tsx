@@ -6,7 +6,7 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import { accessTokenState, filteredProfilesState } from '@/context/recoil-context'
 import { SkillOptions } from '@/lib/data'
 import { addressData } from '@/lib/addressSelectData'
-import { GetTeamMembersFiltering } from '@/lib/action'
+
 import SkillModal from './\bSkillModal'
 
 export default function FindMemberLeftNav() {
@@ -52,7 +52,9 @@ export default function FindMemberLeftNav() {
     })
 
     try {
-      const response = await GetTeamMembersFiltering(accessToken, queryParams.toString())
+      const query = queryParams.toString()
+      const url = query ? `/search/private/profile?${query}` : '/search/private/profile'
+      const response = await GetTeamMembersFiltering(accessToken, url)
       setFilteredProfiles(response.content)
     } catch (error) {
       console.error('API 요청 실패:', error)
@@ -198,4 +200,22 @@ export default function FindMemberLeftNav() {
       />
     </div>
   )
+}
+
+// 팀원 찾기 - 필터링
+export async function GetTeamMembersFiltering(accessToken: string, url: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}${url}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch filtered team members')
+  }
+
+  return await response.json()
 }

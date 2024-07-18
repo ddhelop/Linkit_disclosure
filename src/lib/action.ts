@@ -596,8 +596,8 @@ export async function GetPrivateData(accessToken: string, miniProfileId: number)
 }
 
 // 팀원 찾기 - 필터링
-export async function GetTeamMembersFiltering(accessToken: string, queryParams: string) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/search/private/profile?${queryParams}`, {
+export async function GetTeamMembersFiltering(accessToken: string, url: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}${url}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
