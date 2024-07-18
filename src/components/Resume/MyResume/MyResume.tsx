@@ -8,6 +8,7 @@ import { GetMyResume } from '@/lib/action'
 import { MyResumeResponse } from '@/lib/types'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
+import Image from 'next/image'
 
 export default function MyResume() {
   const accessToken = useRecoilValue(accessTokenState)
@@ -59,17 +60,32 @@ export default function MyResume() {
       </div>
 
       {/* contents */}
-      <div className="flex justify-center gap-[1.87rem] pt-[101px]">
-        {/* left navBar */}
-        <div className="w-[21.25rem]">
-          <MyResumNav data={data} />
-        </div>
+      {data.privateProfileEssential ? (
+        <div className="flex justify-center gap-[1.87rem] pt-[101px]">
+          {/* left navBar */}
+          <div className="w-[21.25rem]">
+            <MyResumNav data={data} />
+          </div>
 
-        {/* right contents */}
-        <div className="w-[47.31rem]">
-          <ContentLayout data={data} />
+          {/* right contents */}
+          <div className="w-[47.31rem]">
+            <ContentLayout data={data} />
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex h-screen items-center justify-center">
+          <div className="flex w-[25rem] flex-col items-center bg-[#fff] p-4">
+            <Image src={'/assets/icons/gray-warning.svg'} width={70} height={70} alt="empty" />
+            <p className="pt-3 text-xl font-bold text-grey100">등록된 내 이력서가 없어요</p>
+
+            <div className="flex gap-[0.6rem] pt-[2.25rem]">
+              <Link href={'/onBoarding/person/project'}>
+                <button className="rounded-[0.6rem] bg-grey90 px-16 py-4 text-[#fff]"> 작성하러 가기</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
