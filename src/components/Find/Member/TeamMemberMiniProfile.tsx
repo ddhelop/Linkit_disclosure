@@ -37,7 +37,7 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
             />
             <div className="flex flex-col justify-center gap-1">
               <p className="font-semibold text-grey70">{profile.memberName}</p>
-              <p className="text-sm text-grey60">역할1, 역할2</p>
+              <p className="text-grey70">{profile.jobRoleNames.join(', ')}</p>
             </div>
           </div>
           <Link href={`/private/${profile.id}`}>
