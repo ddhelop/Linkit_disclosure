@@ -10,10 +10,8 @@ import { useRecoilValue } from 'recoil'
 interface FormInputs {
   projectName: string
   projectRole: string
-  startYear: number
-  startMonth: number
-  endYear: number
-  endMonth: number
+  startDate: string
+  endDate: string
   retirement: boolean
   antecedentsDescription: string
 }
@@ -24,18 +22,17 @@ interface MyResumAntecedentProps {
 
 export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
   const { register, handleSubmit, reset, setValue, watch } = useForm<FormInputs>()
-  const [histories, setHistories] = useState<FormInputs[]>(() =>
-    data?.map((item) => ({
-      id: item.id,
-      projectName: item.projectName,
-      projectRole: item.projectRole,
-      startYear: item.startYear,
-      startMonth: item.startMonth,
-      endYear: item.endYear,
-      endMonth: item.endMonth,
-      retirement: item.retirement,
-      antecedentsDescription: item.antecedentsDescription || '', // 기본값 설정
-    })),
+  const [histories, setHistories] = useState<FormInputs[]>(
+    () =>
+      data?.map((item) => ({
+        id: item.id,
+        projectName: item.projectName,
+        projectRole: item.projectRole,
+        startDate: item.startDate,
+        endDate: item.endDate,
+        retirement: item.retirement,
+        antecedentsDescription: item.antecedentsDescription || '', // 기본값 설정
+      })) || [],
   )
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [isAdding, setIsAdding] = useState(false)
@@ -46,30 +43,26 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
       const history = histories[editingIndex]
       setValue('projectName', history.projectName)
       setValue('projectRole', history.projectRole)
-      setValue('startYear', history.startYear)
-      setValue('startMonth', history.startMonth)
-      setValue('endYear', history.endYear)
-      setValue('endMonth', history.endMonth)
+      setValue('startDate', history.startDate)
+      setValue('endDate', history.endDate)
       setValue('retirement', history.retirement)
       setValue('antecedentsDescription', history.antecedentsDescription)
     }
   }, [editingIndex, histories, setValue])
 
   const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
-    const formattedData = {
+    const antecedentData = {
       ...formData,
-      startYear: Number(formData.startYear),
-      startMonth: Number(formData.startMonth),
-      endYear: Number(formData.endYear),
-      endMonth: Number(formData.endMonth),
+      startDate: formatDate(formData.startDate),
+      endDate: formatDate(formData.endDate),
       retirement: formData.retirement === true,
     }
 
     if (editingIndex !== null) {
       const antecedentId = data[editingIndex].id
-      const response = await PutAntecedentData(accessToken, formattedData, antecedentId) // 수정 API 호출
+      const response = await PutAntecedentData(accessToken, antecedentData, antecedentId) // 수정 API 호출
       if (response.ok) {
-        const updatedHistories = histories.map((history, index) => (index === editingIndex ? formattedData : history))
+        const updatedHistories = histories.map((history, index) => (index === editingIndex ? antecedentData : history))
         setHistories(updatedHistories)
         setEditingIndex(null)
         reset()
@@ -77,15 +70,19 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
         alert('수정이 완료되었습니다.')
       }
     } else {
-      const updatedHistories = [...histories, formattedData]
-      const response = await PostAntecedentData(accessToken, updatedHistories) // 추가 API 호출
+      const response = await PostAntecedentData(accessToken, [antecedentData]) // 추가 API 호출
       if (response.ok) {
-        setHistories(updatedHistories)
+        setHistories([...histories, antecedentData])
         reset()
         setIsAdding(false)
         alert('추가가 완료되었습니다.')
       }
     }
+  }
+
+  const formatDate = (date: string): string => {
+    const [year, month] = date.split('.')
+    return `${year}.${month.padStart(2, '0')}`
   }
 
   const handleEdit = (index: number) => {
@@ -128,8 +125,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
               <span className="font-semibold text-grey100">{history.projectRole}</span>
               <span className="pt-1 text-sm text-grey60">{history.projectName}</span>
               <span className="pt-1 text-xs text-grey50">
-                {history.startYear}년 {history.startMonth}월 - {history.endYear}년 {history.endMonth}월 (
-                {history.retirement ? '퇴직' : '재직중'})
+                {history.startDate} - {history.endDate} ({history.retirement ? '퇴직' : '재직중'})
               </span>
               <span className="pt-1 text-sm text-grey60">{history.antecedentsDescription}</span>
             </div>
@@ -194,57 +190,31 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
               <div className="mt-2 flex gap-2">
                 <input
                   className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
-                  placeholder="시작연도"
-                  {...register('startYear', { required: true })}
+                  placeholder="YYYY.MM"
+                  {...register('startDate', { required: true })}
                 />
-                <select
-                  className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
-                  {...register('startMonth', { required: true })}
-                >
-                  {[...Array(12).keys()].map((month) => (
-                    <option key={month + 1} value={month + 1}>
-                      {month + 1}월
-                    </option>
-                  ))}
-                </select>
                 <span>~</span>
                 <input
                   className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
-                  placeholder="종료연도"
-                  {...register('endYear', { required: true })}
+                  placeholder="YYYY.MM"
+                  {...register('endDate', { required: true })}
                 />
-                <select
-                  className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
-                  {...register('endMonth', { required: true })}
-                >
-                  {[...Array(12).keys()].map((month) => (
-                    <option key={month + 1} value={month + 1}>
-                      {month + 1}월
-                    </option>
-                  ))}
-                </select>
 
                 {/* input radio 재직중 */}
-                <div className="flex items-center">
+                <div className="flex items-center gap-2">
                   <input
                     type="radio"
                     id="current"
                     value="false"
                     {...register('retirement')}
-                    checked={retirementValue === false}
+                    checked={retirementValue}
                   />
                   <label htmlFor="current" className="text-sm text-grey100">
                     재직중
                   </label>
 
                   {/* radio 퇴직 */}
-                  <input
-                    type="radio"
-                    id="retired"
-                    value="true"
-                    {...register('retirement')}
-                    checked={retirementValue === true}
-                  />
+                  <input type="radio" id="retired" value="true" {...register('retirement')} checked={retirementValue} />
                   <label htmlFor="retired" className="text-sm text-grey100">
                     퇴직
                   </label>
@@ -265,7 +235,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
               type="submit"
               className="mt-4 cursor-pointer rounded-md bg-[#2563EB] px-[0.88rem] py-2 text-sm text-[#fff]"
             >
-              수정완료
+              완료
             </button>
           </div>
         </form>
