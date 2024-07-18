@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React, { useEffect, useState } from 'react'
-import { DeleteSchoolData, GetOnBoardingData, PostOneSchoolData, PostSchoolData } from '@/lib/action'
+import { DeleteSchoolData, GetOnBoardingData, PostOneSchoolData } from '@/lib/action'
 import { useRouter } from 'next/navigation'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
@@ -13,18 +13,19 @@ export interface SchoolFormInputs {
   universityName: string
   majorName: string
   admissionYear: number
-  graduationYear: number
+  graduationYear: number | null
   degreeName: string
 }
 
 export default function RegisterSchool() {
   const [educationList, setEducationList] = useState<SchoolFormInputs[]>([])
-  const { register, handleSubmit, reset, setValue } = useForm<SchoolFormInputs>()
+  const { register, handleSubmit, reset, setValue, watch } = useForm<SchoolFormInputs>()
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [isClient, setIsClient] = useState(false)
   const [currentIndex, setCurrentIndex] = useState<number | null>(null)
   const router = useRouter()
   const accessToken = useRecoilValue(accessTokenState) || ''
+  const degreeName = watch('degreeName')
 
   useEffect(() => {
     setIsClient(true)
@@ -43,7 +44,7 @@ export default function RegisterSchool() {
               universityName: school.universityName,
               majorName: school.majorName,
               admissionYear: school.admissionYear,
-              graduationYear: school.graduationYear,
+              graduationYear: school.graduationYear ?? null,
               degreeName: school.degreeName,
             })),
           )
@@ -55,7 +56,7 @@ export default function RegisterSchool() {
   const onSubmit: SubmitHandler<SchoolFormInputs> = async (data) => {
     const educationData = {
       admissionYear: Number(data.admissionYear), // 숫자로 변환
-      graduationYear: Number(data.graduationYear), // 숫자로 변환
+      graduationYear: Number(data.graduationYear),
       universityName: data.universityName,
       majorName: data.majorName,
       degreeName: data.degreeName,
@@ -71,7 +72,7 @@ export default function RegisterSchool() {
     const updatedData = {
       ...data,
       admissionYear: Number(data.admissionYear),
-      graduationYear: Number(data.graduationYear),
+      graduationYear: data.degreeName === '재학' ? null : Number(data.graduationYear),
     }
 
     if (currentIndex !== null) {
@@ -133,7 +134,7 @@ export default function RegisterSchool() {
                 <span className="font-semibold">{education.universityName}</span>
                 <span className="pt-2 text-sm text-grey60">{education.majorName}</span>
                 <span className="text-xs text-grey50">
-                  {education.admissionYear} - {education.graduationYear} ({education.degreeName})
+                  {education.admissionYear} - {education.graduationYear || ''} ({education.degreeName})
                 </span>
               </div>
               <div className="flex items-center justify-end">
@@ -201,7 +202,8 @@ export default function RegisterSchool() {
                       <input
                         className="h-10 w-20 rounded-[0.31rem] border border-grey40 px-5 text-sm"
                         placeholder="졸업연도"
-                        {...register('graduationYear', { required: true })}
+                        {...register('graduationYear', { required: degreeName !== '재학' })}
+                        disabled={degreeName === '재학'}
                       />
                       <select
                         className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
@@ -270,7 +272,8 @@ export default function RegisterSchool() {
                   <input
                     className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
                     placeholder="졸업연도"
-                    {...register('graduationYear', { required: true })}
+                    {...register('graduationYear', { required: degreeName !== '재학' })}
+                    disabled={degreeName === '재학'}
                   />
                   <select
                     className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
