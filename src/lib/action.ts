@@ -614,8 +614,8 @@ export async function GetTeamMembersFiltering(accessToken: string, url: string) 
 }
 
 // 팀 찾기 - 필터링
-export async function GetTeamsFiltering(accessToken: string, queryParams: string) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/search/team/profile?${queryParams}`, {
+export async function GetTeamsFiltering(accessToken: string, url: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}${url}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -54,7 +54,9 @@ export default function FindTeamLeftNav() {
     })
 
     try {
-      const response = await GetTeamsFiltering(accessToken, queryParams.toString())
+      const query = queryParams.toString()
+      const url = query ? `/search/team/profile?${query}` : '/search/team/profile'
+      const response = await GetTeamsFiltering(accessToken, url)
       setFilteredTeams(response.content)
     } catch (error) {
       console.error('API 요청 실패:', error)
