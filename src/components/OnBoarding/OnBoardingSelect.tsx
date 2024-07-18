@@ -28,7 +28,7 @@ export default function OnBoardingSelect() {
   }
 
   return (
-    <div className="flex h-screen w-full flex-col items-center lg:pt-[69px]">
+    <div className="flex w-full flex-col items-center  lg:pt-[69px]">
       <div className="flex w-[90%]  flex-col items-center py-20 lg:w-[838px]">
         <div className="flex w-full justify-between text-xs font-medium leading-9 text-grey60 lg:text-sm">
           <span>가이드</span>

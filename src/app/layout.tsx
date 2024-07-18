@@ -36,7 +36,7 @@ export default function RootLayout({
         <ClientProvider>
           <FetchSetting>
             <Header />
-            <div className="bg-grey10 pb-20">{children}</div>
+            <div className="bg-grey10">{children}</div>
             <Footer />
           </FetchSetting>
         </ClientProvider>
