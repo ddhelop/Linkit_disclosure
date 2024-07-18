@@ -393,7 +393,7 @@ export interface TeamHistoryDataSet {
   historyIntroduction: string
 }
 
-// 내게 온 매칭 알림
+// 매칭관리 - 내게 온 매칭 알림
 export interface MatchReceivedType {
   id: number
   receivedTeamProfile: boolean
@@ -402,11 +402,18 @@ export interface MatchReceivedType {
   requestOccurTime: string
 }
 
-// 내가 보낸 매칭 알림
+// 매칭관리 - 내가 보낸 매칭 알림
 export interface MatchSentType {
   id: number
   requestTeamProfile: boolean
   receiverName: string
+  requestMessage: string
+  requestOccurTime: string
+}
+
+// 매칭관리 - 성사된 매칭
+export interface MatchAccomplishedType {
+  successMatchingMemberName: string
   requestMessage: string
   requestOccurTime: string
 }

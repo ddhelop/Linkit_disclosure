@@ -644,3 +644,17 @@ export async function GetMatchSent(accessToken: string) {
 
   return await response.json()
 }
+
+// 매칭 관리 - 성사된 매칭
+export async function GetMatchAccomplished(accessToken: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/matching/success`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  return await response.json()
+}
