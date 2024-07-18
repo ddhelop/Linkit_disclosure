@@ -112,7 +112,7 @@ export default function MiniProfileModal({ isOpen, onClose }: MiniProfileModalPr
     const miniProfileRequest = {
       profileTitle,
       myKeywordNames,
-      activate: uploadDeadline,
+      isActivate: uploadDeadline,
     }
 
     if (!accessToken) return
