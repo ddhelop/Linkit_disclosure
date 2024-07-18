@@ -18,10 +18,8 @@ interface FormInputs {
   id: number
   projectName: string
   projectRole: string
-  startYear: number
-  startMonth: number
-  endYear: number
-  endMonth: number
+  startDate: string
+  endDate: string
   retirement: boolean
 }
 
@@ -29,12 +27,9 @@ interface Career {
   id: number
   projectName: string
   projectRole: string
-  startYear: number
-  startMonth: number
-  endYear: number
-  endMonth: number
+  startDate: string
+  endDate: string
   retirement: boolean
-  antecedentsDescription: string // 추가된 속성
 }
 
 export default function RegisterCareer() {
@@ -60,12 +55,9 @@ export default function RegisterCareer() {
               id: career.id,
               projectName: career.projectName,
               projectRole: career.projectRole,
-              startYear: career.startYear,
-              startMonth: career.startMonth,
-              endYear: career.endYear,
-              endMonth: career.endMonth,
-              retirement: career.retirement,
-              antecedentsDescription: career.antecedentsDescription,
+              startDate: career.startDate,
+              endDate: career.endDate,
+              // antecedentsDescription: career.antecedentsDescription,
             })),
           )
         }
@@ -77,12 +69,10 @@ export default function RegisterCareer() {
     const antecedentData = {
       projectName: data.projectName,
       projectRole: data.projectRole,
-      startYear: Number(data.startYear),
-      startMonth: Number(data.startMonth),
-      endYear: Number(data.endYear),
-      endMonth: Number(data.endMonth),
-      retirement: data.retirement,
-      antecedentsDescription: '경력 설명입니다.', // 기본 설명 추가
+      startDate: formatDate(data.startDate),
+      endDate: formatDate(data.endDate),
+      retirement: data.retirement === true,
+      // antecedentsDescription: '경력 설명입니다.',
     }
 
     const response = await PostOneAntecedentData(accessToken, antecedentData)
@@ -95,12 +85,10 @@ export default function RegisterCareer() {
 
     const updatedData = {
       ...data,
-      startYear: Number(data.startYear),
-      startMonth: Number(data.startMonth),
-      endYear: Number(data.endYear),
-      endMonth: Number(data.endMonth),
-      retirement: data.retirement,
-      antecedentsDescription: '경력 설명입니다.', // 기본 설명 추가
+      startDate: data.startDate,
+      endDate: data.endDate,
+      retirement: data.retirement === true,
+      // antecedentsDescription: '경력 설명입니다.',
     }
 
     if (editingIndex !== null) {
@@ -112,14 +100,17 @@ export default function RegisterCareer() {
     reset()
   }
 
+  const formatDate = (date: string): string => {
+    const [year, month] = date.split('.')
+    return `${year}.${month.padStart(2, '0')}`
+  }
+
   const handleEdit = (index: number) => {
     const career = careerList[index]
     setValue('projectName', career.projectName)
     setValue('projectRole', career.projectRole)
-    setValue('startYear', career.startYear)
-    setValue('startMonth', career.startMonth)
-    setValue('endYear', career.endYear)
-    setValue('endMonth', career.endMonth)
+    setValue('startDate', career.startDate)
+    setValue('endDate', career.endDate)
     setValue('retirement', career.retirement)
     setEditingIndex(index)
   }
@@ -147,7 +138,12 @@ export default function RegisterCareer() {
   const handleSave = async () => {
     console.log('careerList', careerList)
     if (accessToken && careerList.length > 0) {
-      const response = await PostAntecedentData(accessToken, careerList)
+      const formattedCareerList = careerList.map((career) => ({
+        ...career,
+        startDate: formatDate(career.startDate),
+        endDate: formatDate(career.endDate),
+      }))
+      const response = await PostAntecedentData(accessToken, formattedCareerList)
 
       if (response.ok) {
         router.push('/onBoarding/person/profile')
@@ -159,7 +155,12 @@ export default function RegisterCareer() {
 
   const onClickPrev = async () => {
     if (accessToken && careerList.length > 0) {
-      const response = await PostAntecedentData(accessToken, careerList)
+      const formattedCareerList = careerList.map((career) => ({
+        ...career,
+        startDate: formatDate(career.startDate),
+        endDate: formatDate(career.endDate),
+      }))
+      const response = await PostAntecedentData(accessToken, formattedCareerList)
       if (response.ok) {
         router.push('/onBoarding/person/school')
       } else {
@@ -195,8 +196,7 @@ export default function RegisterCareer() {
                 <span className="font-semibold">{career.projectName}</span>
                 <span className="pt-2 text-sm text-grey60">{career.projectRole}</span>
                 <span className="text-xs text-grey50">
-                  {career.startYear}.{career.startMonth} - {career.endYear}.{career.endMonth} (
-                  {career.retirement ? '퇴직' : '재직중'})
+                  {career.startDate} - {career.endDate} ({career.retirement ? '퇴직' : '재직중'})
                 </span>
               </div>
               <div className="flex items-center justify-end">
@@ -257,49 +257,16 @@ export default function RegisterCareer() {
                     <div className="mt-2 flex gap-2 ">
                       <input
                         className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
-                        placeholder="시작연도"
-                        {...register('startYear', { required: true })}
+                        placeholder="YYYY.MM"
+                        {...register('startDate', { required: true })}
                       />
-                      <select
-                        className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
-                        {...register('startMonth', { required: true })}
-                      >
-                        <option value="1">1월</option>
-                        <option value="2">2월</option>
-                        <option value="3">3월</option>
-                        <option value="4">4월</option>
-                        <option value="5">5월</option>
-                        <option value="6">6월</option>
-                        <option value="7">7월</option>
-                        <option value="8">8월</option>
-                        <option value="9">9월</option>
-                        <option value="10">10월</option>
-                        <option value="11">11월</option>
-                        <option value="12">12월</option>
-                      </select>
+
                       <Image src="/assets/icons/~.svg" width={8} height={29} alt="~" />
                       <input
                         className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
-                        placeholder="종료연도"
-                        {...register('endYear', { required: true })}
+                        placeholder="YYYY.MM"
+                        {...register('endDate', { required: true })}
                       />
-                      <select
-                        className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
-                        {...register('endMonth', { required: true })}
-                      >
-                        <option value="1">1월</option>
-                        <option value="2">2월</option>
-                        <option value="3">3월</option>
-                        <option value="4">4월</option>
-                        <option value="5">5월</option>
-                        <option value="6">6월</option>
-                        <option value="7">7월</option>
-                        <option value="8">8월</option>
-                        <option value="9">9월</option>
-                        <option value="10">10월</option>
-                        <option value="11">11월</option>
-                        <option value="12">12월</option>
-                      </select>
 
                       {/* input radio 재직중 */}
                       <div className="flex items-center">
@@ -375,79 +342,48 @@ export default function RegisterCareer() {
               <span className="text-sm font-normal text-grey100">
                 기간<span className="pl-1 text-[#2563EB]">*</span>
               </span>
-              <div className="flex flex-col justify-between lg:flex-row">
-                <div className="mt-2 flex gap-2">
-                  <input
-                    className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
-                    placeholder="시작연도"
-                    {...register('startYear', { required: true })}
-                  />
-                  <select
-                    className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
-                    {...register('startMonth', { required: true })}
-                  >
-                    <option value="1">1월</option>
-                    <option value="2">2월</option>
-                    <option value="3">3월</option>
-                    <option value="4">4월</option>
-                    <option value="5">5월</option>
-                    <option value="6">6월</option>
-                    <option value="7">7월</option>
-                    <option value="8">8월</option>
-                    <option value="9">9월</option>
-                    <option value="10">10월</option>
-                    <option value="11">11월</option>
-                    <option value="12">12월</option>
-                  </select>
-                  <Image src="/assets/icons/~.svg" width={8} height={29} alt="~" />
-                  <input
-                    className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
-                    placeholder="종료연도"
-                    {...register('endYear', { required: true })}
-                  />
-                  <select
-                    className="w-20 rounded-md border border-grey40 text-center text-sm text-grey80"
-                    {...register('endMonth', { required: true })}
-                  >
-                    <option value="1">1월</option>
-                    <option value="2">2월</option>
-                    <option value="3">3월</option>
-                    <option value="4">4월</option>
-                    <option value="5">5월</option>
-                    <option value="6">6월</option>
-                    <option value="7">7월</option>
-                    <option value="8">8월</option>
-                    <option value="9">9월</option>
-                    <option value="10">10월</option>
-                    <option value="11">11월</option>
-                    <option value="12">12월</option>
-                  </select>
-                </div>
+              <div className="flex justify-between">
+                <div className="flex flex-col justify-between gap-4 lg:flex-row">
+                  <div className="mt-2 flex gap-2">
+                    <input
+                      className="h-10 w-28 rounded-[0.31rem] border border-grey40 text-center text-sm"
+                      placeholder="YYYY.MM"
+                      {...register('startDate', { required: true })}
+                    />
 
-                {/* input radio 재직중 */}
-                <div className="lg: flex items-center pt-3 lg:pt-0">
-                  <input
-                    type="radio"
-                    id="current"
-                    value="false"
-                    className="mr-2"
-                    {...register('retirement', { required: true })}
-                  />
-                  <label htmlFor="current" className="text-sm text-grey100">
-                    재직중
-                  </label>
+                    <Image src="/assets/icons/~.svg" width={8} height={29} alt="~" />
+                    <input
+                      className="h-10 w-28 rounded-[0.31rem] border border-grey40 text-center text-sm"
+                      placeholder="YYYY.MM"
+                      {...register('endDate', { required: true })}
+                    />
+                  </div>
 
-                  {/* radio 퇴직 */}
-                  <input
-                    type="radio"
-                    id="retired"
-                    value="true"
-                    className="ml-4 mr-2"
-                    {...register('retirement', { required: true })}
-                  />
-                  <label htmlFor="retired" className="text-sm text-grey100">
-                    퇴직
-                  </label>
+                  {/* input radio 재직중 */}
+                  <div className="lg: flex items-center pt-3 lg:pt-0">
+                    <input
+                      type="radio"
+                      id="current"
+                      value="false"
+                      className="mr-2"
+                      {...register('retirement', { required: true })}
+                    />
+                    <label htmlFor="current" className="text-sm text-grey100">
+                      재직중
+                    </label>
+
+                    {/* radio 퇴직 */}
+                    <input
+                      type="radio"
+                      id="retired"
+                      value="true"
+                      className="ml-4 mr-2"
+                      {...register('retirement', { required: true })}
+                    />
+                    <label htmlFor="retired" className="text-sm text-grey100">
+                      퇴직
+                    </label>
+                  </div>
                 </div>
                 <button
                   type="submit"

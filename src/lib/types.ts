@@ -15,12 +15,10 @@ export interface AuthResponseData {
 export interface Career {
   projectName: string
   projectRole: string
-  startYear: number
-  startMonth: number
-  endYear: number
-  endMonth: number
+  startDate: string
+  endDate: string
   retirement: boolean
-  antecedentsDescription: string
+  // antecedentsDescription: string
 }
 export interface Education {
   universityName: string
@@ -372,10 +370,8 @@ export interface OneSchoolFormInputs {
 export interface AntecedentFormInputs {
   projectName: string
   projectRole: string
-  startYear: number
-  startMonth: number
-  endYear: number
-  endMonth: number
+  startDate: string
+  endDate: string
   retirement: boolean
 }
 
