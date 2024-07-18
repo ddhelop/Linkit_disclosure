@@ -52,16 +52,6 @@ export default function Private() {
 
   return (
     <div className="flex flex-col bg-grey10 pb-20 pt-[11px]">
-      {/* Header */}
-      {/* <div className="fixed flex h-[4rem] w-full items-center gap-[3.17rem] bg-white-alpha-50 px-[9.72rem] backdrop-blur-2xl">
-        <Link href={'/myResume'}>
-          <span className="cursor-pointer border-b-4 border-[#2563EB] py-4 text-lg text-grey100">내 이력서</span>
-        </Link>
-        <Link href={'/TeamResume'}>
-          <span className="cursor-pointer text-lg text-grey100 opacity-50">팀 소개서</span>
-        </Link>
-      </div> */}
-
       {/* contents */}
       <div className="flex justify-center gap-[1.87rem] pt-[101px]">
         {/* left navBar */}

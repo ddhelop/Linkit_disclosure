@@ -1,5 +1,8 @@
+'use client'
+import RequestMatchModal from '@/components/Match/common/RequestMatchModal'
 import { JobAndSkillResponse, MemberNameResponse, MiniProfileResponse } from '@/lib/types'
 import Image from 'next/image'
+import { useState } from 'react'
 
 interface MyResumeNavProfileProps {
   data: MiniProfileResponse
@@ -8,6 +11,16 @@ interface MyResumeNavProfileProps {
 }
 
 export default function PrivateNavProfile({ data, name, jobAndSkill }: MyResumeNavProfileProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleMatchButtonClick = () => {
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
   return (
     <div className="flex w-full flex-col rounded-2xl bg-[#fff] px-[1.37rem] py-[0.77rem]">
       {/* title */}
@@ -50,9 +63,14 @@ export default function PrivateNavProfile({ data, name, jobAndSkill }: MyResumeN
         </div>
       </div>
 
-      <button className="mt-[0.88rem] w-full rounded bg-grey100 py-[0.56rem] text-center text-sm text-[#fff]">
+      <button
+        className="mt-[0.88rem] w-full rounded bg-grey100 py-[0.56rem] text-center text-sm text-[#fff]"
+        onClick={handleMatchButtonClick}
+      >
         매칭하기
       </button>
+
+      {isModalOpen && <RequestMatchModal onClose={closeModal} />}
     </div>
   )
 }
