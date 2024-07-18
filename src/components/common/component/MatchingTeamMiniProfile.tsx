@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-export default function PrivateMiniProfile() {
+export default function MatchingTeamMiniProfile() {
   return (
     <div className="flex w-[21rem] flex-col bg-[#fff] p-5">
       <div className="flex justify-between gap-5">

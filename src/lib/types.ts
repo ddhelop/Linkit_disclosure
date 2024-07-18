@@ -417,3 +417,14 @@ export interface MatchAccomplishedType {
   requestMessage: string
   requestOccurTime: string
 }
+
+// 찜한 팀원 리스트
+export interface SaveProfileType {
+  id: number
+  profileTitle: string
+  miniProfileImg: string
+  isActivate: boolean
+  myKeywordNames: string[]
+  memberName: string
+  jobRoleNames: string[]
+}

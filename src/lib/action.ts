@@ -658,3 +658,17 @@ export async function GetMatchAccomplished(accessToken: string) {
 
   return await response.json()
 }
+
+// 찜한 내역 - 찜한 팀원 조회
+export async function GetSavedMembers(accessToken: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/wish/private/profile/list`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  return await response.json()
+}
