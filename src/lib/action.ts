@@ -129,7 +129,7 @@ export async function PostRoleData(accessToken: string, jobRoleNames: string[], 
 
 // 내 온보딩 - 학력 생성
 export async function PostSchoolData(accessToken: string, educationList: Education) {
-  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/education`, {
+  const response = fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/education`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -138,12 +138,13 @@ export async function PostSchoolData(accessToken: string, educationList: Educati
     credentials: 'include',
     body: JSON.stringify(educationList),
   })
+  return response
 }
 
 // 내 온보딩 - 학력 단일 생성
 export async function PostOneSchoolData(accessToken: string, education: OneSchoolFormInputs) {
   // education 단일 객체로 받기
-  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/education`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/education`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -152,6 +153,7 @@ export async function PostOneSchoolData(accessToken: string, education: OneSchoo
     credentials: 'include',
     body: JSON.stringify(education), // 단일 객체로 전달
   })
+  return response
 }
 
 // 내 온보딩 - 학력 삭제

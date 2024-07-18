@@ -97,7 +97,6 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
       const updatedHistories = histories.filter((_, i) => i !== index)
       setHistories(updatedHistories)
-      const accessToken = localStorage.getItem('accessToken') || ''
       const response = await PostAntecedentData(accessToken, updatedHistories) // 업데이트된 배열을 서버에 전달
       if (response.ok) {
         alert('삭제가 완료되었습니다.')

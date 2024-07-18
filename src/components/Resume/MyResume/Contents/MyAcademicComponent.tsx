@@ -1,51 +1,81 @@
-// MyAcademicComponent.tsx
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
-import { PostSchoolData } from '@/lib/action'
+import { PostSchoolData, DeleteSchoolData, PostOneSchoolData } from '@/lib/action'
 import { EducationResponse } from '@/lib/types'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useRecoilValue } from 'recoil'
+import { useForm, SubmitHandler } from 'react-hook-form'
 
 interface MyResumEducationProps {
   data: EducationResponse[]
 }
 
+interface EducationFormInputs {
+  universityName: string
+  majorName: string
+  admissionYear: string
+  graduationYear: string
+  degreeName: string
+}
+
+interface EducationFormData {
+  universityName: string
+  majorName: string
+  admissionYear: number
+  graduationYear: number
+  degreeName: string
+}
+
 export default function MyAcademicComponent({ data }: MyResumEducationProps) {
   const [isEditing, setIsEditing] = useState(false)
-  const [universityName, setUniversityName] = useState('')
-  const [majorName, setMajorName] = useState('')
-  const [admissionYear, setAdmissionYear] = useState('')
-  const [graduationYear, setGraduationYear] = useState('')
-  const [degreeName, setDegreeName] = useState('재학')
   const accessToken = useRecoilValue(accessTokenState) || ''
-  const [educationData, setEducationData] = useState(data)
+  const [educationData, setEducationData] = useState<EducationResponse[]>(data)
 
-  const handleAddEducation = async () => {
-    const newEducation = {
-      id: Date.now(), // 고유한 ID 생성
-      admissionYear: parseInt(admissionYear),
-      graduationYear: parseInt(graduationYear),
-      universityName,
-      majorName,
-      degreeName,
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<EducationFormInputs>()
+
+  const handleAddEducation: SubmitHandler<EducationFormInputs> = async (formData) => {
+    const newEducation: EducationFormData = {
+      universityName: formData.universityName,
+      majorName: formData.majorName,
+      admissionYear: parseInt(formData.admissionYear),
+      graduationYear: parseInt(formData.graduationYear),
+      degreeName: formData.degreeName,
     }
 
     try {
-      const response = await PostSchoolData(accessToken, newEducation)
+      const response = await PostOneSchoolData(accessToken, newEducation)
+      console.log('response', response)
       if (response.ok) {
-        setEducationData([...educationData, newEducation])
+        setEducationData([...educationData, { ...newEducation, id: Date.now() }])
         alert('학력이 추가되었습니다.')
         setIsEditing(false)
-        setUniversityName('')
-        setMajorName('')
-        setAdmissionYear('')
-        setGraduationYear('')
-        setDegreeName('재학')
+        reset()
       }
     } catch (error) {
       console.error('Failed to add education', error)
       // 에러 처리 로직을 추가합니다.
+    }
+  }
+
+  // 학력 삭제
+  const handleDeleteEducation = async (educationId: number) => {
+    try {
+      if (!window.confirm('학력을 삭제하시겠습니까?')) return
+      const response = await DeleteSchoolData(accessToken, educationId)
+      if (response.ok) {
+        setEducationData(educationData.filter((education) => education.id !== educationId))
+      } else {
+        alert('삭제 중 오류가 발생했습니다.')
+      }
+    } catch (error) {
+      console.error('Failed to delete education', error)
+      alert('삭제 중 오류가 발생했습니다.')
     }
   }
 
@@ -71,8 +101,15 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Image src="/assets/icons/pencil.svg" width={27} height={27} alt="edit" />
-                <Image src="/assets/icons/delete.svg" width={27} height={27} alt="delete" />
+                <Image src="/assets/icons/pencil.svg" width={27} height={27} alt="edit" className="cursor-pointer" />
+                <Image
+                  src="/assets/icons/delete.svg"
+                  width={27}
+                  height={27}
+                  alt="delete"
+                  className="cursor-pointer"
+                  onClick={() => handleDeleteEducation(education.id)}
+                />
               </div>
             </div>
           </div>
@@ -81,68 +118,61 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
 
       {/* 추가하기 모드 */}
       {isEditing && (
-        <>
-          <div className="mt-4 flex flex-col gap-4 rounded-lg border border-grey40 bg-grey10 p-5">
-            <div className="flex gap-[0.81rem]">
-              <div className="flex flex-col">
-                <p className="text-sm font-normal text-grey100">학교명</p>
-                <input
-                  type="text"
-                  className="mt-1 w-[15.31rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
-                  value={universityName}
-                  onChange={(e) => setUniversityName(e.target.value)}
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <p className="text-sm font-normal text-grey100">전공명</p>
-                <input
-                  type="text"
-                  className="mt-1 w-[15.31rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
-                  value={majorName}
-                  onChange={(e) => setMajorName(e.target.value)}
-                />
-              </div>
+        <form
+          onSubmit={handleSubmit(handleAddEducation)}
+          className="mt-4 flex flex-col gap-4 rounded-lg border border-grey40 bg-grey10 p-5"
+        >
+          <div className="flex gap-[0.81rem]">
+            <div className="flex flex-col">
+              <p className="text-sm font-normal text-grey100">학교명</p>
+              <input
+                type="text"
+                className="mt-1 w-[15.31rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
+                {...register('universityName', { required: '학교명을 입력해주세요' })}
+              />
+              {errors.universityName && <p className="text-red-500">{errors.universityName.message}</p>}
             </div>
 
             <div className="flex flex-col">
-              <p className="text-sm font-normal text-grey100">재학 기간</p>
-              <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  placeholder="YYYY"
-                  className="mt-1 w-[4.5rem] rounded border border-grey40 px-[0.88rem] py-2 text-center text-sm outline-none"
-                  value={admissionYear}
-                  onChange={(e) => setAdmissionYear(e.target.value)}
-                />
-                <p>~</p>
-                <input
-                  type="text"
-                  placeholder="YYYY"
-                  className="mt-1 w-[4.5rem] rounded border border-grey40 px-[0.88rem] py-2 text-center text-sm outline-none"
-                  value={graduationYear}
-                  onChange={(e) => setGraduationYear(e.target.value)}
-                />
-                <select
-                  className="mt-1 w-[4.8rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
-                  value={degreeName}
-                  onChange={(e) => setDegreeName(e.target.value)}
-                >
-                  <option value="재학">재학</option>
-                  <option value="졸업">졸업</option>
-                  <option value="휴학">휴학</option>
-                </select>
-              </div>
+              <p className="text-sm font-normal text-grey100">전공명</p>
+              <input
+                type="text"
+                className="mt-1 w-[15.31rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
+                {...register('majorName', { required: '전공명을 입력해주세요' })}
+              />
+              {errors.majorName && <p className="text-red-500">{errors.majorName.message}</p>}
             </div>
           </div>
-        </>
-      )}
 
-      {/* button */}
-      <div className="mt-[0.94rem] flex w-full justify-end">
-        {isEditing ? (
-          <div className="flex gap-4 ">
+          <div className="flex flex-col">
+            <p className="text-sm font-normal text-grey100">재학 기간</p>
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                placeholder="YYYY"
+                className="mt-1 w-[4.5rem] rounded border border-grey40 px-[0.88rem] py-2 text-center text-sm outline-none"
+                {...register('admissionYear', { required: '입학년도를 입력해주세요' })}
+              />
+              <p>~</p>
+              <input
+                type="text"
+                placeholder="YYYY"
+                className="mt-1 w-[4.5rem] rounded border border-grey40 px-[0.88rem] py-2 text-center text-sm outline-none"
+                {...register('graduationYear', { required: '졸업년도를 입력해주세요' })}
+              />
+              <select
+                className="mt-1 w-[4.8rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
+                {...register('degreeName')}
+              >
+                <option value="재학">재학</option>
+                <option value="졸업">졸업</option>
+                <option value="휴학">휴학</option>
+              </select>
+            </div>
+          </div>
+          <div className="mt-[0.94rem] flex w-full justify-end gap-4">
             <button
+              type="button"
               onClick={() => {
                 setIsEditing(false)
               }}
@@ -150,21 +180,26 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
             >
               취소하기
             </button>
-            <button onClick={handleAddEducation} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+            <button type="submit" className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
               추가하기
             </button>
           </div>
-        ) : (
+        </form>
+      )}
+
+      {/* button */}
+      {!isEditing && (
+        <div className="mt-[0.94rem] flex w-full justify-end">
           <button
             onClick={() => {
               setIsEditing(true)
             }}
             className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
           >
-            수정하기
+            추가하기
           </button>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }
