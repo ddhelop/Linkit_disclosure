@@ -1,5 +1,6 @@
 import { SaveProfileType } from '@/lib/types'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function MatchingPrivateMiniProfile({ data }: { data: SaveProfileType }) {
   return (
@@ -10,7 +11,7 @@ export default function MatchingPrivateMiniProfile({ data }: { data: SaveProfile
       </div>
 
       <div className="mt-8 flex gap-2">
-        {data.myKeywordNames.map((keyword, index) => (
+        {data.myKeywordNames?.map((keyword, index) => (
           <div key={index} className="rounded-[0.45rem] bg-grey10 px-[0.57rem] py-1 text-sm text-grey60">
             {keyword}
           </div>
@@ -22,11 +23,13 @@ export default function MatchingPrivateMiniProfile({ data }: { data: SaveProfile
           <Image src="/assets/images/DefaultProfile.png" width={45} height={45} alt="heart" className="rounded-full" />
           <div className="flex flex-col gap-1">
             <p className="font-semibold text-grey70">{data.memberName}</p>
-            <p className="text-sm text-grey60">{data.jobRoleNames.join(', ')}</p>
+            <p className="text-sm text-grey60">{data.jobRoleNames?.join(', ')}</p>
           </div>
         </div>
 
-        <button className="rounded-[0.29rem] bg-grey100 px-7 py-[0.56rem] text-[#fff]">보기</button>
+        <Link href={`/private/${data.id}`}>
+          <button className="rounded-[0.29rem] bg-grey100 px-7 py-[0.56rem] text-[#fff]">보기</button>
+        </Link>
       </div>
     </div>
   )

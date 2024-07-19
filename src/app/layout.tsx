@@ -11,8 +11,6 @@ import Scripts from '@/components/script'
 
 import ClientProvider from '@/components/common/ClientProvider'
 import FetchSetting from '@/components/common/fetch/page'
-import MobileView from '@/components/common/MobileView'
-import useIsMobile from '@/lib/hooks/useIsMobile'
 
 export const metadata: Metadata = {
   title: 'Linkit',

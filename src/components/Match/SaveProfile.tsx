@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { GetMatchReceived, GetSavedTeams } from '@/lib/action'
+import { GetMatchReceived, GetSavedMembers, GetSavedTeams } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import { FindTeamInterface, MatchReceivedType, SaveProfileType, SaveTeamType } from '@/lib/types'
@@ -22,7 +22,7 @@ export default function SaveProfile() {
   useEffect(() => {
     const getMatchReceived = async () => {
       try {
-        const response = await GetMatchReceived(accessToken)
+        const response = await GetSavedMembers(accessToken)
         setPrivateMatchReceived(response)
       } catch (error) {
         console.error(error)
@@ -66,10 +66,8 @@ export default function SaveProfile() {
             <div className="mt-3 text-grey60">찜한 팀원이 없어요</div>
           </>
         ) : (
-          <div className="mt-3 flex flex-wrap">
-            {privateMatchReceived.map((match, index) => (
-              <MatchingPrivateMiniProfile data={match} key={index} />
-            ))}
+          <div className="mt-3 flex flex-wrap gap-3">
+            {privateMatchReceived?.map((match, index) => <MatchingPrivateMiniProfile data={match} key={index} />)}
           </div>
         ))}
 
