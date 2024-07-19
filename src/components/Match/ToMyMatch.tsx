@@ -17,6 +17,7 @@ export default function FromMyMatch() {
       try {
         const response = await GetMatchSent(accessToken)
         setMatchReceived(response)
+        console.log(matchReceived)
       } catch (error) {
         console.error(error)
       }
@@ -60,7 +61,7 @@ export default function FromMyMatch() {
                 <p className="text-xs text-[#2563EB]">
                   {match.requestTeamProfile ? `팀 찾기 > 수신 확인` : '팀원 찾기 > 수신 확인'}
                 </p>
-                <p className="font-semibold">{match.requestTeamProfile}님이 매칭 요청을 보냈습니다</p>
+                <p className="font-semibold">{match.receiverName}께 매칭 요청을 보냈습니다</p>
                 <p className="text-sm text-grey60">{match.requestMessage}</p>
               </div>
               <p className="text-xs text-grey50">{match.requestOccurTime}</p>
