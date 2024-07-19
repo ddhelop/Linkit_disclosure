@@ -46,6 +46,20 @@ export async function Logout(accessToken: string) {
   return response
 }
 
+// 회원탈퇴
+export async function Withdrawal(accessToken: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/account`, {
+    method: 'DELETE',
+    headers: {
+      // 'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  return response
+}
+
 // 온보딩 개인정보 생성
 export async function OnBoardingPrivateData(data: IFormData, accessToken: string) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/members/basic-inform`, {

@@ -5,11 +5,12 @@ import { GetOnboardingPrivateData } from '@/lib/action'
 
 interface UserOptionProps {
   onClose: () => void
+  onShowConfirmModal: (userName: string) => void
 }
 
-export default function UserOption({ onClose }: UserOptionProps) {
+export default function UserOption({ onClose, onShowConfirmModal }: UserOptionProps) {
   const accessToken = useRecoilValue(accessTokenState) || ''
-  const [userData, setUserData] = useState({ memberName: '', contact: '', memberEmail: '' })
+  const [userData, setUserData] = useState({ memberName: '', contact: '', email: '' })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +19,7 @@ export default function UserOption({ onClose }: UserOptionProps) {
         setUserData({
           memberName: data.memberName,
           contact: data.contact,
-          memberEmail: data.memberEmail,
+          email: data.email,
         })
       }
     }
@@ -44,6 +45,10 @@ export default function UserOption({ onClose }: UserOptionProps) {
     if (event.target === event.currentTarget) {
       onClose()
     }
+  }
+
+  const handleShowConfirmModal = () => {
+    onShowConfirmModal(userData.memberName)
   }
 
   return (
@@ -81,8 +86,8 @@ export default function UserOption({ onClose }: UserOptionProps) {
             <label className="mb-1 block text-sm font-semibold">이메일</label>
             <input
               type="text"
-              className="w-full rounded-[0.44rem] border border-grey30 px-[0.88rem] py-[0.62rem] text-sm"
-              value={userData.memberEmail}
+              className="w-full rounded-[0.44rem] border border-grey30 px-[0.88rem] py-[0.62rem] text-sm text-grey50"
+              value={userData.email}
               disabled
             />
           </div>
@@ -93,7 +98,11 @@ export default function UserOption({ onClose }: UserOptionProps) {
             </label>
           </div>
           <div className="mb-4 flex justify-start ">
-            <button type="button" className="border-b border-grey60 text-xs text-grey60" onClick={onClose}>
+            <button
+              type="button"
+              className="border-b border-grey60 text-xs text-grey60"
+              onClick={handleShowConfirmModal}
+            >
               탈퇴하기
             </button>
           </div>

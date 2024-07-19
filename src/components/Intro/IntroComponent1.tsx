@@ -92,7 +92,7 @@ export default function IntroComponentTemp() {
         <motion.div
           whileHover={{ scale: 1.02 }}
           transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-          className="bg-[rgba(79, 81, 98, 0.07)] z-50 h-[22.9rem] w-[82%] rounded-[3.125rem] shadow-frame-shaow backdrop-blur-2xl md:h-[21.9rem] md:w-[31.6rem]"
+          className="bg-[rgba(79, 81, 98, 0.07)] z-10 h-[22.9rem] w-[82%] rounded-[3.125rem] shadow-frame-shaow backdrop-blur-2xl md:h-[21.9rem] md:w-[31.6rem]"
         >
           <div className="z-50 flex flex-col items-center py-[1.4rem] lg:py-[1.65rem]">
             <div className="flex gap-4 font-medium backdrop-blur-[37px]">
@@ -144,7 +144,7 @@ export default function IntroComponentTemp() {
           </div>
         </motion.div>
 
-        <div className="bg-[rgba(79, 81, 98, 0.07)] z-50 mt-5 flex h-[3.68rem] w-[88%] items-center justify-between rounded-[3.91rem] px-7 shadow-gray-07 backdrop-blur-2xl md:w-[39.5rem]">
+        <div className="bg-[rgba(79, 81, 98, 0.07)] z-10 mt-5 flex h-[3.68rem] w-[88%] items-center justify-between rounded-[3.91rem] px-7 shadow-gray-07 backdrop-blur-2xl md:w-[39.5rem]">
           {Object.keys(positions).map((role) => (
             <span
               key={role}
