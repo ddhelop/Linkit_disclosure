@@ -233,7 +233,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
                 직무/역할 <p className="pl-1 font-normal text-[#2563EB]">*</p>
               </label>
               <div className="mt-2 flex flex-wrap gap-2 ">
-                {['기획', '마케팅', '디자이너', 'SW개발자', '리서처', '기타'].map((role) => (
+                {['기획·경영', '개발·데이터', '마케팅·광고', '디자인'].map((role) => (
                   <button
                     key={role}
                     type="button"
