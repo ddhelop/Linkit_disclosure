@@ -43,7 +43,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
 
   const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
     const TeamData: TeamAnnouncementMemberInterface = {
-      jobRoleNames: [formData.selectedRole],
+      jobRoleName: formData.selectedRole,
       mainBusiness: formData.mainBusiness,
       skillNames: formData.skills,
       applicationProcess: formData.applicationProcess,
@@ -156,7 +156,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
 
   const handleEditAnnouncement = (announcement: TeamMemberAnnouncementResponse) => {
     setEditingAnnouncementId(announcement.id)
-    setValue('selectedRole', announcement.jobRoleNames[0])
+    setValue('selectedRole', announcement.jobRoleName)
     setValue('mainBusiness', announcement.mainBusiness)
     setValue('skills', announcement.skillNames)
     setValue('applicationProcess', announcement.applicationProcess)

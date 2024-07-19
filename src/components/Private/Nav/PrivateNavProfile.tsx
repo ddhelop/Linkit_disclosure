@@ -1,6 +1,6 @@
 'use client'
 import RequestMatchModal from '@/components/Match/common/RequestMatchModal'
-import { JobAndSkillResponse, MemberNameResponse, MiniProfileResponse } from '@/lib/types'
+import { JobAndSkillResponse, MiniProfileResponse } from '@/lib/types'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -71,7 +71,7 @@ export default function PrivateNavProfile({ data, jobAndSkill, profileId }: MyRe
         매칭하기
       </button>
 
-      {isModalOpen && <RequestMatchModal onClose={closeModal} profileId={profileId} />}
+      {isModalOpen && <RequestMatchModal onClose={closeModal} profileId={profileId} data={data} />}
     </div>
   )
 }

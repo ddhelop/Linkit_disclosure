@@ -67,6 +67,7 @@ export interface MiniProfileResponse {
   skillSets: string
   memberName: string
   myKeywordNames: string[]
+  jobRoleNames: string[]
 }
 
 export interface CompletionResponse {
@@ -241,7 +242,7 @@ export interface TeamProfileTeamBuildingFieldResponse {
 
 export interface TeamMemberAnnouncementResponse {
   mainBusiness: string
-  jobRoleNames: string[]
+  jobRoleName: string
   id: number
   teamName: string
   applicationProcess: string
@@ -391,7 +392,7 @@ export interface AntecedentFormInputs {
 
 // 팀소개서 - 팀원 공고 데이터 셋
 export interface TeamAnnouncementMemberInterface {
-  jobRoleNames: string[]
+  jobRoleName: string
   mainBusiness: string
   skillNames: string[]
   applicationProcess: string
