@@ -1,6 +1,7 @@
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
 import { GetResumeExist, PostMatchRequest, PostTeamMatchRequest } from '@/lib/action'
+import { MiniProfileResponse } from '@/lib/types'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
@@ -8,6 +9,7 @@ import { useRecoilValue } from 'recoil'
 interface RequestMatchModalProps {
   onClose: () => void
   profileId: number
+  data: MiniProfileResponse
 }
 
 interface ResumeExist {
@@ -15,7 +17,7 @@ interface ResumeExist {
   isTeamProfileMatchingAllow: boolean
 }
 
-export default function RequestMatchModal({ onClose, profileId }: RequestMatchModalProps) {
+export default function RequestMatchModal({ onClose, profileId, data }: RequestMatchModalProps) {
   const accessToken = useRecoilValue(accessTokenState) || ''
   const [resumeExist, setResumeExist] = useState<ResumeExist>({
     isPrivateProfileMatchingAllow: false,
@@ -94,7 +96,7 @@ export default function RequestMatchModal({ onClose, profileId }: RequestMatchMo
     >
       <div className="flex w-[40rem] flex-col justify-between rounded-lg bg-[#fff] px-[3.12rem] py-5 shadow-lg">
         <div className="flex justify-center">
-          <h2 className="mb-4 font-semibold">Somewon Yoon에게 매칭 요청 보내기</h2>
+          <h2 className="mb-4 font-semibold">{data.memberName}님에게 매칭 요청 보내기</h2>
         </div>
         <div className="flex flex-col">
           <div className="flex gap-4">
@@ -106,8 +108,8 @@ export default function RequestMatchModal({ onClose, profileId }: RequestMatchMo
               className="rounded-full"
             />
             <div className="flex flex-col">
-              <p className="font-semibold">Somewon Yoon</p>
-              <p className="text-sm text-grey70">기획·경영</p>
+              <p className="font-semibold">{data.memberName}</p>
+              <p className="text-sm text-grey70">{data.jobRoleNames.join(', ')}</p>
             </div>
           </div>
         </div>
