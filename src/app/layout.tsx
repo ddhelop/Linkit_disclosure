@@ -1,4 +1,6 @@
-import type { Metadata } from 'next'
+// app/layout.tsx
+
+import { Metadata } from 'next'
 import localFont from 'next/font/local'
 import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
@@ -9,6 +11,8 @@ import Scripts from '@/components/script'
 
 import ClientProvider from '@/components/common/ClientProvider'
 import FetchSetting from '@/components/common/fetch/page'
+import MobileView from '@/components/common/MobileView'
+import useIsMobile from '@/lib/hooks/useIsMobile'
 
 export const metadata: Metadata = {
   title: 'Linkit',
@@ -40,10 +44,9 @@ export default function RootLayout({
             <Footer />
           </FetchSetting>
         </ClientProvider>
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
+        <Scripts />
       </body>
-
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
-      <Scripts />
     </html>
   )
 }
