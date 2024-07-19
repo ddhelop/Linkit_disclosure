@@ -1,12 +1,40 @@
 'use client'
+import { accessTokenState } from '@/context/recoil-context'
+import { GetResumeExist } from '@/lib/action'
 import Image from 'next/image'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 
 interface RequestMatchModalProps {
   onClose: () => void
 }
 
+interface ResumeExist {
+  isPrivateProfileMatchingAllow: boolean
+  isTeamProfileMatchingAllow: boolean
+}
+
 export default function RequestMatchModal({ onClose }: RequestMatchModalProps) {
+  const accessToken = useRecoilValue(accessTokenState) || ''
+  const [resumeExist, setResumeExist] = useState<ResumeExist>({
+    isPrivateProfileMatchingAllow: false,
+    isTeamProfileMatchingAllow: false,
+  })
+
+  // 보낼 이력서 유무 조회
+  useEffect(() => {
+    const fetchResumeBoolean = async () => {
+      try {
+        const response = await GetResumeExist(accessToken)
+        setResumeExist(response)
+        console.log('유무', response)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchResumeBoolean()
+  }, [accessToken])
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -34,7 +62,7 @@ export default function RequestMatchModal({ onClose }: RequestMatchModalProps) {
       className="fixed inset-0 z-50 flex items-center justify-center bg-[#000] bg-opacity-50"
       onClick={handleClickOutside}
     >
-      <div className="flex w-[40rem] flex-col  justify-between rounded-lg bg-[#fff] px-[3.12rem] py-5 shadow-lg">
+      <div className="flex w-[40rem] flex-col justify-between rounded-lg bg-[#fff] px-[3.12rem] py-5 shadow-lg">
         <div className="flex justify-center">
           <h2 className="mb-4 font-semibold">Somewon Yoon에게 매칭 요청 보내기</h2>
         </div>
@@ -60,7 +88,16 @@ export default function RequestMatchModal({ onClose }: RequestMatchModalProps) {
           <button className="rounded bg-grey20 px-8 py-2 text-grey60" onClick={onClose}>
             취소
           </button>
-          <button className="rounded bg-[#2563EB] px-8 py-2 text-sm text-[#fff]">전송</button>
+          {resumeExist.isPrivateProfileMatchingAllow && (
+            <button className="rounded bg-[#2563EB] px-8 py-2 text-sm text-[#fff]">내 이력서로 전송</button>
+          )}
+          {resumeExist.isTeamProfileMatchingAllow && (
+            <button className="rounded bg-[#2563EB] px-8 py-2 text-sm text-[#fff]">팀 소개서로 전송</button>
+          )}
+
+          {!resumeExist.isPrivateProfileMatchingAllow && !resumeExist.isTeamProfileMatchingAllow && (
+            <button className="rounded bg-grey20 px-8 py-2 text-grey60">매칭 요건 불만족</button>
+          )}
         </div>
       </div>
     </div>
