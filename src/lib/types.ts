@@ -1,9 +1,18 @@
 export interface IFormData {
   memberName: string
   contact: string
-
   roleName: string // 직무/역할
   marketingAgree: boolean // 뉴스레터 및 마케팅 정보 수신 동의
+}
+
+export interface PrivateIFormData {
+  memberName: string
+  contact: string
+  marketingAgreement: boolean // 뉴스레터 및 마케팅 정보 수신 동의
+  serviceAgreement: boolean
+  privacyAgreement: boolean
+  ageAgreement: boolean
+  allAgree?: boolean
 }
 
 export interface PostIFormData {
