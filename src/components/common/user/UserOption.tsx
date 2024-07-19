@@ -1,6 +1,7 @@
 import { accessTokenState } from '@/context/recoil-context'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
+import { GetOnboardingPrivateData } from '@/lib/action'
 
 interface UserOptionProps {
   onClose: () => void
@@ -8,8 +9,22 @@ interface UserOptionProps {
 
 export default function UserOption({ onClose }: UserOptionProps) {
   const accessToken = useRecoilValue(accessTokenState) || ''
+  const [userData, setUserData] = useState({ memberName: '', contact: '', memberEmail: '' })
 
   useEffect(() => {
+    const fetchData = async () => {
+      if (accessToken) {
+        const data = await GetOnboardingPrivateData(accessToken)
+        setUserData({
+          memberName: data.memberName,
+          contact: data.contact,
+          memberEmail: data.memberEmail,
+        })
+      }
+    }
+
+    fetchData()
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         onClose()
@@ -23,7 +38,7 @@ export default function UserOption({ onClose }: UserOptionProps) {
       document.body.style.overflow = ''
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [onClose])
+  }, [accessToken, onClose])
 
   const handleClickOutside = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (event.target === event.currentTarget) {
@@ -49,7 +64,8 @@ export default function UserOption({ onClose }: UserOptionProps) {
             <input
               type="text"
               className="w-full rounded-[0.44rem] border border-grey30 px-[0.88rem] py-[0.62rem] text-sm"
-              defaultValue="김"
+              value={userData.memberName}
+              onChange={(e) => setUserData({ ...userData, memberName: e.target.value })}
             />
           </div>
           <div className="mb-4">
@@ -57,7 +73,8 @@ export default function UserOption({ onClose }: UserOptionProps) {
             <input
               type="text"
               className="w-full rounded-[0.44rem] border border-grey30 px-[0.88rem] py-[0.62rem] text-sm"
-              defaultValue="01012345678"
+              value={userData.contact}
+              onChange={(e) => setUserData({ ...userData, contact: e.target.value })}
             />
           </div>
           <div className="mb-4">
@@ -65,7 +82,8 @@ export default function UserOption({ onClose }: UserOptionProps) {
             <input
               type="text"
               className="w-full rounded-[0.44rem] border border-grey30 px-[0.88rem] py-[0.62rem] text-sm"
-              defaultValue="yeonmm04@gmail.com"
+              value={userData.memberEmail}
+              disabled
             />
           </div>
           <div className="mb-4">

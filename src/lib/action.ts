@@ -64,6 +64,20 @@ export async function OnBoardingPrivateData(data: IFormData, accessToken: string
   return response
 }
 
+// 온보딩 개인정보 조회
+export async function GetOnboardingPrivateData(accessToken: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/members/basic-inform`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  return await response.json()
+}
+
 // 내 온보딩 데이터 전체조회 - 내 이력서
 export async function GetOnBoardingData(accessToken: string) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/onBoarding`, {
