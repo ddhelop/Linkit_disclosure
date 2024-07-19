@@ -702,7 +702,7 @@ export async function GetMatchAccomplished(accessToken: string) {
   return await response.json()
 }
 
-// 매창 관리 - 이력서 유무 판단
+// 매칭 관리 - 이력서 유무 판단
 export async function GetResumeExist(accessToken: string) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/existence/profile`, {
     method: 'GET',
@@ -714,6 +714,32 @@ export async function GetResumeExist(accessToken: string) {
   })
 
   return await response.json()
+}
+
+// 매칭 - 내 이력서 -> 내 이력서
+export async function PostMatchRequest(accessToken: string, requestMessage: string, profileId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/profile/matching/private/${profileId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify(requestMessage),
+  })
+}
+
+// 매칭 - 내 이력서 -> 팀 소개서
+export async function PostTeamMatchRequest(accessToken: string, requestMessage: string, profileId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/profile/matching/private/${profileId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify(requestMessage),
+  })
 }
 
 // 찜한 내역 - 찜한 팀원 조회

@@ -7,11 +7,11 @@ interface MyResumNavProps {
 
 export default function PrivateNav({ data }: MyResumNavProps) {
   const miniProfileData = data.miniProfileResponse
-  const name = data.memberNameResponse
+  const profileId = data.profileId
   const jobAndSkillResponse = data.jobAndSkillResponse
   return (
     <div className="flex flex-col">
-      <PrivateNavProfile data={miniProfileData} name={name} jobAndSkill={jobAndSkillResponse} />
+      <PrivateNavProfile data={miniProfileData} jobAndSkill={jobAndSkillResponse} profileId={profileId} />
     </div>
   )
 }

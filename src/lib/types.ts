@@ -145,6 +145,7 @@ export interface AttachResponse {
 }
 
 export interface MyResumeResponse {
+  profileId: number
   privateProfileEssential: boolean
   miniProfileResponse: MiniProfileResponse
   completionResponse: CompletionResponse

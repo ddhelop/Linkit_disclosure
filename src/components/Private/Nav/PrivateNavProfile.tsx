@@ -6,11 +6,12 @@ import { useState } from 'react'
 
 interface MyResumeNavProfileProps {
   data: MiniProfileResponse
-  name: MemberNameResponse
+
   jobAndSkill: JobAndSkillResponse
+  profileId: number
 }
 
-export default function PrivateNavProfile({ data, name, jobAndSkill }: MyResumeNavProfileProps) {
+export default function PrivateNavProfile({ data, jobAndSkill, profileId }: MyResumeNavProfileProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleMatchButtonClick = () => {
@@ -70,7 +71,7 @@ export default function PrivateNavProfile({ data, name, jobAndSkill }: MyResumeN
         매칭하기
       </button>
 
-      {isModalOpen && <RequestMatchModal onClose={closeModal} />}
+      {isModalOpen && <RequestMatchModal onClose={closeModal} profileId={profileId} />}
     </div>
   )
 }
