@@ -42,9 +42,9 @@ export default function TeamNavProfile({ data }: TeamResumNavProps) {
           </div>
         </div>
       </div>
-      <button className="mt-[0.88rem] w-full rounded bg-grey100 py-[0.56rem] text-center text-sm text-[#fff]">
+      {/* <button className="mt-[0.88rem] w-full rounded bg-grey100 py-[0.56rem] text-center text-sm text-[#fff]">
         지원하기
-      </button>
+      </button> */}
     </div>
   )
 }

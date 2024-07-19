@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TeamMemberAnnouncementResponse } from '@/lib/types'
+import RequestTeamMatchModal from '@/components/Match/common/TeamRequestMatchModal'
 
 interface ModalProps {
   onClose: () => void
@@ -7,6 +8,8 @@ interface ModalProps {
 }
 
 const TeamAnnouncementModal: React.FC<ModalProps> = ({ onClose, data }) => {
+  const [isMatchModalOpen, setIsMatchModalOpen] = useState(false)
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -68,12 +71,18 @@ const TeamAnnouncementModal: React.FC<ModalProps> = ({ onClose, data }) => {
           </div>
 
           <div className="flex w-full justify-end">
-            <button onClick={onClose} className="mt-6 rounded-lg bg-[#2563EB] px-4 py-2 text-[#fff]">
+            <button
+              onClick={() => setIsMatchModalOpen(true)}
+              className="mt-6 rounded-lg bg-[#2563EB] px-4 py-2 text-[#fff]"
+            >
               지원하기
             </button>
           </div>
         </div>
       </div>
+      {isMatchModalOpen && (
+        <RequestTeamMatchModal onClose={() => setIsMatchModalOpen(false)} teamId={data.id} data={data} />
+      )}
     </div>
   )
 }

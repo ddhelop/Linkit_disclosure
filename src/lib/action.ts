@@ -729,9 +729,22 @@ export async function PostMatchRequest(accessToken: string, requestMessage: stri
   })
 }
 
-// 매칭 - 내 이력서 -> 팀 소개서
+// 매칭 - 팀 소개서 -> 내 이력서
 export async function PostTeamMatchRequest(accessToken: string, requestMessage: string, profileId: number) {
   return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/profile/matching/private/${profileId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify(requestMessage),
+  })
+}
+
+// 매칭 - 팀 이력서 -> 내 소개서
+export async function PostTeamProfileMatchRequest(accessToken: string, requestMessage: string, teamProfileId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/profile/matching/team/${teamProfileId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
