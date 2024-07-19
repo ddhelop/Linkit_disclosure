@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { TeamMemberAnnouncementResponse } from '@/lib/types'
-import Image from 'next/image'
 
 interface ModalProps {
   onClose: () => void
@@ -47,7 +46,9 @@ const TeamAnnouncementModal: React.FC<ModalProps> = ({ onClose, data }) => {
           <h2 className=" pt-[0.44rem] font-semibold">{data.jobRoleName}</h2>
           <div className="mt-[0.88rem] flex gap-2">
             {data.skillNames.map((skill, index) => (
-              <span className="rounded-[0.31rem] border border-grey40 px-[0.88rem] py-1">{skill}</span>
+              <span key={index} className="rounded-[0.31rem] border border-grey40 px-[0.88rem] py-1">
+                {skill}
+              </span>
             ))}
           </div>
 
