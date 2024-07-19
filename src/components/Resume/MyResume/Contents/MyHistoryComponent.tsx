@@ -21,7 +21,16 @@ interface MyResumAntecedentProps {
 }
 
 export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
-  const { register, handleSubmit, reset, setValue, watch } = useForm<FormInputs>()
+  const { register, handleSubmit, reset, setValue, watch } = useForm<FormInputs>({
+    defaultValues: {
+      projectName: '',
+      projectRole: '',
+      startDate: '',
+      endDate: '',
+      retirement: false,
+      antecedentsDescription: '',
+    },
+  })
   const [histories, setHistories] = useState<FormInputs[]>(
     () =>
       data?.map((item) => ({
@@ -207,14 +216,22 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
                     id="current"
                     value="false"
                     {...register('retirement')}
-                    checked={retirementValue}
+                    checked={!retirementValue}
+                    onChange={() => setValue('retirement', false)}
                   />
                   <label htmlFor="current" className="text-sm text-grey100">
                     재직중
                   </label>
 
                   {/* radio 퇴직 */}
-                  <input type="radio" id="retired" value="true" {...register('retirement')} checked={retirementValue} />
+                  <input
+                    type="radio"
+                    id="retired"
+                    value="true"
+                    {...register('retirement')}
+                    checked={retirementValue}
+                    onChange={() => setValue('retirement', true)}
+                  />
                   <label htmlFor="retired" className="text-sm text-grey100">
                     퇴직
                   </label>
