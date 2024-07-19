@@ -48,7 +48,6 @@ export default function ActivityWay() {
       if (accessToken) {
         try {
           const data = await TeamOnBoardingData(accessToken)
-          console.log('onBoardingData', data)
 
           if (data.activityResponse) {
             const { activityTagName, cityName, divisionName } = data.activityResponse
@@ -70,7 +69,6 @@ export default function ActivityWay() {
   const onSubmit = async (data: TeamOnBoardingActivityWayFormInputs) => {
     const response = await TeamOnBoardingActivityWay(accessToken, data)
 
-    console.log(response)
     if (response.ok) {
       router.push('/onBoarding/team/profile')
     }

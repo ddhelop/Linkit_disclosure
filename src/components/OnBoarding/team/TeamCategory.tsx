@@ -38,7 +38,6 @@ export default function TeamCategory() {
       if (accessToken) {
         try {
           const data = await TeamOnBoardingData(accessToken)
-          console.log('onBoardingData', data)
 
           if (data.onBoardingFieldTeamInformResponse) {
             const { teamName, sizeType, sectorName, teamBuildingFieldNames } = data.onBoardingFieldTeamInformResponse

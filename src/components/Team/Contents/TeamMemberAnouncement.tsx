@@ -7,7 +7,6 @@ interface teamMemberAnnouncementProps {
 }
 
 export default function TeamMemberAnnouncement({ data }: teamMemberAnnouncementProps) {
-  console.log('팀원 공고', data)
   return (
     <div className="flex w-full flex-col gap-[0.94rem] rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}

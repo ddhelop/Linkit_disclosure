@@ -35,7 +35,6 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
   useEffect(() => {
     if (accessToken) {
       GetOnBoardingData(accessToken).then((data) => {
-        console.log(data)
         const profileRegionResponse = data.jobAndSkillResponse
         if (profileRegionResponse) {
           setSelectedRoleFields(profileRegionResponse.jobRoleNames || [])

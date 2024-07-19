@@ -78,9 +78,7 @@ export default function RegisterCareer() {
     const response = await PostOneAntecedentData(accessToken, antecedentData)
 
     if (response.ok) {
-      console.log('경력 정보가 성공적으로 업데이트되었습니다.')
     } else {
-      console.log('경력 정보 업데이트 중 에러가 발생했습니다.', response)
     }
 
     const updatedData = {
@@ -117,7 +115,6 @@ export default function RegisterCareer() {
 
   const handleDelete = async (index: number) => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
-      console.log('id', careerList[index])
       const response = await DeleteAntecedentData(accessToken, careerList[index].id)
       if (response.ok) {
         setCareerList((prev) => prev.filter((_, i) => i !== index))
@@ -136,7 +133,6 @@ export default function RegisterCareer() {
   }
 
   const handleSave = async () => {
-    console.log('careerList', careerList)
     if (accessToken && careerList.length > 0) {
       const formattedCareerList = careerList.map((career) => ({
         ...career,
@@ -165,7 +161,6 @@ export default function RegisterCareer() {
         router.push('/onBoarding/person/school')
       } else {
         alert('에러가 발생했습니다.')
-        console.log(response)
       }
     } else {
       router.push('/onBoarding/person/school')

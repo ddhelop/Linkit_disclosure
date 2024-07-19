@@ -8,7 +8,6 @@ interface ModalProps {
 }
 
 const TeamAnnouncementModal: React.FC<ModalProps> = ({ onClose, data }) => {
-  console.log('team dat', data)
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {

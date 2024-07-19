@@ -39,7 +39,7 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
       const newAwards = [...prev, formData]
 
       const response = PostProfileAward(accessToken, newAwards)
-      console.log(response)
+
       return newAwards
     })
     reset()

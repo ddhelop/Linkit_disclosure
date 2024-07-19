@@ -6,7 +6,6 @@ interface TeamResumNavProps {
 }
 
 export default function TeamNavProfile({ data }: TeamResumNavProps) {
-  console.log('data', data)
   return (
     <div className="flex w-full flex-col rounded-2xl bg-[#fff] p-5">
       <div className="pt-[0.42rem] text-[1.25rem] font-bold leading-[1.375rem]">

@@ -64,7 +64,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
       } else {
         // 새로운 공고 추가
         response = await PostTeamMemberAnnouncement(accessToken, TeamData)
-        console.log('새로운 공고', response)
+
         if (response.ok) {
           // const responseData = await response.json()
           setAnnouncements([...announcements, { ...TeamData, id: 1, teamName: '팀 이름' }])

@@ -74,7 +74,6 @@ export default function RegisterPersonProfile() {
     const fetchData = async () => {
       try {
         const response = await GetOnBoardingData(accessToken)
-        console.log('OnBoarding Data:', response)
 
         if (response.miniProfileResponse) {
           const { profileTitle, isActivate, memberName, myKeywordNames, miniProfileImg } = response.miniProfileResponse
@@ -114,7 +113,7 @@ export default function RegisterPersonProfile() {
     if (!accessToken) return
     try {
       const response = await PostProfileData(accessToken, miniProfileRequest, profileImage)
-      console.log('Success:', response)
+
       if (response.ok) {
         router.push('/onBoarding/complete')
       } else {

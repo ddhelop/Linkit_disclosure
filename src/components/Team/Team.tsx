@@ -46,8 +46,6 @@ export default function Team() {
     return <div>No data available</div>
   }
 
-  console.log(data)
-
   return (
     <div className="flex flex-col bg-grey10 pb-20 pt-[61px]">
       {/* Header */}

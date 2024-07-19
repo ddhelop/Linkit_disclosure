@@ -12,7 +12,6 @@ export default function IntroComponentTemp() {
 
   // recoil 데이터 가져오기
   const [myData, setMyData] = useRecoilState(myDataState)
-  console.log(JSON.stringify(myData))
 
   const positions: Record<PositionKey, { text: string; image: string; bgImage: string; mobilebg: string }> = {
     개발자: {

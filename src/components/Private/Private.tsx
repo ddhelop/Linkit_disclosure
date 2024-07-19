@@ -48,8 +48,6 @@ export default function Private() {
     return <div>No data available</div>
   }
 
-  console.log(data)
-
   return (
     <div className="flex flex-col bg-grey10 pb-20 pt-[11px]">
       {/* contents */}

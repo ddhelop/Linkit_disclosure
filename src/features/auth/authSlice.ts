@@ -17,12 +17,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setSimpleAuthData: (state, action: PayloadAction<{ accessToken: string }>) => {
-      console.log('Setting simple auth data:', action.payload) // 디버깅용 로그 추가
       state.accessToken = action.payload.accessToken
       localStorage.setItem('accessToken', action.payload.accessToken) // localStorage에 저장
     },
     setFullAuthData: (state, action: PayloadAction<AuthState>) => {
-      console.log('Setting full auth data:', action.payload) // 디버깅용 로그 추가
       state.accessToken = action.payload.accessToken
       state.email = action.payload.email
       state.memberBasicInform = action.payload.memberBasicInform
@@ -31,7 +29,6 @@ const authSlice = createSlice({
       localStorage.setItem('memberBasicInform', JSON.stringify(action.payload.memberBasicInform ?? {}))
     },
     clearAuthData: (state) => {
-      console.log('Clearing auth data') // 디버깅용 로그 추가
       state.accessToken = null
       state.email = null
       state.memberBasicInform = null

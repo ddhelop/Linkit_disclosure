@@ -46,8 +46,6 @@ export default function TeamResume() {
     return <div>No data available</div>
   }
 
-  console.log(data)
-
   return (
     <div className="flex flex-col pt-[61px]">
       {/* Header */}

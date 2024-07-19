@@ -63,7 +63,6 @@ export default function UserOption({ onClose, onShowConfirmModal }: UserOptionPr
     try {
       const response = await OnBoardingPrivateData(formData, accessToken)
       if (response.ok) {
-        console.log('User data updated successfully')
         onClose()
       } else {
         console.error('Failed to update user data', response)

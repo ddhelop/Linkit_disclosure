@@ -31,20 +31,6 @@ export default function SaveProfile() {
     getMatchReceived()
   }, [])
 
-  // // 찜한 팀 프로필 리스트 불러오기
-  // useEffect(() => {
-  //   const getMatchTeamReceived = async () => {
-  //     try {
-  //       const response = await GetSavedTeams(accessToken)
-  //       setTeamMatchedReceived(response)
-  //     } catch (error) {
-  //       console.error(error)
-  //     }
-  //   }
-  //   getMatchTeamReceived()
-  // }, [])
-  // console.log(teamMatchedReceived)
-
   return (
     <div className="flex w-full flex-col">
       <div className="mt-7 flex gap-10 text-lg text-grey100">

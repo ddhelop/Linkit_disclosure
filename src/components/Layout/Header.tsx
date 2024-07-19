@@ -60,7 +60,6 @@ export default function Header() {
         }
       })
       .catch((error) => {
-        console.log(error)
         if (error.code === 9103) {
           alert('세션이 만료되었습니다. 다시 로그인해주세요.')
           setIsAuth(false)

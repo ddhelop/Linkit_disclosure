@@ -60,7 +60,6 @@ export default function TeamProfile() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await TeamOnBoardingData(accessToken)
-      console.log(response)
 
       if (response.onBoardingFieldTeamInformResponse) {
         setBasicData(response.onBoardingFieldTeamInformResponse)

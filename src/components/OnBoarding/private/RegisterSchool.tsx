@@ -35,7 +35,6 @@ export default function RegisterSchool() {
   useEffect(() => {
     if (accessToken) {
       GetOnBoardingData(accessToken).then((data) => {
-        console.log(data)
         const educationResponses = data.educationResponses
         if (educationResponses) {
           setEducationList(
@@ -64,9 +63,7 @@ export default function RegisterSchool() {
 
     const response = await PostOneSchoolData(accessToken, educationData)
     if (response.ok) {
-      console.log('학력 정보가 성공적으로 업데이트되었습니다.')
     } else {
-      console.log('학력 정보 업데이트 중 에러가 발생했습니다.', response)
     }
 
     const updatedData = {
@@ -98,7 +95,6 @@ export default function RegisterSchool() {
 
   const handleDelete = async (index: number) => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
-      console.log('id', educationList[index].id)
       const response = await DeleteSchoolData(accessToken, educationList[index].id)
       if (response.ok) {
         setEducationList((prev) => prev.filter((_, i) => i !== index))

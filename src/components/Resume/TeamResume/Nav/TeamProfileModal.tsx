@@ -67,7 +67,6 @@ export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileM
   useEffect(() => {
     const fetchData = async () => {
       const response = await TeamOnBoardingData(accessToken)
-      console.log(response)
 
       if (response.onBoardingFieldTeamInformResponse) {
         setBasicData(response.onBoardingFieldTeamInformResponse)

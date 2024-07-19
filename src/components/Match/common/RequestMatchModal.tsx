@@ -31,7 +31,6 @@ export default function RequestMatchModal({ onClose, profileId, data }: RequestM
       try {
         const response = await GetResumeExist(accessToken)
         setResumeExist(response)
-        console.log('유무', response)
       } catch (error) {
         console.error(error)
       }
@@ -65,7 +64,6 @@ export default function RequestMatchModal({ onClose, profileId, data }: RequestM
     try {
       const response = await PostMatchRequest(accessToken, requestMessage, profileId)
       if (response.ok) {
-        console.log('매칭 요청이 성공적으로 전송되었습니다.')
         onClose()
       } else {
         console.error('매칭 요청 전송 실패')
@@ -79,7 +77,6 @@ export default function RequestMatchModal({ onClose, profileId, data }: RequestM
     try {
       const response = await PostTeamMatchRequest(accessToken, requestMessage, profileId)
       if (response.ok) {
-        console.log('팀 소개서 매칭 요청이 성공적으로 전송되었습니다.')
         onClose()
       } else {
         console.error('팀 소개서 매칭 요청 전송 실패')

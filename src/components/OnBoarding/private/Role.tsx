@@ -32,7 +32,6 @@ export default function Role() {
   useEffect(() => {
     if (accessToken) {
       GetOnBoardingData(accessToken).then((data) => {
-        console.log(data)
         const profileRegionResponse = data.jobAndSkillResponse
         if (profileRegionResponse) {
           setSelectedRoleFields(profileRegionResponse.jobRoleNames || [])

@@ -51,7 +51,7 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
 
     try {
       const response = await PostOneSchoolData(accessToken, newEducation)
-      console.log('response', response)
+
       if (response.ok) {
         setEducationData([...educationData, { ...newEducation, id: Date.now() }])
         alert('학력이 추가되었습니다.')

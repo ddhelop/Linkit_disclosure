@@ -21,7 +21,6 @@ export default function PrivateRole({ data }: MyResumeCompletionProps) {
   useEffect(() => {
     if (accessToken) {
       GetOnBoardingData(accessToken).then((data) => {
-        console.log(data)
         const profileRegionResponse = data.jobAndSkillResponse
         if (profileRegionResponse) {
           setSelectedRoleFields(profileRegionResponse.jobRoleNames || [])
