@@ -1,12 +1,10 @@
-'use client'
-
-import { accessTokenState } from '@/context/recoil-context'
-import { PostTeamHistory, PutTeamHistory, DeleteTeamHistory } from '@/lib/action'
-import { HistoryResponse, TeamHistoryDataSet } from '@/lib/types'
-import Image from 'next/image'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
+import { PostTeamHistory, PutTeamHistory, DeleteTeamHistory } from '@/lib/action'
+import { HistoryResponse } from '@/lib/types'
+import Image from 'next/image'
 
 interface TeamHistoryProps {
   data: HistoryResponse[]
@@ -29,29 +27,32 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
   const accessToken = useRecoilValue(accessTokenState) || ''
 
   const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
-    const newData: TeamHistoryDataSet = {
-      id: data.length, // 임시 ID 할당
+    const newData: HistoryResponse = {
+      id: editIndex !== null ? data[editIndex].id : Date.now(), // 임시로 id를 생성
       historyOneLineIntroduction: formData.historyOneLineIntroduction,
       startYear: parseInt(formData.startYear),
       endYear: formData.inProgress ? null : parseInt(formData.endYear),
       inProgress: formData.inProgress,
       historyIntroduction: formData.historyIntroduction,
     }
-    setData([...data, newData])
 
     try {
       let response
       if (editIndex !== null) {
-        const history = data[editIndex]
-        response = await PutTeamHistory(accessToken, newData, history.id)
+        response = await PutTeamHistory(accessToken, newData, newData.id)
       } else {
         response = await PostTeamHistory(accessToken, newData)
       }
 
       if (response.ok) {
+        if (editIndex !== null) {
+          setData((prevData) => prevData.map((item, idx) => (idx === editIndex ? newData : item)))
+        } else {
+          setData((prevData = []) => [...prevData, newData]) // prevData를 기본값으로 배열 초기화
+        }
         alert('팀 연혁이 성공적으로 저장되었습니다.')
         setIsEditing(false)
-
+        setEditIndex(null)
         reset()
       }
     } catch (error) {
@@ -81,7 +82,9 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
     try {
       const response = await DeleteTeamHistory(accessToken, history.id)
       if (response.ok) {
-        confirm('팀 연혁을 삭제하시겠습니까?') && setData((prevData) => prevData.filter((item, idx) => idx !== index))
+        if (confirm('팀 연혁을 삭제하시겠습니까?')) {
+          setData((prevData = []) => prevData.filter((_, idx) => idx !== index)) // prevData를 기본값으로 배열 초기화
+        }
       } else {
         console.error('Failed to delete team history:', response)
       }
@@ -90,10 +93,11 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
     }
   }
 
+  const inProgressValue = watch('inProgress') ? watch('inProgress').toString() === 'true' : false
+
   return (
     <>
       <div className="flex w-full flex-col gap-[0.94rem] rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
-        {/* Title */}
         <p className="text-lg font-semibold">연혁</p>
 
         <div className="flex flex-col gap-4">
@@ -133,7 +137,6 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                   onSubmit={handleSubmit(onSubmit)}
                   className="mt-4 flex flex-col gap-[0.94rem] rounded-[0.44rem] border border-grey30 bg-grey10 p-5"
                 >
-                  {/* 한줄 소개 */}
                   <div className="flex flex-col gap-2">
                     <p className="text-sm font-normal">한줄소개</p>
                     <input
@@ -143,7 +146,6 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                     />
                   </div>
 
-                  {/* 기간 */}
                   <div className="flex flex-col gap-2">
                     <p className="text-sm font-normal">기간</p>
                     <div className="flex items-center gap-4">
@@ -157,7 +159,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                         {...register('endYear')}
                         placeholder="종료"
                         className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
-                        disabled={watch('inProgress')}
+                        disabled={inProgressValue}
                       />
                       <select
                         {...register('inProgress')}
@@ -169,7 +171,6 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                     </div>
                   </div>
 
-                  {/* 설명 */}
                   <div className="flex flex-col">
                     <p className="text-sm font-normal">설명</p>
                     <textarea
@@ -180,7 +181,6 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                     />
                   </div>
 
-                  {/* buttons */}
                   <div className="mt-4 flex w-full justify-end gap-2">
                     <button
                       className="rounded-[0.25rem] bg-grey60 px-4 py-2 text-[#fff]"
@@ -204,7 +204,6 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
             onSubmit={handleSubmit(onSubmit)}
             className="mt-4 flex flex-col gap-[0.94rem] rounded-[0.44rem] border border-grey30 bg-grey10 p-5"
           >
-            {/* 한줄 소개 */}
             <div className="flex flex-col gap-2">
               <p className="text-sm font-normal">한줄소개</p>
               <input
@@ -214,7 +213,6 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
               />
             </div>
 
-            {/* 기간 */}
             <div className="flex flex-col gap-2">
               <p className="text-sm font-normal">기간</p>
               <div className="flex items-center gap-4">
@@ -228,7 +226,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                   {...register('endYear')}
                   placeholder="종료"
                   className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
-                  disabled={watch('inProgress')}
+                  disabled={inProgressValue}
                 />
                 <select
                   {...register('inProgress')}
@@ -240,7 +238,6 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
               </div>
             </div>
 
-            {/* 설명 */}
             <div className="flex flex-col">
               <p className="text-sm font-normal">설명</p>
               <textarea
@@ -251,7 +248,6 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
               />
             </div>
 
-            {/* buttons */}
             <div className="mt-4 flex w-full justify-end gap-2">
               <button
                 className="rounded-[0.25rem] bg-grey60 px-4 py-2 text-[#fff]"
