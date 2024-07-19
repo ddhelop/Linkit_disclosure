@@ -2,17 +2,41 @@ import { useEffect, useState } from 'react'
 import { PrivateProfile } from '@/lib/types'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRecoilValue } from 'recoil'
+import { accessTokenState } from '@/context/recoil-context'
+import { PostSaveMember } from '@/lib/action'
 
 interface TeamMemberMiniProfileProps {
   profile: PrivateProfile
 }
 
 export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfileProps) {
+  const accessToken = useRecoilValue(accessTokenState) || ''
+
+  const onClickSave = async () => {
+    try {
+      const response = await PostSaveMember(accessToken, profile.id)
+      if (response.ok) {
+        alert('저장되었습니다.')
+      }
+    } catch {
+      alert('저장에 실패했습니다.')
+    }
+  }
+
   return (
     <div className="flex w-[25rem] flex-col justify-between gap-[2rem] rounded-[0.63rem] bg-[#fff] p-5">
       <div className="flex w-full justify-between">
         <div className="w-[80%] text-xl font-semibold leading-8 opacity-80">{profile.profileTitle}</div>
-        <Image src="/assets/icons/saveIcon.svg" width={17} height={20} alt="save" className="cursor-pointer" />
+
+        <Image
+          src={profile.isPrivateSaved ? '/assets/icons/filledSaveIcon.svg' : '/assets/icons/saveIcon.svg'}
+          width={17}
+          height={20}
+          alt="save"
+          className="cursor-pointer"
+          onClick={onClickSave}
+        />
       </div>
 
       <div className="flex flex-col ">
