@@ -1,16 +1,21 @@
 import { accessTokenState } from '@/context/recoil-context'
 import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import { GetOnboardingPrivateData } from '@/lib/action'
+import { GetOnboardingPrivateData, OnBoardingPrivateData } from '@/lib/action'
+import { PostIFormData } from '@/lib/types'
 
 interface UserOptionProps {
   onClose: () => void
   onShowConfirmModal: (userName: string) => void
 }
 
+interface IUserData extends PostIFormData {
+  email: string
+}
+
 export default function UserOption({ onClose, onShowConfirmModal }: UserOptionProps) {
   const accessToken = useRecoilValue(accessTokenState) || ''
-  const [userData, setUserData] = useState({ memberName: '', contact: '', email: '' })
+  const [userData, setUserData] = useState<IUserData>({ memberName: '', contact: '', email: '', marketingAgree: false })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +25,7 @@ export default function UserOption({ onClose, onShowConfirmModal }: UserOptionPr
           memberName: data.memberName,
           contact: data.contact,
           email: data.email,
+          marketingAgree: data.marketingAgree || false,
         })
       }
     }
@@ -51,6 +57,22 @@ export default function UserOption({ onClose, onShowConfirmModal }: UserOptionPr
     onShowConfirmModal(userData.memberName)
   }
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const { email, ...formData } = userData // email을 제외하고 폼 데이터를 준비합니다.
+    try {
+      const response = await OnBoardingPrivateData(formData, accessToken)
+      if (response.ok) {
+        console.log('User data updated successfully')
+        onClose()
+      } else {
+        console.error('Failed to update user data', response)
+      }
+    } catch (error) {
+      console.error('Failed to update user data', error)
+    }
+  }
+
   return (
     <div
       className="fixed inset-0 z-50 flex h-screen items-center justify-center bg-[#000] bg-opacity-50 text-grey90"
@@ -63,7 +85,7 @@ export default function UserOption({ onClose, onShowConfirmModal }: UserOptionPr
             &times;
           </button>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="mb-1 block text-sm font-semibold">이름</label>
             <input
@@ -93,11 +115,16 @@ export default function UserOption({ onClose, onShowConfirmModal }: UserOptionPr
           </div>
           <div className="mb-4">
             <label className="flex items-center text-xs text-grey60">
-              <input type="checkbox" className="mr-2 " />
+              <input
+                type="checkbox"
+                className="mr-2"
+                checked={userData.marketingAgree}
+                onChange={(e) => setUserData({ ...userData, marketingAgree: e.target.checked })}
+              />
               뉴스레터 및 마케팅 정보 수신동의
             </label>
           </div>
-          <div className="mb-4 flex justify-start ">
+          <div className="mb-4 flex justify-start">
             <button
               type="button"
               className="border-b border-grey60 text-xs text-grey60"
@@ -107,7 +134,7 @@ export default function UserOption({ onClose, onShowConfirmModal }: UserOptionPr
             </button>
           </div>
           <div className="flex justify-end">
-            <button type="submit" className="rounded  bg-[#7EA5F8] px-12 py-[0.56rem] text-xs text-[#fff]">
+            <button type="submit" className="rounded bg-[#2563EB] px-12 py-[0.56rem] text-xs text-[#fff]">
               완료
             </button>
           </div>

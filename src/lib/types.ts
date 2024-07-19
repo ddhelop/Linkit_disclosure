@@ -6,6 +6,12 @@ export interface IFormData {
   marketingAgree: boolean // 뉴스레터 및 마케팅 정보 수신 동의
 }
 
+export interface PostIFormData {
+  memberName: string
+  contact: string
+  marketingAgree: boolean
+}
+
 export interface AuthResponseData {
   accessToken: string
   email: string

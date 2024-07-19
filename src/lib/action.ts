@@ -6,6 +6,7 @@ import {
   Education,
   IFormData,
   OneSchoolFormInputs,
+  PostIFormData,
   PostTeamMemberData,
   PostTeamProfileResponse,
   TeamAnnouncementMemberInterface,
@@ -61,7 +62,7 @@ export async function Withdrawal(accessToken: string) {
 }
 
 // 온보딩 개인정보 생성
-export async function OnBoardingPrivateData(data: IFormData, accessToken: string) {
+export async function OnBoardingPrivateData(data: PostIFormData, accessToken: string) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/members/basic-inform`, {
     method: 'POST',
     headers: {
