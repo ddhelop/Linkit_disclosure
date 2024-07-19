@@ -22,7 +22,7 @@ export default function AccomplishMatch() {
       }
     }
     getMatchReceived()
-  })
+  }, [accessToken])
 
   return (
     <div className="flex w-full flex-col pt-12">
