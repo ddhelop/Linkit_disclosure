@@ -1,13 +1,23 @@
+import TeamAnnouncementModal from '@/components/common/component/Team/TeamAnnouncementModal'
 import { FindTeamInterface } from '@/lib/types'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 
 interface TeamMemberMiniProfileProps {
   profile: FindTeamInterface
 }
 
 export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps) {
-  console.log('profile.teamMiniProfileResponse', profile.teamMiniProfileResponse)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleModalClose = () => {
+    setIsModalOpen(false)
+  }
 
   return (
     <div className="flex w-[42.5rem] flex-col rounded-[0.63rem] bg-[#fff] p-5">
@@ -58,20 +68,26 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
         <p className="text-xs font-bold text-[#2563EB]">모집중인 공고</p>
       </div>
 
-      <div className="flex cursor-pointer flex-col rounded-lg border border-grey30 p-4 hover:bg-grey10">
+      {/* 공고 컴포넌트 */}
+      <div
+        className="flex cursor-pointer flex-col rounded-lg border border-grey30 p-4 hover:bg-grey10"
+        onClick={handleModalOpen}
+      >
         <div className="mb-4 flex items-center justify-between text-sm font-semibold">
-          <p>{profile.teamMemberAnnouncementResponse.applicationProcess}</p>
+          <p>{profile.teamMemberAnnouncementResponse.mainBusiness}</p>
           <Image src="/assets/icons/saveIcon.svg" width={18} height={18} alt="arrow" className="cursor-pointer" />
         </div>
 
         <div className="flex gap-2">
-          {profile.teamMemberAnnouncementResponse.skillNames?.map((keyword, index) => (
-            <div key={index} className="rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">
-              태그[미적용]
-            </div>
-          ))}
+          <div className="rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">
+            {profile.teamMemberAnnouncementResponse.skillNames.join(' ')}
+          </div>
         </div>
       </div>
+
+      {isModalOpen && (
+        <TeamAnnouncementModal onClose={handleModalClose} data={profile.teamMemberAnnouncementResponse} />
+      )}
     </div>
   )
 }

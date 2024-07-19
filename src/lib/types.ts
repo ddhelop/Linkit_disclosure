@@ -364,6 +364,7 @@ export interface teamMiniProfileResponse {
 
 export interface teamMemberAnnouncementResponse {
   applicationProcess: string
+  jobRoleName: string
   id: number
   jobRoleNames: string[]
   mainBusiness: string
