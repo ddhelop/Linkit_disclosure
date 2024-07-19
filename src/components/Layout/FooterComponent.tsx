@@ -24,10 +24,24 @@ export default function FooterComponent() {
               문의하기 (매일 09:00 ~ 18:00)
             </span>
             <span className="">ⓒ 2024. liaison All rights reserved.</span>
-            <Link href={'https://bit.ly/4biOQ1Z'}>
-              <span>커뮤니티</span>
+            <Link href={'https://bit.ly/4biOQ1Z'} target="_blank">
+              <span className="underline">커뮤니티</span>
             </Link>
-            <Link href={'/#FAQ'}>FAQ</Link>
+            <Link href={'/#FAQ'} className="underline">
+              FAQ
+            </Link>
+            <Link
+              href={'https://amusing-hygienic-ec8.notion.site/503c5d589f0942068517f84febb99f3c?pvs=4'}
+              target="_blank"
+            >
+              <span className="underline">이용약관</span>
+            </Link>
+            <Link
+              href={'https://amusing-hygienic-ec8.notion.site/c11cc9b3354b4c55946679d00a4a5168?pvs=4'}
+              target="_blank"
+            >
+              <span className="underline">개인정보처리방침</span>
+            </Link>
           </div>
         </div>
         <div className="flex gap-x-4 pt-6">

@@ -8,6 +8,7 @@ import { accessTokenState, emailState } from '@/context/recoil-context'
 import OnBoardingSelect from './OnBoardingSelect'
 import { OnBoardingPrivateData } from '@/lib/action'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 export default function OnBoardingPrivateInfo() {
   const router = useRouter()
@@ -130,11 +131,30 @@ export default function OnBoardingPrivateInfo() {
                   <div className="flex flex-col gap-4 text-grey80">
                     <label className="flex items-center">
                       <input type="checkbox" {...register('serviceAgreement', { required: true })} />
-                      <span className="pl-2 text-sm">(필수) 서비스 이용약관 동의</span>
+                      <span className="flex pl-2 text-sm">
+                        (필수){' '}
+                        <Link
+                          href="https://amusing-hygienic-ec8.notion.site/503c5d589f0942068517f84febb99f3c?pvs=4"
+                          target="_blank"
+                          className="px-1 underline"
+                        >
+                          서비스 이용약관{' '}
+                        </Link>{' '}
+                        동의
+                      </span>
                     </label>
                     <label className="flex items-center pt-2">
                       <input type="checkbox" {...register('privacyAgreement', { required: true })} />
-                      <span className="pl-2 text-sm">(필수) 개인정보 수집 및 이용 동의</span>
+                      <span className="pl-2 text-sm">
+                        (필수){' '}
+                        <Link
+                          target="_blank"
+                          href="https://amusing-hygienic-ec8.notion.site/f93f401d27ee4ab2add3be89f44e6448?"
+                          className="px-1 underline"
+                        >
+                          개인정보 수집 및 이용 동의
+                        </Link>
+                      </span>
                     </label>
                     <label className="flex items-center pt-2">
                       <input type="checkbox" {...register('ageAgreement', { required: true })} />
