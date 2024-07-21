@@ -14,6 +14,8 @@ import IntroComponent8 from './IntroComponent8'
 import IntroComponent9 from './IntroComponent9'
 import ChannelService from '../third-party/ChannelTalk'
 import Landing1 from './1_0_Landing/Landing1'
+import Landing2 from './1_0_Landing/Landing2'
+import Landing3 from './1_0_Landing/Landing3'
 
 export default function IntroLayout() {
   useEffect(() => {
@@ -29,10 +31,11 @@ export default function IntroLayout() {
   return (
     <div className="flex h-screen w-full snap-y snap-mandatory flex-col overflow-y-scroll">
       {/* <IntroComponent1 /> */}
-
+      {/* <IntroComponent3 /> */}
+      {/* <IntroComponent2 /> */}
       <Landing1 />
-      <IntroComponent3 />
-      <IntroComponent2 />
+      <Landing2 />
+      <Landing3 />
       <IntroComponent4 />
       <IntroComponent5 />
       <IntroComponent6 />
