@@ -16,6 +16,7 @@ import ChannelService from '../third-party/ChannelTalk'
 import Landing1 from './1_0_Landing/Landing1'
 import Landing2 from './1_0_Landing/Landing2'
 import Landing3 from './1_0_Landing/Landing3'
+import Landing4 from './1_0_Landing/Landing4'
 
 export default function IntroLayout() {
   useEffect(() => {
@@ -33,10 +34,11 @@ export default function IntroLayout() {
       {/* <IntroComponent1 /> */}
       {/* <IntroComponent3 /> */}
       {/* <IntroComponent2 /> */}
+      {/* <IntroComponent4 /> */}
       <Landing1 />
       <Landing2 />
       <Landing3 />
-      <IntroComponent4 />
+      <Landing4 />
       <IntroComponent5 />
       <IntroComponent6 />
       <IntroComponent7 />
