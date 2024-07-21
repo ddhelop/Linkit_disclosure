@@ -19,6 +19,9 @@ import Landing3 from './1_0_Landing/Landing3'
 import Landing4 from './1_0_Landing/Landing4'
 import Landing5 from './1_0_Landing/Landing5'
 import Landing6 from './1_0_Landing/Landing6'
+import { useRecoilValue } from 'recoil'
+import { authState } from '@/context/recoil-context'
+import LoggedInLanding1 from './1_0_Landing/LoggedInLanding1'
 
 export default function IntroLayout() {
   useEffect(() => {
@@ -31,6 +34,8 @@ export default function IntroLayout() {
       CT.shutdown()
     }
   }, [])
+
+  const isAuth = useRecoilValue(authState)
   return (
     <div className="flex h-screen w-full snap-y snap-mandatory flex-col overflow-y-scroll">
       {/* <IntroComponent1 /> */}
@@ -42,6 +47,7 @@ export default function IntroLayout() {
       {/* <IntroComponent7 /> */}
       {/* <IntroComponent8 /> */}
       {/* <IntroComponent9 /> */}
+      {isAuth ? <LoggedInLanding1 /> : <Landing1 />}
       <Landing1 />
       <Landing2 />
       <Landing3 />
