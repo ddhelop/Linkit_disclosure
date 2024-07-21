@@ -1,4 +1,4 @@
-// TeamMemberMiniProfile.tsx
+'use client'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState, authState } from '@/context/recoil-context'
 import { PostSaveMember } from '@/lib/action'
@@ -12,9 +12,8 @@ interface TeamMemberMiniProfileProps {
 }
 
 export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfileProps) {
-  console.log('profile', profile)
   const accessToken = useRecoilValue(accessTokenState) || ''
-  const [isSaved, setIsSaved] = useState<boolean>(profile.isPrivateSaved) || false
+  const [isSaved, setIsSaved] = useState<boolean>(profile.isPrivateSaved)
   const isAuth = useRecoilValue(authState)
 
   const onClickSave = async () => {
@@ -22,7 +21,10 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
       try {
         const response = await PostSaveMember(accessToken, profile.id)
         if (response.ok) {
+          setIsSaved(!isSaved)
           alert('저장되었습니다.')
+        } else {
+          alert('저장에 실패했습니다.')
         }
       } catch {
         alert('저장에 실패했습니다.')
@@ -49,10 +51,7 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
       <div className="flex flex-col ">
         <div className="flex flex-wrap gap-2">
           {profile.myKeywordNames.map((keyword, index) => (
-            <div
-              key={index}
-              className="rounded-[0.45rem] bg-[#D3E1FE33] bg-opacity-20 px-[0.57rem] py-1 text-[#2563EB]"
-            >
+            <div key={index} className="rounded-[0.45rem] bg-[#D3E1FE33] bg-opacity-20 px-[0.57rem] py-1 text-grey60 ">
               {keyword}
             </div>
           ))}

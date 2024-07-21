@@ -1,7 +1,7 @@
 // FindMemberLeftNav.tsx
 'use client'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { accessTokenState, authState, filteredProfilesState } from '@/context/recoil-context'
 import { SkillOptions } from '@/lib/data'
@@ -52,26 +52,31 @@ export default function FindMemberLeftNav() {
       })
     })
 
-    try {
-      const query = queryParams.toString()
+    const query = queryParams.toString()
 
-      if (isAuth) {
-        const url = query ? `/search/private/profile/login?${query}` : '/search/private/profile/login'
-        const response = await GetTeamMembersFiltering(accessToken, url)
-        setFilteredProfiles(response.content)
-      } else {
-        const url = query ? `/search/private/profile?${query}` : '/search/private/profile'
-        const response = await GetTeamMembersFiltering(accessToken, url)
-        setFilteredProfiles(response.content)
-      }
-    } catch (error) {
-      console.error('API 요청 실패:', error)
+    if (isAuth) {
+      const url = query ? `/search/private/profile/login?${query}` : '/search/private/profile/login'
+      console.log(url)
+      const response = await GetTeamMembersFiltering(accessToken, url)
+
+      setFilteredProfiles(response.content)
+    } else if (!isAuth && !accessToken) {
+      const url = query ? `/search/private/profile?${query}` : '/search/private/profile'
+      const response = await GetTeamMembersFiltering(accessToken, url)
+
+      setFilteredProfiles(response.content)
     }
   }
 
+  // useEffect to handle selectedFilters changes
   useEffect(() => {
     fetchFilteredMembers()
   }, [selectedFilters])
+
+  // useEffect to handle isAuth changes
+  useEffect(() => {
+    fetchFilteredMembers()
+  }, [isAuth])
 
   return (
     <div className="flex w-[17.3rem] flex-col shadow-sm">
