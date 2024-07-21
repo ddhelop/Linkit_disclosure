@@ -25,21 +25,21 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
 
   return (
     <div className="flex w-[42.5rem] flex-col rounded-[0.63rem] bg-[#fff] p-5 shadow-sm">
-      <Link href={`/team/${profile.teamMiniProfileResponse.id}`}>
+      <Link href={`/team/${profile?.teamMiniProfileResponse.id}`}>
         <div className="flex cursor-pointer flex-col rounded-lg p-2 hover:bg-grey10">
           <div className="flex w-full items-center justify-between ">
             <div className="flex items-center gap-2">
               <Image
-                src={profile.teamMiniProfileResponse.teamLogoImageUrl || '/assets/images/DefaultProfile.png'}
+                src={profile.teamMiniProfileResponse?.teamLogoImageUrl || '/assets/images/DefaultProfile.png'}
                 width={34}
                 height={34}
                 alt="TeamLogo"
                 className="rounded-full"
               />
 
-              <p className="text-sm font-semibold text-[#2563EB]">{profile.teamMiniProfileResponse.teamName}</p>
+              <p className="text-sm font-semibold text-[#2563EB]">{profile.teamMiniProfileResponse?.teamName}</p>
               <p className="pl-2 text-xs text-grey50">
-                분야 | {profile.teamMiniProfileResponse.sectorName} 규모 | {profile.teamMiniProfileResponse.sizeType}
+                분야 | {profile.teamMiniProfileResponse.sectorName} 규모 | {profile.teamMiniProfileResponse?.sizeType}
               </p>
             </div>
             <div className="flex cursor-pointer gap-2 text-xs text-grey60">
@@ -48,10 +48,10 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
             </div>
           </div>
 
-          <div className="py-4 text-sm">{profile.teamMiniProfileResponse.teamProfileTitle}</div>
+          <div className="py-4 text-sm">{profile.teamMiniProfileResponse?.teamProfileTitle}</div>
           <div className="flex flex-col">
             <div className="flex flex-wrap gap-2">
-              {profile?.teamMiniProfileResponse.teamKeywordNames?.map((keyword, index) => (
+              {profile?.teamMiniProfileResponse?.teamKeywordNames?.map((keyword, index) => (
                 <div
                   key={index}
                   className="rounded-[0.45rem] bg-grey30 bg-opacity-20 px-[0.57rem] py-1 text-xs text-grey60"
@@ -78,7 +78,7 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
         onClick={handleModalOpen}
       >
         <div className="mb-4 flex items-center justify-between text-sm font-semibold">
-          <p>{profile.teamMemberAnnouncementResponse.mainBusiness}</p>
+          <p>{profile.teamMemberAnnouncementResponse?.mainBusiness}</p>
           <Image
             src={isSaved ? '/assets/icons/filledSaveIcon.svg' : '/assets/icons/saveIcon.svg'}
             width={18}
@@ -90,13 +90,13 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
 
         <div className="flex gap-2">
           <div className="rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">
-            {profile.teamMemberAnnouncementResponse.skillNames.join(' ')}
+            {profile.teamMemberAnnouncementResponse?.skillNames.join(' ')}
           </div>
         </div>
       </div>
 
       {isModalOpen && (
-        <TeamAnnouncementModal onClose={handleModalClose} data={profile.teamMemberAnnouncementResponse} />
+        <TeamAnnouncementModal onClose={handleModalClose} data={profile?.teamMemberAnnouncementResponse} />
       )}
     </div>
   )

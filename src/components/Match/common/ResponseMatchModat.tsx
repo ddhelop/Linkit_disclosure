@@ -55,7 +55,7 @@ export default function ResponseMatchModat({ match, onClose }: ModalProps) {
   }
 
   const renderConfirmModal = () => (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10">
       <motion.div
         className="modal-content w-[20rem] rounded-lg bg-white p-6 shadow-lg"
         initial={{ opacity: 0, y: 20 }}
