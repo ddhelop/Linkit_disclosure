@@ -24,6 +24,7 @@ export default function SaveProfile() {
       try {
         const response = await GetSavedMembers(accessToken)
         setPrivateMatchReceived(response)
+        console.log(response)
       } catch (error) {
         console.error(error)
       }

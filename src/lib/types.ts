@@ -447,6 +447,7 @@ export interface SaveProfileType {
   isActivate: boolean
   myKeywordNames: string[]
   memberName: string
+  isPrivateSaved: boolean
   jobRoleNames: string[]
 }
 
