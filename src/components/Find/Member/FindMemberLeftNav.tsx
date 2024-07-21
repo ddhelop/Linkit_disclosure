@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { accessTokenState, filteredProfilesState } from '@/context/recoil-context'
+import { accessTokenState, authState, filteredProfilesState } from '@/context/recoil-context'
 import { SkillOptions } from '@/lib/data'
 import { addressData } from '@/lib/addressSelectData'
 
@@ -11,6 +11,7 @@ import SkillModal from './\bSkillModal'
 
 export default function FindMemberLeftNav() {
   const accessToken = useRecoilValue(accessTokenState) || ''
+  const isAuth = useRecoilValue(authState)
   const [filteredProfiles, setFilteredProfiles] = useRecoilState(filteredProfilesState)
   const [showTeamBuildingOptions, setShowTeamBuildingOptions] = useState<boolean>(false)
   const [showRoleOptions, setShowRoleOptions] = useState<boolean>(false)
@@ -53,9 +54,16 @@ export default function FindMemberLeftNav() {
 
     try {
       const query = queryParams.toString()
-      const url = query ? `/search/private/profile?${query}` : '/search/private/profile'
-      const response = await GetTeamMembersFiltering(accessToken, url)
-      setFilteredProfiles(response.content)
+
+      if (isAuth) {
+        const url = query ? `/search/private/profile/login?${query}` : '/search/private/profile/login'
+        const response = await GetTeamMembersFiltering(accessToken, url)
+        setFilteredProfiles(response.content)
+      } else {
+        const url = query ? `/search/private/profile?${query}` : '/search/private/profile'
+        const response = await GetTeamMembersFiltering(accessToken, url)
+        setFilteredProfiles(response.content)
+      }
     } catch (error) {
       console.error('API 요청 실패:', error)
     }

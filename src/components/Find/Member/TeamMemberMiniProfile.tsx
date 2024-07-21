@@ -1,26 +1,34 @@
 // TeamMemberMiniProfile.tsx
 import { useRecoilValue } from 'recoil'
-import { accessTokenState } from '@/context/recoil-context'
+import { accessTokenState, authState } from '@/context/recoil-context'
 import { PostSaveMember } from '@/lib/action'
 import { PrivateProfile } from '@/lib/types'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 
 interface TeamMemberMiniProfileProps {
   profile: PrivateProfile
 }
 
 export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfileProps) {
+  console.log('profile', profile)
   const accessToken = useRecoilValue(accessTokenState) || ''
+  const [isSaved, setIsSaved] = useState<boolean>(profile.isPrivateSaved) || false
+  const isAuth = useRecoilValue(authState)
 
   const onClickSave = async () => {
-    try {
-      const response = await PostSaveMember(accessToken, profile.id)
-      if (response.ok) {
-        alert('저장되었습니다.')
+    if (isAuth) {
+      try {
+        const response = await PostSaveMember(accessToken, profile.id)
+        if (response.ok) {
+          alert('저장되었습니다.')
+        }
+      } catch {
+        alert('저장에 실패했습니다.')
       }
-    } catch {
-      alert('저장에 실패했습니다.')
+    } else {
+      alert('로그인 후 이용해주세요.')
     }
   }
 
@@ -29,7 +37,7 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
       <div className="flex w-full justify-between">
         <div className="w-[80%] text-xl font-semibold leading-8 opacity-80">{profile.profileTitle}</div>
         <Image
-          src={profile.isPrivateSaved ? '/assets/icons/filledSaveIcon.svg' : '/assets/icons/saveIcon.svg'}
+          src={isSaved ? '/assets/icons/filledSaveIcon.svg' : '/assets/icons/saveIcon.svg'}
           width={17}
           height={20}
           alt="save"
