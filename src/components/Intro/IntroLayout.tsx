@@ -18,6 +18,7 @@ import Landing2 from './1_0_Landing/Landing2'
 import Landing3 from './1_0_Landing/Landing3'
 import Landing4 from './1_0_Landing/Landing4'
 import Landing5 from './1_0_Landing/Landing5'
+import Landing6 from './1_0_Landing/Landing6'
 
 export default function IntroLayout() {
   useEffect(() => {
@@ -37,16 +38,17 @@ export default function IntroLayout() {
       {/* <IntroComponent2 /> */}
       {/* <IntroComponent4 /> */}
       {/* <IntroComponent5 /> */}
+      {/* <IntroComponent6 /> */}
+      {/* <IntroComponent7 /> */}
+      {/* <IntroComponent8 /> */}
+      {/* <IntroComponent9 /> */}
       <Landing1 />
       <Landing2 />
       <Landing3 />
       <Landing4 />
       <Landing5 />
+      <Landing6 />
 
-      <IntroComponent6 />
-      <IntroComponent7 />
-      <IntroComponent8 />
-      <IntroComponent9 />
       <IntroComponent10 />
       <IntroComponent11 />
 
