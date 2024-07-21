@@ -8,7 +8,7 @@ export default function FindTeam() {
 
   return (
     <div className="flex w-full flex-col gap-4 pt-[2rem]">
-      {teamData?.map((team) => <TeamMiniProfile key={team.teamMiniProfileResponse.id} profile={team} />)}
+      {teamData?.map((team) => <TeamMiniProfile key={team?.teamMiniProfileResponse.id} profile={team} />)}
     </div>
   )
 }

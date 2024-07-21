@@ -1,10 +1,10 @@
 'use client'
 
 import { accessTokenState } from '@/context/recoil-context'
-import { GetTeamResume } from '@/lib/action'
+import { GetTeamData, GetTeamResume } from '@/lib/action'
 import { TeamIntroductionResponse } from '@/lib/types'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import TeamNav from './Nav/TeamNav'
@@ -15,14 +15,16 @@ export default function Team() {
   const [data, setData] = useState<TeamIntroductionResponse | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
-  const router = useRouter()
+  const pathname = usePathname()
+  const pathSegments = pathname.split('/')
+  const teamMiniProfileId = pathSegments[pathSegments.length - 1]
 
   // 이력서 데이터 가져오기
   useEffect(() => {
     if (accessToken) {
       const fetchData = async () => {
         try {
-          const result = await GetTeamResume(accessToken)
+          const result = await GetTeamData(accessToken, parseInt(teamMiniProfileId, 10))
           setData(result)
         } catch (error) {
           setError(error as Error)
@@ -32,7 +34,7 @@ export default function Team() {
       }
       fetchData()
     }
-  }, [accessToken])
+  }, [accessToken, teamMiniProfileId])
 
   if (loading) {
     return <div>Loading...</div>
@@ -52,7 +54,7 @@ export default function Team() {
       <div className="flex justify-center gap-[1.87rem] pt-[101px]">
         {/* left navBar */}
         <div className="w-[21.25rem]">
-          <TeamNav data={data.teamMiniProfileResponse} />
+          <TeamNav data={data?.teamMiniProfileResponse} />
         </div>
 
         {/* right contents */}

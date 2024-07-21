@@ -25,6 +25,7 @@ export default function Private() {
       const fetchData = async () => {
         try {
           const result = await GetPrivateData(accessToken, parseInt(miniProfileId, 10))
+          console.log(result)
           setData(result)
         } catch (error) {
           setError(error as Error)

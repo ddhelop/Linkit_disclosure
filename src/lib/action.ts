@@ -624,6 +624,23 @@ export async function GetPrivateData(accessToken: string, miniProfileId: number)
   return await response.json()
 }
 
+// 팀 프로필 조회
+export async function GetTeamData(accessToken: string, teamMiniProfileId: number) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/browse/team/profile/${teamMiniProfileId}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: 'include',
+    },
+  )
+
+  return await response.json()
+}
+
 // 팀원 찾기 - 필터링
 export async function GetTeamMembersFiltering(accessToken: string, url: string) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}${url}`, {
