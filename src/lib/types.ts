@@ -417,6 +417,10 @@ export interface MatchReceivedType {
   senderName: string
   requestMessage: string
   requestOccurTime: string
+  jobRoleNames: string
+  miniProfileImg: string
+  matchingType: string
+  receivedMatchingId: number
 }
 
 // 매칭관리 - 내가 보낸 매칭 알림

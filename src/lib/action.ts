@@ -755,6 +755,32 @@ export async function PostTeamProfileMatchRequest(accessToken: string, requestMe
   })
 }
 
+// 매칭 수락/거절 received Team -false
+export async function PostMatchResponse(accessToken: string, privateMatchingId: number, isAllowMatching: boolean) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/allow/private/matching/${privateMatchingId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({ isAllowMatching }),
+    credentials: 'include',
+  })
+}
+
+// 매칭 수락/거절 received Team -true
+export async function PostTeamMatchResponse(accessToken: string, teamMatchingId: number, isAllowMatching: boolean) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/allow/team/matching/${teamMatchingId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({ isAllowMatching }),
+    credentials: 'include',
+  })
+}
+
 // 찜 - 개인 찜하기
 export async function PostSaveMember(accessToken: string, miniProfileId: number) {
   return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/wish/private/profile/${miniProfileId}`, {
