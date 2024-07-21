@@ -2,13 +2,10 @@ import Image from 'next/image'
 
 export default function Landing6() {
   return (
-    <div
-      style={{ backgroundImage: 'url("/assets/onBoarding/1.0/Landing4_bg.png")' }}
-      className="relative flex h-screen min-h-screen w-full snap-mandatory snap-start snap-always flex-col items-center justify-center overflow-hidden overflow-x-auto bg-[#F0F2F6] bg-opacity-50 bg-cover bg-no-repeat pt-20"
-    >
+    <div className="relative flex h-screen min-h-screen w-full snap-mandatory snap-start snap-always flex-col items-center justify-center overflow-hidden overflow-x-auto bg-[#F0F2F6] bg-opacity-50 bg-cover bg-no-repeat pt-20">
       <div className="flex w-full flex-col items-center">
         <p className="text-2xl font-bold">체계적인 매칭 시스템</p>
-        <h1 className="text-black text-center text-[2.625rem] font-bold">
+        <h1 className="text-center text-[2.625rem] font-bold text-black">
           함께 팀을 이루고싶은 사람에게 <br />
           매칭 요청을 보내요
         </h1>
