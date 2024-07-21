@@ -48,7 +48,6 @@ export default function IntroLayout() {
       {/* <IntroComponent8 /> */}
       {/* <IntroComponent9 /> */}
       {isAuth ? <LoggedInLanding1 /> : <Landing1 />}
-      <Landing1 />
       <Landing2 />
       <Landing3 />
       <Landing4 />
