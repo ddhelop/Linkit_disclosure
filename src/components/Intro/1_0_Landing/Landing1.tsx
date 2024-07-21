@@ -7,7 +7,7 @@ export default function Landing1() {
       className="relative flex h-screen min-h-screen w-full snap-mandatory snap-start snap-always flex-col items-center justify-center overflow-hidden overflow-x-auto bg-[#F0F2F6] bg-opacity-50 bg-cover bg-no-repeat"
     >
       <div className="pt-[6.56rem]">
-        <h1 className="text-main text-center text-[3.375rem] font-bold">
+        <h1 className="text-center text-[3.375rem] font-bold text-main">
           성공적인 팀을 이루는
           <br /> 가장 쉬운 방법,
         </h1>
@@ -17,12 +17,12 @@ export default function Landing1() {
       </div>
 
       <div className="mt-[5.13rem] flex w-full justify-center">
-        <button className="bg-main text-white rounded-lg px-[1.88rem] py-[1.18rem] text-lg font-semibold">
+        <button className="rounded-lg bg-main px-[1.88rem] py-[1.18rem] text-lg font-semibold text-white">
           1분만에 프로필 만들기
         </button>
       </div>
 
-      <div className="relative flex w-full items-end justify-center">
+      <div className="relative flex w-full items-center justify-center">
         <Image
           src="/assets/onBoarding/1.0/Landing1_profile1_left.png"
           className="max-h-[181px]"
