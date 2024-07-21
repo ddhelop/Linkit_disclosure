@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { accessTokenState, filteredTeamsState } from '@/context/recoil-context'
+import { accessTokenState, authState, filteredTeamsState } from '@/context/recoil-context'
 import { SkillOptions } from '@/lib/data'
 import { addressData } from '@/lib/addressSelectData'
 import { GetTeamsFiltering } from '@/lib/action'
@@ -10,6 +10,7 @@ import SkillModal from './\bSkillModal'
 
 export default function FindTeamLeftNav() {
   const accessToken = useRecoilValue(accessTokenState) || ''
+  const isAuth = useRecoilValue(authState) || false
   const [filteredTeams, setFilteredTeams] = useRecoilState(filteredTeamsState)
   const [showTeamBuildingOptions, setShowTeamBuildingOptions] = useState<boolean>(false)
   const [showRoleOptions, setShowRoleOptions] = useState<boolean>(false)
@@ -55,9 +56,16 @@ export default function FindTeamLeftNav() {
 
     try {
       const query = queryParams.toString()
-      const url = query ? `/search/team/profile?${query}` : '/search/team/profile'
-      const response = await GetTeamsFiltering(accessToken, url)
-      setFilteredTeams(response.content)
+
+      if (isAuth) {
+        const url = query ? `/search/team/profile/login?${query}` : '/search/team/profile/login'
+        const response = await GetTeamsFiltering(accessToken, url)
+        setFilteredTeams(response.content)
+      } else {
+        const url = query ? `/search/team/profile?${query}` : '/search/team/profile'
+        const response = await GetTeamsFiltering(accessToken, url)
+        setFilteredTeams(response.content)
+      }
     } catch (error) {
       console.error('API 요청 실패:', error)
     }

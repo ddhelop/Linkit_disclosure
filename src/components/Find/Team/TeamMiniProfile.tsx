@@ -1,8 +1,10 @@
 import TeamAnnouncementModal from '@/components/common/component/Team/TeamAnnouncementModal'
+import { authState } from '@/context/recoil-context'
 import { FindTeamInterface } from '@/lib/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { useRecoilState } from 'recoil'
 
 interface TeamMemberMiniProfileProps {
   profile: FindTeamInterface
@@ -10,6 +12,8 @@ interface TeamMemberMiniProfileProps {
 
 export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isSaved, setIsSaved] = useState<boolean>(profile.teamMiniProfileResponse.isTeamActivate) || false
+  const isAuth = useRecoilState(authState) || false
 
   const handleModalOpen = () => {
     setIsModalOpen(true)
@@ -75,7 +79,13 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
       >
         <div className="mb-4 flex items-center justify-between text-sm font-semibold">
           <p>{profile.teamMemberAnnouncementResponse.mainBusiness}</p>
-          <Image src="/assets/icons/saveIcon.svg" width={18} height={18} alt="arrow" className="cursor-pointer" />
+          <Image
+            src={isSaved ? '/assets/icons/filledSaveIcon.svg' : '/assets/icons/saveIcon.svg'}
+            width={18}
+            height={18}
+            alt="arrow"
+            className="cursor-pointer"
+          />
         </div>
 
         <div className="flex gap-2">
