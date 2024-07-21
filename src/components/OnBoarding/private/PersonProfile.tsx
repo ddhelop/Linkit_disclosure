@@ -266,7 +266,7 @@ export default function RegisterPersonProfile() {
                   ) : (
                     <Image src={'/assets/onBoarding/addImage.svg'} width={125} height={125} alt="add_image" />
                   )}
-                  <label className="font-sm flex h-[2rem] cursor-pointer items-center rounded-md bg-[#4D82F3] px-[0.88rem] text-[#fff]">
+                  <label className="font-sm flex h-[2rem] cursor-pointer items-center rounded-md bg-main px-[0.88rem] text-[#fff]">
                     이미지 업로드
                     <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
                   </label>

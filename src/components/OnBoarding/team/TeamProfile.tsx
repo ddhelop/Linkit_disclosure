@@ -32,7 +32,7 @@ export default function TeamProfile() {
   // 소개 항목
   const [skills, setSkills] = useState<string[]>([])
   const [inputValue, setInputValue] = useState('')
-  const [isOpen, setIsOpen] = useState<boolean>(true)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
@@ -257,7 +257,7 @@ export default function TeamProfile() {
                   ) : (
                     <Image src={'/assets/onBoarding/addImage.svg'} width={125} height={125} alt="add_image" />
                   )}
-                  <label className="font-sm flex h-[2rem] cursor-pointer items-center rounded-md bg-[#4D82F3] px-[0.88rem] text-[#fff]">
+                  <label className="font-sm flex h-[2rem] cursor-pointer items-center rounded-md bg-main px-[0.88rem] text-[#fff]">
                     이미지 업로드
                     <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
                   </label>
