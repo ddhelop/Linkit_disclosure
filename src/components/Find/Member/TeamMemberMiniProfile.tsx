@@ -1,7 +1,7 @@
 'use client'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState, authState } from '@/context/recoil-context'
-import { PostSaveMember } from '@/lib/action'
+import { PostSaveMember, DeleteSaveMember } from '@/lib/action'
 import { PrivateProfile } from '@/lib/types'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -19,15 +19,25 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
   const onClickSave = async () => {
     if (isAuth) {
       try {
-        const response = await PostSaveMember(accessToken, profile.id)
-        if (response.ok) {
-          setIsSaved(!isSaved)
-          alert('저장되었습니다.')
+        if (isSaved) {
+          const response = await DeleteSaveMember(accessToken, profile.id)
+          if (response.ok) {
+            setIsSaved(false)
+            alert('찜하기가 취소되었습니다.')
+          } else {
+            alert('찜하기 취소에 실패했습니다.')
+          }
         } else {
-          alert('저장에 실패했습니다.')
+          const response = await PostSaveMember(accessToken, profile.id)
+          if (response.ok) {
+            setIsSaved(true)
+            alert('저장되었습니다.')
+          } else {
+            alert('저장에 실패했습니다.')
+          }
         }
       } catch {
-        alert('저장에 실패했습니다.')
+        alert('요청에 실패했습니다.')
       }
     } else {
       alert('로그인 후 이용해주세요.')

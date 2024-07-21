@@ -810,6 +810,18 @@ export async function PostSaveMember(accessToken: string, miniProfileId: number)
   })
 }
 
+// 찜 - 개인 찜 취소
+export async function DeleteSaveMember(accessToken: string, miniProfileId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/wish/private/profile/${miniProfileId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+}
+
 // 찜한 내역 - 찜한 팀원 조회
 export async function GetSavedMembers(accessToken: string) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/wish/private/profile/list`, {
