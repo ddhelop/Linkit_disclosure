@@ -32,6 +32,7 @@ export default function TeamProfile() {
   // 소개 항목
   const [skills, setSkills] = useState<string[]>([])
   const [inputValue, setInputValue] = useState('')
+  const [isOpen, setIsOpen] = useState<boolean>(true)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
@@ -111,6 +112,13 @@ export default function TeamProfile() {
       router.push('/onBoarding/complete')
     }
   }
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+  }, [isOpen])
 
   return (
     <>
@@ -231,7 +239,7 @@ export default function TeamProfile() {
                       </button>
                     </div>
                     {skills.length >= 3 && (
-                      <span className="text-red-500 text-sm">최대 3개의 항목만 추가할 수 있습니다.</span>
+                      <span className="text-sm text-red-500">최대 3개의 항목만 추가할 수 있습니다.</span>
                     )}
                   </div>
                 </div>
@@ -294,9 +302,7 @@ export default function TeamProfile() {
               <div className="fixed bottom-0 left-0 w-full bg-[#fff] shadow-soft-shadow">
                 <div className="flex justify-center p-4 lg:justify-end lg:pr-96">
                   <Link href="/onBoarding/team/activityWay">
-                    <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-12 py-2 lg:px-16">
-                      이전
-                    </button>
+                    <button className=" mr-4 rounded bg-grey20 px-12 py-2 text-blue-700 lg:px-16">이전</button>
                   </Link>
 
                   <button
@@ -311,6 +317,30 @@ export default function TeamProfile() {
                 </div>
               </div>
             </form>
+          </div>
+        </div>
+        {/* Modal */}
+        <div
+          className={`fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-[#00000033] ${
+            isOpen ? 'visible' : 'hidden'
+          }`}
+        >
+          <div className="flex h-[14.7rem] w-[22.5rem] flex-col items-center rounded-lg bg-white p-4">
+            <Image src="/assets/icons/blue_check.svg" width={44} height={44} alt="check" className="mt-5" />
+            <h2 className="mt-3 text-xl font-bold text-grey100">가입을 축하합니다.</h2>
+
+            <button
+              onClick={() => {
+                setIsOpen(false)
+                router.push('/myResume')
+              }}
+              className="mt-[1.63rem] w-full rounded-[0.6rem] bg-grey90 py-[0.83rem] text-[#fff]"
+            >
+              프로필 마무리짓기
+            </button>
+            <Link href={'/'}>
+              <p className="mt-[0.38rem] cursor-pointer text-sm text-grey60 underline">링킷 둘러보기</p>
+            </Link>
           </div>
         </div>
       </div>
