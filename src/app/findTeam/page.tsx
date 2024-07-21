@@ -15,10 +15,10 @@ export default function FindingMemberPage() {
 
       <div className="flex w-full justify-center bg-grey10 pb-24">
         <div className="flex w-full justify-center gap-[2.69rem] pt-[2.63rem]">
-          <div className="flex w-[40%] justify-end">
+          <div className="flex w-[20%] justify-end">
             <FindTeamLeftNav />
           </div>
-          <div className="w-full ">
+          <div className="w-[50rem] ">
             <FindTeam />
           </div>
         </div>
