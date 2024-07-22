@@ -385,7 +385,7 @@ export async function PostProfileIntroduction(accessToken: string, introduction:
 }
 
 // 내 이력서 - 수상내역 생성
-export async function PostProfileAward(accessToken: string, data: AwardFormInputs[]) {
+export async function PostProfileAward(accessToken: string, data: AwardFormInputs) {
   return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/awards`, {
     method: 'POST',
     headers: {
@@ -393,6 +393,31 @@ export async function PostProfileAward(accessToken: string, data: AwardFormInput
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(data), // 배열을 직접 변환
+    credentials: 'include',
+  })
+}
+
+// 내 이력서 - 수상내역 수정
+export async function PutProfileAward(accessToken: string, data: AwardFormInputs, awardsId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/award/${awardsId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify(data),
+  })
+}
+
+// 내 이력서 - 수상내역 삭제
+export async function DeleteProfileAward(accessToken: string, awardsId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/awards/${awardsId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
     credentials: 'include',
   })
 }

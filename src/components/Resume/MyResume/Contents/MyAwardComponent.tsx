@@ -1,11 +1,11 @@
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
-import { PostProfileAward, DeleteProfileAward } from '@/lib/action'
+import { PostProfileAward, PutProfileAward, DeleteProfileAward } from '@/lib/action'
 import { AwardFormInputs, AwardResponse } from '@/lib/types'
 import { selectStyle } from '@/style/toggleStyle'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, UseFormSetValue } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
 
 interface MyResumAwardProps {
@@ -13,8 +13,9 @@ interface MyResumAwardProps {
 }
 
 export default function MyAwardComponent({ data }: MyResumAwardProps) {
-  const { register, handleSubmit, reset } = useForm<AwardFormInputs>()
+  const { register, handleSubmit, reset, setValue } = useForm<AwardFormInputs>()
   const [isAdding, setIsAdding] = useState(false)
+  const [isEditing, setIsEditing] = useState<number | null>(null)
   const [awards, setAwards] = useState<AwardFormInputs[]>([])
   const accessToken = useRecoilValue(accessTokenState) || ''
 
@@ -36,13 +37,26 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
   }, [data])
 
   const onSubmit: SubmitHandler<AwardFormInputs> = async (formData) => {
-    setAwards((prev) => {
-      const newAwards = [...prev, formData]
-
-      const response = PostProfileAward(accessToken, newAwards)
-
-      return newAwards
-    })
+    if (isEditing !== null) {
+      // 수정 모드일 때
+      const response = await PutProfileAward(accessToken, formData, isEditing)
+      if (response.ok) {
+        setAwards((prev) => prev.map((award) => (award.id === isEditing ? formData : award)))
+        alert('수상이력이 수정되었습니다.')
+      } else {
+        alert('수상이력 수정 중 오류가 발생했습니다.')
+      }
+      setIsEditing(null)
+    } else {
+      // 추가 모드일 때
+      const response = await PostProfileAward(accessToken, formData)
+      if (response.ok) {
+        setAwards((prev) => [...prev, formData])
+        alert('수상이력이 추가되었습니다.')
+      } else {
+        alert('수상이력 추가 중 오류가 발생했습니다.')
+      }
+    }
     reset()
     setIsAdding(false)
   }
@@ -59,6 +73,17 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
       console.error('Failed to delete award', error)
       alert('삭제 중 오류가 발생했습니다.')
     }
+  }
+
+  const handleEditAward = (award: AwardFormInputs, setValue: UseFormSetValue<AwardFormInputs>) => {
+    setIsEditing(award.id)
+    setValue('awardsName', award.awardsName)
+    setValue('ranking', award.ranking)
+    setValue('organizer', award.organizer)
+    setValue('awardsYear', award.awardsYear)
+    setValue('awardsMonth', award.awardsMonth)
+    setValue('awardsDescription', award.awardsDescription)
+    setIsAdding(true)
   }
 
   return (
@@ -86,7 +111,14 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
                 </div>
 
                 <div className="flex gap-2">
-                  <Image src="/assets/icons/pencil.svg" width={27} height={27} alt="edit" className="cursor-pointer" />
+                  <Image
+                    src="/assets/icons/pencil.svg"
+                    width={27}
+                    height={27}
+                    alt="edit"
+                    className="cursor-pointer"
+                    onClick={() => handleEditAward(award, setValue)}
+                  />
                   <Image
                     src="/assets/icons/delete.svg"
                     width={27}
@@ -102,7 +134,7 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
         </div>
       )}
 
-      {isAdding ? (
+      {isAdding && (
         <form onSubmit={handleSubmit(onSubmit)} className="mt-6 rounded-[0.44rem] border border-grey40 bg-grey10 p-4">
           <div className="flex flex-col gap-4">
             <div className="flex gap-3">
@@ -181,23 +213,29 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
               <button
                 type="button"
                 className="h-10 rounded bg-gray-500 px-4 text-sm text-[#fff]"
-                onClick={() => setIsAdding(false)}
+                onClick={() => {
+                  setIsAdding(false)
+                  setIsEditing(null)
+                  reset()
+                }}
               >
                 취소
               </button>
               <button type="submit" className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
-                저장하기
+                {isEditing !== null ? '수정하기' : '저장하기'}
               </button>
             </div>
           </div>
         </form>
-      ) : null}
+      )}
 
-      <div className="mt-6 flex w-full justify-end  pt-8">
-        <button onClick={() => setIsAdding(!isAdding)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
-          {isAdding ? '닫기' : '추가하기'}
-        </button>
-      </div>
+      {!isAdding && (
+        <div className="mt-6 flex w-full justify-end  pt-8">
+          <button onClick={() => setIsAdding(true)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+            추가하기
+          </button>
+        </div>
+      )}
     </div>
   )
 }
