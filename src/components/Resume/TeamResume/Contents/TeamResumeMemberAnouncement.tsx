@@ -40,6 +40,11 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
 
   const watchSkills = watch('skills', [])
   const watchInputValue = watch('inputValue', '')
+  const watchSelectedRole = watch('selectedRole', '')
+  const watchMainBusiness = watch('mainBusiness', '')
+  const watchApplicationProcess = watch('applicationProcess', '')
+
+  const isSubmitDisabled = !watchSelectedRole || !watchMainBusiness || !watchSkills.length || !watchApplicationProcess
 
   const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
     const TeamData: TeamAnnouncementMemberInterface = {
@@ -334,7 +339,9 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
             </div>
 
             <div className="pt-8">
-              <label className="block font-normal text-grey100">지원 절차</label>
+              <label className=" flex font-normal text-grey100">
+                지원 절차 <p className="pl-1 font-normal text-[#2563EB]">*</p>
+              </label>
               <textarea
                 {...register('applicationProcess')}
                 className="mt-2 block w-full resize-none rounded-md border border-grey30 p-[0.56rem] shadow-sm outline-none"
@@ -354,7 +361,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
             >
               취소하기
             </button>
-            <button type="submit" className="rounded bg-[#2563EB] px-4 py-2 text-white ">
+            <button type="submit" className="rounded bg-[#2563EB] px-4 py-2 text-white" disabled={isSubmitDisabled}>
               {editingAnnouncementId !== null ? '수정하기' : '저장하기'}
             </button>
           </div>
