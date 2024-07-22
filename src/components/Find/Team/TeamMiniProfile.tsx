@@ -12,8 +12,8 @@ interface TeamMemberMiniProfileProps {
 
 export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isSaved, setIsSaved] = useState<boolean>(profile.teamMiniProfileResponse.isTeamActivate) || false
-  const isAuth = useRecoilState(authState) || false
+  const [isSaved, setIsSaved] = useState<boolean>(profile.teamMemberAnnouncementResponse?.isTeamSaved || false)
+  const [isAuth, setIsAuth] = useRecoilState(authState) || false
 
   const handleModalOpen = () => {
     setIsModalOpen(true)
@@ -72,28 +72,29 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
         <p className="text-xs font-bold text-[#2563EB]">모집중인 공고</p>
       </div>
 
-      {/* 공고 컴포넌트 */}
-      <div
-        className="flex cursor-pointer flex-col rounded-lg border border-grey30 p-4 hover:bg-grey10"
-        onClick={handleModalOpen}
-      >
-        <div className="mb-4 flex items-center justify-between text-sm font-semibold">
-          <p>{profile.teamMemberAnnouncementResponse?.mainBusiness}</p>
-          <Image
-            src={isSaved ? '/assets/icons/filledSaveIcon.svg' : '/assets/icons/saveIcon.svg'}
-            width={18}
-            height={18}
-            alt="arrow"
-            className="cursor-pointer"
-          />
-        </div>
+      {profile.teamMemberAnnouncementResponse && (
+        <div
+          className="flex cursor-pointer flex-col rounded-lg border border-grey30 p-4 hover:bg-grey10"
+          onClick={handleModalOpen}
+        >
+          <div className="mb-4 flex items-center justify-between text-sm font-semibold">
+            <p>{profile.teamMemberAnnouncementResponse?.mainBusiness}</p>
+            <Image
+              src={isSaved ? '/assets/icons/filledSaveIcon.svg' : '/assets/icons/saveIcon.svg'}
+              width={18}
+              height={18}
+              alt="arrow"
+              className="cursor-pointer"
+            />
+          </div>
 
-        <div className="flex gap-2">
-          <div className="rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">
-            {profile.teamMemberAnnouncementResponse?.skillNames.join(' ')}
+          <div className="flex gap-2">
+            <div className="rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">
+              {profile.teamMemberAnnouncementResponse?.skillNames.join(' ')}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {isModalOpen && (
         <TeamAnnouncementModal onClose={handleModalClose} data={profile?.teamMemberAnnouncementResponse} />

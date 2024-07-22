@@ -370,6 +370,7 @@ export interface teamMemberAnnouncementResponse {
   mainBusiness: string
   skillNames: string[]
   teamName: string
+  isTeamSaved: boolean
 }
 export interface FindTeamInterface {
   teamMiniProfileResponse: teamMiniProfileResponse
