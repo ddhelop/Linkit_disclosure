@@ -39,7 +39,7 @@ export interface Education {
   universityName: string
   majorName: string
   admissionYear: number
-  graduationYear: number
+  graduationYear: number | null
   degreeName: string
 }
 
@@ -108,7 +108,7 @@ export interface AntecedentResponse {
 export interface EducationResponse {
   id: number
   admissionYear: number
-  graduationYear: number
+  graduationYear: number | null
   universityName: string
   majorName: string
   degreeName: string
@@ -194,6 +194,7 @@ export interface PostTeamProfileResponse {
 }
 
 export interface AwardFormInputs {
+  id: number
   awardsName: string
   ranking: string
   organizer: string
@@ -381,7 +382,7 @@ export interface OneSchoolFormInputs {
   universityName: string
   majorName: string
   admissionYear: number
-  graduationYear: number
+  graduationYear: number | null
   degreeName: string
 }
 
@@ -456,4 +457,24 @@ export interface SaveProfileType {
 export interface SaveTeamType {
   teamMiniProfileResponse: teamMiniProfileResponse[]
   teamMemberAnnouncementResponse: teamMemberAnnouncementResponse[]
+}
+
+export interface MyResumEducationProps {
+  data: EducationResponse[]
+}
+
+export interface EducationFormInputs {
+  universityName: string
+  majorName: string
+  admissionYear: string
+  graduationYear: string | null
+  degreeName: string
+}
+
+export interface EducationFormData {
+  universityName: string
+  majorName: string
+  admissionYear: number
+  graduationYear: number | null
+  degreeName: string
 }

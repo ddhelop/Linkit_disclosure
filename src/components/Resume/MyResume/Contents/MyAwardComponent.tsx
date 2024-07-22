@@ -1,8 +1,9 @@
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
-import { PostProfileAward } from '@/lib/action'
+import { PostProfileAward, DeleteProfileAward } from '@/lib/action'
 import { AwardFormInputs, AwardResponse } from '@/lib/types'
 import { selectStyle } from '@/style/toggleStyle'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
@@ -46,6 +47,20 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
     setIsAdding(false)
   }
 
+  const handleDeleteAward = async (id: number) => {
+    try {
+      const response = await DeleteProfileAward(accessToken, id)
+      if (response.ok) {
+        setAwards((prev) => prev.filter((award) => award.id !== id))
+      } else {
+        alert('삭제 중 오류가 발생했습니다.')
+      }
+    } catch (error) {
+      console.error('Failed to delete award', error)
+      alert('삭제 중 오류가 발생했습니다.')
+    }
+  }
+
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
@@ -68,6 +83,18 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
                     {award.awardsYear}년 {award.awardsMonth}월
                   </span>
                   <span className="pt-2 text-sm text-grey60">{award.awardsDescription}</span>
+                </div>
+
+                <div className="flex gap-2">
+                  <Image src="/assets/icons/pencil.svg" width={27} height={27} alt="edit" className="cursor-pointer" />
+                  <Image
+                    src="/assets/icons/delete.svg"
+                    width={27}
+                    height={27}
+                    alt="delete"
+                    className="cursor-pointer"
+                    onClick={() => handleDeleteAward(award.id)}
+                  />
                 </div>
               </div>
             </div>
@@ -119,7 +146,7 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
               </label>
               <div className="flex gap-3">
                 <select
-                  className="select-with-padding-right mt-2 w-[17%] rounded-[0.44rem] border border-grey30  px-[0.88rem] py-3 text-sm text-grey60"
+                  className="select-with-padding-right border-grey3 mt-2 w-[17%] rounded-[0.44rem] border  px-[0.88rem] py-3 text-sm text-grey60"
                   {...register('awardsYear', { required: true, valueAsNumber: true })}
                 >
                   {[...Array(50).keys()].map((i) => (
@@ -153,7 +180,7 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
             <div className="mt-[0.94rem] flex w-full justify-end gap-2">
               <button
                 type="button"
-                className="bg-gray-500 h-10 rounded px-4 text-sm text-[#fff]"
+                className="h-10 rounded bg-gray-500 px-4 text-sm text-[#fff]"
                 onClick={() => setIsAdding(false)}
               >
                 취소
