@@ -1,10 +1,11 @@
 import TeamAnnouncementModal from '@/components/common/component/Team/TeamAnnouncementModal'
-import { authState } from '@/context/recoil-context'
+import { accessTokenState, authState } from '@/context/recoil-context'
+import { DeleteSaveTeam, PostSaveTeam } from '@/lib/action'
 import { FindTeamInterface } from '@/lib/types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
-import { useRecoilState } from 'recoil'
+import { useState, useEffect } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
 interface TeamMemberMiniProfileProps {
   profile: FindTeamInterface
@@ -14,6 +15,43 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isSaved, setIsSaved] = useState<boolean>(profile.teamMemberAnnouncementResponse?.isTeamSaved || false)
   const [isAuth, setIsAuth] = useRecoilState(authState) || false
+  const [dataLoaded, setDataLoaded] = useState(false)
+  const accessToken = useRecoilValue(accessTokenState) || ''
+
+  const onClickSave = async () => {
+    if (isAuth) {
+      try {
+        if (isSaved) {
+          const response = await DeleteSaveTeam(accessToken, profile.teamMemberAnnouncementResponse.id)
+          if (response.ok) {
+            setIsSaved(false)
+            alert('찜하기가 취소되었습니다.')
+          } else {
+            alert('찜하기 취소에 실패했습니다.')
+          }
+        } else {
+          const response = await PostSaveTeam(accessToken, profile.teamMemberAnnouncementResponse.id)
+          if (response.ok) {
+            setIsSaved(true)
+            alert('저장되었습니다.')
+          } else {
+            alert('저장에 실패했습니다.')
+          }
+        }
+      } catch {
+        alert('요청에 실패했습니다.')
+      }
+    } else {
+      alert('로그인 후 이용해주세요.')
+    }
+  }
+
+  useEffect(() => {
+    if (profile) {
+      setIsSaved(profile.teamMemberAnnouncementResponse?.isTeamSaved || false)
+      setDataLoaded(true)
+    }
+  }, [profile])
 
   const handleModalOpen = () => {
     setIsModalOpen(true)
@@ -21,6 +59,10 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
 
   const handleModalClose = () => {
     setIsModalOpen(false)
+  }
+
+  if (!dataLoaded) {
+    return <div>Loading...</div>
   }
 
   return (
@@ -67,33 +109,36 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
       {/* 구분선 */}
       <div className="my-4 w-full border border-grey30"></div>
 
+      {/* 모집중인 공고 */}
       <div className="flex items-center gap-2 py-3">
         <Image src="/assets/icons/drawingPin.svg" width={14} height={14} alt="calendar" />
         <p className="text-xs font-bold text-[#2563EB]">모집중인 공고</p>
       </div>
 
-      {profile.teamMemberAnnouncementResponse && (
-        <div
-          className="flex cursor-pointer flex-col rounded-lg border border-grey30 p-4 hover:bg-grey10"
-          onClick={handleModalOpen}
-        >
-          <div className="mb-4 flex items-center justify-between text-sm font-semibold">
-            <p>{profile.teamMemberAnnouncementResponse?.mainBusiness}</p>
-            <Image
-              src={isSaved ? '/assets/icons/filledSaveIcon.svg' : '/assets/icons/saveIcon.svg'}
-              width={18}
-              height={18}
-              alt="arrow"
-              className="cursor-pointer"
-            />
-          </div>
+      {profile?.teamMemberAnnouncementResponse ? (
+        <div className="flex w-full justify-between rounded-lg border pr-5">
+          <div className="flex w-full cursor-pointer flex-col rounded-lg p-4 " onClick={handleModalOpen}>
+            <div className="mb-4 flex items-center justify-between text-sm font-semibold">
+              <p>{profile.teamMemberAnnouncementResponse?.mainBusiness}</p>
+            </div>
 
-          <div className="flex gap-2">
-            <div className="rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">
-              {profile.teamMemberAnnouncementResponse?.skillNames.join(' ')}
+            <div className="flex gap-2">
+              <div className="rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">
+                {profile.teamMemberAnnouncementResponse?.skillNames.join(' ')}
+              </div>
             </div>
           </div>
+          <Image
+            src={isSaved ? '/assets/icons/filledSaveIcon.svg' : '/assets/icons/saveIcon.svg'}
+            width={18}
+            height={18}
+            alt="arrow"
+            className="cursor-pointer"
+            onClick={onClickSave}
+          />
         </div>
+      ) : (
+        <div>공고가 없습니다.</div>
       )}
 
       {isModalOpen && (

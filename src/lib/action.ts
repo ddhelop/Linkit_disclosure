@@ -879,6 +879,30 @@ export async function DeleteSaveMember(accessToken: string, miniProfileId: numbe
   })
 }
 
+// 찜 - 팀 찜하기
+export async function PostSaveTeam(accessToken: string, teamMemberAnnouncementId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/wish/team/profile/${teamMemberAnnouncementId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+}
+
+// 찜 - 팀 찜 취소
+export async function DeleteSaveTeam(accessToken: string, teamMemberAnnouncementId: number) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/wish/team/profile/${teamMemberAnnouncementId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+}
+
 // 찜한 내역 - 찜한 팀원 조회
 export async function GetSavedMembers(accessToken: string) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/wish/private/profile/list`, {
