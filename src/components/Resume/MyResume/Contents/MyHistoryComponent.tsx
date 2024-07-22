@@ -92,7 +92,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
 
   const formatDate = (date: string): string => {
     const [year, month] = date.split('.')
-    return `${year}.${month.padStart(2, '0')}`
+    return `${year}.${month?.padStart(2, '0')}`
   }
 
   const handleEdit = (index: number, editId: number) => {
