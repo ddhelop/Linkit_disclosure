@@ -1,6 +1,9 @@
+import LoginModal from '@/components/Login/LoginModal'
 import Image from 'next/image'
+import { useState } from 'react'
 
 export default function Landing1() {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
   return (
     <div
       // style={{ backgroundImage: 'url("/assets/intro/section3bg.png")' }}
@@ -17,7 +20,10 @@ export default function Landing1() {
       </div>
 
       <div className="mt-[5.13rem] flex w-full justify-center">
-        <button className="rounded-lg bg-main px-[1.88rem] py-[1.18rem] text-lg font-semibold text-white">
+        <button
+          onClick={() => setIsLoginModalOpen(true)}
+          className="rounded-lg bg-main px-[1.88rem] py-[1.18rem] text-lg font-semibold text-white"
+        >
           1분만에 프로필 만들기
         </button>
       </div>
@@ -52,6 +58,7 @@ export default function Landing1() {
           className="absolute top-4 z-0"
         />
       </div>
+      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
     </div>
   )
 }
