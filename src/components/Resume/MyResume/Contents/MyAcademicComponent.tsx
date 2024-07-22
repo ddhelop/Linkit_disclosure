@@ -1,31 +1,11 @@
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
-import { PostSchoolData, DeleteSchoolData, PostOneSchoolData, PutSchoolData } from '@/lib/action'
-import { EducationResponse } from '@/lib/types'
+import { DeleteSchoolData, PostOneSchoolData, PutSchoolData } from '@/lib/action'
+import { EducationFormData, EducationFormInputs, EducationResponse, MyResumEducationProps } from '@/lib/types'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { useForm, SubmitHandler, UseFormSetValue } from 'react-hook-form'
-
-interface MyResumEducationProps {
-  data: EducationResponse[]
-}
-
-interface EducationFormInputs {
-  universityName: string
-  majorName: string
-  admissionYear: string
-  graduationYear: string
-  degreeName: string
-}
-
-interface EducationFormData {
-  universityName: string
-  majorName: string
-  admissionYear: number
-  graduationYear: number
-  degreeName: string
-}
 
 export default function MyAcademicComponent({ data }: MyResumEducationProps) {
   const [isEditing, setIsEditing] = useState<boolean | number>(false)
@@ -37,15 +17,17 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
     handleSubmit,
     reset,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<EducationFormInputs>()
+  const degreeName = watch('degreeName')
 
   const handleAddEducation: SubmitHandler<EducationFormInputs> = async (formData) => {
     const newEducation: EducationFormData = {
       universityName: formData.universityName,
       majorName: formData.majorName,
       admissionYear: parseInt(formData.admissionYear),
-      graduationYear: parseInt(formData.graduationYear),
+      graduationYear: formData.graduationYear ? parseInt(formData.graduationYear) : null,
       degreeName: formData.degreeName,
     }
 
@@ -71,7 +53,7 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
       universityName: formData.universityName,
       majorName: formData.majorName,
       admissionYear: parseInt(formData.admissionYear),
-      graduationYear: parseInt(formData.graduationYear),
+      graduationYear: formData.graduationYear ? parseInt(formData.graduationYear) : null,
       degreeName: formData.degreeName,
     }
 
@@ -114,7 +96,7 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
     setValue('universityName', education.universityName)
     setValue('majorName', education.majorName)
     setValue('admissionYear', education.admissionYear.toString())
-    setValue('graduationYear', education.graduationYear.toString())
+    setValue('graduationYear', education.graduationYear ? education.graduationYear.toString() : '')
     setValue('degreeName', education.degreeName)
   }
 
@@ -136,7 +118,8 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
                 <div className="font-semibold text-grey100">{education.universityName}</div>
                 <div className="py-[0.44rem] text-sm text-grey50">{education.majorName}</div>
                 <div className="text-xs text-grey50">
-                  {education.admissionYear}년 - {education.graduationYear}년 {education.degreeName}
+                  {education.admissionYear}년 - {education.graduationYear ? `${education.graduationYear}년` : ''}{' '}
+                  {education.degreeName}
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -199,14 +182,20 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
                       type="text"
                       placeholder="YYYY"
                       className="mt-1 w-[4.5rem] rounded border border-grey40 px-[0.88rem] py-2 text-center text-sm outline-none"
-                      {...register('graduationYear', { required: '졸업년도를 입력해주세요' })}
+                      {...register('graduationYear')}
+                      disabled={degreeName === '재학' || degreeName === '휴학'}
                     />
                     <select
                       className="mt-1 w-[4.8rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
                       {...register('degreeName')}
+                      onChange={(e) => {
+                        if (e.target.value === '재학' || e.target.value === '휴학') {
+                          setValue('graduationYear', '')
+                        }
+                      }}
                     >
-                      <option value="재학">재학</option>
                       <option value="졸업">졸업</option>
+                      <option value="재학">재학</option>
                       <option value="휴학">휴학</option>
                     </select>
                   </div>
@@ -273,14 +262,20 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
                 type="text"
                 placeholder="YYYY"
                 className="mt-1 w-[4.5rem] rounded border border-grey40 px-[0.88rem] py-2 text-center text-sm outline-none"
-                {...register('graduationYear', { required: '졸업년도를 입력해주세요' })}
+                {...register('graduationYear', { required: degreeName !== '재학' && degreeName !== '휴학' })}
+                disabled={degreeName === '재학' || degreeName === '휴학'}
               />
               <select
                 className="mt-1 w-[4.8rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
                 {...register('degreeName')}
+                onChange={(e) => {
+                  if (e.target.value === '재학' || e.target.value === '휴학') {
+                    setValue('graduationYear', '')
+                  }
+                }}
               >
-                <option value="재학">재학</option>
                 <option value="졸업">졸업</option>
+                <option value="재학">재학</option>
                 <option value="휴학">휴학</option>
               </select>
             </div>
