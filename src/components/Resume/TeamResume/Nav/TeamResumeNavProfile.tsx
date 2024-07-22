@@ -24,7 +24,7 @@ export default function TeamResumeNavProfile({ data }: TeamResumNavProps) {
         {data ? data.teamProfileTitle : 'null'}
       </div>
 
-      <div className="mt-3 w-full gap-1">
+      <div className="mt-3 flex w-full gap-2">
         {data?.teamKeywordNames.map((keyword, index) => (
           <span
             key={index}
