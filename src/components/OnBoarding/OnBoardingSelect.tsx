@@ -52,25 +52,17 @@ export default function OnBoardingSelect() {
           >
             <div className="flex justify-between">
               <div className="flex flex-col ">
-                <span className="text-xs leading-5">내 이력서</span>
-                <span className="h-20 w-44 pt-3 font-semibold leading-5">
-                  뛰어난 팀 안에서 내 역량을 발휘하고 싶어요
-                </span>
+                <span className="text-[2rem] font-bold leading-5">👋</span>
+                <span className="pt-4 text-2xl font-bold ">내 이력서 등록하기</span>
+                <span className=" pt-3 leading-5 text-grey60">뛰어난 팀 안에서 내 역량을 발휘하고 싶어요</span>
               </div>
-              <Image
-                src="/assets/icons/Default profile.svg"
-                width={100}
-                height={100}
-                alt="profile icon"
-                className="flex rounded-lg lg:hidden xl:flex"
-              />
             </div>
 
             {/* button */}
-            <div className="flex w-full justify-center">
+            <div className="flex w-full justify-end">
               <Link
                 href={'/onBoarding/person/project'}
-                className="flex h-11 w-44 cursor-pointer items-center justify-center gap-x-3 rounded-full bg-[#282C31] pl-2 hover:bg-[#3c4249] "
+                className="flex h-11 w-44 cursor-pointer items-center justify-center gap-x-3 rounded-[0.31rem] bg-[#282C31] pl-2 hover:bg-[#3c4249] "
               >
                 <span className="text-sm text-[#fff]">내 이력서 등록하기</span>
                 <Image src="/assets/icons/addBtn.svg" width={24} height={24} alt="addButton" />
@@ -87,25 +79,17 @@ export default function OnBoardingSelect() {
           >
             <div className="flex justify-between">
               <div className="flex flex-col ">
-                <span className="text-xs leading-5">팀 소개서</span>
-                <span className="w-48 pt-3 font-semibold leading-5">
-                  우리팀에 필요한 역량을 가진 멤버를 구하고 싶어요
-                </span>
+                <span className="text-[2rem] font-bold leading-5">🚀</span>
+                <span className="pt-4 text-2xl font-bold ">팀 소개서 등록하기</span>
+                <span className=" pt-3 leading-5 text-grey60">우리 팀에 필요한 역량을 가진 멤버를 구하고 싶어요</span>
               </div>
-              <Image
-                src="/assets/icons/Team.svg"
-                width={100}
-                height={100}
-                alt="profile icon"
-                className="flex rounded-lg lg:hidden xl:flex"
-              />
             </div>
 
             {/* button */}
-            <div className="flex w-full justify-center">
+            <div className="flex w-full justify-end">
               <Link
                 href={'/onBoarding/team/teamCategory'}
-                className="flex h-11 w-44 cursor-pointer items-center justify-center gap-x-3 rounded-full bg-[#282C31] pl-2 hover:bg-[#3c4249]"
+                className="flex h-11 w-44 cursor-pointer items-center justify-center gap-x-3 rounded-[0.31rem] bg-[#282C31] pl-2 hover:bg-[#3c4249] "
               >
                 <span className="text-sm text-[#fff]">팀 소개서 등록하기</span>
                 <Image src="/assets/icons/addBtn.svg" width={24} height={24} alt="addButton" />
