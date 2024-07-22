@@ -110,7 +110,7 @@ export default function TeamProfile() {
     const response: PostTeamProfileResponse = await PostTeamProfile(accessToken, payload, image)
 
     if (response.ok) {
-      router.push('/onBoarding/complete')
+      setIsOpen(true)
     }
   }
   useEffect(() => {
