@@ -6,6 +6,7 @@ import { GetMatchReceived, GetMatchSent } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import { MatchReceivedType, MatchSentType } from '@/lib/types'
+import Match404 from './common/Match404'
 
 export default function FromMyMatch() {
   const accessToken = useRecoilValue(accessTokenState) || ''
@@ -22,7 +23,7 @@ export default function FromMyMatch() {
       }
     }
     getMatchReceived()
-  }, [accessToken])
+  }, [accessToken, setMatchReceived])
 
   return (
     <div className="flex w-full flex-col pt-12">
@@ -35,7 +36,7 @@ export default function FromMyMatch() {
         {matchReceived.length === 0 && (
           // 매칭 알림이 없어요 메세지
           <div className="flex items-center gap-[0.5rem]">
-            <p className="text-grey60">매칭 알림이 없어요</p>
+            <Match404 message="아직 알림이 없어요!" />
           </div>
         )}
 

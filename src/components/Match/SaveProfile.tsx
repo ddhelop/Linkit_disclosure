@@ -11,6 +11,7 @@ import Link from 'next/link'
 import MatchingPrivateMiniProfile from '../common/component/MatchingPrivateMiniProfile'
 import MatchingTeamMiniProfile from '../common/component/MatchingTeamMiniProfile'
 import { usePathname } from 'next/navigation'
+import Match404 from './common/Match404'
 
 export default function SaveProfile() {
   const accessToken = useRecoilValue(accessTokenState) || ''
@@ -64,7 +65,7 @@ export default function SaveProfile() {
         // privateMatchReceived 데이터가 없으면 '찜한 팀원이 없어요' 메세지 출력
         (privateMatchReceived.length === 0 ? (
           <>
-            <div className="mt-3 text-grey60">찜한 팀원이 없어요</div>
+            <Match404 message="찜한 팀원이 없어요" />
           </>
         ) : (
           <div className="mt-3 flex flex-wrap gap-3">
@@ -78,7 +79,7 @@ export default function SaveProfile() {
         // teamMatchedReceived 데이터가 없으면 '찜한 팀이 없어요' 메세지 출력
         (teamMatchedReceived?.length === 0 ? (
           <>
-            <div className="mt-3 text-grey60">찜한 팀이 없어요</div>
+            <Match404 message="찜한 팀이 없어요" />
           </>
         ) : (
           <div className="mt-3">
