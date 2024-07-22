@@ -5,7 +5,7 @@ export default function SaveTeamProfilePage() {
   return (
     <div className="flex w-full justify-center gap-9 pt-[61px]">
       {/* 네비게이션 바 */}
-      <div className="flex h-auto w-[20%] justify-end">
+      <div className="flex h-auto w-[40%] justify-end">
         <MatchNavigation />
       </div>
       <div className="w-[80rem]">

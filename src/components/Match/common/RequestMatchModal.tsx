@@ -95,6 +95,12 @@ export default function RequestMatchModal({ onClose, profileId, data }: RequestM
         <div className="flex justify-center">
           <h2 className="mb-4 font-semibold">{data?.memberName}님에게 매칭 요청 보내기</h2>
         </div>
+
+        <div className="flex justify-center">
+          <div className="mb-3 rounded bg-[#D3E1FE33] px-3 py-1 text-sm">
+            상대방이 매칭 요청을 수락할 경우, 나의 이메일 주소가 전달됩니다.
+          </div>
+        </div>
         <div className="flex flex-col">
           <div className="flex gap-4">
             <Image

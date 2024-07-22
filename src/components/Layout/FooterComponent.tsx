@@ -11,7 +11,7 @@ export default function FooterComponent() {
         <Link href={'https://bit.ly/4biOQ1Z'} target="_blank">
           <span className="">커뮤니티</span>
         </Link>
-        <Link href={'https://nn4e1.channel.io/home'} target="_blank">
+        <Link href={'https://1xdvp.channel.io/home'} target="_blank">
           <span className="cursor-pointer">문의하기</span>
         </Link>
         <Link href={'https://amusing-hygienic-ec8.notion.site/503c5d589f0942068517f84febb99f3c?pvs=4'} target="_blank">

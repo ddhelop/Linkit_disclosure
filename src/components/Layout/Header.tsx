@@ -137,9 +137,7 @@ export default function Header() {
                 >
                   로그인
                 </button>
-                <Link href="/" className="hidden text-sm font-medium leading-5 text-grey80 hover:text-main lg:flex">
-                  링킷 소개
-                </Link>
+
                 <Link href="#" className="hidden text-sm font-medium leading-5 text-grey80 hover:text-main lg:flex">
                   FAQ
                 </Link>
