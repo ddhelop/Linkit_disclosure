@@ -8,6 +8,7 @@ import { Skills } from '@/lib/data'
 import { GetOnBoardingData, PostRoleData } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
+import OnBoardingHeader from '../OnBoardingHeader'
 
 const Positions = ['기획·경영', '개발·데이터', '마케팅·광고', '디자인']
 
@@ -88,6 +89,7 @@ export default function Role() {
 
   return (
     <div className="flex h-screen flex-col bg-[#fff] lg:pt-[62px]">
+      <OnBoardingHeader percentage={40} />
       <div className="flex flex-grow flex-col items-center py-16">
         <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
           <span>내 이력서 가이드</span>
@@ -176,10 +178,10 @@ export default function Role() {
           </div>
         </div>
         {/* Footer */}
-        <form onSubmit={handleSubmit(onSubmit)} className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
+        <form onSubmit={handleSubmit(onSubmit)} className="fixed bottom-0 left-0 w-full bg-white shadow-soft-shadow">
           <div className="flex justify-center p-4 lg:justify-end lg:pr-96">
             <Link href="/onBoarding/person/location">
-              <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-12 py-2 lg:px-16">이전</button>
+              <button className=" mr-4 rounded bg-grey20 px-12 py-2 text-blue-700 lg:px-16">이전</button>
             </Link>
 
             <button
