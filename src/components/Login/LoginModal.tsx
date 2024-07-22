@@ -86,8 +86,15 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             </Link>
           </div>
           <p className="w-full pt-[2.37rem] text-center text-xs font-normal text-grey60">
-            회원가입 시 linkit의 <Link href="#">서비스 이용약관</Link>과 <Link href="#">개인정보 보호정책</Link>에
-            동의하게 됩니다.
+            회원가입 시 Linkit의{' '}
+            <Link href="https://amusing-hygienic-ec8.notion.site/503c5d589f0942068517f84febb99f3c" target="_blank">
+              서비스 이용약관
+            </Link>
+            과{' '}
+            <Link href="https://amusing-hygienic-ec8.notion.site/c11cc9b3354b4c55946679d00a4a5168" target="_blank">
+              개인정보 수집 및 이용
+            </Link>
+            에 동의하게 됩니다.
           </p>
         </div>
       </motion.div>
