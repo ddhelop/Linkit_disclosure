@@ -323,9 +323,9 @@ export const TeamOnBoardingActivityWay = async (accessToken: string, data: TeamO
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
-      cityName: data.selectedArea,
-      divisionName: data.selectedSubArea,
-      activityTagNames: data.selectedShortTermFields,
+      cityName: data.cityName,
+      divisionName: data.divisionName,
+      activityTagNames: data.activityTagNames,
     }),
     credentials: 'include',
   })

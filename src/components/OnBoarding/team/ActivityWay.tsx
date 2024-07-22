@@ -21,24 +21,24 @@ export default function ActivityWay() {
 
   const { control, handleSubmit, watch, setValue } = useForm<TeamOnBoardingActivityWayFormInputs>({
     defaultValues: {
-      selectedArea: '',
-      selectedSubArea: '',
-      selectedShortTermFields: [],
+      cityName: '',
+      divisionName: '',
+      activityTagNames: [],
     },
   })
 
   const handleAreaChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value
     setSelectedArea(value)
-    setValue('selectedArea', value)
+    setValue('cityName', value)
     setSelectedSubArea('')
-    setValue('selectedSubArea', '')
+    setValue('divisionName', '')
   }
 
   const handleSubAreaChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value
     setSelectedSubArea(value)
-    setValue('selectedSubArea', value)
+    setValue('divisionName', value)
   }
 
   const subAreas = addressData.find((area) => area.name === selectedArea)?.subArea || []
@@ -52,9 +52,9 @@ export default function ActivityWay() {
 
           if (data.activityResponse) {
             const { activityTagName, cityName, divisionName } = data.activityResponse
-            setValue('selectedArea', cityName || '')
-            setValue('selectedSubArea', divisionName || '')
-            setValue('selectedShortTermFields', activityTagName || [])
+            setValue('cityName', cityName || '')
+            setValue('divisionName', divisionName || '')
+            setValue('activityTagNames', activityTagName || [])
             setSelectedArea(cityName || '')
             setSelectedSubArea(divisionName || '')
             setSelectedShortTermFields(activityTagName || [])
@@ -80,7 +80,7 @@ export default function ActivityWay() {
       ? selectedShortTermFields.filter((v) => v !== field)
       : [...selectedShortTermFields, field]
     setSelectedShortTermFields(newFields)
-    setValue('selectedShortTermFields', newFields)
+    setValue('activityTagNames', newFields)
   }
 
   const formValues = watch()

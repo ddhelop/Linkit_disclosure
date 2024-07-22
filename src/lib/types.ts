@@ -51,9 +51,9 @@ export interface TeamOnBoadingFieldFormInputs {
 }
 
 export interface TeamOnBoardingActivityWayFormInputs {
-  selectedArea: string
-  selectedSubArea: string
-  selectedShortTermFields: string[]
+  cityName: string
+  divisionName: string
+  activityTagNames: string[]
 }
 
 // 미니프로필 조회

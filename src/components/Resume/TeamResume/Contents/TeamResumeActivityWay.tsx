@@ -1,10 +1,9 @@
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
-import { PostProfileTeamBuildingField, PostTeamBuildingField } from '@/lib/action'
+import { TeamOnBoardingActivityWay } from '@/lib/action'
 import { addressData } from '@/lib/addressSelectData'
-import { ActivityResponse, TeamProfileTeamBuildingFieldResponse } from '@/lib/types'
+import { ActivityResponse } from '@/lib/types'
 import Image from 'next/image'
-
 import { useState, useEffect, ChangeEvent } from 'react'
 import { useRecoilValue } from 'recoil'
 
@@ -40,12 +39,20 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
   }
 
   const handleSaveClick = async () => {
-    const response = await PostTeamBuildingField(accessToken, selectedOptions)
+    const postData = {
+      cityName: selectedCity,
+      divisionName: selectedDistrict,
+      activityTagNames: selectedOptions,
+    }
+
+    const response = await TeamOnBoardingActivityWay(accessToken, postData)
     if (response.ok) {
       alert('수정이 완료되었습니다.')
       setIsEditing(false)
       // 옵션 초기화
       setOptions(['사무실 있음', '사무실 없음', '대면 활동 선호', '비대면 활동 선호', '대면+비대면'])
+    } else {
+      alert('저장 중 오류가 발생했습니다.')
     }
   }
 
@@ -59,7 +66,6 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
     setOptions([...options, optionToRemove])
   }
 
-  // 지역
   const getDistricts = () => {
     const city = addressData.find((c) => c.name === selectedCity)
     return city ? city.subArea : []
@@ -112,7 +118,7 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
                 <button
                   key={index}
                   onClick={() => handleOptionClick(option)}
-                  className="bg-gray-200 rounded border border-grey40 px-4 py-2 text-grey60"
+                  className="rounded border border-grey40 bg-gray-200 px-4 py-2 text-grey60"
                 >
                   {option}
                 </button>
