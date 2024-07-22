@@ -20,7 +20,11 @@ export interface SchoolFormInputs {
 
 export default function RegisterSchool() {
   const [educationList, setEducationList] = useState<SchoolFormInputs[]>([])
-  const { register, handleSubmit, reset, setValue, watch } = useForm<SchoolFormInputs>()
+  const { register, handleSubmit, reset, setValue, watch } = useForm<SchoolFormInputs>({
+    defaultValues: {
+      degreeName: '졸업', // 기본 값을 '졸업'으로 설정
+    },
+  })
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [isClient, setIsClient] = useState(false)
   const [currentIndex, setCurrentIndex] = useState<number | null>(null)
@@ -80,7 +84,7 @@ export default function RegisterSchool() {
     } else {
       setEducationList((prev) => [...prev, updatedData])
     }
-    reset()
+    reset({ degreeName: '졸업' }) // Reset 할 때 기본 값을 '졸업'으로 설정
   }
 
   const handleEdit = async (index: number) => {
@@ -101,7 +105,7 @@ export default function RegisterSchool() {
         setEducationList((prev) => prev.filter((_, i) => i !== index))
         if (index === editingIndex) {
           setEditingIndex(null)
-          reset()
+          reset({ degreeName: '졸업' }) // Reset 할 때 기본 값을 '졸업'으로 설정
         }
       }
     }
