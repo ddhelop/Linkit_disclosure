@@ -439,6 +439,8 @@ export interface MatchAccomplishedType {
   successMatchingMemberName: string
   requestMessage: string
   requestOccurTime: string
+  matchingType: string
+  matchingId: number
 }
 
 // 찜한 팀원 리스트

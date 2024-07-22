@@ -2,15 +2,18 @@
 
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { GetMatchAccomplished } from '@/lib/action'
+import { GetMatchAccomplished, PostMatchContact, PostTeamMatchContact } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import { MatchAccomplishedType } from '@/lib/types'
 import Match404 from './common/Match404'
+import RequestMatchModal from './common/RequestMatchModal'
+import SuccessContactModal from './common/SuccessContactModal'
 
 export default function AccomplishMatch() {
   const accessToken = useRecoilValue(accessTokenState) || ''
   const [matchReceived, setMatchReceived] = useState<MatchAccomplishedType[]>([])
+  const [selectedMatch, setSelectedMatch] = useState<MatchAccomplishedType | null>(null)
 
   // 내가 받은 매칭 데이터 불러오기 : GetMatchReceived
   useEffect(() => {
@@ -28,6 +31,14 @@ export default function AccomplishMatch() {
       getMatchReceived()
     }
   }, [accessToken, matchReceived.length])
+
+  const handleContactClick = (match: MatchAccomplishedType) => {
+    setSelectedMatch(match)
+  }
+
+  const handleCloseModal = () => {
+    setSelectedMatch(null)
+  }
 
   return (
     <div className="flex w-full flex-col pt-12">
@@ -47,7 +58,7 @@ export default function AccomplishMatch() {
         {matchReceived.map((match, index) => (
           <motion.div
             key={index}
-            className="flex w-[48.5rem] cursor-pointer  gap-[1.44rem] rounded-lg bg-[#fff] p-5 shadow-sm"
+            className="flex w-[48.5rem] cursor-pointer gap-[1.44rem] rounded-lg bg-[#fff] p-5 shadow-sm"
             whileHover={{
               y: -3,
               boxShadow: '0px 8px 30px rgba(0, 0, 0, 0.05)',
@@ -61,12 +72,21 @@ export default function AccomplishMatch() {
               </div>
               <div className="flex flex-col justify-between">
                 <p className="text-xs text-grey50">{match.requestOccurTime}</p>
-                <button className="rounded-[0.3rem] bg-main px-6 py-2 text-sm text-white">연락하기</button>
+                <button
+                  onClick={() => handleContactClick(match)}
+                  className="rounded-[0.3rem] bg-main px-6 py-2 text-sm text-white"
+                >
+                  연락하기
+                </button>
               </div>
             </div>
           </motion.div>
         ))}
       </div>
+
+      {selectedMatch && (
+        <SuccessContactModal match={selectedMatch} onClose={handleCloseModal} accessToken={accessToken} />
+      )}
     </div>
   )
 }

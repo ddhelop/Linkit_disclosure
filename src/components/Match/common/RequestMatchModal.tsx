@@ -93,7 +93,7 @@ export default function RequestMatchModal({ onClose, profileId, data }: RequestM
     >
       <div className="flex w-[40rem] flex-col justify-between rounded-lg bg-[#fff] px-[3.12rem] py-5 shadow-lg">
         <div className="flex justify-center">
-          <h2 className="mb-4 font-semibold">{data.memberName}님에게 매칭 요청 보내기</h2>
+          <h2 className="mb-4 font-semibold">{data?.memberName}님에게 매칭 요청 보내기</h2>
         </div>
         <div className="flex flex-col">
           <div className="flex gap-4">
@@ -105,8 +105,8 @@ export default function RequestMatchModal({ onClose, profileId, data }: RequestM
               className="rounded-full"
             />
             <div className="flex flex-col">
-              <p className="font-semibold">{data.memberName}</p>
-              <p className="text-sm text-grey70">{data.jobRoleNames.join(', ')}</p>
+              <p className="font-semibold">{data?.memberName}</p>
+              <p className="text-sm text-grey70">{data?.jobRoleNames.join(', ')}</p>
             </div>
           </div>
         </div>
