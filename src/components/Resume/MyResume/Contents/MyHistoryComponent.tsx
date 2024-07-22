@@ -1,6 +1,6 @@
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
-import { DeleteAntecedentData, PostAntecedentData, PutAntecedentData } from '@/lib/action'
+import { DeleteAntecedentData, PostAntecedentData, PostOneAntecedentData, PutAntecedentData } from '@/lib/action'
 import { AntecedentResponse } from '@/lib/types'
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
@@ -80,7 +80,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
         alert('수정이 완료되었습니다.')
       }
     } else {
-      const response = await PostAntecedentData(accessToken, [antecedentData]) // 추가 API 호출
+      const response = await PostOneAntecedentData(accessToken, antecedentData) // 추가 API 호출
       if (response.ok) {
         setHistories([...histories, antecedentData])
         reset()
