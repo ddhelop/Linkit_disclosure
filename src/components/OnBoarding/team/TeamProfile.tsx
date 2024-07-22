@@ -123,7 +123,7 @@ export default function TeamProfile() {
 
   return (
     <>
-      <div className="flex h-screen w-full flex-col items-center bg-[#fff] p-4">
+      <div className="flex h-full w-full flex-col items-center bg-[#FCFCFD] p-4">
         <OnBoardingHeader percentage={75} />
         <div className="flex w-full flex-col items-center pb-24 pt-24 lg:w-[988px]">
           <div className="flex w-full flex-col items-start leading-9">
