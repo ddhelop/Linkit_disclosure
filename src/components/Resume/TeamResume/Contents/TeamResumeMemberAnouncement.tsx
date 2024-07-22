@@ -20,10 +20,10 @@ interface FormInputs {
   inputValue: string
 }
 
-export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberAnnouncementProps) {
+export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMemberAnnouncementProps) {
   const accessToken = useRecoilValue(accessTokenState) || ''
   const [isFormVisible, setIsFormVisible] = useState(false)
-  const [announcements, setAnnouncements] = useState(data)
+  const [announcements, setAnnouncements] = useState<TeamMemberAnnouncementResponse[]>(data)
   const [editingAnnouncementId, setEditingAnnouncementId] = useState<number | null>(null)
   const [filteredSkills, setFilteredSkills] = useState<string[]>([])
   const [selectedSkillIndex, setSelectedSkillIndex] = useState<number>(-1)
@@ -67,7 +67,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
 
         if (response.ok) {
           // const responseData = await response.json()
-          setAnnouncements([...announcements, { ...TeamData, id: 1, teamName: '팀 이름' }])
+          setAnnouncements([...announcements, { ...TeamData, id: Date.now(), teamName: '팀 이름' }])
         }
       }
 
@@ -239,7 +239,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
                     type="button"
                     className={`rounded border px-4 py-2 ${
                       watch('selectedRole') === role
-                        ? 'bg-blue-500 border border-[#2563EB] bg-[#D3E1FE66] bg-opacity-40 font-semibold text-[#2563EB]'
+                        ? 'border border-[#2563EB] bg-[#D3E1FE66] bg-blue-500 bg-opacity-40 font-semibold text-[#2563EB]'
                         : 'border-grey40 bg-[#fff] text-grey60'
                     }`}
                     onClick={() => handleRoleClick(role)}
@@ -354,7 +354,7 @@ export default function TeamResumeMemberAnnouncement({ data }: TeamResumeMemberA
             >
               취소하기
             </button>
-            <button type="submit" className="text-white rounded bg-[#2563EB] px-4 py-2 text-[#fff]">
+            <button type="submit" className="rounded bg-[#2563EB] px-4 py-2 text-white ">
               {editingAnnouncementId !== null ? '수정하기' : '저장하기'}
             </button>
           </div>
