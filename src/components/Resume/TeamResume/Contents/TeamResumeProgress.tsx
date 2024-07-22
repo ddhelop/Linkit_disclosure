@@ -7,7 +7,7 @@ interface TeamResumContentsProps {
 
 export default function TeamResumeProgress({ data }: TeamResumContentsProps) {
   return (
-    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
+    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] pb-16 pt-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
         <span className="text-lg font-semibold text-grey100">프로필 완성도 : {data?.teamCompletion}%</span>
@@ -40,12 +40,12 @@ export default function TeamResumeProgress({ data }: TeamResumContentsProps) {
         </div>
 
         {/* 버튼 */}
-        <div className="mt-24 flex justify-end">
+        {/* <div className="mt-24 flex justify-end">
           <button className="flex items-center gap-4 rounded-[0.5rem] bg-grey20 px-[1.44rem] py-[0.88rem] text-grey100">
             <p>팀원 공고 작성하러 가기</p>
             <Image src="/assets/icons/>.svg" width={7} height={7} alt="arrow" />
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   )

@@ -17,7 +17,7 @@ const items = [
 
 export default function MyResumeProgress({ data }: MyResumeCompletionProps) {
   return (
-    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
+    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] pb-20 pt-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
         <span className="text-lg font-semibold text-grey100">프로필 완성도 : {data?.completion}%</span>
@@ -50,12 +50,12 @@ export default function MyResumeProgress({ data }: MyResumeCompletionProps) {
         </div>
 
         {/* 버튼 */}
-        <div className="flex w-full justify-end pt-20">
+        {/* <div className="flex w-full justify-end pt-20">
           <button className="flex items-center gap-2 rounded-lg bg-grey20 p-[0.88rem]">
             <p>자기소개 작성하러 가기</p>
             <Image src="/assets/icons/>.svg" width={15} height={15} alt="arrow" className="h-auto w-auto" />
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   )
