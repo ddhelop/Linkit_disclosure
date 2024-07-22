@@ -1,9 +1,14 @@
+// Landing1.tsx
+'use client'
 import LoginModal from '@/components/Login/LoginModal'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { floatingAnimation, hoverEffect } from '@/lib/animations'
 
 export default function Landing1() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+
   return (
     <div
       // style={{ backgroundImage: 'url("/assets/intro/section3bg.png")' }}
@@ -20,12 +25,13 @@ export default function Landing1() {
       </div>
 
       <div className="mt-[5.13rem] flex w-full justify-center">
-        <button
+        <motion.button
+          {...hoverEffect}
           onClick={() => setIsLoginModalOpen(true)}
           className="rounded-lg bg-main px-[1.88rem] py-[1.18rem] text-lg font-semibold text-white"
         >
           1분만에 프로필 만들기
-        </button>
+        </motion.button>
       </div>
 
       <div className="relative flex w-full items-center justify-center">
@@ -36,13 +42,16 @@ export default function Landing1() {
           height={141}
           alt="profile1"
         />
-        <Image
-          src="/assets/onBoarding/1.0/Landing1_profile1_center.png"
-          width={526}
-          height={298}
-          alt="profile2"
-          className="z-10"
-        />
+        <motion.div {...floatingAnimation} className="z-10">
+          <Image
+            src="/assets/onBoarding/1.0/Landing1_profile1_center.png"
+            width={526}
+            height={298}
+            alt="profile2"
+            className="z-10 "
+          />
+        </motion.div>
+
         <Image
           src="/assets/onBoarding/1.0/Landing1_profile1_right.png"
           width={320}
@@ -50,6 +59,7 @@ export default function Landing1() {
           alt="profile3"
           className="max-h-[181px]"
         />
+
         <Image
           src="/assets/onBoarding/1.0/Landing1_pointer.svg"
           width={8}
