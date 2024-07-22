@@ -120,7 +120,7 @@ export default function UserOption({ onClose, onShowConfirmModal }: UserOptionPr
                 checked={userData.marketingAgree}
                 onChange={(e) => setUserData({ ...userData, marketingAgree: e.target.checked })}
               />
-              뉴스레터 및 마케팅 정보 수신동의
+              광고성 정보 수신 동의
             </label>
           </div>
           <div className="mb-4 flex justify-start">
@@ -133,8 +133,8 @@ export default function UserOption({ onClose, onShowConfirmModal }: UserOptionPr
             </button>
           </div>
           <div className="flex justify-end">
-            <button type="submit" className="rounded bg-[#2563EB] px-12 py-[0.56rem] text-xs text-[#fff]">
-              완료
+            <button type="submit" className="rounded bg-[#2563EB] px-8 py-[0.56rem] text-xs text-[#fff]">
+              수정 완료
             </button>
           </div>
         </form>
