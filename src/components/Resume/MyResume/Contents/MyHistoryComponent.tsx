@@ -1,6 +1,6 @@
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
-import { PostAntecedentData, PutAntecedentData } from '@/lib/action'
+import { DeleteAntecedentData, PostAntecedentData, PutAntecedentData } from '@/lib/action'
 import { AntecedentResponse } from '@/lib/types'
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
@@ -8,6 +8,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
 
 interface FormInputs {
+  id: number
   projectName: string
   projectRole: string
   startDate: string
@@ -50,12 +51,12 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
   useEffect(() => {
     if (editingIndex !== null) {
       const history = histories[editingIndex]
-      setValue('projectName', history.projectName)
-      setValue('projectRole', history.projectRole)
-      setValue('startDate', history.startDate)
-      setValue('endDate', history.endDate)
-      setValue('retirement', history.retirement)
-      setValue('antecedentsDescription', history.antecedentsDescription)
+      setValue('projectName', history?.projectName)
+      setValue('projectRole', history?.projectRole)
+      setValue('startDate', history?.startDate)
+      setValue('endDate', history?.endDate)
+      setValue('retirement', history?.retirement)
+      setValue('antecedentsDescription', history?.antecedentsDescription)
     }
   }, [editingIndex, histories, setValue])
 
@@ -63,12 +64,12 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
     const antecedentData = {
       ...formData,
       startDate: formatDate(formData.startDate),
-      endDate: formatDate(formData.endDate),
-      retirement: formData.retirement === true,
+      endDate: formData.retirement ? formatDate(formData.endDate) : '',
+      retirement: formData.retirement,
     }
 
     if (editingIndex !== null) {
-      const antecedentId = data[editingIndex].id
+      const antecedentId = data[editingIndex]?.id
       const response = await PutAntecedentData(accessToken, antecedentData, antecedentId) // 수정 API 호출
       if (response.ok) {
         const updatedHistories = histories.map((history, index) => (index === editingIndex ? antecedentData : history))
@@ -94,7 +95,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
     return `${year}.${month.padStart(2, '0')}`
   }
 
-  const handleEdit = (index: number) => {
+  const handleEdit = (index: number, editId: number) => {
     setEditingIndex(index)
     setIsAdding(true)
   }
@@ -103,9 +104,8 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
       const updatedHistories = histories.filter((_, i) => i !== index)
       setHistories(updatedHistories)
-      const response = await PostAntecedentData(accessToken, updatedHistories) // 업데이트된 배열을 서버에 전달
+      const response = await DeleteAntecedentData(accessToken, index)
       if (response.ok) {
-        alert('삭제가 완료되었습니다.')
       }
       if (index === editingIndex) {
         setEditingIndex(null)
@@ -116,6 +116,13 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
   }
 
   const retirementValue = watch('retirement')
+
+  const handleRetirementChange = (isRetired: boolean) => {
+    setValue('retirement', isRetired)
+    if (isRetired) {
+      setValue('endDate', '')
+    }
+  }
 
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
@@ -128,19 +135,19 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
       {histories?.length === 0 && !isAdding && <div className="pt-[0.94rem] text-grey50">이력사항이 없습니다.</div>}
 
       {histories?.map((history, index) => (
-        <div key={index} className="mt-6 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6">
+        <div key={history.id} className="mt-6 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6">
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <span className="font-semibold text-grey100">{history.projectRole}</span>
-              <span className="pt-1 text-sm text-grey60">{history.projectName}</span>
+              <span className="font-semibold text-grey100">{history.projectName}</span>
+              <span className="pt-1 text-sm text-grey60">{history.projectRole}</span>
               <span className="pt-1 text-xs text-grey50">
-                {history.startDate} - {history.endDate} ({history.retirement ? '퇴직' : '재직중'})
+                {history.startDate} - {history.endDate} ({history.retirement ? '퇴직' : '진행중'})
               </span>
               <span className="pt-1 text-sm text-grey60">{history.antecedentsDescription}</span>
             </div>
             <div className="flex items-center justify-end">
               <Image
-                onClick={() => handleEdit(index)}
+                onClick={() => handleEdit(index, history.id)}
                 src="/assets/icons/pencil.svg"
                 width={27}
                 height={27}
@@ -148,7 +155,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
                 className="cursor-pointer"
               />
               <Image
-                onClick={() => handleDelete(index)}
+                onClick={() => handleDelete(history.id)}
                 src="/assets/icons/delete.svg"
                 width={27}
                 height={27}
@@ -160,6 +167,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
         </div>
       ))}
 
+      {/*  */}
       {isAdding && (
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -172,7 +180,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
               </span>
               <input
                 type="text"
-                placeholder="ex. (주)링킷"
+                placeholder="(주)링킷"
                 className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                 {...register('projectName', { required: true })}
               />
@@ -184,7 +192,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
               </span>
               <input
                 type="text"
-                placeholder="ex. Product Manager"
+                placeholder="Product Manager"
                 className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                 {...register('projectRole', { required: true })}
               />
@@ -206,10 +214,11 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
                 <input
                   className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
                   placeholder="YYYY.MM"
-                  {...register('endDate', { required: true })}
+                  {...register('endDate', { required: retirementValue })}
+                  disabled={!retirementValue}
                 />
 
-                {/* input radio 재직중 */}
+                {/* input radio 진행중 */}
                 <div className="flex items-center gap-2">
                   <input
                     type="radio"
@@ -217,10 +226,10 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
                     value="false"
                     {...register('retirement')}
                     checked={!retirementValue}
-                    onChange={() => setValue('retirement', false)}
+                    onChange={() => handleRetirementChange(false)}
                   />
                   <label htmlFor="current" className="text-sm text-grey100">
-                    재직중
+                    진행중
                   </label>
 
                   {/* radio 퇴직 */}
@@ -230,7 +239,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
                     value="true"
                     {...register('retirement')}
                     checked={retirementValue}
-                    onChange={() => setValue('retirement', true)}
+                    onChange={() => handleRetirementChange(true)}
                   />
                   <label htmlFor="retired" className="text-sm text-grey100">
                     퇴직
