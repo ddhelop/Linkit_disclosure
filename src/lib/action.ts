@@ -386,7 +386,7 @@ export async function PostProfileIntroduction(accessToken: string, introduction:
 
 // 내 이력서 - 수상내역 생성
 export async function PostProfileAward(accessToken: string, data: AwardFormInputs) {
-  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/awards`, {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/award`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -821,6 +821,38 @@ export async function PostTeamMatchResponse(accessToken: string, teamMatchingId:
     body: JSON.stringify({ isAllowMatching }),
     credentials: 'include',
   })
+}
+
+// 매칭 성사 - 연락하기 - 내 이력서인 경우
+export async function PostMatchContact(accessToken: string, privateMatchingId: number) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/success/private/matching/contact/${privateMatchingId}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: 'include',
+    },
+  )
+  return response.json()
+}
+
+// 매칭 성사 - 연락하기 - 팀 소개서인 경우
+export async function PostTeamMatchContact(accessToken: string, teamMatchingId: number) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/success/team/matching/contact/${teamMatchingId}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: 'include',
+    },
+  )
+  return response.json()
 }
 
 // 찜 - 개인 찜하기

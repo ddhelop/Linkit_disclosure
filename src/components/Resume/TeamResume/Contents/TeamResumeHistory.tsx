@@ -48,7 +48,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
         if (editIndex !== null) {
           setData((prevData) => prevData.map((item, idx) => (idx === editIndex ? newData : item)))
         } else {
-          setData((prevData = []) => [...prevData, newData]) // prevData를 기본값으로 배열 초기화
+          setData((prevData) => [...(prevData || []), newData]) // prevData를 기본값으로 배열 초기화
         }
         alert('팀 연혁이 성공적으로 저장되었습니다.')
         setIsEditing(false)
@@ -102,7 +102,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
         <p className="text-lg font-semibold">연혁</p>
 
         <div className="flex flex-col gap-4">
-          {data && data.length === 0 && <p className="text-grey60">등록된 팀 연혁이 없습니다.</p>}
+          {data === null && <p className="text-grey60">등록된 팀 연혁이 없습니다.</p>}
           {data?.map((history, index) => (
             <div key={history.id} className="rounded-[0.63rem] border border-grey30 px-[1.31rem] py-[1.38rem]">
               <div className="flex justify-between">
@@ -166,8 +166,8 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                         {...register('inProgress')}
                         className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
                       >
-                        <option value="true">진행중</option>
                         <option value="false">종료</option>
+                        <option value="true">진행중</option>
                       </select>
                     </div>
                   </div>
@@ -233,8 +233,8 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                   {...register('inProgress')}
                   className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
                 >
-                  <option value="true">진행중</option>
                   <option value="false">종료</option>
+                  <option value="true">진행중</option>
                 </select>
               </div>
             </div>
@@ -251,7 +251,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
 
             <div className="mt-4 flex w-full justify-end gap-2">
               <button
-                className="rounded-[0.25rem] bg-grey60 px-4 py-2 text-[#fff]"
+                className="rounded-[0.25rem] border border-main bg-white px-4 py-2 text-main"
                 type="button"
                 onClick={handleCancel}
               >
