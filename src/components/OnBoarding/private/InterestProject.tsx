@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { GetOnBoardingData, PostProfileTeamBuildingField } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
+import OnBoardingHeader from '../OnBoardingHeader'
 
 const ShortTerm: string[] = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
 
@@ -64,6 +65,7 @@ export default function InterestProject() {
 
   return (
     <div>
+      <OnBoardingHeader percentage={33} />
       <div className="flex h-screen w-full flex-col overflow-hidden bg-[#fff] lg:pt-[69px]">
         <div className="flex w-full flex-col items-center py-16">
           <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
@@ -100,7 +102,7 @@ export default function InterestProject() {
                 <button
                   type="button"
                   onClick={onClickPrev}
-                  className="bg-blue-100 text-blue-700 rounded bg-grey20 px-12 py-2 lg:px-16"
+                  className="rounded bg-grey20 px-12 py-2 text-blue-700 lg:px-16"
                 >
                   이전
                 </button>

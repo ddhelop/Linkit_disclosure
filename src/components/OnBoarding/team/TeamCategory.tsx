@@ -6,6 +6,7 @@ import { TeamOnBoardingData, TeamOnBoardingField } from '@/lib/action'
 import { useRouter } from 'next/navigation'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { accessTokenState, authState } from '@/context/recoil-context'
+import OnBoardingHeader from '../OnBoardingHeader'
 
 const ShortTerm = ['창업', '공모전', '대회', '사이드 프로젝트', '포트폴리오']
 
@@ -85,6 +86,7 @@ export default function TeamCategory() {
 
   return (
     <div className="h-screen bg-[#FCFCFD]">
+      <OnBoardingHeader percentage={35} />
       <div className="flex w-full flex-col lg:py-[69px]">
         <div className="flex w-full flex-col items-center pb-24 pt-16">
           <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
@@ -195,7 +197,7 @@ export default function TeamCategory() {
       <div className="fixed bottom-0 left-0 w-full bg-[#fff] shadow-soft-shadow">
         <div className="flex justify-center p-4 lg:justify-end lg:pr-96">
           <Link href="/onBoarding/select">
-            <button className="bg-blue-100 text-blue-700 mr-4 rounded bg-grey20 px-12 py-2 lg:px-16">이전</button>
+            <button className="mr-4 rounded bg-grey20 px-12 py-2 text-blue-700 lg:px-16">이전</button>
           </Link>
           <button
             className={`mr-4 rounded px-12 py-2 lg:px-16 ${

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { motion, useAnimation } from 'framer-motion'
 import { useState } from 'react'
 import Link from 'next/link'
+import OnBoardingHeader from './OnBoardingHeader'
 
 export default function OnBoardingSelect() {
   const [isHovered, setIsHovered] = useState(false)
@@ -29,6 +30,7 @@ export default function OnBoardingSelect() {
 
   return (
     <div className="flex w-full flex-col items-center  lg:pt-[69px]">
+      <OnBoardingHeader percentage={33} />
       <div className="flex w-[90%]  flex-col items-center py-20 lg:w-[838px]">
         <div className="flex w-full justify-between text-xs font-medium leading-9 text-grey60 lg:text-sm">
           <span>가이드</span>

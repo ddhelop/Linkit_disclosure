@@ -7,6 +7,7 @@ import { GetOnBoardingData, PostProfileData } from '@/lib/action'
 import { useRecoilState } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import { useRouter } from 'next/navigation'
+import OnBoardingHeader from '../OnBoardingHeader'
 
 interface FormInputs {
   profileTitle: string
@@ -140,6 +141,7 @@ export default function RegisterPersonProfile() {
   return (
     <>
       <div className="flex w-full flex-col items-center bg-[#fff] p-4 pb-20">
+        <OnBoardingHeader percentage={85} />
         <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col items-center lg:w-[988px] lg:py-20">
           <div className="flex w-full flex-col items-start leading-9">
             <span className="text-sm font-medium leading-9 text-grey60">내 이력서 가이드</span>

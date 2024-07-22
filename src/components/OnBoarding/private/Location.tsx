@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
+import OnBoardingHeader from '../OnBoardingHeader'
 
 interface FormInputs {
   selectedArea: string
@@ -76,6 +77,7 @@ export default function Location() {
 
   return (
     <div className="bg-[#FCFCFD]">
+      <OnBoardingHeader percentage={45} />
       <div className="flex h-screen w-full flex-col overflow-hidden lg:pt-[69px]">
         <div className="flex w-full flex-col items-center py-16">
           <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
@@ -124,12 +126,12 @@ export default function Location() {
 
           {/* Footer */}
           <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-            <div className="bg-white fixed bottom-0 left-0 w-full shadow-soft-shadow">
+            <div className="fixed bottom-0 left-0 w-full bg-white shadow-soft-shadow">
               <div className="flex justify-center gap-4 p-2 lg:justify-end lg:pr-96">
                 <button
                   type="button"
                   onClick={onClickPrev}
-                  className="bg-blue-100 text-blue-700 rounded bg-grey20 px-12 py-2 lg:px-16"
+                  className="rounded bg-grey20 px-12 py-2 text-blue-700 lg:px-16"
                 >
                   이전
                 </button>
