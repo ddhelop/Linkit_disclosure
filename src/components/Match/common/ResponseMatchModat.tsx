@@ -1,4 +1,3 @@
-// ResponseMatchModal.tsx
 'use client'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
@@ -13,7 +12,7 @@ interface ModalProps {
   onClose: () => void
 }
 
-export default function ResponseMatchModat({ match, onClose }: ModalProps) {
+export default function ResponseMatchModal({ match, onClose }: ModalProps) {
   const accessToken = useRecoilValue(accessTokenState) || ''
   const [confirmModal, setConfirmModal] = useState<null | boolean>(null)
 
@@ -44,7 +43,7 @@ export default function ResponseMatchModat({ match, onClose }: ModalProps) {
     try {
       if (match.matchingType === 'PROFILE') {
         await PostMatchResponse(accessToken, match.receivedMatchingId, isAllowMatching)
-      } else if (match.matchingType === 'TEAM') {
+      } else if (match.matchingType === 'TEAM_PROFILE') {
         await PostTeamMatchResponse(accessToken, match.receivedMatchingId, isAllowMatching)
       }
       setConfirmModal(null)
@@ -89,7 +88,7 @@ export default function ResponseMatchModat({ match, onClose }: ModalProps) {
   return (
     <>
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-        {!confirmModal && (
+        {confirmModal === null && (
           <motion.div
             className="modal-content w-[48.5rem] rounded-lg bg-white p-6 shadow-lg"
             initial={{ opacity: 0, y: 20 }}
