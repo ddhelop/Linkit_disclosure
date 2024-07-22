@@ -27,7 +27,7 @@ export default function IntroLayout() {
   useEffect(() => {
     const CT = new ChannelService()
     //주의! 여기서 CT.loadScript()를 선언하면 ChannelIO script included twice. 오류 발생합니다!
-    CT.boot({ pluginKey: '5f3067ba-3358-452b-a2b1-fda6ccf10f2f' })
+    CT.boot({ pluginKey: '2cf4be80-3231-457f-8904-9f77a31fb660' })
 
     //for unmount
     return () => {
