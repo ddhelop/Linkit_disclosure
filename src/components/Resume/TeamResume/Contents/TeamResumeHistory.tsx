@@ -77,6 +77,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
     reset()
   }
 
+  // 삭제하기
   const handleDelete = async (index: number) => {
     const history = data[index]
     try {
@@ -103,7 +104,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
         <div className="flex flex-col gap-4">
           {data && data.length === 0 && <p className="text-grey60">등록된 팀 연혁이 없습니다.</p>}
           {data?.map((history, index) => (
-            <div key={index} className="rounded-[0.63rem] border border-grey30 px-[1.31rem] py-[1.38rem]">
+            <div key={history.id} className="rounded-[0.63rem] border border-grey30 px-[1.31rem] py-[1.38rem]">
               <div className="flex justify-between">
                 <div className="flex gap-[1.62rem]">
                   <p className="text-grey60">{history?.startYear}</p>
