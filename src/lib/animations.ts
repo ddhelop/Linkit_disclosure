@@ -10,6 +10,7 @@ export const floatingAnimation = {
   },
 }
 
+// 랜딩 1 - 버튼 호버 효과
 export const hoverEffect = {
   whileHover: {
     scale: 1.0,

@@ -107,15 +107,15 @@ export default function Header() {
             <div className="hidden gap-[1.88rem] lg:flex lg:flex-1 lg:items-center lg:justify-between">
               <Link
                 href="#"
-                className="font-medium leading-5 text-grey90"
+                className=" font-medium leading-5 text-grey90  hover:text-main"
                 onClick={() => setIsAlertModalOpen(true)} // 클릭 시 팝업 모달 열기
               >
                 창업/공모전 정보
               </Link>
-              <Link href="/findMember" className="font-medium leading-5 text-grey90">
+              <Link href="/findMember" className="font-medium leading-5 text-grey90 hover:text-main">
                 팀원 찾기
               </Link>
-              <Link href="/findTeam" className="font-medium leading-5 text-grey90">
+              <Link href="/findTeam" className="font-medium leading-5 text-grey90 hover:text-main">
                 팀 찾기
               </Link>
             </div>
@@ -133,14 +133,14 @@ export default function Header() {
               <>
                 <button
                   onClick={() => setIsLoginModalOpen(true)}
-                  className="hidden text-sm font-medium leading-5 text-grey80 lg:flex"
+                  className="hidden text-sm font-medium leading-5 text-grey80 hover:text-main lg:flex"
                 >
                   로그인
                 </button>
-                <Link href="/" className="hidden text-sm font-medium leading-5 text-grey80 lg:flex">
+                <Link href="/" className="hidden text-sm font-medium leading-5 text-grey80 hover:text-main lg:flex">
                   링킷 소개
                 </Link>
-                <Link href="#" className="hidden text-sm font-medium leading-5 text-grey80 lg:flex">
+                <Link href="#" className="hidden text-sm font-medium leading-5 text-grey80 hover:text-main lg:flex">
                   FAQ
                 </Link>
               </>
