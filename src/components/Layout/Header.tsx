@@ -1,3 +1,4 @@
+// Header.tsx
 'use client'
 import { useEffect, useState } from 'react'
 import './Example.css'
@@ -9,10 +10,12 @@ import { useRecoilState, useResetRecoilState } from 'recoil'
 import { accessTokenState, authState } from '@/context/recoil-context'
 import { Logout, RefreshAccessToken } from '@/lib/action'
 import LoginModal from '../Login/LoginModal'
+import PopUpAlertModal from '../common/CommonModal/PopUpAlertModal'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false) // 새로 추가된 상태
   const router = useRouter()
   const [token, setToken] = useRecoilState(accessTokenState)
   const resetAccessTokenState = useResetRecoilState(accessTokenState)
@@ -102,7 +105,11 @@ export default function Header() {
             </div>
 
             <div className="hidden gap-[1.88rem] lg:flex lg:flex-1 lg:items-center lg:justify-between">
-              <Link href="#" className="font-medium leading-5 text-grey90">
+              <Link
+                href="#"
+                className="font-medium leading-5 text-grey90"
+                onClick={() => setIsAlertModalOpen(true)} // 클릭 시 팝업 모달 열기
+              >
                 창업/공모전 정보
               </Link>
               <Link href="/findMember" className="font-medium leading-5 text-grey90">
@@ -175,6 +182,11 @@ export default function Header() {
         </div>
       </nav>
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
+      <PopUpAlertModal
+        isOpen={isAlertModalOpen}
+        onClose={() => setIsAlertModalOpen(false)}
+        text="곧 오픈 예정입니다!"
+      />
     </>
   )
 }
