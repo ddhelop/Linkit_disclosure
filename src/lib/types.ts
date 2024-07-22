@@ -478,3 +478,22 @@ export interface EducationFormData {
   graduationYear: number | null
   degreeName: string
 }
+
+// 온보딩 - career 페이지
+export interface OnBoardingCareerFormInputs {
+  id: number
+  projectName: string
+  projectRole: string
+  startDate: string
+  endDate: string | ''
+  retirement: boolean | string
+}
+
+export interface OnBoardingCareer {
+  id: number
+  projectName: string
+  projectRole: string
+  startDate: string
+  endDate: string | ''
+  retirement: boolean | string
+}

@@ -1,45 +1,29 @@
 'use client'
 import Image from 'next/image'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, useWatch } from 'react-hook-form'
 import React, { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
-import { accessTokenState } from '@/context/recoil-context'
 import {
   DeleteAntecedentData,
-  DeleteSchoolData,
   GetOnBoardingData,
   PostAntecedentData,
   PostOneAntecedentData,
+  PutAntecedentData,
 } from '@/lib/action'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import OnBoardingHeader from '../OnBoardingHeader'
-
-interface FormInputs {
-  id: number
-  projectName: string
-  projectRole: string
-  startDate: string
-  endDate: string
-  retirement: boolean
-}
-
-interface Career {
-  id: number
-  projectName: string
-  projectRole: string
-  startDate: string
-  endDate: string
-  retirement: boolean
-}
+import { OnBoardingCareer, OnBoardingCareerFormInputs } from '@/lib/types'
+import { accessTokenState } from '@/context/recoil-context'
 
 export default function RegisterCareer() {
-  const [careerList, setCareerList] = useState<Career[]>([])
+  const [careerList, setCareerList] = useState<OnBoardingCareer[]>([])
   const accessToken = useRecoilValue(accessTokenState) || ''
-  const { register, handleSubmit, reset, setValue } = useForm<FormInputs>()
+  const { register, handleSubmit, reset, setValue, watch, control } = useForm<OnBoardingCareerFormInputs>()
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [isClient, setIsClient] = useState(false)
   const router = useRouter()
+  const retirement = useWatch({ control, name: 'retirement' })
 
   useEffect(() => {
     setIsClient(true)
@@ -58,7 +42,7 @@ export default function RegisterCareer() {
               projectRole: career.projectRole,
               startDate: career.startDate,
               endDate: career.endDate,
-              // antecedentsDescription: career.antecedentsDescription,
+              retirement: career.retirement,
             })),
           )
         }
@@ -66,36 +50,32 @@ export default function RegisterCareer() {
     }
   }, [accessToken])
 
-  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+  const onSubmit: SubmitHandler<OnBoardingCareerFormInputs> = async (data) => {
     const antecedentData = {
       projectName: data.projectName,
       projectRole: data.projectRole,
       startDate: formatDate(data.startDate),
-      endDate: formatDate(data.endDate),
-      retirement: data.retirement === true,
-      // antecedentsDescription: '경력 설명입니다.',
+      endDate: data.retirement === false ? formatDate(data.endDate) : '',
+      retirement: data.retirement === false,
     }
 
-    const response = await PostOneAntecedentData(accessToken, antecedentData)
-
-    if (response.ok) {
-    } else {
-    }
-
-    const updatedData = {
-      ...data,
-      startDate: data.startDate,
-      endDate: data.endDate,
-      retirement: data.retirement === true,
-      // antecedentsDescription: '경력 설명입니다.',
-    }
-
+    let response
     if (editingIndex !== null) {
-      setCareerList((prev) => prev.map((career, index) => (index === editingIndex ? updatedData : career)))
-      setEditingIndex(null)
+      const id = careerList[editingIndex].id
+      response = await PutAntecedentData(accessToken, antecedentData, id)
+      if (response.ok) {
+        setCareerList((prev) =>
+          prev.map((career, index) => (index === editingIndex ? { ...antecedentData, id: career.id } : career)),
+        )
+        setEditingIndex(null)
+      }
     } else {
-      setCareerList((prev) => [...prev, updatedData])
+      response = await PostOneAntecedentData(accessToken, antecedentData)
+      if (response.ok) {
+        setCareerList((prev) => [...prev, { ...antecedentData, id: Date.now() }])
+      }
     }
+
     reset()
   }
 
@@ -109,8 +89,8 @@ export default function RegisterCareer() {
     setValue('projectName', career.projectName)
     setValue('projectRole', career.projectRole)
     setValue('startDate', career.startDate)
-    setValue('endDate', career.endDate)
-    setValue('retirement', career.retirement)
+    setValue('endDate', career.endDate || '')
+    setValue('retirement', career.retirement ? true : false)
     setEditingIndex(index)
   }
 
@@ -124,12 +104,6 @@ export default function RegisterCareer() {
           reset()
         }
       }
-
-      setCareerList((prev) => prev.filter((_, i) => i !== index))
-      if (index === editingIndex) {
-        setEditingIndex(null)
-        reset()
-      }
     }
   }
 
@@ -138,7 +112,8 @@ export default function RegisterCareer() {
       const formattedCareerList = careerList.map((career) => ({
         ...career,
         startDate: formatDate(career.startDate),
-        endDate: formatDate(career.endDate),
+        endDate: career.retirement === 'true' ? formatDate(career.endDate || '') : '',
+        retirement: career.retirement === 'true',
       }))
       const response = await PostAntecedentData(accessToken, formattedCareerList)
 
@@ -147,24 +122,6 @@ export default function RegisterCareer() {
       }
     } else {
       router.push('/onBoarding/person/profile')
-    }
-  }
-
-  const onClickPrev = async () => {
-    if (accessToken && careerList.length > 0) {
-      const formattedCareerList = careerList.map((career) => ({
-        ...career,
-        startDate: formatDate(career.startDate),
-        endDate: formatDate(career.endDate),
-      }))
-      const response = await PostAntecedentData(accessToken, formattedCareerList)
-      if (response.ok) {
-        router.push('/onBoarding/person/school')
-      } else {
-        alert('에러가 발생했습니다.')
-      }
-    } else {
-      router.push('/onBoarding/person/school')
     }
   }
 
@@ -193,7 +150,7 @@ export default function RegisterCareer() {
                 <span className="font-semibold">{career.projectName}</span>
                 <span className="pt-2 text-sm text-grey60">{career.projectRole}</span>
                 <span className="text-xs text-grey50">
-                  {career.startDate} - {career.endDate} ({career.retirement ? '퇴직' : '재직중'})
+                  {career.startDate} - {career.endDate || '현재'} ({career.retirement ? '퇴직' : '재직중'})
                 </span>
               </div>
               <div className="flex items-center justify-end">
@@ -262,41 +219,40 @@ export default function RegisterCareer() {
                       <input
                         className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
                         placeholder="YYYY.MM"
-                        {...register('endDate', { required: true })}
+                        {...register('endDate', { required: retirement !== false })}
+                        disabled={retirement === 'false'}
                       />
 
-                      {/* input radio 재직중 */}
-                      <div className="flex items-center">
-                        <input
-                          type="radio"
-                          id="current"
-                          value="false"
-                          className="mr-2"
-                          {...register('retirement', { required: true })}
-                        />
-                        <label htmlFor="current" className="text-sm text-grey100">
-                          재직중
-                        </label>
+                      {/* Select 박스 재직중/퇴직 */}
 
-                        {/* radio 퇴직 */}
-                        <input
-                          type="radio"
-                          id="retired"
-                          value="true"
-                          className="ml-4 mr-2"
+                      <div className="flex items-center ">
+                        <select
                           {...register('retirement', { required: true })}
-                        />
-                        <label htmlFor="retired" className="text-sm text-grey100">
-                          퇴직
-                        </label>
+                          className=" h-10 rounded-[0.31rem] border border-grey40 px-[0.88rem] text-sm"
+                        >
+                          <option value="true">퇴직</option>
+                          <option value="false">재직중</option>
+                        </select>
                       </div>
                     </div>
-                    <button
-                      type="submit"
-                      className="cursor-pointer rounded-md bg-[#2563EB] px-[0.88rem] text-sm text-[#fff]"
-                    >
-                      수정하기
-                    </button>
+                    <div className="flex items-end justify-end gap-2">
+                      <button
+                        type="button"
+                        className="h-10 cursor-pointer rounded-md bg-grey20 px-[0.88rem] text-sm text-grey100"
+                        onClick={() => {
+                          setEditingIndex(null)
+                          reset()
+                        }}
+                      >
+                        취소
+                      </button>
+                      <button
+                        type="submit"
+                        className="h-10 cursor-pointer rounded-md bg-[#2563EB] px-[0.88rem] text-sm text-[#fff]"
+                      >
+                        수정하기
+                      </button>
+                    </div>
                   </div>
                 </div>
               </form>
@@ -352,39 +308,27 @@ export default function RegisterCareer() {
                     <input
                       className="h-10 w-28 rounded-[0.31rem] border border-grey40 text-center text-sm"
                       placeholder="YYYY.MM"
-                      {...register('endDate', { required: true })}
+                      {...register('endDate', { required: retirement !== 'false' })}
+                      disabled={retirement === 'false'}
                     />
                   </div>
 
-                  {/* input radio 재직중 */}
-                  <div className="lg: flex items-center pt-3 lg:pt-0">
-                    <input
-                      type="radio"
-                      id="current"
-                      value="false"
-                      className="mr-2"
-                      {...register('retirement', { required: true })}
-                    />
-                    <label htmlFor="current" className="text-sm text-grey100">
-                      재직중
-                    </label>
-
-                    {/* radio 퇴직 */}
-                    <input
-                      type="radio"
-                      id="retired"
-                      value="true"
-                      className="ml-4 mr-2"
-                      {...register('retirement', { required: true })}
-                    />
-                    <label htmlFor="retired" className="text-sm text-grey100">
-                      퇴직
-                    </label>
+                  {/* Select 박스 재직중/퇴직 */}
+                  <div className="items-center pt-3 lg:flex lg:pt-0">
+                    <div className="flex items-center">
+                      <select
+                        {...register('retirement', { required: true })}
+                        className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
+                      >
+                        <option value="true">퇴직</option>
+                        <option value="false">재직중</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
                 <button
                   type="submit"
-                  className="mt-3 cursor-pointer  rounded-md bg-[#2563EB] px-[0.88rem] py-2 text-sm text-[#fff] lg:mt-0"
+                  className="mt-3 cursor-pointer rounded-md bg-[#2563EB] px-[0.88rem] py-2 text-sm text-[#fff] lg:mt-0"
                 >
                   추가하기
                 </button>
@@ -401,11 +345,7 @@ export default function RegisterCareer() {
             </Link>
 
             <Link href="/onBoarding/person/profile">
-              <button
-                onClick={handleSave}
-                className={` 
-                rounded bg-[#2563EB] px-16 py-2 text-[#fff]`}
-              >
+              <button onClick={handleSave} className={`rounded bg-[#2563EB] px-16 py-2 text-[#fff]`}>
                 다음
               </button>
             </Link>
