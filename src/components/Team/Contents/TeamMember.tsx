@@ -18,9 +18,8 @@ export default function TeamMember({ data }: { data: TeamMemberData }) {
             key={member.id}
             className="mt-[0.94rem] flex items-center justify-between rounded-[0.31rem] border border-grey30 p-5"
           >
-            <div className="flex flex-col">
-              <p className="text-sm text-grey60">(주)링킷</p>
-              <p className="pt-[0.44rem]">
+            <div className="flex flex-col justify-center">
+              <p className="">
                 {member.teamMemberName} | {member.teamMemberRole}
               </p>
               <div className="flex pt-[0.44rem]">
