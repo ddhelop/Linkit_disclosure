@@ -41,7 +41,7 @@ export default function FromMyMatch() {
           </div>
         )}
 
-        {matchReceived.map((match, index) => (
+        {matchReceived?.map((match, index) => (
           <motion.div
             key={`${match.id}-${index}`}
             className="flex w-[48.5rem] cursor-pointer  gap-[1.44rem] rounded-lg bg-[#fff] p-5 shadow-sm"
