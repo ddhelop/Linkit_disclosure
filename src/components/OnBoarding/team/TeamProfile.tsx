@@ -131,10 +131,10 @@ export default function TeamProfile() {
             <span className="text-grey60">다른사람들이 보는 팀 프로필이예요. 수정할 사항을 완성해주세요</span>
           </div>
 
-          <div className="flex w-full justify-between gap-14 pt-12">
+          <div className="flex w-full justify-between gap-4 pt-12">
             {/* left */}
             <div>
-              <div className="hidden w-[23rem]  flex-col rounded-lg border-[1.67px] border-grey30 p-3 pb-5 lg:flex">
+              <div className="hidden w-[25rem] flex-col rounded-2xl border border-grey30 bg-white p-4 pb-5 lg:flex">
                 <h2 className="text-[1.25rem] font-bold leading-9 text-grey50">
                   {teamProfileTitle || '팀을 소개하는 프로필 제목을 입력해 주세요'}
                 </h2>
@@ -167,10 +167,16 @@ export default function TeamProfile() {
                   </div>
                 </div>
               </div>
+              <div className="flex w-full justify-center pt-2">
+                <div className="rounded-[0.35rem] bg-grey30 px-[0.56rem] py-1 text-sm text-grey60">예시 이미지</div>
+              </div>
             </div>
 
             {/* right */}
-            <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-[3.44rem] lg:w-[30.7rem]">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex w-full flex-col gap-[3.44rem] rounded-2xl border border-grey30 bg-white p-[1.88rem] lg:w-[36.7rem]"
+            >
               {/* 제목 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
@@ -199,30 +205,32 @@ export default function TeamProfile() {
                 {/* contents */}
                 <div>
                   {/* 버튼들 */}
-                  <div className="flex flex-wrap gap-2 pt-4">
-                    {skills.map((skill, index) => (
-                      <div
-                        key={index}
-                        onClick={() => handleRemoveSkill(skill)}
-                        className="flex cursor-pointer items-center rounded-lg border border-[#2563EB] bg-[#E0E7FF] px-3 py-1"
-                      >
-                        <span className="text-[#2563EB]">{skill}</span>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            handleRemoveSkill(skill)
-                          }}
-                          className="ml-2 flex h-4 w-4 items-center justify-center rounded-full text-[#2563EB]"
+                  {skills && skills.length > 0 && (
+                    <div className="flex flex-wrap gap-2 pt-4">
+                      {skills.map((skill, index) => (
+                        <div
+                          key={index}
+                          onClick={() => handleRemoveSkill(skill)}
+                          className="flex cursor-pointer items-center rounded-lg border border-[#2563EB] bg-[#E0E7FF] px-3 py-1"
                         >
-                          ×
-                        </button>
-                      </div>
-                    ))}
-                  </div>
+                          <span className="text-[#2563EB]">{skill}</span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handleRemoveSkill(skill)
+                            }}
+                            className="ml-2 flex h-4 w-4 items-center justify-center rounded-full text-[#2563EB]"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
                   {/* input container */}
-                  <div className="mt-[0.88rem] flex flex-col border-t border-grey40">
-                    <span className="py-[0.88rem] text-sm font-normal">희망 팀빌딩 분야를 선택해주세요</span>
+                  <div className="mt-[0.88rem] flex flex-col ">
+                    <span className="pb-[0.88rem] text-sm font-normal text-grey50">키워드를 하나씩 입력해주세요.</span>
                     <div className="flex w-[16.1rem] items-center gap-[0.63rem]">
                       <input
                         type="text"
