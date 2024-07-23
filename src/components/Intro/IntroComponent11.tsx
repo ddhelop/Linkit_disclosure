@@ -3,10 +3,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import { useState } from 'react'
 
-type OpenState = {
-  [key: number]: boolean
-}
-
 export default function IntroComponent11() {
   const answers = [
     '내 이력서는 초기 단계부터 함께 할 팀원을 구할 경우, 또는 기존 팀에 합류를 원할 경우 적합한 프로필입니다!',
@@ -16,14 +12,12 @@ export default function IntroComponent11() {
     '회원가입을 마쳐도 내 이력서/팀 소개서 내 다른 항목을 추가로 채워야 프로필 완성도가 올라가며, 80%이상이 되어야 매칭 요청을 보낼 수 있습니다! ',
     '학과 입력 시 OO전공이 아닌 ‘XX과’라고 입력해야 정상적으로 넘어가게 됩니다!',
   ]
-  const [isOpen, setIsOpen] = useState<OpenState>({})
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   const toggleAccordion = (index: number) => {
-    setIsOpen((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }))
+    setOpenIndex((prevIndex) => (prevIndex === index ? null : index))
   }
+
   return (
     <div
       id="FAQ"
@@ -54,7 +48,7 @@ export default function IntroComponent11() {
             >
               {question}
               <span className="float-right">
-                {isOpen[index] ? (
+                {openIndex === index ? (
                   <Image src="/assets/icons/up>.svg" alt="Minus Icon" width={8} height={4} />
                 ) : (
                   <Image src="/assets/icons/bottom>.svg" alt="Plus Icon" width={8} height={4} />
@@ -62,7 +56,7 @@ export default function IntroComponent11() {
               </span>
             </motion.h2>
             <AnimatePresence>
-              {isOpen[index] && (
+              {openIndex === index && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
