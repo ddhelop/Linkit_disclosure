@@ -22,6 +22,18 @@ export const mainHoverEffect = {
   },
 }
 
+//  버튼 호버 효과
+export const grayHoverEffect = {
+  whileHover: {
+    scale: 1.0,
+    transition: {
+      duration: 0,
+    },
+    outline: '4px solid rgba(100, 116, 139, 0.2)',
+    outlineOffset: '0px',
+  },
+}
+
 // 아래에서 위로 자연스럽게 올라오는 애니메이션
 export const slideUpAnimation = {
   offscreen: {

@@ -7,6 +7,7 @@ import { ChangeEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useState }
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
 import { motion } from 'framer-motion'
+import { grayHoverEffect, mainHoverEffect } from '@/lib/animations'
 
 interface MiniProfileModalProps {
   isOpen: boolean
@@ -240,7 +241,7 @@ export default function MiniProfileModal({ isOpen, onClose }: MiniProfileModalPr
                     </button>
                   </div>
                   {skills.length >= 3 && (
-                    <span className="text-red-500 text-sm">최대 3개의 항목만 추가할 수 있습니다.</span>
+                    <span className="text-sm text-red-500">최대 3개의 항목만 추가할 수 있습니다.</span>
                   )}
                 </div>
               </div>
@@ -301,12 +302,16 @@ export default function MiniProfileModal({ isOpen, onClose }: MiniProfileModalPr
           </div>
           {/* 버튼들 */}
           <div className=" sticky bottom-0 mt-4 flex justify-end gap-2 bg-[#fff] py-4">
-            <button type="button" onClick={onClose} className="rounded bg-grey30 px-6 py-2">
+            <motion.button {...grayHoverEffect} type="button" onClick={onClose} className="rounded bg-grey30 px-6 py-2">
               취소
-            </button>
-            <button type="submit" className="rounded bg-[#2563EB] px-6 py-2 text-sm text-[#fff]">
+            </motion.button>
+            <motion.button
+              {...mainHoverEffect}
+              type="submit"
+              className="rounded bg-[#2563EB] px-6 py-2 text-sm text-[#fff]"
+            >
               수정완료
-            </button>
+            </motion.button>
           </div>
         </form>
       </motion.div>

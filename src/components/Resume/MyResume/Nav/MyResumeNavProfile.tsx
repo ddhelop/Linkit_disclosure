@@ -6,6 +6,8 @@ import Image from 'next/image'
 import MiniProfileModal from './MiniProfileModal'
 import { useRecoilState } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
+import { motion } from 'framer-motion'
+import { grayHoverEffect } from '@/lib/animations'
 
 interface MyResumeNavProfileProps {
   data: MiniProfileResponse
@@ -85,9 +87,13 @@ export default function MyResumeNavProfile({ data, name, jobAndSkill }: MyResume
           </div>
         </div>
       </div>
-      <button onClick={handleModalOpen} className="mt-[0.88rem] rounded-[0.25rem] bg-grey20 py-[0.56rem] text-sm">
+      <motion.button
+        {...grayHoverEffect}
+        onClick={handleModalOpen}
+        className="mt-[0.88rem] rounded-[0.25rem] bg-grey20 py-[0.56rem] text-sm"
+      >
         수정하기
-      </button>
+      </motion.button>
 
       <MiniProfileModal isOpen={isModalOpen} onClose={handleModalClose} />
     </div>
