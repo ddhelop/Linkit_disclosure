@@ -23,7 +23,7 @@ interface FormInputs {
 export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMemberAnnouncementProps) {
   const accessToken = useRecoilValue(accessTokenState) || ''
   const [isFormVisible, setIsFormVisible] = useState(false)
-  const [announcements, setAnnouncements] = useState<TeamMemberAnnouncementResponse[]>(data)
+  const [announcements, setAnnouncements] = useState<TeamMemberAnnouncementResponse[]>(data || [])
   const [editingAnnouncementId, setEditingAnnouncementId] = useState<number | null>(null)
   const [filteredSkills, setFilteredSkills] = useState<string[]>([])
   const [selectedSkillIndex, setSelectedSkillIndex] = useState<number>(-1)
@@ -188,7 +188,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
       <div className="flex flex-col gap-2">
         {announcements?.map((announcement) => (
           <div
-            key={Date.now()}
+            key={announcement.id}
             className="flex w-full justify-between rounded-[0.63rem] border border-grey30 p-[1.25rem]"
           >
             <div className="flex w-auto flex-col">
