@@ -432,6 +432,7 @@ export interface MatchSentType {
   receiverName: string
   requestMessage: string
   requestOccurTime: string
+  miniProfileImg: string
 }
 
 // 매칭관리 - 성사된 매칭
