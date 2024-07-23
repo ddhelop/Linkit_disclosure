@@ -321,7 +321,7 @@ export default function RegisterCareer() {
                         className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                       >
                         <option value="true">퇴직</option>
-                        <option value="false">재직중</option>
+                        <option value="false">진행중</option>
                       </select>
                     </div>
                   </div>
