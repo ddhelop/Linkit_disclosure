@@ -10,7 +10,7 @@ export default function LoggedInLanding1() {
       <div className="pt-[6.56rem]">
         <h1 className="text-center text-[3.375rem] font-bold text-main">
           성공적인 팀을 이루는
-          <br /> 가장 쉬운 방법,
+          <br /> 가장 쉬운 방법
         </h1>
         <p className="pt-4 text-[1.1875rem] text-grey70">
           지금 바로 내 이력서/팀 소개서를 등록하고 성공적인 팀빌딩을 시작하세요!

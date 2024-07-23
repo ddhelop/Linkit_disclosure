@@ -57,12 +57,12 @@ export default function FindTeamLeftNav() {
     try {
       const query = queryParams.toString()
 
-      if (isAuth) {
-        const url = query ? `/search/team/profile/login?${query}` : '/search/team/profile/login'
+      if (!isAuth && !accessToken) {
+        const url = query ? `/search/team/profile?${query}` : '/search/team/profile'
         const response = await GetTeamsFiltering(accessToken, url)
         setFilteredTeams(response.content)
       } else {
-        const url = query ? `/search/team/profile?${query}` : '/search/team/profile'
+        const url = query ? `/search/team/profile/login?${query}` : '/search/team/profile/login'
         const response = await GetTeamsFiltering(accessToken, url)
         setFilteredTeams(response.content)
       }

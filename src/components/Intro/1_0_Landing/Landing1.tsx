@@ -17,7 +17,7 @@ export default function Landing1() {
       <div className="pt-[6.56rem]">
         <h1 className="text-center text-[3.375rem] font-bold text-main">
           성공적인 팀을 이루는
-          <br /> 가장 쉬운 방법,
+          <br /> 가장 쉬운 방법
         </h1>
         <p className="pt-4 text-[1.1875rem] text-grey70">
           링킷에서 나의 비전과 가치관을 공유할 수 있는 사람을 만나보세요

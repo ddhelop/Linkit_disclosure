@@ -142,7 +142,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
               <span className="font-semibold text-grey100">{history.projectName}</span>
               <span className="pt-1 text-sm text-grey60">{history.projectRole}</span>
               <span className="pt-1 text-xs text-grey50">
-                {history.startDate} - {history.endDate} ({history.retirement ? '퇴직' : '진행중'})
+                {history.startDate} - {history.endDate} ({history.retirement ? '종료' : '진행중'})
               </span>
               <span className="pt-1 text-sm text-grey60">{history.antecedentsDescription}</span>
             </div>
@@ -233,7 +233,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
                     진행중
                   </label>
 
-                  {/* radio 퇴직 */}
+                  {/* radio 종료 */}
                   <input
                     type="radio"
                     id="retired"
@@ -243,7 +243,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
                     onChange={() => handleRetirementChange(true)}
                   />
                   <label htmlFor="retired" className="text-sm text-grey100">
-                    퇴직
+                    종료
                   </label>
                 </div>
               </div>

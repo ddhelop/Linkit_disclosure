@@ -21,3 +21,20 @@ export const hoverEffect = {
     outlineOffset: '2px',
   },
 }
+
+// 아래에서 위로 자연스럽게 올라오는 애니메이션
+export const slideUpAnimation = {
+  offscreen: {
+    y: 20,
+    opacity: 0,
+  },
+  onscreen: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 1,
+      ease: 'easeInOut',
+    },
+  },
+  viewport: { once: true, amount: 0.5 },
+}

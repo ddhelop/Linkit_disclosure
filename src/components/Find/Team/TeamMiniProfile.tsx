@@ -113,10 +113,10 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
       {/* 구분선 */}
       <div className="my-4 w-full border border-grey30"></div>
 
-      {/* 모집중인 공고 */}
+      {/* 모집 중인 공고 */}
       <div className="flex items-center gap-2 py-3">
         <Image src="/assets/icons/drawingPin.svg" width={14} height={14} alt="calendar" />
-        <p className="text-xs font-bold text-[#2563EB]">모집중인 공고</p>
+        <p className="text-xs font-bold text-[#2563EB]">모집 중인 공고</p>
       </div>
 
       {loading ? (

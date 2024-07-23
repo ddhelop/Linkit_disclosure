@@ -139,7 +139,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                   className="mt-4 flex flex-col gap-[0.94rem] rounded-[0.44rem] border border-grey30 bg-grey10 p-5"
                 >
                   <div className="flex flex-col gap-2">
-                    <p className="text-sm font-normal">한줄소개</p>
+                    <p className="text-sm font-normal">한 줄 소개</p>
                     <input
                       {...register('historyOneLineIntroduction')}
                       placeholder="Text Field"
@@ -206,7 +206,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
             className="mt-4 flex flex-col gap-[0.94rem] rounded-[0.44rem] border border-grey30 bg-grey10 p-5"
           >
             <div className="flex flex-col gap-2">
-              <p className="text-sm font-normal">한줄소개</p>
+              <p className="text-sm font-normal">한 줄 소개</p>
               <input
                 {...register('historyOneLineIntroduction')}
                 placeholder="Text Field"
