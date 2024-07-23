@@ -65,7 +65,7 @@ export default function AccomplishMatch() {
             }}
           >
             <div className="flex w-full justify-between">
-              <div className="flex flex-col justify-center gap-1">
+              <div className="flex w-full flex-col justify-center gap-1">
                 <div className="flex w-full justify-between">
                   <p className="text-xs text-[#2563EB]">매칭 완료 알림</p>
                   <p className="text-xs text-grey50">{match.requestOccurTime}</p>
