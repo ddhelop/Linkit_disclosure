@@ -72,7 +72,7 @@ export default function Team() {
         </>
       ) : (
         <>
-          // 프로필 완성도 조건 미충족시
+          {/* 프로필 완성도 조건 미충족시 */}
           <div className="flex h-screen w-full flex-col items-center justify-center">
             <Image src="/assets/icons/Lock.svg" alt="private" width={82} height={118} />
             <div className="pt-[2.56rem] text-3xl text-grey90">프로필 완성도를 50% 이상 채워야 볼 수 있어요 🥲</div>
