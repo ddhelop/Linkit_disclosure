@@ -19,16 +19,15 @@ export default function PrivateRole({ data }: MyResumeCompletionProps) {
 
   // 온보딩 데이터 fetch
   useEffect(() => {
+    console.log('data', data)
     if (accessToken) {
-      GetOnBoardingData(accessToken).then((data) => {
-        const profileRegionResponse = data.jobAndSkillResponse
-        if (profileRegionResponse) {
-          setSelectedRoleFields(profileRegionResponse.jobRoleNames || [])
-          setSkills(profileRegionResponse.skillNames || [])
-        }
-      })
+      const profileRegionResponse = data
+      if (profileRegionResponse) {
+        setSelectedRoleFields(profileRegionResponse.jobRoleNames || [])
+        setSkills(profileRegionResponse.skillNames || [])
+      }
     }
-  }, [accessToken])
+  }, [accessToken, data])
 
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
