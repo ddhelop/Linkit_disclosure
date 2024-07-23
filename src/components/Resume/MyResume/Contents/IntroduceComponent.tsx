@@ -52,11 +52,11 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
         <span className="text-lg font-semibold text-grey100">자기소개</span>
-        {isEditing && (
+        {/* {isEditing && (
           <span className="text-sm text-[#2563EB]">
             Tip : 본인의 경험을 바탕으로 핵심 역량과 보유 역량을 간단히 작성해주세요! (최대 300자)
           </span>
-        )}
+        )} */}
       </div>
 
       {/* contents */}

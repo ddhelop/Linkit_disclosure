@@ -85,7 +85,7 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
         <span className="text-lg font-semibold text-grey100">활동 방식</span>
-        {isEditing && <span className="text-sm text-[#2563EB]">Tip : 현재 팀의 활동 방식에 대해 소개해주세요!</span>}
+        {/* {isEditing && <span className="text-sm text-[#2563EB]">Tip : 현재 팀의 활동 방식에 대해 소개해주세요!</span>} */}
       </div>
 
       {/* contents */}

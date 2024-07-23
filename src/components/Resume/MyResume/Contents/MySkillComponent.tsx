@@ -97,7 +97,7 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
           {/* title */}
           <div className="flex items-center gap-[0.56rem]">
             <span className="text-lg font-semibold text-grey100">희망 역할</span>
-            {isEditing && <span className="text-sm text-[#2563EB]">Tip : 본인의 역할을 선택해주세요!</span>}
+            {/* {isEditing && <span className="text-sm text-[#2563EB]">Tip : 본인의 역할을 선택해주세요!</span>} */}
           </div>
           <div className="flex flex-grow flex-col items-center pt-[0.12rem]">
             {/* 포지션 */}
@@ -122,9 +122,9 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
             <div className="flex w-full flex-col pt-8">
               <div className="flex items-center gap-[0.56rem]">
                 <span className="text-lg font-semibold leading-5">보유 역량</span>
-                {isEditing && (
+                {/* {isEditing && (
                   <span className="text-sm text-[#2563EB]">Tip : 본인이 보유하고 있는 핵심 기술을 선택해주세요!</span>
-                )}
+                )} */}
               </div>
               {/* contents */}
               <div>

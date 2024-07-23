@@ -50,11 +50,11 @@ export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuil
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
         <span className="text-lg font-semibold text-grey100">희망 팀빌딩 분야</span>
-        {isEditing && (
+        {/* {isEditing && (
           <span className="text-sm text-[#2563EB]">
             Tip : 본인의 경험을 바탕으로 핵심 역량과 보유 역량을 간단히 작성해주세요!
           </span>
-        )}
+        )} */}
       </div>
 
       {/* contents */}
