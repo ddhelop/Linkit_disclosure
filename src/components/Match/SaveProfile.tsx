@@ -2,10 +2,10 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { GetMatchReceived, GetSavedMembers, GetSavedTeams } from '@/lib/action'
+import { GetSavedMembers, GetSavedTeams } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
-import { FindTeamInterface, MatchReceivedType, SaveProfileType, SaveTeamType } from '@/lib/types'
+import { FindTeamInterface, SaveProfileType } from '@/lib/types'
 import Link from 'next/link'
 
 import MatchingPrivateMiniProfile from '../common/component/MatchingPrivateMiniProfile'
@@ -19,19 +19,22 @@ export default function SaveProfile() {
   const [teamMatchedReceived, setTeamMatchedReceived] = useState<FindTeamInterface[]>([])
   const pathname = usePathname()
 
-  // 찜한 팀원 프로필 리스트 불러오기
   useEffect(() => {
-    const getMatchReceived = async () => {
+    const fetchData = async () => {
       try {
-        const response = await GetSavedTeams(accessToken)
-        setPrivateMatchReceived(response)
-        console.log(response)
+        if (pathname === '/match/save') {
+          const response = await GetSavedMembers(accessToken)
+          setPrivateMatchReceived(Array.isArray(response) ? response : [])
+        } else if (pathname === '/match/save/team') {
+          const response = await GetSavedTeams(accessToken)
+          setTeamMatchedReceived(Array.isArray(response) ? response : [])
+        }
       } catch (error) {
         console.error(error)
       }
     }
-    getMatchReceived()
-  }, [])
+    fetchData()
+  }, [accessToken, pathname])
 
   return (
     <div className="flex w-full flex-col">
@@ -46,10 +49,10 @@ export default function SaveProfile() {
             <Image src={'/assets/icons/blue_border_bottom.svg'} width={82} height={1} alt="border" />
           )}
         </div>
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
           <Link href={'/match/save/team'}>
             <div
-              className={`cursor-pointer px-2 pb-1  ${pathname === '/match/save/team' ? 'text-center font-bold' : 'text-center opacity-50'}`}
+              className={`cursor-pointer px-2 pb-1 ${pathname === '/match/save/team' ? 'text-center font-bold' : 'text-center opacity-50'}`}
             >
               찜한 팀
             </div>
@@ -60,10 +63,9 @@ export default function SaveProfile() {
         </div>
       </div>
 
-      {/* 찜한 팀원*/}
+      {/* 찜한 팀원 */}
       {pathname === '/match/save' &&
-        // privateMatchReceived 데이터가 없으면 '찜한 팀원이 없어요' 메세지 출력
-        (privateMatchReceived.length === 0 ? (
+        (privateMatchReceived?.length === 0 ? (
           <>
             <Match404 message="찜한 팀원이 없어요" />
           </>
@@ -74,9 +76,7 @@ export default function SaveProfile() {
         ))}
 
       {/* 찜한 팀 */}
-
       {pathname === '/match/save/team' &&
-        // teamMatchedReceived 데이터가 없으면 '찜한 팀이 없어요' 메세지 출력
         (teamMatchedReceived?.length === 0 ? (
           <>
             <Match404 message="찜한 팀이 없어요" />
