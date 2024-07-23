@@ -23,7 +23,7 @@ export default function SaveProfile() {
   useEffect(() => {
     const getMatchReceived = async () => {
       try {
-        const response = await GetSavedMembers(accessToken)
+        const response = await GetSavedTeams(accessToken)
         setPrivateMatchReceived(response)
         console.log(response)
       } catch (error) {

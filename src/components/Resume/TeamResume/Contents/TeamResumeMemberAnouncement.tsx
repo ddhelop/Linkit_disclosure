@@ -188,7 +188,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
       <div className="flex flex-col gap-2">
         {announcements?.map((announcement) => (
           <div
-            key={announcement.id}
+            key={Date.now()}
             className="flex w-full justify-between rounded-[0.63rem] border border-grey30 p-[1.25rem]"
           >
             <div className="flex w-auto flex-col">
@@ -238,9 +238,9 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
                 직무/역할 <p className="pl-1 font-normal text-[#2563EB]">*</p>
               </label>
               <div className="mt-2 flex flex-wrap gap-2 ">
-                {['기획·경영', '개발·데이터', '마케팅·광고', '디자인'].map((role) => (
+                {['기획·경영', '개발·데이터', '마케팅·광고', '디자인'].map((role, index) => (
                   <button
-                    key={role}
+                    key={index}
                     type="button"
                     className={`rounded border px-4 py-2 ${
                       watch('selectedRole') === role
