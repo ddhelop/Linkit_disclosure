@@ -9,11 +9,12 @@ type OpenState = {
 
 export default function IntroComponent11() {
   const answers = [
-    '사전 신청자에 한하여 다양한 얼리버드 혜택이 제공될 예정이며, 추첨을 통해 스타벅스 커피 쿠폰도 지급됩니다. ',
-    '네, 신청해 주신 분 들 중 주니어 레벨인 사람들도 다수 있으며 학부 과정인 분들도 많습니다. ',
-    '사전 신청이 마감된 후, 7월 초에 정식 서비스가 오픈될 예정이며 팀빌딩 서비스 이용이 가능합니다.',
-    '사전 신청자에 한하여 진행 중인 프로젝트 및 팀원 모집 공고를 올려드릴 예정입니다.',
-    '7월 초에 정식 서비스가 오픈될 예정이며, 사전 신청 시 기재해 주신 연락처로 오픈 알림을 보내드릴 예정입니다! ',
+    '내 이력서는 초기 단계부터 함께 할 팀원을 구할 경우, 또는 기존 팀에 합류를 원할 경우 적합한 프로필입니다!',
+    '팀 소개서는 현재 있는 팀에 필요로 하는 역량을 가진 팀원을 구하고 있는 경우 적합한 프로필입니다!',
+    '오른쪽 하단 채널톡에 의견을 남겨주시면, 적극적으로 반영하도록 하겠습니다. ',
+    '서드파티 쿠키 차단을 해제하고 다시 로그인 해보신 후, 안될 경우 문의하기로 연락 부탁드립니다:)',
+    '회원가입을 마쳐도 내 이력서/팀 소개서 내 다른 항목을 추가로 채워야 프로필 완성도가 올라가며, 80%이상이 되어야 매칭 요청을 보낼 수 있습니다! ',
+    '학과 입력 시 OO전공이 아닌 ‘XX과’라고 입력해야 정상적으로 넘어가게 됩니다!',
   ]
   const [isOpen, setIsOpen] = useState<OpenState>({})
 
@@ -26,7 +27,7 @@ export default function IntroComponent11() {
   return (
     <div
       id="FAQ"
-      className="bg-white relative flex h-screen min-h-screen w-full snap-mandatory snap-start snap-always flex-col items-center justify-start overflow-hidden overflow-x-auto bg-opacity-50 bg-cover bg-no-repeat py-20 lg:justify-center lg:pt-20"
+      className="relative flex h-screen min-h-screen w-full snap-mandatory snap-start snap-always flex-col items-center justify-start overflow-hidden overflow-x-auto bg-white bg-opacity-50 bg-cover bg-no-repeat py-20 lg:justify-center lg:pt-20"
     >
       <div className="flex w-full flex-col items-center">
         <span className="text-center text-[1.6rem] font-bold leading-[3.625rem] lg:text-[2.62rem]">FAQ</span>
@@ -38,15 +39,16 @@ export default function IntroComponent11() {
       {/* Multiple FAQ entries */}
       <div className="mt-5 w-[90%] lg:mt-12 lg:w-auto">
         {[
-          'Q. 사전신청을 하면 어떤 혜택이 있나요?',
-          'Q. 경력이 없어도 팀빌딩이 가능한가요?',
-          'Q. 사전신청은 완료했는데, 언제부터 팀빌딩 서비스 이용이 가능한가요?',
-          'Q. 서비스 오픈 전에 미리 진행 중인 프로젝트를 다른 사람들에게 공유할 수 있나요?',
-          'Q. 정식 서비스 오픈은 언제인가요?',
+          'Q. 내 이력서는 팀 소개서와 무엇이 다른가요?',
+          'Q. 팀 소개서는 내 이력서와 무엇이 다른가요?',
+          'Q. 추가되었으면 하는 기능이 있는데 요청 가능한가요?',
+          'Q. 회원가입이 제대로 되지 않는 것 같아요',
+          'Q. 회원가입을 완료했는데 매칭 요청이 보내지지 않아요',
+          'Q. 학력을 입력하려고 하는데 오류가 떠요',
         ].map((question, index) => (
           <div key={index} className="mt-2 overflow-hidden rounded-xl shadow-faq-shadow">
             <motion.h2
-              className="bg-white flex cursor-pointer items-center justify-between p-5 text-sm font-bold lg:h-[4.18rem] lg:w-[46.9rem] lg:text-xl"
+              className="flex cursor-pointer items-center justify-between bg-white p-5 text-sm font-bold lg:h-[4.18rem] lg:w-[46.9rem] lg:text-xl"
               onClick={() => toggleAccordion(index)}
               initial={false}
             >
