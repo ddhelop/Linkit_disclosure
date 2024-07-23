@@ -4,6 +4,8 @@ import { PostProfileTeamBuildingField, TeamOnBoardingField } from '@/lib/action'
 import { ProfileTeamBuildingFieldResponse } from '@/lib/types'
 import { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
+import { motion } from 'framer-motion'
+import { mainHoverEffect } from '@/lib/animations'
 
 interface MyResumTeamBuildingFieldProps {
   data: ProfileTeamBuildingFieldResponse
@@ -105,13 +107,21 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
       {/* button */}
       <div className="mt-[0.94rem] flex w-full justify-end">
         {isEditing ? (
-          <button onClick={handleSaveClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+          <motion.button
+            {...mainHoverEffect}
+            onClick={handleSaveClick}
+            className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
+          >
             수정완료
-          </button>
+          </motion.button>
         ) : (
-          <button onClick={handleEditClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+          <motion.button
+            {...mainHoverEffect}
+            onClick={handleEditClick}
+            className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
+          >
             수정하기
-          </button>
+          </motion.button>
         )}
       </div>
     </div>

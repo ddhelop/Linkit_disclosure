@@ -4,7 +4,7 @@ import LoginModal from '@/components/Login/LoginModal'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { floatingAnimation, hoverEffect } from '@/lib/animations'
+import { floatingAnimation, mainHoverEffect } from '@/lib/animations'
 
 export default function Landing1() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
@@ -26,7 +26,7 @@ export default function Landing1() {
 
       <div className="mt-[5.13rem] flex w-full justify-center">
         <motion.button
-          {...hoverEffect}
+          {...mainHoverEffect}
           onClick={() => setIsLoginModalOpen(true)}
           className="rounded-lg bg-main px-[1.88rem] py-[1.18rem] text-lg font-semibold text-white"
         >

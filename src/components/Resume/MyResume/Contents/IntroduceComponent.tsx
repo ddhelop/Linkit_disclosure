@@ -4,6 +4,8 @@ import { PostProfileIntroduction } from '@/lib/action'
 import { ProfileIntroductionResponse } from '@/lib/types'
 import { ChangeEvent, useState } from 'react'
 import { useRecoilValue } from 'recoil'
+import { motion } from 'framer-motion'
+import { mainHoverEffect } from '@/lib/animations'
 
 interface MyResumeCompletionProps {
   data: ProfileIntroductionResponse
@@ -84,9 +86,13 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
             취소하기
           </button>
         )}
-        <button className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]" onClick={handleEditClick}>
+        <motion.button
+          {...mainHoverEffect}
+          className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff] "
+          onClick={handleEditClick}
+        >
           {isEditing ? '저장하기' : '수정하기'}
-        </button>
+        </motion.button>
       </div>
     </div>
   )

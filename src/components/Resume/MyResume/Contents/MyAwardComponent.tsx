@@ -7,6 +7,8 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useForm, SubmitHandler, UseFormSetValue } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
+import { motion } from 'framer-motion'
+import { mainHoverEffect } from '@/lib/animations'
 
 interface MyResumAwardProps {
   data: AwardResponse[]
@@ -231,9 +233,13 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
 
       {!isAdding && (
         <div className="mt-6 flex w-full justify-end  pt-8">
-          <button onClick={() => setIsAdding(true)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+          <motion.button
+            {...mainHoverEffect}
+            onClick={() => setIsAdding(true)}
+            className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
+          >
             추가하기
-          </button>
+          </motion.button>
         </div>
       )}
     </div>

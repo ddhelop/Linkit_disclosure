@@ -4,6 +4,8 @@ import { AttachResponse, AttachUrlResponse, URLFormInputs } from '@/lib/types'
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
+import { motion } from 'framer-motion'
+import { mainHoverEffect } from '@/lib/animations'
 
 interface MyResumURLProps {
   data: AttachUrlResponse[]
@@ -100,9 +102,13 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
             </div>
           )}
           <div className="mt-[0.94rem] flex w-full justify-end">
-            <button onClick={() => setIsEditing(true)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+            <motion.button
+              {...mainHoverEffect}
+              onClick={() => setIsEditing(true)}
+              className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
+            >
               추가하기
-            </button>
+            </motion.button>
           </div>
         </>
       ) : (
@@ -182,13 +188,14 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
             >
               취소
             </button>
-            <button
+            <motion.button
+              {...mainHoverEffect}
               type="button"
               onClick={handleLinkSubmit}
               className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
             >
               저장하기
-            </button>
+            </motion.button>
           </div>
         </form>
       )}

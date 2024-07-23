@@ -1,9 +1,10 @@
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
 import { GetOnBoardingData, PostRoleData } from '@/lib/action'
+import { mainHoverEffect } from '@/lib/animations'
 import { Skills } from '@/lib/data'
 import { JobAndSkillResponse } from '@/lib/types'
-import { useRouter } from 'next/navigation'
+import { motion } from 'framer-motion'
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 
@@ -225,9 +226,13 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
 
       {/* button */}
       <div className="mt-[0.94rem] flex w-full justify-end">
-        <button onClick={handleEditClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+        <motion.button
+          {...mainHoverEffect}
+          onClick={handleEditClick}
+          className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
+        >
           {isEditing ? '수정완료' : '수정하기'}
-        </button>
+        </motion.button>
       </div>
     </div>
   )

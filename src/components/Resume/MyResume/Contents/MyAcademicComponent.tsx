@@ -3,9 +3,11 @@ import { accessTokenState } from '@/context/recoil-context'
 import { DeleteSchoolData, PostOneSchoolData, PutSchoolData } from '@/lib/action'
 import { EducationFormData, EducationFormInputs, EducationResponse, MyResumEducationProps } from '@/lib/types'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { useForm, SubmitHandler, UseFormSetValue } from 'react-hook-form'
+import { motion } from 'framer-motion'
+import { mainHoverEffect } from '@/lib/animations'
 
 export default function MyAcademicComponent({ data }: MyResumEducationProps) {
   const [isEditing, setIsEditing] = useState<boolean | number>(false)
@@ -300,14 +302,15 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
       {/* button */}
       {!isEditing && (
         <div className="mt-[0.94rem] flex w-full justify-end">
-          <button
+          <motion.button
+            {...mainHoverEffect}
             onClick={() => {
               setIsEditing(true)
             }}
             className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
           >
             추가하기
-          </button>
+          </motion.button>
         </div>
       )}
     </div>

@@ -8,6 +8,8 @@ import { selectStyle } from '@/style/toggleStyle'
 import Image from 'next/image'
 import { ChangeEvent, useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
+import { motion } from 'framer-motion'
+import { mainHoverEffect } from '@/lib/animations'
 
 interface MyResumLocationFieldProps {
   data: LocationResponse
@@ -118,9 +120,13 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
 
       {/* button */}
       <div className="mt-[0.94rem] flex w-full justify-end">
-        <button onClick={handleEditClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+        <motion.button
+          {...mainHoverEffect}
+          onClick={handleEditClick}
+          className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
+        >
           {isEditing ? '수정완료' : '수정하기'}
-        </button>
+        </motion.button>
       </div>
     </div>
   )

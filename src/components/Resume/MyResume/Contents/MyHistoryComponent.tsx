@@ -6,6 +6,8 @@ import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
+import { motion } from 'framer-motion'
+import { mainHoverEffect } from '@/lib/animations'
 
 interface FormInputs {
   id: number
@@ -270,9 +272,13 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
 
       {!isAdding && (
         <div className="mt-[0.94rem] flex w-full justify-end">
-          <button onClick={() => setIsAdding(true)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+          <motion.button
+            {...mainHoverEffect}
+            onClick={() => setIsAdding(true)}
+            className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
+          >
             추가하기
-          </button>
+          </motion.button>
         </div>
       )}
     </div>
