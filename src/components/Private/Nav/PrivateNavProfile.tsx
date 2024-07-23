@@ -1,18 +1,23 @@
 'use client'
 import RequestMatchModal from '@/components/Match/common/RequestMatchModal'
+import { accessTokenState, authState } from '@/context/recoil-context'
+import { DeleteSaveMember, PostSaveMember } from '@/lib/action'
 import { JobAndSkillResponse, MiniProfileResponse } from '@/lib/types'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useRecoilValue } from 'recoil'
 
 interface MyResumeNavProfileProps {
   data: MiniProfileResponse
-
   jobAndSkill: JobAndSkillResponse
   profileId: number
 }
 
 export default function PrivateNavProfile({ data, jobAndSkill, profileId }: MyResumeNavProfileProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const isAuth = useRecoilValue(authState)
+  const accessToken = useRecoilValue(accessTokenState) || ''
+  const [isSaved, setIsSaved] = useState<boolean>(data.isPrivateSaved)
 
   const handleMatchButtonClick = () => {
     setIsModalOpen(true)
@@ -22,12 +27,48 @@ export default function PrivateNavProfile({ data, jobAndSkill, profileId }: MyRe
     setIsModalOpen(false)
   }
 
+  const onClickSave = async () => {
+    if (isAuth) {
+      try {
+        if (isSaved) {
+          const response = await DeleteSaveMember(accessToken, data.id)
+          if (response.ok) {
+            setIsSaved(false)
+            alert('찜하기가 취소되었습니다.')
+          } else {
+            alert('찜하기 취소에 실패했습니다.')
+          }
+        } else {
+          const response = await PostSaveMember(accessToken, data.id)
+          if (response.ok) {
+            setIsSaved(true)
+            alert('저장되었습니다.')
+          } else {
+            const responseData = await response.json()
+            alert(responseData.message)
+          }
+        }
+      } catch {
+        alert('요청에 실패했습니다.')
+      }
+    } else {
+      alert('로그인 후 이용해주세요.')
+    }
+  }
+
   return (
     <div className="flex w-full flex-col rounded-2xl bg-[#fff] px-[1.37rem] py-[0.77rem]">
       {/* title */}
       <div className="flex w-full justify-between pt-[0.43rem]">
         <h3 className="text-grey-100 w-[60%] text-[1.149rem] font-bold">{data?.profileTitle}</h3>
-        <Image src="/assets/icons/saveIcon.svg" width={16} height={16} alt="edit" className="cursor-pointer" />
+        <Image
+          src={isSaved ? '/assets/icons/filledSaveIcon.svg' : '/assets/icons/saveIcon.svg'}
+          width={16}
+          height={16}
+          alt="edit"
+          className="cursor-pointer"
+          onClick={onClickSave}
+        />
       </div>
 
       <div className="flex flex-wrap gap-[0.26rem] py-4">

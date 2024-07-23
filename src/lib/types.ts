@@ -59,6 +59,7 @@ export interface TeamOnBoardingActivityWayFormInputs {
 // 미니프로필 조회
 // lib/types.ts
 export interface MiniProfileResponse {
+  id: number
   profileTitle: string
   uploadPeriod: string
   uploadDeadline: boolean
@@ -68,6 +69,7 @@ export interface MiniProfileResponse {
   memberName: string
   myKeywordNames: string[]
   jobRoleNames: string[]
+  isPrivateSaved: boolean
 }
 
 export interface CompletionResponse {
