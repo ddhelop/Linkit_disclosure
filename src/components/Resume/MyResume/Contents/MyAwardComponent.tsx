@@ -101,35 +101,40 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
       {awards.length > 0 && (
         <div className="mt-6">
           {awards.map((award, index) => (
-            <div key={index} className="mt-4 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6">
-              <div className="flex justify-between">
-                <div className="flex flex-col">
-                  <span className="font-semibold">{award.awardsName}</span>
-                  <span className="pt-2 text-sm text-grey60">{award.organizer}</span>
-                  <span className="text-xs text-grey50">
-                    {award.awardsYear}년 {award.awardsMonth}월
-                  </span>
-                  <span className="pt-2 text-sm text-grey60">{award.awardsDescription}</span>
+            <div
+              key={index}
+              className="mt-4 flex justify-between gap-[1.62rem] rounded-[0.63rem] border border-grey30 p-6"
+            >
+              <div className="flex gap-[1.62rem]">
+                <div className="text-grey60">{award.awardsYear}</div>
+                <div className="flex justify-between">
+                  <div className="flex flex-col">
+                    <span className="text-xs text-grey60">{award.organizer}</span>
+                    <span className="text-grey100">
+                      {award.awardsName},{award.ranking}
+                    </span>
+                    <span className="text-sm text-grey60">{award.awardsDescription}</span>
+                  </div>
                 </div>
+              </div>
 
-                <div className="flex gap-2">
-                  <Image
-                    src="/assets/icons/pencil.svg"
-                    width={27}
-                    height={27}
-                    alt="edit"
-                    className="cursor-pointer"
-                    onClick={() => handleEditAward(award, setValue)}
-                  />
-                  <Image
-                    src="/assets/icons/delete.svg"
-                    width={27}
-                    height={27}
-                    alt="delete"
-                    className="cursor-pointer"
-                    onClick={() => handleDeleteAward(award.id)}
-                  />
-                </div>
+              <div className="flex gap-2">
+                <Image
+                  src="/assets/icons/pencil.svg"
+                  width={27}
+                  height={27}
+                  alt="edit"
+                  className="cursor-pointer"
+                  onClick={() => handleEditAward(award, setValue)}
+                />
+                <Image
+                  src="/assets/icons/delete.svg"
+                  width={27}
+                  height={27}
+                  alt="delete"
+                  className="cursor-pointer"
+                  onClick={() => handleDeleteAward(award.id)}
+                />
               </div>
             </div>
           ))}
@@ -214,14 +219,14 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
             <div className="mt-[0.94rem] flex w-full justify-end gap-2">
               <button
                 type="button"
-                className="h-10 rounded bg-gray-500 px-4 text-sm text-[#fff]"
+                className="h-10 rounded border border-main bg-white px-4 text-sm text-main"
                 onClick={() => {
                   setIsAdding(false)
                   setIsEditing(null)
                   reset()
                 }}
               >
-                취소
+                취소하기
               </button>
               <button type="submit" className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
                 {isEditing !== null ? '수정하기' : '저장하기'}

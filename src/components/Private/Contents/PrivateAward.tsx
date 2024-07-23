@@ -39,17 +39,17 @@ export default function PrivateAward({ data }: MyResumAwardProps) {
       {awards.length === 0 && <div className="pt-[0.94rem] text-grey50">수상이력이 없습니다.</div>}
 
       {awards.length > 0 && (
-        <div className="mt-6">
+        <div className="mt-6 flex flex-col">
           {awards.map((award, index) => (
-            <div key={index} className="mt-4 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6">
+            <div key={index} className="mt-4 flex gap-[1.62rem] rounded-[0.63rem] border border-grey30 p-6">
+              <div className="text-grey60">{award.awardsYear}</div>
               <div className="flex justify-between">
                 <div className="flex flex-col">
-                  <span className="font-semibold">{award.awardsName}</span>
-                  <span className="pt-2 text-sm text-grey60">{award.organizer}</span>
-                  <span className="text-xs text-grey50">
-                    {award.awardsYear}년 {award.awardsMonth}월
+                  <span className="text-xs text-grey60">{award.organizer}</span>
+                  <span className="text-grey100">
+                    {award.awardsName},{award.ranking}
                   </span>
-                  <span className="pt-2 text-sm text-grey60">{award.awardsDescription}</span>
+                  <span className="text-sm text-grey60">{award.awardsDescription}</span>
                 </div>
               </div>
             </div>
