@@ -54,11 +54,6 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
         <span className="text-lg font-semibold text-grey100">자기소개</span>
-        {/* {isEditing && (
-          <span className="text-sm text-[#2563EB]">
-            Tip : 본인의 경험을 바탕으로 핵심 역량과 보유 역량을 간단히 작성해주세요! (최대 300자)
-          </span>
-        )} */}
       </div>
 
       {/* contents */}
@@ -66,7 +61,7 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
         {isEditing ? (
           <div>
             <textarea
-              className="w-full resize-none rounded border border-grey30 p-4 text-[#000]"
+              className="w-full resize-none whitespace-pre-wrap rounded border border-grey30 p-4 text-[#000]"
               rows={4}
               value={introduction}
               onChange={handleInputChange}
@@ -75,7 +70,9 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
             <div className="text-right text-sm text-grey100">{charCount} / 300자</div>
           </div>
         ) : (
-          <span className={introduction ? 'text-[#000]' : 'text-grey50'}>{introduction || '자기소개가 없습니다.'}</span>
+          <div className={introduction ? 'whitespace-pre-wrap text-[#000]' : 'text-grey50'}>
+            {introduction || '자기소개가 없습니다.'}
+          </div>
         )}
       </div>
 
