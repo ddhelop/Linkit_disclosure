@@ -208,7 +208,7 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
                     onClick={() => {
                       setIsEditing(false)
                     }}
-                    className="rounded bg-grey30 px-4 text-sm"
+                    className="rounded border border-main bg-white px-4 text-sm text-main"
                   >
                     취소하기
                   </button>
@@ -226,7 +226,7 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
       {isEditing === true && (
         <form
           onSubmit={handleSubmit(handleAddEducation)}
-          className="mt-4 flex flex-col gap-4 rounded-lg border border-grey40 bg-grey10 p-5"
+          className="mt-4 flex flex-col gap-4 rounded-lg border border-grey40 bg-grey30 bg-opacity-30 p-5"
         >
           <div className="flex gap-[0.81rem]">
             <div className="flex flex-col">
@@ -288,7 +288,7 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
               onClick={() => {
                 setIsEditing(false)
               }}
-              className="rounded bg-grey30 px-4 text-sm"
+              className="rounded border border-main  bg-white px-4 text-sm text-main"
             >
               취소하기
             </button>
