@@ -56,7 +56,7 @@ export default function FindMemberLeftNav() {
 
     if (isAuth) {
       const url = query ? `/search/private/profile/login?${query}` : '/search/private/profile/login'
-      console.log(url)
+
       const response = await GetTeamMembersFiltering(accessToken, url)
 
       setFilteredProfiles(response.content)

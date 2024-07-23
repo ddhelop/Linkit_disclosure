@@ -1,8 +1,8 @@
+'use client'
 import TeamAnnouncementModal from '@/components/common/component/Team/TeamAnnouncementModal'
 import { accessTokenState, authState } from '@/context/recoil-context'
 import { DeleteSaveTeam, PostSaveTeam } from '@/lib/action'
 import { FindTeamInterface } from '@/lib/types'
-import { error } from 'console'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
@@ -17,6 +17,7 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
   const [isSaved, setIsSaved] = useState<boolean>(profile.teamMemberAnnouncementResponse?.isTeamSaved || false)
   const [isAuth, setIsAuth] = useRecoilState(authState) || false
   const [dataLoaded, setDataLoaded] = useState(false)
+  const [loading, setLoading] = useState(true)
   const accessToken = useRecoilValue(accessTokenState) || ''
 
   const onClickSave = async () => {
@@ -52,6 +53,7 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
     if (profile) {
       setIsSaved(profile.teamMemberAnnouncementResponse?.isTeamSaved || false)
       setDataLoaded(true)
+      setLoading(false) // 데이터 로딩 완료
     }
   }, [profile])
 
@@ -117,16 +119,18 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
         <p className="text-xs font-bold text-[#2563EB]">모집중인 공고</p>
       </div>
 
-      {profile?.teamMemberAnnouncementResponse ? (
+      {loading ? (
+        <div>Loading...</div>
+      ) : profile?.teamMemberAnnouncementResponse ? (
         <div className="flex w-full justify-between rounded-lg border pr-5">
           <div className="flex w-full cursor-pointer flex-col rounded-lg p-4 " onClick={handleModalOpen}>
             <div className="mb-4 flex items-center justify-between text-sm font-semibold">
-              <p>{profile.teamMemberAnnouncementResponse?.mainBusiness}</p>
+              <p>{profile?.teamMemberAnnouncementResponse?.mainBusiness}</p>
             </div>
 
             <div className="flex gap-2">
               <div className="rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">
-                {profile.teamMemberAnnouncementResponse?.skillNames.join(' ')}
+                {profile?.teamMemberAnnouncementResponse?.skillNames.join(' ')}
               </div>
             </div>
           </div>

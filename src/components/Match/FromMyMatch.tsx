@@ -20,7 +20,6 @@ export default function FromMyMatch() {
       try {
         const response = await GetMatchReceived(accessToken)
         setMatchReceived(response)
-        console.log(response)
       } catch (error) {
         console.error(error)
       }
