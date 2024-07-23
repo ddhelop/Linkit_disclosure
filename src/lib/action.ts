@@ -646,7 +646,7 @@ export async function GetPrivateData(accessToken: string, miniProfileId: number)
     credentials: 'include',
   })
 
-  return await response.json()
+  return await response
 }
 
 // 팀 프로필 조회
@@ -663,7 +663,7 @@ export async function GetTeamData(accessToken: string, teamMiniProfileId: number
     },
   )
 
-  return await response.json()
+  return await response
 }
 
 // 팀원 찾기 - 필터링
