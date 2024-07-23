@@ -9,18 +9,26 @@ export default function Landing2() {
       className="relative flex h-screen min-h-screen w-full snap-mandatory snap-start snap-always flex-col items-center justify-center overflow-hidden overflow-x-auto bg-[#F0F2F6] bg-opacity-50 bg-cover bg-no-repeat"
     >
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{
           delay: 0.1,
-          duration: 0.5,
+          duration: 0.8,
         }}
       >
         <h1 className="text-center text-[1.5rem] font-bold text-black">직관적인 프로필을 통해</h1>
         <p className="text-[2.625rem] font-bold text-black">서로가 원하는 핏을 찾을 수 있어요</p>
       </motion.div>
 
-      <div className="mt-[4.75rem] flex w-full justify-center gap-[2.2rem]">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 0.1,
+          duration: 0.8,
+        }}
+        className="mt-[4.75rem] flex w-full justify-center gap-[2.2rem]"
+      >
         <div className="flex w-[25.8rem] flex-col gap-[0.89rem]">
           {/* 프로필 */}
           <div className="flex w-full flex-col rounded-[0.75rem] border border-grey30 bg-white px-[1.56rem] py-[1.75rem]">
@@ -97,7 +105,7 @@ export default function Landing2() {
             창업의 시작을 함께 하고 싶어요”
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }
