@@ -8,7 +8,7 @@ import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import OnBoardingHeader from '../OnBoardingHeader'
 
-const ShortTerm: string[] = ['공모전', '대회', '해커톤', '사이드 프로젝트', '포트폴리오', '스터디', '창업']
+const ShortTerm: string[] = ['공모전', '대회', '사이드 프로젝트', '포트폴리오', '창업']
 
 interface FormValues {
   selectedShortTermFields: string[]
@@ -72,7 +72,7 @@ export default function InterestProject() {
             <span>내 이력서 가이드</span>
           </div>
           <div className="flex w-[90%] flex-col items-start leading-9 sm:w-[55%]">
-            <span className="text-2xl font-bold">관심있는 프로젝트를 선택해주세요</span>
+            <span className="text-2xl font-bold">희망 팀빌딩 분야를 선택해주세요</span>
             <span className="pt-1 text-sm text-grey60">*중복선택 가능</span>
           </div>
           {/* 단기 */}
