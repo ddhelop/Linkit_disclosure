@@ -53,22 +53,26 @@ export default function FromMyMatch() {
               }}
               onClick={() => setSelectedMatch(match)}
             >
-              <Image
-                src="/assets/images/DefaultProfile.png"
-                width={65}
-                height={65}
-                alt="empty"
-                className="rounded-full"
-              />
+              <div className="flex items-start">
+                <Image
+                  src={match.miniProfileImg ? match.miniProfileImg : '/assets/images/DefaultProfile.png'}
+                  width={65}
+                  height={65}
+                  alt="empty"
+                  className="rounded-full"
+                />
+              </div>
               <div className="flex w-full justify-between">
-                <div className="flex flex-col justify-center gap-1">
-                  <p className="text-xs text-[#2563EB]">
-                    {match.receivedTeamProfile ? '팀 소개서에 알림이 왔어요' : '내 이력서에 알림이 왔어요'}
-                  </p>
+                <div className="flex w-full flex-col justify-center gap-1">
+                  <div className="flex w-full justify-between">
+                    <p className="text-xs text-[#2563EB]">
+                      {match.receivedTeamProfile ? '팀 소개서에 알림이 왔어요' : '내 이력서에 알림이 왔어요'}
+                    </p>
+                    <p className="text-xs text-grey50">{match.requestOccurTime}</p>
+                  </div>
                   <p className="font-semibold">{match.senderName}님이 매칭 요청을 보냈습니다</p>
                   <p className="text-sm text-grey60">{match.requestMessage}</p>
                 </div>
-                <p className="text-xs text-grey50">{match.requestOccurTime}</p>
               </div>
             </motion.div>
           ))}

@@ -66,18 +66,20 @@ export default function AccomplishMatch() {
           >
             <div className="flex w-full justify-between">
               <div className="flex flex-col justify-center gap-1">
-                <p className="text-xs text-[#2563EB]">매칭 완료 알림</p>
+                <div className="flex w-full justify-between">
+                  <p className="text-xs text-[#2563EB]">매칭 완료 알림</p>
+                  <p className="text-xs text-grey50">{match.requestOccurTime}</p>
+                </div>
                 <p className="font-semibold">{match.successMatchingMemberName}님과 매칭이 성사되었습니다</p>
-                <p className="text-sm text-grey60">{match.requestMessage}</p>
-              </div>
-              <div className="flex flex-col justify-between">
-                <p className="text-xs text-grey50">{match.requestOccurTime}</p>
-                <button
-                  onClick={() => handleContactClick(match)}
-                  className="rounded-[0.3rem] bg-main px-6 py-2 text-sm text-white"
-                >
-                  연락하기
-                </button>
+                <p className="w-full text-sm text-grey60">{match.requestMessage}</p>
+                <div className="flex w-full justify-end">
+                  <button
+                    onClick={() => handleContactClick(match)}
+                    className="rounded-[0.3rem] bg-main px-6 py-2 text-sm text-white"
+                  >
+                    연락하기
+                  </button>
+                </div>
               </div>
             </div>
           </motion.div>
