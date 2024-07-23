@@ -297,7 +297,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
 
               {/* input container */}
               <div className="mt-[0.88rem] flex flex-col">
-                <span className="py-[0.88rem] text-sm font-normal text-grey60">보유 기술을 하나씩 입력해주세요</span>
+                <span className="py-[0.88rem] text-sm font-normal text-grey60">보유 역량을 하나씩 입력해주세요</span>
                 <div className="relative flex w-[16.1rem] items-center gap-[0.63rem]">
                   <input
                     type="text"

@@ -121,7 +121,7 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
             {/* 보유한 기술 */}
             <div className="flex w-full flex-col pt-8">
               <div className="flex items-center gap-[0.56rem]">
-                <span className="text-lg font-semibold leading-5">보유 기술</span>
+                <span className="text-lg font-semibold leading-5">보유 역량</span>
                 {isEditing && (
                   <span className="text-sm text-[#2563EB]">Tip : 본인이 보유하고 있는 핵심 기술을 선택해주세요!</span>
                 )}
@@ -152,7 +152,7 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
 
                 {/* input container */}
                 <div className="mt-[0.88rem] flex flex-col border-t border-grey40">
-                  <span className="py-[0.88rem] text-sm font-normal">보유 기술을 하나씩 입력해주세요</span>
+                  <span className="py-[0.88rem] text-sm font-normal">보유 역량을 하나씩 입력해주세요</span>
                   <div className="flex w-[16.1rem] items-center gap-[0.63rem]">
                     <input
                       type="text"
@@ -160,7 +160,7 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
                       value={inputValue}
                       onChange={handleInputChange}
                       onKeyPress={handleKeyPress}
-                      placeholder="Text Field"
+                      placeholder="기획"
                     />
                     <button
                       onClick={() => handleAddSkill(inputValue)}
@@ -207,7 +207,7 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
 
             {/* 보유 기술 */}
             <div className="flex flex-col gap-1">
-              <span className=" text-lg font-semibold text-grey100">보유 기술</span>
+              <span className=" text-lg font-semibold text-grey100">보유 역량</span>
               <div className="flex flex-wrap gap-2 pt-2">
                 {skills.map((skill, index) => (
                   <div

@@ -49,7 +49,7 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
         <span className="text-lg font-semibold text-grey100">희망 팀빌딩 분야</span>
         {isEditing && (
           <span className="text-sm text-[#2563EB]">
-            Tip : 본인의 경험을 바탕으로 핵심 역량과 보유 기술을 간단히 작성해주세요!
+            Tip : 본인의 경험을 바탕으로 핵심 역량과 보유 역량을 간단히 작성해주세요!
           </span>
         )}
       </div>
@@ -84,7 +84,7 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
                 <button
                   key={index}
                   onClick={() => handleOptionClick(option)}
-                  className="bg-gray-200 rounded border border-grey40 px-4 py-2 text-grey60"
+                  className="rounded border border-grey40 bg-gray-200 px-4 py-2 text-grey60"
                 >
                   {option}
                 </button>

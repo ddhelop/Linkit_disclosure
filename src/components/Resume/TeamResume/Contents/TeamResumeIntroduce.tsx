@@ -52,9 +52,6 @@ export default function TeamResumeIntroduce({ data }: TeamCompletionProps) {
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
         <span className="text-lg font-semibold text-grey100">팀 소개</span>
-        {/* <span className="text-sm text-[#2563EB]">
-          Tip : 본인의 경험을 바탕으로 핵심 역량과 보유 기술을 간단히 작성해주세요! (최대 300자)
-        </span> */}
       </div>
 
       {/* contents */}
