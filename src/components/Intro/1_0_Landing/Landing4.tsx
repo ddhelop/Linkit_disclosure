@@ -8,7 +8,7 @@ export default function Landing4() {
     >
       <div className="flex w-full flex-col items-center">
         <p className="text-2xl font-bold">간결한 매칭 서비스</p>
-        <h1 className="text-black text-center text-[2.625rem] font-bold">
+        <h1 className="text-center text-[2.625rem] font-bold text-black">
           프로필만 등록하면
           <br />
           쏟아지는 추천 매칭
@@ -22,7 +22,7 @@ export default function Landing4() {
           width={730}
           height={682}
           alt="landing4"
-          className="mt-[4.5rem]"
+          className="mt-[0.5rem]"
         />
       </div>
     </div>

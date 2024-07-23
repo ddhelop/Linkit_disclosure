@@ -57,8 +57,9 @@ export default function Landing2() {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between py-[3rem]">
+        <div className="flex flex-col items-center justify-between py-[3rem]">
           <Image src={'/assets/onBoarding/1.0/Landing2_left_pointer.svg'} width={126} height={1} alt="pointer" />
+          <Image src={'/assets/onBoarding/1.0/Landing2_loading.png'} width={72} height={72} alt="pointer" />
           <Image src={'/assets/onBoarding/1.0/Landing2_right_pointer.svg'} width={126} height={1} alt="pointer" />
         </div>
 
