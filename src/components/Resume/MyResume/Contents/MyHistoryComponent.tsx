@@ -174,7 +174,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
       {isAdding && (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="mt-3 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6"
+          className="mt-3 flex flex-col rounded-[0.63rem] border border-grey30 bg-grey30 bg-opacity-30 px-5 py-6"
         >
           <div className="flex gap-3">
             <div className="flex w-[49%] flex-col">
@@ -260,12 +260,24 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
                 {...register('antecedentsDescription', { required: true })}
               />
             </div>
-            <button
-              type="submit"
-              className="mt-4 cursor-pointer rounded-md bg-[#2563EB] px-[0.88rem] py-2 text-sm text-[#fff]"
-            >
-              완료
-            </button>
+            <div className="flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  reset()
+                  setIsAdding(false)
+                }}
+                className="mt-4 cursor-pointer rounded-md border border-main bg-white px-[0.88rem] py-2 text-sm text-main"
+              >
+                취소하기
+              </button>
+              <button
+                type="submit"
+                className="mt-4 cursor-pointer rounded-md bg-[#2563EB] px-[0.88rem] py-2 text-sm text-[#fff]"
+              >
+                완료하기
+              </button>
+            </div>
           </div>
         </form>
       )}
