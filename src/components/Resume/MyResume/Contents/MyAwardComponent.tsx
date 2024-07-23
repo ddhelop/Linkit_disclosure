@@ -140,22 +140,22 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
             <div className="flex gap-3">
               <div className="flex w-[49%] flex-col">
                 <label className="text-sm font-normal text-grey100">
-                  수상내역<span className="pl-1 text-[#2563EB]">*</span>
+                  대회명<span className="pl-1 text-[#2563EB]">*</span>
                 </label>
                 <input
                   type="text"
-                  placeholder="예: 홍익대학교 창업경진대회"
+                  placeholder="도전 K-스타트업 2024 왕중왕전"
                   className="mt-2 rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm"
                   {...register('awardsName', { required: true })}
                 />
               </div>
               <div className="flex w-[49%] flex-col">
                 <label className="text-sm font-normal text-grey100">
-                  예: 대상<span className="pl-1 text-[#2563EB]">*</span>
+                  수상 내역<span className="pl-1 text-[#2563EB]">*</span>
                 </label>
                 <input
                   type="text"
-                  placeholder="예: 대상"
+                  placeholder="대상"
                   className="mt-2 rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm"
                   {...register('ranking', { required: true })}
                 />
@@ -167,7 +167,7 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
               </label>
               <input
                 type="text"
-                placeholder="예: 홍익대학교"
+                placeholder="중소벤처기업부"
                 className="mt-2 w-[49%] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm"
                 {...register('organizer', { required: true })}
               />

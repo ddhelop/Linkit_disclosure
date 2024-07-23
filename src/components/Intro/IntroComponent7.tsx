@@ -7,7 +7,7 @@ export default function IntroComponent7() {
       style={{
         backgroundImage: 'linear-gradient(180deg, #F1F3F7 19.19%, rgba(252, 252, 253, 0) 112.86%))',
       }}
-      className="bg-white relative  flex h-screen min-h-screen w-full  snap-mandatory snap-start snap-always flex-col items-center justify-start overflow-hidden overflow-x-auto bg-opacity-50 bg-cover bg-no-repeat py-20 lg:justify-center"
+      className="relative flex  h-screen min-h-screen w-full snap-mandatory  snap-start snap-always flex-col items-center justify-start overflow-hidden overflow-x-auto bg-white bg-opacity-50 bg-cover bg-no-repeat py-20 lg:justify-center"
     >
       <Image src={'/assets/intro/section7bg.png'} alt="line" fill objectFit="cover" className="z-0 hidden md:flex" />
 
@@ -38,7 +38,7 @@ export default function IntroComponent7() {
             <span className="pt-3 text-center text-[1.6rem] font-bold lg:text-left lg:text-[2.62rem] lg:leading-[3.625rem]">
               프로필만 등록하면
               <br />
-              쏟아지는 추천 매칭
+              쏟아지는 매칭 연락
               <br />
             </span>
             <span className="pt-2 text-center text-xs font-medium leading-4 text-grey70 lg:text-xl">

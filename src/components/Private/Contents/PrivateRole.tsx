@@ -50,7 +50,7 @@ export default function PrivateRole({ data }: MyResumeCompletionProps) {
 
           {/* 보유 기술 */}
           <div className="flex flex-col gap-1">
-            <span className=" text-lg font-semibold text-grey100">보유 기술</span>
+            <span className=" text-lg font-semibold text-grey100">보유 역량</span>
             <div className="flex flex-wrap gap-2 pt-2">
               {skills.map((skill, index) => (
                 <div key={index} className="flex items-center rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2">

@@ -14,7 +14,7 @@ export default function FindingMemberPage() {
       </div>
 
       <div className="flex w-full justify-center bg-grey10 pb-24">
-        <div className="flex w-full justify-center gap-[2.69rem] pt-[2.63rem]">
+        <div className="flex w-full justify-center gap-[1.5rem] pt-[2.63rem]">
           <div className="flex w-[20%] justify-end">
             <FindTeamLeftNav />
           </div>
