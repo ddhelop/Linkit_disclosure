@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import { accessTokenState, authState, filteredTeamsState } from '@/context/recoil-context'
 import { SkillOptions } from '@/lib/data'
 import { addressData } from '@/lib/addressSelectData'
-import { GetTeamsFiltering } from '@/lib/action'
+
 import SkillModal from './\bSkillModal'
 
 export default function FindTeamLeftNav() {
@@ -46,6 +46,17 @@ export default function FindTeamLeftNav() {
     })
   }
 
+  const handleResetFilters = () => {
+    setSelectedFilters({
+      teamBuildingFieldName: [],
+      jobRoleName: [],
+      skillName: [],
+      cityName: [],
+      divisionName: [],
+      activityType: [],
+    })
+  }
+
   const fetchFilteredTeams = async () => {
     const queryParams = new URLSearchParams()
     Object.entries(selectedFilters).forEach(([key, values]) => {
@@ -77,7 +88,7 @@ export default function FindTeamLeftNav() {
 
   return (
     <div className="flex w-[17.3rem] flex-col shadow-sm">
-      <div className="flex w-full cursor-pointer justify-end gap-1 pb-2">
+      <div className="flex w-full cursor-pointer justify-end gap-1 pb-2" onClick={handleResetFilters}>
         <Image src="/assets/icons/rotate-left.svg" width={16} height={16} alt="Group 1" />
         <p className="text-sm text-grey60">필터초기화</p>
       </div>
@@ -239,4 +250,22 @@ export default function FindTeamLeftNav() {
       />
     </div>
   )
+}
+
+// 팀원 찾기 - 필터링
+export async function GetTeamsFiltering(accessToken: string, url: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}${url}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch filtered teams')
+  }
+
+  return await response.json()
 }
