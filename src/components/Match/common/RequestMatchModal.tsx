@@ -66,7 +66,8 @@ export default function RequestMatchModal({ onClose, profileId, data }: RequestM
       if (response.ok) {
         onClose()
       } else {
-        console.error('매칭 요청 전송 실패')
+        const responseData = await response.json()
+        alert(responseData.message)
       }
     } catch (error) {
       console.error('매칭 요청 전송 중 오류 발생', error)

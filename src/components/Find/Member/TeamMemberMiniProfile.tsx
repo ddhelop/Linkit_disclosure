@@ -33,7 +33,8 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
             setIsSaved(true)
             alert('저장되었습니다.')
           } else {
-            alert('저장에 실패했습니다.')
+            const responseData = await response.json()
+            alert(responseData.message)
           }
         }
       } catch {
