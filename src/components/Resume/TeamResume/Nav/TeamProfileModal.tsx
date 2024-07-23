@@ -195,7 +195,7 @@ export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileM
                     value={inputValue}
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
-                    placeholder="Notion"
+                    placeholder="기획"
                   />
                   <button
                     onClick={handleAddSkill}
