@@ -14,9 +14,20 @@ import FetchSetting from '@/components/common/fetch/page'
 
 export const metadata: Metadata = {
   title: 'Linkit',
-  description: '',
+  description: '팀 빌딩 서비스, 링킷',
   icons: {
     icon: '/logo.png',
+  },
+  openGraph: {
+    title: 'Linkit',
+    description: '팀 빌딩 서비스, 링킷',
+    siteName: 'Linkit',
+    locale: 'ko_KR',
+    type: 'website',
+    url: 'https://linkit.im',
+    images: {
+      url: '/logo.png',
+    },
   },
 }
 
