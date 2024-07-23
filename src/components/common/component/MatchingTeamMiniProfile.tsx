@@ -1,8 +1,45 @@
-import { FindTeamInterface, SaveTeamType } from '@/lib/types'
+import { accessTokenState, authState } from '@/context/recoil-context'
+import { DeleteSaveTeam, PostSaveTeam } from '@/lib/action'
+import { FindTeamInterface } from '@/lib/types'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
 export default function MatchingTeamMiniProfile({ profile }: { profile: FindTeamInterface }) {
+  const [isSaved, setIsSaved] = useState<boolean>(profile.teamMemberAnnouncementResponse?.isTeamSaved || false)
+  const [isAuth, setIsAuth] = useRecoilState(authState) || false
+  const accessToken = useRecoilValue(accessTokenState) || ''
+
+  const onClickSave = async () => {
+    if (isAuth) {
+      try {
+        if (isSaved) {
+          const response = await DeleteSaveTeam(accessToken, profile.teamMemberAnnouncementResponse.id)
+          if (response.ok) {
+            setIsSaved(false)
+            alert('찜하기가 취소되었습니다.')
+          } else {
+            alert('찜하기 취소에 실패했습니다.')
+          }
+        } else {
+          const response = await PostSaveTeam(accessToken, profile.teamMemberAnnouncementResponse.id)
+          if (response.ok) {
+            setIsSaved(true)
+            alert('저장되었습니다.')
+          } else {
+            const responseData = await response.json()
+            alert(responseData.message)
+          }
+        }
+      } catch {
+        alert('요청에 실패했습니다.')
+      }
+    } else {
+      alert('로그인 후 이용해주세요.')
+    }
+  }
+
   return (
     <div className="flex w-[42.5rem] flex-col rounded-[0.63rem] bg-[#fff] p-5">
       <Link href={`/team/${profile.teamMiniProfileResponse.id}`}>
@@ -49,19 +86,26 @@ export default function MatchingTeamMiniProfile({ profile }: { profile: FindTeam
 
       <div className="flex items-center gap-2 py-3">
         <Image src="/assets/icons/drawingPin.svg" width={14} height={14} alt="calendar" />
-        <p className="text-xs font-bold text-[#2563EB]">모집중인 공고</p>
+        <p className="text-xs font-bold text-[#2563EB]">모집 중인 공고</p>
       </div>
 
       <div className="flex cursor-pointer flex-col rounded-lg border border-grey30 p-4 hover:bg-grey10">
         <div className="mb-4 flex items-center justify-between text-sm font-semibold">
-          <p>{profile.teamMemberAnnouncementResponse.applicationProcess}</p>
-          <Image src="/assets/icons/saveIcon.svg" width={18} height={18} alt="arrow" className="cursor-pointer" />
+          <p>{profile.teamMemberAnnouncementResponse?.mainBusiness}</p>
+          <Image
+            src={isSaved ? '/assets/icons/filledSaveIcon.svg' : '/assets/icons/saveIcon.svg'}
+            width={18}
+            height={18}
+            alt="arrow"
+            className="cursor-pointer"
+            onClick={onClickSave}
+          />
         </div>
 
         <div className="flex gap-2">
-          {profile.teamMemberAnnouncementResponse.skillNames?.map((keyword, index) => (
+          {profile.teamMemberAnnouncementResponse?.skillNames?.map((keyword, index) => (
             <div key={index} className="rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">
-              태그[미적용]
+              {keyword}
             </div>
           ))}
         </div>

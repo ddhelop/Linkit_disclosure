@@ -16,9 +16,9 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isSaved, setIsSaved] = useState<boolean>(profile.teamMemberAnnouncementResponse?.isTeamSaved || false)
   const [isAuth, setIsAuth] = useRecoilState(authState) || false
+  const accessToken = useRecoilValue(accessTokenState) || ''
   const [dataLoaded, setDataLoaded] = useState(false)
   const [loading, setLoading] = useState(true)
-  const accessToken = useRecoilValue(accessTokenState) || ''
 
   const onClickSave = async () => {
     if (isAuth) {
