@@ -11,7 +11,7 @@ export default function Landing4() {
         <h1 className="text-center text-[2.625rem] font-bold text-black">
           프로필만 등록하면
           <br />
-          쏟아지는 추천 매칭
+          쏟아지는 매칭 연락
         </h1>
         <p className=" pt-4 text-lg text-grey60">가이드에 맞게 프로필을 등록하면 사용자들이 매칭을 요청해요</p>
       </div>

@@ -129,9 +129,9 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
             </div>
 
             <div className="flex gap-2">
-              <div className="flex gap-2 rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">
-                {profile?.teamMemberAnnouncementResponse?.skillNames}
-              </div>
+              {profile?.teamMemberAnnouncementResponse?.skillNames.map((skill, index) => (
+                <div className="flex gap-2 rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">{skill}</div>
+              ))}
             </div>
           </div>
           <Image

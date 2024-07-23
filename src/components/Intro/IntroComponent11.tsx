@@ -37,7 +37,7 @@ export default function IntroComponent11() {
       </div>
 
       {/* Multiple FAQ entries */}
-      <div className="mt-5 w-[90%] lg:mt-12 lg:w-auto">
+      <div className="mt-5 w-[47rem] bg-white lg:mt-12">
         {[
           'Q. 내 이력서는 팀 소개서와 무엇이 다른가요?',
           'Q. 팀 소개서는 내 이력서와 무엇이 다른가요?',
@@ -46,9 +46,9 @@ export default function IntroComponent11() {
           'Q. 회원가입을 완료했는데 매칭 요청이 보내지지 않아요',
           'Q. 학력을 입력하려고 하는데 오류가 떠요',
         ].map((question, index) => (
-          <div key={index} className="mt-2 overflow-hidden rounded-xl shadow-faq-shadow">
+          <div key={index} className="mt-2 w-full overflow-hidden rounded-xl shadow-faq-shadow">
             <motion.h2
-              className="flex cursor-pointer items-center justify-between bg-white p-5 text-sm font-bold lg:h-[4.18rem] lg:w-[46.9rem] lg:text-xl"
+              className="flex w-full cursor-pointer items-center justify-between bg-white p-5 text-sm font-bold lg:h-[4.18rem] lg:w-[46.9rem] lg:text-xl"
               onClick={() => toggleAccordion(index)}
               initial={false}
             >
@@ -67,7 +67,7 @@ export default function IntroComponent11() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="pb-5 pl-5"
+                  className="w-[70%] pb-5 pl-5"
                 >
                   <p className="p-1 text-xs lg:text-base">{answers[index]}</p>
                 </motion.div>
