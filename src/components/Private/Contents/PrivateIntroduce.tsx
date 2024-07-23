@@ -56,7 +56,7 @@ export default function PrivateIntroduce({ data }: MyResumeCompletionProps) {
 
       {/* contents */}
       <div className="pt-[0.94rem]">
-        <span className={introduction ? 'py-[1.19rem] text-[#000]' : ' text-grey50'}>
+        <span className={introduction ? 'whitespace-pre-wrap py-[1.19rem] text-[#000]' : ' text-grey50'}>
           {introduction || '자기소개가 없습니다.'}
         </span>
       </div>
