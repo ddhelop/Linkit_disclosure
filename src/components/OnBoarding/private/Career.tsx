@@ -150,7 +150,7 @@ export default function RegisterCareer() {
                 <span className="font-semibold">{career.projectName}</span>
                 <span className="pt-2 text-sm text-grey60">{career.projectRole}</span>
                 <span className="text-xs text-grey50">
-                  {career.startDate} - {career.endDate || '현재'} ({career.retirement ? '퇴직' : '재직중'})
+                  {career.startDate} - {career.endDate || '현재'} ({career.retirement ? '종료' : '재직중'})
                 </span>
               </div>
               <div className="flex items-center justify-end">
@@ -184,7 +184,7 @@ export default function RegisterCareer() {
                     </span>
                     <input
                       type="text"
-                      placeholder="ex. (주)링킷"
+                      placeholder="(주)링킷"
                       className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                       {...register('projectName', { required: true })}
                     />
@@ -196,7 +196,7 @@ export default function RegisterCareer() {
                     </span>
                     <input
                       type="text"
-                      placeholder="ex. Product Manager"
+                      placeholder="Product Manager"
                       className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                       {...register('projectRole', { required: true })}
                     />
@@ -223,14 +223,14 @@ export default function RegisterCareer() {
                         disabled={retirement === 'false'}
                       />
 
-                      {/* Select 박스 재직중/퇴직 */}
+                      {/* Select 박스 재직중/종료 */}
 
                       <div className="flex items-center ">
                         <select
                           {...register('retirement', { required: true })}
                           className=" h-10 rounded-[0.31rem] border border-grey40 px-[0.88rem] text-sm"
                         >
-                          <option value="true">퇴직</option>
+                          <option value="true">종료</option>
                           <option value="false">재직중</option>
                         </select>
                       </div>
@@ -272,7 +272,7 @@ export default function RegisterCareer() {
                 </span>
                 <input
                   type="text"
-                  placeholder="ex. (주)링킷"
+                  placeholder="(주)링킷"
                   className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                   {...register('projectName', { required: true })}
                 />
@@ -284,7 +284,7 @@ export default function RegisterCareer() {
                 </span>
                 <input
                   type="text"
-                  placeholder="ex. Product Manager"
+                  placeholder="Product Manager"
                   className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                   {...register('projectRole', { required: true })}
                 />
@@ -313,14 +313,14 @@ export default function RegisterCareer() {
                     />
                   </div>
 
-                  {/* Select 박스 재직중/퇴직 */}
+                  {/* Select 박스 재직중/종료 */}
                   <div className="items-center pt-3 lg:flex lg:pt-0">
                     <div className="flex items-center">
                       <select
                         {...register('retirement', { required: true })}
                         className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                       >
-                        <option value="true">퇴직</option>
+                        <option value="true">종료</option>
                         <option value="false">진행중</option>
                       </select>
                     </div>

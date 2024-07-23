@@ -306,7 +306,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
                     onKeyDown={handleKeyPress}
-                    placeholder="ex. Notion"
+                    placeholder="Notion"
                   />
                   <button
                     type="button"

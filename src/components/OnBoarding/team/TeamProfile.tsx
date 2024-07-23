@@ -238,7 +238,7 @@ export default function TeamProfile() {
                         value={inputValue}
                         onChange={handleInputChange}
                         onKeyPress={handleKeyPress}
-                        placeholder="ex. Notion"
+                        placeholder="Notion"
                       />
                       <button
                         onClick={handleAddSkill}

@@ -195,7 +195,7 @@ export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileM
                     value={inputValue}
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
-                    placeholder="ex. Notion"
+                    placeholder="Notion"
                   />
                   <button
                     onClick={handleAddSkill}
@@ -206,7 +206,7 @@ export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileM
                   </button>
                 </div>
                 {skills.length >= 3 && (
-                  <span className="text-red-500 text-sm">최대 3개의 항목만 추가할 수 있습니다.</span>
+                  <span className="text-sm text-red-500">최대 3개의 항목만 추가할 수 있습니다.</span>
                 )}
               </div>
             </div>

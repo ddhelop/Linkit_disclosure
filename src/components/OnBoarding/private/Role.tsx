@@ -152,7 +152,7 @@ export default function Role() {
                   value={inputValue}
                   onChange={handleInputChange}
                   onKeyPress={handleKeyPress}
-                  placeholder="ex.기획"
+                  placeholder="기획"
                 />
                 <button
                   onClick={() => handleAddSkill(inputValue)}

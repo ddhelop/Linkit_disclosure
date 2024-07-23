@@ -170,7 +170,7 @@ export default function RegisterSchool() {
                     </span>
                     <input
                       type="text"
-                      placeholder="ex. 대학교(원)"
+                      placeholder="대학교(원)"
                       className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                       {...register('universityName', { required: true })}
                     />
@@ -182,7 +182,7 @@ export default function RegisterSchool() {
                     </span>
                     <input
                       type="text"
-                      placeholder="ex. 경영학과"
+                      placeholder="경영학과"
                       className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                       {...register('majorName', { required: true })}
                     />
@@ -240,7 +240,7 @@ export default function RegisterSchool() {
                 </span>
                 <input
                   type="text"
-                  placeholder="ex. 대학교(원)"
+                  placeholder="대학교(원)"
                   className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                   {...register('universityName', { required: true })}
                 />
@@ -252,7 +252,7 @@ export default function RegisterSchool() {
                 </span>
                 <input
                   type="text"
-                  placeholder="ex. 경영학과"
+                  placeholder="경영학과"
                   className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                   {...register('majorName', { required: true })}
                 />
