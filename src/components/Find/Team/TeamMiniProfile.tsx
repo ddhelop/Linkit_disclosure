@@ -125,12 +125,12 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
         <div className="flex w-full justify-between rounded-lg border pr-5">
           <div className="flex w-full cursor-pointer flex-col rounded-lg p-4 " onClick={handleModalOpen}>
             <div className="mb-4 flex items-center justify-between text-sm font-semibold">
-              <p>{profile?.teamMemberAnnouncementResponse?.mainBusiness}</p>
+              <p>{profile?.teamMemberAnnouncementResponse?.jobRoleName}</p>
             </div>
 
             <div className="flex gap-2">
-              <div className="rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">
-                {profile?.teamMemberAnnouncementResponse?.skillNames.join(' ')}
+              <div className="flex gap-2 rounded-[0.45rem] bg-grey10 px-2 py-1 text-xs text-grey60">
+                {profile?.teamMemberAnnouncementResponse?.skillNames}
               </div>
             </div>
           </div>

@@ -91,7 +91,7 @@ export default function MatchingTeamMiniProfile({ profile }: { profile: FindTeam
 
       <div className="flex cursor-pointer flex-col rounded-lg border border-grey30 p-4 hover:bg-grey10">
         <div className="mb-4 flex items-center justify-between text-sm font-semibold">
-          <p>{profile.teamMemberAnnouncementResponse?.mainBusiness}</p>
+          <p>{profile.teamMemberAnnouncementResponse?.jobRoleName}</p>
           <Image
             src={isSaved ? '/assets/icons/filledSaveIcon.svg' : '/assets/icons/saveIcon.svg'}
             width={18}
