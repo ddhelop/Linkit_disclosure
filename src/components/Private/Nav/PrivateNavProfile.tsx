@@ -60,7 +60,7 @@ export default function PrivateNavProfile({ data, jobAndSkill, profileId }: MyRe
     <div className="flex w-full flex-col rounded-2xl bg-[#fff] px-[1.37rem] py-[0.77rem]">
       {/* title */}
       <div className="flex w-full justify-between pt-[0.43rem]">
-        <h3 className="text-grey-100 w-[60%] text-[1.149rem] font-bold">{data?.profileTitle}</h3>
+        <h3 className="text-grey-100 w-[87%] text-[1.149rem] font-bold">{data?.profileTitle}</h3>
         <Image
           src={isSaved ? '/assets/icons/filledSaveIcon.svg' : '/assets/icons/saveIcon.svg'}
           width={16}
@@ -75,7 +75,7 @@ export default function PrivateNavProfile({ data, jobAndSkill, profileId }: MyRe
         {data?.myKeywordNames?.map((keyword, index) => (
           <span
             key={index}
-            className="rounded-[0.45rem] bg-[#D3E1FE33] bg-opacity-20 px-[0.57rem] py-[0.18rem] text-[0.76rem] text-[#2563EB]"
+            className="rounded-[0.45rem] bg-grey10 bg-opacity-20 px-[0.57rem] py-[0.18rem] text-[0.76rem] text-grey60"
           >
             {keyword}
           </span>
