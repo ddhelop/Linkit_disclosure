@@ -335,25 +335,29 @@ export default function TeamProfile() {
         </div>
         {/* Modal */}
         <div
-          className={`fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-[#00000033] ${
+          className={`fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-[#00000033]  ${
             isOpen ? 'visible' : 'hidden'
           }`}
         >
-          <div className="flex h-[14.7rem] w-[22.5rem] flex-col items-center rounded-lg bg-white p-4">
-            <Image src="/assets/icons/blue_check.svg" width={44} height={44} alt="check" className="mt-5" />
-            <h2 className="mt-3 text-xl font-bold text-grey100">가입을 축하합니다.</h2>
+          <div className="flex h-[18.6rem] w-[22.5rem] flex-col items-center rounded-lg bg-white p-4">
+            <div className="pt-5 text-[2.5rem]">🎉</div>
+            <h2 className="mt-3 text-xl font-bold text-grey100">링킷에 오신 걸 환영합니다!</h2>
+            <p className="pb-5 pt-1 text-center text-sm text-grey60">
+              미니프로필 작성을 완료하셨어요
+              <br /> 팀빌딩이 이루어지려면 프로필 완성이 필요해요
+            </p>
 
             <button
               onClick={() => {
                 setIsOpen(false)
-                router.push('/myResume')
+                router.push('/teamResume')
               }}
-              className="mt-[1.63rem] w-full rounded-[0.6rem] bg-grey90 py-[0.83rem] text-[#fff]"
+              className=" w-full rounded-[0.6rem] bg-grey90 py-[0.83rem] text-[#fff]"
             >
-              프로필 마무리짓기
+              프로필 완성하기
             </button>
             <Link href={'/'}>
-              <p className="mt-[0.38rem] cursor-pointer text-sm text-grey60 underline">링킷 둘러보기</p>
+              <p className="mt-[0.38rem] cursor-pointer text-sm text-grey60 underline">그냥 둘러볼게요</p>
             </Link>
           </div>
         </div>
