@@ -61,7 +61,7 @@ export default function IntroComponent11() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="w-[70%] pb-5 pl-5"
+                  className="w-full pb-5 pl-7 pr-10"
                 >
                   <p className="p-1 text-xs lg:text-base">{answers[index]}</p>
                 </motion.div>
