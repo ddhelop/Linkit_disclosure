@@ -1,9 +1,8 @@
 'use client'
 
 import { accessTokenState } from '@/context/recoil-context'
-import { GetTeamData, GetTeamResume } from '@/lib/action'
+import { GetTeamData } from '@/lib/action'
 import { TeamIntroductionResponse } from '@/lib/types'
-import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
@@ -12,7 +11,9 @@ import TeamContentLayout from './Contents/TeamContentLayout'
 import Image from 'next/image'
 
 export default function Team() {
-  const accessToken = useRecoilValue(accessTokenState)
+  const accessToken = useRecoilValue(accessTokenState) || ''
+  const router = useRouter()
+  const isAuth = useRecoilValue(accessTokenState)
   const [data, setData] = useState<TeamIntroductionResponse | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
@@ -50,7 +51,16 @@ export default function Team() {
   }, [accessToken, teamMiniProfileId])
 
   if (loading) {
-    return <div>Loading...</div>
+    if (!isAuth) {
+      alert('팀 소개서를 보려면 로그인이 필요합니다.')
+      router.push('/findMember')
+
+      // return (
+      //   <div className="flex h-screen w-full items-center justify-center">
+      //     <Image src="/assets/icons/lock.svg" alt="loading" width={100} height={100} />
+      //   </div>
+      // )
+    }
   }
 
   if (error) {

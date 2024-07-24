@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { use, useEffect, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 
 import { GetPrivateData } from '@/lib/action'
 import { MyResumeResponse } from '@/lib/types'
@@ -13,6 +13,7 @@ import Image from 'next/image'
 
 export default function Private() {
   const accessToken = useRecoilValue(accessTokenState)
+  const router = useRouter()
   const [data, setData] = useState<MyResumeResponse | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
@@ -20,6 +21,7 @@ export default function Private() {
   const pathSegments = pathname.split('/')
   const miniProfileId = pathSegments[pathSegments.length - 1]
   const [isPrivateView, setIsPrivateView] = useState<boolean>(false)
+  const isAuth = useRecoilValue(accessTokenState)
 
   // 이력서 데이터 가져오기
   useEffect(() => {
@@ -51,7 +53,16 @@ export default function Private() {
   }, [accessToken, miniProfileId])
 
   if (loading) {
-    return <div>Loading...</div>
+    if (!isAuth) {
+      alert('팀원 프로필을 보려면 로그인이 필요합니다.')
+      router.push('/findMember')
+
+      // return (
+      //   <div className="flex h-screen w-full items-center justify-center">
+      //     <Image src="/assets/icons/lock.svg" alt="loading" width={100} height={100} />
+      //   </div>
+      // )
+    }
   }
 
   if (error) {
