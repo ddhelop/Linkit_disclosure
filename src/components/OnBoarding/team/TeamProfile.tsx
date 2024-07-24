@@ -88,6 +88,10 @@ export default function TeamProfile() {
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
     if (files && files.length > 0) {
+      if (files[0].size > 1024 * 1024) {
+        alert('이미지 크기는 최대 1MB까지 업로드할 수 있습니다.')
+        return
+      }
       setValue('profileImage', files)
       setProfileImageUrl(URL.createObjectURL(files[0]))
     }
