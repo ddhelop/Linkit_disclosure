@@ -54,7 +54,7 @@ export default function Private() {
 
   if (loading) {
     if (!isAuth) {
-      alert('팀원 프로필을 보려면 로그인이 필요합니다.')
+      alert('다른 사용자의 이력서/소개서를 보려면 로그인이 필요합니다.')
       router.push('/findMember')
 
       // return (
