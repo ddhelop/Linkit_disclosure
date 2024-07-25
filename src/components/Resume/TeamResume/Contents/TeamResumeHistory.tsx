@@ -46,28 +46,30 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
   const accessToken = useRecoilValue(accessTokenState) || ''
 
   const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
-    const newData: HistoryResponse = {
-      id: editIndex !== null ? data[editIndex].id : Date.now(), // 임시로 id를 생성
-      historyOneLineIntroduction: formData.historyOneLineIntroduction,
-      startYear: parseInt(formData.startYear),
-      endYear: formData.inProgress?.value === 'true' ? null : parseInt(formData.endYear),
-      inProgress: formData.inProgress?.value === 'true',
-      historyIntroduction: formData.historyIntroduction,
-    }
-
     try {
+      const newData: HistoryResponse = {
+        id: editIndex !== null ? data[editIndex].id : 0, // 임시로 id를 생성
+        historyOneLineIntroduction: formData.historyOneLineIntroduction,
+        startYear: parseInt(formData.startYear),
+        endYear: formData.inProgress?.value === 'true' ? null : parseInt(formData.endYear),
+        inProgress: formData.inProgress?.value === 'true',
+        historyIntroduction: formData.historyIntroduction,
+      }
+
       let response
       if (editIndex !== null) {
         response = await PutTeamHistory(accessToken, newData, newData.id)
       } else {
         response = await PostTeamHistory(accessToken, newData)
+        const responseData = await response.json()
+        newData.id = responseData // 새로운 ID를 응답으로 받아와서 설정
       }
 
       if (response.ok) {
         if (editIndex !== null) {
           setData((prevData) => prevData.map((item, idx) => (idx === editIndex ? newData : item)))
         } else {
-          setData((prevData) => [...(prevData || []), newData]) // prevData를 기본값으로 배열 초기화
+          setData((prevData) => [...(prevData || []), newData])
         }
         alert('팀 연혁이 성공적으로 저장되었습니다.')
         setIsEditing(false)
@@ -99,13 +101,13 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
   const handleDelete = async (index: number) => {
     const history = data[index]
     try {
-      const response = await DeleteTeamHistory(accessToken, history.id)
-      if (response.ok) {
-        if (confirm('팀 연혁을 삭제하시겠습니까?')) {
+      if (confirm('팀 연혁을 삭제하시겠습니까?')) {
+        const response = await DeleteTeamHistory(accessToken, history.id)
+        if (response.ok) {
           setData((prevData = []) => prevData.filter((_, idx) => idx !== index)) // prevData를 기본값으로 배열 초기화
+        } else {
+          console.error('Failed to delete team history:', response)
         }
-      } else {
-        console.error('Failed to delete team history:', response)
       }
     } catch (error) {
       console.error('Error deleting team history:', error)
@@ -251,7 +253,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
         {isEditing && editIndex === null && (
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="mt-4 flex flex-col gap-[0.94rem] rounded-[0.44rem] border border-grey30 bg-grey10 p-5"
+            className="mt-4 flex flex-col gap-5 rounded-[0.44rem] border border-grey30 bg-grey10 p-5"
           >
             <div className="flex flex-col gap-2">
               <p className="text-sm font-normal">한 줄 소개</p>
@@ -265,24 +267,34 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
             <div className="flex flex-col gap-2">
               <p className="text-sm font-normal">기간</p>
               <div className="flex items-center gap-4">
-                <input
-                  {...register('startYear', {
-                    validate: (value) => validateYear(value) || validateYearMessage(value),
-                  })}
-                  placeholder="시작년도"
-                  className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-center text-sm"
-                />
-                {errors.startYear && <p className="text-sm text-red-500">{errors.startYear.message}</p>}
+                <div className="relative">
+                  <input
+                    {...register('startYear', {
+                      validate: (value) => validateYear(value) || validateYearMessage(value),
+                    })}
+                    type="number"
+                    placeholder="시작년도"
+                    className="w-[12.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-left text-sm"
+                  />
+                  {errors.startYear && (
+                    <p className="absolute w-[32rem] pl-1 text-xs text-red-500">{errors.startYear.message}</p>
+                  )}
+                </div>
                 <p>~</p>
-                <input
-                  {...register('endYear', {
-                    validate: (value) => validateYear(value) || validateYearMessage(value),
-                  })}
-                  placeholder="종료년도"
-                  className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-center text-sm"
-                  disabled={inProgressValue}
-                />
-                {errors.endYear && !inProgressValue && <p className="text-sm text-red-500">{errors.endYear.message}</p>}
+                <div className="relative">
+                  <input
+                    {...register('endYear', {
+                      validate: (value) => validateYear(value) || validateYearMessage(value),
+                    })}
+                    type="number"
+                    placeholder="종료년도"
+                    className="w-[12.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-left text-sm"
+                    disabled={inProgressValue}
+                  />
+                  {errors.endYear && !inProgressValue && (
+                    <p className="absolute w-[32rem] pl-1 text-xs text-red-500">{errors.endYear.message}</p>
+                  )}
+                </div>
                 <Controller
                   name="inProgress"
                   control={control}
