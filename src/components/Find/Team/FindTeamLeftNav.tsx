@@ -6,7 +6,7 @@ import { accessTokenState, authState, filteredTeamsState } from '@/context/recoi
 import { SkillOptions } from '@/lib/data'
 import { addressData } from '@/lib/addressSelectData'
 
-import SkillModal from './\bSkillModal'
+import SkillModal from '../../common/component/filter/SkillModal'
 
 export default function FindTeamLeftNav() {
   const accessToken = useRecoilValue(accessTokenState) || ''

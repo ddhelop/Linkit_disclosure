@@ -1,14 +1,17 @@
+// Role.tsx
 'use client'
 
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
-import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Skills } from '@/lib/data'
 import { GetOnBoardingData, PostRoleData } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import OnBoardingHeader from '../OnBoardingHeader'
+import SkillModal from '@/components/common/component/filter/\bSkillModal'
+import Image from 'next/image'
 
 const Positions = ['기획·경영', '개발·데이터', '마케팅·광고', '디자인']
 
@@ -19,8 +22,7 @@ interface FormValues {
 
 export default function Role() {
   const [skills, setSkills] = useState<string[]>([])
-  const [inputValue, setInputValue] = useState('')
-  const [filteredSkills, setFilteredSkills] = useState<string[]>([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const {
     handleSubmit,
     formState: { errors },
@@ -41,34 +43,6 @@ export default function Role() {
       })
     }
   }, [accessToken])
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-    setInputValue(value)
-    if (value) {
-      setFilteredSkills(Skills.filter((skill) => skill.toLowerCase().includes(value.toLowerCase())))
-    } else {
-      setFilteredSkills([])
-    }
-  }
-
-  const handleAddSkill = (skill: string) => {
-    if (skill.trim() !== '' && Skills.includes(skill) && !skills.includes(skill)) {
-      setSkills([...skills, skill.trim()])
-      setInputValue('')
-      setFilteredSkills([])
-    }
-  }
-
-  const handleRemoveSkill = (skillToRemove: string) => {
-    setSkills(skills.filter((skill) => skill !== skillToRemove))
-  }
-
-  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      handleAddSkill(inputValue)
-    }
-  }
 
   // 포지션 토글
   const toggleRoleSelection = (field: string) => {
@@ -115,66 +89,44 @@ export default function Role() {
         </div>
         {/* 보유한 기술 */}
         <div className="flex w-[90%] flex-col pt-8 sm:w-[55%] lg:pt-16">
-          <span className="text-lg font-bold leading-5">
-            보유 역량을 알려주세요 <span className="text-sm font-normal text-grey80">*중복선택가능</span>
-          </span>
+          <span className="text-lg font-bold leading-5">더 강조하고 싶은 역량을 추가해주세요</span>
+          <span className="pt-[0.31rem] text-sm font-normal text-grey60">*중복선택가능</span>
           {/* contents */}
           <div>
             {/* 버튼들 */}
-            <div className="flex flex-wrap gap-2 pt-4">
-              {skills.map((skill, index) => (
-                <div
-                  key={index}
-                  onClick={() => handleRemoveSkill(skill)}
-                  className="flex cursor-pointer items-center rounded-lg border border-[#2563EB] bg-[#E0E7FF] px-3 py-1"
-                >
-                  <span className="text-[#2563EB]">{skill}</span>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleRemoveSkill(skill)
-                    }}
-                    className="ml-2 flex h-4 w-4 items-center justify-center rounded-full text-[#2563EB]"
+            {skills.length > 0 && (
+              <div className="flex flex-wrap gap-2 border-b border-grey40 py-3">
+                {skills.map((skill, index) => (
+                  <div
+                    key={index}
+                    onClick={() => setSkills(skills.filter((s) => s !== skill))}
+                    className="flex cursor-pointer items-center rounded-lg border border-[#2563EB] bg-[#D3E1FE66] px-3 py-2"
                   >
-                    ×
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            {/* input container */}
-            <div className="mt-[0.88rem] flex flex-col border-t border-grey40">
-              <span className="py-[0.88rem] text-sm font-normal">보유 역량을 하나씩 입력해주세요</span>
-              <div className="flex w-[16.1rem] items-center gap-[0.63rem]">
-                <input
-                  type="text"
-                  className=" flex-1 rounded border border-grey40 p-2"
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  onKeyPress={handleKeyPress}
-                  placeholder="기획"
-                />
-                <button
-                  onClick={() => handleAddSkill(inputValue)}
-                  className="rounded bg-[#2563EB] px-4 py-2 text-sm text-[#fff]"
-                >
-                  추가
-                </button>
-              </div>
-              {inputValue && filteredSkills.length > 0 && (
-                <ul className="mt-2 max-h-32 w-[16.1rem] overflow-y-auto rounded border border-grey40 bg-[#fff]">
-                  {filteredSkills.map((skill, index) => (
-                    <li
-                      key={index}
-                      className="cursor-pointer p-2 hover:bg-grey20"
-                      onClick={() => handleAddSkill(skill)}
+                    <span className="text-[#2563EB]">{skill}</span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setSkills(skills.filter((s) => s !== skill))
+                      }}
+                      className="ml-2 flex h-4 w-4 items-center justify-center rounded-full text-[#2563EB]"
                     >
-                      {skill}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {skills.length === 0 && <div className="mt-4 w-full"></div>}
+
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="mt-3 flex w-[14rem] items-center justify-between rounded-lg border border-grey40 bg-white px-4  py-3 text-grey60 hover:bg-grey10"
+            >
+              <p>요구 역량 찾아보기</p>
+              <Image src="/assets/icons/search.svg" width={20} height={20} alt="plus" />
+            </button>
           </div>
         </div>
         {/* Footer */}
@@ -193,6 +145,16 @@ export default function Role() {
           </div>
         </form>
       </div>
+
+      {isModalOpen && (
+        <SkillModal
+          show={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          selectedFilters={skills}
+          handleFilterChange={(selectedSkills) => setSkills(selectedSkills)}
+          skillOptions={Skills}
+        />
+      )}
     </div>
   )
 }

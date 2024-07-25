@@ -51,17 +51,19 @@ export default function FromMyMatch() {
               }}
             >
               <div className="flex items-start">
-                <Image
-                  src={match.miniProfileImg ? match.miniProfileImg : '/assets/images/DefaultProfile.png'}
-                  width={65}
-                  height={65}
-                  alt="empty"
-                  className="rounded-full"
-                />
+                <div className="relative h-[65px] w-[65px] rounded-full">
+                  <Image
+                    src={match.miniProfileImg ? match.miniProfileImg : '/assets/images/DefaultProfile.png'}
+                    layout="fill"
+                    objectFit="cover"
+                    alt="empty"
+                    className="rounded-full"
+                  />
+                </div>
               </div>
               <div className="flex w-full justify-between">
-                <div className="flex flex-col justify-center gap-1">
-                  <div className="flex justify-between">
+                <div className="flex w-full flex-col justify-center gap-1">
+                  <div className="flex w-full justify-between">
                     <p className="text-xs text-[#2563EB]">
                       {match.requestTeamProfile ? `팀 찾기 > 수신 확인` : '팀원 찾기 > 수신 확인'}
                     </p>

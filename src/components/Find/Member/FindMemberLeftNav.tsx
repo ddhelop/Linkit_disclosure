@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import { accessTokenState, authState, filteredProfilesState } from '@/context/recoil-context'
 import { SkillOptions } from '@/lib/data'
 import { addressData } from '@/lib/addressSelectData'
-import SkillModal from './\bSkillModal'
+import SkillModal from '@/components/common/component/filter/\bSkillModal'
 
 export default function FindMemberLeftNav() {
   const accessToken = useRecoilValue(accessTokenState) || ''

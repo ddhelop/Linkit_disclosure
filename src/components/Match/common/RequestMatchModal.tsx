@@ -104,13 +104,15 @@ export default function RequestMatchModal({ onClose, profileId, data }: RequestM
         </div>
         <div className="flex flex-col">
           <div className="flex gap-4">
-            <Image
-              src="/assets/images/DefaultProfile.png"
-              width={42}
-              height={42}
-              alt="profile"
-              className="rounded-full"
-            />
+            <div className="relative h-[42px] w-[42px] rounded-full">
+              <Image
+                src={data.miniProfileImg ? data.miniProfileImg : '/assets/images/DefaultProfile.png'}
+                layout="fill"
+                objectFit="cover"
+                alt="profile"
+                className="rounded-full"
+              />
+            </div>
             <div className="flex flex-col">
               <p className="font-semibold">{data?.memberName}</p>
               <p className="text-sm text-grey70">{data?.jobRoleNames.join(', ')}</p>

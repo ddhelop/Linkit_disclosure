@@ -84,13 +84,15 @@ export default function PrivateNavProfile({ data, jobAndSkill, profileId }: MyRe
 
       {/* profile */}
       <div className="flex w-full items-center gap-4 ">
-        <Image
-          src={data?.miniProfileImg ? data?.miniProfileImg : '/assets/images/DefaultProfile.png'}
-          width={42}
-          height={42}
-          alt="profile"
-          className="min-h-[42px] rounded-[0.86rem]"
-        />
+        <div className="relative h-[41px] w-[41px] rounded-full">
+          <Image
+            src={data?.miniProfileImg ? data?.miniProfileImg : '/assets/images/DefaultProfile.png'}
+            objectFit="cover"
+            layout="fill"
+            alt="profile"
+            className="rounded-full"
+          />
+        </div>
 
         <div className="flex flex-col justify-center gap-1">
           <span className=" text-sm font-semibold text-grey70">{data?.memberName}</span>

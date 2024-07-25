@@ -1,11 +1,14 @@
+// MySkillComponent.tsx
 'use client'
+import SkillModal from '@/components/common/component/filter/\bSkillModal'
 import { accessTokenState } from '@/context/recoil-context'
 import { GetOnBoardingData, PostRoleData } from '@/lib/action'
 import { mainHoverEffect } from '@/lib/animations'
 import { Skills } from '@/lib/data'
 import { JobAndSkillResponse } from '@/lib/types'
 import { motion } from 'framer-motion'
-import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 
 const Positions = ['기획·경영', '개발·데이터', '마케팅·광고', '디자인']
@@ -16,19 +19,8 @@ interface MyResumeCompletionProps {
 
 export default function MySkillComponent({ data }: MyResumeCompletionProps) {
   const [isEditing, setIsEditing] = useState(false)
-
-  const handleEditClick = () => {
-    if (isEditing) {
-      onSubmit()
-    } else {
-      setIsEditing(true)
-    }
-  }
-
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [skills, setSkills] = useState<string[]>([])
-  const [inputValue, setInputValue] = useState('')
-  const [filteredSkills, setFilteredSkills] = useState<string[]>([])
-
   const [roleFields, setSelectedRoleFields] = useState<string[]>([])
   const accessToken = useRecoilValue(accessTokenState) || ''
 
@@ -45,34 +37,6 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
     }
   }, [accessToken])
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-    setInputValue(value)
-    if (value) {
-      setFilteredSkills(Skills.filter((skill) => skill.toLowerCase().includes(value.toLowerCase())))
-    } else {
-      setFilteredSkills([])
-    }
-  }
-
-  const handleAddSkill = (skill: string) => {
-    if (skill.trim() !== '' && Skills.includes(skill) && !skills.includes(skill)) {
-      setSkills([...skills, skill.trim()])
-      setInputValue('')
-      setFilteredSkills([])
-    }
-  }
-
-  const handleRemoveSkill = (skillToRemove: string) => {
-    setSkills(skills.filter((skill) => skill !== skillToRemove))
-  }
-
-  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      handleAddSkill(inputValue)
-    }
-  }
-
   // 포지션 토글
   const toggleRoleSelection = (field: string) => {
     setSelectedRoleFields((prevSelected) =>
@@ -86,7 +50,16 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
       alert('수정되었습니다.')
       setIsEditing(false)
     } else {
-      alert('요청 실패')
+      const data = await response.json()
+      alert(data.message)
+    }
+  }
+
+  const handleEditClick = () => {
+    if (isEditing) {
+      onSubmit()
+    } else {
+      setIsEditing(true)
     }
   }
 
@@ -98,7 +71,6 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
           {/* title */}
           <div className="flex items-center gap-[0.56rem]">
             <span className="text-lg font-semibold text-grey100">희망 역할</span>
-            {/* {isEditing && <span className="text-sm text-[#2563EB]">Tip : 본인의 역할을 선택해주세요!</span>} */}
           </div>
           <div className="flex flex-grow flex-col items-center pt-[0.12rem]">
             {/* 포지션 */}
@@ -123,25 +95,21 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
             <div className="flex w-full flex-col pt-8">
               <div className="flex items-center gap-[0.56rem]">
                 <span className="text-lg font-semibold leading-5">보유 역량</span>
-                {/* {isEditing && (
-                  <span className="text-sm text-[#2563EB]">Tip : 본인이 보유하고 있는 핵심 기술을 선택해주세요!</span>
-                )} */}
               </div>
-              {/* contents */}
               <div>
                 {/* 버튼들 */}
                 <div className="flex flex-wrap gap-2 pt-4">
                   {skills.map((skill, index) => (
                     <div
                       key={index}
-                      onClick={() => handleRemoveSkill(skill)}
+                      onClick={() => setSkills(skills.filter((s) => s !== skill))}
                       className="flex cursor-pointer items-center rounded-lg border border-[#2563EB] bg-[#E0E7FF] bg-opacity-40 px-3 py-2 font-semibold"
                     >
                       <span className="text-[#2563EB]">{skill}</span>
                       <button
                         onClick={(e) => {
                           e.stopPropagation()
-                          handleRemoveSkill(skill)
+                          setSkills(skills.filter((s) => s !== skill))
                         }}
                         className="ml-2 flex h-4 w-4 items-center justify-center rounded-full text-[#2563EB]"
                       >
@@ -150,39 +118,16 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
                     </div>
                   ))}
                 </div>
-
-                {/* input container */}
-                <div className="mt-[0.88rem] flex flex-col border-t border-grey40">
-                  <span className="py-[0.88rem] text-sm font-normal">보유 역량을 하나씩 입력해주세요</span>
-                  <div className="flex w-[16.1rem] items-center gap-[0.63rem]">
-                    <input
-                      type="text"
-                      className=" flex-1 rounded border border-grey40 p-2"
-                      value={inputValue}
-                      onChange={handleInputChange}
-                      onKeyPress={handleKeyPress}
-                      placeholder="기획"
-                    />
-                    <button
-                      onClick={() => handleAddSkill(inputValue)}
-                      className="rounded bg-[#2563EB] px-4 py-2 text-sm text-[#fff]"
-                    >
-                      추가
-                    </button>
-                  </div>
-                  {inputValue && filteredSkills.length > 0 && (
-                    <ul className="mt-2 max-h-32 w-[16.1rem] overflow-y-auto rounded border border-grey40 bg-[#fff]">
-                      {filteredSkills.map((skill, index) => (
-                        <li
-                          key={index}
-                          className="cursor-pointer p-2 hover:bg-grey20"
-                          onClick={() => handleAddSkill(skill)}
-                        >
-                          {skill}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                {skills.length > 0 && <div className=" w-full border-b border-grey40 pb-2 pt-2"></div>}
+                <div className="mt-1">
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(true)}
+                    className="mt-2 flex w-[14rem] items-center justify-between rounded-lg border border-grey40 bg-white px-4  py-3 text-grey60 hover:bg-grey10"
+                  >
+                    <p>요구 기술 찾아보기</p>
+                    <Image src="/assets/icons/search.svg" width={20} height={20} alt="plus" />
+                  </button>
                 </div>
               </div>
             </div>
@@ -234,6 +179,16 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
           {isEditing ? '수정완료' : '수정하기'}
         </motion.button>
       </div>
+
+      {isModalOpen && (
+        <SkillModal
+          show={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          selectedFilters={skills}
+          handleFilterChange={(selectedSkills) => setSkills(selectedSkills)}
+          skillOptions={Skills}
+        />
+      )}
     </div>
   )
 }
