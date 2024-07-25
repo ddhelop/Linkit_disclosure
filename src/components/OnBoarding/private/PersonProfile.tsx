@@ -143,7 +143,7 @@ export default function RegisterPersonProfile() {
   }, [isOpen])
 
   const profileTitle = watch('profileTitle')
-  const isNextButtonEnabled = profileTitle.trim() !== '' && skills.length > 0
+  const isNextButtonEnabled = profileTitle?.trim() !== '' && skills.length > 0
 
   return (
     <>
