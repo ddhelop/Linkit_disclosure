@@ -142,6 +142,9 @@ export default function RegisterPersonProfile() {
     }
   }, [isOpen])
 
+  const profileTitle = watch('profileTitle')
+  const isNextButtonEnabled = profileTitle.trim() !== '' && skills.length > 0
+
   return (
     <>
       <div className="flex w-full flex-col items-center bg-[#fff] p-4 pb-20">
@@ -323,7 +326,13 @@ export default function RegisterPersonProfile() {
                   이전
                 </button>
               </Link>
-              <button type="submit" className="mr-4 rounded bg-[#2563EB] px-12 py-2 text-[#fff] lg:px-16">
+              <button
+                type="submit"
+                className={`mr-4 rounded px-12 py-2 lg:px-16 ${
+                  isNextButtonEnabled ? 'bg-[#2563EB] text-[#fff]' : 'bg-[#7EA5F8] text-[#fff]'
+                }`}
+                disabled={!isNextButtonEnabled}
+              >
                 다음
               </button>
             </div>
