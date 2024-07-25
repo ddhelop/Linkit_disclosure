@@ -61,8 +61,8 @@ export default function RegisterPersonProfile() {
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
-      if (file.size > 1024 * 1024) {
-        alert('이미지 크기는 최대 1MB까지 업로드할 수 있습니다.')
+      if (file.size > 1024 * 1024 * 2) {
+        alert('이미지 크기는 최대 2MB까지 업로드할 수 있습니다.')
         return
       }
       setProfileImage(file)

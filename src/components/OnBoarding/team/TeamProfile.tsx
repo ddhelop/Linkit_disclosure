@@ -88,8 +88,8 @@ export default function TeamProfile() {
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
     if (files && files.length > 0) {
-      if (files[0].size > 1024 * 1024) {
-        alert('이미지 크기는 최대 1MB까지 업로드할 수 있습니다.')
+      if (files[0].size > 1024 * 1024 * 2) {
+        alert('이미지 크기는 최대 2MB까지 업로드할 수 있습니다.')
         return
       }
       setValue('profileImage', files)
@@ -350,7 +350,7 @@ export default function TeamProfile() {
             <button
               onClick={() => {
                 setIsOpen(false)
-                router.push('/teamResume')
+                router.push('/TeamResume')
               }}
               className=" w-full rounded-[0.6rem] bg-grey90 py-[0.83rem] text-[#fff]"
             >

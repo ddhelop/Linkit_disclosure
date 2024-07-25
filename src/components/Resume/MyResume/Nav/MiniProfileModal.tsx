@@ -65,6 +65,10 @@ export default function MiniProfileModal({ isOpen, onClose }: MiniProfileModalPr
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        alert('이미지 크기는 최대 2MB까지 업로드할 수 있습니다.')
+        return
+      }
       setProfileImage(file)
       const reader = new FileReader()
       reader.onloadend = () => {
