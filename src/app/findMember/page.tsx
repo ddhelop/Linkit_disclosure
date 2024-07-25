@@ -21,7 +21,7 @@ export default function FindingMemberPage() {
           </div>
 
           {/* 팀원 프로필 리스트 */}
-          <div className="w-[50rem] ">
+          <div className="w-[45rem] ">
             <FindMember />
           </div>
         </div>
