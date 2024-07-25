@@ -27,6 +27,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
   const [editingAnnouncementId, setEditingAnnouncementId] = useState<number | null>(null)
   const [filteredSkills, setFilteredSkills] = useState<string[]>([])
   const [selectedSkillIndex, setSelectedSkillIndex] = useState<number>(-1)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const { register, handleSubmit, setValue, reset, watch } = useForm<FormInputs>({
     defaultValues: {
@@ -97,6 +98,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value
     setValue('inputValue', inputValue)
+    setErrorMessage(null)
     if (inputValue.trim() !== '') {
       setFilteredSkills(SkillOptions.filter((skill) => skill.includes(inputValue)))
       setSelectedSkillIndex(-1)
@@ -107,15 +109,15 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
 
   const handleAddSkill = (skill?: string) => {
     const skillToAdd = skill || watchInputValue.trim()
-    if (
-      skillToAdd !== '' &&
-      watchSkills.length < 3 &&
-      !watchSkills.includes(skillToAdd) &&
-      SkillOptions.includes(skillToAdd)
-    ) {
+    if (watchSkills.length >= 5) {
+      setErrorMessage('최대 5개의 항목만 추가할 수 있습니다.')
+      return
+    }
+    if (skillToAdd !== '' && !watchSkills.includes(skillToAdd) && SkillOptions.includes(skillToAdd)) {
       setValue('skills', [...watchSkills, skillToAdd])
       setValue('inputValue', '')
       setFilteredSkills([])
+      setErrorMessage(null)
     }
   }
 
@@ -124,6 +126,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
       'skills',
       watchSkills.filter((skill) => skill !== skillToRemove),
     )
+    setErrorMessage(null)
   }
 
   const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -171,6 +174,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
   const resetForm = () => {
     setEditingAnnouncementId(null)
     reset()
+    setErrorMessage(null)
   }
 
   return (
@@ -335,6 +339,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
                     </div>
                   )}
                 </div>
+                {errorMessage && <span className="text-sm text-red-500">{errorMessage}</span>}
               </div>
             </div>
 
