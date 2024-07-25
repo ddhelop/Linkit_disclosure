@@ -107,6 +107,9 @@ export default function OnBoardingPrivateInfo() {
                       <span className="text-grey50">{email}</span>
                     </div>
                   </div>
+                  <div className="pl-1 pt-1 text-xs text-main">
+                    *매칭 성사 시 해당 이메일 주소가 상대방에게 공유됩니다.
+                  </div>
 
                   <div className="flex w-full justify-end ">
                     <button
