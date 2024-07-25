@@ -279,6 +279,25 @@ export async function PostProfileData(accessToken: string, payload: any, profile
   return response
 }
 
+// 내 이력서 - 프로필 수정
+export async function PutProfileData(accessToken: string, payload: any, profileImage: File | null) {
+  const formData = new FormData()
+  formData.append('miniProfileRequest', new Blob([JSON.stringify(payload)], { type: 'application/json' }))
+  if (profileImage) {
+    formData.append('miniProfileImage', profileImage)
+  }
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/private/mini-profile/update`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: formData,
+  })
+  return response
+}
+
 // 팀 온보딩 - 전체조회
 export const TeamOnBoardingData = async (accessToken: string) => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/onBoarding`, {

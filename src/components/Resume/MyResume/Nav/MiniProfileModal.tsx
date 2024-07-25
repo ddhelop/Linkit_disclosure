@@ -1,6 +1,6 @@
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
-import { GetOnBoardingData, PostProfileData } from '@/lib/action'
+import { GetOnBoardingData, PostProfileData, PutProfileData } from '@/lib/action'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, KeyboardEvent as ReactKeyboardEvent, useEffect, useState } from 'react'
@@ -108,6 +108,7 @@ export default function MiniProfileModal({ isOpen, onClose }: MiniProfileModalPr
     fetchData()
   }, [setValue, accessToken])
 
+  // 저장하기
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     const { profileTitle } = data
 
@@ -121,7 +122,7 @@ export default function MiniProfileModal({ isOpen, onClose }: MiniProfileModalPr
 
     if (!accessToken) return
     try {
-      const response = await PostProfileData(accessToken, miniProfileRequest, profileImage)
+      const response = await PutProfileData(accessToken, miniProfileRequest, profileImage)
 
       if (response.ok) {
         onClose()
