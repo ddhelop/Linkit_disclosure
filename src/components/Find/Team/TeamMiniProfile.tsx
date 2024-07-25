@@ -75,13 +75,14 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
         <div className="flex cursor-pointer flex-col rounded-lg p-2 hover:bg-grey10">
           <div className="flex w-full items-center justify-between ">
             <div className="flex items-center gap-2">
-              <Image
-                src={profile.teamMiniProfileResponse?.teamLogoImageUrl || '/assets/images/DefaultProfile.png'}
-                width={34}
-                height={34}
-                alt="TeamLogo"
-                className="rounded-full"
-              />
+              <div className="relative h-[31px] w-[31px] overflow-hidden rounded-full">
+                <Image
+                  src={profile.teamMiniProfileResponse?.teamLogoImageUrl || '/assets/images/DefaultProfile.png'}
+                  objectFit="cover"
+                  layout="fill"
+                  alt="TeamLogo"
+                />
+              </div>
 
               <p className="text-sm font-semibold text-[#2563EB]">{profile.teamMiniProfileResponse?.teamName}</p>
               <p className="pl-2 text-xs text-grey50">

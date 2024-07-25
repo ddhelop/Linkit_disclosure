@@ -25,13 +25,15 @@ export default function TeamNavProfile({ data }: TeamResumNavProps) {
 
       <div className="mt-8 flex w-full items-center gap-4 rounded-[0.44rem] p-[0.62rem]">
         <div className="relative w-auto rounded-[14.8rem] bg-grey30 ">
-          <Image
-            src={data?.teamLogoImageUrl || '/assets/icons/flag.svg'}
-            width={41}
-            height={41}
-            alt="flag"
-            className="min-h-[41px] min-w-[41px] rounded-full"
-          />
+          <div className="relative h-[41px] w-[41px] overflow-hidden rounded-full">
+            <Image
+              src={data?.teamLogoImageUrl || '/assets/icons/flag.svg'}
+              layout="fill"
+              objectFit="cover"
+              alt="flag"
+              className="min-h-[41px] min-w-[41px] rounded-full"
+            />
+          </div>
         </div>
 
         <div className="flex flex-col gap-[0.12rem] pr-9">
