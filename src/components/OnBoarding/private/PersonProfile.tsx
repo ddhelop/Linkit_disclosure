@@ -247,7 +247,7 @@ export default function RegisterPersonProfile() {
                       />
                       <button
                         onClick={handleAddSkill}
-                        className="rounded bg-[#2563EB] px-4 py-2 text-sm text-[#fff]"
+                        className="w-28 rounded bg-[#2563EB] px-4 py-2 text-sm text-[#fff]"
                         disabled={skills.length >= 3}
                       >
                         추가
