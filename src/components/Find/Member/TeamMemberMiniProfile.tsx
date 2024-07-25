@@ -72,13 +72,14 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
         </div>
         <div className="flex justify-between pt-[0.94rem]">
           <div className="flex gap-4">
-            <Image
-              src={profile.miniProfileImg || '/assets/icons/mini_user_icon.svg'}
-              width={41}
-              height={41}
-              alt="Profile Image"
-              className="rounded-full"
-            />
+            <div className="relative h-[41px] w-[41px] overflow-hidden rounded-full">
+              <Image
+                src={profile.miniProfileImg || '/assets/icons/mini_user_icon.svg'}
+                layout="fill"
+                objectFit="cover"
+                alt="Profile Image"
+              />
+            </div>
             <div className="flex flex-col justify-center gap-1">
               <p className="text-xs font-semibold text-grey70">{profile.memberName}</p>
               <p className="text-xs text-grey60">{profile.jobRoleNames.join(', ')}</p>
