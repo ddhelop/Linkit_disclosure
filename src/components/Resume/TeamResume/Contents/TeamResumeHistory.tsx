@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostTeamHistory, PutTeamHistory, DeleteTeamHistory } from '@/lib/action'
 import { HistoryResponse } from '@/lib/types'
 import Image from 'next/image'
+import Select from 'react-select'
+import { validateYear, validateYearMessage } from '@/context/schemaValidation'
 
 interface TeamHistoryProps {
   data: HistoryResponse[]
@@ -14,15 +16,32 @@ interface FormInputs {
   historyOneLineIntroduction: string
   startYear: string
   endYear: string
-  inProgress: boolean
+  inProgress: { value: string; label: string } | null
   historyIntroduction: string
 }
+
+const selectOptions = [
+  { value: 'false', label: '종료' },
+  { value: 'true', label: '진행중' },
+]
 
 export default function TeamResumeHistory({ data: initialData }: TeamHistoryProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [editIndex, setEditIndex] = useState<number | null>(null)
   const [data, setData] = useState<HistoryResponse[]>(initialData)
-  const { register, handleSubmit, reset, setValue, watch } = useForm<FormInputs>()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm<FormInputs>({
+    defaultValues: {
+      inProgress: selectOptions[0],
+    },
+  })
 
   const accessToken = useRecoilValue(accessTokenState) || ''
 
@@ -31,8 +50,8 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
       id: editIndex !== null ? data[editIndex].id : Date.now(), // 임시로 id를 생성
       historyOneLineIntroduction: formData.historyOneLineIntroduction,
       startYear: parseInt(formData.startYear),
-      endYear: formData.inProgress ? null : parseInt(formData.endYear),
-      inProgress: formData.inProgress,
+      endYear: formData.inProgress?.value === 'true' ? null : parseInt(formData.endYear),
+      inProgress: formData.inProgress?.value === 'true',
       historyIntroduction: formData.historyIntroduction,
     }
 
@@ -65,7 +84,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
     setValue('historyOneLineIntroduction', history.historyOneLineIntroduction)
     setValue('startYear', history.startYear.toString())
     setValue('endYear', history.endYear?.toString() || '')
-    setValue('inProgress', history.inProgress)
+    setValue('inProgress', history.inProgress ? selectOptions[1] : selectOptions[0])
     setValue('historyIntroduction', history.historyIntroduction)
     setIsEditing(true)
     setEditIndex(index)
@@ -77,7 +96,6 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
     reset()
   }
 
-  // 삭제하기
   const handleDelete = async (index: number) => {
     const history = data[index]
     try {
@@ -94,7 +112,13 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
     }
   }
 
-  const inProgressValue = watch('inProgress') ? watch('inProgress').toString() === 'true' : false
+  const inProgressValue = watch('inProgress')?.value === 'true'
+
+  useEffect(() => {
+    if (inProgressValue) {
+      setValue('endYear', '')
+    }
+  }, [inProgressValue, setValue])
 
   return (
     <>
@@ -136,7 +160,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
               {isEditing && editIndex === index && (
                 <form
                   onSubmit={handleSubmit(onSubmit)}
-                  className="mt-4 flex flex-col gap-[0.94rem] rounded-[0.44rem] border border-grey30 bg-grey10 p-5"
+                  className="mt-4 flex flex-col gap-5 rounded-[0.44rem] border border-grey30 bg-grey10 p-5"
                 >
                   <div className="flex flex-col gap-2">
                     <p className="text-sm font-normal">한 줄 소개</p>
@@ -150,25 +174,49 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                   <div className="flex flex-col gap-2">
                     <p className="text-sm font-normal">기간</p>
                     <div className="flex items-center gap-4">
-                      <input
-                        {...register('startYear')}
-                        placeholder="시작"
-                        className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
-                      />
+                      <div className="relative">
+                        <input
+                          {...register('startYear', {
+                            validate: (value) => validateYear(value) || validateYearMessage(value),
+                          })}
+                          type="number"
+                          placeholder="시작"
+                          className="w-[12.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-left text-sm"
+                        />
+                        {errors.startYear && (
+                          <p className="absolute w-[32rem] pl-1 text-xs text-red-500">{errors.startYear.message}</p>
+                        )}
+                      </div>
                       <p>~</p>
-                      <input
-                        {...register('endYear')}
-                        placeholder="종료"
-                        className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
-                        disabled={inProgressValue}
+                      <div className="relative">
+                        <input
+                          {...register('endYear', {
+                            validate: (value) => validateYear(value) || validateYearMessage(value),
+                          })}
+                          type="number"
+                          placeholder="종료"
+                          className="w-[12.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-left text-sm"
+                          disabled={inProgressValue}
+                        />
+                        {errors.endYear && !inProgressValue && (
+                          <p className="absolute w-[32rem] pl-1 text-xs text-red-500">{errors.endYear.message}</p>
+                        )}
+                      </div>
+                      <Controller
+                        name="inProgress"
+                        control={control}
+                        render={({ field }) => (
+                          <Select
+                            {...field}
+                            options={selectOptions}
+                            className="w-[6rem] text-sm"
+                            placeholder="진행 상태"
+                            value={field.value}
+                            components={{ IndicatorSeparator: () => null }}
+                            onChange={(value) => field.onChange(value)}
+                          />
+                        )}
                       />
-                      <select
-                        {...register('inProgress')}
-                        className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
-                      >
-                        <option value="false">종료</option>
-                        <option value="true">진행중</option>
-                      </select>
                     </div>
                   </div>
 
@@ -218,24 +266,38 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
               <p className="text-sm font-normal">기간</p>
               <div className="flex items-center gap-4">
                 <input
-                  {...register('startYear')}
-                  placeholder="시작"
-                  className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
+                  {...register('startYear', {
+                    validate: (value) => validateYear(value) || validateYearMessage(value),
+                  })}
+                  placeholder="시작년도"
+                  className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-center text-sm"
                 />
+                {errors.startYear && <p className="text-sm text-red-500">{errors.startYear.message}</p>}
                 <p>~</p>
                 <input
-                  {...register('endYear')}
-                  placeholder="종료"
-                  className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
+                  {...register('endYear', {
+                    validate: (value) => validateYear(value) || validateYearMessage(value),
+                  })}
+                  placeholder="종료년도"
+                  className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-center text-sm"
                   disabled={inProgressValue}
                 />
-                <select
-                  {...register('inProgress')}
-                  className="w-[5.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-center text-sm"
-                >
-                  <option value="false">종료</option>
-                  <option value="true">진행중</option>
-                </select>
+                {errors.endYear && !inProgressValue && <p className="text-sm text-red-500">{errors.endYear.message}</p>}
+                <Controller
+                  name="inProgress"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      options={selectOptions}
+                      className="w-[6rem] text-sm"
+                      placeholder="진행 상태"
+                      value={field.value}
+                      onChange={(value) => field.onChange(value)}
+                      components={{ IndicatorSeparator: () => null }}
+                    />
+                  )}
+                />
               </div>
             </div>
 
