@@ -1,9 +1,15 @@
-'use client'
+// 팀 프로필 수정 모달 컴포넌트
 import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { ApiPayload, FormInputs, PostTeamProfileResponse, TeamMiniProfileResponse } from '@/lib/types'
+import {
+  ApiPayload,
+  FormInputs,
+  PostTeamProfileResponse,
+  TeamMiniProfilePlusResponse,
+  TeamMiniProfileResponse,
+} from '@/lib/types'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostTeamProfile, TeamOnBoardingData, UpdateTeamOnBoardingField } from '@/lib/action'
@@ -24,10 +30,11 @@ interface ExtendedFormInputs extends FormInputs {
 interface TeamProfileModalProps {
   isOpen: boolean
   onClose: () => void
-  data: TeamMiniProfileResponse | null
+  data: TeamMiniProfilePlusResponse | null
+  onUpdate: (data: TeamMiniProfilePlusResponse) => void
 }
 
-export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileModalProps) {
+export default function TeamProfileModal({ isOpen, onClose, data, onUpdate }: TeamProfileModalProps) {
   const accessToken = useRecoilValue(accessTokenState) || ''
   const { control, handleSubmit, watch, setValue } = useForm<ExtendedFormInputs>({
     defaultValues: {
@@ -88,13 +95,18 @@ export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileM
       }
 
       if (response.teamMiniProfileResponse) {
-        const { teamProfileTitle, isTeamActivate, teamLogoImageUrl } = response.teamMiniProfileResponse
+        const { teamProfileTitle, isTeamActivate, teamLogoImageUrl, teamKeywordNames, teamDetailInform } =
+          response.teamMiniProfileResponse
 
         setValue('teamProfileTitle', teamProfileTitle || '')
         setValue('isTeamActivate', isTeamActivate || false)
 
         if (teamLogoImageUrl) {
           setProfileImageUrl(teamLogoImageUrl)
+        }
+
+        if (teamKeywordNames) {
+          setSkills(teamKeywordNames)
         }
       }
     }
@@ -145,6 +157,15 @@ export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileM
     const response: PostTeamProfileResponse = await PostTeamProfile(accessToken, payload, image)
 
     if (response.ok) {
+      onUpdate({
+        ...data,
+        teamKeywordNames: skills,
+        teamLogoImageUrl: profileImageUrl || '',
+        sectorName: basicData.sectorName,
+        sizeType: basicData.sizeType,
+        teamBuildingFieldNames: basicData.teamBuildingFieldNames ? [basicData.teamBuildingFieldNames] : [],
+        teamDetailInform: data.teamProfileTitle, // Ensure this field is included
+      })
       onClose()
     } else {
       alert('프로필 데이터 저장에 실패했습니다.')
@@ -312,7 +333,7 @@ export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileM
               {/* input container */}
               <div className="mt-[0.88rem] flex flex-col border-t border-grey40">
                 <span className="py-[0.88rem] text-sm font-normal">보유 역량을 하나씩 입력해주세요</span>
-                <div className="flex w-[16.1rem] items-center gap-[0.63rem]">
+                <div className="flex w-[17.1rem] items-center gap-[0.63rem]">
                   <input
                     type="text"
                     className="flex-1 rounded border border-grey40 p-2"

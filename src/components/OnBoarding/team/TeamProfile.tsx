@@ -235,7 +235,7 @@ export default function TeamProfile() {
                   {/* input container */}
                   <div className="mt-[0.88rem] flex flex-col ">
                     <span className="pb-[0.88rem] text-sm font-normal text-grey50">키워드를 하나씩 입력해주세요.</span>
-                    <div className="flex w-[16.1rem] items-center gap-[0.63rem]">
+                    <div className="flex w-[17.1rem] items-center gap-[0.63rem]">
                       <input
                         type="text"
                         className="flex-1 rounded border border-grey40 p-2"
