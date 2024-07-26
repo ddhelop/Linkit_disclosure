@@ -1,20 +1,26 @@
 'use client'
-import { useState, useEffect, ChangeEvent, KeyboardEvent as ReactKeyboardEvent, KeyboardEvent } from 'react'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { ApiPayload, FormInputs, PostTeamProfileResponse, TeamMiniProfileResponse } from '@/lib/types'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
-import { useRouter } from 'next/navigation'
-import { PostTeamProfile, TeamOnBoardingData } from '@/lib/action'
-import Link from 'next/link'
+import { PostTeamProfile, TeamOnBoardingData, UpdateTeamOnBoardingField } from '@/lib/action'
 
 interface BasicData {
   teamName: string
   sectorName: string
   sizeType: string
+  teamBuildingFieldNames: string | null
 }
+
+interface ExtendedFormInputs extends FormInputs {
+  teamName: string
+  teamSize: string
+  teamField: string
+}
+
 interface TeamProfileModalProps {
   isOpen: boolean
   onClose: () => void
@@ -23,17 +29,24 @@ interface TeamProfileModalProps {
 
 export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileModalProps) {
   const accessToken = useRecoilValue(accessTokenState) || ''
-  const router = useRouter()
-  const { control, handleSubmit, watch, setValue } = useForm<FormInputs>({
+  const { control, handleSubmit, watch, setValue } = useForm<ExtendedFormInputs>({
     defaultValues: {
       teamProfileTitle: '',
       isTeamActivate: true,
       skills: '',
+      teamName: '',
+      teamSize: '',
+      teamField: '',
     },
   })
 
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null)
-  const [basicData, setBasicData] = useState<BasicData | undefined>(undefined)
+  const [basicData, setBasicData] = useState<BasicData>({
+    teamName: '',
+    sectorName: '',
+    sizeType: '',
+    teamBuildingFieldNames: null,
+  })
 
   // 소개 항목
   const [skills, setSkills] = useState<string[]>([])
@@ -69,6 +82,9 @@ export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileM
 
       if (response.onBoardingFieldTeamInformResponse) {
         setBasicData(response.onBoardingFieldTeamInformResponse)
+        setValue('teamName', response.onBoardingFieldTeamInformResponse.teamName || '')
+        setValue('teamSize', response.onBoardingFieldTeamInformResponse.sizeType || '')
+        setValue('teamField', response.onBoardingFieldTeamInformResponse.sectorName || '')
       }
 
       if (response.teamMiniProfileResponse) {
@@ -85,9 +101,7 @@ export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileM
     fetchData()
   }, [setValue, accessToken])
 
-  const teamProfileTitle = watch('teamProfileTitle')
   const isTeamActivate = watch('isTeamActivate')
-  const profileImage = watch('profileImage')
 
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
@@ -106,9 +120,21 @@ export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileM
     setValue('isTeamActivate', event.target.value === '활성화')
   }
 
-  const isNextButtonEnabled = teamProfileTitle && skills.length > 0 && skills.length <= 3
+  const handleBasicDataSubmit = async () => {
+    if (basicData) {
+      const response = await UpdateTeamOnBoardingField(accessToken, {
+        teamName: basicData.teamName,
+        teamSize: basicData.sizeType,
+        teamField: basicData.sectorName,
+        teamBuildingFieldNames: null,
+      })
+      if (!response.ok) {
+        alert('팀 기본 데이터 저장 실패')
+      }
+    }
+  }
 
-  const onSubmit = async (data: FormInputs) => {
+  const handleProfileSubmit = async (data: ExtendedFormInputs) => {
     const payload: ApiPayload = {
       teamProfileTitle: data.teamProfileTitle,
       isTeamActivate: data.isTeamActivate,
@@ -120,7 +146,14 @@ export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileM
 
     if (response.ok) {
       onClose()
+    } else {
+      alert('프로필 데이터 저장에 실패했습니다.')
     }
+  }
+
+  const handleCombinedSubmit = async (data: ExtendedFormInputs) => {
+    await handleBasicDataSubmit()
+    await handleProfileSubmit(data)
   }
 
   if (!isOpen) return null
@@ -138,12 +171,99 @@ export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileM
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="mb-4 text-lg font-bold">팀 프로필 수정</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-[3.44rem] ">
+        <h2 className="mb-[1.19rem] text-xl font-bold">팀 프로필 수정</h2>
+        <form onSubmit={handleSubmit(handleCombinedSubmit)} className="flex w-full flex-col gap-[2.44rem] ">
+          {/* 팀명 */}
+          <div className="flex flex-col">
+            <span className="font-semibold text-grey100">팀명</span>
+            <Controller
+              name="teamName"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
+                  placeholder="팀명"
+                  value={field.value || basicData?.teamName || ''}
+                  onChange={(e) => {
+                    setBasicData({ ...basicData, teamName: e.target.value })
+                    field.onChange(e)
+                  }}
+                />
+              )}
+            />
+          </div>
+          {/* 팀 규모 */}
+          <div className="flex justify-between">
+            <div className="flex w-[48%] flex-col">
+              <span className="font-semibold text-grey100">규모</span>
+              <Controller
+                name="teamSize"
+                control={control}
+                render={({ field }) => (
+                  <select
+                    {...field}
+                    className=" mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
+                    value={field.value || basicData?.sizeType || ''}
+                    onChange={(e) => {
+                      setBasicData({ ...basicData, sizeType: e.target.value })
+                      field.onChange(e)
+                    }}
+                  >
+                    <option value="" disabled hidden>
+                      선택
+                    </option>
+                    <option value="1-5인">1-5인</option>
+                    <option value="5-10인">5-10인</option>
+                    <option value="10-20인">10-20인</option>
+                    <option value="20인 이상">20인 이상</option>
+                  </select>
+                )}
+              />
+            </div>
+
+            {/* 분야 */}
+            <div className="flex w-[48%] flex-col">
+              <span className="font-semibold text-grey100">분야</span>
+              <Controller
+                name="teamField"
+                control={control}
+                render={({ field }) => (
+                  <select
+                    {...field}
+                    className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
+                    value={field.value || basicData?.sectorName || ''}
+                    onChange={(e) => {
+                      setBasicData({ ...basicData, sectorName: e.target.value })
+                      field.onChange(e)
+                    }}
+                  >
+                    <option value="" disabled hidden>
+                      선택
+                    </option>
+                    <option value="딥테크">딥테크</option>
+                    <option value="핀테크">핀테크</option>
+                    <option value="이커머스">이커머스</option>
+                    <option value="패션/뷰티">패션/뷰티</option>
+                    <option value="바이오/의료">바이오/의료</option>
+                    <option value="물류/유통">물류/유통</option>
+                    <option value="블록체인">블록체인</option>
+                    <option value="AI">AI</option>
+                    <option value="SaaS">SaaS</option>
+                    <option value="플랫폼">플랫폼</option>
+                    <option value="ESG">ESG</option>
+                    <option value="라이프스타일">라이프스타일</option>
+                    <option value="기타">기타</option>
+                  </select>
+                )}
+              />
+            </div>
+          </div>
+
           {/* 제목 */}
           <div className="flex flex-col">
             <span className="font-semibold text-grey100">
-              제목을 입력해주세요 <span className="font-sm text-[#FF345F]">*</span>
+              팀을 소개하는 프로필 제목을 입력해주세요 <span className="font-sm text-[#FF345F]">*</span>
             </span>
             <Controller
               name="teamProfileTitle"
@@ -191,7 +311,7 @@ export default function TeamProfileModal({ isOpen, onClose, data }: TeamProfileM
 
               {/* input container */}
               <div className="mt-[0.88rem] flex flex-col border-t border-grey40">
-                <span className="py-[0.88rem] text-sm font-normal">희망 팀빌딩 분야를 선택해주세요</span>
+                <span className="py-[0.88rem] text-sm font-normal">보유 역량을 하나씩 입력해주세요</span>
                 <div className="flex w-[16.1rem] items-center gap-[0.63rem]">
                   <input
                     type="text"

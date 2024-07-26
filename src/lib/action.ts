@@ -16,6 +16,7 @@ import {
   TeamOnBoardingActivityWayFormInputs,
   TeamURLFormInputs,
   URLFormInputs,
+  updateTeamOnBoadingFieldFormInputs,
 } from './types'
 
 // 리프레쉬 토큰
@@ -316,6 +317,26 @@ export const TeamOnBoardingData = async (accessToken: string) => {
 // 팀 온보딩 - 희망 팀빌딩 분야 생성,수정
 export const TeamOnBoardingField = async (accessToken: string, data: TeamOnBoadingFieldFormInputs) => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/team_building_field/basic_inform`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      teamName: data.teamName,
+      sizeType: data.teamSize,
+      sectorName: data.teamField,
+      teamBuildingFieldNames: data.teamBuildingFieldNames,
+    }),
+    credentials: 'include',
+  })
+
+  return response
+}
+
+// 팀 온보딩 - 희망 팀빌딩 분야수정
+export const UpdateTeamOnBoardingField = async (accessToken: string, data: updateTeamOnBoadingFieldFormInputs) => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/update/onBoarding/team/mini-profile`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

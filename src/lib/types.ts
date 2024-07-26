@@ -49,6 +49,12 @@ export interface TeamOnBoadingFieldFormInputs {
   teamField: string
   teamBuildingFieldNames: string[]
 }
+export interface updateTeamOnBoadingFieldFormInputs {
+  teamName: string
+  teamSize: string
+  teamField: string
+  teamBuildingFieldNames: string | null
+}
 
 export interface TeamOnBoardingActivityWayFormInputs {
   cityName: string
@@ -134,7 +140,7 @@ export interface LocationResponse {
 export interface AttachUrlResponse {
   id: number
   attachUrlName: string
-  attachUrl: string
+  attachUrlPath: string
 }
 
 export interface AttachFileResponse {
@@ -226,6 +232,10 @@ export interface TeamMiniProfileResponse {
   teamLogoImageUrl: string
   teamKeywordNames: string[]
   teamDetailInform: string
+
+  teamSize: string
+  teamField: string
+  teamBuildingFieldNames: string | null
 }
 
 export interface TeamCompletionResponse {
