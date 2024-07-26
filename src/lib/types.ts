@@ -199,6 +199,7 @@ export interface ApiPayload {
 
 export interface PostTeamProfileResponse {
   ok: boolean
+  teamDetailInform: string
 }
 
 export interface AwardFormInputs {
@@ -227,8 +228,7 @@ export interface TeamMiniProfileResponse {
   sizeType: string
   teamName: string
   teamProfileTitle: string
-  teamUploadPeriod: string
-  teamUploadDeadline: boolean
+
   teamLogoImageUrl: string
   teamKeywordNames: string[]
   teamDetailInform: string
@@ -236,6 +236,20 @@ export interface TeamMiniProfileResponse {
   teamSize: string
   teamField: string
   teamBuildingFieldNames: string | null
+}
+
+// 팀 소개서 이력서 수정
+export interface TeamMiniProfilePlusResponse {
+  teamKeywordNames: string[]
+  sectorName: string
+  sizeType: string
+  teamSize: string
+  teamField: string
+  teamLogoImageUrl: string
+  teamBuildingFieldNames: string[]
+  teamProfileTitle: string
+  teamName: string
+  teamDetailInform: string // 추가된 필드
 }
 
 export interface TeamCompletionResponse {

@@ -28,7 +28,13 @@ export default function FindTeamLeftNav() {
 
   const TeamBuildingfilterOptions: string[] = ['공모전', '대회', '창업', '사이드 프로젝트', '포트폴리오']
   const RoleFilterOptions: string[] = ['기획·경영', '개발·데이터', '마케팅·광고', '디자인']
-  const ActivityFilterOptions: string[] = ['사무실 있음', '사무실 없음', '대면', '비대면', '유연근무']
+  const ActivityFilterOptions: string[] = [
+    '사무실 있음',
+    '사무실 없음',
+    '대면 활동 선호',
+    '비대면 활동 선호',
+    '대면+비대면',
+  ]
 
   const handleFilterChange = (filterType: string, filterValue: string | string[]) => {
     setSelectedFilters((prevFilters) => {
