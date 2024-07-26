@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
+import { validateHttpUrl } from '@/context/schemaValidation'
 
 interface MyResumURLProps {
   data: AttachUrlResponse[]
@@ -25,7 +26,7 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
     if (data && data.length > 0) {
       const initialLinks = data.map((item) => ({
         name: item.attachUrlName,
-        url: item.attachUrl,
+        url: item.attachUrlPath,
       }))
       setLinks(initialLinks)
       setAttachments((prev) => ({ ...prev, links: initialLinks }))
@@ -44,12 +45,14 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
 
   const handleConfirmLink = (index: number) => {
     const link = editingLinks[index]
-    if (link.name && link.url) {
+    if (link.name && validateHttpUrl(link.url)) {
       const newLinks = [...links, link]
       setLinks(newLinks)
       setAttachments({ ...attachments, links: newLinks })
       const newEditingLinks = editingLinks.filter((_, i) => i !== index)
       setEditingLinks(newEditingLinks)
+    } else {
+      alert('URL은 http로 시작해야 합니다.')
     }
   }
 
@@ -126,9 +129,14 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
                         {link.name}
                       </a>
                     </div>
-                    <button type="button" onClick={() => handleRemoveLink(index)} className="text-red-500">
-                      ×
-                    </button>
+                    <Image
+                      onClick={() => handleRemoveLink(index)}
+                      src="/assets/icons/black_x.svg"
+                      alt="close"
+                      width={13}
+                      height={13}
+                      className="cursor-pointer"
+                    />
                   </div>
                 ))}
               </div>
@@ -163,7 +171,7 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
                 <button
                   type="button"
                   onClick={() => handleRemoveEditingLink(index)}
-                  className="h-[43px] w-[43px] rounded-md bg-grey30 text-[#fff]"
+                  className="h-[43px] w-[43px] rounded-md border border-main bg-white text-2xl text-main"
                 >
                   -
                 </button>

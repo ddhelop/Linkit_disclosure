@@ -25,3 +25,9 @@ export const validateYearMessage = (value: string): string => {
   }
   return ''
 }
+
+// url
+export const validateHttpUrl = (url: string): boolean => {
+  const regex = /^http:\/\/.+/
+  return regex.test(url)
+}
