@@ -139,7 +139,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
           >
             <div className="flex w-auto flex-col">
               <p className="text-sm text-grey60">{announcement.teamName}</p>
-              <p className="pt-[0.44rem] font-semibold text-grey100">{announcement.mainBusiness}</p>
+              <p className="whitespace-pre-wrap pt-[0.44rem] font-semibold text-grey100">{announcement.mainBusiness}</p>
 
               <div className="flex flex-wrap gap-2">
                 {announcement.skillNames.map((skill, index) => (

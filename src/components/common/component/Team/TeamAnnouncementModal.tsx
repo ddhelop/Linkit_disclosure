@@ -58,7 +58,7 @@ const TeamAnnouncementModal: React.FC<ModalProps> = ({ onClose, data }) => {
           <div className="mt-10 flex flex-col gap-4">
             <div>
               <h3 className="font-semibold">주요 업무</h3>
-              <p className="mt-2 min-h-28 w-full rounded-[0.38rem] border border-grey30 p-[0.56rem] text-sm text-grey80">
+              <p className="mt-2 min-h-28 w-full whitespace-pre-wrap rounded-[0.38rem] border border-grey30 p-[0.56rem] text-sm text-grey80">
                 {data.mainBusiness}
               </p>
             </div>
