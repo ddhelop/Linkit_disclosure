@@ -138,7 +138,7 @@ export default function Header() {
                   로그인
                 </button>
 
-                <Link href="#" className="hidden text-sm font-medium leading-5 text-grey80 hover:text-main lg:flex">
+                <Link href="#FAQ" className="hidden text-sm font-medium leading-5 text-grey80 hover:text-main lg:flex">
                   FAQ
                 </Link>
               </>
