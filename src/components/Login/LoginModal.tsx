@@ -66,7 +66,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             {/* <Link href="#"> */}
             <Link href={NAVER_AUTH_URL}>
               <div className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#00C73C] px-24">
-                <Image src={'/assets/login/naverLogo.png'} width={39} height={44} alt="naverLogin" />
+                <Image src={'/assets/login/naverLogo.svg'} width={39} height={44} alt="naverLogin" />
                 <span className="font-semibold text-[#fff]">네이버로 시작하기</span>
               </div>
             </Link>
