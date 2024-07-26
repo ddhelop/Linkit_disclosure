@@ -7,12 +7,13 @@ import {
   ApiPayload,
   FormInputs,
   PostTeamProfileResponse,
+  PostTeamProfileResponse2,
   TeamMiniProfilePlusResponse,
   TeamMiniProfileResponse,
 } from '@/lib/types'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
-import { PostTeamProfile, TeamOnBoardingData, UpdateTeamOnBoardingField } from '@/lib/action'
+import { PostTeamProfile, PostTeamProfile2, TeamOnBoardingData, UpdateTeamOnBoardingField } from '@/lib/action'
 
 interface BasicData {
   teamName: string
@@ -154,9 +155,9 @@ export default function TeamProfileModal({ isOpen, onClose, data, onUpdate }: Te
     }
 
     const image = data.profileImage && data.profileImage.length > 0 ? data.profileImage[0] : undefined
-    const response: PostTeamProfileResponse = await PostTeamProfile(accessToken, payload, image)
+    const response: PostTeamProfileResponse2 = await PostTeamProfile2(accessToken, payload, image)
 
-    if (response.ok) {
+    if (response) {
       onUpdate({
         ...data,
         teamKeywordNames: skills,
@@ -164,7 +165,7 @@ export default function TeamProfileModal({ isOpen, onClose, data, onUpdate }: Te
         sectorName: basicData.sectorName,
         sizeType: basicData.sizeType,
         teamBuildingFieldNames: basicData.teamBuildingFieldNames ? [basicData.teamBuildingFieldNames] : [],
-        teamDetailInform: data.teamProfileTitle, // Ensure this field is included
+        teamDetailInform: response.teamDetailInform, // Ensure this field is included
       })
       onClose()
     } else {

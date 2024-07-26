@@ -199,7 +199,20 @@ export interface ApiPayload {
 
 export interface PostTeamProfileResponse {
   ok: boolean
+  // teamDetailInform: string
+}
+
+export interface PostTeamProfileResponse2 {
   teamDetailInform: string
+  teamProfileTitle: string
+  teamLogoImageUrl: string
+  teamKeywordNames: string[]
+  sectorName: string
+  sizeType: string
+  teamName: string
+  teamSize: string
+  teamField: string
+  teamBuildingFieldNames: string | null
 }
 
 export interface AwardFormInputs {

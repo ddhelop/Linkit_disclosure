@@ -9,6 +9,7 @@ import {
   PostIFormData,
   PostTeamMemberData,
   PostTeamProfileResponse,
+  PostTeamProfileResponse2,
   TeamAnnouncementMemberInterface,
   TeamHistoryDataSet,
   TeamMemberData,
@@ -395,6 +396,47 @@ export async function PostTeamProfile(
   })
 
   return response
+}
+
+export async function PostTeamProfile2(
+  accessToken: string,
+  payload: ApiPayload,
+  image?: File,
+): Promise<PostTeamProfileResponse2> {
+  const formData = new FormData()
+  formData.append('teamMiniProfileCreateRequest', new Blob([JSON.stringify(payload)], { type: 'application/json' }))
+  if (image) {
+    formData.append('teamMiniProfileImage', image)
+  }
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/team/mini-profile`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+    body: formData,
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to create team mini profile')
+  }
+
+  const data = await response.json()
+
+  // Ensure all properties are included in the return statement
+  return {
+    teamDetailInform: data.teamDetailInform,
+    teamProfileTitle: data.teamProfileTitle,
+    teamLogoImageUrl: data.teamLogoImageUrl,
+    teamKeywordNames: data.teamKeywordNames,
+    sectorName: data.sectorName,
+    sizeType: data.sizeType,
+    teamName: data.teamName,
+    teamSize: data.teamSize,
+    teamField: data.teamField,
+    teamBuildingFieldNames: data.teamBuildingFieldNames,
+  }
 }
 
 // 내 이력서 - 전체 조회
