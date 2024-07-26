@@ -1,24 +1,25 @@
+// FindingMemberPage.tsx
+import Banner from '@/components/Find/Banner'
 import FindTeam from '@/components/Find/Team/FindTeam'
 import FindTeamLeftNav from '@/components/Find/Team/FindTeamLeftNav'
 
 export default function FindingMemberPage() {
   return (
     <div className="flex w-full flex-col justify-center pt-[61px]">
-      <div className="flex flex-col items-center bg-[#fff] py-[2.88rem]">
-        <div className="text-left">
-          <p className="text-2xl font-bold text-grey90">팀 찾기</p>
-          <p className="pt-[0.31rem] text-lg text-grey90">
-            공모전부터 사이드 프로젝트, 창업 팀까지 합류하고 싶은 팀을 찾아보세요!{' '}
-          </p>
-        </div>
-      </div>
+      <Banner
+        imgSrc="/assets/images/Find_Team_Banner.png"
+        title="🚀 팀원 찾기"
+        description="공모전부터 사이드 프로젝트, 창업 팀까지 합류하고 싶은 팀을 찾아보세요!"
+        scrolledDescription="공모전부터 사이드 프로젝트, 창업 팀까지 합류하고 싶은 팀을 찾아보세요!"
+        scrolledTitle="🚀 팀 찾기"
+      />
 
-      <div className="flex w-full justify-center bg-grey10 pb-24">
-        <div className="flex w-full justify-center gap-[1.5rem] pt-[2.63rem]">
+      <div className="flex w-full justify-center bg-grey10 pb-24 pt-[16rem]">
+        <div className="flex w-full justify-center gap-[1.5rem]">
           <div className="flex w-[16rem] justify-end">
             <FindTeamLeftNav />
           </div>
-          <div className="w-[47rem] ">
+          <div className="w-[47rem]">
             <FindTeam />
           </div>
         </div>

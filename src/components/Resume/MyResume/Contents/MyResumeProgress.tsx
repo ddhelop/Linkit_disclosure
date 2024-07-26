@@ -5,16 +5,6 @@ interface MyResumeCompletionProps {
   data: CompletionResponse
 }
 
-const items = [
-  { key: 'introduction', label: '자기소개' },
-  { key: 'profileSkill', label: '보유기술', required: true },
-  { key: 'profileTeamBuildingField', label: '희망 팀빌딩 분야', required: true },
-  { key: 'antecedents', label: '이력', required: true },
-  { key: 'education', label: '학력', required: true },
-  { key: 'awards', label: '수상' },
-  { key: 'attach', label: '첨부' },
-]
-
 export default function MyResumeProgress({ data }: MyResumeCompletionProps) {
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] pb-20 pt-[1.38rem] shadow-resume-box-shadow">
@@ -48,14 +38,6 @@ export default function MyResumeProgress({ data }: MyResumeCompletionProps) {
             <span className="pt-1 text-grey100">매칭 요청 가능</span>
           </div>
         </div>
-
-        {/* 버튼 */}
-        {/* <div className="flex w-full justify-end pt-20">
-          <button className="flex items-center gap-2 rounded-lg bg-grey20 p-[0.88rem]">
-            <p>자기소개 작성하러 가기</p>
-            <Image src="/assets/icons/>.svg" width={15} height={15} alt="arrow" className="h-auto w-auto" />
-          </button>
-        </div> */}
       </div>
     </div>
   )

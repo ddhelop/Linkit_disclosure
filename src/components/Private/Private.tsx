@@ -10,6 +10,7 @@ import { accessTokenState } from '@/context/recoil-context'
 import PrivateNav from './Nav/PrivateNav'
 import PrivateContentLayout from './Contents/PrivateContentLayout'
 import Image from 'next/image'
+import { url } from 'inspector'
 
 export default function Private() {
   const accessToken = useRecoilValue(accessTokenState)
@@ -35,7 +36,6 @@ export default function Private() {
             setData(resultData)
           } else {
             const resultData = await result.json()
-            console.log('1231231231', resultData.code)
             if (resultData.code === 10018) {
               setIsPrivateView(false)
             } else {
@@ -82,12 +82,9 @@ export default function Private() {
       ) : (
         // 프로필 완성도 조건 미충족시
         <div className="flex h-screen w-full flex-col items-center justify-center">
-          <Image src="/assets/icons/Lock.svg" alt="private" width={82} height={118} />
-          <div className="pt-[2.56rem] text-3xl text-grey90">프로필 완성도를 50% 이상 채워야 볼 수 있어요 🥲</div>
-          <p className="pt-[1.69rem] text-grey90">Tip : 항목을 많이 채울수록 완성도가 올라가요!</p>
-          <button className="mt-8 rounded-lg border border-main px-[1.44rem] py-3 text-main">
-            링킷 사이트 바로가기
-          </button>
+          <div className="text-[2.625rem] font-bold text-grey90">아직 프로필 완성도가 부족해요</div>
+          <p className="pt-2 text-grey90">Tip : 항목을 많이 채울수록 완성도가 올라가요!</p>
+          <button className="mt-8 rounded-lg border border-main px-[1.44rem] py-3 text-main">자기소개 쓰러가기</button>
         </div>
       )}
       {/* contents */}

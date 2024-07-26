@@ -93,7 +93,7 @@ export default function Header() {
 
   return (
     <>
-      <nav className="fixed top-0 z-[20] w-full flex-shrink bg-white-alpha-50 backdrop-blur-3xl">
+      <nav className="fixed top-0 z-[20] w-full flex-shrink bg-white backdrop-blur-3xl">
         <div className="flex w-full items-center justify-between px-[2.5rem] py-[1.3rem]">
           <div className="flex gap-[2.19rem]">
             <div className="flex">
