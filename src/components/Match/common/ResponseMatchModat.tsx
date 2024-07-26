@@ -42,48 +42,21 @@ export default function ResponseMatchModal({ match, onClose }: ModalProps) {
   const handleResponse = async (isAllowMatching: boolean) => {
     try {
       if (match.matchingType === 'PROFILE') {
-        await PostMatchResponse(accessToken, match.receivedMatchingId, isAllowMatching)
+        const reposne = await PostMatchResponse(accessToken, match.receivedMatchingId, isAllowMatching)
+        if (reposne.ok) {
+          alert('매칭 요청에 응답했습니다.')
+        }
       } else if (match.matchingType === 'TEAM_PROFILE') {
-        await PostTeamMatchResponse(accessToken, match.receivedMatchingId, isAllowMatching)
+        const response = await PostTeamMatchResponse(accessToken, match.receivedMatchingId, isAllowMatching)
+        if (response.ok) {
+          alert('매칭 요청에 응답했습니다.')
+        }
       }
-      setConfirmModal(null)
       onClose()
     } catch (error) {
       console.error('Failed to send match response:', error)
     }
   }
-
-  const renderConfirmModal = () => (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10">
-      <motion.div
-        className="modal-content w-[20rem] rounded-lg bg-white p-6 shadow-lg"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 50 }}
-      >
-        <div className="flex justify-center">
-          <Image src="/assets/icons/gray-warning.svg" width={30} height={30} alt="alert" className="rounded-full" />
-        </div>
-        <div className="flex justify-center pt-3">
-          <h2 className="font-semibold text-grey100">{confirmModal ? '정말 수락할까요?' : '정말 거절할까요?'}</h2>
-        </div>
-        <div className="mt-7 flex justify-center">
-          <button
-            className="mr-2 rounded-[0.6rem] bg-grey20 px-10 py-2 text-grey60"
-            onClick={() => setConfirmModal(null)}
-          >
-            취소
-          </button>
-          <button
-            className="rounded-[0.6rem] bg-grey90 px-11 py-2 text-white"
-            onClick={() => handleResponse(confirmModal as boolean)}
-          >
-            네
-          </button>
-        </div>
-      </motion.div>
-    </div>
-  )
 
   return (
     <>
@@ -115,17 +88,16 @@ export default function ResponseMatchModal({ match, onClose }: ModalProps) {
               <p>{match.requestMessage}</p>
             </div>
             <div className="mt-7 flex justify-end">
-              <button className="mr-2 rounded bg-grey20 px-10 py-2 text-grey60" onClick={() => setConfirmModal(false)}>
+              <button className="mr-2 rounded bg-grey20 px-10 py-2 text-grey60" onClick={() => handleResponse(false)}>
                 거절
               </button>
-              <button className="rounded bg-main px-10 py-2 text-white" onClick={() => setConfirmModal(true)}>
+              <button className="rounded bg-main px-10 py-2 text-white" onClick={() => handleResponse(true)}>
                 수락
               </button>
             </div>
           </motion.div>
         )}
       </div>
-      {confirmModal !== null && renderConfirmModal()}
     </>
   )
 }
