@@ -412,6 +412,7 @@ export interface teamMemberAnnouncementResponse {
   skillNames: string[]
   teamName: string
   isTeamSaved: boolean
+  teamLogoImageUrl: string
 }
 export interface FindTeamInterface {
   teamMiniProfileResponse: teamMiniProfileResponse
