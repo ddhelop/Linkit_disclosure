@@ -325,17 +325,21 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
             </div>
 
             <div className="mt-4 flex w-full justify-end gap-2">
-              <Button mode="sub" type="button" onClick={handleCancel}>
+              <Button animationMode="sub" mode="sub" type="button" onClick={handleCancel}>
                 취소하기
               </Button>
-              <Button type="submit">저장하기</Button>
+              <Button animationMode="main" type="submit">
+                저장하기
+              </Button>
             </div>
           </form>
         )}
 
         {!isEditing && (
           <div className="mt-4 flex w-full justify-end gap-2">
-            <Button onClick={() => setIsEditing(true)}>추가하기</Button>
+            <Button animationMode="main" onClick={() => setIsEditing(true)}>
+              추가하기
+            </Button>
           </div>
         )}
       </div>

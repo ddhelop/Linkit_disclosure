@@ -111,7 +111,9 @@ export default function TeamResumeAttachUrl({ data }: MyResumURLProps) {
             </div>
           )}
           <div className="mt-[0.94rem] flex w-full justify-end">
-            <Button onClick={() => setIsEditing(true)}>추가하기</Button>
+            <Button animationMode="main" onClick={() => setIsEditing(true)}>
+              추가하기
+            </Button>
           </div>
         </>
       ) : (
@@ -185,10 +187,10 @@ export default function TeamResumeAttachUrl({ data }: MyResumURLProps) {
 
           {/* buttons */}
           <div className="mt-[0.94rem] flex w-full justify-end gap-2">
-            <Button type="button" onClick={() => setIsEditing(false)} mode="sub">
+            <Button animationMode="sub" type="button" onClick={() => setIsEditing(false)} mode="sub">
               취소하기
             </Button>
-            <Button type="button" onClick={handleLinkSubmit}>
+            <Button animationMode="main" type="button" onClick={handleLinkSubmit}>
               저장하기
             </Button>
           </div>

@@ -23,7 +23,7 @@ export function Button({
   mode = 'main',
   type = 'button',
   size = 'md',
-  animationMode = 'main',
+  animationMode = 'none',
 }: ButtonProps) {
   const animationEffect = animationModes[animationMode] || {}
 

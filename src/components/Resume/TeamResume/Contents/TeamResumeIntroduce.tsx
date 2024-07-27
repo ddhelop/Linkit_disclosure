@@ -78,12 +78,14 @@ export default function TeamResumeIntroduce({ data }: TeamCompletionProps) {
       {/* buttons */}
       <div className="mt-[0.94rem] flex w-full justify-end gap-2 ">
         {isEditing && (
-          <Button mode="sub" onClick={handleCancelClick}>
+          <Button animationMode="sub" mode="sub" onClick={handleCancelClick}>
             취소하기
           </Button>
         )}
 
-        <Button onClick={handleEditClick}>{isEditing ? '저장하기' : '수정하기'}</Button>
+        <Button animationMode="main" onClick={handleEditClick}>
+          {isEditing ? '저장하기' : '수정하기'}
+        </Button>
       </div>
     </div>
   )

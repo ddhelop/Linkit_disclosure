@@ -113,10 +113,14 @@ export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuil
             <Button mode="sub" animationMode="sub" onClick={() => setIsEditing(false)}>
               취소하기
             </Button>
-            <Button onClick={handleSaveClick}>수정완료</Button>
+            <Button animationMode="main" onClick={handleSaveClick}>
+              수정완료
+            </Button>
           </div>
         ) : (
-          <Button onClick={handleEditClick}>수정하기</Button>
+          <Button animationMode="main" onClick={handleEditClick}>
+            수정하기
+          </Button>
         )}
       </div>
     </div>

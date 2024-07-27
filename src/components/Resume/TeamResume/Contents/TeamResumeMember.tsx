@@ -216,17 +216,21 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
           </div>
 
           <div className="flex w-full justify-end gap-2">
-            <Button mode="sub" type="button" onClick={() => setIsEditing(false)}>
+            <Button animationMode="sub" mode="sub" type="button" onClick={() => setIsEditing(false)}>
               취소하기
             </Button>
-            <Button type="submit">저장하기</Button>
+            <Button animationMode="main" type="submit">
+              저장하기
+            </Button>
           </div>
         </form>
       )}
 
       {!isEditing && (
         <div className="flex w-full justify-end gap-2">
-          <Button onClick={() => setIsEditing(true)}>추가하기</Button>
+          <Button animationMode="main" onClick={() => setIsEditing(true)}>
+            추가하기
+          </Button>
         </div>
       )}
     </div>

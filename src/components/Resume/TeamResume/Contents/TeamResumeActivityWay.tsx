@@ -188,13 +188,17 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
       <div className="mt-[0.94rem] flex w-full justify-end ">
         {isEditing ? (
           <div className="flex gap-2">
-            <Button onClick={() => setIsEditing(false)} mode="sub">
+            <Button animationMode="sub" onClick={() => setIsEditing(false)} mode="sub">
               취소하기
             </Button>
-            <Button onClick={handleSaveClick}>수정완료</Button>
+            <Button animationMode="main" onClick={handleSaveClick}>
+              수정완료
+            </Button>
           </div>
         ) : (
-          <Button onClick={handleEditClick}>수정하기</Button>
+          <Button animationMode="main" onClick={handleEditClick}>
+            수정하기
+          </Button>
         )}
       </div>
     </div>

@@ -266,6 +266,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
           <div className="mt-4 flex justify-end gap-2 pb-4">
             <Button
               type="button"
+              animationMode="sub"
               onClick={() => {
                 setIsFormVisible(false)
                 resetForm()
@@ -274,7 +275,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
             >
               취소하기
             </Button>
-            <Button type="submit" disabled={isSubmitDisabled}>
+            <Button animationMode="main" type="submit" disabled={isSubmitDisabled}>
               {editingAnnouncementId !== null ? '수정하기' : '저장하기'}
             </Button>
           </div>
@@ -283,7 +284,9 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
 
       {!isFormVisible && (
         <div className="flex w-full justify-end">
-          <Button onClick={() => setIsFormVisible(true)}>추가하기</Button>
+          <Button animationMode="main" onClick={() => setIsFormVisible(true)}>
+            추가하기
+          </Button>
         </div>
       )}
 
