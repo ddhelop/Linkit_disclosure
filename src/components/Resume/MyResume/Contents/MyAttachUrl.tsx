@@ -6,7 +6,12 @@ import React, { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
-import { validateHttpUrl } from '@/context/schemaValidation'
+
+// validateHttpUrl 함수를 수정합니다.
+const validateHttpUrl = (url: string) => {
+  const pattern = /^(http|https):\/\//i
+  return pattern.test(url)
+}
 
 interface MyResumURLProps {
   data: AttachUrlResponse[]
@@ -52,7 +57,7 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
       const newEditingLinks = editingLinks.filter((_, i) => i !== index)
       setEditingLinks(newEditingLinks)
     } else {
-      alert('URL은 http로 시작해야 합니다.')
+      alert('URL은 http 또는 https로 시작해야 합니다.')
     }
   }
 

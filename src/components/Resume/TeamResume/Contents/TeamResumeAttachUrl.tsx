@@ -5,6 +5,12 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 
+// validateHttpUrl 함수를 추가합니다.
+const validateHttpUrl = (url: string) => {
+  const pattern = /^(http|https):\/\//i
+  return pattern.test(url)
+}
+
 interface MyResumURLProps {
   data: TeamAttachUrlResponse[]
 }
@@ -42,12 +48,14 @@ export default function TeamResumeAttachUrl({ data }: MyResumURLProps) {
 
   const handleConfirmLink = (index: number) => {
     const link = editingLinks[index]
-    if (link.name && link.url) {
+    if (link.name && validateHttpUrl(link.url)) {
       const newLinks = [...links, link]
       setLinks(newLinks)
       setAttachments({ ...attachments, links: newLinks })
       const newEditingLinks = editingLinks.filter((_, i) => i !== index)
       setEditingLinks(newEditingLinks)
+    } else {
+      alert('URL은 http 또는 https로 시작해야 합니다.')
     }
   }
 
