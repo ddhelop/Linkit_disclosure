@@ -1,3 +1,4 @@
+import { Button } from '@/components/common/Button'
 import Image from 'next/image'
 import React, { useState } from 'react'
 
@@ -28,9 +29,9 @@ export default function MyAttachFile() {
       {!isEditing ? (
         <>
           <div className="mt-[0.94rem] flex w-full justify-end">
-            <button onClick={() => setIsEditing(true)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+            <Button onClick={() => setIsEditing(true)} animationMode="main">
               추가하기
-            </button>
+            </Button>
           </div>
         </>
       ) : (
@@ -65,20 +66,12 @@ export default function MyAttachFile() {
 
           {/* buttons */}
           <div className="mt-[0.94rem] flex w-full justify-end gap-2">
-            <button
-              type="button"
-              onClick={() => setIsEditing(false)}
-              className="bg-gray-500 h-10 rounded px-4 text-sm text-[#fff]"
-            >
-              취소
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsEditing(false)}
-              className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
-            >
+            <Button mode="sub" animationMode="sub" type="button" onClick={() => setIsEditing(false)}>
+              취소하기
+            </Button>
+            <Button onClick={() => setIsEditing(false)} animationMode="main">
               저장하기
-            </button>
+            </Button>
           </div>
         </form>
       )}

@@ -8,6 +8,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
+import { Button } from '@/components/common/Button'
 
 interface FormInputs {
   id: number
@@ -260,23 +261,20 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
                 {...register('antecedentsDescription', { required: true })}
               />
             </div>
-            <div className="flex justify-end gap-2">
-              <button
-                type="button"
+            <div className="mt-5 flex justify-end gap-2">
+              <Button
                 onClick={() => {
                   reset()
                   setIsAdding(false)
                 }}
-                className="mt-4 cursor-pointer rounded-md border border-main bg-white px-[0.88rem] py-2 text-sm text-main"
+                animationMode="sub"
+                mode="sub"
               >
                 취소하기
-              </button>
-              <button
-                type="submit"
-                className="mt-4 cursor-pointer rounded-md bg-[#2563EB] px-[0.88rem] py-2 text-sm text-[#fff]"
-              >
+              </Button>
+              <Button type="submit" mode="main" animationMode="main">
                 완료하기
-              </button>
+              </Button>
             </div>
           </div>
         </form>

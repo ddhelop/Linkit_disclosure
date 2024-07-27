@@ -1,5 +1,6 @@
 // MySkillComponent.tsx
 'use client'
+import { Button } from '@/components/common/Button'
 import SkillModal from '@/components/common/component/filter/\bSkillModal'
 import { accessTokenState } from '@/context/recoil-context'
 import { GetOnBoardingData, PostRoleData } from '@/lib/action'
@@ -170,14 +171,16 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
       )}
 
       {/* button */}
-      <div className="mt-[0.94rem] flex w-full justify-end">
-        <motion.button
-          {...mainHoverEffect}
-          onClick={handleEditClick}
-          className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
-        >
+      <div className="mt-[0.94rem] flex w-full justify-end gap-2">
+        {isEditing && (
+          <Button mode="sub" animationMode="sub" type="button" onClick={() => setIsEditing(false)}>
+            취소하기
+          </Button>
+        )}
+
+        <Button animationMode="main" onClick={handleEditClick}>
           {isEditing ? '수정완료' : '수정하기'}
-        </motion.button>
+        </Button>
       </div>
 
       {isModalOpen && (

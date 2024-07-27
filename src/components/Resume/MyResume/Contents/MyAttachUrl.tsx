@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
+import { Button } from '@/components/common/Button'
 
 // validateHttpUrl 함수를 수정합니다.
 const validateHttpUrl = (url: string) => {
@@ -110,13 +111,9 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
             </div>
           )}
           <div className="mt-[0.94rem] flex w-full justify-end">
-            <motion.button
-              {...mainHoverEffect}
-              onClick={() => setIsEditing(true)}
-              className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
-            >
+            <Button mode="main" animationMode="main" onClick={() => setIsEditing(true)}>
               추가하기
-            </motion.button>
+            </Button>
           </div>
         </>
       ) : (
@@ -194,21 +191,12 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
 
           {/* buttons */}
           <div className="mt-[0.94rem] flex w-full justify-end gap-2">
-            <button
-              type="button"
-              onClick={() => setIsEditing(false)}
-              className="h-10 rounded bg-grey50 px-4 text-sm text-[#fff]"
-            >
-              취소
-            </button>
-            <motion.button
-              {...mainHoverEffect}
-              type="button"
-              onClick={handleLinkSubmit}
-              className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
-            >
+            <Button mode="sub" onClick={() => setIsEditing(false)} animationMode="sub">
+              취소하기
+            </Button>
+            <Button animationMode="main" onClick={handleLinkSubmit} mode="main">
               저장하기
-            </motion.button>
+            </Button>
           </div>
         </form>
       )}

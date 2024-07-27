@@ -9,6 +9,7 @@ import { useForm, SubmitHandler, UseFormSetValue } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
+import { Button } from '@/components/common/Button'
 
 interface MyResumAwardProps {
   data: AwardResponse[]
@@ -217,9 +218,9 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
               />
             </div>
             <div className="mt-[0.94rem] flex w-full justify-end gap-2">
-              <button
-                type="button"
-                className="h-10 rounded border border-main bg-white px-4 text-sm text-main"
+              <Button
+                mode="sub"
+                animationMode="sub"
                 onClick={() => {
                   setIsAdding(false)
                   setIsEditing(null)
@@ -227,10 +228,10 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
                 }}
               >
                 취소하기
-              </button>
-              <button type="submit" className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+              </Button>
+              <Button type="submit" mode="main" animationMode="main">
                 {isEditing !== null ? '수정하기' : '저장하기'}
-              </button>
+              </Button>
             </div>
           </div>
         </form>
@@ -238,13 +239,9 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
 
       {!isAdding && (
         <div className="mt-6 flex w-full justify-end  pt-8">
-          <motion.button
-            {...mainHoverEffect}
-            onClick={() => setIsAdding(true)}
-            className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
-          >
+          <Button onClick={() => setIsAdding(true)} animationMode="main">
             추가하기
-          </motion.button>
+          </Button>
         </div>
       )}
     </div>

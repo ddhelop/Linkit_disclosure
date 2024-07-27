@@ -8,6 +8,7 @@ import { useRecoilValue } from 'recoil'
 import { useForm, SubmitHandler, UseFormSetValue } from 'react-hook-form'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
+import { Button } from '@/components/common/Button'
 
 export default function MyAcademicComponent({ data }: MyResumEducationProps) {
   const [isEditing, setIsEditing] = useState<boolean | number>(false)
@@ -110,7 +111,7 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
       </div>
 
       {/* contents */}
-      {educationData?.length === 0 ? (
+      {!educationData ? (
         <div className="pt-[0.94rem] text-grey50">학력사항이 없습니다.</div>
       ) : (
         educationData?.map((education) => (
@@ -283,18 +284,19 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
             </div>
           </div>
           <div className="mt-[0.94rem] flex w-full justify-end gap-4">
-            <button
+            <Button
               type="button"
               onClick={() => {
                 setIsEditing(false)
               }}
-              className="rounded border border-main  bg-white px-4 text-sm text-main"
+              mode="sub"
+              animationMode="sub"
             >
               취소하기
-            </button>
-            <button type="submit" className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
+            </Button>
+            <Button type="submit" animationMode="main">
               추가하기
-            </button>
+            </Button>
           </div>
         </form>
       )}
@@ -302,15 +304,14 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
       {/* button */}
       {!isEditing && (
         <div className="mt-[0.94rem] flex w-full justify-end">
-          <motion.button
-            {...mainHoverEffect}
+          <Button
+            animationMode="main"
             onClick={() => {
               setIsEditing(true)
             }}
-            className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
           >
             추가하기
-          </motion.button>
+          </Button>
         </div>
       )}
     </div>

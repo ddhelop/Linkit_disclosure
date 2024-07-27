@@ -6,6 +6,7 @@ import { ChangeEvent, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
+import { Button } from '@/components/common/Button'
 
 interface MyResumeCompletionProps {
   data: ProfileIntroductionResponse
@@ -79,17 +80,13 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
       {/* buttons */}
       <div className="mt-[0.94rem] flex w-full justify-end gap-2">
         {isEditing && (
-          <button className="h-10 rounded bg-grey60 px-4 text-sm text-[#fff]" onClick={handleCancelClick}>
+          <Button mode="sub" animationMode="sub" onClick={handleCancelClick}>
             취소하기
-          </button>
+          </Button>
         )}
-        <motion.button
-          {...mainHoverEffect}
-          className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff] "
-          onClick={handleEditClick}
-        >
+        <Button animationMode="main" onClick={handleEditClick}>
           {isEditing ? '저장하기' : '수정하기'}
-        </motion.button>
+        </Button>
       </div>
     </div>
   )

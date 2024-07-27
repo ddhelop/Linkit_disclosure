@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
+import { Button } from '@/components/common/Button'
 
 interface MyResumTeamBuildingFieldProps {
   data: ProfileTeamBuildingFieldResponse
@@ -107,21 +108,18 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
       {/* button */}
       <div className="mt-[0.94rem] flex w-full justify-end">
         {isEditing ? (
-          <motion.button
-            {...mainHoverEffect}
-            onClick={handleSaveClick}
-            className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
-          >
-            수정완료
-          </motion.button>
+          <div className="flex gap-2">
+            <Button mode="sub" animationMode="sub" onClick={() => setIsEditing(false)}>
+              취소하기
+            </Button>
+            <Button onClick={handleSaveClick} mode="main" animationMode="main">
+              수정완료
+            </Button>
+          </div>
         ) : (
-          <motion.button
-            {...mainHoverEffect}
-            onClick={handleEditClick}
-            className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
-          >
+          <Button mode="main" onClick={handleEditClick}>
             수정하기
-          </motion.button>
+          </Button>
         )}
       </div>
     </div>

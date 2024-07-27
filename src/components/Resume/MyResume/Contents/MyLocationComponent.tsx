@@ -10,6 +10,7 @@ import { ChangeEvent, useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
+import { Button } from '@/components/common/Button'
 
 interface MyResumLocationFieldProps {
   data: LocationResponse
@@ -119,14 +120,22 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
       )}
 
       {/* button */}
-      <div className="mt-[0.94rem] flex w-full justify-end">
-        <motion.button
-          {...mainHoverEffect}
-          onClick={handleEditClick}
-          className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
-        >
+      <div className="mt-[0.94rem] flex w-full justify-end gap-2">
+        {isEditing && (
+          <Button
+            mode="sub"
+            animationMode="sub"
+            onClick={() => {
+              setIsEditing(false)
+            }}
+          >
+            취소하기
+          </Button>
+        )}
+
+        <Button onClick={handleEditClick} mode="main" animationMode="main">
           {isEditing ? '수정완료' : '수정하기'}
-        </motion.button>
+        </Button>
       </div>
     </div>
   )
