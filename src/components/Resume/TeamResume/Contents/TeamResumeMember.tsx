@@ -6,6 +6,7 @@ import { TeamMemberData } from '@/lib/types'
 import { PostTeamMember, DeleteTeamMember, PutTeamMember } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
+import { Button } from '@/components/common/Button'
 
 export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
   const [isEditing, setIsEditing] = useState(false)
@@ -215,28 +216,17 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
           </div>
 
           <div className="flex w-full justify-end gap-2">
-            <button
-              className="rounded-[0.25rem] bg-grey60 px-4 py-2 text-[#fff]"
-              type="button"
-              onClick={() => setIsEditing(false)}
-            >
+            <Button mode="sub" type="button" onClick={() => setIsEditing(false)}>
               취소하기
-            </button>
-            <button className="rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]" type="submit">
-              저장하기
-            </button>
+            </Button>
+            <Button type="submit">저장하기</Button>
           </div>
         </form>
       )}
 
       {!isEditing && (
         <div className="flex w-full justify-end gap-2">
-          <button
-            className="mt-3 rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]"
-            onClick={() => setIsEditing(true)}
-          >
-            추가하기
-          </button>
+          <Button onClick={() => setIsEditing(true)}>추가하기</Button>
         </div>
       )}
     </div>

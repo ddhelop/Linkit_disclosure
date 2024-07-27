@@ -1,3 +1,4 @@
+import { Button } from '@/components/common/Button'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostTeamAttchURL } from '@/lib/action'
 import { TeamAttachUrlResponse, TeamURLFormInputs } from '@/lib/types'
@@ -110,9 +111,7 @@ export default function TeamResumeAttachUrl({ data }: MyResumURLProps) {
             </div>
           )}
           <div className="mt-[0.94rem] flex w-full justify-end">
-            <button onClick={() => setIsEditing(true)} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
-              추가하기
-            </button>
+            <Button onClick={() => setIsEditing(true)}>추가하기</Button>
           </div>
         </>
       ) : (
@@ -186,20 +185,12 @@ export default function TeamResumeAttachUrl({ data }: MyResumURLProps) {
 
           {/* buttons */}
           <div className="mt-[0.94rem] flex w-full justify-end gap-2">
-            <button
-              type="button"
-              onClick={() => setIsEditing(false)}
-              className="h-10 rounded bg-grey50 px-4 text-sm text-[#fff]"
-            >
-              취소
-            </button>
-            <button
-              type="button"
-              onClick={handleLinkSubmit}
-              className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]"
-            >
+            <Button type="button" onClick={() => setIsEditing(false)} mode="sub">
+              취소하기
+            </Button>
+            <Button type="button" onClick={handleLinkSubmit}>
               저장하기
-            </button>
+            </Button>
           </div>
         </form>
       )}

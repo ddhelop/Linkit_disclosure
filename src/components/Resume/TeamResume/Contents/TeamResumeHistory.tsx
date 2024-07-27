@@ -7,6 +7,7 @@ import { HistoryResponse } from '@/lib/types'
 import Image from 'next/image'
 import Select from 'react-select'
 import { validateYear, validateYearMessage } from '@/context/schemaValidation'
+import { Button } from '@/components/common/Button'
 
 interface TeamHistoryProps {
   data: HistoryResponse[]
@@ -324,28 +325,17 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
             </div>
 
             <div className="mt-4 flex w-full justify-end gap-2">
-              <button
-                className="rounded-[0.25rem] border border-main bg-white px-4 py-2 text-main"
-                type="button"
-                onClick={handleCancel}
-              >
+              <Button mode="sub" type="button" onClick={handleCancel}>
                 취소하기
-              </button>
-              <button className="rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]" type="submit">
-                저장하기
-              </button>
+              </Button>
+              <Button type="submit">저장하기</Button>
             </div>
           </form>
         )}
 
         {!isEditing && (
           <div className="mt-4 flex w-full justify-end gap-2">
-            <button
-              className=" rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]"
-              onClick={() => setIsEditing(true)}
-            >
-              추가하기
-            </button>
+            <Button onClick={() => setIsEditing(true)}>추가하기</Button>
           </div>
         )}
       </div>

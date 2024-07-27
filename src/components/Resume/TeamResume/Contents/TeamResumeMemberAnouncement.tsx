@@ -9,6 +9,7 @@ import { PostTeamMemberAnnouncement, PutTeamMemberAnnouncement, DeleteTeamMember
 import { TeamAnnouncementMemberInterface, TeamMemberAnnouncementResponse } from '@/lib/types'
 import SkillModal from '@/components/common/component/filter/\bSkillModal'
 import { SkillOptions } from '@/lib/data'
+import { Button } from '@/components/common/Button'
 
 interface TeamResumeMemberAnnouncementProps {
   data: TeamMemberAnnouncementResponse[]
@@ -263,31 +264,26 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
             </div>
           </div>
           <div className="mt-4 flex justify-end gap-2 pb-4">
-            <button
+            <Button
               type="button"
               onClick={() => {
                 setIsFormVisible(false)
                 resetForm()
               }}
-              className="rounded bg-grey30 px-4 py-2 "
+              mode="sub"
             >
               취소하기
-            </button>
-            <button type="submit" className="rounded bg-[#2563EB] px-4 py-2 text-white" disabled={isSubmitDisabled}>
+            </Button>
+            <Button type="submit" disabled={isSubmitDisabled}>
               {editingAnnouncementId !== null ? '수정하기' : '저장하기'}
-            </button>
+            </Button>
           </div>
         </form>
       )}
 
       {!isFormVisible && (
         <div className="flex w-full justify-end">
-          <button
-            className="mt-3 rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]"
-            onClick={() => setIsFormVisible(true)}
-          >
-            추가하기
-          </button>
+          <Button onClick={() => setIsFormVisible(true)}>추가하기</Button>
         </div>
       )}
 

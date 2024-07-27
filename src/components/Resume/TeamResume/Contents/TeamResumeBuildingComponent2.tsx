@@ -1,4 +1,5 @@
 'use client'
+import { Button } from '@/components/common/Button'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileTeamBuildingField, PostTeamBuildingField } from '@/lib/action'
 import { TeamProfileTeamBuildingFieldResponse } from '@/lib/types'
@@ -65,7 +66,7 @@ export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuil
               <div
                 key={index}
                 onClick={() => handleRemoveOption(option)}
-                className="flex cursor-pointer items-center rounded-lg border border-[#2563Eb] bg-[#D3E1FE] bg-opacity-40 px-3 py-1"
+                className="flex cursor-pointer items-center rounded-[0.31rem] border border-[#2563Eb] bg-[#D3E1FE66] bg-opacity-40 px-3 py-2"
               >
                 <span className="text-[#2563EB]">{option}</span>
                 <button
@@ -109,20 +110,13 @@ export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuil
       <div className="mt-[0.94rem] flex w-full justify-end">
         {isEditing ? (
           <div className="flex gap-2">
-            <button
-              onClick={() => setIsEditing(false)}
-              className="mr-2 h-10 rounded border border-[#2563EB] bg-[#fff] px-4 text-sm text-[#2563EB]"
-            >
+            <Button mode="sub" animationMode="sub" onClick={() => setIsEditing(false)}>
               취소하기
-            </button>
-            <button onClick={handleSaveClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
-              수정완료
-            </button>
+            </Button>
+            <Button onClick={handleSaveClick}>수정완료</Button>
           </div>
         ) : (
-          <button onClick={handleEditClick} className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
-            수정하기
-          </button>
+          <Button onClick={handleEditClick}>수정하기</Button>
         )}
       </div>
     </div>

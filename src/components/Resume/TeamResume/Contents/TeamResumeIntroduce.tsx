@@ -1,4 +1,5 @@
 'use client'
+import { Button } from '@/components/common/Button'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileIntroduction, PostTeamIntroduction } from '@/lib/action'
 import { TeamProfileIntroductionResponse } from '@/lib/types'
@@ -75,15 +76,14 @@ export default function TeamResumeIntroduce({ data }: TeamCompletionProps) {
       </div>
 
       {/* buttons */}
-      <div className="mt-[0.94rem] flex w-full justify-end gap-2">
+      <div className="mt-[0.94rem] flex w-full justify-end gap-2 ">
         {isEditing && (
-          <button className="h-10 rounded bg-grey60 px-4 text-sm text-[#fff]" onClick={handleCancelClick}>
+          <Button mode="sub" onClick={handleCancelClick}>
             취소하기
-          </button>
+          </Button>
         )}
-        <button className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]" onClick={handleEditClick}>
-          {isEditing ? '저장하기' : '수정하기'}
-        </button>
+
+        <Button onClick={handleEditClick}>{isEditing ? '저장하기' : '수정하기'}</Button>
       </div>
     </div>
   )
