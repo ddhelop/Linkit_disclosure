@@ -71,7 +71,7 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
         <>
           {/* title */}
           <div className="flex items-center gap-[0.56rem]">
-            <span className="text-lg font-semibold text-grey100">희망 역할</span>
+            <span className="text-lg font-semibold text-grey100">나의 역할</span>
           </div>
           <div className="flex flex-grow flex-col items-center pt-[0.12rem]">
             {/* 포지션 */}

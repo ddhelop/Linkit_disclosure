@@ -57,7 +57,7 @@ export default function LoggedInLanding1() {
         >
           <p className="text-[2rem]">👋</p>
           <p className="text-2xl font-bold text-grey100">내 이력서 등록하기</p>
-          <p className="text-grey60">뛰어난 팀 안에서 내 역량을 발휘하고 싶어요</p>
+          <p className="text-grey60">나의 역량을 발휘하여 함께 할 팀원을 찾고 있어요</p>
 
           <div className="mt-5 flex w-full justify-end">
             <Link href="/myResume">

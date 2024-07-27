@@ -135,7 +135,7 @@ export default function OnBoardingPrivateInfo() {
                     <label className="flex items-center">
                       <input type="checkbox" {...register('serviceAgreement', { required: true })} />
                       <span className="flex pl-2 text-sm">
-                        (필수){' '}
+                        (필수)
                         <Link
                           href="https://amusing-hygienic-ec8.notion.site/503c5d589f0942068517f84febb99f3c?pvs=4"
                           target="_blank"
@@ -149,7 +149,7 @@ export default function OnBoardingPrivateInfo() {
                     <label className="flex items-center pt-2">
                       <input type="checkbox" {...register('privacyAgreement', { required: true })} />
                       <span className="pl-2 text-sm">
-                        (필수){' '}
+                        (필수)
                         <Link
                           target="_blank"
                           href="https://amusing-hygienic-ec8.notion.site/f93f401d27ee4ab2add3be89f44e6448?"

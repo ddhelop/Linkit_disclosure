@@ -132,7 +132,7 @@ export default function TeamProfile() {
         <div className="flex w-full flex-col items-center pb-24 pt-24 lg:w-[988px]">
           <div className="flex w-full flex-col items-start leading-9">
             <span className="text-2xl font-bold">팀 소개서가 거의 완성되었어요</span>
-            <span className="text-grey60">다른사람들이 보는 팀 프로필이예요. 수정할 사항을 완성해주세요</span>
+            <span className="text-grey60">다른 사용자들이 보는 팀의 프로필이에요. 항목을 채워 넣어주세요!</span>
           </div>
 
           <div className="flex w-full justify-between gap-4 pt-12">
@@ -269,7 +269,7 @@ export default function TeamProfile() {
                   {profileImageUrl ? (
                     <Image src={profileImageUrl} width={125} height={125} alt="profile_image" className="rounded-3xl" />
                   ) : (
-                    <Image src={'/assets/onBoarding/addImage.svg'} width={125} height={125} alt="add_image" />
+                    <Image src={'/assets/onBoarding/addImage2.svg'} width={125} height={125} alt="add_image" />
                   )}
                   <label className="font-sm flex h-[2rem] cursor-pointer items-center rounded-md bg-main px-[0.88rem] text-[#fff]">
                     이미지 업로드

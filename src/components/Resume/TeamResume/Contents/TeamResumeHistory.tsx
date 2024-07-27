@@ -183,7 +183,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                             validate: (value) => validateYear(value) || validateYearMessage(value),
                           })}
                           type="number"
-                          placeholder="시작"
+                          placeholder="시작 연도"
                           className="w-[12.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-left text-sm"
                         />
                         {errors.startYear && (
@@ -197,7 +197,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                             validate: (value) => validateYear(value) || validateYearMessage(value),
                           })}
                           type="number"
-                          placeholder="종료"
+                          placeholder="종료 연도"
                           className="w-[12.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-left text-sm"
                           disabled={inProgressValue}
                         />

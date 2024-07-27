@@ -82,7 +82,7 @@ export default function FindMemberLeftNav() {
   }, [isAuth])
 
   return (
-    <div className="flex w-[17.3rem] flex-col shadow-sm">
+    <div className="flex w-[17.3rem] flex-col">
       <div className="flex w-full cursor-pointer justify-end gap-1 pb-2" onClick={handleResetFilters}>
         <Image src="/assets/icons/rotate-left.svg" width={16} height={16} alt="Group 1" />
         <p className="text-sm text-grey60">필터초기화</p>
@@ -155,7 +155,7 @@ export default function FindMemberLeftNav() {
             onClick={() => setShowSkillModal(true)}
             className="flex w-full cursor-pointer justify-between rounded-[0.37rem] border border-grey40 px-4 py-2 hover:bg-grey10"
           >
-            <p className="text-sm text-grey50">기술 선택</p>
+            <p className="text-sm text-grey50">역량 선택</p>
             <Image src="/assets/icons/search.svg" width={19} height={8} alt="Group 1" />
           </div>
         </div>

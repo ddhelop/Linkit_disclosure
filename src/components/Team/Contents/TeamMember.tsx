@@ -29,7 +29,7 @@ export default function TeamMember({ data }: { data: TeamMemberData }) {
           </div>
         ))
       ) : (
-        <div className="pt-4 text-grey60">팀원을 등록하지 않았어요.</div>
+        <div className="pt-4 text-grey50">팀원을 등록하지 않았어요.</div>
       )}
     </div>
   )

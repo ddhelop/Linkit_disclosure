@@ -86,7 +86,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             </Link>
           </div>
           <p className="w-full pt-[2.37rem] text-center text-xs font-normal text-grey60">
-            회원가입 시 Linkit의{' '}
+            회원가입 시 Linkit의
             <Link href="https://amusing-hygienic-ec8.notion.site/503c5d589f0942068517f84febb99f3c" target="_blank">
               서비스 이용약관
             </Link>

@@ -20,7 +20,7 @@ export default function TeamIntroduce({ data }: TeamCompletionProps) {
       {/* contents */}
       <div className="pt-[0.94rem]">
         <span className={teamIntroduction ? 'text-[#000]' : 'text-grey50'}>
-          {teamIntroduction || '팀소개가 없습니다.'}
+          {teamIntroduction || '팀 소개가 없습니다.'}
         </span>
       </div>
 

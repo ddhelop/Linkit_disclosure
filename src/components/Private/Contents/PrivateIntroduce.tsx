@@ -51,7 +51,7 @@ export default function PrivateIntroduce({ data }: MyResumeCompletionProps) {
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">자기소개</span>
+        <span className="text-lg font-semibold text-grey100">자기소개 및 팀빌딩 목적</span>
       </div>
 
       {/* contents */}

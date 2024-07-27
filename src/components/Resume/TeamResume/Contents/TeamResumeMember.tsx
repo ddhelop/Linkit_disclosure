@@ -95,7 +95,10 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
 
       {teamMembers.length > 0
         ? teamMembers.map((member, index) => (
-            <div key={member.id} className="mt-[0.94rem] flex flex-col items-center border border-grey30 p-5">
+            <div
+              key={member.id}
+              className="mt-[0.94rem] flex flex-col items-center rounded-lg border border-grey30 p-5"
+            >
               <div className="flex w-full justify-between">
                 <div className="flex flex-col">
                   <p className="text-sm text-grey60">{member.teamName}</p>
@@ -227,7 +230,7 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
       )}
 
       {!isEditing && (
-        <div className="flex w-full justify-end gap-2">
+        <div className="mt-4 flex w-full justify-end gap-2">
           <Button animationMode="main" onClick={() => setIsEditing(true)}>
             추가하기
           </Button>

@@ -154,7 +154,7 @@ export default function RegisterPersonProfile() {
             <span className="text-sm font-medium leading-9 text-grey60">내 이력서 가이드</span>
             <span className="text-2xl font-bold">내 이력서가 거의 완성되었어요</span>
             <span className="pt-1 text-sm text-grey60 lg:text-base">
-              다른사람들이 보는 나의 프로필이예요. 수정할 사항을 완성해주세요 :)
+              다른 사용자들이 보는 나의 프로필이에요. 항목을 채워 넣어주세요!
             </span>
           </div>
 
@@ -246,7 +246,7 @@ export default function RegisterPersonProfile() {
                         value={inputValue}
                         onChange={handleInputChange}
                         onKeyPress={handleKeyPress}
-                        placeholder="Text Field"
+                        placeholder="00경험, XX대회 수상, 창업가 등"
                       />
                       <button
                         onClick={handleAddSkill}

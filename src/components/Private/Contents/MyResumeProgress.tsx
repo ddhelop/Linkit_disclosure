@@ -21,7 +21,7 @@ export default function MyResumeProgress({ data }: MyResumeCompletionProps) {
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
         <span className="text-lg font-semibold text-grey100">프로필 완성도 : {data?.completion}%</span>
-        <span className="text-grey60">완성도를 높일 수록 매칭 확률이 높아져요! </span>
+        <span className="text-grey60">항목을 채울수록 완성도가 높아져요!</span>
       </div>
 
       {/* progress */}

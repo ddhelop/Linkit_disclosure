@@ -90,7 +90,7 @@ export default function TeamCategory() {
       <div className="flex w-full flex-col lg:py-[69px]">
         <div className="flex w-full flex-col items-center pb-24 pt-16">
           <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
-            <span>팀 이력서 가이드</span>
+            <span>팀 소개서 가이드</span>
           </div>
           <div className="flex w-[90%] flex-col items-start leading-9 sm:w-[55%]">
             <span className="text-2xl font-bold">희망 팀빌딩 분야를 선택해 주세요</span>

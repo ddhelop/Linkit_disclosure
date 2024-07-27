@@ -56,7 +56,7 @@ export default function OnBoardingSelect() {
               <div className="flex flex-col ">
                 <span className="text-[2rem] font-bold leading-5">👋</span>
                 <span className="pt-4 text-2xl font-bold ">내 이력서 등록하기</span>
-                <span className=" pt-3 leading-5 text-grey60">뛰어난 팀 안에서 내 역량을 발휘하고 싶어요</span>
+                <span className=" pt-3 leading-5 text-grey60">나의 역량을 발휘하여 함께 할 팀원을 찾고 있어요</span>
               </div>
             </div>
 

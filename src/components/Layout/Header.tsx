@@ -125,7 +125,7 @@ export default function Header() {
             {isAuth ? (
               <>
                 <Link href="/match/from" className="hidden text-sm font-medium leading-5 text-grey80 lg:flex">
-                  매칭관리
+                  매칭 관리
                 </Link>
                 <DropdownMenu />
               </>
@@ -172,7 +172,7 @@ export default function Header() {
             마이페이지
           </Link>
           <Link href="#" className="block p-4 pl-8 text-sm font-semibold leading-6 text-grey100">
-            매칭관리
+            매칭 관리
           </Link>
           <div onClick={handleLogout} className="block p-4 pl-8 text-sm font-semibold leading-6 text-[#FF345F]">
             로그아웃

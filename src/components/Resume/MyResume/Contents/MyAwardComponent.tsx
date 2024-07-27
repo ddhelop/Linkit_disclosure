@@ -97,7 +97,7 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
       </div>
 
       {/* contents */}
-      {awards.length === 0 && !isAdding && <div className="pt-[0.94rem] text-grey50">수상이력이 없습니다.</div>}
+      {awards.length === 0 && !isAdding && <div className="pt-[0.94rem] text-grey50">수상 내역이 없습니다.</div>}
 
       {awards.length > 0 && (
         <div className="mt-6">

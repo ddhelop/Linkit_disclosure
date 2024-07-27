@@ -287,6 +287,7 @@ export interface TeamMemberAnnouncementResponse {
   teamName: string
   applicationProcess: string
   skillNames: string[]
+  teamLogoImageUrl: string
 }
 
 export interface ActivityResponse {

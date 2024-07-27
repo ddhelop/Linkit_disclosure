@@ -82,12 +82,12 @@ export default function RequestTeamMatchModal({ onClose, teamId, data }: Request
     >
       <div className="flex w-[40rem] flex-col justify-between rounded-lg bg-[#fff] px-[3.12rem] py-5 shadow-lg">
         <div className="flex justify-center">
-          <h2 className="mb-4 font-semibold">{data.teamName}팀에게 매칭 요청 보내기</h2>
+          <h2 className="mb-4 font-semibold">{data.teamName} 팀에게 매칭 요청 보내기</h2>
         </div>
         <div className="flex flex-col">
           <div className="flex gap-4">
             <Image
-              src="/assets/images/DefaultProfile.png"
+              src={data.teamLogoImageUrl ? data.teamLogoImageUrl : '/assets/onBoarding/addImage2.svg'}
               width={42}
               height={42}
               alt="profile"

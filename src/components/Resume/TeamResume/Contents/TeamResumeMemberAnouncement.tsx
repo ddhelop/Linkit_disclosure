@@ -181,7 +181,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
           <div className="flex flex-col gap-4">
             <div>
               <label className="flex font-normal text-grey100">
-                직무/역할 <p className="pl-1 font-normal text-[#2563EB]">*</p>
+                역할 <p className="pl-1 font-normal text-[#2563EB]">*</p>
               </label>
               <div className="mt-2 flex flex-wrap gap-2 ">
                 {['기획·경영', '개발·데이터', '마케팅·광고', '디자인'].map((role, index) => (
@@ -214,7 +214,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
             </div>
 
             <label className="mt-8 flex font-normal text-grey100">
-              요구 기술 <p className="pl-1 font-normal text-[#2563EB]">*</p>
+              요구 역량 <p className="pl-1 font-normal text-[#2563EB]">*</p>
             </label>
             {skills.length !== 0 && (
               <div className="flex flex-wrap gap-2">
