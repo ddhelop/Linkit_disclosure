@@ -6,13 +6,17 @@ import { useRecoilValue } from 'recoil'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostTeamMemberAnnouncement, PutTeamMemberAnnouncement, DeleteTeamMemberAnnouncement } from '@/lib/action'
-import { TeamAnnouncementMemberInterface, TeamMemberAnnouncementResponse } from '@/lib/types'
+import {
+  TeamAnnouncementMemberInterface,
+  TeamMemberAnnouncementResponse,
+  TeamResumsMemberAnnouncementResponse,
+} from '@/lib/types'
 import SkillModal from '@/components/common/component/filter/\bSkillModal'
 import { SkillOptions } from '@/lib/data'
 import { Button } from '@/components/common/Button'
 
 interface TeamResumeMemberAnnouncementProps {
-  data: TeamMemberAnnouncementResponse[]
+  data: TeamResumsMemberAnnouncementResponse[]
 }
 
 interface FormInputs {
@@ -26,7 +30,7 @@ interface FormInputs {
 export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMemberAnnouncementProps) {
   const accessToken = useRecoilValue(accessTokenState) || ''
   const [isFormVisible, setIsFormVisible] = useState(false)
-  const [announcements, setAnnouncements] = useState<TeamMemberAnnouncementResponse[]>(data || [])
+  const [announcements, setAnnouncements] = useState<TeamResumsMemberAnnouncementResponse[]>(data || [])
   const [editingAnnouncementId, setEditingAnnouncementId] = useState<number | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [skills, setSkills] = useState<string[]>([])
@@ -91,7 +95,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
     setValue('selectedRole', role)
   }
 
-  const handleEditAnnouncement = (announcement: TeamMemberAnnouncementResponse) => {
+  const handleEditAnnouncement = (announcement: TeamResumsMemberAnnouncementResponse) => {
     setEditingAnnouncementId(announcement.id)
     setValue('selectedRole', announcement.jobRoleName)
     setValue('mainBusiness', announcement.mainBusiness)
@@ -214,7 +218,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
             </div>
 
             <label className="mt-8 flex font-normal text-grey100">
-              요구 역량 <p className="pl-1 font-normal text-[#2563EB]">*</p>
+              요구 <p className="pl-1 font-normal text-[#2563EB]">*</p>
             </label>
             {skills.length !== 0 && (
               <div className="flex flex-wrap gap-2">

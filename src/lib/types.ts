@@ -290,6 +290,14 @@ export interface TeamMemberAnnouncementResponse {
   teamLogoImageUrl: string
 }
 
+export interface TeamResumsMemberAnnouncementResponse {
+  mainBusiness: string
+  jobRoleName: string
+  id: number
+  teamName: string
+  applicationProcess: string
+  skillNames: string[]
+}
 export interface ActivityResponse {
   activityTagName: string[]
   cityName: string
