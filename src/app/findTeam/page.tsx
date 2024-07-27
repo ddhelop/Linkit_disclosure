@@ -8,7 +8,7 @@ export default function FindingMemberPage() {
     <div className="flex w-full flex-col justify-center pt-[61px]">
       <Banner
         imgSrc="/assets/images/Find_Team_Banner.png"
-        title="🚀 팀원 찾기"
+        title="🚀 팀 찾기"
         description="공모전부터 사이드 프로젝트, 창업 팀까지 합류하고 싶은 팀을 찾아보세요!"
         scrolledDescription="공모전부터 사이드 프로젝트, 창업 팀까지 합류하고 싶은 팀을 찾아보세요!"
         scrolledTitle="🚀 팀 찾기"
