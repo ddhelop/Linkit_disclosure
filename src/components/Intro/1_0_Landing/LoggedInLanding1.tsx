@@ -53,7 +53,7 @@ export default function LoggedInLanding1() {
           animate={leftControls}
           onMouseEnter={handleMouseEnterLeft}
           onMouseLeave={handleMouseLeave}
-          className="flex w-[25rem] flex-col gap-1 rounded-2xl border border-grey30 bg-white px-[1.69rem] py-5 shadow-md"
+          className="flex w-[25rem] flex-col gap-1 rounded-2xl border border-grey30 bg-white px-[1.69rem] py-5 shadow-2xl"
         >
           <p className="text-[2rem]">👋</p>
           <p className="text-2xl font-bold text-grey100">내 이력서 등록하기</p>
@@ -73,7 +73,7 @@ export default function LoggedInLanding1() {
           animate={rightControls}
           onMouseEnter={handleMouseEnterRight}
           onMouseLeave={handleMouseLeave}
-          className="flex w-[25rem] flex-col gap-1 rounded-2xl border border-grey30 bg-white px-[1.69rem] py-5 shadow-md"
+          className="flex w-[25rem] flex-col gap-1 rounded-2xl border border-grey30 bg-white px-[1.69rem] py-5 shadow-2xl"
         >
           <p className="text-[2rem]">🚀</p>
           <p className="text-2xl font-bold text-grey100">팀 소개서 등록하기</p>

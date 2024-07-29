@@ -184,7 +184,7 @@ export default function RegisterCareer() {
                     </span>
                     <input
                       type="text"
-                      placeholder="(주)링킷"
+                      placeholder="회사명 / 프로젝트"
                       className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                       {...register('projectName', { required: true })}
                     />
@@ -272,7 +272,7 @@ export default function RegisterCareer() {
                 </span>
                 <input
                   type="text"
-                  placeholder="(주)링킷"
+                  placeholder="회사명 / 프로젝트"
                   className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
                   {...register('projectName', { required: true })}
                 />

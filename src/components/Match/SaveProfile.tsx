@@ -13,6 +13,7 @@ import MatchingTeamMiniProfile from '../common/component/MatchingTeamMiniProfile
 import { usePathname } from 'next/navigation'
 import Match404 from './common/Match404'
 import TeamMemberMiniProfile from '../Find/Member/TeamMemberMiniProfile'
+import TeamMiniProfile from '../Find/Team/TeamMiniProfile'
 
 export default function SaveProfile() {
   const accessToken = useRecoilValue(accessTokenState) || ''
@@ -84,7 +85,7 @@ export default function SaveProfile() {
           </>
         ) : (
           <div className="mt-3 w-[4]">
-            {teamMatchedReceived?.map((profile, index) => <MatchingTeamMiniProfile key={index} profile={profile} />)}
+            {teamMatchedReceived?.map((profile, index) => <TeamMiniProfile key={index} profile={profile} />)}
           </div>
         ))}
     </div>
