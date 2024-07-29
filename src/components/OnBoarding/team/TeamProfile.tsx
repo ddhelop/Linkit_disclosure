@@ -184,7 +184,7 @@ export default function TeamProfile() {
               {/* 제목 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  팀을 소개하는 프로필 제목을 입력해 주세요 <span className="font-sm text-[#FF345F]">*</span>
+                  팀을 소개하는 프로필 제목을 입력해 주세요 <span className="font-sm text-main">*</span>
                 </span>
                 <Controller
                   name="teamProfileTitle"
@@ -203,7 +203,7 @@ export default function TeamProfile() {
               {/* 나의 가치 */}
               <div className="flex flex-col">
                 <span className="font-semibold text-grey100">
-                  팀을 소개하는 키워드를 3개 이내로 작성해주세요 <span className="font-sm text-[#FF345F]">*</span>
+                  팀을 소개하는 키워드를 3개 이내로 작성해주세요 <span className="font-sm text-main">*</span>
                 </span>
 
                 {/* contents */}

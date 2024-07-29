@@ -120,7 +120,7 @@ export default function TeamCategory() {
 
             <div className="flex w-[90%] flex-col pt-16 sm:w-[55%]">
               <span className="text-lg font-bold leading-5">
-                팀명을 입력해 주세요 <span className="pl-1 text-sm font-normal text-[#FF345F]">*</span>
+                팀명을 입력해 주세요 <span className="pl-1 text-sm font-normal text-main">*</span>
               </span>
               <Controller
                 name="teamName"
@@ -139,7 +139,7 @@ export default function TeamCategory() {
             <div className="flex w-[90%] flex-col gap-5 pt-16 lg:w-[55%] lg:flex-row">
               <div className="flex flex-col">
                 <span className="text-lg font-bold leading-5">
-                  규모 <span className="pl-1 text-sm font-normal text-[#FF345F]">*</span>
+                  규모 <span className="pl-1 text-sm font-normal text-main">*</span>
                 </span>
                 <Controller
                   name="teamSize"
@@ -161,7 +161,7 @@ export default function TeamCategory() {
 
               <div className="flex flex-col">
                 <span className="text-lg font-bold leading-5">
-                  분야 <span className="pl-1 text-sm font-normal text-[#FF345F]">*</span>
+                  분야 <span className="pl-1 text-sm font-normal text-main">*</span>
                 </span>
                 <Controller
                   name="teamField"
