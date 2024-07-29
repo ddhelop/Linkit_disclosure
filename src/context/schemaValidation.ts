@@ -26,6 +26,20 @@ export const validateYearMessage = (value: string): string => {
   return ''
 }
 
+export const validateYearMonthMessage = (value: string): string | boolean => {
+  if (!/^\d{4}\.\d{2}$/.test(value)) {
+    return '시작일을 YYYY.MM 형식으로 입력해주세요.'
+  }
+  const [year, month] = value.split('.').map(Number)
+  if (year < 1900 || year > 2100) {
+    return '유효하지 않은 연도에요. 1900 ~ 2100 사이의 값을 입력해주세요.'
+  }
+  if (month < 1 || month > 12) {
+    return '유효하지 않은 월이에요. 01 ~ 12 사이의 값을 입력해주세요.'
+  }
+  return true
+}
+
 // url
 export const validateHttpUrl = (url: string): boolean => {
   const regex = /^http:\/\/.+/
