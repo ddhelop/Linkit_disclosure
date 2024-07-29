@@ -385,6 +385,7 @@ export interface PrivateProfile {
   myKeywordNames: string[]
   uploadPeriod: string
   uploadDeadline: boolean
+  isActivate: boolean // Add this property
 }
 
 export interface TeamProfile {

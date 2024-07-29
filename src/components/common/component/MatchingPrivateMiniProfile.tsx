@@ -1,3 +1,4 @@
+// 삭제 예정
 'use client'
 import { SaveProfileType } from '@/lib/types'
 import Image from 'next/image'

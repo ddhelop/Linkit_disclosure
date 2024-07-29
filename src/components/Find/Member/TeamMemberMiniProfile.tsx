@@ -46,7 +46,7 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
   }
 
   return (
-    <div className="flex flex-col justify-between gap-[2rem] rounded-[0.63rem] bg-[#fff] p-5 shadow-sm">
+    <div className="flex w-[23rem] flex-col justify-between gap-[2rem] rounded-[0.63rem] bg-[#fff] p-5 shadow-sm">
       <div className="flex w-full items-start justify-between">
         <div className="w-[80%] text-lg font-semibold leading-[1.375rem] opacity-80">{profile.profileTitle}</div>
         <Image

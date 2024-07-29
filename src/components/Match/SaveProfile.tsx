@@ -5,17 +5,18 @@ import { useEffect, useState } from 'react'
 import { GetSavedMembers, GetSavedTeams } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
-import { FindTeamInterface, SaveProfileType } from '@/lib/types'
+import { FindTeamInterface, PrivateProfile, SaveProfileType } from '@/lib/types'
 import Link from 'next/link'
 
 import MatchingPrivateMiniProfile from '../common/component/MatchingPrivateMiniProfile'
 import MatchingTeamMiniProfile from '../common/component/MatchingTeamMiniProfile'
 import { usePathname } from 'next/navigation'
 import Match404 from './common/Match404'
+import TeamMemberMiniProfile from '../Find/Member/TeamMemberMiniProfile'
 
 export default function SaveProfile() {
   const accessToken = useRecoilValue(accessTokenState) || ''
-  const [privateMatchReceived, setPrivateMatchReceived] = useState<SaveProfileType[]>([])
+  const [privateMatchReceived, setPrivateMatchReceived] = useState<PrivateProfile[]>([])
   const [teamMatchedReceived, setTeamMatchedReceived] = useState<FindTeamInterface[]>([])
   const pathname = usePathname()
 
@@ -70,8 +71,8 @@ export default function SaveProfile() {
             <Match404 message="찜한 팀원이 없어요" />
           </>
         ) : (
-          <div className="mt-3 flex flex-wrap gap-3">
-            {privateMatchReceived?.map((match, index) => <MatchingPrivateMiniProfile data={match} key={index} />)}
+          <div className="mt-3 flex w-[48rem] flex-wrap gap-3">
+            {privateMatchReceived?.map((profile, index) => <TeamMemberMiniProfile key={index} profile={profile} />)}
           </div>
         ))}
 
@@ -82,7 +83,7 @@ export default function SaveProfile() {
             <Match404 message="찜한 팀이 없어요" />
           </>
         ) : (
-          <div className="mt-3">
+          <div className="mt-3 w-[4]">
             {teamMatchedReceived?.map((profile, index) => <MatchingTeamMiniProfile key={index} profile={profile} />)}
           </div>
         ))}
