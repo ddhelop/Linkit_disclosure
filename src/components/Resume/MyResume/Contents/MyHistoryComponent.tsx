@@ -121,7 +121,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
 
   const handleDelete = async (index: number) => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
-      const antecedentId = histories[index].id || null
+      const antecedentId = histories[index].id || 0
       const updatedHistories = histories.filter((_, i) => i !== index)
       setHistories(updatedHistories)
       const response = await DeleteAntecedentData(accessToken, antecedentId)
