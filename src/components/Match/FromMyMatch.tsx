@@ -52,11 +52,11 @@ export default function FromMyMatch() {
               }}
               onClick={() => setSelectedMatch(match)}
             >
-              <div className="flex items-start">
+              <div className="relative flex h-[65px] w-[65px] items-start">
                 <Image
                   src={match.miniProfileImg ? match.miniProfileImg : '/assets/images/DefaultProfile.png'}
-                  width={65}
-                  height={65}
+                  layout="fill"
+                  objectFit="cover"
                   alt="empty"
                   className="rounded-full"
                 />

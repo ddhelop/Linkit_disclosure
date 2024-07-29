@@ -71,14 +71,21 @@ export default function ResponseMatchModal({ match, onClose }: ModalProps) {
             <div className="flex justify-center">
               <h2 className="font-semibold text-grey100">{match.senderName}께 매칭 요청을 받았습니다</h2>
             </div>
+            <div className="flex">
+              <div className="my-3 bg-grey10 px-[0.56rem] text-sm text-main">
+                상대방의 매칭 요청을 수락할 경우, 나의 이메일 주소가 전달됩니다!
+              </div>
+            </div>
             <div className="mt-4 flex items-center">
-              <Image
-                src={match.miniProfileImg || '/assets/images/DefaultProfile.png'}
-                width={65}
-                height={65}
-                alt="Sender Profile"
-                className="rounded-full"
-              />
+              <div className="relative h-[45px] w-[45px]">
+                <Image
+                  src={match.miniProfileImg || '/assets/images/DefaultProfile.png'}
+                  objectFit="cover"
+                  layout="fill"
+                  alt="Sender Profile"
+                  className="rounded-full"
+                />
+              </div>
               <div className="ml-4">
                 <h3 className="font-semibold">{match.senderName}</h3>
                 <p className="text-sm text-grey60">{match.jobRoleNames}</p>
