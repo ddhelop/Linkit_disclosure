@@ -32,7 +32,7 @@ export default function TeamResumeNavProfile({ data }: TeamResumNavProps) {
   }
 
   return (
-    <div className="flex w-full flex-col rounded-2xl bg-[#fff] p-5">
+    <div className="flex w-full flex-col rounded-2xl bg-[#fff] p-5 shadow-resume-box-shadow">
       <div className="pt-[0.42rem] text-[1.25rem] font-bold leading-[1.375rem]">
         {profileData ? profileData.teamProfileTitle : 'null'}
       </div>

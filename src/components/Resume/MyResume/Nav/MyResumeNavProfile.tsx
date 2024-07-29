@@ -48,7 +48,7 @@ export default function MyResumeNavProfile({ data, name, jobAndSkill }: MyResume
   }, [accessToken])
 
   return (
-    <div className="flex w-full flex-col rounded-2xl border border-grey30 bg-[#fff] px-[1.02rem] py-[0.77rem]">
+    <div className="flex w-full flex-col rounded-2xl  bg-[#fff] px-[1.02rem] py-[0.77rem] shadow-resume-box-shadow">
       {/* title */}
       <div className="flex w-full justify-between pt-[0.43rem]">
         <h3 className="text-grey-100 w-[100%] text-[1.279rem] font-bold">{profileData?.profileTitle}</h3>
