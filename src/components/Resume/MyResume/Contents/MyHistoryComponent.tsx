@@ -1,6 +1,6 @@
 'use client'
 import { accessTokenState } from '@/context/recoil-context'
-import { DeleteAntecedentData, PostAntecedentData, PostOneAntecedentData, PutAntecedentData } from '@/lib/action'
+import { DeleteAntecedentData, PostOneAntecedentData, PutAntecedentData } from '@/lib/action'
 import { AntecedentResponse } from '@/lib/types'
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
@@ -9,9 +9,13 @@ import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
 import { Button } from '@/components/common/Button'
+import Input from '@/components/common/component/Basic/Input'
+import Radio from '@/components/common/component/Basic/Radio'
+import Textarea from '@/components/common/component/Basic/TextArea'
+import { validateYearMonthMessage } from '@/context/schemaValidation'
 
 interface FormInputs {
-  id: number
+  id?: number
   projectName: string
   projectRole: string
   startDate: string
@@ -25,7 +29,15 @@ interface MyResumAntecedentProps {
 }
 
 export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
-  const { register, handleSubmit, reset, setValue, watch } = useForm<FormInputs>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    watch,
+    trigger,
+    formState: { errors },
+  } = useForm<FormInputs>({
     defaultValues: {
       projectName: '',
       projectRole: '',
@@ -75,7 +87,9 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
       const antecedentId = data[editingIndex]?.id
       const response = await PutAntecedentData(accessToken, antecedentData, antecedentId) // 수정 API 호출
       if (response.ok) {
-        const updatedHistories = histories.map((history, index) => (index === editingIndex ? antecedentData : history))
+        const updatedHistories = histories.map((history, index) =>
+          index === editingIndex ? { ...antecedentData, id: antecedentId } : history,
+        )
         setHistories(updatedHistories)
         setEditingIndex(null)
         reset()
@@ -85,7 +99,8 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
     } else {
       const response = await PostOneAntecedentData(accessToken, antecedentData) // 추가 API 호출
       if (response.ok) {
-        setHistories([...histories, antecedentData])
+        const newId = await response.json()
+        setHistories([...histories, { ...antecedentData, id: newId }])
         reset()
         setIsAdding(false)
         alert('추가가 완료되었습니다.')
@@ -99,17 +114,19 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
     return `${year}.${month?.padStart(2, '0')}`
   }
 
-  const handleEdit = (index: number, editId: number) => {
+  const handleEdit = (index: number) => {
     setEditingIndex(index)
     setIsAdding(true)
   }
 
   const handleDelete = async (index: number) => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
+      const antecedentId = histories[index].id || null
       const updatedHistories = histories.filter((_, i) => i !== index)
       setHistories(updatedHistories)
-      const response = await DeleteAntecedentData(accessToken, index)
+      const response = await DeleteAntecedentData(accessToken, antecedentId)
       if (response.ok) {
+        alert('삭제가 완료되었습니다.')
       }
       if (index === editingIndex) {
         setEditingIndex(null)
@@ -123,7 +140,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
 
   const handleRetirementChange = (isRetired: boolean) => {
     setValue('retirement', isRetired)
-    if (isRetired) {
+    if (!isRetired) {
       setValue('endDate', '')
     }
   }
@@ -151,7 +168,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
             </div>
             <div className="flex items-center justify-end">
               <Image
-                onClick={() => handleEdit(index, history.id)}
+                onClick={() => handleEdit(index)}
                 src="/assets/icons/pencil.svg"
                 width={27}
                 height={27}
@@ -159,7 +176,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
                 className="cursor-pointer"
               />
               <Image
-                onClick={() => handleDelete(history.id)}
+                onClick={() => handleDelete(index)}
                 src="/assets/icons/delete.svg"
                 width={27}
                 height={27}
@@ -179,26 +196,20 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
         >
           <div className="flex gap-3">
             <div className="flex w-[49%] flex-col">
-              <span className="text-sm font-normal text-grey100">
-                회사/프로젝트명<span className="pl-1 text-[#2563EB]">*</span>
-              </span>
-              <input
-                type="text"
+              <Input
+                label="회사/프로젝트명"
                 placeholder="회사명 / 프로젝트"
-                className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
-                {...register('projectName', { required: true })}
+                required
+                {...register('projectName', { required: '회사/프로젝트명을 입력해주세요.' })}
               />
             </div>
 
             <div className="flex w-[49%] flex-col">
-              <span className="text-sm font-normal text-grey100">
-                포지션<span className="pl-1 text-[#2563EB]">*</span>
-              </span>
-              <input
-                type="text"
+              <Input
+                label="포지션"
                 placeholder="Product Manager"
-                className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
-                {...register('projectRole', { required: true })}
+                required
+                {...register('projectRole', { required: '포지션을 입력해주세요.' })}
               />
             </div>
           </div>
@@ -208,59 +219,61 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
               기간<span className="pl-1 text-[#2563EB]">*</span>
             </span>
             <div className="flex justify-between">
-              <div className="mt-2 flex gap-2">
-                <input
-                  className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
-                  placeholder="YYYY.MM"
-                  {...register('startDate', { required: true })}
-                />
-                <span>~</span>
-                <input
-                  className="h-10 w-20 rounded-[0.31rem] border border-grey40 text-center text-sm"
-                  placeholder="YYYY.MM"
-                  {...register('endDate', { required: retirementValue })}
-                  disabled={!retirementValue}
-                />
+              <div className="flex items-center gap-2">
+                <div className="relative ">
+                  <Input
+                    className="w-60"
+                    placeholder="YYYY.MM"
+                    required
+                    {...register('startDate', {
+                      required: '시작일을 YYYY.MM 형식으로 입력해주세요.',
+                      validate: validateYearMonthMessage,
+                      onBlur: () => trigger('startDate'),
+                    })}
+                  />
+                </div>
 
-                {/* input radio 진행중 */}
-                <div className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    id="current"
+                <span>~</span>
+
+                <div className="flex flex-col">
+                  <Input
+                    className="w-60"
+                    placeholder="YYYY.MM"
+                    required={retirementValue}
+                    disabled={!retirementValue}
+                    {...register('endDate', {
+                      validate: retirementValue ? validateYearMonthMessage : undefined,
+                      onBlur: () => trigger('endDate'),
+                    })}
+                  />
+                </div>
+
+                <div className="flex items-end gap-2">
+                  {/* input radio 진행중 */}
+                  <Radio
+                    label="진행중"
                     value="false"
-                    {...register('retirement')}
                     checked={!retirementValue}
                     onChange={() => handleRetirementChange(false)}
                   />
-                  <label htmlFor="current" className="text-sm text-grey100">
-                    진행중
-                  </label>
 
                   {/* radio 종료 */}
-                  <input
-                    type="radio"
-                    id="retired"
+                  <Radio
+                    label="종료"
                     value="true"
-                    {...register('retirement')}
                     checked={retirementValue}
                     onChange={() => handleRetirementChange(true)}
                   />
-                  <label htmlFor="retired" className="text-sm text-grey100">
-                    종료
-                  </label>
                 </div>
               </div>
             </div>
-            <div className="mt-[0.81rem] flex flex-col">
-              <span className="text-sm font-normal text-grey100">
-                설명<span className="pl-1 text-[#2563EB]">*</span>
-              </span>
-              <textarea
-                className="mt-2 rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-sm"
-                placeholder="경력 설명"
-                {...register('antecedentsDescription', { required: true })}
-              />
-            </div>
+            <Textarea
+              label="설명"
+              placeholder="경력 설명"
+              required
+              {...register('antecedentsDescription', { required: '경력 설명을 입력해주세요.' })}
+            />
+
             <div className="mt-5 flex justify-end gap-2">
               <Button
                 onClick={() => {
