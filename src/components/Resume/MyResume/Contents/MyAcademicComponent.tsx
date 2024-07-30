@@ -5,25 +5,15 @@ import { EducationFormData, EducationFormInputs, EducationResponse, MyResumEduca
 import Image from 'next/image'
 import { useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import { useForm, SubmitHandler, UseFormSetValue } from 'react-hook-form'
-import { motion } from 'framer-motion'
-import { mainHoverEffect } from '@/lib/animations'
+import { useForm, FormProvider, UseFormSetValue, SubmitHandler } from 'react-hook-form'
 import { Button } from '@/components/common/Button'
+import { EducationForm } from '../Component/EducationForm'
 
 export default function MyAcademicComponent({ data }: MyResumEducationProps) {
   const [isEditing, setIsEditing] = useState<boolean | number>(false)
   const accessToken = useRecoilValue(accessTokenState) || ''
   const [educationData, setEducationData] = useState<EducationResponse[]>(data)
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useForm<EducationFormInputs>()
-  const degreeName = watch('degreeName')
+  const methods = useForm<EducationFormInputs>()
 
   const handleAddEducation: SubmitHandler<EducationFormInputs> = async (formData) => {
     const newEducation: EducationFormData = {
@@ -41,7 +31,7 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
         setEducationData([...educationData, { ...newEducation, id: Date.now() }])
         alert('학력이 추가되었습니다.')
         setIsEditing(false)
-        reset()
+        methods.reset()
       }
     } catch (error) {
       console.error('Failed to add education', error)
@@ -70,7 +60,7 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
         )
         alert('학력이 수정되었습니다.')
         setIsEditing(false)
-        reset()
+        methods.reset()
       }
     } catch (error) {
       console.error('Failed to update education', error)
@@ -132,7 +122,7 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
                   height={27}
                   alt="edit"
                   className="cursor-pointer"
-                  onClick={() => handleEditClick(education, setValue)}
+                  onClick={() => handleEditClick(education, methods.setValue)}
                 />
                 <Image
                   src="/assets/icons/delete.svg"
@@ -144,161 +134,48 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
                 />
               </div>
             </div>
+
             {isEditing === education.id && (
-              <form
-                onSubmit={handleSubmit(handleUpdateEducation)}
-                className="mt-4 flex flex-col gap-4 rounded-lg border border-grey40 bg-grey10 p-5"
-              >
-                <div className="flex gap-[0.81rem]">
-                  <div className="flex flex-col">
-                    <p className="text-sm font-normal text-grey100">학교명</p>
-                    <input
-                      type="text"
-                      className="mt-1 w-[15.31rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
-                      {...register('universityName', { required: '학교명을 입력해주세요' })}
-                    />
-                    {errors.universityName && <p className="text-red-500">{errors.universityName.message}</p>}
-                  </div>
-
-                  <div className="flex flex-col">
-                    <p className="text-sm font-normal text-grey100">전공명</p>
-                    <input
-                      type="text"
-                      className="mt-1 w-[15.31rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
-                      {...register('majorName', { required: '전공명을 입력해주세요' })}
-                    />
-                    {errors.majorName && <p className="text-red-500">{errors.majorName.message}</p>}
-                  </div>
-                </div>
-
-                <div className="flex flex-col">
-                  <p className="text-sm font-normal text-grey100">재학 기간</p>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="text"
-                      placeholder="YYYY"
-                      className="mt-1 w-[4.5rem] rounded border border-grey40 px-[0.88rem] py-2 text-center text-sm outline-none"
-                      {...register('admissionYear', { required: '입학년도를 입력해주세요' })}
-                    />
-                    <p>~</p>
-                    <input
-                      type="text"
-                      placeholder="YYYY"
-                      className="mt-1 w-[4.5rem] rounded border border-grey40 px-[0.88rem] py-2 text-center text-sm outline-none"
-                      {...register('graduationYear')}
-                      disabled={degreeName === '재학' || degreeName === '휴학'}
-                    />
-                    <select
-                      className="mt-1 w-[4.8rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
-                      {...register('degreeName')}
-                      onChange={(e) => {
-                        if (e.target.value === '재학' || e.target.value === '휴학') {
-                          setValue('graduationYear', '')
-                        }
-                      }}
-                    >
-                      <option value="졸업">졸업</option>
-                      <option value="재학">재학</option>
-                      <option value="휴학">휴학</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="mt-[0.94rem] flex w-full justify-end gap-4">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsEditing(false)
-                    }}
-                    className="rounded border border-main bg-white px-4 text-sm text-main"
-                  >
-                    취소하기
-                  </button>
-                  <button type="submit" className="h-10 rounded bg-[#2563EB] px-4 text-sm text-[#fff]">
-                    수정하기
-                  </button>
-                </div>
-              </form>
+              <FormProvider {...methods}>
+                <EducationForm
+                  onSubmit={handleUpdateEducation}
+                  onCancel={() => {
+                    setIsEditing(false)
+                    methods.reset()
+                  }}
+                  defaultValues={{
+                    universityName: education.universityName,
+                    majorName: education.majorName,
+                    admissionYear: education.admissionYear.toString(),
+                    graduationYear: education.graduationYear ? education.graduationYear.toString() : '',
+                    degreeName: education.degreeName,
+                  }}
+                  isEditing={true}
+                />
+              </FormProvider>
             )}
           </div>
         ))
       )}
 
-      {/* 추가하기 모드 */}
       {isEditing === true && (
-        <form
-          onSubmit={handleSubmit(handleAddEducation)}
-          className="mt-4 flex flex-col gap-4 rounded-lg border border-grey40 bg-grey30 bg-opacity-30 p-5"
-        >
-          <div className="flex gap-[0.81rem]">
-            <div className="flex flex-col">
-              <p className="text-sm font-normal text-grey100">학교명</p>
-              <input
-                type="text"
-                className="mt-1 w-[15.31rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
-                {...register('universityName', { required: '학교명을 입력해주세요' })}
-              />
-              {errors.universityName && <p className="text-red-500">{errors.universityName.message}</p>}
-            </div>
-
-            <div className="flex flex-col">
-              <p className="text-sm font-normal text-grey100">전공명</p>
-              <input
-                type="text"
-                className="mt-1 w-[15.31rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
-                {...register('majorName', { required: '전공명을 입력해주세요' })}
-              />
-              {errors.majorName && <p className="text-red-500">{errors.majorName.message}</p>}
-            </div>
-          </div>
-
-          <div className="flex flex-col">
-            <p className="text-sm font-normal text-grey100">재학 기간</p>
-            <div className="flex items-center gap-2">
-              <input
-                type="text"
-                placeholder="YYYY"
-                className="mt-1 w-[4.5rem] rounded border border-grey40 px-[0.88rem] py-2 text-center text-sm outline-none"
-                {...register('admissionYear', { required: '입학년도를 입력해주세요' })}
-              />
-              <p>~</p>
-              <input
-                type="text"
-                placeholder="YYYY"
-                className="mt-1 w-[4.5rem] rounded border border-grey40 px-[0.88rem] py-2 text-center text-sm outline-none"
-                {...register('graduationYear', { required: degreeName !== '재학' && degreeName !== '휴학' })}
-                disabled={degreeName === '재학' || degreeName === '휴학'}
-              />
-              <select
-                className="mt-1 w-[4.8rem] rounded border border-grey40 px-[0.88rem] py-2 text-sm outline-none"
-                {...register('degreeName')}
-                onChange={(e) => {
-                  if (e.target.value === '재학' || e.target.value === '휴학') {
-                    setValue('graduationYear', '')
-                  }
-                }}
-              >
-                <option value="졸업">졸업</option>
-                <option value="재학">재학</option>
-                <option value="휴학">휴학</option>
-              </select>
-            </div>
-          </div>
-          <div className="mt-[0.94rem] flex w-full justify-end gap-4">
-            <Button
-              type="button"
-              onClick={() => {
-                setIsEditing(false)
-              }}
-              mode="sub"
-              animationMode="sub"
-            >
-              취소하기
-            </Button>
-            <Button type="submit" animationMode="main">
-              추가하기
-            </Button>
-          </div>
-        </form>
+        <FormProvider {...methods}>
+          <EducationForm
+            onSubmit={handleAddEducation}
+            onCancel={() => {
+              setIsEditing(false)
+              methods.reset()
+            }}
+            defaultValues={{
+              universityName: '',
+              majorName: '',
+              admissionYear: '',
+              graduationYear: '',
+              degreeName: '졸업',
+            }}
+            isEditing={false}
+          />
+        </FormProvider>
       )}
 
       {/* button */}
@@ -308,6 +185,13 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
             animationMode="main"
             onClick={() => {
               setIsEditing(true)
+              methods.reset({
+                universityName: '',
+                majorName: '',
+                admissionYear: '',
+                graduationYear: '',
+                degreeName: '졸업',
+              })
             }}
           >
             추가하기
