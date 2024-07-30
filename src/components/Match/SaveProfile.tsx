@@ -8,8 +8,6 @@ import { accessTokenState } from '@/context/recoil-context'
 import { FindTeamInterface, PrivateProfile, SaveProfileType } from '@/lib/types'
 import Link from 'next/link'
 
-import MatchingPrivateMiniProfile from '../common/component/MatchingPrivateMiniProfile'
-import MatchingTeamMiniProfile from '../common/component/MatchingTeamMiniProfile'
 import { usePathname } from 'next/navigation'
 import Match404 from './common/Match404'
 import TeamMemberMiniProfile from '../Find/Member/TeamMemberMiniProfile'
