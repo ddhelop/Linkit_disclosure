@@ -7,6 +7,7 @@ import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
 import { Button } from '@/components/common/Button'
+import Textarea from '@/components/common/component/Basic/TextArea'
 
 interface MyResumeCompletionProps {
   data: ProfileIntroductionResponse
@@ -61,13 +62,13 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
       <div className="pt-[0.94rem]">
         {isEditing ? (
           <div>
-            <textarea
+            <Textarea
               className="w-full resize-none whitespace-pre-wrap rounded border border-grey30 p-4 text-[#000]"
               rows={4}
               value={introduction}
               onChange={handleInputChange}
               placeholder="자기소개를 입력해주세요..."
-            ></textarea>
+            />
             <div className="text-right text-sm text-grey100">{charCount} / 300자</div>
           </div>
         ) : (
