@@ -6,11 +6,10 @@ import { addressData } from '@/lib/addressSelectData'
 import { LocationResponse } from '@/lib/types'
 import { selectStyle } from '@/style/toggleStyle'
 import Image from 'next/image'
-import { ChangeEvent, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
-import { motion } from 'framer-motion'
-import { mainHoverEffect } from '@/lib/animations'
 import { Button } from '@/components/common/Button'
+import Select from '@/components/common/component/Basic/Select'
 
 interface MyResumLocationFieldProps {
   data: LocationResponse
@@ -38,23 +37,28 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
     }
   }, [data])
 
-  const handleEditClick = async () => {
+  const handleEditClick = () => {
+    setIsEditing(true)
+  }
+
+  const handleSaveClick = async () => {
     if (accessToken) {
       const response = await PostProfileRegion(accessToken, selectedCity, selectedDistrict)
 
       if (response.ok) {
-        setIsEditing(!isEditing)
+        alert('활동 지역이 수정되었습니다.')
+        setIsEditing(false)
       }
     }
   }
 
-  const handleCityChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCity(event.target.value)
+  const handleCityChange = (value: string) => {
+    setSelectedCity(value)
     setSelectedDistrict('')
   }
 
-  const handleDistrictChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedDistrict(event.target.value)
+  const handleDistrictChange = (value: string) => {
+    setSelectedDistrict(value)
   }
 
   const getDistricts = () => {
@@ -74,34 +78,28 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
         <div className="mt-4">
           <div className="flex gap-4">
             <div className="flex flex-col gap-3">
-              <label className=" font-semibold text-grey100">시/도</label>
-              <select
-                value={selectedCity}
-                onChange={handleCityChange}
-                className="select-with-padding-right rounded border border-grey40 p-3 font-medium text-grey60"
-              >
-                <option value="">시/도를 선택해주세요</option>
-                {addressData.map((city, index) => (
-                  <option key={index} value={city.name}>
-                    {city.name}
-                  </option>
-                ))}
-              </select>
+              <label className="font-semibold text-grey100">시/도</label>
+              <Select
+                name="city"
+                options={[
+                  { value: '', label: 'select' },
+                  ...addressData.map((city) => ({ value: city.name, label: city.name })),
+                ]}
+                selectedValue={selectedCity}
+                onChange={(event) => handleCityChange(event.target.value)}
+              />
             </div>
             <div className="flex flex-col gap-3">
-              <label className=" font-semibold text-grey100">시/군/구</label>
-              <select
-                value={selectedDistrict}
-                onChange={handleDistrictChange}
-                className="select-with-padding-right rounded border border-grey40 p-3 font-medium text-grey60"
-              >
-                <option value="">시/군/구를 선택해주세요</option>
-                {getDistricts().map((district, index) => (
-                  <option key={index} value={district}>
-                    {district}
-                  </option>
-                ))}
-              </select>
+              <label className="font-semibold text-grey100">시/군/구</label>
+              <Select
+                name="district"
+                options={[
+                  { value: '', label: 'select' },
+                  ...getDistricts().map((district) => ({ value: district, label: district })),
+                ]}
+                selectedValue={selectedDistrict}
+                onChange={(event) => handleDistrictChange(event.target.value)}
+              />
             </div>
           </div>
         </div>
@@ -133,7 +131,7 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
           </Button>
         )}
 
-        <Button onClick={handleEditClick} mode="main" animationMode="main">
+        <Button onClick={isEditing ? handleSaveClick : handleEditClick} mode="main" animationMode="main">
           {isEditing ? '수정완료' : '수정하기'}
         </Button>
       </div>
