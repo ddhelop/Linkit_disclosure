@@ -1,9 +1,10 @@
 'use client'
+
 import { accessTokenState } from '@/context/recoil-context'
 import { DeleteSchoolData, PostOneSchoolData, PutSchoolData } from '@/lib/action'
 import { EducationFormData, EducationFormInputs, EducationResponse, MyResumEducationProps } from '@/lib/types'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { useForm, FormProvider, UseFormSetValue, SubmitHandler } from 'react-hook-form'
 import { Button } from '@/components/common/Button'
@@ -93,6 +94,19 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
     setValue('degreeName', education.degreeName)
   }
 
+  useEffect(() => {
+    if (typeof isEditing === 'number') {
+      const education = educationData.find((edu) => edu.id === isEditing)
+      if (education) {
+        methods.setValue('universityName', education.universityName)
+        methods.setValue('majorName', education.majorName)
+        methods.setValue('admissionYear', education.admissionYear.toString())
+        methods.setValue('graduationYear', education.graduationYear ? education.graduationYear.toString() : '')
+        methods.setValue('degreeName', education.degreeName)
+      }
+    }
+  }, [isEditing, educationData, methods])
+
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
@@ -171,7 +185,7 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
               majorName: '',
               admissionYear: '',
               graduationYear: '',
-              degreeName: '졸업',
+              degreeName: '',
             }}
             isEditing={false}
           />

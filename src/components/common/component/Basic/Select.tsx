@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, forwardRef, SelectHTMLAttributes } from 'react'
+// Select.tsx
+import { useState, useEffect, useRef, forwardRef, SelectHTMLAttributes, ChangeEvent } from 'react'
 import Image from 'next/image'
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
@@ -8,22 +9,31 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   className?: string
   openImage?: string
   closeImage?: string
+  selectedValue?: string
+  onChange?: (e: ChangeEvent<HTMLSelectElement>) => void
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  ({ label, name, options, className, openImage, closeImage, ...rest }, ref) => {
-    const [selectedValue, setSelectedValue] = useState<string>(rest.defaultValue?.toString() || options[0]?.value || '')
+  ({ label, name, options, className, openImage, closeImage, selectedValue, onChange, ...rest }, ref) => {
+    const [currentValue, setCurrentValue] = useState<string>(selectedValue || options[0]?.value || '')
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const containerRef = useRef<HTMLDivElement>(null)
 
+    useEffect(() => {
+      if (selectedValue !== undefined) {
+        setCurrentValue(selectedValue)
+      }
+    }, [selectedValue])
+
     const handleOptionClick = (value: string) => {
-      setSelectedValue(value)
+      setCurrentValue(value)
       setIsOpen(false)
       if (typeof ref === 'function') {
         ref({ current: { value } } as unknown as HTMLSelectElement)
       } else if (ref && 'current' in ref) {
         ;(ref.current as HTMLSelectElement).value = value
       }
+      onChange?.({ target: { value } } as ChangeEvent<HTMLSelectElement>)
     }
 
     const handleDocumentClick = (event: MouseEvent) => {
@@ -50,7 +60,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           className={`flex w-full cursor-pointer items-center justify-between gap-3 rounded border border-grey40 bg-white px-4 py-3 text-sm outline-none ${className}`}
           onClick={() => setIsOpen(!isOpen)}
         >
-          {options.find((option) => option.value === selectedValue)?.label || 'Select an option'}
+          {options.find((option) => option.value === currentValue)?.label || '선택'}
           <span className="float-right">
             <Image
               src={
@@ -65,7 +75,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           </span>
         </div>
         {isOpen && (
-          <div className="absolute top-11 z-10 mt-1 w-full rounded border border-grey40 bg-white shadow-lg">
+          <div className="absolute top-11 z-10 mt-1 max-h-60 w-full overflow-y-auto rounded border border-grey40 bg-white shadow-lg">
             {options.map((option) => (
               <div
                 key={option.value}
@@ -77,7 +87,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             ))}
           </div>
         )}
-        <select id={name} name={name} ref={ref} className="hidden" {...rest}>
+        <select id={name} name={name} ref={ref} className="hidden" value={currentValue} {...rest}>
           {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}

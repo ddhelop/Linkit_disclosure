@@ -1,3 +1,4 @@
+// EducationForm.tsx
 import { useFormContext } from 'react-hook-form'
 import { Button } from '@/components/common/Button'
 import { EducationFormInputs } from '@/lib/types'
@@ -55,20 +56,22 @@ export const EducationForm = ({ onSubmit, onCancel, defaultValues, isEditing }: 
 
       <div className="flex flex-col">
         <p className="text-sm font-normal text-grey100">재학 기간</p>
-        <div className="flex items-end gap-2">
-          <Input
-            placeholder="YYYY"
-            {...register('admissionYear', { required: '입학년도를 입력해주세요' })}
-            defaultValue={defaultValues.admissionYear}
-          />
-          <p>~</p>
-          <Input
-            type="text"
-            placeholder="YYYY"
-            {...register('graduationYear')}
-            disabled={degreeName === '재학' || degreeName === '휴학'}
-            defaultValue={defaultValues.graduationYear}
-          />
+        <div className="flex items-end gap-2 ">
+          <div className="flex items-center gap-3">
+            <Input
+              placeholder="YYYY"
+              {...register('admissionYear', { required: '입학년도를 입력해주세요' })}
+              defaultValue={defaultValues.admissionYear}
+            />
+            <p>~</p>
+            <Input
+              type="text"
+              placeholder="YYYY"
+              {...register('graduationYear')}
+              disabled={degreeName === '재학' || degreeName === '휴학'}
+              defaultValue={defaultValues.graduationYear}
+            />
+          </div>
           <Select
             options={[
               { value: '졸업', label: '졸업' },
@@ -76,8 +79,9 @@ export const EducationForm = ({ onSubmit, onCancel, defaultValues, isEditing }: 
               { value: '휴학', label: '휴학' },
             ]}
             {...register('degreeName')}
-            defaultValue={defaultValues.degreeName}
+            selectedValue={defaultValues.degreeName}
             onChange={(e) => {
+              setValue('degreeName', e.target.value)
               if (e.target.value === '재학' || e.target.value === '휴학') {
                 setValue('graduationYear', '')
               }
