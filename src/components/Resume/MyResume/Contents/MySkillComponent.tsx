@@ -5,7 +5,7 @@ import SkillModal from '@/components/common/component/filter/\bSkillModal'
 import { accessTokenState } from '@/context/recoil-context'
 import { GetOnBoardingData, PostRoleData } from '@/lib/action'
 import { mainHoverEffect } from '@/lib/animations'
-import { Skills } from '@/lib/data'
+import { SkillOptions, Skills } from '@/lib/data'
 import { JobAndSkillResponse } from '@/lib/types'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
@@ -18,7 +18,7 @@ interface MyResumeCompletionProps {
   data: JobAndSkillResponse
 }
 
-export default function MySkillComponent({ data }: MyResumeCompletionProps) {
+export default function ㅈMySkillComponent({ data }: MyResumeCompletionProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [skills, setSkills] = useState<string[]>([])
@@ -189,7 +189,7 @@ export default function MySkillComponent({ data }: MyResumeCompletionProps) {
           onClose={() => setIsModalOpen(false)}
           selectedFilters={skills}
           handleFilterChange={(selectedSkills) => setSkills(selectedSkills)}
-          skillOptions={Skills}
+          skillOptions={SkillOptions}
         />
       )}
     </div>
