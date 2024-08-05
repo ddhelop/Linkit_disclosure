@@ -8,6 +8,8 @@ import Image from 'next/image'
 import Select from 'react-select'
 import { validateYear, validateYearMessage } from '@/context/schemaValidation'
 import { Button } from '@/components/common/Button'
+import Input from '@/components/common/component/Basic/Input'
+import Textarea from '@/components/common/component/Basic/TextArea'
 
 interface TeamHistoryProps {
   data: HistoryResponse[]
@@ -167,24 +169,19 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                 >
                   <div className="flex flex-col gap-2">
                     <p className="text-sm font-normal">한 줄 소개</p>
-                    <input
-                      {...register('historyOneLineIntroduction')}
-                      placeholder="Text Field"
-                      className="rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3"
-                    />
+                    <Input {...register('historyOneLineIntroduction')} placeholder="Text Field" />
                   </div>
 
                   <div className="flex flex-col gap-2">
                     <p className="text-sm font-normal">기간</p>
                     <div className="flex items-center gap-4">
                       <div className="relative">
-                        <input
+                        <Input
                           {...register('startYear', {
                             validate: (value) => validateYear(value) || validateYearMessage(value),
                           })}
                           type="number"
                           placeholder="시작 연도"
-                          className="w-[12.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-left text-sm"
                         />
                         {errors.startYear && (
                           <p className="absolute w-[32rem] pl-1 text-xs text-red-500">{errors.startYear.message}</p>
@@ -192,13 +189,12 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                       </div>
                       <p>~</p>
                       <div className="relative">
-                        <input
+                        <Input
                           {...register('endYear', {
                             validate: (value) => validateYear(value) || validateYearMessage(value),
                           })}
                           type="number"
                           placeholder="종료 연도"
-                          className="w-[12.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-left text-sm"
                           disabled={inProgressValue}
                         />
                         {errors.endYear && !inProgressValue && (
@@ -212,7 +208,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                           <Select
                             {...field}
                             options={selectOptions}
-                            className="w-[6rem] text-sm"
+                            className="mt-[0.4rem] text-sm"
                             placeholder="진행 상태"
                             value={field.value}
                             components={{ IndicatorSeparator: () => null }}
@@ -225,25 +221,16 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
 
                   <div className="flex flex-col">
                     <p className="text-sm font-normal">설명</p>
-                    <textarea
-                      {...register('historyIntroduction')}
-                      className="mt-2 resize-none rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 "
-                      rows={3}
-                      placeholder="Text Field"
-                    />
+                    <Textarea {...register('historyIntroduction')} rows={3} placeholder="Text Field" />
                   </div>
 
                   <div className="mt-4 flex w-full justify-end gap-2">
-                    <button
-                      className="rounded-[0.25rem] bg-grey60 px-4 py-2 text-[#fff]"
-                      type="button"
-                      onClick={handleCancel}
-                    >
+                    <Button animationMode="sub" mode="sub" type="button" onClick={handleCancel}>
                       취소하기
-                    </button>
-                    <button className="rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]" type="submit">
+                    </Button>
+                    <Button animationMode="main" mode="main" type="submit">
                       저장하기
-                    </button>
+                    </Button>
                   </div>
                 </form>
               )}
@@ -258,24 +245,19 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
           >
             <div className="flex flex-col gap-2">
               <p className="text-sm font-normal">한 줄 소개</p>
-              <input
-                {...register('historyOneLineIntroduction')}
-                placeholder="Text Field"
-                className="rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3"
-              />
+              <Input {...register('historyOneLineIntroduction')} placeholder="Text Field" />
             </div>
 
             <div className="flex flex-col gap-2">
               <p className="text-sm font-normal">기간</p>
               <div className="flex items-center gap-4">
                 <div className="relative">
-                  <input
+                  <Input
                     {...register('startYear', {
                       validate: (value) => validateYear(value) || validateYearMessage(value),
                     })}
                     type="number"
                     placeholder="시작년도"
-                    className="w-[12.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-left text-sm"
                   />
                   {errors.startYear && (
                     <p className="absolute w-[32rem] pl-1 text-xs text-red-500">{errors.startYear.message}</p>
@@ -283,7 +265,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                 </div>
                 <p>~</p>
                 <div className="relative">
-                  <input
+                  <Input
                     {...register('endYear', {
                       validate: (value) => validateYear(value) || validateYearMessage(value),
                     })}
@@ -303,7 +285,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                     <Select
                       {...field}
                       options={selectOptions}
-                      className="w-[6rem] text-sm"
+                      className="mt-[0.42rem] text-sm"
                       placeholder="진행 상태"
                       value={field.value}
                       onChange={(value) => field.onChange(value)}
@@ -316,7 +298,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
 
             <div className="flex flex-col">
               <p className="text-sm font-normal">설명</p>
-              <textarea
+              <Textarea
                 {...register('historyIntroduction')}
                 className="mt-2 resize-none rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 "
                 rows={3}

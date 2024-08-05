@@ -1,5 +1,6 @@
 'use client'
 import { Button } from '@/components/common/Button'
+import Textarea from '@/components/common/component/Basic/TextArea'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileIntroduction, PostTeamIntroduction } from '@/lib/action'
 import { TeamProfileIntroductionResponse } from '@/lib/types'
@@ -59,13 +60,12 @@ export default function TeamResumeIntroduce({ data }: TeamCompletionProps) {
       <div className="pt-[0.94rem]">
         {isEditing ? (
           <div>
-            <textarea
-              className="w-full resize-none rounded border border-grey30 p-4 text-[#000]"
+            <Textarea
               rows={4}
               value={teamIntroduction}
               onChange={handleInputChange}
               placeholder="팀소개를 입력해주세요..."
-            ></textarea>
+            ></Textarea>
             <div className="text-right text-sm text-grey100">{charCount} / 300자</div>
           </div>
         ) : (

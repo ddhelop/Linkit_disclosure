@@ -14,6 +14,7 @@ import {
 import SkillModal from '@/components/common/component/filter/\bSkillModal'
 import { SkillOptions } from '@/lib/data'
 import { Button } from '@/components/common/Button'
+import Textarea from '@/components/common/component/Basic/TextArea'
 
 interface TeamResumeMemberAnnouncementProps {
   data: TeamResumsMemberAnnouncementResponse[]
@@ -209,12 +210,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
               <label className="flex font-normal text-grey100">
                 주요 업무 <p className="pl-1 font-normal text-[#2563EB]">*</p>
               </label>
-              <textarea
-                {...register('mainBusiness')}
-                className="mt-2 block w-full resize-none rounded-md border border-grey30 p-[0.56rem] shadow-sm outline-none"
-                rows={3}
-                placeholder="주요 업무"
-              />
+              <Textarea {...register('mainBusiness')} rows={3} placeholder="주요 업무" />
             </div>
 
             <label className="mt-8 flex font-normal text-grey100">
@@ -259,12 +255,7 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
               <label className=" flex font-normal text-grey100">
                 지원 절차 <p className="pl-1 font-normal text-[#2563EB]">*</p>
               </label>
-              <textarea
-                {...register('applicationProcess')}
-                className="mt-2 block w-full resize-none rounded-md border border-grey30 p-[0.56rem] shadow-sm outline-none"
-                rows={3}
-                placeholder="지원 절차"
-              />
+              <Textarea {...register('applicationProcess')} rows={3} placeholder="지원 절차" />
             </div>
           </div>
           <div className="mt-4 flex justify-end gap-2 pb-4">

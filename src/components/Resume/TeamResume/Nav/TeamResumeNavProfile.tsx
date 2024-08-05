@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { useState } from 'react'
 import TeamProfileModal from './TeamProfileModal'
 import { TeamMiniProfilePlusResponse } from '@/lib/types'
+import { motion } from 'framer-motion'
+import { grayHoverEffect } from '@/lib/animations'
 
 interface TeamResumNavProps {
   data: TeamMiniProfileResponse | null
@@ -67,9 +69,13 @@ export default function TeamResumeNavProfile({ data }: TeamResumNavProps) {
           </div>
         </div>
       </div>
-      <button onClick={handleModalOpen} className="mt-[0.88rem] rounded-[0.25rem] bg-grey20 py-[0.56rem] text-sm">
+      <motion.button
+        {...grayHoverEffect}
+        onClick={handleModalOpen}
+        className="mt-[0.88rem] rounded-[0.25rem] bg-grey20 py-[0.56rem] text-sm"
+      >
         수정하기
-      </button>
+      </motion.button>
 
       <TeamProfileModal
         isOpen={isModalOpen}

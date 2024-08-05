@@ -1,5 +1,9 @@
+// TeamResumeActivityWay.tsx
+
 'use client'
+
 import { Button } from '@/components/common/Button'
+import Select from '@/components/common/component/Basic/Select'
 import { accessTokenState } from '@/context/recoil-context'
 import { TeamOnBoardingActivityWay } from '@/lib/action'
 import { addressData } from '@/lib/addressSelectData'
@@ -86,7 +90,6 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
         <span className="text-lg font-semibold text-grey100">활동 방식</span>
-        {/* {isEditing && <span className="text-sm text-[#2563EB]">Tip : 현재 팀의 활동 방식에 대해 소개해주세요!</span>} */}
       </div>
 
       {/* contents */}
@@ -130,34 +133,29 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
           <p className="pb-3 pt-8 text-lg font-semibold">활동 지역</p>
           <div className="flex gap-4">
             <div className="flex flex-col gap-3">
-              <label className=" font-semibold text-grey100">시/도</label>
-              <select
-                value={selectedCity}
+              <label className="font-semibold text-grey100">시/도</label>
+              <Select
+                name="city"
+                options={[
+                  { value: '', label: '시/도를 선택해주세요' },
+                  ...addressData.map((city) => ({ value: city.name, label: city.name })),
+                ]}
+                selectedValue={selectedCity}
                 onChange={handleCityChange}
-                className="select-with-padding-right rounded border border-grey40 p-3 font-medium text-grey60"
-              >
-                <option value="">시/도를 선택해주세요</option>
-                {addressData.map((city, index) => (
-                  <option key={index} value={city.name}>
-                    {city.name}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
             <div className="flex flex-col gap-3">
-              <label className=" font-semibold text-grey100">시/군/구</label>
-              <select
-                value={selectedDistrict}
+              <label className="font-semibold text-grey100">시/군/구</label>
+              <Select
+                name="district"
+                options={[
+                  { value: '', label: '시/군/구를 선택해주세요' },
+                  ...getDistricts().map((district) => ({ value: district, label: district })),
+                ]}
+                selectedValue={selectedDistrict}
                 onChange={handleDistrictChange}
                 className="select-with-padding-right rounded border border-grey40 p-3 font-medium text-grey60"
-              >
-                <option value="">시/군/구를 선택해주세요</option>
-                {getDistricts().map((district, index) => (
-                  <option key={index} value={district}>
-                    {district}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
           </div>
         </div>

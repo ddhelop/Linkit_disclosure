@@ -7,6 +7,8 @@ import { PostTeamMember, DeleteTeamMember, PutTeamMember } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import { Button } from '@/components/common/Button'
+import Input from '@/components/common/component/Basic/Input'
+import Textarea from '@/components/common/component/Basic/TextArea'
 
 export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
   const [isEditing, setIsEditing] = useState(false)
@@ -137,18 +139,18 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
                   <div className="flex gap-[0.81rem]">
                     <div className="flex flex-col gap-2">
                       <p className="text-sm font-normal">이름</p>
-                      <input
+                      <Input
                         {...register('teamMemberName')}
-                        className="w-[13.25rem] rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 outline-none"
+                        // className="w-[13.25rem] rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 outline-none"
                         placeholder="이름"
                       />
                     </div>
                     {/* 직무/역할 */}
                     <div className="flex flex-col gap-2">
                       <p className="text-sm font-normal">직무/역할</p>
-                      <input
+                      <Input
                         {...register('teamMemberRole')}
-                        className="w-[13.25rem] rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 outline-none"
+                        // className="w-[13.25rem] rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 outline-none"
                         placeholder="직무/역할"
                       />
                     </div>
@@ -157,24 +159,20 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
                   {/* 팀원 소개 */}
                   <div className="flex flex-col gap-2">
                     <p className="text-sm font-normal">팀원 소개</p>
-                    <textarea
+                    <Textarea
                       {...register('teamMemberIntroductionText')}
-                      className="h-[6.25rem] w-full resize-none rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 outline-none"
+                      className="h-[6.25rem]"
                       placeholder="팀원 소개"
                     />
                   </div>
 
                   <div className="flex w-full justify-end gap-2">
-                    <button
-                      className="rounded-[0.25rem] bg-grey60 px-4 py-2 text-[#fff]"
-                      type="button"
-                      onClick={handleCancel}
-                    >
+                    <Button animationMode="sub" mode="sub" type="button" onClick={handleCancel}>
                       취소하기
-                    </button>
-                    <button className="rounded-[0.25rem] bg-[#2563EB] px-4 py-2 text-[#fff]" type="submit">
+                    </Button>
+                    <Button animationMode="main" mode="main" type="submit">
                       수정하기
-                    </button>
+                    </Button>
                   </div>
                 </form>
               )}
@@ -189,33 +187,25 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
         >
           {/* 이름 */}
           <div className="flex gap-[0.81rem]">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col ">
               <p className="text-sm font-normal">이름</p>
-              <input
+              <Input
                 {...register('teamMemberName')}
                 className="w-[13.25rem] rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 outline-none"
                 placeholder="이름"
               />
             </div>
             {/* 직무/역할 */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col ">
               <p className="text-sm font-normal">직무/역할</p>
-              <input
-                {...register('teamMemberRole')}
-                className="w-[13.25rem] rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 outline-none"
-                placeholder="직무/역할"
-              />
+              <Input {...register('teamMemberRole')} className="" placeholder="직무/역할" />
             </div>
           </div>
 
           {/* 팀원 소개 */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col ">
             <p className="text-sm font-normal">팀원 소개</p>
-            <textarea
-              {...register('teamMemberIntroductionText')}
-              className="h-[6.25rem] w-full resize-none rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 outline-none"
-              placeholder="팀원 소개"
-            />
+            <Textarea {...register('teamMemberIntroductionText')} className="h-[6.25rem] " placeholder="팀원 소개" />
           </div>
 
           <div className="flex w-full justify-end gap-2">
