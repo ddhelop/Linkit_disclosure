@@ -7,6 +7,7 @@ import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
 import { Button } from '@/components/common/Button'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 interface MyResumTeamBuildingFieldProps {
   data: ProfileTeamBuildingFieldResponse
@@ -30,7 +31,7 @@ export default function TeamBuildingComponent({ data }: MyResumTeamBuildingField
   const handleSaveClick = async () => {
     const response = await PostProfileTeamBuildingField(accessToken, selectedOptions)
     if (response.ok) {
-      alert('수정이 완료되었습니다.')
+      pushNotification('희망 팀빌딩 분야가 수정되었습니다.', 'success')
       setIsEditing(false)
     }
   }

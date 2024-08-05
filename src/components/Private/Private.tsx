@@ -11,6 +11,7 @@ import PrivateNav from './Nav/PrivateNav'
 import PrivateContentLayout from './Contents/PrivateContentLayout'
 import Image from 'next/image'
 import { url } from 'inspector'
+import { pushNotification } from '../common/component/ToastPopUp/ToastPopup'
 
 export default function Private() {
   const accessToken = useRecoilValue(accessTokenState)
@@ -39,7 +40,7 @@ export default function Private() {
             if (resultData.code === 10018) {
               setIsPrivateView(false)
             } else {
-              alert(resultData.message)
+              pushNotification(resultData.message, 'error')
             }
           }
         } catch (error) {

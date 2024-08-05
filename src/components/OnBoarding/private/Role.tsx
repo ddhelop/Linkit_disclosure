@@ -12,6 +12,7 @@ import { accessTokenState } from '@/context/recoil-context'
 import OnBoardingHeader from '../OnBoardingHeader'
 import SkillModal from '@/components/common/component/filter/\bSkillModal'
 import Image from 'next/image'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 const Positions = ['기획·경영', '개발·데이터', '마케팅·광고', '디자인']
 
@@ -57,7 +58,7 @@ export default function Role() {
     if (response.ok) {
       router.push('/onBoarding/person/school')
     } else {
-      alert('요청 실패')
+      pushNotification('역할 정보 저장에 실패했습니다.', 'error')
     }
   }
 

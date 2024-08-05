@@ -9,6 +9,7 @@ import { useRecoilValue } from 'recoil'
 import { useForm, FormProvider, UseFormSetValue, SubmitHandler } from 'react-hook-form'
 import { Button } from '@/components/common/Button'
 import { EducationForm } from '../Component/EducationForm'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 export default function MyAcademicComponent({ data }: MyResumEducationProps) {
   const [isEditing, setIsEditing] = useState<boolean | number>(false)
@@ -30,7 +31,7 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
 
       if (response.ok) {
         setEducationData([...educationData, { ...newEducation, id: Date.now() }])
-        alert('학력이 추가되었습니다.')
+        pushNotification('학력이 추가되었습니다.', 'success')
         setIsEditing(false)
         methods.reset()
       }
@@ -59,13 +60,13 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
             education.id === isEditing ? { ...updatedEducation, id: isEditing } : education,
           ),
         )
-        alert('학력이 수정되었습니다.')
+        pushNotification('학력이 수정되었습니다.', 'success')
         setIsEditing(false)
         methods.reset()
       }
     } catch (error) {
       console.error('Failed to update education', error)
-      alert('수정 중 오류가 발생했습니다.')
+      pushNotification('수정 중 오류가 발생했습니다.', 'error')
     }
   }
 
@@ -77,11 +78,11 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
       if (response.ok) {
         setEducationData(educationData.filter((education) => education.id !== educationId))
       } else {
-        alert('삭제 중 오류가 발생했습니다.')
+        pushNotification('삭제에 실패했습니다.', 'error')
       }
     } catch (error) {
       console.error('Failed to delete education', error)
-      alert('삭제 중 오류가 발생했습니다.')
+      pushNotification('삭제 중 오류가 발생했습니다.', 'error')
     }
   }
 

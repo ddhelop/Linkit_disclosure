@@ -13,6 +13,7 @@ import Input from '@/components/common/component/Basic/Input'
 import Radio from '@/components/common/component/Basic/Radio'
 import Textarea from '@/components/common/component/Basic/TextArea'
 import { validateYearMonthMessage } from '@/context/schemaValidation'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 interface FormInputs {
   id?: number
@@ -94,7 +95,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
         setEditingIndex(null)
         reset()
         setIsAdding(false)
-        alert('수정이 완료되었습니다.')
+        pushNotification('수정이 완료되었습니다.', 'success')
       }
     } else {
       const response = await PostOneAntecedentData(accessToken, antecedentData) // 추가 API 호출
@@ -103,7 +104,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
         setHistories([...histories, { ...antecedentData, id: newId }])
         reset()
         setIsAdding(false)
-        alert('추가가 완료되었습니다.')
+        pushNotification('추가가 완료되었습니다.', 'success')
       }
     }
   }
@@ -126,7 +127,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
       setHistories(updatedHistories)
       const response = await DeleteAntecedentData(accessToken, antecedentId)
       if (response.ok) {
-        alert('삭제가 완료되었습니다.')
+        pushNotification('삭제가 완료되었습니다.', 'success')
       }
       if (index === editingIndex) {
         setEditingIndex(null)

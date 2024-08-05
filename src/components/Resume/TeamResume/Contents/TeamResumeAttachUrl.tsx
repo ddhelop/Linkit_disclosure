@@ -1,4 +1,5 @@
 import { Button } from '@/components/common/Button'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostTeamAttchURL } from '@/lib/action'
 import { TeamAttachUrlResponse, TeamURLFormInputs } from '@/lib/types'
@@ -56,7 +57,7 @@ export default function TeamResumeAttachUrl({ data }: MyResumURLProps) {
       const newEditingLinks = editingLinks.filter((_, i) => i !== index)
       setEditingLinks(newEditingLinks)
     } else {
-      alert('URL은 http 또는 https로 시작해야 합니다.')
+      pushNotification('URL은 http 또는 https로 시작해야 합니다.', 'error')
     }
   }
 
@@ -72,7 +73,7 @@ export default function TeamResumeAttachUrl({ data }: MyResumURLProps) {
     }))
     const response = await PostTeamAttchURL(accessToken, formattedLinks)
     if (response.ok) {
-      alert('저장되었습니다.')
+      pushNotification('링크가 저장되었습니다.', 'success')
       setIsEditing(false)
     }
   }

@@ -10,6 +10,7 @@ import { validateYear, validateYearMessage } from '@/context/schemaValidation'
 import { Button } from '@/components/common/Button'
 import Input from '@/components/common/component/Basic/Input'
 import Textarea from '@/components/common/component/Basic/TextArea'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 interface TeamHistoryProps {
   data: HistoryResponse[]
@@ -74,7 +75,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
         } else {
           setData((prevData) => [...(prevData || []), newData])
         }
-        alert('팀 연혁이 성공적으로 저장되었습니다.')
+        pushNotification('팀 연혁이 성공적으로 저장되었습니다.', 'success')
         setIsEditing(false)
         setEditIndex(null)
         reset()

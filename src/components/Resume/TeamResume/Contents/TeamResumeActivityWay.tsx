@@ -4,6 +4,7 @@
 
 import { Button } from '@/components/common/Button'
 import Select from '@/components/common/component/Basic/Select'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 import { accessTokenState } from '@/context/recoil-context'
 import { TeamOnBoardingActivityWay } from '@/lib/action'
 import { addressData } from '@/lib/addressSelectData'
@@ -52,12 +53,12 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
 
     const response = await TeamOnBoardingActivityWay(accessToken, postData)
     if (response.ok) {
-      alert('수정이 완료되었습니다.')
+      pushNotification('수정이 완료되었습니다.', 'success')
       setIsEditing(false)
       // 옵션 초기화
       setOptions(['사무실 있음', '사무실 없음', '대면 활동 선호', '비대면 활동 선호', '대면+비대면'])
     } else {
-      alert('저장 중 오류가 발생했습니다.')
+      pushNotification('저장 중 오류가 발생했습니다.', 'error')
     }
   }
 

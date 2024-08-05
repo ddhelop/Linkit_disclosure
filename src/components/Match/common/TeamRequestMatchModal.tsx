@@ -1,4 +1,5 @@
 'use client'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 import { accessTokenState } from '@/context/recoil-context'
 import { GetResumeExist, PostMatchRequest, PostTeamMatchRequest, PostTeamProfileMatchRequest } from '@/lib/action'
 import { MiniProfileResponse, TeamMemberAnnouncementResponse } from '@/lib/types'
@@ -65,13 +66,13 @@ export default function RequestTeamMatchModal({ onClose, teamId, data }: Request
     try {
       const response = await PostTeamProfileMatchRequest(accessToken, requestMessage, teamId)
       if (response.ok) {
-        alert('매칭 요청 전송 성공')
+        pushNotification('매칭 요청이 전송되었습니다.', 'success')
         onClose()
       } else {
-        console.error('매칭 요청 전송 실패')
+        pushNotification('매칭 요청 전송에 실패했습니다.', 'error')
       }
     } catch (error) {
-      console.error('매칭 요청 전송 중 오류 발생', error)
+      pushNotification('매칭 요청 전송에 실패했습니다.', 'error')
     }
   }
 

@@ -14,6 +14,7 @@ import {
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostTeamProfile, PostTeamProfile2, TeamOnBoardingData, UpdateTeamOnBoardingField } from '@/lib/action'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 interface BasicData {
   teamName: string
@@ -121,7 +122,7 @@ export default function TeamProfileModal({ isOpen, onClose, data, onUpdate }: Te
     if (files && files.length > 0) {
       const file = files[0]
       if (file.size > 2 * 1024 * 1024) {
-        alert('이미지 크기는 최대 2MB까지 업로드할 수 있습니다.')
+        pushNotification('이미지 크기는 최대 2MB까지 업로드할 수 있습니다.', 'error')
         return
       }
       setValue('profileImage', files)
@@ -142,7 +143,7 @@ export default function TeamProfileModal({ isOpen, onClose, data, onUpdate }: Te
         teamBuildingFieldNames: null,
       })
       if (!response.ok) {
-        alert('팀 기본 데이터 저장 실패')
+        pushNotification('팀 기본 데이터 저장에 실패했습니다.', 'error')
       }
     }
   }
@@ -169,7 +170,7 @@ export default function TeamProfileModal({ isOpen, onClose, data, onUpdate }: Te
       })
       onClose()
     } else {
-      alert('프로필 데이터 저장에 실패했습니다.')
+      pushNotification('프로필 데이터 저장에 실패했습니다.', 'error')
     }
   }
 

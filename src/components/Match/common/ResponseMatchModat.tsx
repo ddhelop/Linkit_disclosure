@@ -6,6 +6,7 @@ import { MatchReceivedType } from '@/lib/types'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostMatchResponse, PostTeamMatchResponse } from '@/lib/action'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 interface ModalProps {
   match: MatchReceivedType
@@ -44,12 +45,12 @@ export default function ResponseMatchModal({ match, onClose }: ModalProps) {
       if (match.matchingType === 'PROFILE') {
         const reposne = await PostMatchResponse(accessToken, match.receivedMatchingId, isAllowMatching)
         if (reposne.ok) {
-          alert('매칭 요청에 응답했습니다.')
+          pushNotification('매칭 요청에 응답했습니다.', 'success')
         }
       } else if (match.matchingType === 'TEAM_PROFILE') {
         const response = await PostTeamMatchResponse(accessToken, match.receivedMatchingId, isAllowMatching)
         if (response.ok) {
-          alert('매칭 요청에 응답했습니다.')
+          pushNotification('매칭 요청에 응답했습니다.', 'success')
         }
       }
       onClose()

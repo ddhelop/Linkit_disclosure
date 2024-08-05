@@ -1,6 +1,7 @@
 // MySkillComponent.tsx
 'use client'
 import { Button } from '@/components/common/Button'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 import SkillModal from '@/components/common/component/filter/\bSkillModal'
 import { accessTokenState } from '@/context/recoil-context'
 import { GetOnBoardingData, PostRoleData } from '@/lib/action'
@@ -48,11 +49,11 @@ export default function ㅈMySkillComponent({ data }: MyResumeCompletionProps) {
   const onSubmit = async () => {
     const response = await PostRoleData(accessToken, roleFields, skills)
     if (response.ok) {
-      alert('수정되었습니다.')
+      pushNotification('수정되었습니다.', 'success')
       setIsEditing(false)
     } else {
       const data = await response.json()
-      alert(data.message)
+      pushNotification(data.message, 'error')
     }
   }
 

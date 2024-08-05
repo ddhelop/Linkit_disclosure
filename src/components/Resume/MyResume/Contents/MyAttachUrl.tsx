@@ -7,6 +7,7 @@ import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
 import { Button } from '@/components/common/Button'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 // validateHttpUrl 함수를 수정합니다.
 const validateHttpUrl = (url: string) => {
@@ -58,7 +59,7 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
       const newEditingLinks = editingLinks.filter((_, i) => i !== index)
       setEditingLinks(newEditingLinks)
     } else {
-      alert('URL은 http 또는 https로 시작해야 합니다.')
+      pushNotification('URL은 http 또는 https로 시작해야 합니다.', 'error')
     }
   }
 
@@ -73,8 +74,10 @@ export default function MyAttachUrl({ data }: MyResumURLProps) {
       attachUrlPath: link.url,
     }))
     const response = await PostProfileAttchURL(accessToken, formattedLinks)
-    alert('저장되었습니다.')
-    setIsEditing(false)
+    if (response.ok) {
+      pushNotification('저장되었습니다.', 'success')
+      setIsEditing(false)
+    }
   }
 
   const handleRemoveLink = (index: number) => {

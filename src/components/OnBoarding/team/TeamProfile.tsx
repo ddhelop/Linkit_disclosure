@@ -9,6 +9,7 @@ import { PostTeamProfile, TeamOnBoardingData } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import OnBoardingHeader from '../OnBoardingHeader'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 interface BasicData {
   teamName: string
@@ -89,7 +90,7 @@ export default function TeamProfile() {
     const files = event.target.files
     if (files && files.length > 0) {
       if (files[0].size > 1024 * 1024 * 2) {
-        alert('이미지 크기는 최대 2MB까지 업로드할 수 있습니다.')
+        pushNotification('이미지 파일은 최대 2MB까지 업로드 가능합니다.', 'error')
         return
       }
       setValue('profileImage', files)

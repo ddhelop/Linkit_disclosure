@@ -12,6 +12,9 @@ import Scripts from '@/components/script'
 import ClientProvider from '@/components/common/ClientProvider'
 import FetchSetting from '@/components/common/fetch/page'
 
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
+
 export const metadata: Metadata = {
   title: 'Linkit',
   description: '팀 빌딩 서비스, 링킷',
@@ -49,6 +52,7 @@ export default function RootLayout({
         <ClientProvider>
           <FetchSetting>
             <Header />
+            <ToastContainer />
             <div className="bg-grey10">{children}</div>
             <Footer />
           </FetchSetting>

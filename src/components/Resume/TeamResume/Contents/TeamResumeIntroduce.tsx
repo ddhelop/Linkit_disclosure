@@ -1,6 +1,7 @@
 'use client'
 import { Button } from '@/components/common/Button'
 import Textarea from '@/components/common/component/Basic/TextArea'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileIntroduction, PostTeamIntroduction } from '@/lib/action'
 import { TeamProfileIntroductionResponse } from '@/lib/types'
@@ -28,10 +29,10 @@ export default function TeamResumeIntroduce({ data }: TeamCompletionProps) {
   const saveIntroduction = async () => {
     const response = await PostTeamIntroduction(accessToken, teamIntroduction)
     if (response.ok) {
-      alert('저장되었습니다.')
+      pushNotification('저장되었습니다.', 'success')
       setIsEditing(false)
     } else {
-      alert('저장에 실패했습니다.')
+      pushNotification('저장에 실패했습니다.', 'error')
     }
   }
 

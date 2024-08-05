@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
 import { motion } from 'framer-motion'
 import { grayHoverEffect, mainHoverEffect } from '@/lib/animations'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 interface MiniProfileModalProps {
   isOpen: boolean
@@ -66,7 +67,7 @@ export default function MiniProfileModal({ isOpen, onClose }: MiniProfileModalPr
     const file = event.target.files?.[0]
     if (file) {
       if (file.size > 2 * 1024 * 1024) {
-        alert('이미지 크기는 최대 2MB까지 업로드할 수 있습니다.')
+        pushNotification('이미지 파일은 최대 2MB까지 업로드 가능합니다.', 'error')
         return
       }
       setProfileImage(file)

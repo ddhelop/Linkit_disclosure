@@ -15,6 +15,7 @@ import SkillModal from '@/components/common/component/filter/\bSkillModal'
 import { SkillOptions } from '@/lib/data'
 import { Button } from '@/components/common/Button'
 import Textarea from '@/components/common/component/Basic/TextArea'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 interface TeamResumeMemberAnnouncementProps {
   data: TeamResumsMemberAnnouncementResponse[]
@@ -79,14 +80,14 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
       }
 
       if (response.ok) {
-        alert('팀원 공고가 성공적으로 저장되었습니다.')
+        pushNotification('팀원 공고가 성공적으로 저장되었습니다.', 'success')
         resetForm()
       } else {
-        alert('저장 중 오류가 발생했습니다.')
+        pushNotification('저장 중 오류가 발생했습니다.', 'error')
       }
     } catch (error) {
       console.error('API 요청 실패:', error)
-      alert('저장 중 오류가 발생했습니다.')
+      pushNotification('저장 중 오류가 발생했습니다.', 'error')
     }
 
     setIsFormVisible(false)
@@ -113,11 +114,11 @@ export default function TeamResumeMemberAnnouncement({ data = [] }: TeamResumeMe
       if (response.ok) {
         setAnnouncements(announcements.filter((announcement) => announcement.id !== id))
       } else {
-        alert('삭제 중 오류가 발생했습니다.')
+        pushNotification('삭제 중 오류가 발생했습니다.', 'error')
       }
     } catch (error) {
       console.error('API 요청 실패:', error)
-      alert('삭제 중 오류가 발생했습니다.')
+      pushNotification('삭제 중 오류가 발생했습니다.', 'error')
     }
   }
 

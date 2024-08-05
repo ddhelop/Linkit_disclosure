@@ -10,6 +10,7 @@ import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
 import { Button } from '@/components/common/Button'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 interface MyResumAwardProps {
   data: AwardResponse[]
@@ -45,9 +46,9 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
       const response = await PutProfileAward(accessToken, formData, isEditing)
       if (response.ok) {
         setAwards((prev) => prev.map((award) => (award.id === isEditing ? formData : award)))
-        alert('수상이력이 수정되었습니다.')
+        pushNotification('수상이력이 수정되었습니다.', 'success')
       } else {
-        alert('수상이력 수정 중 오류가 발생했습니다.')
+        pushNotification('수상이력 수정 중 오류가 발생했습니다.', 'error')
       }
       setIsEditing(null)
     } else {
@@ -55,9 +56,9 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
       const response = await PostProfileAward(accessToken, formData)
       if (response.ok) {
         setAwards((prev) => [...prev, formData])
-        alert('수상이력이 추가되었습니다.')
+        pushNotification('수상이력이 추가되었습니다.', 'success')
       } else {
-        alert('수상이력 추가 중 오류가 발생했습니다.')
+        pushNotification('수상이력 추가 중 오류가 발생했습니다.', 'error')
       }
     }
     reset()
@@ -70,11 +71,11 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
       if (response.ok) {
         setAwards((prev) => prev.filter((award) => award.id !== id))
       } else {
-        alert('삭제 중 오류가 발생했습니다.')
+        pushNotification('수상이력 삭제 중 오류가 발생했습니다.', 'error')
       }
     } catch (error) {
       console.error('Failed to delete award', error)
-      alert('삭제 중 오류가 발생했습니다.')
+      pushNotification('수상이력 삭제 중 오류가 발생했습니다.', 'error')
     }
   }
 

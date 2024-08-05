@@ -8,6 +8,8 @@ import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
 import { Button } from '@/components/common/Button'
 import Textarea from '@/components/common/component/Basic/TextArea'
+import { toast } from 'react-toastify'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 interface MyResumeCompletionProps {
   data: ProfileIntroductionResponse
@@ -30,10 +32,10 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
   const saveIntroduction = async () => {
     const response = await PostProfileIntroduction(accessToken, introduction)
     if (response.ok) {
-      alert('저장되었습니다.')
+      pushNotification('저장되었습니다.', 'success')
       setIsEditing(false)
     } else {
-      alert('저장에 실패했습니다.')
+      pushNotification('저장에 실패했습니다.', 'error')
     }
   }
 

@@ -6,6 +6,7 @@ import { PrivateProfile } from '@/lib/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 interface TeamMemberMiniProfileProps {
   profile: PrivateProfile
@@ -23,25 +24,25 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
           const response = await DeleteSaveMember(accessToken, profile.id)
           if (response.ok) {
             setIsSaved(false)
-            alert('찜하기가 취소되었습니다.')
+            pushNotification('찜하기가 취소되었습니다.', 'success')
           } else {
-            alert('찜하기 취소에 실패했습니다.')
+            pushNotification('찜하기 취소에 실패했습니다.', 'error')
           }
         } else {
           const response = await PostSaveMember(accessToken, profile.id)
           if (response.ok) {
             setIsSaved(true)
-            alert('저장되었습니다.')
+            pushNotification('저장되었습니다.', 'success')
           } else {
             const responseData = await response.json()
-            alert(responseData.message)
+            pushNotification(responseData.message, 'error')
           }
         }
       } catch {
-        alert('요청에 실패했습니다.')
+        pushNotification('요청에 실패했습니다.', 'error')
       }
     } else {
-      alert('로그인 후 이용해주세요.')
+      pushNotification('로그인이 필요합니다.', 'error')
     }
   }
 

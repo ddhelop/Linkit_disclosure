@@ -1,5 +1,6 @@
 'use client'
 import { Button } from '@/components/common/Button'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileTeamBuildingField, PostTeamBuildingField } from '@/lib/action'
 import { TeamProfileTeamBuildingFieldResponse } from '@/lib/types'
@@ -31,7 +32,7 @@ export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuil
   const handleSaveClick = async () => {
     const response = await PostTeamBuildingField(accessToken, selectedOptions)
     if (response.ok) {
-      alert('수정이 완료되었습니다.')
+      pushNotification('희망 팀빌딩 분야가 수정되었습니다.', 'success')
       setIsEditing(false)
     }
   }

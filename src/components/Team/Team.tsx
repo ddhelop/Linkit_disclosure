@@ -9,6 +9,7 @@ import { useRecoilValue } from 'recoil'
 import TeamNav from './Nav/TeamNav'
 import TeamContentLayout from './Contents/TeamContentLayout'
 import Image from 'next/image'
+import { pushNotification } from '../common/component/ToastPopUp/ToastPopup'
 
 export default function Team() {
   const accessToken = useRecoilValue(accessTokenState) || ''
@@ -37,7 +38,7 @@ export default function Team() {
             if (resultData.code === 10018) {
               setIsPrivateView(false)
             } else {
-              alert(resultData.message)
+              pushNotification(resultData.message, 'error')
             }
           }
         } catch (error) {

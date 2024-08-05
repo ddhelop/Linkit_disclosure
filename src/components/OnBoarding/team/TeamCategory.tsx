@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { accessTokenState, authState } from '@/context/recoil-context'
 import OnBoardingHeader from '../OnBoardingHeader'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 const ShortTerm = ['창업', '공모전', '대회', '사이드 프로젝트', '포트폴리오']
 
@@ -64,11 +65,11 @@ export default function TeamCategory() {
       if (response.ok) {
         router.push('/onBoarding/team/activityWay')
       } else {
-        alert('에러가 발생했습니다.')
+        pushNotification('팀 정보 저장에 실패했습니다.', 'error')
       }
     } catch (error) {
       console.error('Failed to submit onboarding data', error)
-      alert('에러가 발생했습니다.')
+      pushNotification('팀 정보 저장에 실패했습니다.', 'error')
     }
   }
 

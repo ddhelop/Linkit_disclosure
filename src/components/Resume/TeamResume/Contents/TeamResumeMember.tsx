@@ -9,6 +9,7 @@ import { accessTokenState } from '@/context/recoil-context'
 import { Button } from '@/components/common/Button'
 import Input from '@/components/common/component/Basic/Input'
 import Textarea from '@/components/common/component/Basic/TextArea'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
   const [isEditing, setIsEditing] = useState(false)
@@ -24,7 +25,7 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
       try {
         const response = await PutTeamMember(accessToken, updatedMember, updatedMember.id)
         if (response.ok) {
-          alert('수정되었습니다.')
+          pushNotification('수정되었습니다.', 'success')
           setTeamMembers(teamMembers.map((member, index) => (index === editIndex ? updatedMember : member)))
           setIsEditing(false)
           setEditIndex(null)
@@ -44,7 +45,7 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
       try {
         const response = await PostTeamMember(accessToken, [...teamMembers, newMember])
         if (response.ok) {
-          alert('저장되었습니다.')
+          pushNotification('저장되었습니다.', 'success')
           setTeamMembers([...teamMembers, newMember])
           setIsEditing(false)
           reset()

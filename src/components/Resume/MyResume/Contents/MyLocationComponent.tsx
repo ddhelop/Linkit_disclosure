@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { Button } from '@/components/common/Button'
 import Select from '@/components/common/component/Basic/Select'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 interface MyResumLocationFieldProps {
   data: LocationResponse
@@ -46,7 +47,7 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
       const response = await PostProfileRegion(accessToken, selectedCity, selectedDistrict)
 
       if (response.ok) {
-        alert('활동 지역이 수정되었습니다.')
+        pushNotification('활동 지역이 수정되었습니다.', 'success')
         setIsEditing(false)
       }
     }

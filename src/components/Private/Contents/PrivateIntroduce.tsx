@@ -1,4 +1,5 @@
 'use client'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileIntroduction } from '@/lib/action'
 import { ProfileIntroductionResponse } from '@/lib/types'
@@ -26,10 +27,10 @@ export default function PrivateIntroduce({ data }: MyResumeCompletionProps) {
   const saveIntroduction = async () => {
     const response = await PostProfileIntroduction(accessToken, introduction)
     if (response.ok) {
-      alert('저장되었습니다.')
+      pushNotification('저장되었습니다.', 'success')
       setIsEditing(false)
     } else {
-      alert('저장에 실패했습니다.')
+      pushNotification('저장에 실패했습니다.', 'error')
     }
   }
 

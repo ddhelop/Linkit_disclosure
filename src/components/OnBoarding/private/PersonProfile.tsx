@@ -8,6 +8,7 @@ import { useRecoilState } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import { useRouter } from 'next/navigation'
 import OnBoardingHeader from '../OnBoardingHeader'
+import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
 
 interface FormInputs {
   profileTitle: string
@@ -62,7 +63,7 @@ export default function RegisterPersonProfile() {
     const file = event.target.files?.[0]
     if (file) {
       if (file.size > 1024 * 1024 * 2) {
-        alert('이미지 크기는 최대 2MB까지 업로드할 수 있습니다.')
+        pushNotification('이미지 파일은 최대 2MB까지 업로드 가능합니다.', 'error')
         return
       }
       setProfileImage(file)
