@@ -48,7 +48,7 @@ export default function MyResume() {
   return (
     <div className="flex flex-col pt-[61px]">
       {/* Header */}
-      <div className="fixed flex h-[4rem] w-full items-center gap-[3.17rem] bg-white-alpha-50 px-[9.72rem] backdrop-blur-2xl">
+      <div className="fixed z-10 flex h-[4rem] w-full items-center gap-[3.17rem] bg-white-alpha-50 px-[9.72rem] backdrop-blur-2xl">
         <Link href={'/myResume'}>
           <span className="cursor-pointer border-b-4 border-[#2563EB] py-4 text-main hover:text-main">내 이력서</span>
         </Link>
