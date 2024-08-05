@@ -333,7 +333,7 @@ export default function TeamProfileModal({ isOpen, onClose, data, onUpdate }: Te
 
               {/* input container */}
               <div className="mt-[0.88rem] flex flex-col border-t border-grey40">
-                <span className="py-[0.88rem] text-sm font-normal">요구 역량을 하나씩 입력해 주세요</span>
+                <span className="py-[0.88rem] text-sm font-normal">키워드를 하나씩 입력해주세요</span>
                 <div className="flex w-[17.1rem] items-center gap-[0.63rem]">
                   <input
                     type="text"
@@ -341,7 +341,7 @@ export default function TeamProfileModal({ isOpen, onClose, data, onUpdate }: Te
                     value={inputValue}
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
-                    placeholder="기획"
+                    placeholder="seed 투자 유치"
                   />
                   <button
                     onClick={handleAddSkill}
