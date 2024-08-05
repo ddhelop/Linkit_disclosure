@@ -23,7 +23,7 @@ export default function FindTeamLeftNav() {
     skillName: [],
     cityName: [],
     divisionName: [],
-    activityType: [],
+    activityTagName: [],
   })
 
   const TeamBuildingfilterOptions: string[] = ['공모전', '대회', '창업', '사이드 프로젝트', '포트폴리오']
@@ -59,7 +59,7 @@ export default function FindTeamLeftNav() {
       skillName: [],
       cityName: [],
       divisionName: [],
-      activityType: [],
+      activityTagName: [],
     })
   }
 
@@ -219,8 +219,8 @@ export default function FindTeamLeftNav() {
                   <input
                     type="checkbox"
                     className="mr-2"
-                    checked={selectedFilters.activityType.includes(option)}
-                    onChange={() => handleFilterChange('activityType', option)}
+                    checked={selectedFilters.activityTagName.includes(option)}
+                    onChange={() => handleFilterChange('activityTagName', option)}
                   />
                   <span>{option}</span>
                 </label>
