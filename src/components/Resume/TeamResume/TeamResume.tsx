@@ -1,6 +1,7 @@
 'use client'
 import TeamContentLayout from '@/components/Resume/TeamResume/Contents/ContentLayout'
 import TeamResumeNav from '@/components/Resume/TeamResume/Nav/TeamResumeNav'
+import ResumeSkeleton from '@/components/common/component/Skeleton/ResumeSkeleton'
 import { accessTokenState } from '@/context/recoil-context'
 import { GetTeamResume } from '@/lib/action'
 import { TeamIntroductionResponse } from '@/lib/types'
@@ -35,7 +36,7 @@ export default function TeamResume() {
   }, [accessToken])
 
   if (loading) {
-    return <div>Loading...</div>
+    return <ResumeSkeleton />
   }
 
   if (error) {

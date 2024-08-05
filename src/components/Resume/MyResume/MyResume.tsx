@@ -9,6 +9,7 @@ import { MyResumeResponse } from '@/lib/types'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import Image from 'next/image'
+import ResumeSkeleton from '@/components/common/component/Skeleton/ResumeSkeleton'
 
 export default function MyResume() {
   const accessToken = useRecoilValue(accessTokenState)
@@ -34,7 +35,7 @@ export default function MyResume() {
   }, [accessToken])
 
   if (loading) {
-    return <div>Loading...</div>
+    return <ResumeSkeleton />
   }
 
   if (error) {
