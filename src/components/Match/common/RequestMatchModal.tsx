@@ -65,6 +65,7 @@ export default function RequestMatchModal({ onClose, profileId, data }: RequestM
     try {
       const response = await PostMatchRequest(accessToken, requestMessage, profileId)
       if (response.ok) {
+        pushNotification('매칭 요청이 전송되었습니다.', 'success')
         onClose()
       } else {
         const responseData = await response.json()
@@ -79,6 +80,7 @@ export default function RequestMatchModal({ onClose, profileId, data }: RequestM
     try {
       const response = await PostTeamMatchRequest(accessToken, requestMessage, profileId)
       if (response.ok) {
+        pushNotification('팀 소개서 매칭 요청이 전송되었습니다.', 'success')
         onClose()
       } else {
         console.error('팀 소개서 매칭 요청 전송 실패')
