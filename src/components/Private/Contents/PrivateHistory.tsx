@@ -60,7 +60,7 @@ export default function PrivateHistory({ data }: MyResumAntecedentProps) {
               <span className="font-semibold text-grey100">{history.projectRole}</span>
               <span className="pt-1 text-sm text-grey60">{history.projectName}</span>
               <span className="pt-1 text-xs text-grey50">
-                {history.startDate} - {history.endDate} ({history.retirement ? '종료' : '재직중'})
+                {history.startDate} - {history.endDate} ({history.retirement ? '종료' : '진행중'})
               </span>
               <span className="pt-1 text-sm text-grey60">{history.antecedentsDescription}</span>
             </div>
