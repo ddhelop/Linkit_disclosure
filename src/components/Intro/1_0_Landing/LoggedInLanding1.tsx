@@ -28,7 +28,7 @@ export default function LoggedInLanding1() {
   return (
     <div
       // style={{ backgroundImage: 'url("/assets/intro/section3bg.png")' }}
-      className="relative flex h-screen min-h-screen w-full snap-mandatory snap-start snap-always flex-col items-center justify-center overflow-hidden overflow-x-auto bg-[#F0F2F6] bg-opacity-50 bg-cover bg-no-repeat px-4  lg:px-0"
+      className="relative flex h-screen min-h-screen w-full snap-mandatory snap-start snap-always flex-col items-center justify-center overflow-hidden overflow-x-auto bg-[#F0F2F6] bg-opacity-50 bg-cover bg-no-repeat px-4 lg:px-0"
     >
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -39,7 +39,7 @@ export default function LoggedInLanding1() {
         }}
         className="sm:pt-[6.56rem]"
       >
-        <h1 className="text-center text-[1.8rem] font-bold text-main sm:text-[2.5rem] lg:text-[3.375rem]">
+        <h1 className="text-center text-[1.8rem] font-bold text-main  sm:text-[3.375rem]">
           성공적인 팀을 이루는
           <br /> 가장 쉬운 방법
         </h1>
