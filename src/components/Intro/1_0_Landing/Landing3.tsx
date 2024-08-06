@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 export default function Landing3() {
   return (
-    <div className="relative flex h-screen min-h-screen w-full snap-mandatory snap-start snap-always flex-col items-center justify-center overflow-hidden overflow-x-auto bg-[#F0F2F6] bg-opacity-50 bg-cover bg-no-repeat pt-20">
+    <div className="relative flex h-screen min-h-screen w-full flex-col items-center justify-center overflow-hidden overflow-x-auto bg-[#F0F2F6] bg-opacity-50 bg-cover bg-no-repeat px-4 pt-20 sm:snap-mandatory sm:snap-start sm:snap-always lg:px-0">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -13,13 +13,13 @@ export default function Landing3() {
         }}
         className="flex w-full flex-col items-center"
       >
-        <p className="text-2xl font-bold">목표는 있지만 매번 팀원 구하다가 흐지부지..</p>
-        <h1 className="text-center text-[2.625rem] font-bold text-black">
+        <p className="text-base font-bold sm:text-2xl">목표는 있지만 매번 팀원 구하다가 흐지부지..</p>
+        <h1 className="text-center text-[1.8rem] font-bold text-black sm:text-[2.625rem]">
           링킷으로 나를 홍보하고
           <br />
           빠르게 팀을 이루세요
         </h1>
-        <p className=" pt-4 text-lg text-grey60">
+        <p className="pt-4 text-sm text-grey60 sm:text-lg">
           목표가 통하는 사람들과 자유롭게 소통하면서 성공적인 팀빌딩으로 이어질 수 있습니다.
         </p>
       </motion.div>

@@ -21,7 +21,7 @@ export default function IntroComponent11() {
   return (
     <div
       id="FAQ"
-      className="relative flex h-screen min-h-screen w-full snap-mandatory snap-start snap-always flex-col items-center justify-start overflow-hidden overflow-x-auto bg-white bg-opacity-50 bg-cover bg-no-repeat py-20 lg:justify-center lg:pt-20"
+      className="relative flex h-screen min-h-screen w-full flex-col items-center justify-start overflow-hidden overflow-x-auto bg-white bg-opacity-50 bg-cover bg-no-repeat py-20 sm:snap-mandatory sm:snap-start sm:snap-always lg:justify-center lg:pt-20"
     >
       <div className="flex w-full flex-col items-center">
         <span className="text-center text-[1.6rem] font-bold leading-[3.625rem] lg:text-[2.62rem]">FAQ</span>

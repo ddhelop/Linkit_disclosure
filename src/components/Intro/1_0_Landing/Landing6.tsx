@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 export default function Landing6() {
   return (
-    <div className="relative flex h-screen min-h-screen w-full snap-mandatory snap-start snap-always flex-col items-center justify-center overflow-hidden overflow-x-auto bg-[#F0F2F6] bg-opacity-50 bg-cover bg-no-repeat pt-20">
+    <div className="relative flex h-screen min-h-screen w-full flex-col items-center justify-center overflow-hidden overflow-x-auto bg-[#F0F2F6] bg-opacity-50 bg-cover bg-no-repeat pt-20 sm:snap-mandatory sm:snap-start sm:snap-always">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
