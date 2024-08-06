@@ -47,7 +47,7 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
   }
 
   return (
-    <div className="flex w-[23rem] flex-col justify-between gap-[2rem] rounded-[0.63rem] bg-[#fff] p-5 shadow-sm">
+    <div className="flex flex-col justify-between gap-[2rem] rounded-[0.63rem] bg-[#fff] p-5 shadow-sm lg:w-[23rem]">
       <div className="flex w-full items-start justify-between">
         <div className="w-[80%] text-lg font-semibold leading-[1.375rem] opacity-80">{profile.profileTitle}</div>
         <Image
@@ -88,7 +88,9 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
           </div>
           <div className="flex items-end">
             <Link href={`/private/${profile.id}`}>
-              <button className="rounded-[0.29rem] bg-grey100 px-7 py-[0.57rem] text-[#fff]">보기</button>
+              <button className="rounded-[0.29rem] bg-grey100 px-4 py-[0.57rem] text-xs text-[#fff] sm:px-7 sm:text-base">
+                보기
+              </button>
             </Link>
           </div>
         </div>

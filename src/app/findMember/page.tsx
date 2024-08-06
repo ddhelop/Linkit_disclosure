@@ -14,12 +14,12 @@ export default function FindingMemberPage() {
         scrolledDescription="공모전부터 사이드 프로젝트, 창업 초기 멤버까지 함께 할 팀원을 찾아 보세요!"
       />
 
-      <div className="flex w-full justify-center bg-grey10 pb-24 pt-[16rem]">
-        <div className="flex w-full justify-center gap-[1.5rem]">
-          <div className="flex w-[16rem] justify-end">
+      <div className="flex w-full justify-center bg-grey10 px-4 pb-24 pt-[16rem]">
+        <div className="flex w-full flex-col items-center justify-center gap-[1.5rem] lg:flex-row lg:items-start">
+          <div className="flex w-full justify-center lg:w-[16rem] lg:justify-end">
             <FindMemberLeftNav />
           </div>
-          <div className="w-[47rem]">
+          <div className="lg:w-[47rem]">
             <FindMember />
           </div>
         </div>

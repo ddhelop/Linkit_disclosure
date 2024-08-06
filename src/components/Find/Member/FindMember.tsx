@@ -8,7 +8,7 @@ export default function FindMember() {
   const profileData = useRecoilValue(filteredProfilesState)
 
   return (
-    <div className="grid grid-cols-1 gap-4 pt-[2rem] md:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:pt-[2rem]">
       {profileData?.map((profile) => <TeamMemberMiniProfile key={profile.id} profile={profile} />)}
     </div>
   )
