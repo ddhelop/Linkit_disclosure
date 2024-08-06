@@ -5,7 +5,7 @@ import FindMemberLeftNav from '@/components/Find/Member/FindMemberLeftNav'
 
 export default function FindingMemberPage() {
   return (
-    <div className="flex w-full flex-col justify-center pt-[61px]">
+    <div className="justwify-center flex w-full flex-col pt-[61px]">
       <Banner
         imgSrc="/assets/images/Find_Private_Banner.png"
         title="🚀 팀원 찾기"
