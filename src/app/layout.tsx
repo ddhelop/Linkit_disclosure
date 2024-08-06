@@ -50,12 +50,12 @@ export default function RootLayout({
     <html lang="ko" className={`${pretendard.variable}`}>
       <body className={`${pretendard.className} bg-[#fff]`}>
         <ClientProvider>
-          <FetchSetting>
-            <Header />
-            <ToastContainer />
-            <div className="bg-grey10">{children}</div>
-            <Footer />
-          </FetchSetting>
+          {/* <FetchSetting> */}
+          <Header />
+          <ToastContainer />
+          <div className="bg-grey10">{children}</div>
+          <Footer />
+          {/* </FetchSetting> */}
         </ClientProvider>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
         <Scripts />

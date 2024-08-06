@@ -37,7 +37,7 @@ export default function IntroLayout() {
 
   const isAuth = useRecoilValue(authState)
   return (
-    <div className="flex h-screen w-full snap-y snap-mandatory flex-col overflow-y-scroll">
+    <div className="flex h-screen w-full snap-y snap-mandatory flex-col overflow-y-scroll bg-[#F0F2F6] ">
       {/* <IntroComponent1 /> */}
       {/* <IntroComponent3 /> */}
       {/* <IntroComponent2 /> */}
