@@ -45,9 +45,9 @@ export default function Header() {
     RefreshAccessToken(token)
       .then((response) => {
         if (response.existMemberBasicInform === false) {
-          router.push('/onBoarding')
+          setIsAuth(false)
         } else if (response.existDefaultProfile === false) {
-          router.push('/onBoarding/select')
+          setIsAuth(false)
         }
 
         if (response.existMemberBasicInform && response.existDefaultProfile) {
