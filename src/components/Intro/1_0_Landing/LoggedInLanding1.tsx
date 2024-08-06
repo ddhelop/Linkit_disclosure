@@ -43,7 +43,7 @@ export default function LoggedInLanding1() {
           성공적인 팀을 이루는
           <br /> 가장 쉬운 방법
         </h1>
-        <p className="pt-4 text-xs text-grey70 sm:text-sm lg:text-[1.1875rem]">
+        <p className="pt-4 text-sm text-grey70 sm:text-lg ">
           지금 바로 내 이력서/팀 소개서를 등록하고 성공적인 팀빌딩을 시작하세요!
         </p>
       </motion.div>

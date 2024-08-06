@@ -6,7 +6,7 @@ export default function FooterComponent() {
   const router = useRouter()
 
   return (
-    <footer className="w-full py-20 font-medium text-grey100 ">
+    <footer className="w-full py-20 text-xs font-medium text-grey100 sm:text-base">
       <div className="flex w-full gap-[1.88rem] px-[8.88rem]">
         <Link href={'https://bit.ly/4biOQ1Z'} target="_blank">
           <span className="">커뮤니티</span>

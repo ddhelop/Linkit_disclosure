@@ -21,17 +21,17 @@ export default function IntroComponent11() {
   return (
     <div
       id="FAQ"
-      className="relative flex h-screen min-h-screen w-full flex-col items-center justify-start overflow-hidden overflow-x-auto bg-white bg-opacity-50 bg-cover bg-no-repeat py-20 sm:snap-mandatory sm:snap-start sm:snap-always lg:justify-center lg:pt-20"
+      className="relative flex h-screen min-h-screen w-full flex-col items-center justify-start overflow-hidden overflow-x-auto bg-white bg-opacity-50 bg-cover bg-no-repeat px-4 py-20 sm:snap-mandatory sm:snap-start sm:snap-always sm:px-0 lg:justify-center lg:pt-20"
     >
       <div className="flex w-full flex-col items-center">
-        <span className="text-center text-[1.6rem] font-bold leading-[3.625rem] lg:text-[2.62rem]">FAQ</span>
-        <span className="pt-2 text-center text-xs font-medium text-grey70 lg:text-xl lg:leading-8">
+        <span className="text-center text-[1.6rem] font-bold leading-[3.625rem] sm:text-[2.62rem]">FAQ</span>
+        <span className="pt-2 text-center text-xs font-medium text-grey70 sm:text-xl lg:leading-8">
           링킷에게 궁금한점이 있다면 우측 하단 채널톡으로 문의하세요!
         </span>
       </div>
 
       {/* Multiple FAQ entries */}
-      <div className="mt-5 w-[47rem] bg-white lg:mt-12">
+      <div className="mt-5 w-full  sm:mt-12 sm:w-[47rem]">
         {[
           'Q. 내 이력서는 팀 소개서와 무엇이 다른가요?',
           'Q. 팀 소개서는 내 이력서와 무엇이 다른가요?',
@@ -61,7 +61,7 @@ export default function IntroComponent11() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="w-full pb-5 pl-7 pr-10"
+                  className="py-5 pl-7 pr-10 sm:w-full"
                 >
                   <p className="p-1 text-xs lg:text-base">{answers[index]}</p>
                 </motion.div>
