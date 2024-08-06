@@ -21,7 +21,7 @@ export default function ResumeSkeleton() {
     <div className="flex flex-col pb-[70px] pt-[61px]">
       {/* Header */}
       <motion.div
-        className="fixed z-10 flex h-[4rem] w-full items-center gap-[3.17rem] bg-white-alpha-50 px-[9.72rem] backdrop-blur-2xl"
+        className="fixed z-10 flex h-[4rem] w-full items-center gap-[3.17rem] bg-white-alpha-50 px-9 backdrop-blur-2xl sm:px-[9.72rem]"
         variants={shimmerVariants}
         initial="initial"
         animate="animate"
@@ -31,15 +31,15 @@ export default function ResumeSkeleton() {
         <span className="text-grey300 cursor-pointer opacity-50 hover:text-main">팀 소개서</span>
       </motion.div>
       {/* contents */}
-      <div className="flex justify-center  gap-[3.2rem] pt-[101px]">
+      <div className="flex flex-col items-center justify-center gap-4 pt-[101px] lg:flex-row lg:items-start lg:gap-[3.2rem]">
         {/* left navBar */}
         <motion.div
-          className="w-[21.25rem] rounded-[0.75rem]"
+          className="w-[98%] rounded-3xl lg:w-[21.25rem]"
           variants={shimmerVariants}
           initial="initial"
           animate="animate"
         >
-          <div className="flex w-[23rem] flex-col bg-white p-5">
+          <div className="flex flex-col bg-white p-5 lg:w-[23rem]">
             <div className="h-[1.1rem] w-[16rem] rounded-[2.5rem] bg-grey30"></div>
             <div className="mt-[0.56rem] h-[1.1rem] w-[7rem] rounded-[2.5rem] bg-grey30"></div>
             <div className="mt-[4.88rem] flex gap-2">
@@ -62,7 +62,7 @@ export default function ResumeSkeleton() {
 
         {/* right contents */}
         <motion.div
-          className="flex w-[47.31rem] flex-col gap-[1.06rem]"
+          className="flex w-[98%] flex-col gap-[1.06rem] lg:w-[47.31rem]"
           variants={shimmerVariants}
           initial="initial"
           animate="animate"
