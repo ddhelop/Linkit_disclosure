@@ -28,7 +28,7 @@ export default function FromMyMatch() {
   }, [accessToken])
 
   return (
-    <div className="flex w-full flex-col pt-12">
+    <div className="flex flex-col lg:w-full lg:pt-12">
       <div className="flex flex-col gap-[0.31rem]">
         <h1 className="text-2xl font-bold">내가 받은 매칭</h1>
         <p className="text-grey60">공모전부터 사이드 프로젝트, 창업 초기 멤버까지 함께 할 팀원을 찾아 보세요!</p>
@@ -45,7 +45,7 @@ export default function FromMyMatch() {
           {matchReceived?.map((match, index) => (
             <motion.div
               key={`${match.id}-${index}`}
-              className="flex w-[48.5rem] cursor-pointer  gap-[1.44rem] rounded-lg bg-[#fff] p-5 shadow-sm"
+              className="flex cursor-pointer gap-[1.44rem] rounded-lg bg-[#fff] p-5 shadow-sm lg:w-[48.5rem]"
               whileHover={{
                 y: -3,
                 boxShadow: '0px 8px 30px rgba(0, 0, 0, 0.05)',

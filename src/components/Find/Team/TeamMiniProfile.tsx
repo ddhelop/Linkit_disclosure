@@ -71,7 +71,7 @@ export default function TeamMiniProfile({ profile }: TeamMemberMiniProfileProps)
   }
 
   return (
-    <div className="flex flex-col rounded-[0.63rem] bg-[#fff] p-5 shadow-sm lg:w-[42.5rem]">
+    <div className="flex w-full flex-col rounded-[0.63rem] bg-[#fff] p-5 shadow-sm lg:w-[42.5rem]">
       <Link href={`/team/${profile?.teamMiniProfileResponse.id}`}>
         <div className="flex cursor-pointer flex-col rounded-lg p-2 hover:bg-grey10">
           <div className="flex w-full items-center justify-between ">

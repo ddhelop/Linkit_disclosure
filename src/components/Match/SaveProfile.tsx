@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+
 import { useEffect, useState } from 'react'
 import { GetSavedMembers, GetSavedTeams } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
@@ -37,7 +37,7 @@ export default function SaveProfile() {
   }, [accessToken, pathname])
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col items-center lg:items-start">
       <div className="mt-7 flex gap-10 text-lg text-grey100">
         <div className="flex flex-col">
           <Link href={'/match/save'}>
@@ -49,7 +49,7 @@ export default function SaveProfile() {
             <Image src={'/assets/icons/blue_border_bottom.svg'} width={82} height={1} alt="border" />
           )}
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col ">
           <Link href={'/match/save/team'}>
             <div
               className={`cursor-pointer px-2 pb-1 ${pathname === '/match/save/team' ? 'text-center font-bold' : 'text-center opacity-50'}`}
@@ -66,11 +66,11 @@ export default function SaveProfile() {
       {/* 찜한 팀원 */}
       {pathname === '/match/save' &&
         (privateMatchReceived?.length === 0 ? (
-          <>
+          <div className="mt-12 lg:mt-0">
             <Match404 message="찜한 팀원이 없어요" />
-          </>
+          </div>
         ) : (
-          <div className="mt-3 flex w-[48rem] flex-wrap gap-3">
+          <div className="mt-3 grid grid-cols-1 justify-items-center gap-3 md:grid-cols-2 lg:w-[48rem] lg:gap-3 ">
             {privateMatchReceived?.map((profile, index) => <TeamMemberMiniProfile key={index} profile={profile} />)}
           </div>
         ))}
@@ -78,11 +78,11 @@ export default function SaveProfile() {
       {/* 찜한 팀 */}
       {pathname === '/match/save/team' &&
         (teamMatchedReceived?.length === 0 ? (
-          <>
+          <div className="mt-12 lg:mt-0">
             <Match404 message="찜한 팀이 없어요" />
-          </>
+          </div>
         ) : (
-          <div className="mt-3 w-[4]">
+          <div className="mt-3 w-full">
             {teamMatchedReceived?.map((profile, index) => <TeamMiniProfile key={index} profile={profile} />)}
           </div>
         ))}
