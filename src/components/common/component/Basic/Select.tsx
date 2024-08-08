@@ -49,7 +49,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="relative flex flex-col justify-end" ref={containerRef}>
         {label && (
-          <label htmlFor={name} className="text-sm font-normal text-grey90">
+          <label htmlFor={name} className="w-full px-2 text-sm font-bold text-grey90">
             {label}
           </label>
         )}
@@ -76,7 +76,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             {options.map((option) => (
               <div
                 key={option.value}
-                className={`flex cursor-pointer justify-center px-2 py-2 text-center text-sm hover:bg-grey10 ${
+                className={`flex cursor-pointer justify-start px-2 py-2 text-center text-sm hover:bg-grey10 ${
                   option.disabled ? 'cursor-not-allowed text-gray-400' : ''
                 }`}
                 onClick={() => handleOptionClick(option.value, option.disabled)}

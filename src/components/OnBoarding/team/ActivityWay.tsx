@@ -1,7 +1,7 @@
 'use client'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { addressData } from '@/lib/addressSelectData'
 import { TeamOnBoardingActivityWay, TeamOnBoardingData } from '@/lib/action'
@@ -9,14 +9,13 @@ import { TeamOnBoardingActivityWayFormInputs } from '@/lib/types'
 import { accessTokenState } from '@/context/recoil-context'
 import { useRecoilValue } from 'recoil'
 import OnBoardingHeader from '../OnBoardingHeader'
+import Select from '@/components/common/component/Basic/Select'
 
 const ShortTerm = ['사무실 있음', '사무실 없음', '대면 활동 선호', '비대면 활동 선호', '대면 + 비대면']
 
 export default function ActivityWay() {
   const router = useRouter()
   const [selectedShortTermFields, setSelectedShortTermFields] = useState<string[]>([])
-  const [selectedArea, setSelectedArea] = useState<string>('')
-  const [selectedSubArea, setSelectedSubArea] = useState<string>('')
   const accessToken = useRecoilValue(accessTokenState) || ''
 
   const { control, handleSubmit, watch, setValue } = useForm<TeamOnBoardingActivityWayFormInputs>({
@@ -27,23 +26,12 @@ export default function ActivityWay() {
     },
   })
 
-  const handleAreaChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value
-    setSelectedArea(value)
-    setValue('cityName', value)
-    setSelectedSubArea('')
-    setValue('divisionName', '')
-  }
-
-  const handleSubAreaChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value
-    setSelectedSubArea(value)
-    setValue('divisionName', value)
-  }
+  const selectedArea = watch('cityName')
+  const selectedSubArea = watch('divisionName')
 
   const subAreas = addressData.find((area) => area.name === selectedArea)?.subArea || []
 
-  // 팀온보딩 데이터 가져오기
+  // Fetch onboarding data
   useEffect(() => {
     const fetchData = async () => {
       if (accessToken) {
@@ -55,8 +43,6 @@ export default function ActivityWay() {
             setValue('cityName', cityName || '')
             setValue('divisionName', divisionName || '')
             setValue('activityTagNames', activityTagName || [])
-            setSelectedArea(cityName || '')
-            setSelectedSubArea(divisionName || '')
             setSelectedShortTermFields(activityTagName || [])
           }
         } catch (error) {
@@ -100,7 +86,7 @@ export default function ActivityWay() {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col items-center">
-            {/* 활동 방식 */}
+            {/* Activity Type */}
             <div className="flex w-[90%] flex-col sm:w-[55%]">
               <div className="flex flex-wrap gap-2 pt-5">
                 {ShortTerm.map((el, index) => (
@@ -126,40 +112,48 @@ export default function ActivityWay() {
               </span>
             </div>
 
-            <div className="flex w-[90%] flex-col gap-5 pt-8 lg:w-[55%] lg:flex-row">
-              <div className="flex flex-col">
+            <div className="flex w-[90%] flex-col gap-5 pt-8 sm:w-[55%] lg:flex-row">
+              <div className="flex flex-col gap-3">
                 <span className="text-lg font-bold leading-5">시/도</span>
                 {/* 시/도 */}
-                <select
-                  value={selectedArea}
-                  onChange={handleAreaChange}
-                  className="mt-5 rounded-md border border-grey40 px-2 py-3 text-grey60"
-                >
-                  <option value="">지역을 선택해주세요</option>
-                  {addressData.map((area) => (
-                    <option key={area.name} value={area.name}>
-                      {area.name}
-                    </option>
-                  ))}
-                </select>
+                <Controller
+                  name="cityName"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      name={field.name}
+                      selectedValue={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      className="px-3 py-3"
+                      options={[
+                        { value: '', label: '지역 선택' },
+                        ...addressData.map((area) => ({ value: area.name, label: area.name })),
+                      ]}
+                    />
+                  )}
+                />
               </div>
 
-              <div className="flex flex-col">
+              <div className="flex flex-col gap-3">
                 <span className="text-lg font-bold leading-5">시/군/구</span>
 
                 {/* 시/군/구 */}
-                <select
-                  value={selectedSubArea}
-                  onChange={handleSubAreaChange}
-                  className="mt-5 rounded-md border border-grey40 px-2 py-3 text-grey60"
-                >
-                  <option value="">시,군,구를 선택해주세요</option>
-                  {subAreas.map((subArea) => (
-                    <option key={subArea} value={subArea}>
-                      {subArea}
-                    </option>
-                  ))}
-                </select>
+                <Controller
+                  name="divisionName"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      name={field.name}
+                      className="px-3 py-3"
+                      selectedValue={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      options={[
+                        { value: '', label: '시,군,구 선택' },
+                        ...subAreas.map((subArea) => ({ value: subArea, label: subArea })),
+                      ]}
+                    />
+                  )}
+                />
               </div>
             </div>
           </form>
