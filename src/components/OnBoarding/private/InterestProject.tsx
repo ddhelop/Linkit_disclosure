@@ -53,7 +53,7 @@ export default function InterestProject() {
   const onClickPrev = async () => {
     const response = await PostProfileTeamBuildingField(accessToken, selectedShortTermFields)
     if (response?.ok) {
-      router.push('/onBoarding/person/select')
+      router.push('/onBoarding/select')
     }
   }
 
@@ -66,7 +66,7 @@ export default function InterestProject() {
   return (
     <div>
       <OnBoardingHeader percentage={33} />
-      <div className="flex h-screen w-full flex-col overflow-hidden bg-[#fff] lg:pt-[69px]">
+      <div className="flex h-screen w-full flex-col overflow-hidden bg-[#fff] pt-6 lg:pt-[69px]">
         <div className="flex w-full flex-col items-center py-16">
           <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
             <span>내 이력서 가이드</span>
