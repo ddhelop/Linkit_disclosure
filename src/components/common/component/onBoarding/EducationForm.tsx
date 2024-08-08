@@ -60,7 +60,7 @@ export const EducationForm: React.FC<EducationFormProps> = ({ defaultValues, onS
           재학 기간<span className="pl-1 text-[#2563EB]">*</span>
         </span>
         <div className="flex flex-col justify-between sm:flex-row">
-          <div className="mt-2 flex  flex-row gap-3">
+          <div className="mt-2 flex w-full flex-row gap-3">
             <Input placeholder="입학연도" className="w-20" {...register('admissionYear', { required: true })} />
             <Image src="/assets/icons/~.svg" width={8} height={29} alt="~" />
             <Input
@@ -76,7 +76,7 @@ export const EducationForm: React.FC<EducationFormProps> = ({ defaultValues, onS
               onChange={(e) => setValue('degreeName', e.target.value)}
             />
           </div>
-          <div className="mt-2 flex flex-col items-end gap-1 sm:mt-0 sm:flex-row">
+          <div className="mt-2 flex flex-row items-end  justify-end gap-1 sm:mt-0">
             {isEditMode && (
               <Button animationMode="sub" mode="sub" type="button" onClick={onCancel}>
                 취소

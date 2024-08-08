@@ -104,9 +104,9 @@ export default function RegisterSchool() {
   }
 
   return (
-    <div className="flex h-screen flex-col bg-[#fff] px-4 pt-6 lg:py-[69px]">
+    <div className="flex h-screen flex-col bg-[#fff] pt-6 lg:py-[69px]">
       <OnBoardingHeader percentage={55} />
-      <div className="flex flex-grow flex-col items-center py-16">
+      <div className="flex flex-grow flex-col items-center px-4 py-16">
         <div className="flex w-full justify-between text-sm font-medium leading-9 text-grey60 md:w-[55%]">
           <span>내 이력서 가이드</span>
         </div>
