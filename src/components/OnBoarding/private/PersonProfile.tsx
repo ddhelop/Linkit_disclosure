@@ -9,6 +9,7 @@ import { accessTokenState } from '@/context/recoil-context'
 import { useRouter } from 'next/navigation'
 import OnBoardingHeader from '../OnBoardingHeader'
 import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
+import Input from '@/components/common/component/Basic/Input'
 
 interface FormInputs {
   profileTitle: string
@@ -150,7 +151,7 @@ export default function RegisterPersonProfile() {
     <>
       <div className="flex w-full flex-col items-center bg-[#fff] p-4 pb-20">
         <OnBoardingHeader percentage={85} />
-        <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col items-center lg:w-[988px] lg:py-20">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col items-center pb-24 pt-16 lg:w-[988px]">
           <div className="flex w-full flex-col items-start leading-9">
             <span className="text-sm font-medium leading-9 text-grey60">내 이력서 가이드</span>
             <span className="text-2xl font-bold">내 이력서가 거의 완성되었어요</span>
@@ -200,11 +201,7 @@ export default function RegisterPersonProfile() {
                 <span className="font-semibold text-grey100">
                   나를 소개하는 프로필 제목을 입력해주세요 <span className="font-sm text-[#2563EB]">*</span>
                 </span>
-                <input
-                  className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
-                  {...register('profileTitle')}
-                  placeholder="프로필 제목 (최대 20자)"
-                />
+                <Input {...register('profileTitle')} placeholder="프로필 제목 (최대 20자)" />
               </div>
 
               {/* 스킬셋 */}
@@ -241,9 +238,8 @@ export default function RegisterPersonProfile() {
                   <div className="mt-[0.88rem] flex flex-col border-t border-grey40">
                     <span className="py-[0.88rem] text-sm font-normal text-grey50">키워드를 하나씩 입력해주세요</span>
                     <div className="flex w-[17.1rem] items-center gap-[0.63rem]">
-                      <input
+                      <Input
                         type="text"
-                        className="flex-1 rounded border border-grey40 p-2"
                         value={inputValue}
                         onChange={handleInputChange}
                         onKeyPress={handleKeyPress}
