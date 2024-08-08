@@ -57,7 +57,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           </label>
         )}
         <div
-          className={`flex w-full cursor-pointer items-center justify-between gap-3 rounded-md border border-grey40 bg-white px-2 py-2 text-xs outline-none ${className}`}
+          className={`flex w-full cursor-pointer items-center justify-center gap-3 rounded-md border border-grey40 bg-white px-2 py-2 text-xs outline-none xs:justify-between ${className}`}
           onClick={() => setIsOpen(!isOpen)}
         >
           {options.find((option) => option.value === currentValue)?.label || '선택'}
@@ -71,15 +71,16 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
               width={10}
               height={8}
               alt="toggle icon"
+              className="hidden xs:flex"
             />
           </span>
         </div>
         {isOpen && (
-          <div className="absolute top-11 z-10 mt-1 max-h-60 w-full overflow-y-auto rounded border border-grey40 bg-white shadow-lg">
+          <div className="absolute top-11 z-10 mt-1 max-h-60 w-full overflow-y-auto rounded border border-grey40 bg-white text-xs shadow-lg">
             {options.map((option) => (
               <div
                 key={option.value}
-                className="flex cursor-pointer px-6 py-2 text-center text-sm hover:bg-grey10"
+                className="flex cursor-pointer justify-center px-2 py-2 text-center text-xs  hover:bg-grey10"
                 onClick={() => handleOptionClick(option.value)}
               >
                 {option.label}
@@ -89,7 +90,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         )}
         <select id={name} name={name} ref={ref} className="hidden" value={currentValue} {...rest}>
           {options.map((option) => (
-            <option key={option.value} value={option.value}>
+            <option key={option.value} value={option.value} className="text-xs">
               {option.label}
             </option>
           ))}
