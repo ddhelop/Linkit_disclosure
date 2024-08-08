@@ -44,10 +44,10 @@ export default function OnBoardingSelect() {
           </span>
         </div>
 
-        <div className="flex flex-col items-center gap-[0.5rem] pt-3 md:pt-8 lg:flex-row lg:pt-16">
+        <div className="mt-2 flex flex-col items-center gap-[0.5rem] pt-3 md:mt-0  md:flex-row md:pt-16">
           {/* left box */}
           <motion.div
-            className="flex h-56 flex-col justify-between rounded-xl border border-grey30 p-7 shadow-box-shadow3 md:w-[415px]"
+            className="flex flex-col justify-between rounded-xl border border-grey30 p-7 shadow-box-shadow3 md:h-56 lg:w-[415px]"
             animate={leftControls}
             onMouseEnter={handleMouseEnterLeft}
             onMouseLeave={handleMouseLeave}
@@ -55,13 +55,15 @@ export default function OnBoardingSelect() {
             <div className="flex justify-between">
               <div className="flex flex-col ">
                 <span className="text-[2rem] font-bold leading-5">👋</span>
-                <span className="pt-4 text-2xl font-bold ">내 이력서 등록하기</span>
-                <span className=" pt-3 leading-5 text-grey60">나의 역량을 발휘하여 함께 할 팀원을 찾고 있어요</span>
+                <span className="pt-4 text-lg font-bold lg:text-2xl ">내 이력서 등록하기</span>
+                <span className="pt-3 text-sm leading-5 text-grey60 lg:text-base">
+                  나의 역량을 발휘하여 함께 할 팀원을 찾고 있어요
+                </span>
               </div>
             </div>
 
             {/* button */}
-            <div className="flex w-full justify-end">
+            <div className="mt-4 flex w-full justify-end md:mt-0">
               <Link
                 href={'/onBoarding/person/project'}
                 className="flex h-11 w-44 cursor-pointer items-center justify-center gap-x-3 rounded-[0.31rem] bg-[#282C31] pl-2 hover:bg-[#3c4249] "
@@ -74,7 +76,7 @@ export default function OnBoardingSelect() {
 
           {/* right box */}
           <motion.div
-            className="flex h-56 flex-col justify-between rounded-xl border border-grey30 p-7 shadow-box-shadow3 md:w-[415px]"
+            className="flex flex-col justify-between rounded-xl border border-grey30 p-7 shadow-box-shadow3 md:h-56 lg:w-[415px]"
             animate={rightControls}
             onMouseEnter={handleMouseEnterRight}
             onMouseLeave={handleMouseLeave}
@@ -82,13 +84,15 @@ export default function OnBoardingSelect() {
             <div className="flex justify-between">
               <div className="flex flex-col ">
                 <span className="text-[2rem] font-bold leading-5">🚀</span>
-                <span className="pt-4 text-2xl font-bold ">팀 소개서 등록하기</span>
-                <span className=" pt-3 leading-5 text-grey60">우리 팀에 필요한 역량을 가진 멤버를 구하고 싶어요</span>
+                <span className="pt-4 text-xl font-bold lg:text-2xl ">팀 소개서 등록하기</span>
+                <span className="pt-3 text-sm leading-5 text-grey60 lg:text-base">
+                  우리 팀에 필요한 역량을 가진 멤버를 구하고 싶어요
+                </span>
               </div>
             </div>
 
             {/* button */}
-            <div className="flex w-full justify-end">
+            <div className="mt-4 flex w-full justify-end md:mt-0">
               <Link
                 href={'/onBoarding/team/teamCategory'}
                 className="flex h-11 w-44 cursor-pointer items-center justify-center gap-x-3 rounded-[0.31rem] bg-[#282C31] pl-2 hover:bg-[#3c4249] "
