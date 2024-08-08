@@ -89,7 +89,7 @@ export default function ActivityWay() {
   return (
     <div className="h-screen bg-[#FFF]">
       <OnBoardingHeader percentage={55} />
-      <div className="flex w-full flex-col lg:py-[69px]">
+      <div className="flex w-full flex-col pt-6 lg:py-[69px]">
         <div className="flex w-full flex-col items-center pb-24 pt-16">
           <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
             <span>팀 소개서 가이드</span>
