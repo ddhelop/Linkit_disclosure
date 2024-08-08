@@ -57,7 +57,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           </label>
         )}
         <div
-          className={`flex w-full cursor-pointer items-center justify-between gap-3 rounded border border-grey40 bg-white px-4 py-3 text-sm outline-none ${className}`}
+          className={`flex w-full cursor-pointer items-center justify-between gap-3 rounded-md border border-grey40 bg-white px-2 py-2 text-xs outline-none ${className}`}
           onClick={() => setIsOpen(!isOpen)}
         >
           {options.find((option) => option.value === currentValue)?.label || '선택'}
