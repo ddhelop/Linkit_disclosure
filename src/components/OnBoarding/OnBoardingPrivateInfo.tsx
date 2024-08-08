@@ -77,8 +77,8 @@ export default function OnBoardingPrivateInfo() {
       </div>
 
       <div className="relative z-20 flex h-full w-full flex-col bg-[#000] bg-opacity-40">
-        <div className="flex h-full w-full items-center justify-center">
-          <div className=" w-full bg-[#fff] p-7 sm:w-[24rem] sm:rounded-md sm:shadow-boarding-shadow">
+        <div className="flex h-full w-full items-center justify-center  px-4">
+          <div className=" w-full rounded-md bg-[#fff] p-7 sm:w-[24rem] sm:shadow-boarding-shadow">
             <form onSubmit={handleSubmit(onClickSubmit)} className="items-left flex flex-col">
               {!showAgreement ? (
                 <>
