@@ -36,7 +36,7 @@ export default function PrivateAward({ data }: MyResumAwardProps) {
       </div>
 
       {/* contents */}
-      {awards.length === 0 && <div className="pt-3 text-grey50">수상 내역이 없습니다.</div>}
+      {awards.length === 0 && <div className="pt-3 text-sm text-grey50 sm:text-base">수상 내역이 없습니다.</div>}
 
       {awards.length > 0 && (
         <div className="mt-3 flex flex-col">
