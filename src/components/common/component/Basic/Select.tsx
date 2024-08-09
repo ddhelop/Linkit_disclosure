@@ -5,7 +5,7 @@ import Image from 'next/image'
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string
   name: string
-  options: { value: string; label: string }[]
+  options: { value: string; label: string; disabled?: boolean }[] // Allow disabled property
   className?: string
   openImage?: string
   closeImage?: string
@@ -25,15 +25,12 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       }
     }, [selectedValue])
 
-    const handleOptionClick = (value: string) => {
-      setCurrentValue(value)
-      setIsOpen(false)
-      if (typeof ref === 'function') {
-        ref({ current: { value } } as unknown as HTMLSelectElement)
-      } else if (ref && 'current' in ref) {
-        ;(ref.current as HTMLSelectElement).value = value
+    const handleOptionClick = (value: string, disabled: boolean | undefined) => {
+      if (!disabled) {
+        setCurrentValue(value)
+        setIsOpen(false)
+        onChange?.({ target: { value } } as ChangeEvent<HTMLSelectElement>)
       }
-      onChange?.({ target: { value } } as ChangeEvent<HTMLSelectElement>)
     }
 
     const handleDocumentClick = (event: MouseEvent) => {
@@ -52,12 +49,12 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="relative flex flex-col justify-end" ref={containerRef}>
         {label && (
-          <label htmlFor={name} className="text-sm font-normal text-grey90">
+          <label htmlFor={name} className="w-full px-2 text-sm font-bold text-grey90">
             {label}
           </label>
         )}
         <div
-          className={`flex w-full cursor-pointer items-center justify-between gap-3 rounded border border-grey40 bg-white px-4 py-3 text-sm outline-none ${className}`}
+          className={`flex w-full cursor-pointer items-center justify-between gap-3 rounded-md border border-grey40 bg-white px-2 py-2 text-sm outline-none ${className}`}
           onClick={() => setIsOpen(!isOpen)}
         >
           {options.find((option) => option.value === currentValue)?.label || '선택'}
@@ -79,8 +76,10 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             {options.map((option) => (
               <div
                 key={option.value}
-                className="flex cursor-pointer px-6 py-2 text-center text-sm hover:bg-grey10"
-                onClick={() => handleOptionClick(option.value)}
+                className={`flex cursor-pointer justify-start px-2 py-2 text-center text-sm hover:bg-grey10 ${
+                  option.disabled ? 'cursor-not-allowed text-gray-400' : ''
+                }`}
+                onClick={() => handleOptionClick(option.value, option.disabled)}
               >
                 {option.label}
               </div>
@@ -89,7 +88,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         )}
         <select id={name} name={name} ref={ref} className="hidden" value={currentValue} {...rest}>
           {options.map((option) => (
-            <option key={option.value} value={option.value}>
+            <option key={option.value} value={option.value} disabled={option.disabled}>
               {option.label}
             </option>
           ))}

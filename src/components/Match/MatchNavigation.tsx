@@ -7,7 +7,7 @@ export default function MatchNavigation() {
 
   return (
     <div>
-      <div className="mt-[9.5rem] flex h-auto w-[13.75rem] flex-col rounded-2xl bg-[#fff] shadow-sm">
+      <div className="mt-6 flex h-auto w-full flex-row rounded-2xl bg-[#fff] shadow-sm lg:mt-[9.5rem] lg:w-[13.75rem] lg:flex-col">
         <Link href="/match/from">
           <div
             className={`cursor-pointer px-5 py-[0.81rem] text-sm text-grey60 hover:bg-grey10 ${
@@ -38,7 +38,7 @@ export default function MatchNavigation() {
         <Link href="/match/save">
           <div
             className={`cursor-pointer px-5 py-[0.81rem] text-sm text-grey60 hover:bg-grey10 ${
-              pathname === ('/match/save' || '/match/save/team') ? 'font-bold text-grey100' : ''
+              pathname === '/match/save' || pathname === '/match/save/team' ? 'font-bold text-grey100' : ''
             }`}
           >
             찜한 내역

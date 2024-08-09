@@ -17,7 +17,7 @@
 @media (min-width: 1024px) {
   /* lg breakpoint for Tailwind CSS */
   .mobile-menu,
-  .lg\\:hidden {
+  .md\\:hidden {
     display: none; /* Hide elements on large screens */
   }
 }

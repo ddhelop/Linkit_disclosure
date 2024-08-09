@@ -35,16 +35,16 @@ export default function Banner({ imgSrc, title, description, scrolledTitle, scro
         transition: 'height 0.3s ease',
         position: 'fixed',
         top: 0,
-        width: '100%',
+        // width: '100%',
         zIndex: 10,
         display: 'flex',
         alignItems: 'center', // Center vertically
         justifyContent: 'center', // Center horizontally
       }}
-      className="transition-all duration-300"
+      className="w-full px-4 transition-all duration-300 lg:px-12"
     >
       <div
-        className="flex w-[64rem] flex-col pt-12 text-left transition-all duration-300" // Center text horizontally
+        className=" flex flex-col pt-12 text-left transition-all duration-300 lg:w-[64rem]" // Center text horizontally
         style={{
           fontSize: isScrolled ? '1.5rem' : '3rem', // Increase the font size for the title
         }}
@@ -52,15 +52,15 @@ export default function Banner({ imgSrc, title, description, scrolledTitle, scro
         {isScrolled ? (
           <>
             <div className="flex items-center gap-6 pt-3">
-              <p className="text-[1.2rem] font-bold text-grey90">{scrolledTitle}</p>
-              <p className="text-lg text-grey90">{scrolledDescription}</p>
+              <p className="text-xs font-bold text-grey90 md:text-[1.2rem]">{scrolledTitle}</p>
+              <p className="text-xs text-grey90 md:text-lg">{scrolledDescription}</p>
             </div>
           </>
         ) : (
           <>
             <div className="flex flex-col pt-16">
-              <p className="text-4xl font-bold text-grey90">{title}</p>
-              <p className="pt-6 text-lg text-grey90">{description}</p>
+              <p className="text-2xl font-bold text-grey90 lg:text-4xl">{title}</p>
+              <p className="pt-6 text-sm text-grey90 lg:text-lg">{description}</p>
             </div>
           </>
         )}

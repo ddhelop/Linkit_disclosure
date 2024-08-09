@@ -8,6 +8,8 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import { accessTokenState, authState } from '@/context/recoil-context'
 import OnBoardingHeader from '../OnBoardingHeader'
 import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
+import Input from '@/components/common/component/Basic/Input'
+import Select from '@/components/common/component/Basic/Select'
 
 const ShortTerm = ['창업', '공모전', '대회', '사이드 프로젝트', '포트폴리오']
 
@@ -88,19 +90,19 @@ export default function TeamCategory() {
   return (
     <div className="h-screen bg-[#FCFCFD]">
       <OnBoardingHeader percentage={35} />
-      <div className="flex w-full flex-col lg:py-[69px]">
+      <div className="flex w-full flex-col px-6 pt-6 lg:py-[69px]">
         <div className="flex w-full flex-col items-center pb-24 pt-16">
-          <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
+          <div className="flex w-full justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
             <span>팀 소개서 가이드</span>
           </div>
-          <div className="flex w-[90%] flex-col items-start leading-9 sm:w-[55%]">
+          <div className="flex w-full flex-col items-start leading-9 sm:w-[55%]">
             <span className="text-2xl font-bold">희망 팀빌딩 분야를 선택해 주세요</span>
             <span className="text-grey60">*중복선택 가능</span>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col items-center">
             {/* 단기 */}
-            <div className="flex w-[90%] flex-col pt-8 lg:w-[55%]">
+            <div className="flex w-full flex-col pt-8 sm:w-[55%]">
               <div className="flex flex-wrap gap-x-2 gap-y-2">
                 {ShortTerm.map((el, index) => (
                   <button
@@ -119,74 +121,67 @@ export default function TeamCategory() {
               </div>
             </div>
 
-            <div className="flex w-[90%] flex-col pt-16 sm:w-[55%]">
+            <div className="flex w-full flex-col pt-16 sm:w-[55%]">
               <span className="text-lg font-bold leading-5">
                 팀명을 입력해 주세요 <span className="pl-1 text-sm font-normal text-main">*</span>
               </span>
-              <Controller
-                name="teamName"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <input
-                    type="text"
-                    className="mt-[1.19rem] w-[65%] rounded-lg border border-grey30 px-3 py-3"
-                    {...field}
-                  />
-                )}
-              />
+              <Controller name="teamName" control={control} render={({ field }) => <Input type="text" {...field} />} />
             </div>
 
-            <div className="flex w-[90%] flex-col gap-5 pt-16 lg:w-[55%] lg:flex-row">
-              <div className="flex flex-col">
+            <div className="flex w-full flex-col gap-5 pt-16 sm:w-[55%] lg:flex-row">
+              <div className="flex flex-col gap-3">
                 <span className="text-lg font-bold leading-5">
                   규모 <span className="pl-1 text-sm font-normal text-main">*</span>
                 </span>
                 <Controller
                   name="teamSize"
                   control={control}
-                  defaultValue=""
                   render={({ field }) => (
-                    <select className="mt-[1.19rem] w-[17.5rem] rounded-lg border border-grey30 px-3 py-3" {...field}>
-                      <option value="" disabled hidden>
-                        선택
-                      </option>
-                      <option value="1-5인">1-5인</option>
-                      <option value="5-10인">5-10인</option>
-                      <option value="10-20인">10-20인</option>
-                      <option value="20인 이상">20인 이상</option>
-                    </select>
+                    <Select
+                      name="teamSize"
+                      options={[
+                        { value: '', label: '선택' },
+                        { value: '1-5인', label: '1-5인' },
+                        { value: '5-10인', label: '5-10인' },
+                        { value: '10-20인', label: '10-20인' },
+                        { value: '20인 이상', label: '20인 이상' },
+                      ]}
+                      selectedValue={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                    />
                   )}
                 />
               </div>
 
-              <div className="flex flex-col">
+              <div className="flex flex-col gap-3">
                 <span className="text-lg font-bold leading-5">
                   분야 <span className="pl-1 text-sm font-normal text-main">*</span>
                 </span>
                 <Controller
                   name="teamField"
                   control={control}
-                  defaultValue=""
                   render={({ field }) => (
-                    <select className="mt-[1.19rem] w-[17.5rem] rounded-lg border border-grey30 px-3 py-3" {...field}>
-                      <option value="" disabled hidden>
-                        선택
-                      </option>
-                      <option value="딥테크">딥테크</option>
-                      <option value="핀테크">핀테크</option>
-                      <option value="이커머스">이커머스</option>
-                      <option value="패션/뷰티">패션/뷰티</option>
-                      <option value="바이오/의료">바이오/의료</option>
-                      <option value="물류/유통">물류/유통</option>
-                      <option value="블록체인">블록체인</option>
-                      <option value="AI">AI</option>
-                      <option value="SaaS">SaaS</option>
-                      <option value="플랫폼">플랫폼</option>
-                      <option value="ESG">ESG</option>
-                      <option value="라이프스타일">라이프스타일</option>
-                      <option value="기타">기타</option>
-                    </select>
+                    <Select
+                      name="teamField"
+                      options={[
+                        { value: '', label: '선택' },
+                        { value: '딥테크', label: '딥테크' },
+                        { value: '핀테크', label: '핀테크' },
+                        { value: '이커머스', label: '이커머스' },
+                        { value: '패션/뷰티', label: '패션/뷰티' },
+                        { value: '바이오/의료', label: '바이오/의료' },
+                        { value: '물류/유통', label: '물류/유통' },
+                        { value: '블록체인', label: '블록체인' },
+                        { value: 'AI', label: 'AI' },
+                        { value: 'SaaS', label: 'SaaS' },
+                        { value: '플랫폼', label: '플랫폼' },
+                        { value: 'ESG', label: 'ESG' },
+                        { value: '라이프스타일', label: '라이프스타일' },
+                        { value: '기타', label: '기타' },
+                      ]}
+                      selectedValue={field.value}
+                      onChange={(e) => field.onChange(e.target.value)}
+                    />
                   )}
                 />
               </div>

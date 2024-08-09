@@ -59,7 +59,7 @@ const DropdownMenu = () => {
     <div ref={dropdownRef} className="relative">
       <div
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="hidden cursor-pointer text-sm font-medium leading-5 text-grey80 lg:flex"
+        className="hidden cursor-pointer text-sm font-medium leading-5 text-grey80 md:flex"
       >
         마이페이지
         <Image src="/assets/icons/bottom>.svg" width={7} height={3} alt="arrow-down" className="ml-2" />
@@ -67,12 +67,12 @@ const DropdownMenu = () => {
       {dropdownOpen && (
         <div className="absolute right-[-20px] mt-7 flex w-[7.93rem] flex-col items-center rounded-md bg-[#fff] text-center shadow-lg ring-1 ring-grey40 ring-opacity-5">
           <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-            <Link href="/myResume" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem">
+            <Link href="/myResume" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">
               마이페이지
             </Link>
             <div
               onClick={handleSettingClick}
-              className="text-gray-700 block cursor-pointer px-4 py-2 text-sm"
+              className="block cursor-pointer px-4 py-2 text-sm text-gray-700"
               role="menuitem"
             >
               설정

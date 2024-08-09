@@ -88,7 +88,9 @@ export default function TeamMemberMiniProfile({ profile }: TeamMemberMiniProfile
           </div>
           <div className="flex items-end">
             <Link href={`/private/${profile.id}`}>
-              <button className="rounded-[0.29rem] bg-grey100 px-7 py-[0.57rem] text-[#fff]">보기</button>
+              <button className="rounded-[0.29rem] bg-grey100 px-4 py-[0.57rem] text-xs text-[#fff] sm:px-7 sm:text-base">
+                보기
+              </button>
             </Link>
           </div>
         </div>

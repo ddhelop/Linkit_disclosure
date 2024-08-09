@@ -93,7 +93,7 @@ export default function FindTeamLeftNav() {
   }, [selectedFilters])
 
   return (
-    <div className="flex w-[17.3rem] flex-col">
+    <div className="flex w-[97%] flex-col lg:w-[17.3rem]">
       <div className="flex w-full cursor-pointer justify-end gap-1 pb-2" onClick={handleResetFilters}>
         <Image src="/assets/icons/rotate-left.svg" width={16} height={16} alt="Group 1" />
         <p className="text-sm text-grey60">필터초기화</p>

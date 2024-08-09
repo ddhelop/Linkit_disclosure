@@ -50,9 +50,9 @@ export default function TeamResume() {
   return (
     <div className="flex flex-col pt-[61px]">
       {/* Header */}
-      <div className="fixed z-10 flex h-[4rem] w-full items-center gap-[3.17rem] bg-white-alpha-50 px-[9.72rem] backdrop-blur-2xl">
+      <div className="fixed z-10 flex h-[4rem] w-full items-center gap-[3.17rem] bg-white-alpha-50 px-9 backdrop-blur-2xl sm:px-[9.72rem]">
         <Link href={'/myResume'}>
-          <span className="cursor-pointer  text-lg text-grey100 opacity-50 hover:text-main">내 이력서</span>
+          <span className="cursor-pointer text-lg text-grey100 opacity-50 hover:text-main">내 이력서</span>
         </Link>
         <Link href={'/TeamResume'}>
           <span className="cursor-pointer border-b-4 border-[#2563EB] py-4 text-lg text-main ">팀 소개서</span>
@@ -61,14 +61,14 @@ export default function TeamResume() {
 
       {/* contents */}
       {data.teamProfileEssential ? (
-        <div className="flex justify-center gap-[1.87rem] pt-[101px]">
+        <div className="flex flex-col items-center justify-center gap-4 pt-[101px] lg:flex-row lg:items-start lg:gap-[1.87rem]">
           {/* left navBar */}
-          <div className="w-[21.25rem]">
+          <div className="w-[98%] lg:w-[21.25rem]">
             <TeamResumeNav data={data.teamMiniProfileResponse} />
           </div>
 
           {/* right contents */}
-          <div className="w-[47.31rem]">
+          <div className="w-[98%] lg:w-[47.31rem]">
             <TeamContentLayout data={data} />
           </div>
         </div>

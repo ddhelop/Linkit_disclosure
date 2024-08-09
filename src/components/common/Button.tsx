@@ -14,6 +14,7 @@ interface ButtonProps {
   size?: Size
   type?: Type
   animationMode?: AnimationMode
+  className?: string
 }
 
 export function Button({
@@ -24,12 +25,13 @@ export function Button({
   type = 'button',
   size = 'md',
   animationMode = 'none',
+  className,
 }: ButtonProps) {
   const animationEffect = animationModes[animationMode] || {}
 
   return (
     <motion.button
-      className={`${buttonTheme.mode[mode]} ${buttonTheme.size[size]} rounded-[0.25rem] border text-center font-medium`}
+      className={`${buttonTheme.mode[mode]} ${buttonTheme.size[size]} rounded-[0.25rem] border text-center font-medium ${className}`}
       type={type}
       onClick={onClick}
       disabled={disabled}

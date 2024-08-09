@@ -10,6 +10,7 @@ import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import OnBoardingHeader from '../OnBoardingHeader'
 import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
+import Input from '@/components/common/component/Basic/Input'
 
 interface BasicData {
   teamName: string
@@ -136,7 +137,7 @@ export default function TeamProfile() {
             <span className="text-grey60">다른 사용자들이 보는 팀의 프로필이에요. 항목을 채워 넣어주세요!</span>
           </div>
 
-          <div className="flex w-full justify-between gap-4 pt-12">
+          <div className="flex w-full justify-between pt-4 lg:gap-4 lg:pt-12">
             {/* left */}
             <div>
               <div className="hidden w-[25rem] flex-col rounded-2xl border border-grey30 bg-white p-4 pb-5 lg:flex">
@@ -172,7 +173,7 @@ export default function TeamProfile() {
                   </div>
                 </div>
               </div>
-              <div className="flex w-full justify-center pt-2">
+              <div className="hidden w-full justify-center pt-2 lg:flex">
                 <div className="rounded-[0.35rem] bg-grey30 px-[0.56rem] py-1 text-sm text-grey60">예시 이미지</div>
               </div>
             </div>
@@ -191,7 +192,7 @@ export default function TeamProfile() {
                   name="teamProfileTitle"
                   control={control}
                   render={({ field }) => (
-                    <input
+                    <Input
                       {...field}
                       className="mt-[1.19rem] w-full rounded-md border border-grey30 py-3 pl-4"
                       placeholder="프로필 제목 (최대 20자)"
@@ -237,9 +238,8 @@ export default function TeamProfile() {
                   <div className="mt-[0.88rem] flex flex-col ">
                     <span className="pb-[0.88rem] text-sm font-normal text-grey50">키워드를 하나씩 입력해주세요.</span>
                     <div className="flex w-[17.1rem] items-center gap-[0.63rem]">
-                      <input
+                      <Input
                         type="text"
-                        className="flex-1 rounded border border-grey40 p-2"
                         value={inputValue}
                         onChange={handleInputChange}
                         onKeyPress={handleKeyPress}

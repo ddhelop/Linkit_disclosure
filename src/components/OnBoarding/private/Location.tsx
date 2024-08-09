@@ -2,12 +2,12 @@
 import { accessTokenState } from '@/context/recoil-context'
 import { GetOnBoardingData, PostProfileRegion } from '@/lib/action'
 import { addressData } from '@/lib/addressSelectData'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
 import OnBoardingHeader from '../OnBoardingHeader'
+import Select from '@/components/common/component/Basic/Select'
 
 interface FormInputs {
   selectedArea: string
@@ -78,7 +78,7 @@ export default function Location() {
   return (
     <div className="bg-[#FCFCFD]">
       <OnBoardingHeader percentage={45} />
-      <div className="flex h-screen w-full flex-col overflow-hidden lg:pt-[69px]">
+      <div className="flex h-screen w-full flex-col overflow-hidden pt-6 lg:pt-[69px]">
         <div className="flex w-full flex-col items-center py-16">
           <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
             <span>내 이력서 가이드</span>
@@ -91,36 +91,32 @@ export default function Location() {
             <div className="flex flex-col">
               <span className="text-lg font-bold leading-5">시/도</span>
               {/* 시/도 */}
-              <select
-                value={selectedArea}
+              <Select
+                name="selectedArea" // Add name property
+                options={addressData.map((area) => ({
+                  value: area.name,
+                  label: area.name,
+                }))}
+                selectedValue={selectedArea}
                 onChange={handleAreaChange}
                 className="mt-5 rounded-md border px-2 py-3 text-grey60"
-              >
-                <option value="">지역을 선택해주세요</option>
-                {addressData.map((area, index) => (
-                  <option key={`${area.name}-${index}`} value={area.name}>
-                    {area.name}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
 
             <div className="flex flex-col">
               <span className="text-lg font-bold leading-5">시/군/구</span>
 
               {/* 시/군/구 */}
-              <select
-                value={selectedSubArea}
+              <Select
+                name="selectedSubArea" // Add name property
+                options={subAreas.map((subArea) => ({
+                  value: subArea,
+                  label: subArea,
+                }))}
+                selectedValue={selectedSubArea}
                 onChange={handleSubAreaChange}
                 className="mt-5 rounded-md border px-2 py-3 text-grey60"
-              >
-                <option value="">시,군,구를 선택해주세요</option>
-                {subAreas.map((subArea, index) => (
-                  <option key={`${subArea}-${index}`} value={subArea}>
-                    {subArea}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
           </div>
 
@@ -138,7 +134,9 @@ export default function Location() {
 
                 <button
                   type="submit"
-                  className={`${isNextButtonEnabled ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} rounded px-12 py-2 text-[#fff] lg:px-16`}
+                  className={`${
+                    isNextButtonEnabled ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'
+                  } rounded px-12 py-2 text-[#fff] lg:px-16`}
                   disabled={!isNextButtonEnabled}
                 >
                   다음

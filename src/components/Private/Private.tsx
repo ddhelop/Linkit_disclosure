@@ -73,12 +73,12 @@ export default function Private() {
   return (
     <div className="flex flex-col bg-grey10 pb-20 pt-[11px]">
       {isPrivateView ? (
-        <div className="flex justify-center gap-[1.87rem] pt-[101px]">
+        <div className="flex flex-col items-center justify-center gap-[1.87rem] px-6 pt-[101px] lg:flex-row lg:items-start">
           {/* left navBar */}
-          <div className="w-[21.25rem]">{data && <PrivateNav data={data} />}</div>
+          <div className="w-full lg:w-[21.25rem]">{data && <PrivateNav data={data} />}</div>
 
           {/* right contents */}
-          <div className="w-[47.31rem]">{data && <PrivateContentLayout data={data} />}</div>
+          <div className="w-full lg:w-[47.31rem]">{data && <PrivateContentLayout data={data} />}</div>
         </div>
       ) : (
         // 프로필 완성도 조건 미충족시

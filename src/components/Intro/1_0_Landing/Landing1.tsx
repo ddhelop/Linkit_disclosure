@@ -12,7 +12,7 @@ export default function Landing1() {
   return (
     <div
       // style={{ backgroundImage: 'url("/assets/intro/section3bg.png")' }}
-      className="relative flex h-screen min-h-screen w-full snap-mandatory snap-start snap-always flex-col items-center justify-center overflow-hidden overflow-x-auto bg-[#F0F2F6] bg-opacity-50 bg-cover bg-no-repeat"
+      className="relative flex h-screen min-h-screen w-full snap-mandatory snap-start snap-always flex-col items-center justify-center overflow-hidden overflow-x-auto bg-[#F0F2F6] bg-opacity-50 bg-cover bg-no-repeat px-4"
     >
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -23,11 +23,11 @@ export default function Landing1() {
         }}
         className="pt-[6.56rem]"
       >
-        <h1 className="text-center text-[3.375rem] font-bold text-main">
+        <h1 className="text-center text-[2.1rem] font-bold text-main sm:text-[3.375rem]">
           성공적인 팀을 이루는
           <br /> 가장 쉬운 방법
         </h1>
-        <p className="pt-4 text-[1.1875rem] text-grey70">
+        <p className="pt-4 text-sm text-grey70 sm:text-[1.1875rem]">
           링킷에서 나의 비전과 가치관을 공유할 수 있는 사람을 만나보세요
         </p>
       </motion.div>
@@ -36,7 +36,7 @@ export default function Landing1() {
         <motion.button
           {...mainHoverEffect}
           onClick={() => setIsLoginModalOpen(true)}
-          className="rounded-lg bg-main px-[1.88rem] py-[1.18rem] text-lg font-semibold text-white"
+          className="rounded-lg bg-main px-4 py-3 text-xs font-semibold text-white sm:px-[1.88rem] sm:py-[1.18rem] sm:text-lg"
         >
           1분만에 프로필 만들기
         </motion.button>
@@ -45,7 +45,7 @@ export default function Landing1() {
       <div className="relative flex w-full items-center justify-center">
         <Image
           src="/assets/onBoarding/1.0/Landing1_profile1_left.png"
-          className="max-h-[181px]"
+          className="hidden max-h-[181px] lg:flex"
           width={320}
           height={141}
           alt="profile1"
@@ -61,11 +61,11 @@ export default function Landing1() {
         </motion.div>
 
         <Image
-          src="/assets/onBoarding/1.0/Landing1_profile1_right.png"
+          src="/assets/onBoarding/1.0/Landing1_profile1_right.png "
           width={320}
           height={141}
           alt="profile3"
-          className="max-h-[181px]"
+          className="hidden max-h-[181px] lg:flex"
         />
 
         <Image
@@ -73,7 +73,7 @@ export default function Landing1() {
           width={8}
           height={87}
           alt="profile4"
-          className="absolute top-4 z-0"
+          className="absolute top-4 z-0 "
         />
       </div>
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />

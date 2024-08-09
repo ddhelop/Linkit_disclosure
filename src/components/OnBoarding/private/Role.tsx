@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Skills } from '@/lib/data'
+import { SkillOptions, Skills } from '@/lib/data'
 import { GetOnBoardingData, PostRoleData } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
@@ -63,7 +63,7 @@ export default function Role() {
   }
 
   return (
-    <div className="flex h-screen flex-col bg-[#fff] lg:pt-[62px]">
+    <div className="flex h-screen flex-col bg-[#fff] pt-6 lg:pt-[62px]">
       <OnBoardingHeader percentage={40} />
       <div className="flex flex-grow flex-col items-center py-16">
         <div className="flex w-[90%] justify-between text-sm font-medium leading-9 text-grey60 sm:w-[55%]">
@@ -80,7 +80,7 @@ export default function Role() {
             {Positions.map((el, index) => (
               <button
                 key={index}
-                className={` rounded-md border px-[0.88rem] py-2 ${roleFields.includes(el) ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]' : 'border-[#CBD4E1] bg-[#fff] text-[#64748B]'}`}
+                className={` rounded-md border px-3 py-2 text-sm ${roleFields.includes(el) ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]' : 'border-[#CBD4E1] bg-[#fff] text-[#64748B]'}`}
                 onClick={() => toggleRoleSelection(el)}
               >
                 {el}
@@ -101,7 +101,7 @@ export default function Role() {
                   <div
                     key={index}
                     onClick={() => setSkills(skills.filter((s) => s !== skill))}
-                    className="flex cursor-pointer items-center rounded-lg border border-[#2563EB] bg-[#D3E1FE66] px-3 py-2"
+                    className="flex cursor-pointer items-center rounded-lg border border-[#2563EB] bg-[#D3E1FE66] px-2 py-1 text-xs "
                   >
                     <span className="text-[#2563EB]">{skill}</span>
                     <button
@@ -123,9 +123,9 @@ export default function Role() {
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              className="mt-3 flex w-[14rem] items-center justify-between rounded-lg border border-grey40 bg-white px-4  py-3 text-grey60 hover:bg-grey10"
+              className="mt-3 flex w-[11rem] items-center justify-between rounded-lg border border-grey40 bg-white px-4  py-3 text-grey60 hover:bg-grey10"
             >
-              <p>요구 역량 찾아보기</p>
+              <p className="text-sm">요구 역량 찾아보기</p>
               <Image src="/assets/icons/search.svg" width={20} height={20} alt="plus" />
             </button>
           </div>
@@ -138,7 +138,7 @@ export default function Role() {
             </Link>
 
             <button
-              className={`${roleFields.length > 0 && skills.length > 0 ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} mr-4 rounded  px-16 py-2 text-[#fff]`}
+              className={`${roleFields.length > 0 && skills.length > 0 ? 'bg-[#2563EB]' : 'bg-[#7EA5F8]'} mr-4 rounded  px-12 py-2 text-[#fff] lg:px-16`}
               disabled={!(roleFields.length > 0 && skills.length > 0)}
             >
               다음
@@ -153,7 +153,7 @@ export default function Role() {
           onClose={() => setIsModalOpen(false)}
           selectedFilters={skills}
           handleFilterChange={(selectedSkills) => setSkills(selectedSkills)}
-          skillOptions={Skills}
+          skillOptions={SkillOptions}
         />
       )}
     </div>

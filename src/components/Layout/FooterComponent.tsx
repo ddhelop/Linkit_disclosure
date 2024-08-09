@@ -6,8 +6,8 @@ export default function FooterComponent() {
   const router = useRouter()
 
   return (
-    <footer className="w-full py-20 font-medium text-grey100 ">
-      <div className="flex w-full gap-[1.88rem] px-[8.88rem]">
+    <footer className="w-full py-20 text-xs font-medium text-grey100 sm:text-base">
+      <div className="flex w-full justify-center gap-[1.88rem] lg:justify-start lg:px-[8.88rem]">
         <Link href={'https://bit.ly/4biOQ1Z'} target="_blank">
           <span className="">커뮤니티</span>
         </Link>
@@ -23,7 +23,7 @@ export default function FooterComponent() {
       </div>
       <hr className="my-[1.2rem]" />
 
-      <div className=" px-[8.88rem]">
+      <div className="px-12 lg:px-[8.88rem]">
         <Link href={'/'}>
           <Image src={'/assets/intro/footerLogo.svg'} width={109} height={20} alt="logo" className="" />
         </Link>
