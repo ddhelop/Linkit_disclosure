@@ -54,10 +54,10 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
   }
 
   return (
-    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
+    <div className="w-full rounded-2xl bg-[#fff] px-4 py-4 shadow-resume-box-shadow sm:px-[2.06rem] sm:py-[1.38rem]">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">자기소개 및 팀빌딩 목적</span>
+        <span className="text-base font-semibold text-grey100 sm:text-lg">자기소개 및 팀빌딩 목적</span>
       </div>
 
       {/* contents */}
@@ -74,7 +74,7 @@ export default function IntroduceComponent({ data }: MyResumeCompletionProps) {
             <div className="text-right text-sm text-grey100">{charCount} / 300자</div>
           </div>
         ) : (
-          <div className={introduction ? 'whitespace-pre-wrap text-[#000]' : 'text-grey50'}>
+          <div className={introduction ? 'whitespace-pre-wrap text-sm text-[#000] sm:text-base' : 'text-grey50'}>
             {introduction || '자기소개가 없습니다.'}
           </div>
         )}

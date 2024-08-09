@@ -66,13 +66,13 @@ export default function ㅈMySkillComponent({ data }: MyResumeCompletionProps) {
   }
 
   return (
-    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
+    <div className="w-full rounded-2xl bg-[#fff] px-4 py-4 shadow-resume-box-shadow sm:px-[2.06rem] sm:py-[1.38rem]">
       {/* contents */}
       {isEditing ? (
         <>
           {/* title */}
           <div className="flex items-center gap-[0.56rem]">
-            <span className="text-lg font-semibold text-grey100">나의 역할</span>
+            <span className="text-base font-semibold text-grey100 sm:text-lg">희망 역할</span>
           </div>
           <div className="flex flex-grow flex-col items-center pt-[0.12rem]">
             {/* 포지션 */}
@@ -81,7 +81,7 @@ export default function ㅈMySkillComponent({ data }: MyResumeCompletionProps) {
                 {Positions.map((el, index) => (
                   <button
                     key={index}
-                    className={` rounded-md border px-[0.88rem] py-2 ${
+                    className={` rounded-md border px-3 py-2 text-sm sm:text-base${
                       roleFields.includes(el)
                         ? 'border-[#2563EB] bg-[#D3E1FE66] text-[#2563EB]'
                         : 'border-[#CBD4E1] bg-[#fff] text-[#64748B]'
@@ -96,7 +96,7 @@ export default function ㅈMySkillComponent({ data }: MyResumeCompletionProps) {
             {/* 보유한 기술 */}
             <div className="flex w-full flex-col pt-8">
               <div className="flex items-center gap-[0.56rem]">
-                <span className="text-lg font-semibold leading-5">보유 역량</span>
+                <span className="text-base font-semibold leading-5 sm:text-lg">보유 역량</span>
               </div>
               <div>
                 {/* 버튼들 */}
@@ -105,9 +105,9 @@ export default function ㅈMySkillComponent({ data }: MyResumeCompletionProps) {
                     <div
                       key={index}
                       onClick={() => setSkills(skills.filter((s) => s !== skill))}
-                      className="flex cursor-pointer items-center rounded-lg border border-[#2563EB] bg-[#E0E7FF] bg-opacity-40 px-3 py-2 font-semibold"
+                      className="flex cursor-pointer items-center rounded-lg border border-[#2563EB] bg-[#E0E7FF] bg-opacity-40 px-2 py-1 "
                     >
-                      <span className="text-[#2563EB]">{skill}</span>
+                      <span className="text-sm text-[#2563EB] sm:text-base">{skill}</span>
                       <button
                         onClick={(e) => {
                           e.stopPropagation()
@@ -125,9 +125,9 @@ export default function ㅈMySkillComponent({ data }: MyResumeCompletionProps) {
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(true)}
-                    className="mt-2 flex w-[14rem] items-center justify-between rounded-lg border border-grey40 bg-white px-4  py-3 text-grey60 hover:bg-grey10"
+                    className="mt-2 flex items-center justify-between gap-3 rounded-lg border border-grey40 bg-white px-4 py-3  text-grey60 hover:bg-grey10 sm:w-[14rem]"
                   >
-                    <p>요구 기술 찾아보기</p>
+                    <p className="text-sm sm:text-base">요구 기술 찾아보기</p>
                     <Image src="/assets/icons/search.svg" width={20} height={20} alt="plus" />
                   </button>
                 </div>
@@ -140,12 +140,12 @@ export default function ㅈMySkillComponent({ data }: MyResumeCompletionProps) {
           {/* 희망 역할 */}
           <div className="flex flex-col gap-[1.56rem]">
             <div className="flex flex-col gap-1">
-              <span className="text-lg font-semibold text-grey100">희망 역할</span>
-              <div className="flex flex-wrap gap-2 pt-2">
+              <span className="text-base font-semibold text-grey100 sm:text-lg">희망 역할</span>
+              <div className="flex flex-wrap gap-1 pt-2">
                 {roleFields.map((role, index) => (
                   <div
                     key={index}
-                    className="flex items-center rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2"
+                    className="flex items-center rounded-[0.31rem] border border-grey40 px-3 py-2 text-sm sm:text-base"
                   >
                     <span className="text-grey60">{role}</span>
                   </div>
@@ -155,12 +155,12 @@ export default function ㅈMySkillComponent({ data }: MyResumeCompletionProps) {
 
             {/* 보유 기술 */}
             <div className="flex flex-col gap-1">
-              <span className=" text-lg font-semibold text-grey100">보유 역량</span>
-              <div className="flex flex-wrap gap-2 pt-2">
+              <span className="text-base font-semibold text-grey100 sm:text-lg">보유 역량</span>
+              <div className="flex flex-wrap gap-1 pt-2">
                 {skills.map((skill, index) => (
                   <div
                     key={index}
-                    className="flex items-center rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2"
+                    className="flex items-center rounded-[0.31rem] border border-grey40 px-3 py-2 text-sm sm:text-base"
                   >
                     <span className="text-grey60">{skill}</span>
                   </div>
