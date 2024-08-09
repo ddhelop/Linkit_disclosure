@@ -11,6 +11,8 @@ import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
 import { Button } from '@/components/common/Button'
 import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
+import Input from '@/components/common/component/Basic/Input'
+import Textarea from '@/components/common/component/Basic/TextArea'
 
 interface MyResumAwardProps {
   data: AwardResponse[]
@@ -144,17 +146,16 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
       )}
 
       {isAdding && (
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-6 rounded-[0.44rem] border border-grey40 bg-grey10 p-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-6 rounded-[0.44rem] border border-grey30 bg-white p-4">
           <div className="flex flex-col gap-4">
-            <div className="flex gap-3">
+            <div className="flex w-full flex-col gap-3 xs:flex-row">
               <div className="flex w-[49%] flex-col">
                 <label className="text-sm font-normal text-grey100">
                   대회명<span className="pl-1 text-[#2563EB]">*</span>
                 </label>
-                <input
+                <Input
                   type="text"
                   placeholder="도전 K-스타트업 2024 왕중왕전"
-                  className="mt-2 rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm"
                   {...register('awardsName', { required: true })}
                 />
               </div>
@@ -162,19 +163,14 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
                 <label className="text-sm font-normal text-grey100">
                   수상 내역<span className="pl-1 text-[#2563EB]">*</span>
                 </label>
-                <input
-                  type="text"
-                  placeholder="대상"
-                  className="mt-2 rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm"
-                  {...register('ranking', { required: true })}
-                />
+                <Input type="text" placeholder="대상" {...register('ranking', { required: true })} />
               </div>
             </div>
             <div className="flex flex-col ">
               <label className="text-sm font-normal text-grey100">
                 주관 기관<span className="pl-1 text-[#2563EB]">*</span>
               </label>
-              <input
+              <Input
                 type="text"
                 placeholder="중소벤처기업부"
                 className="mt-2 w-[49%] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm"
@@ -187,7 +183,7 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
               </label>
               <div className="flex gap-3">
                 <select
-                  className="select-with-padding-right border-grey3 mt-2 w-[17%] rounded-[0.44rem] border  px-[0.88rem] py-3 text-sm text-grey60"
+                  className="select-with-padding-right border-grey3 mt-2 rounded-[0.44rem] border px-[0.88rem]  py-3 text-sm text-grey60 sm:w-[17%]"
                   {...register('awardsYear', { required: true, valueAsNumber: true })}
                 >
                   {[...Array(50).keys()].map((i) => (
@@ -197,7 +193,7 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
                   ))}
                 </select>
                 <select
-                  className="select-with-padding-right mt-2 w-[13%] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm text-grey60"
+                  className="select-with-padding-right mt-2 rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm text-grey60 sm:w-[13%]"
                   {...register('awardsMonth', { required: true, valueAsNumber: true })}
                 >
                   {[...Array(12).keys()].map((i) => (
@@ -212,7 +208,7 @@ export default function MyAwardComponent({ data }: MyResumAwardProps) {
               <label className="text-sm font-normal text-grey100">
                 설명<span className="pl-1 text-[#2563EB]">*</span>
               </label>
-              <textarea
+              <Textarea
                 placeholder=""
                 className="mt-2 rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3 text-sm"
                 {...register('awardsDescription', { required: true })}
