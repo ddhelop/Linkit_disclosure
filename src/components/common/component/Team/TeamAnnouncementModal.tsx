@@ -49,7 +49,7 @@ const TeamAnnouncementModal: React.FC<ModalProps> = ({ onClose, data }) => {
           <h2 className="pt-[0.44rem] font-semibold">{data.jobRoleName}</h2>
           <div className="mt-[0.88rem] flex flex-wrap gap-2">
             {data.skillNames.map((skill, index) => (
-              <span key={index} className="rounded-[0.31rem] border border-grey40 px-[0.88rem] py-1 text-sm">
+              <span key={index} className="rounded-[0.31rem] border border-grey40 px-2 py-1 text-xs">
                 {skill}
               </span>
             ))}
@@ -58,20 +58,23 @@ const TeamAnnouncementModal: React.FC<ModalProps> = ({ onClose, data }) => {
           <div className="mt-10 flex flex-col gap-4">
             <div>
               <h3 className="font-semibold">주요 업무</h3>
-              <p className="mt-2 min-h-28 w-full whitespace-pre-wrap rounded-[0.38rem] border border-grey30 p-[0.56rem] text-sm text-grey80">
+              <p className="mt-2 min-h-28 w-full whitespace-pre-wrap rounded-[0.38rem] border border-grey30 p-[0.56rem] text-xs text-grey80 sm:text-sm">
                 {data.mainBusiness}
               </p>
             </div>
             <div>
               <h3 className="mt-[1.38rem] font-semibold">지원 절차</h3>
-              <p className="mt-2 min-h-28 w-full rounded-[0.38rem] border border-grey30 p-[0.56rem] text-sm text-grey80">
+              <p className="mt-2 min-h-28 w-full rounded-[0.38rem] border border-grey30 p-[0.56rem] text-xs text-grey80 sm:text-sm">
                 {data.applicationProcess}
               </p>
             </div>
           </div>
 
           <div className="mt-6 flex w-full justify-end">
-            <button onClick={() => setIsMatchModalOpen(true)} className="rounded-lg bg-[#2563EB] px-4 py-2 text-[#fff]">
+            <button
+              onClick={() => setIsMatchModalOpen(true)}
+              className="rounded-lg bg-[#2563EB] px-4 py-2 text-sm text-[#fff]"
+            >
               지원하기
             </button>
           </div>
