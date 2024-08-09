@@ -20,9 +20,16 @@ interface EducationFormProps {
   onSubmit: SubmitHandler<SchoolFormInputs>
   onCancel: () => void // New prop for cancel action
   isEditMode: boolean
+  className?: string // Optional className prop for custom styling
 }
 
-export const EducationForm: React.FC<EducationFormProps> = ({ defaultValues, onSubmit, onCancel, isEditMode }) => {
+export const EducationForm: React.FC<EducationFormProps> = ({
+  defaultValues,
+  onSubmit,
+  onCancel,
+  isEditMode,
+  className,
+}) => {
   const { register, handleSubmit, setValue, watch } = useForm<SchoolFormInputs>({
     defaultValues,
   })
@@ -33,11 +40,12 @@ export const EducationForm: React.FC<EducationFormProps> = ({ defaultValues, onS
     { value: '재학', label: '재학' },
     { value: '졸업', label: '졸업' },
   ]
+  console.log(className)
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mt-6 flex w-full flex-col rounded-[0.63rem] border border-grey30 px-5 py-6 md:w-[55%] "
+      className={`mt-6 flex w-full flex-col rounded-[0.63rem] border border-grey30 px-5 py-6  ${className}`}
     >
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="flex w-full flex-col sm:w-1/2">
@@ -60,7 +68,7 @@ export const EducationForm: React.FC<EducationFormProps> = ({ defaultValues, onS
           재학 기간<span className="pl-1 text-[#2563EB]">*</span>
         </span>
         <div className="flex flex-col justify-between sm:flex-row">
-          <div className="mt-2 flex w-full flex-row gap-3">
+          <div className="mt-2 flex flex-row flex-wrap gap-3">
             <Input placeholder="입학연도" className="w-20" {...register('admissionYear', { required: true })} />
             <Image src="/assets/icons/~.svg" width={8} height={29} alt="~" />
             <Input
