@@ -32,6 +32,11 @@ export const metadata: Metadata = {
       url: '/logo.png',
     },
   },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
 }
 
 const pretendard = localFont({
