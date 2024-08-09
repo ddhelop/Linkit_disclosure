@@ -30,16 +30,16 @@ export default function PrivateLocation({ data }: MyResumLocationFieldProps) {
   }, [data])
 
   return (
-    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
+    <div className="w-full rounded-2xl bg-[#fff] px-4 py-4 shadow-resume-box-shadow sm:px-[2.06rem] sm:py-[1.38rem]">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">활동 지역</span>
+        <span className="text-base font-semibold text-grey100 sm:text-lg">활동 지역</span>
       </div>
 
       {/* contents */}
 
       <div className="mt-4">
-        <div className="flex gap-2">
+        <div className="flex gap-2 text-sm sm:text-base">
           <Image src="/assets/icons/location.svg" width={24} height={24} alt="location" />
           <div className="flex items-center">
             <div className="text-grey100">{selectedCity + ',' || '활동지역을 선택해주세요.'}</div>

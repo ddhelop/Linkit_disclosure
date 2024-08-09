@@ -13,16 +13,7 @@ interface MyResumeCompletionProps {
 export default function PrivateIntroduce({ data }: MyResumeCompletionProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [introduction, setIntroduction] = useState(data.introduction || '')
-  const [charCount, setCharCount] = useState(data.introduction ? data.introduction.length : 0)
   const accessToken = useRecoilValue(accessTokenState) || ''
-
-  const handleEditClick = () => {
-    if (isEditing) {
-      saveIntroduction()
-    } else {
-      setIsEditing(true)
-    }
-  }
 
   const saveIntroduction = async () => {
     const response = await PostProfileIntroduction(accessToken, introduction)
@@ -34,30 +25,20 @@ export default function PrivateIntroduce({ data }: MyResumeCompletionProps) {
     }
   }
 
-  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = event.target.value
-    if (value.length <= 300) {
-      setIntroduction(value)
-      setCharCount(value.length)
-    }
-  }
-
-  const handleCancelClick = () => {
-    setIsEditing(false)
-    setIntroduction(data.introduction || '')
-    setCharCount(data.introduction ? data.introduction.length : 0)
-  }
-
   return (
-    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
+    <div className="w-full rounded-2xl bg-[#fff] px-4 py-4 shadow-resume-box-shadow sm:px-[2.06rem] sm:py-[1.38rem]">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">자기소개 및 팀빌딩 목적</span>
+        <span className="text-base font-semibold text-grey100 sm:text-lg">자기소개 및 팀빌딩 목적</span>
       </div>
 
       {/* contents */}
       <div className="pt-[0.94rem]">
-        <span className={introduction ? 'whitespace-pre-wrap py-[1.19rem] text-[#000]' : ' text-grey50'}>
+        <span
+          className={
+            introduction ? 'whitespace-pre-wrap py-[1.19rem] text-sm text-[#000] sm:text-base' : ' text-grey50'
+          }
+        >
           {introduction || '자기소개가 없습니다.'}
         </span>
       </div>

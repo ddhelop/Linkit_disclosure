@@ -19,17 +19,17 @@ export default function PrivateTeamBuilding({ data }: MyResumTeamBuildingFieldPr
   }, [data.teamBuildingFieldNames])
 
   return (
-    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
+    <div className="w-full rounded-2xl bg-[#fff] px-4 py-4 shadow-resume-box-shadow sm:px-[2.06rem] sm:py-[1.38rem]">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">희망 팀빌딩 분야</span>
+        <span className="text-base font-semibold text-grey100 sm:text-lg">희망 팀빌딩 분야</span>
       </div>
 
       {/* contents */}
 
-      <div className="flex flex-wrap gap-2 pt-[1.56rem]">
+      <div className="flex flex-wrap gap-2 pt-4">
         {selectedOptions?.map((option, index) => (
-          <div key={index} className="flex items-center rounded-lg border border-grey40 px-3 py-1">
+          <div key={index} className="flex items-center rounded-lg border border-grey40 px-2 py-1 text-sm sm:text-base">
             <span className="text-grey60">{option}</span>
           </div>
         ))}

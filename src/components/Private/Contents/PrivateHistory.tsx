@@ -44,21 +44,21 @@ export default function PrivateHistory({ data }: MyResumAntecedentProps) {
   }, [editingIndex, histories, setValue])
 
   return (
-    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
+    <div className="w-full rounded-2xl bg-[#fff] px-4 py-4 shadow-resume-box-shadow sm:px-[2.06rem] sm:py-[1.38rem]">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">경력</span>
+        <span className="text-base font-semibold text-grey100 sm:text-lg">경력</span>
       </div>
 
       {/* contents */}
-      {!histories && <div className="pt-[0.94rem] text-grey50">경력사항이 없습니다.</div>}
+      {!histories && <div className="pt-3 text-grey50">경력사항이 없습니다.</div>}
 
       {histories?.map((history, index) => (
-        <div key={index} className="mt-6 flex flex-col rounded-[0.63rem] border border-grey30 px-5 py-6">
+        <div key={index} className="mt-3 flex flex-col rounded-[0.63rem] border border-grey30 p-5">
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <span className="font-semibold text-grey100">{history.projectRole}</span>
-              <span className="pt-1 text-sm text-grey60">{history.projectName}</span>
+              <span className="text-sm font-semibold text-grey100 sm:text-base">{history.projectRole}</span>
+              <span className="pt-1 text-xs text-grey60 sm:text-sm">{history.projectName}</span>
               <span className="pt-1 text-xs text-grey50">
                 {history.startDate} - {history.endDate} ({history.retirement ? '종료' : '진행중'})
               </span>

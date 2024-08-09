@@ -29,27 +29,27 @@ export default function PrivateAward({ data }: MyResumAwardProps) {
   }, [data])
 
   return (
-    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
+    <div className="w-full rounded-2xl bg-[#fff] px-4 py-4 shadow-resume-box-shadow sm:px-[2.06rem] sm:py-[1.38rem]">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">수상</span>
+        <span className="text-base font-semibold text-grey100 sm:text-lg">수상</span>
       </div>
 
       {/* contents */}
-      {awards.length === 0 && <div className="pt-[0.94rem] text-grey50">수상 내역이 없습니다.</div>}
+      {awards.length === 0 && <div className="pt-3 text-grey50">수상 내역이 없습니다.</div>}
 
       {awards.length > 0 && (
-        <div className="mt-6 flex flex-col">
+        <div className="mt-3 flex flex-col">
           {awards.map((award, index) => (
-            <div key={index} className="mt-4 flex gap-[1.62rem] rounded-[0.63rem] border border-grey30 p-6">
-              <div className="text-grey60">{award.awardsYear}</div>
+            <div key={index} className=" flex gap-[1.62rem] rounded-[0.63rem] border border-grey30 p-5">
+              <div className="text-sm text-grey60 sm:text-base">{award.awardsYear}</div>
               <div className="flex justify-between">
                 <div className="flex flex-col">
                   <span className="text-xs text-grey60">{award.organizer}</span>
-                  <span className="text-grey100">
+                  <span className="text-sm text-grey100 sm:text-base">
                     {award.awardsName},{award.ranking}
                   </span>
-                  <span className="text-sm text-grey60">{award.awardsDescription}</span>
+                  <span className="text-xs text-grey60 sm:text-sm">{award.awardsDescription}</span>
                 </div>
               </div>
             </div>

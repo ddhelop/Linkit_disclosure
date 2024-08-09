@@ -45,6 +45,8 @@ body {
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--scroll-padding, 5rem);
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
 }
 
 @layer utilities {
