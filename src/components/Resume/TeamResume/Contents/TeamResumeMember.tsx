@@ -90,10 +90,10 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
   }
 
   return (
-    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
+    <div className="w-full rounded-2xl bg-[#fff] px-4 py-4 shadow-resume-box-shadow sm:px-[2.06rem] sm:py-[1.38rem]">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">팀원 소개</span>
+        <span className="text-base font-semibold text-grey100 sm:text-lg">팀원 소개</span>
       </div>
 
       {teamMembers.length > 0
@@ -105,11 +105,11 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
               <div className="flex w-full justify-between">
                 <div className="flex flex-col">
                   <p className="text-sm text-grey60">{member.teamName}</p>
-                  <p className="pt-[0.44rem]">
+                  <p className="pt-[0.44rem] text-sm sm:text-base">
                     {member.teamMemberName} | {member.teamMemberRole}
                   </p>
                   <div className="flex pt-[0.44rem]">
-                    <div className="text-sm text-grey60">{member.teamMemberIntroductionText}</div>
+                    <div className="text-xs text-grey60 sm:text-sm">{member.teamMemberIntroductionText}</div>
                   </div>
                 </div>
                 <div className="flex">
@@ -134,7 +134,7 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
               {isEditing && editIndex === index && (
                 <form
                   onSubmit={handleSubmit(handleFormSubmit)}
-                  className="mb-4 mt-[1.56rem] flex w-full flex-col gap-[0.81rem] rounded-lg border border-grey40 bg-grey10 p-3"
+                  className="mb-4 mt-[1.56rem] flex w-full flex-col gap-[0.81rem] rounded-lg border border-grey30  p-3"
                 >
                   {/* 이름 */}
                   <div className="flex gap-[0.81rem]">
@@ -184,7 +184,7 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
       {isEditing && editIndex === null && (
         <form
           onSubmit={handleSubmit(handleFormSubmit)}
-          className="mb-4 mt-[1.56rem] flex flex-col gap-[0.81rem] rounded-lg border border-grey40 bg-grey10 p-3"
+          className="mb-4 mt-[1.56rem] flex flex-col gap-[0.81rem] rounded-lg border border-grey30 p-3"
         >
           {/* 이름 */}
           <div className="flex gap-[0.81rem]">

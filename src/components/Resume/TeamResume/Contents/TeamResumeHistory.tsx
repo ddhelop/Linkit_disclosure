@@ -128,8 +128,8 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
 
   return (
     <>
-      <div className="flex w-full flex-col gap-[0.94rem] rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
-        <p className="text-lg font-semibold">연혁</p>
+      <div className="flex w-full flex-col gap-[0.94rem] rounded-2xl bg-[#fff] px-4 py-4 shadow-resume-box-shadow sm:px-[2.06rem] sm:py-[1.38rem]">
+        <p className="text-base font-semibold sm:text-lg">연혁</p>
 
         <div className="flex flex-col gap-4">
           {data === null && <p className="text-grey60">등록된 팀 연혁이 없습니다.</p>}
@@ -137,10 +137,10 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
             <div key={history.id} className="rounded-[0.63rem] border border-grey30 px-[1.31rem] py-[1.38rem]">
               <div className="flex justify-between">
                 <div className="flex gap-[1.62rem]">
-                  <p className="text-grey60">{history?.startYear}</p>
-                  <div className="flex flex-col gap-1">
-                    <p>{history?.historyOneLineIntroduction}</p>
-                    <p className="text-sm text-grey60">{history?.historyIntroduction}</p>
+                  <p className="text-sm text-grey60 sm:text-base">{history?.startYear}</p>
+                  <div className="flex flex-col gap-1 ">
+                    <p className="text-sm sm:text-base">{history?.historyOneLineIntroduction}</p>
+                    <p className="text-xs text-grey60 sm:text-sm">{history?.historyIntroduction}</p>
                   </div>
                 </div>
                 <div className="flex gap-2">
@@ -166,16 +166,16 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
               {isEditing && editIndex === index && (
                 <form
                   onSubmit={handleSubmit(onSubmit)}
-                  className="mt-4 flex flex-col gap-5 rounded-[0.44rem] border border-grey30 bg-grey10 p-5"
+                  className="mt-4 flex flex-col gap-5 rounded-[0.44rem] border border-grey30  p-5"
                 >
                   <div className="flex flex-col gap-2">
                     <p className="text-sm font-normal">한 줄 소개</p>
                     <Input {...register('historyOneLineIntroduction')} placeholder="Text Field" />
                   </div>
 
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col flex-wrap gap-2">
                     <p className="text-sm font-normal">기간</p>
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-wrap items-center gap-2">
                       <div className="relative">
                         <Input
                           {...register('startYear', {
@@ -183,9 +183,10 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                           })}
                           type="number"
                           placeholder="시작 연도"
+                          className="w-[5rem]"
                         />
                         {errors.startYear && (
-                          <p className="absolute w-[32rem] pl-1 text-xs text-red-500">{errors.startYear.message}</p>
+                          <p className="absolute pl-1 text-xs text-red-500">{errors.startYear.message}</p>
                         )}
                       </div>
                       <p>~</p>
@@ -197,9 +198,10 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                           type="number"
                           placeholder="종료 연도"
                           disabled={inProgressValue}
+                          className="w-[5rem]"
                         />
                         {errors.endYear && !inProgressValue && (
-                          <p className="absolute w-[32rem] pl-1 text-xs text-red-500">{errors.endYear.message}</p>
+                          <p className="absolute pl-1 text-xs text-red-500">{errors.endYear.message}</p>
                         )}
                       </div>
                       <Controller
@@ -251,7 +253,7 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
 
             <div className="flex flex-col gap-2">
               <p className="text-sm font-normal">기간</p>
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-2">
                 <div className="relative">
                   <Input
                     {...register('startYear', {
@@ -259,10 +261,9 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                     })}
                     type="number"
                     placeholder="시작년도"
+                    className="w-[5rem]"
                   />
-                  {errors.startYear && (
-                    <p className="absolute w-[32rem] pl-1 text-xs text-red-500">{errors.startYear.message}</p>
-                  )}
+                  {errors.startYear && <p className="absolute pl-1 text-xs text-red-500">{errors.startYear.message}</p>}
                 </div>
                 <p>~</p>
                 <div className="relative">
@@ -272,11 +273,11 @@ export default function TeamResumeHistory({ data: initialData }: TeamHistoryProp
                     })}
                     type="number"
                     placeholder="종료년도"
-                    className="w-[12.5rem] rounded-[0.44rem] border border-grey30 px-[0.88rem] py-2 text-left text-sm"
+                    className="w-[5rem]"
                     disabled={inProgressValue}
                   />
                   {errors.endYear && !inProgressValue && (
-                    <p className="absolute w-[32rem] pl-1 text-xs text-red-500">{errors.endYear.message}</p>
+                    <p className="absolute pl-1 text-xs text-red-500">{errors.endYear.message}</p>
                   )}
                 </div>
                 <Controller

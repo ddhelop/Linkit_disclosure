@@ -88,7 +88,7 @@ export default function TeamResumeAttachUrl({ data }: MyResumURLProps) {
     <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">첨부 URL</span>
+        <span className="text-base font-semibold text-grey100 sm:text-lg">첨부 URL</span>
       </div>
 
       {/* contents */}
@@ -129,11 +129,16 @@ export default function TeamResumeAttachUrl({ data }: MyResumURLProps) {
                   <div key={index} className="mb-4 flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
                       <Image src="/assets/icons/link.svg" alt="link" width={20} height={20} />
-                      <a href={link.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+                      <a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-main underline sm:text-base"
+                      >
                         {link.name}
                       </a>
                     </div>
-                    <button type="button" onClick={() => handleRemoveLink(index)} className="text-red-500">
+                    <button type="button" onClick={() => handleRemoveLink(index)} className="">
                       ×
                     </button>
                   </div>

@@ -87,21 +87,21 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
   }
 
   return (
-    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
+    <div className="w-full rounded-2xl bg-[#fff] px-4 py-4 shadow-resume-box-shadow sm:px-[2.06rem] sm:py-[1.38rem]">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">활동 방식</span>
+        <span className="text-base font-semibold text-grey100 sm:text-lg">활동 방식</span>
       </div>
 
       {/* contents */}
       {isEditing ? (
-        <div className="flex flex-col gap-[0.88rem]">
+        <div className="flex flex-col gap-3">
           <div className="flex flex-wrap gap-2 pt-5">
             {selectedOptions?.map((option, index) => (
               <div
                 key={index}
                 onClick={() => handleRemoveOption(option)}
-                className="flex cursor-pointer items-center rounded-lg border border-[#2563Eb] bg-[#D3E1FE] bg-opacity-40 px-3 py-1"
+                className="flex cursor-pointer items-center rounded-lg border border-[#2563Eb] bg-[#D3E1FE] bg-opacity-40 px-3 py-1 text-sm sm:text-base"
               >
                 <span className="text-[#2563EB]">{option}</span>
                 <button
@@ -109,7 +109,7 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
                     e.stopPropagation()
                     handleRemoveOption(option)
                   }}
-                  className="ml-2 text-[#2563EB]"
+                  className="ml-2 text-[#2563EB] "
                 >
                   ×
                 </button>
@@ -123,7 +123,7 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
                 <button
                   key={index}
                   onClick={() => handleOptionClick(option)}
-                  className="rounded border border-grey40 bg-gray-200 px-4 py-2 text-grey60"
+                  className="rounded-[0.5rem] border border-grey40 bg-gray-200 px-3 py-2 text-sm text-grey60 sm:text-base"
                 >
                   {option}
                 </button>
@@ -165,17 +165,20 @@ export default function TeamResumeActivityWay({ data }: TeamResumTeamBuildingPro
           {/* 활동 방식 */}
           <div className="flex w-full gap-x-2 pt-4">
             {data?.activityTagName.map((tag, index) => (
-              <span key={index} className="w-auto rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 text-grey60">
+              <span
+                key={index}
+                className="w-auto rounded-[0.31rem] border border-grey40 px-3 py-2 text-sm text-grey60 sm:text-base"
+              >
                 {tag}
               </span>
             ))}
           </div>
           {/* 활동 지역/위치 */}
           <div className="flex flex-col pt-[2.19rem]">
-            <p className="text-lg font-semibold">활동지역/위치</p>
+            <p className="text-base font-semibold sm:text-lg">활동지역/위치</p>
             <div className="flex gap-[0.38rem] pt-4">
               <Image src="/assets/icons/location.svg" width={24} height={24} alt="location" />
-              <p>
+              <p className="text-sm sm:text-base">
                 {data?.cityName}, {data?.divisionName}
               </p>
             </div>

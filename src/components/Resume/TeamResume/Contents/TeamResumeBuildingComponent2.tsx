@@ -48,15 +48,10 @@ export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuil
   }
 
   return (
-    <div className="w-full rounded-2xl bg-[#fff] px-[2.06rem] py-[1.38rem] shadow-resume-box-shadow">
+    <div className="w-full rounded-2xl bg-[#fff] px-4 py-4 shadow-resume-box-shadow sm:px-[2.06rem] sm:py-[1.38rem]">
       {/* title */}
       <div className="flex items-center gap-[0.56rem]">
-        <span className="text-lg font-semibold text-grey100">희망 팀빌딩 분야</span>
-        {/* {isEditing && (
-          <span className="text-sm text-[#2563EB]">
-            Tip : 본인의 경험을 바탕으로 핵심 역량과 보유 역량을 간단히 작성해주세요!
-          </span>
-        )} */}
+        <span className="text-base font-semibold text-grey100 sm:text-lg">희망 팀빌딩 분야</span>
       </div>
 
       {/* contents */}
@@ -67,7 +62,7 @@ export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuil
               <div
                 key={index}
                 onClick={() => handleRemoveOption(option)}
-                className="flex cursor-pointer items-center rounded-[0.31rem] border border-[#2563Eb] bg-[#D3E1FE66] bg-opacity-40 px-3 py-2"
+                className="flex cursor-pointer items-center rounded-[0.51rem] border border-[#2563Eb] bg-[#D3E1FE66] bg-opacity-40 px-2 py-2 text-sm sm:text-base"
               >
                 <span className="text-[#2563EB]">{option}</span>
                 <button
@@ -89,7 +84,7 @@ export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuil
                 <button
                   key={index}
                   onClick={() => handleOptionClick(option)}
-                  className="rounded border border-grey40 bg-gray-200 px-4 py-2 text-grey60"
+                  className="rounded border border-grey40 bg-gray-200 px-3 py-2 text-sm text-grey60 sm:text-base"
                 >
                   {option}
                 </button>
@@ -98,9 +93,12 @@ export default function TeamResumeBuildingComponent2({ data }: TeamResumTeamBuil
           </div>
         </div>
       ) : (
-        <div className="flex flex-wrap gap-2 pt-[1.56rem]">
+        <div className="flex flex-wrap gap-2 pt-4">
           {selectedOptions?.map((option, index) => (
-            <div key={index} className="flex items-center rounded-lg border border-grey40 px-3 py-1">
+            <div
+              key={index}
+              className="flex items-center rounded-lg border border-grey40 px-2 py-1 text-sm sm:text-base"
+            >
               <span className="text-grey60">{option}</span>
             </div>
           ))}
