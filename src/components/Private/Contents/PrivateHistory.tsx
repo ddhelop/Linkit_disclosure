@@ -9,8 +9,8 @@ interface FormInputs {
   projectRole: string
   startDate: string
   endDate: string
-  retirement: boolean
-  antecedentsDescription: string
+  retirement: boolean | string
+  // antecedentsDescription: string
 }
 
 interface MyResumAntecedentProps {
@@ -26,7 +26,7 @@ export default function PrivateHistory({ data }: MyResumAntecedentProps) {
       startDate: item.startDate,
       endDate: item.endDate,
       retirement: item.retirement,
-      antecedentsDescription: item.antecedentsDescription || '', // 기본값 설정
+      // antecedentsDescription: item.antecedentsDescription || '', // 기본값 설정
     })),
   )
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
@@ -39,7 +39,7 @@ export default function PrivateHistory({ data }: MyResumAntecedentProps) {
       setValue('startDate', history.startDate)
       setValue('endDate', history.endDate)
       setValue('retirement', history.retirement)
-      setValue('antecedentsDescription', history.antecedentsDescription)
+      // setValue('antecedentsDescription', history.antecedentsDescription)
     }
   }, [editingIndex, histories, setValue])
 
@@ -62,7 +62,7 @@ export default function PrivateHistory({ data }: MyResumAntecedentProps) {
               <span className="pt-1 text-xs text-grey50">
                 {history.startDate} - {history.endDate} ({history.retirement ? '종료' : '진행중'})
               </span>
-              <span className="pt-1 text-sm text-grey60">{history.antecedentsDescription}</span>
+              {/* <span className="pt-1 text-sm text-grey60">{history.antecedentsDescription}</span> */}
             </div>
           </div>
         </div>
