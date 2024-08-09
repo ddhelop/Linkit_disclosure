@@ -163,6 +163,7 @@ export default function RegisterCareer() {
             onSubmit={handleFormSubmit}
             onCancel={() => {}}
             isEditingMode={false}
+            className="md:w-[55%]"
           />
         )}
 

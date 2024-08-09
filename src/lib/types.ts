@@ -109,8 +109,8 @@ export interface AntecedentResponse {
   projectRole: string
   startDate: string
   endDate: string
-  retirement: boolean
-  antecedentsDescription: string
+  retirement: boolean | string
+  // antecedentsDescription: string
 }
 
 export interface EducationResponse {
@@ -441,7 +441,7 @@ export interface AntecedentFormInputs {
   projectRole: string
   startDate: string
   endDate: string
-  retirement: boolean
+  retirement: boolean | string
 }
 
 // 팀소개서 - 팀원 공고 데이터 셋
@@ -540,6 +540,7 @@ export interface OnBoardingCareerFormInputs {
   startDate: string
   endDate: string | ''
   retirement: boolean | string
+  className?: string
 }
 
 export interface OnBoardingCareer {

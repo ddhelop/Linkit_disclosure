@@ -1,65 +1,23 @@
 'use client'
+
 import { accessTokenState } from '@/context/recoil-context'
 import { DeleteAntecedentData, PostOneAntecedentData, PutAntecedentData } from '@/lib/action'
-import { AntecedentResponse } from '@/lib/types'
+import { AntecedentResponse, OnBoardingCareerFormInputs } from '@/lib/types'
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
 import { motion } from 'framer-motion'
 import { mainHoverEffect } from '@/lib/animations'
-import { Button } from '@/components/common/Button'
-import Input from '@/components/common/component/Basic/Input'
-import Radio from '@/components/common/component/Basic/Radio'
-import Textarea from '@/components/common/component/Basic/TextArea'
-import { validateYearMonthMessage } from '@/context/schemaValidation'
 import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
-
-interface FormInputs {
-  id?: number
-  projectName: string
-  projectRole: string
-  startDate: string
-  endDate: string
-  retirement: boolean
-  antecedentsDescription: string
-}
+import CareerForm from '@/components/common/component/onBoarding/CareerForm'
+import { SubmitHandler } from 'react-hook-form'
 
 interface MyResumAntecedentProps {
   data: AntecedentResponse[]
 }
 
 export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    watch,
-    trigger,
-    formState: { errors },
-  } = useForm<FormInputs>({
-    defaultValues: {
-      projectName: '',
-      projectRole: '',
-      startDate: '',
-      endDate: '',
-      retirement: false,
-      antecedentsDescription: '',
-    },
-  })
-  const [histories, setHistories] = useState<FormInputs[]>(
-    () =>
-      data?.map((item) => ({
-        id: item.id,
-        projectName: item.projectName,
-        projectRole: item.projectRole,
-        startDate: item.startDate,
-        endDate: item.endDate,
-        retirement: item.retirement,
-        antecedentsDescription: item.antecedentsDescription || '', // 기본값 설정
-      })) || [],
-  )
+  const [histories, setHistories] = useState<AntecedentResponse[]>(data)
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [isAdding, setIsAdding] = useState(false)
   const accessToken = useRecoilValue(accessTokenState) || ''
@@ -67,25 +25,25 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
   useEffect(() => {
     if (editingIndex !== null) {
       const history = histories[editingIndex]
-      setValue('projectName', history?.projectName)
-      setValue('projectRole', history?.projectRole)
-      setValue('startDate', history?.startDate)
-      setValue('endDate', history?.endDate)
-      setValue('retirement', history?.retirement)
-      setValue('antecedentsDescription', history?.antecedentsDescription)
+      if (history) {
+        setIsAdding(true)
+      }
     }
-  }, [editingIndex, histories, setValue])
+  }, [editingIndex, histories])
 
-  const onSubmit: SubmitHandler<FormInputs> = async (formData) => {
-    const antecedentData = {
+  const handleFormSubmit: SubmitHandler<OnBoardingCareerFormInputs> = async (formData) => {
+    // Ensure the retirement field is always a boolean
+    const retirementValue = formData.retirement === 'true' || formData.retirement === true
+
+    const antecedentData: OnBoardingCareerFormInputs = {
       ...formData,
       startDate: formatDate(formData.startDate),
-      endDate: formData.retirement ? formatDate(formData.endDate) : '',
-      retirement: formData.retirement,
+      endDate: retirementValue ? '' : formatDate(formData.endDate),
+      retirement: retirementValue, // Ensure it's a boolean
     }
 
     if (editingIndex !== null) {
-      const antecedentId = data[editingIndex]?.id
+      const antecedentId = histories[editingIndex].id
       const response = await PutAntecedentData(accessToken, antecedentData, antecedentId) // 수정 API 호출
       if (response.ok) {
         const updatedHistories = histories.map((history, index) =>
@@ -93,7 +51,6 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
         )
         setHistories(updatedHistories)
         setEditingIndex(null)
-        reset()
         setIsAdding(false)
         pushNotification('수정이 완료되었습니다.', 'success')
       }
@@ -102,7 +59,6 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
       if (response.ok) {
         const newId = await response.json()
         setHistories([...histories, { ...antecedentData, id: newId }])
-        reset()
         setIsAdding(false)
         pushNotification('추가가 완료되었습니다.', 'success')
       }
@@ -131,19 +87,14 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
       }
       if (index === editingIndex) {
         setEditingIndex(null)
-        reset()
         setIsAdding(false)
       }
     }
   }
 
-  const retirementValue = watch('retirement')
-
-  const handleRetirementChange = (isRetired: boolean) => {
-    setValue('retirement', isRetired)
-    if (!isRetired) {
-      setValue('endDate', '')
-    }
+  const handleCancel = () => {
+    setEditingIndex(null)
+    setIsAdding(false)
   }
 
   return (
@@ -163,9 +114,8 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
               <span className="font-semibold text-grey100">{history.projectName}</span>
               <span className="pt-1 text-sm text-grey60">{history.projectRole}</span>
               <span className="pt-1 text-xs text-grey50">
-                {history.startDate} - {history.endDate} ({history.retirement ? '종료' : '진행중'})
+                {history.startDate} - {history.endDate || '현재'} ({history.retirement ? '종료' : '진행중'})
               </span>
-              <span className="pt-1 text-sm text-grey60">{history.antecedentsDescription}</span>
             </div>
             <div className="flex items-center justify-end">
               <Image
@@ -186,112 +136,40 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
               />
             </div>
           </div>
+
+          {isAdding && editingIndex === index && (
+            <CareerForm
+              defaultValues={{
+                id: history.id,
+                projectName: history.projectName,
+                projectRole: history.projectRole,
+                startDate: history.startDate,
+                endDate: history.endDate,
+                retirement: Boolean(history.retirement), // Ensure this is a boolean
+              }}
+              onSubmit={handleFormSubmit}
+              onCancel={handleCancel}
+              isEditingMode={true}
+            />
+          )}
         </div>
       ))}
 
-      {/*  */}
-      {isAdding && (
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="mt-3 flex flex-col rounded-[0.63rem] border border-grey30 bg-grey30 bg-opacity-30 px-5 py-6"
-        >
-          <div className="flex gap-3">
-            <div className="flex w-[49%] flex-col">
-              <Input
-                label="회사/프로젝트명"
-                placeholder="회사명 / 프로젝트"
-                required
-                {...register('projectName', { required: '회사/프로젝트명을 입력해주세요.' })}
-              />
-            </div>
-
-            <div className="flex w-[49%] flex-col">
-              <Input
-                label="포지션"
-                placeholder="Product Manager"
-                required
-                {...register('projectRole', { required: '포지션을 입력해주세요.' })}
-              />
-            </div>
-          </div>
-
-          <div className="mt-[0.81rem] flex flex-col">
-            <span className="text-sm font-normal text-grey100">
-              기간<span className="pl-1 text-[#2563EB]">*</span>
-            </span>
-            <div className="flex justify-between">
-              <div className="flex items-center gap-2">
-                <div className="relative ">
-                  <Input
-                    className="w-60"
-                    placeholder="YYYY.MM"
-                    required
-                    {...register('startDate', {
-                      required: '시작일을 YYYY.MM 형식으로 입력해주세요.',
-                      validate: validateYearMonthMessage,
-                      onBlur: () => trigger('startDate'),
-                    })}
-                  />
-                </div>
-
-                <span>~</span>
-
-                <div className="flex flex-col">
-                  <Input
-                    className="w-60"
-                    placeholder="YYYY.MM"
-                    required={retirementValue}
-                    disabled={!retirementValue}
-                    {...register('endDate', {
-                      validate: retirementValue ? validateYearMonthMessage : undefined,
-                      onBlur: () => trigger('endDate'),
-                    })}
-                  />
-                </div>
-
-                <div className="flex items-end gap-2">
-                  {/* input radio 진행중 */}
-                  <Radio
-                    label="진행중"
-                    value="false"
-                    checked={!retirementValue}
-                    onChange={() => handleRetirementChange(false)}
-                  />
-
-                  {/* radio 종료 */}
-                  <Radio
-                    label="종료"
-                    value="true"
-                    checked={retirementValue}
-                    onChange={() => handleRetirementChange(true)}
-                  />
-                </div>
-              </div>
-            </div>
-            <Textarea
-              label="설명"
-              placeholder="경력 설명"
-              required
-              {...register('antecedentsDescription', { required: '경력 설명을 입력해주세요.' })}
-            />
-
-            <div className="mt-5 flex justify-end gap-2">
-              <Button
-                onClick={() => {
-                  reset()
-                  setIsAdding(false)
-                }}
-                animationMode="sub"
-                mode="sub"
-              >
-                취소하기
-              </Button>
-              <Button type="submit" mode="main" animationMode="main">
-                완료하기
-              </Button>
-            </div>
-          </div>
-        </form>
+      {/* Add new career form */}
+      {isAdding && editingIndex === null && (
+        <CareerForm
+          defaultValues={{
+            id: 0, // Temporary ID for new entries
+            projectName: '',
+            projectRole: '',
+            startDate: '',
+            endDate: '',
+            retirement: false, // Ensure this is a boolean
+          }}
+          onSubmit={handleFormSubmit}
+          onCancel={handleCancel}
+          isEditingMode={false}
+        />
       )}
 
       {!isAdding && (
