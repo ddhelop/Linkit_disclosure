@@ -137,7 +137,7 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
                   className="mb-4 mt-[1.56rem] flex w-full flex-col gap-[0.81rem] rounded-lg border border-grey30  p-3"
                 >
                   {/* 이름 */}
-                  <div className="flex gap-[0.81rem]">
+                  <div className="flex flex-col gap-[0.81rem] sm:flex-row">
                     <div className="flex flex-col gap-2">
                       <p className="text-sm font-normal">이름</p>
                       <Input
@@ -187,14 +187,10 @@ export default function TeamResumeMember({ data }: { data: TeamMemberData }) {
           className="mb-4 mt-[1.56rem] flex flex-col gap-[0.81rem] rounded-lg border border-grey30 p-3"
         >
           {/* 이름 */}
-          <div className="flex gap-[0.81rem]">
+          <div className="flex flex-col gap-[0.81rem] sm:flex-row">
             <div className="flex flex-col ">
               <p className="text-sm font-normal">이름</p>
-              <Input
-                {...register('teamMemberName')}
-                className="w-[13.25rem] rounded-[0.31rem] border border-grey40 px-[0.88rem] py-2 outline-none"
-                placeholder="이름"
-              />
+              <Input {...register('teamMemberName')} placeholder="이름" />
             </div>
             {/* 직무/역할 */}
             <div className="flex flex-col ">
