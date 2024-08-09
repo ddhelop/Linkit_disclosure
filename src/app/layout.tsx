@@ -48,6 +48,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
+      <head>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
+      </head>
       <body className={`${pretendard.className} bg-[#fff]`}>
         <ClientProvider>
           {/* <FetchSetting> */}
