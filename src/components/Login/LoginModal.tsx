@@ -43,9 +43,21 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: '100vh', opacity: 0 }}
         transition={{ duration: 0.5 }}
-        className="rounded-lg bg-[#fff] px-[4.25rem] pb-[2.31rem] pt-[4.73rem]"
+        className="relative flex h-screen w-full items-center justify-center bg-[#fff] px-4 pb-[2.31rem] pt-[4.73rem] sm:h-auto sm:w-auto sm:rounded-lg sm:px-[4.25rem]"
       >
-        <div className="flex flex-col items-center">
+        <button onClick={onClose} className="absolute right-4 top-4 text-grey100 hover:text-grey70 focus:outline-none">
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div className="flex flex-col items-center ">
           <h1 className="mb-4 text-[1.1rem] text-grey100">팀빌딩의 시작 링킷</h1>
           <Image src="/assets/icons/headerLogo.svg" width={213} height={40} alt="logo" />
           <h2 className="mt-4 text-2xl font-bold">팀빌딩의 시작 링킷</h2>
@@ -63,23 +75,22 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           </motion.div>
 
           <div className="flex flex-col items-center gap-2 pt-6">
-            {/* <Link href="#"> */}
             <Link href={NAVER_AUTH_URL}>
-              <div className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#00C73C] px-24">
+              <div className="flex h-[3.5rem] cursor-pointer items-center gap-1 rounded bg-[#00C73C] px-16 sm:w-[23rem] sm:px-24">
                 <Image src={'/assets/login/naverLogo.svg'} width={39} height={44} alt="naverLogin" />
                 <span className="font-semibold text-[#fff]">네이버로 시작하기</span>
               </div>
             </Link>
 
             <Link href={KAKAO_AUTH_URL}>
-              <div className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#FFE500] px-24">
+              <div className="flex h-[3.5rem] cursor-pointer items-center gap-1 rounded bg-[#FFE500] px-16 sm:w-[23rem] sm:px-24">
                 <Image src={'/assets/login/kakaoLogo.svg'} width={39} height={56} alt="kakaoLogin" />
                 <span className="font-semibold">카카오로 시작하기</span>
               </div>
             </Link>
 
             <Link href={GOOGLE_AUTH_URL}>
-              <div className="items-cente flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-3 rounded border-[1px] border-grey30 px-[6.5rem]">
+              <div className="items-cente flex h-[3.5rem] cursor-pointer items-center gap-3 rounded border-[1px] border-grey30 px-[4.6rem] sm:w-[23rem] sm:px-[6.5rem]">
                 <Image src={'/assets/login/googleLogo.svg'} width={23} height={23} alt="GoogleLogin" />
                 <span className="font-semibold">구글로 시작하기</span>
               </div>
