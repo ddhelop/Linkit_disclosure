@@ -49,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <head>
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
+        <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
       </head>
       <body className={`${pretendard.className} bg-[#fff]`}>
         <ClientProvider>
