@@ -1,6 +1,6 @@
 // Header.tsx
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './Example.css'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
@@ -11,11 +11,12 @@ import { accessTokenState, authState } from '@/context/recoil-context'
 import { Logout, RefreshAccessToken } from '@/lib/action'
 import LoginModal from '../Login/LoginModal'
 import PopUpAlertModal from '../common/CommonModal/PopUpAlertModal'
+import { motion } from 'framer-motion'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false) // 새로 추가된 상태
+  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false)
   const router = useRouter()
   const [token, setToken] = useRecoilState(accessTokenState)
   const resetAccessTokenState = useResetRecoilState(accessTokenState)
@@ -37,6 +38,8 @@ export default function Header() {
     '/onBoarding/complete',
     '/onBoarding',
   ]
+
+  const menuRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (hiddenPaths.includes(pathname)) return
@@ -86,7 +89,23 @@ export default function Header() {
     }
   }
 
-  // 조건부 렌더링을 JSX 내부로 옮김
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setMobileMenuOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.addEventListener('mousedown', handleOutsideClick)
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+  }, [mobileMenuOpen])
+
   if (hiddenPaths.includes(pathname)) {
     return null
   }
@@ -104,11 +123,11 @@ export default function Header() {
               </Link>
             </div>
 
-            <div className="hidden gap-[1.88rem] lg:flex lg:flex-1 lg:items-center lg:justify-between">
+            <div className="hidden gap-[1.88rem] md:flex md:items-center md:justify-between lg:flex-1">
               <Link
                 href="#"
-                className=" font-medium leading-5 text-grey90  hover:text-main"
-                onClick={() => setIsAlertModalOpen(true)} // 클릭 시 팝업 모달 열기
+                className="font-medium leading-5 text-grey90 hover:text-main"
+                onClick={() => setIsAlertModalOpen(true)}
               >
                 창업/공모전 정보
               </Link>
@@ -124,7 +143,7 @@ export default function Header() {
           <div className="flex flex-1 justify-end gap-10">
             {isAuth ? (
               <>
-                <Link href="/match/from" className="hidden text-sm font-medium leading-5 text-grey80 lg:flex">
+                <Link href="/match/from" className="hidden text-sm font-medium leading-5 text-grey80 md:flex">
                   매칭 관리
                 </Link>
                 <DropdownMenu />
@@ -133,51 +152,134 @@ export default function Header() {
               <>
                 <button
                   onClick={() => setIsLoginModalOpen(true)}
-                  className="hidden text-sm font-medium leading-5 text-grey80 hover:text-main lg:flex"
+                  className="hidden text-sm font-medium leading-5 text-grey80 hover:text-main md:flex"
                 >
                   로그인
                 </button>
 
-                <Link href="#FAQ" className="hidden text-sm font-medium leading-5 text-grey80 hover:text-main lg:flex">
+                <Link href="#FAQ" className="hidden text-sm font-medium leading-5 text-grey80 hover:text-main md:flex">
                   FAQ
                 </Link>
               </>
             )}
           </div>
 
-          <div className="ml-auto flex lg:hidden">
+          <div className="ml-auto flex md:hidden">
             <button
               type="button"
               className="-m-2.5 inline-flex cursor-pointer items-center justify-center rounded-md p-2.5 text-grey100"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={(e) => {
+                e.stopPropagation() // Prevent click event from bubbling up
+                setMobileMenuOpen(!mobileMenuOpen) // Toggle the state
+              }}
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
+              {mobileMenuOpen ? (
+                // Icon when menu is open (X icon)
+                <div>
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </div>
+              ) : (
+                // Icon when menu is closed (Hamburger icon)
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+              )}
             </button>
           </div>
         </div>
-        <div
-          className={`mobile-menu transition-max-height absolute w-full duration-500 ease-in-out ${
-            mobileMenuOpen ? 'max-h-96' : 'max-h-0'
-          }`}
+        <motion.div
+          ref={menuRef}
+          className="mobile-menu transition-max-height absolute z-20 w-full bg-white"
+          initial={{ height: 0 }}
+          animate={{ height: mobileMenuOpen ? 'auto' : 0 }}
+          transition={{ duration: 0.2 }}
         >
-          <Link href="/myResume" className="block p-4 pl-8 text-sm font-semibold leading-6 text-grey100">
-            마이페이지
-          </Link>
-          <Link href="#" className="block p-4 pl-8 text-sm font-semibold leading-6 text-grey100">
-            매칭 관리
-          </Link>
-          <div onClick={handleLogout} className="block p-4 pl-8 text-sm font-semibold leading-6 text-[#FF345F]">
-            로그아웃
-          </div>
-        </div>
+          {isAuth ? (
+            <>
+              <Link
+                href="/myResume"
+                className="block p-4 pl-12 text-sm  leading-6 text-grey70"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                마이페이지
+              </Link>
+              <Link
+                href="/match/from"
+                className="block p-4 pl-12 text-sm  leading-6 text-grey70"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                매칭 관리
+              </Link>
+              <Link
+                href="/findMember"
+                className="block p-4 pl-12 text-sm leading-6 text-grey70"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                팀원 찾기
+              </Link>
+              <Link
+                href="/findTeam"
+                className="block p-4 pl-12 text-sm leading-6 text-grey70"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                팀 찾기
+              </Link>
+              <div
+                onClick={() => {
+                  handleLogout()
+                  setMobileMenuOpen(false)
+                }}
+                className="block p-4 pl-12 text-sm leading-6 text-grey50"
+              >
+                로그아웃
+              </div>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={() => setIsLoginModalOpen(true)}
+                className="block w-full p-4 pl-12 text-left text-sm  leading-6 text-grey70"
+              >
+                로그인
+              </button>
+              <Link
+                href="/findMember"
+                className="block p-4 pl-12 text-sm leading-6 text-grey70"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                팀원 찾기
+              </Link>
+              <Link
+                href="/findTeam"
+                className="block p-4 pl-12 text-sm leading-6 text-grey70"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                팀 찾기
+              </Link>
+              <Link
+                href="#FAQ"
+                className="block p-4 pl-12 text-sm leading-6 text-grey70"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                FAQ
+              </Link>
+            </>
+          )}
+        </motion.div>
       </nav>
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
       <PopUpAlertModal
