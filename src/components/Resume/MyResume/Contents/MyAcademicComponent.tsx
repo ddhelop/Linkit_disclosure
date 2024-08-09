@@ -2,27 +2,28 @@
 
 import { accessTokenState } from '@/context/recoil-context'
 import { DeleteSchoolData, PostOneSchoolData, PutSchoolData } from '@/lib/action'
-import { EducationFormData, EducationFormInputs, EducationResponse, MyResumEducationProps } from '@/lib/types'
+import { EducationFormData, EducationResponse, MyResumEducationProps } from '@/lib/types'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
-import { useForm, FormProvider, UseFormSetValue, SubmitHandler } from 'react-hook-form'
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { Button } from '@/components/common/Button'
-import { EducationForm } from '../Component/EducationForm'
+
 import { pushNotification } from '@/components/common/component/ToastPopUp/ToastPopup'
+import EducationForm, { SchoolFormInputs } from '@/components/common/component/onBoarding/EducationForm'
 
 export default function MyAcademicComponent({ data }: MyResumEducationProps) {
   const [isEditing, setIsEditing] = useState<boolean | number>(false)
   const accessToken = useRecoilValue(accessTokenState) || ''
   const [educationData, setEducationData] = useState<EducationResponse[]>(data)
-  const methods = useForm<EducationFormInputs>()
+  const methods = useForm<SchoolFormInputs>()
 
-  const handleAddEducation: SubmitHandler<EducationFormInputs> = async (formData) => {
+  const handleAddEducation: SubmitHandler<SchoolFormInputs> = async (formData) => {
     const newEducation: EducationFormData = {
       universityName: formData.universityName,
       majorName: formData.majorName,
-      admissionYear: parseInt(formData.admissionYear),
-      graduationYear: formData.graduationYear ? parseInt(formData.graduationYear) : null,
+      admissionYear: formData.admissionYear,
+      graduationYear: formData.graduationYear || null,
       degreeName: formData.degreeName,
     }
 
@@ -37,18 +38,17 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
       }
     } catch (error) {
       console.error('Failed to add education', error)
-      // 에러 처리 로직을 추가합니다.
     }
   }
 
-  const handleUpdateEducation: SubmitHandler<EducationFormInputs> = async (formData) => {
+  const handleUpdateEducation: SubmitHandler<SchoolFormInputs> = async (formData) => {
     if (typeof isEditing !== 'number') return
 
     const updatedEducation: EducationFormData = {
       universityName: formData.universityName,
       majorName: formData.majorName,
-      admissionYear: parseInt(formData.admissionYear),
-      graduationYear: formData.graduationYear ? parseInt(formData.graduationYear) : null,
+      admissionYear: formData.admissionYear,
+      graduationYear: formData.graduationYear || null,
       degreeName: formData.degreeName,
     }
 
@@ -70,7 +70,6 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
     }
   }
 
-  // 학력 삭제
   const handleDeleteEducation = async (educationId: number) => {
     try {
       if (!window.confirm('학력을 삭제하시겠습니까?')) return
@@ -86,13 +85,13 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
     }
   }
 
-  const handleEditClick = (education: EducationResponse, setValue: UseFormSetValue<EducationFormInputs>) => {
+  const handleEditClick = (education: EducationResponse) => {
     setIsEditing(education.id)
-    setValue('universityName', education.universityName)
-    setValue('majorName', education.majorName)
-    setValue('admissionYear', education.admissionYear.toString())
-    setValue('graduationYear', education.graduationYear ? education.graduationYear.toString() : '')
-    setValue('degreeName', education.degreeName)
+    methods.setValue('universityName', education.universityName)
+    methods.setValue('majorName', education.majorName)
+    methods.setValue('admissionYear', education.admissionYear)
+    methods.setValue('graduationYear', education.graduationYear || null)
+    methods.setValue('degreeName', education.degreeName)
   }
 
   useEffect(() => {
@@ -101,8 +100,8 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
       if (education) {
         methods.setValue('universityName', education.universityName)
         methods.setValue('majorName', education.majorName)
-        methods.setValue('admissionYear', education.admissionYear.toString())
-        methods.setValue('graduationYear', education.graduationYear ? education.graduationYear.toString() : '')
+        methods.setValue('admissionYear', education.admissionYear)
+        methods.setValue('graduationYear', education.graduationYear || null)
         methods.setValue('degreeName', education.degreeName)
       }
     }
@@ -110,12 +109,10 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
 
   return (
     <div className="w-full rounded-2xl bg-[#fff] px-4 py-4 shadow-resume-box-shadow sm:px-[2.06rem] sm:py-[1.38rem]">
-      {/* title */}
       <div className="flex items-center gap-[0.56rem]">
         <span className="text-lg font-semibold text-grey100">학력</span>
       </div>
 
-      {/* contents */}
       {!educationData ? (
         <div className="pt-[0.94rem] text-grey50">학력사항이 없습니다.</div>
       ) : (
@@ -137,7 +134,7 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
                   height={27}
                   alt="edit"
                   className="cursor-pointer"
-                  onClick={() => handleEditClick(education, methods.setValue)}
+                  onClick={() => handleEditClick(education)}
                 />
                 <Image
                   src="/assets/icons/delete.svg"
@@ -161,11 +158,11 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
                   defaultValues={{
                     universityName: education.universityName,
                     majorName: education.majorName,
-                    admissionYear: education.admissionYear.toString(),
-                    graduationYear: education.graduationYear ? education.graduationYear.toString() : '',
+                    admissionYear: education.admissionYear,
+                    graduationYear: education.graduationYear || null,
                     degreeName: education.degreeName,
                   }}
-                  isEditing={true}
+                  isEditMode={true}
                 />
               </FormProvider>
             )}
@@ -184,16 +181,15 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
             defaultValues={{
               universityName: '',
               majorName: '',
-              admissionYear: '',
-              graduationYear: '',
-              degreeName: '',
+              admissionYear: 0,
+              graduationYear: null,
+              degreeName: '졸업',
             }}
-            isEditing={false}
+            isEditMode={false}
           />
         </FormProvider>
       )}
 
-      {/* button */}
       {!isEditing && (
         <div className="mt-[0.94rem] flex w-full justify-end">
           <Button
@@ -203,8 +199,8 @@ export default function MyAcademicComponent({ data }: MyResumEducationProps) {
               methods.reset({
                 universityName: '',
                 majorName: '',
-                admissionYear: '',
-                graduationYear: '',
+                admissionYear: 0,
+                graduationYear: null,
                 degreeName: '졸업',
               })
             }}

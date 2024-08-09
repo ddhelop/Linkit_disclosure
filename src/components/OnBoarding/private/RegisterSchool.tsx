@@ -128,6 +128,7 @@ export default function RegisterSchool() {
                 onSubmit={handleFormSubmit}
                 onCancel={handleCancel}
                 isEditMode={true}
+                className="md:w-[55%]" // Pass the className prop correctly
               />
             )}
           </div>
@@ -145,6 +146,7 @@ export default function RegisterSchool() {
             onSubmit={handleFormSubmit}
             onCancel={() => {}}
             isEditMode={false}
+            className="md:w-[55%]" // Ensure className is passed here as well
           />
         )}
 
