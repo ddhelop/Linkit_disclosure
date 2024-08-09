@@ -40,7 +40,6 @@ export const EducationForm: React.FC<EducationFormProps> = ({
     { value: '재학', label: '재학' },
     { value: '졸업', label: '졸업' },
   ]
-  console.log(className)
 
   return (
     <form

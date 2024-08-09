@@ -12,9 +12,16 @@ interface CareerFormProps {
   onSubmit: SubmitHandler<OnBoardingCareerFormInputs>
   onCancel: () => void
   isEditingMode: boolean
+  className?: string
 }
 
-export const CareerForm: React.FC<CareerFormProps> = ({ defaultValues, onSubmit, onCancel, isEditingMode }) => {
+export const CareerForm: React.FC<CareerFormProps> = ({
+  defaultValues,
+  onSubmit,
+  onCancel,
+  isEditingMode,
+  className,
+}) => {
   const { register, handleSubmit, setValue, watch } = useForm<OnBoardingCareerFormInputs>({
     defaultValues,
   })
@@ -30,11 +37,11 @@ export const CareerForm: React.FC<CareerFormProps> = ({ defaultValues, onSubmit,
   const handleRetirementChange = (value: string) => {
     setValue('retirement', value === 'true')
   }
-
+  console.log(className)
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mt-6 flex w-full flex-col rounded-[0.63rem] border border-grey30 px-5 py-6 md:w-[55%]"
+      className={`mt-6 flex w-full flex-col rounded-[0.63rem] border border-grey30 px-5 py-6 ${className}`}
     >
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="flex w-full flex-col sm:w-1/2">
@@ -67,7 +74,7 @@ export const CareerForm: React.FC<CareerFormProps> = ({ defaultValues, onSubmit,
           기간<span className="pl-1 text-[#2563EB]">*</span>
         </span>
         <div className="flex w-full flex-col justify-between sm:flex-row">
-          <div className="mt-2 flex flex-row gap-2">
+          <div className="mt-2 flex flex-row flex-wrap gap-2">
             <Input className="w-24" placeholder="YYYY.MM" {...register('startDate', { required: true })} />
             <Image src="/assets/icons/~.svg" width={8} height={29} alt="~" />
             <Input
