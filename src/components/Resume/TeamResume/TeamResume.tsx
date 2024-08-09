@@ -61,14 +61,14 @@ export default function TeamResume() {
 
       {/* contents */}
       {data.teamProfileEssential ? (
-        <div className="flex flex-col items-center justify-center gap-4 pt-[101px] lg:flex-row lg:items-start lg:gap-[1.87rem]">
+        <div className="flex flex-col items-center justify-center gap-4 px-4 pt-[101px] lg:flex-row lg:items-start lg:gap-[1.87rem]">
           {/* left navBar */}
-          <div className="w-[98%] lg:w-[21.25rem]">
+          <div className="w-full lg:w-[21.25rem]">
             <TeamResumeNav data={data.teamMiniProfileResponse} />
           </div>
 
           {/* right contents */}
-          <div className="w-[98%] lg:w-[47.31rem]">
+          <div className="w-full lg:w-[47.31rem]">
             <TeamContentLayout data={data} />
           </div>
         </div>

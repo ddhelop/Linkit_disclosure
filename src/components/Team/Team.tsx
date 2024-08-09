@@ -73,7 +73,7 @@ export default function Team() {
       {isPrivateView ? (
         <>
           {/* contents */}
-          <div className="flex flex-col items-center justify-center gap-[1.87rem] px-6 pt-[101px] lg:flex-row lg:items-start">
+          <div className="flex flex-col items-center justify-center gap-[1.87rem] px-4 pt-[101px] lg:flex-row lg:items-start">
             {/* left navBar */}
             <div className="w-full lg:w-[21.25rem]">{data && <TeamNav data={data?.teamMiniProfileResponse} />}</div>
 
