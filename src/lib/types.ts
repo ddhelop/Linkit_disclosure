@@ -333,6 +333,17 @@ export interface HistoryResponse {
   inProgress: boolean
 }
 
+export interface TeamHistoryFormInputs {
+  historyOneLineIntroduction: string
+  startYear: string
+  endYear: string
+  inProgress: {
+    value: string
+    label: string
+  } | null
+  historyIntroduction: string
+}
+
 export interface TeamAttachUrlResponse {
   id: number
   teamAttachUrlName: string
