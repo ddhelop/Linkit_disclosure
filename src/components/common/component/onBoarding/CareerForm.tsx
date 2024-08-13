@@ -1,4 +1,3 @@
-// CareerForm.tsx
 import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { OnBoardingCareerFormInputs } from '@/lib/types'
@@ -6,6 +5,7 @@ import Image from 'next/image'
 import Input from '../Basic/Input'
 import Select from '../Basic/Select'
 import { Button } from '../../Button'
+import { pushNotification } from '../ToastPopUp/ToastPopup'
 
 interface CareerFormProps {
   defaultValues: OnBoardingCareerFormInputs
@@ -22,7 +22,13 @@ export const CareerForm: React.FC<CareerFormProps> = ({
   isEditingMode,
   className,
 }) => {
-  const { register, handleSubmit, setValue, watch } = useForm<OnBoardingCareerFormInputs>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<OnBoardingCareerFormInputs>({
     defaultValues,
   })
 
@@ -37,10 +43,23 @@ export const CareerForm: React.FC<CareerFormProps> = ({
   const handleRetirementChange = (value: string) => {
     setValue('retirement', value === 'true')
   }
-  console.log(className)
+
+  // Function to handle form errors
+  const handleFormErrors = (errors: any) => {
+    if (errors.projectName) {
+      pushNotification('회사명 / 프로젝트를 입력해주세요.', 'error')
+    } else if (errors.projectRole) {
+      pushNotification('포지션을 입력해주세요.', 'error')
+    } else if (errors.startDate) {
+      pushNotification('올바른 날짜를 입력해주세요. 형식: YYYY.MM', 'error')
+    } else if (errors.endDate) {
+      pushNotification('올바른 날짜를 입력해주세요. 형식: YYYY.MM', 'error')
+    }
+  }
+
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, handleFormErrors)} // Pass the handleFormErrors function here
       className={`mt-6 flex w-full flex-col rounded-[0.63rem] border border-grey30 px-5 py-6 ${className}`}
     >
       <div className="flex flex-col gap-3 sm:flex-row">
