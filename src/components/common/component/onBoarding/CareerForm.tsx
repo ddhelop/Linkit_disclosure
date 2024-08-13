@@ -81,7 +81,7 @@ export const CareerForm: React.FC<CareerFormProps> = ({
               placeholder="YYYY.MM"
               className="w-24"
               {...register('endDate', { required: retirement !== 'false' })}
-              disabled={retirement === 'false'}
+              disabled={retirement === false}
             />
 
             <Select

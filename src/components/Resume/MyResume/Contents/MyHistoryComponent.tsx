@@ -38,7 +38,7 @@ export default function MyHistoryComponent({ data }: MyResumAntecedentProps) {
     const antecedentData: OnBoardingCareerFormInputs = {
       ...formData,
       startDate: formatDate(formData.startDate),
-      endDate: retirementValue ? '' : formatDate(formData.endDate),
+      endDate: retirementValue ? formatDate(formData.endDate) : '',
       retirement: retirementValue, // Ensure it's a boolean
     }
 
