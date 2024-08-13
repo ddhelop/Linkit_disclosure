@@ -66,12 +66,16 @@ const TeamHistoryForm: React.FC<TeamHistoryFormProps> = ({ defaultValues, onSubm
       className="mt-4 flex flex-col gap-5 rounded-[0.44rem] border border-grey30 p-5"
     >
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-normal">한 줄 소개</p>
+        <p className="text-sm font-normal">
+          한 줄 소개 <span className="text-sm text-main">*</span>
+        </p>
         <Input {...register('historyOneLineIntroduction', { required: true })} placeholder="Text Field" />
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-sm font-normal">기간</p>
+        <p className="text-sm font-normal">
+          기간 <span className="text-sm text-main">*</span>
+        </p>
         <div className="flex flex-wrap items-center gap-2">
           <div className="relative">
             <Input
@@ -115,7 +119,9 @@ const TeamHistoryForm: React.FC<TeamHistoryFormProps> = ({ defaultValues, onSubm
       </div>
 
       <div className="flex flex-col">
-        <p className="text-sm font-normal">설명</p>
+        <p className="text-sm font-normal">
+          설명 <span className="text-sm text-main">*</span>
+        </p>
         <Textarea
           {...register('historyIntroduction', { required: true })}
           className="mt-2 resize-none rounded-[0.44rem] border border-grey30 px-[0.88rem] py-3"
