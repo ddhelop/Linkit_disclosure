@@ -23,7 +23,7 @@ export default function PrivateAcademic({ data }: MyResumEducationProps) {
                 <div className="text-sm font-semibold text-grey100 sm:text-base">{education.universityName}</div>
                 <div className="py-[0.44rem] text-xs text-grey50 sm:text-sm">{education.majorName}</div>
                 <div className="text-xs text-grey50">
-                  {education.admissionYear}년{education.graduationYear !== 0 && `${education.graduationYear}년`} ~{' '}
+                  {education.admissionYear}년 ~ {education.graduationYear !== 0 && `${education.graduationYear}년`}{' '}
                   {education.degreeName}
                 </div>
               </div>
