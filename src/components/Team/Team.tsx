@@ -8,8 +8,9 @@ import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import TeamNav from './Nav/TeamNav'
 import TeamContentLayout from './Contents/TeamContentLayout'
-import Image from 'next/image'
 import { pushNotification } from '../common/component/ToastPopUp/ToastPopup'
+import PrivateSkeleton from '../common/component/Skeleton/PrivateSkeleton'
+import Image from 'next/image'
 
 export default function Team() {
   const accessToken = useRecoilValue(accessTokenState) || ''
@@ -55,13 +56,8 @@ export default function Team() {
     if (!isAuth) {
       alert('팀 소개서를 보려면 로그인이 필요합니다.')
       router.push('/findMember')
-
-      // return (
-      //   <div className="flex h-screen w-full items-center justify-center">
-      //     <Image src="/assets/icons/lock.svg" alt="loading" width={100} height={100} />
-      //   </div>
-      // )
     }
+    return <PrivateSkeleton /> // Display skeleton UI while loading
   }
 
   if (error) {

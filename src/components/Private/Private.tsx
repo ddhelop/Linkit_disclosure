@@ -1,17 +1,15 @@
 'use client'
-import Link from 'next/link'
-import { use, useEffect, useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
 
+import { useEffect, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import { GetPrivateData } from '@/lib/action'
 import { MyResumeResponse } from '@/lib/types'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
 import PrivateNav from './Nav/PrivateNav'
 import PrivateContentLayout from './Contents/PrivateContentLayout'
-import Image from 'next/image'
-import { url } from 'inspector'
 import { pushNotification } from '../common/component/ToastPopUp/ToastPopup'
+import PrivateSkeleton from '../common/component/Skeleton/PrivateSkeleton'
 
 export default function Private() {
   const accessToken = useRecoilValue(accessTokenState)
@@ -57,13 +55,8 @@ export default function Private() {
     if (!isAuth) {
       alert('다른 사용자의 이력서/소개서를 보려면 로그인이 필요합니다.')
       router.push('/findMember')
-
-      // return (
-      //   <div className="flex h-screen w-full items-center justify-center">
-      //     <Image src="/assets/icons/lock.svg" alt="loading" width={100} height={100} />
-      //   </div>
-      // )
     }
+    return <PrivateSkeleton /> // Show skeleton UI while loading
   }
 
   if (error) {
