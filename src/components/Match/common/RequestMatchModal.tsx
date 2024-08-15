@@ -92,12 +92,22 @@ export default function RequestMatchModal({ onClose, profileId, data }: RequestM
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#000] bg-opacity-50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#000] bg-opacity-50 px-4"
       onClick={handleClickOutside}
     >
-      <div className="flex w-[40rem] flex-col justify-between rounded-lg bg-[#fff] px-[3.12rem] py-5 shadow-lg">
+      <div className="relative flex w-[40rem] flex-col justify-between rounded-lg bg-[#fff] px-[1.42rem] py-5 shadow-lg">
         <div className="flex justify-center">
           <h2 className="mb-4 font-semibold">{data?.memberName}님에게 매칭 요청 보내기</h2>
+        </div>
+        <div className="absolute right-2 top-2">
+          <Image
+            src={'/assets/icons/delete.svg'}
+            width={30}
+            height={30}
+            alt="exit"
+            onClick={onClose}
+            className="cursor-pointer"
+          />
         </div>
 
         <div className="flex justify-center">
@@ -130,16 +140,22 @@ export default function RequestMatchModal({ onClose, profileId, data }: RequestM
         />
 
         <div className="mt-6 flex w-full justify-end gap-2">
-          <button className="rounded bg-grey20 px-8 py-2 text-grey60" onClick={onClose}>
+          {/* <button className="rounded bg-grey20 px-8 py-2 text-grey60" onClick={onClose}>
             취소
-          </button>
+          </button> */}
           {resumeExist.isPrivateProfileMatchingAllow && (
-            <button className="rounded bg-[#2563EB] px-8 py-2 text-sm text-[#fff]" onClick={handleSendPrivateRequest}>
+            <button
+              className="rounded bg-[#2563EB] px-5 py-2 text-xs text-[#fff] sm:text-sm"
+              onClick={handleSendPrivateRequest}
+            >
               내 이력서로 전송
             </button>
           )}
           {resumeExist.isTeamProfileMatchingAllow && (
-            <button className="rounded bg-[#2563EB] px-8 py-2 text-sm text-[#fff]" onClick={handleSendTeamRequest}>
+            <button
+              className="rounded bg-[#2563EB] px-5 py-2 text-xs text-[#fff] sm:text-sm"
+              onClick={handleSendTeamRequest}
+            >
               팀 소개서로 전송
             </button>
           )}
