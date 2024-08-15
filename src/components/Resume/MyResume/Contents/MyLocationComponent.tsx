@@ -84,7 +84,7 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
                 width="120px"
                 name="city"
                 options={[
-                  { value: '', label: 'select' },
+                  { value: '', label: '시/도' },
                   ...addressData.map((city) => ({ value: city.name, label: city.name })),
                 ]}
                 selectedValue={selectedCity}
@@ -97,7 +97,7 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
                 width="90px"
                 name="district"
                 options={[
-                  { value: '', label: 'select' },
+                  { value: '', label: '시/군/구' },
                   ...getDistricts().map((district) => ({ value: district, label: district })),
                 ]}
                 selectedValue={selectedDistrict}
