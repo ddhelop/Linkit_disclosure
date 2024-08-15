@@ -1,4 +1,3 @@
-// Select.tsx
 import { useState, useEffect, useRef, forwardRef, SelectHTMLAttributes, ChangeEvent } from 'react'
 import Image from 'next/image'
 
@@ -11,10 +10,11 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   closeImage?: string
   selectedValue?: string
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void
+  width?: string // Optional width prop
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  ({ label, name, options, className, openImage, closeImage, selectedValue, onChange, ...rest }, ref) => {
+  ({ label, name, options, className, openImage, closeImage, selectedValue, onChange, width, ...rest }, ref) => {
     const [currentValue, setCurrentValue] = useState<string>(selectedValue || options[0]?.value || '')
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const containerRef = useRef<HTMLDivElement>(null)
@@ -47,7 +47,11 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     }, [])
 
     return (
-      <div className="relative flex flex-col justify-end" ref={containerRef}>
+      <div
+        className="relative flex flex-col justify-end"
+        ref={containerRef}
+        style={{ width: width || 'auto' }} // Apply the width prop
+      >
         {label && (
           <label htmlFor={name} className="w-full px-2 text-sm font-bold text-grey90">
             {label}
