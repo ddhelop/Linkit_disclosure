@@ -81,6 +81,7 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
             <div className="flex flex-col gap-3">
               <label className="font-semibold text-grey100">시/도</label>
               <Select
+                width="120px"
                 name="city"
                 options={[
                   { value: '', label: 'select' },
@@ -93,6 +94,7 @@ export default function MyLocationComponent({ data }: MyResumLocationFieldProps)
             <div className="flex flex-col gap-3">
               <label className="font-semibold text-grey100">시/군/구</label>
               <Select
+                width="90px"
                 name="district"
                 options={[
                   { value: '', label: 'select' },
