@@ -12,6 +12,7 @@ import { Logout, RefreshAccessToken } from '@/lib/action'
 import LoginModal from '../Login/LoginModal'
 import PopUpAlertModal from '../common/CommonModal/PopUpAlertModal'
 import { motion } from 'framer-motion'
+import AccountModal from '../common/user/AccountModal'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -22,6 +23,8 @@ export default function Header() {
   const resetAccessTokenState = useResetRecoilState(accessTokenState)
   const [isAuth, setIsAuth] = useRecoilState(authState)
   const pathname = usePathname()
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
 
   const hiddenPaths = [
     '/onBoarding/select',
@@ -73,6 +76,15 @@ export default function Header() {
         }
       })
   }, [router, setToken, setIsAuth, token, pathname, hiddenPaths])
+
+  // 모바일 설정 모달
+  const handleSettingClick = () => {
+    setModalOpen(true)
+    setDropdownOpen(false)
+  }
+  const closeModal = () => {
+    setModalOpen(false)
+  }
 
   const handleLogout = async () => {
     if (!token) return
@@ -238,6 +250,9 @@ export default function Header() {
               >
                 팀 찾기
               </Link>
+              <Link href="/" className="block p-4 pl-12 text-sm leading-6 text-grey70" onClick={handleSettingClick}>
+                설정
+              </Link>
               <div
                 onClick={() => {
                   handleLogout()
@@ -282,6 +297,10 @@ export default function Header() {
         </motion.div>
       </nav>
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
+
+      {/* 모바일 계정 설정 모달 */}
+      {modalOpen && <AccountModal onClose={closeModal} />}
+
       <PopUpAlertModal
         isOpen={isAlertModalOpen}
         onClose={() => setIsAlertModalOpen(false)}
