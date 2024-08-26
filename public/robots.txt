@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://linkit.im
+
+# Sitemaps
+Sitemap: https://linkit.im/sitemap.xml
