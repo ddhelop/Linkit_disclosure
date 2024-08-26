@@ -37,9 +37,6 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 1,
   },
-  verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_CONTENT || '',
-  },
 }
 
 const pretendard = localFont({
@@ -58,6 +55,8 @@ export default function RootLayout({
     <html lang="ko" className={`${pretendard.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        {/* google search console */}
+        <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GOOGLE_SITE_CONTENT || ''} />
       </head>
       <body className={`${pretendard.className} bg-[#fff]`}>
         <ClientProvider>
