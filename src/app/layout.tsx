@@ -37,6 +37,7 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 1,
   },
+  verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_CONTENT },
 }
 
 const pretendard = localFont({
