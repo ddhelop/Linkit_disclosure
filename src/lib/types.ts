@@ -488,7 +488,8 @@ export interface MatchReceivedType {
 
 // 매칭관리 - 내가 보낸 매칭 알림
 export interface MatchSentType {
-  id: number
+  requestMatchingId: number
+  matchingType: string
   requestTeamProfile: boolean
   receiverName: string
   requestMessage: string

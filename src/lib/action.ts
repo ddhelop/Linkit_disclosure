@@ -798,6 +798,18 @@ export async function GetMatchReceived(accessToken: string) {
   return await response.json()
 }
 
+// 매칭 관리 - 내가 받은 매칭 삭제
+export async function DeleteMatchReceived(accessToken: string, privateMatchingId: number, type: string) {
+  return fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/delete/request/${type}/matching/${privateMatchingId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: 'include',
+  })
+}
+
 // 매칭 관리 - 내가 보낸 매칭
 export async function GetMatchSent(accessToken: string) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/matching/request`, {

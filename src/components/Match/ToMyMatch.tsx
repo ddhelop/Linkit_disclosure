@@ -2,11 +2,13 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { GetMatchReceived, GetMatchSent } from '@/lib/action'
+import { DeleteMatchReceived, GetMatchSent } from '@/lib/action'
 import { useRecoilValue } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
-import { MatchReceivedType, MatchSentType } from '@/lib/types'
+import { MatchSentType } from '@/lib/types'
 import Match404 from './common/Match404'
+import { pushNotification } from '../common/component/ToastPopUp/ToastPopup'
+import { equal } from 'assert'
 
 export default function FromMyMatch() {
   const accessToken = useRecoilValue(accessTokenState) || ''
@@ -24,6 +26,39 @@ export default function FromMyMatch() {
     }
     getMatchReceived()
   }, [accessToken, setMatchReceived])
+
+  const onClickDelete = async (match: MatchSentType) => {
+    try {
+      // 여기서 match 정보를 사용하여 해당 매칭 데이터를 삭제하는 로직을 구현
+      console.log('Deleting match:', match)
+
+      if (confirm('정말 삭제하시겠습니까?')) {
+        if (match.matchingType === 'PROFILE') {
+          const response = await DeleteMatchReceived(accessToken, match.requestMatchingId, 'private')
+          if (response.ok) {
+            setMatchReceived((prevMatches) =>
+              prevMatches.filter((m) => m.requestMatchingId !== match.requestMatchingId),
+            )
+            pushNotification('삭제되었습니다.', 'success')
+          } else {
+            pushNotification('삭제 중 오류가 발생했습니다.', 'error')
+          }
+        } else if (match.matchingType === 'TEAM_PROFILE') {
+          const response = await DeleteMatchReceived(accessToken, match.requestMatchingId, 'team')
+          if (response.ok) {
+            setMatchReceived((prevMatches) =>
+              prevMatches.filter((m) => m.requestMatchingId !== match.requestMatchingId),
+            )
+            pushNotification('삭제되었습니다.', 'success')
+          } else {
+            pushNotification('삭제 중 오류가 발생했습니다.', 'error')
+          }
+        }
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <div className="flex  flex-col lg:w-full lg:pt-12">
@@ -43,13 +78,19 @@ export default function FromMyMatch() {
         <div className="flex w-full flex-col gap-2">
           {matchReceived.map((match, index) => (
             <motion.div
-              key={`${match.id}-${index}`}
-              className="flex w-full cursor-pointer gap-[1.44rem] rounded-lg bg-[#fff] p-5 shadow-sm lg:w-[48.5rem]"
+              key={`${match.requestMatchingId}-${index}`}
+              className="relative flex w-full  gap-[1.44rem] rounded-lg bg-[#fff] p-5 shadow-sm lg:w-[48.5rem]"
               whileHover={{
-                y: -3,
                 boxShadow: '0px 8px 30px rgba(0, 0, 0, 0.05)',
               }}
             >
+              <div
+                className="absolute bottom-5 right-5 flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md hover:bg-grey20"
+                onClick={() => onClickDelete(match)} // match 전체 정보를 전달
+              >
+                <Image src={'/assets/icons/trash.svg'} width={20} height={20} alt="empty" className="" />
+              </div>
+
               <div className="flex items-start">
                 <div className="relative h-[65px] w-[65px] rounded-full">
                   <Image
