@@ -61,7 +61,7 @@ export default function Landing1() {
         </motion.div>
 
         <Image
-          src="/assets/onBoarding/1.0/Landing1_profile1_right.png "
+          src="/assets/onBoarding/1.0/Landing1_profile1_right.png"
           width={320}
           height={141}
           alt="profile3"
