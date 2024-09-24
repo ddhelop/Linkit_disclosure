@@ -31,10 +31,8 @@ const KakaoRedirect: React.FC = () => {
           setToEmail(responseData.email)
           // setIsAuth(true)
 
-          if (responseData.existMemberBasicInform === true && responseData.existDefaultProfile === true) {
+          if (responseData.existMemberBasicInform === true) {
             router.push('/')
-          } else if (responseData.existMemberBasicInform === true && responseData.existDefaultProfile === false) {
-            router.push(`/onBoarding/select`)
           } else {
             router.push(`/onBoarding`)
           }

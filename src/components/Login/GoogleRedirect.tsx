@@ -31,10 +31,8 @@ const GoogleRedirect: React.FC = () => {
           setToEmail(responseData.email)
           // setIsAuth(true)
 
-          if (responseData.existMemberBasicInform === true && responseData.existDefaultProfile === true) {
+          if (responseData.existMemberBasicInform === true) {
             router.push('/')
-          } else if (responseData.existMemberBasicInform === true && responseData.existDefaultProfile === false) {
-            router.push(`/onBoarding/select`)
           } else {
             router.push(`/onBoarding`)
           }
@@ -50,7 +48,7 @@ const GoogleRedirect: React.FC = () => {
   return loading ? (
     <div className="flex h-screen flex-col items-center justify-center">
       <motion.div
-        className="border-t-blue-500 border-blue-200 h-12 w-12 animate-spin rounded-full border-4"
+        className="h-12 w-12 animate-spin rounded-full border-4 border-blue-200 border-t-blue-500"
         animate={{ rotate: 360 }}
         transition={{ repeat: Infinity, duration: 1 }}
       />
