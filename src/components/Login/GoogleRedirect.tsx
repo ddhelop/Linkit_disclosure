@@ -29,7 +29,6 @@ const GoogleRedirect: React.FC = () => {
           const responseData = await response.json()
           setAccessToken(responseData.accessToken)
           setToEmail(responseData.email)
-          // setIsAuth(true)
 
           if (responseData.existMemberBasicInform === true) {
             router.push('/')

@@ -26,37 +26,18 @@ export default function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
 
-  const hiddenPaths = [
-    '/onBoarding/select',
-    '/onBoarding/person/project',
-    '/onBoarding/person/role',
-    '/onBoarding/person/school',
-    '/onBoarding/person/location',
-    '/onBoarding/person/career',
-    '/onBoarding/person/profile',
-    '/onBoarding/team/teamCategory',
-    '/onBoarding/team/activityWay',
-    '/onBoarding/team/member',
-    '/onBoarding/team/profile',
-    '/onBoarding/complete',
-    '/onBoarding',
-  ]
-
   const menuRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    if (hiddenPaths.includes(pathname)) return
     if (!token || token === 'undefined') return
 
     RefreshAccessToken(token)
       .then((response) => {
         if (response.existMemberBasicInform === false) {
           setIsAuth(false)
-        } else if (response.existDefaultProfile === false) {
-          setIsAuth(false)
         }
 
-        if (response.existMemberBasicInform && response.existDefaultProfile) {
+        if (response.existMemberBasicInform) {
           setToken(response.accessToken)
           setIsAuth(true)
         }
@@ -75,7 +56,7 @@ export default function Header() {
           router.push('/')
         }
       })
-  }, [router, setToken, setIsAuth, token, pathname, hiddenPaths])
+  }, [router, setToken, setIsAuth, token, pathname])
 
   // 모바일 설정 모달
   const handleSettingClick = () => {
@@ -117,10 +98,6 @@ export default function Header() {
       document.removeEventListener('mousedown', handleOutsideClick)
     }
   }, [mobileMenuOpen])
-
-  if (hiddenPaths.includes(pathname)) {
-    return null
-  }
 
   return (
     <>
