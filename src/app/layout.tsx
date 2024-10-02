@@ -31,12 +31,6 @@ export const metadata: Metadata = {
       url: '/logo.png',
     },
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    viewportFit: 'cover',
-  },
   verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_CONTENT },
 }
 
@@ -55,8 +49,6 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-
         <meta name="google-site-verification" content="PP9z5zXtPDA9QeD8TEvKvlzTGIDZt3R9tCpcUZfoFZ4" />
         <meta name="naver-site-verification" content="17163296e94f835f71bb3d1994ea168bd456675b" />
       </head>
