@@ -1,6 +1,6 @@
 // app/layout.tsx
 
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 import Header from '@/components/Layout/Header'
 import Footer from '@/components/Layout/Footer'
@@ -35,6 +35,7 @@ export const metadata: Metadata = {
     width: 'device-width',
     initialScale: 1,
     maximumScale: 1,
+    viewportFit: 'cover',
   },
   verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_CONTENT },
 }
@@ -73,4 +74,11 @@ export default function RootLayout({
       </body>
     </html>
   )
+}
+
+export const viewport: Viewport = {
+  initialScale: 1,
+  width: 'device-width',
+  maximumScale: 1,
+  viewportFit: 'cover',
 }
