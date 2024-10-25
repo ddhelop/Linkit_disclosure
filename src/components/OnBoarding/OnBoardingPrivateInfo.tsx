@@ -1,11 +1,10 @@
 'use client'
-import { IFormData, PrivateIFormData } from '@/lib/types'
+import { PrivateIFormData } from '@/lib/types'
 import './OnBoarding.css'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { useRecoilValue } from 'recoil'
-import { accessTokenState, emailState } from '@/context/recoil-context'
-import OnBoardingSelect from './OnBoardingSelect'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { accessTokenState, authState, emailState } from '@/context/recoil-context'
 import { OnBoardingPrivateData } from '@/lib/action'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -14,6 +13,7 @@ export default function OnBoardingPrivateInfo() {
   const router = useRouter()
   const email = useRecoilValue(emailState)
   const token = useRecoilValue(accessTokenState) || ''
+  const [isAuth, setIsAuth] = useRecoilState(authState)
 
   const { register, handleSubmit, watch, setValue } = useForm<PrivateIFormData>({
     mode: 'onChange',
@@ -27,7 +27,6 @@ export default function OnBoardingPrivateInfo() {
   const watchedServiceAgreement = watch('serviceAgreement') as boolean
   const watchedPrivacyAgreement = watch('privacyAgreement') as boolean
   const watchedAgeAgreement = watch('ageAgreement') as boolean
-  const watchedMarketingAgreement = watch('marketingAgreement') as boolean
 
   const isCompleteButtonEnabled = watchedServiceAgreement && watchedPrivacyAgreement && watchedAgeAgreement
 
@@ -58,7 +57,8 @@ export default function OnBoardingPrivateInfo() {
       try {
         const response = await OnBoardingPrivateData(requestData, token)
         if (response.status === 200 || response.status === 201 || response.status === 409) {
-          router.push('/onBoarding/select')
+          setIsAuth(true)
+          router.push('/')
         }
       } catch (error) {
         console.error('Error caught:', error)
@@ -72,10 +72,6 @@ export default function OnBoardingPrivateInfo() {
 
   return (
     <>
-      <div className="pointer-events-none absolute inset-0 z-0 flex">
-        <OnBoardingSelect />
-      </div>
-
       <div className="relative z-20 flex h-full w-full flex-col bg-[#000] bg-opacity-40">
         <div className="flex h-full w-full items-center justify-center  px-4">
           <div className=" w-full rounded-md bg-[#fff] p-7 sm:w-[24rem] sm:shadow-boarding-shadow">
