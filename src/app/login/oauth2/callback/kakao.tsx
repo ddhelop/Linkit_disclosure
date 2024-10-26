@@ -1,3 +1,3 @@
-import KakaoRedirect from '@/components/Login/KakaoRedirect'
+import KakaoRedirect from '@/features/login/components/KakaoRedirect'
 
 export default KakaoRedirect
