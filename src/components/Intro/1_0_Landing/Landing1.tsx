@@ -1,6 +1,6 @@
 // Landing1.tsx
 'use client'
-import LoginModal from '@/components/Login/LoginModal'
+import LoginModal from '@/features/login/components/LoginModal'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
