@@ -1,6 +1,8 @@
 // src/features/auth/model/authTypes.ts
 export interface LoginResponse {
-  accessToken: string
-  email: string
-  existMemberBasicInform: boolean
+  result: {
+    accessToken: string
+    email: string
+    existMemberBasicInform: boolean
+  }
 }

@@ -3,7 +3,6 @@
 import { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 
-import Footer from '@/components/Layout/Footer'
 import { GoogleAnalytics } from '@next/third-parties/google'
 
 import './globals.css'
@@ -14,6 +13,7 @@ import ClientProvider from '@/components/common/ClientProvider'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import Header from '@/widgets/Header/Header'
+import Footer from '@/widgets/Footer/Footer'
 
 export const metadata: Metadata = {
   title: '링킷, Linkit',
