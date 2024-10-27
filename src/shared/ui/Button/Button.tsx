@@ -1,3 +1,6 @@
+// src/shared/ui/Button/Button.tsx
+'use client'
+
 import { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 
@@ -27,15 +30,17 @@ export function Button({
   animationMode = 'none',
   className,
 }: ButtonProps) {
-  const animationEffect = animationModes[animationMode] || {}
+  // 애니메이션 효과를 disabled 상태에 따라 조건적으로 설정
+  const animationEffect = disabled ? {} : animationModes[animationMode] || {}
 
   return (
     <motion.button
-      className={`${buttonTheme.mode[mode]} ${buttonTheme.size[size]} rounded-[0.25rem] border text-center font-medium ${className}`}
+      className={`${buttonTheme.size[size]} rounded-[0.25rem] border text-center font-medium 
+      ${disabled ? 'cursor-not-allowed bg-grey30 text-grey50' : `${buttonTheme.mode[mode]} `} ${className}`}
       type={type}
       onClick={onClick}
       disabled={disabled}
-      {...animationEffect}
+      {...animationEffect} // disabled 상태일 때 빈 객체를 전달하여 애니메이션 제거
     >
       {children}
     </motion.button>
@@ -52,7 +57,7 @@ const buttonTheme = {
   size: {
     sm: 'px-2 py-1.5 text-sm',
     md: 'px-4 py-2 text-sm',
-    lg: 'px-[2rem] py-3 text-base',
+    lg: 'px-[2rem] py-3 text-xl rounded-[0.75rem]',
   },
 }
 
