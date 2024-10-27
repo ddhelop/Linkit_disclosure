@@ -1,17 +1,9 @@
 'use client'
 import { useEffect } from 'react'
-import FooterComponent from '../Layout/FooterComponent'
-import IntroComponent1 from './IntroComponent1'
+
 import IntroComponent10 from './IntroComponent10'
 import IntroComponent11 from './IntroComponent11'
-import IntroComponent2 from './IntroComponent2'
-import IntroComponent3 from './IntroComponent3'
-import IntroComponent4 from './IntroComponent4'
-import IntroComponent5 from './IntroComponent5'
-import IntroComponent6 from './IntroComponent6'
-import IntroComponent7 from './IntroComponent7'
-import IntroComponent8 from './IntroComponent8'
-import IntroComponent9 from './IntroComponent9'
+
 import ChannelService from '../third-party/ChannelTalk'
 import Landing1 from './1_0_Landing/Landing1'
 import Landing2 from './1_0_Landing/Landing2'
@@ -22,6 +14,7 @@ import Landing6 from './1_0_Landing/Landing6'
 import { useRecoilValue } from 'recoil'
 import { authState } from '@/context/recoil-context'
 import LoggedInLanding1 from './1_0_Landing/LoggedInLanding1'
+import FooterComponent from '@/widgets/Footer/FooterComponent'
 
 export default function IntroLayout() {
   useEffect(() => {
