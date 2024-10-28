@@ -59,7 +59,7 @@ export default function OnBoardingAgree() {
               <div onClick={() => handleCheckClick(index)} className="flex cursor-pointer items-center gap-6">
                 <div
                   className={`rounded-[0.6rem] border border-grey40 p-[0.54rem] ${
-                    checkedItems[index] ? 'border-none bg-[#D3E1FE]' : ''
+                    checkedItems[index] ? 'border-transparent bg-[#D3E1FE]' : ''
                   }`}
                 >
                   <Image
