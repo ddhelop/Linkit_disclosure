@@ -1,8 +1,6 @@
 // src/widgets/Header/Header.tsx
 'use client'
 
-import { useMobileMenu } from './hooks/useMobileMenu'
-import { useAuthHandler } from './hooks/useAuthHandler'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -18,9 +16,21 @@ export default function Header() {
     return null
   }
 
+  const handleMouseEnter = () => {
+    document.body.style.overflow = 'hidden' // 스크롤 비활성화
+  }
+
+  const handleMouseLeave = () => {
+    document.body.style.overflow = '' // 스크롤 활성화
+  }
+
   return (
     <>
-      <header className="sticky top-0 z-[100] flex h-[4.3rem] w-full items-center justify-between bg-white px-10">
+      <header
+        className="sticky top-0 z-[100] flex h-[4.3rem] w-full items-center justify-between bg-white px-10"
+        onMouseEnter={handleMouseEnter} // 마우스가 헤더에 들어올 때
+        onMouseLeave={handleMouseLeave} // 마우스가 헤더를 벗어날 때
+      >
         <div className="flex h-full items-center">
           <Link href="/">
             <Image
