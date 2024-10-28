@@ -1,6 +1,6 @@
 // 구글 로그인
 export const googleLogin = async (code: string) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/login/google`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/login/google`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json;charset=utf-8' },
     credentials: 'include',
@@ -14,7 +14,7 @@ export const googleLogin = async (code: string) => {
 
 // 카카오 로그인
 export const kakaoLogin = async (code: string) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/login/kakao`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/login/kakao`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json;charset=utf-8' },
     credentials: 'include',
@@ -28,7 +28,7 @@ export const kakaoLogin = async (code: string) => {
 
 // 네이버 로그인
 export const naverLogin = async (code: string) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/login/naver`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/login/naver`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json;charset=utf-8' },
     credentials: 'include',

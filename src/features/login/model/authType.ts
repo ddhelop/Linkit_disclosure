@@ -3,6 +3,6 @@ export interface LoginResponse {
   result: {
     accessToken: string
     email: string
-    existMemberBasicInform: boolean
+    isMemberBasicInform: boolean
   }
 }
