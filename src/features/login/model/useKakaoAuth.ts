@@ -1,4 +1,3 @@
-// src/features/auth/hooks/useKakaoAuth.ts
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
@@ -16,14 +15,15 @@ export const useKakaoAuth = (code: string | null) => {
       if (!code) return
       try {
         const responseData: LoginResponse = await kakaoLogin(code)
+        const { accessToken, email, isMemberBasicInform } = responseData.result
 
-        setAccessToken(responseData.result.accessToken)
-
-        if (responseData.result.existMemberBasicInform) {
+        if (isMemberBasicInform) {
+          // 기존 회원: Recoil 상태에 토큰 저장 후 홈으로 이동
+          setAccessToken(accessToken)
           router.push('/')
         } else {
-          // URL에 이메일과 이름을 쿼리 파라미터로 포함하여 온보딩 페이지로 이동
-          const email = responseData.result.email
+          // 신규 회원: 세션 스토리지에 토큰 저장 후 온보딩 페이지로 이동
+          sessionStorage.setItem('accessToken', accessToken)
           router.push(`/login/onboarding-info?email=${email}`)
         }
       } catch (error) {
@@ -32,6 +32,7 @@ export const useKakaoAuth = (code: string | null) => {
         setLoading(false)
       }
     }
+
     login()
   }, [code, router, setAccessToken])
 
