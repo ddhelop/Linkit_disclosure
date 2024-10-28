@@ -20,52 +20,61 @@ export default function Login() {
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_REST_API_KEY}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`
 
   return (
-    <div className="flex h-screen w-full">
+    <div className="flex h-screen w-full bg-white">
       {/* left container */}
-      <div className="hidden h-full bg-[#D3E1FE] lg:flex lg:w-1/2"></div>
+      <div className="flex h-full w-1/2 bg-[#D3E1FE] "></div>
 
       {/* right container */}
-      <div className="flex h-full w-full flex-col items-center justify-center py-8 lg:w-1/2">
-        <div className="flex flex-col items-center pt-44">
-          <p className="text-lg font-medium">팀빌딩의 시작 링킷</p>
-          <Image src={'/assets/icons/headerLogo.svg'} width={241} height={46} alt="linkit_login" className="pt-6" />
-
-          <motion.div
-            animate={{ y: ['0px', '10px', '0px'] }}
-            transition={{ repeat: Infinity, repeatType: 'loop', duration: 2.5, ease: 'easeInOut' }}
-          >
-            <Image src={'/assets/icons/quickStart.svg'} width={126} height={50} alt="quickStart" className="pt-20" />
-          </motion.div>
-        </div>
-
-        <div className="flex flex-col items-center gap-2 pt-6">
-          <Link href={NAVER_AUTH_URL}>
-            <div className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#00C73C] px-24">
-              <Image src={'/assets/login/naverLogo.png'} width={39} height={44} alt="naverLogin" />
-              <span className="font-semibold text-[#fff]">네이버로 시작하기</span>
-            </div>
-          </Link>
-
-          <Link href={KAKAO_AUTH_URL}>
-            <div className="flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-1 rounded bg-[#FFE500] px-24">
-              <Image src={'/assets/login/kakaoLogo.svg'} width={39} height={56} alt="kakaoLogin" />
-              <span className="font-semibold">카카오로 시작하기</span>
-            </div>
-          </Link>
-
-          <Link href={GOOGLE_AUTH_URL}>
-            <div className="items-cente flex h-[3.5rem] w-[23rem] cursor-pointer items-center gap-3 rounded border-[1px] border-grey30 px-[6.5rem]">
-              <Image src={'/assets/login/googleLogo.svg'} width={23} height={23} alt="GoogleLogin" />
-              <span className="font-semibold">구글로 시작하기</span>
-            </div>
-          </Link>
-        </div>
-
-        <div className="flex w-full justify-center pt-28">
-          <span className="w-full text-center text-xs font-normal text-grey60">
-            회원가입시 linkit의 서비스 이용약관과 개인정보 보호정책에 동의하게됩니다.
+      <div className="flex h-full w-1/2 flex-col items-center justify-center pb-20">
+        <div className=" flex flex-col gap-2 text-center font-normal">
+          <span className="text-xl text-grey70">성공적인 팀빌딩,</span>
+          <span className="flex text-2xl font-normal text-grey90">
+            <p className="font-bold">링킷</p>에서 시작하세요
           </span>
         </div>
+
+        <Image src="/features/auth/bubble_guide.svg" width={234} height={45} alt="logo" className="mt-[2.94rem]" />
+
+        <div className="mt-[1.62rem] flex flex-col gap-3">
+          {/* naver */}
+          <Link
+            href={NAVER_AUTH_URL}
+            className="flex w-[23.11rem] items-center justify-center gap-3 rounded-[0.39rem] bg-[#00C73C] py-3 hover:opacity-80"
+          >
+            <Image src="/features/auth/naver_logo.svg" width={16} height={16} alt="kakao" />
+            <p className="text-sm text-white">네이버로 시작하기</p>
+          </Link>
+
+          {/* kakao */}
+          <Link
+            href={KAKAO_AUTH_URL}
+            className="flex w-[23.11rem] items-center justify-center gap-3 rounded-[0.39rem] bg-[#FFE500] py-3 hover:opacity-80"
+          >
+            <Image src="/features/auth/kakao_logo.svg" width={20} height={20} alt="kakao" />
+            <p className="text-sm text-grey100">카카오로 시작하기</p>
+          </Link>
+
+          {/* google */}
+          <Link
+            href={GOOGLE_AUTH_URL}
+            className="flex w-[23.11rem] items-center justify-center gap-3 rounded-[0.39rem] border border-grey30 py-3 pr-2 hover:bg-grey10"
+          >
+            <Image src="/features/auth/google_logo.svg" width={20} height={20} alt="kakao" />
+            <p className="text-sm text-grey100">구글로 시작하기</p>
+          </Link>
+        </div>
+
+        <p className="mt-[3.87rem] flex text-xs font-normal text-grey60">
+          회원가입 시 Linkit의{' '}
+          <Link href={'/'} className="cursor-pointer px-1 underline hover:brightness-150">
+            서비스 이용약관
+          </Link>
+          과{' '}
+          <Link href={'/'} className="cursor-pointer px-1 underline hover:brightness-150">
+            개인정보 보호정책
+          </Link>
+          에 동의하게 됩니다
+        </p>
       </div>
     </div>
   )
