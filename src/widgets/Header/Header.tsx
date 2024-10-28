@@ -27,7 +27,7 @@ export default function Header() {
   return (
     <>
       <header
-        className="sticky top-0 z-[100] flex h-[4.3rem] w-full items-center justify-between bg-white px-10"
+        className="sticky top-0 z-[100] flex h-[3.5rem] w-full items-center justify-between bg-white px-10"
         onMouseEnter={handleMouseEnter} // 마우스가 헤더에 들어올 때
         onMouseLeave={handleMouseLeave} // 마우스가 헤더를 벗어날 때
       >
