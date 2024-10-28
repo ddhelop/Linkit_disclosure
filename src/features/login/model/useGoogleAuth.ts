@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { accessTokenState } from '@/context/recoil-context'
-import { kakaoLogin } from '../api/authApi'
+import { googleLogin, kakaoLogin } from '../api/authApi'
 import { LoginResponse } from './authType'
 
 export const useGoogleAuth = (code: string | null) => {
@@ -15,7 +15,7 @@ export const useGoogleAuth = (code: string | null) => {
     const login = async () => {
       if (!code) return
       try {
-        const responseData: LoginResponse = await kakaoLogin(code)
+        const responseData: LoginResponse = await googleLogin(code)
 
         setAccessToken(responseData.result.accessToken)
 
