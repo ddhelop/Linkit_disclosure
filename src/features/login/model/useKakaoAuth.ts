@@ -1,13 +1,14 @@
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
-import { accessTokenState } from '@/context/recoil-context'
+import { authState } from '@/context/recoil-context'
 import { kakaoLogin } from '../api/authApi'
 import { LoginResponse } from './authType'
+import { setCookie } from 'cookies-next'
 
 export const useKakaoAuth = (code: string | null) => {
   const router = useRouter()
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
+  const [isAuth, setIsAuth] = useRecoilState(authState)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -19,7 +20,8 @@ export const useKakaoAuth = (code: string | null) => {
 
         if (isMemberBasicInform) {
           // 기존 회원: Recoil 상태에 토큰 저장 후 홈으로 이동
-          setAccessToken(accessToken)
+          setCookie('accessToken', accessToken)
+          setIsAuth(true)
           router.push('/')
         } else {
           // 신규 회원: 세션 스토리지에 토큰 저장 후 온보딩 페이지로 이동
@@ -34,7 +36,7 @@ export const useKakaoAuth = (code: string | null) => {
     }
 
     login()
-  }, [code, router, setAccessToken])
+  }, [code, router])
 
   return { loading }
 }
