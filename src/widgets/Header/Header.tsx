@@ -137,7 +137,7 @@ export default function Header() {
               {isModalOpen && <ProfileMenu />}
             </div>
           ) : (
-            <div className="hidden gap-[1.38rem] font-semibold md:flex">
+            <div className="hidden items-center gap-[1.38rem] font-semibold md:flex">
               <Link className="px-4" href="">
                 ABOUT US
               </Link>
