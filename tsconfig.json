@@ -31,7 +31,8 @@
     "src/app/api/auth/route.tsㅌ",
     "src/app/api/get-refresh-token/route.tsㅌ",
     ".next/types/app/onBoarding/person/project/page.tsx",
-    "src/components/common/component/ToastPopUp/ToastPopup.tsㅌ"
+    "src/components/common/component/ToastPopUp/ToastPopup.tsㅌ",
+    "src/features/login/model/useAuthStore.tsx"
   ],
   "exclude": ["node_modules"]
 }
