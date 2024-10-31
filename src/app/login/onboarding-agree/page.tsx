@@ -1,5 +1,4 @@
 import OnBoardingAgree from '@/features/onBoarding/components/OnBoardingAgree'
-import OnBoardingInfo from '@/features/onBoarding/components/OnBoardingInfo'
 import OnBoaridngHeader from '@/features/onBoarding/components/OnBoaridngHeader'
 
 export default function OnBoardingAgreePage() {

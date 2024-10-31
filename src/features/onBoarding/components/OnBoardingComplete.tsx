@@ -1,5 +1,6 @@
 import { Button } from '@/shared/ui/Button/Button'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function OnBoardingComplete() {
   return (
@@ -13,10 +14,14 @@ export default function OnBoardingComplete() {
             <p className="text-sm text-grey50">나머지 정보를 입력해 프로필을 완성해 보세요</p>
           </div>
 
-          <Button animationMode="main" className="mt-[5.13rem] w-[50%] rounded-lg bg-main text-lg text-white">
-            프로필 작성하기
-          </Button>
-          <p className="mt-8 cursor-pointer font-normal text-grey60 underline">나중에 입력하기</p>
+          <Link href={'/myResume'} className="flex w-full justify-center">
+            <Button animationMode="main" className="mt-[5.13rem] w-[50%] rounded-lg bg-main text-lg text-white">
+              프로필 작성하기
+            </Button>
+          </Link>
+          <Link href={'/'} className="mt-8 cursor-pointer font-normal text-grey60 underline">
+            나중에 입력하기
+          </Link>
         </div>
       </div>
     </>

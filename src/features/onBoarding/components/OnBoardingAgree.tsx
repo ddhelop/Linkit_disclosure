@@ -1,30 +1,12 @@
 'use client'
 
-import { useState } from 'react'
 import { Button } from '@/shared/ui/Button/Button'
 import Image from 'next/image'
+import { useOnBoardingAgree } from '../hooks/useOnBoardingAgree'
 
 export default function OnBoardingAgree() {
-  const [allChecked, setAllChecked] = useState(false) // "모두 동의하기" 상태
-  const [checkedItems, setCheckedItems] = useState([false, false, false, false]) // 개별 항목 체크 상태
-
-  // 필수 항목 (첫 3개 항목) 체크 여부 확인
-  const isNextEnabled = checkedItems.slice(0, 3).every(Boolean)
-
-  // 개별 체크박스 클릭 핸들러
-  const handleCheckClick = (index: number) => {
-    const updatedItems = [...checkedItems]
-    updatedItems[index] = !updatedItems[index]
-    setCheckedItems(updatedItems)
-    setAllChecked(updatedItems.every(Boolean))
-  }
-
-  // 모두 동의하기 버튼 클릭 핸들러
-  const handleAllCheckClick = () => {
-    const newState = !allChecked
-    setAllChecked(newState)
-    setCheckedItems(checkedItems.map(() => newState))
-  }
+  const { allChecked, checkedItems, isNextEnabled, handleCheckClick, handleAllCheckClick, submitConsentInfoHandler } =
+    useOnBoardingAgree()
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -55,7 +37,7 @@ export default function OnBoardingAgree() {
             '(필수) 만 14세 이상입니다',
             '(선택) 광고성 정보 수신 동의',
           ].map((item, index) => (
-            <div key={index} className={`flex items-center justify-between gap-6 rounded-xl `}>
+            <div key={index} className={`flex items-center justify-between gap-6 rounded-xl`}>
               <div onClick={() => handleCheckClick(index)} className="flex cursor-pointer items-center gap-6">
                 <div
                   className={`rounded-[0.6rem] border border-grey40 p-[0.54rem] ${
@@ -82,7 +64,8 @@ export default function OnBoardingAgree() {
             mode="main"
             size="lg"
             animationMode="main"
-            disabled={!isNextEnabled} // 필수 항목들이 체크되었을 때만 활성화
+            disabled={!isNextEnabled}
+            onClick={submitConsentInfoHandler} // 동의 정보를 제출하는 버튼
           >
             다음
           </Button>
