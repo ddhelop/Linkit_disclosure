@@ -1,16 +1,23 @@
-// src/widgets/Header/Header.tsx
+'use client'
 'use client'
 
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useUserStore } from '@/shared/store/useAuthStore'
+import { useEffect } from 'react'
 
 export default function Header() {
   const pathname = usePathname()
+  const { isLogin, logout, checkLogin } = useUserStore()
 
   // 특정 경로에서 Header를 숨기기
   const hideHeaderOnPaths = ['/login/onboarding-info', '/login/onboarding-agree', '/login/onboarding-complete']
   const basePath = pathname.split('?')[0] // 쿼리 파라미터 제거된 경로 확인
+
+  useEffect(() => {
+    checkLogin() // 초기 렌더링 시 로그인 상태 확인
+  }, [isLogin])
 
   if (hideHeaderOnPaths.includes(basePath)) {
     return null
@@ -28,8 +35,8 @@ export default function Header() {
     <>
       <header
         className="sticky top-0 z-[100] flex h-[3.5rem] w-full items-center justify-between bg-white px-10"
-        onMouseEnter={handleMouseEnter} // 마우스가 헤더에 들어올 때
-        onMouseLeave={handleMouseLeave} // 마우스가 헤더를 벗어날 때
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <div className="flex h-full items-center">
           <Link href="/">
@@ -64,17 +71,35 @@ export default function Header() {
         </div>
 
         <div className="flex items-center font-normal text-grey90">
-          <Link className="px-7" href={''}>
-            ABOUT US
-          </Link>
-          <Link className="px-7" href={''}>
-            FAQ
-          </Link>
-          <Link href="/login">
-            <button className="rounded-[1.38rem] bg-[#D3E1FE] px-[1.62rem] py-[0.38rem] font-semibold transition-colors duration-100 hover:bg-main hover:text-white hover:ring-4">
-              로그인
-            </button>
-          </Link>
+          {isLogin ? (
+            <>
+              {/* 로그인 상태 UI */}
+              <Link className="px-7" href="/profile">
+                마이 페이지
+              </Link>
+              <button
+                onClick={logout} // 로그아웃 버튼 클릭 시 로그아웃 처리
+                className="rounded-[1.38rem] bg-main px-[1.62rem] py-[0.38rem] font-semibold text-white transition-colors duration-100 hover:bg-[#d32f2f]"
+              >
+                로그아웃
+              </button>
+            </>
+          ) : (
+            <>
+              {/* 비로그인 상태 UI */}
+              <Link className="px-7" href="">
+                ABOUT US
+              </Link>
+              <Link className="px-7" href="">
+                FAQ
+              </Link>
+              <Link href="/login">
+                <button className="rounded-[1.38rem] bg-[#D3E1FE] px-[1.62rem] py-[0.38rem] font-semibold transition-colors duration-100 hover:bg-main hover:text-white hover:ring-4">
+                  로그인
+                </button>
+              </Link>
+            </>
+          )}
         </div>
       </header>
     </>

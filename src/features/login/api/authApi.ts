@@ -21,9 +21,10 @@ export const kakaoLogin = async (code: string) => {
     body: JSON.stringify({ code }),
   })
 
-  if (!response.ok) throw new Error('Failed to log in with Kakao')
+  const result = await response.json()
 
-  return response.json()
+  if (!response.ok) throw new Error('Failed to log in with Kakao')
+  return result
 }
 
 // 네이버 로그인

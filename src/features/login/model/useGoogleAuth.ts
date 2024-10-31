@@ -21,11 +21,10 @@ export const useGoogleAuth = (code: string | null) => {
         if (isMemberBasicInform) {
           // 기존 회원: Recoil 상태에 토큰 저장 후 홈으로 이동
           setCookie('accessToken', accessToken)
-          setIsAuth(true)
           router.push('/')
         } else {
           // 신규 회원: 세션 스토리지에 토큰 저장 후 온보딩 페이지로 이동
-          sessionStorage.setItem('accessToken', accessToken)
+          sessionStorage.setItem('access-token', accessToken)
           router.push(`/login/onboarding-info?email=${email}`)
         }
       } catch (error) {
