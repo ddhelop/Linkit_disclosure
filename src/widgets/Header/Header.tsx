@@ -5,39 +5,36 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useUserStore } from '@/shared/store/useAuthStore'
 import { useEffect, useState } from 'react'
-import ProfileMenu from './components/ProfileMenu'
 
 export default function Header() {
   const pathname = usePathname()
   const { isLogin, checkLogin } = useUserStore()
-  const [loading, setLoading] = useState(true) // 로딩 상태 추가
-  const [isModalOpen, setIsModalOpen] = useState(false) // 모달 상태 관리
+  const [loading, setLoading] = useState(true)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false) // 모바일 메뉴 상태 추가
 
-  // 특정 경로에서 Header를 숨기기
   const hideHeaderOnPaths = ['/login/onboarding-info', '/login/onboarding-agree', '/login/onboarding-complete']
-  const basePath = pathname.split('?')[0] // 쿼리 파라미터 제거된 경로 확인
+  const basePath = pathname.split('?')[0]
 
   useEffect(() => {
-    checkLogin() // 로그인 상태 확인
-    setLoading(false) // 로딩 완료
+    checkLogin()
+    setLoading(false)
   }, [isLogin])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // 모달 외부 클릭 시 닫기
       if (
-        isModalOpen &&
-        !(event.target as HTMLElement).closest('.profile-menu') &&
-        !(event.target as HTMLElement).closest('.toggle-button')
+        isMobileMenuOpen &&
+        !(event.target as HTMLElement).closest('.mobile-menu') &&
+        !(event.target as HTMLElement).closest('.menu-toggle-button')
       ) {
-        setIsModalOpen(false)
+        setIsMobileMenuOpen(false)
       }
     }
 
     const handleEscPress = (event: KeyboardEvent) => {
-      // ESC 키 누를 시 닫기
       if (event.key === 'Escape') {
-        setIsModalOpen(false)
+        setIsMobileMenuOpen(false)
       }
     }
 
@@ -48,57 +45,45 @@ export default function Header() {
       document.removeEventListener('mousedown', handleClickOutside)
       document.removeEventListener('keydown', handleEscPress)
     }
-  }, [isModalOpen])
+  }, [isMobileMenuOpen])
 
   if (hideHeaderOnPaths.includes(basePath)) {
     return null
   }
 
-  const handleMouseEnter = () => {
-    document.body.style.overflow = 'hidden' // 스크롤 비활성화
-  }
-
-  const handleMouseLeave = () => {
-    document.body.style.overflow = '' // 스크롤 활성화
-  }
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen)
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
   return (
     <>
-      <header
-        className="sticky top-0 z-[100] flex h-[3.5rem] w-full items-center justify-between bg-white px-10"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+      <header className="sticky top-0 z-[100] flex h-[3.5rem] w-full items-center justify-between bg-white px-4 md:px-10">
         <div className="flex h-full items-center">
           <Link href="/">
             <Image
               src="/common/icons/blue_logo_row.svg"
               alt="Linkit"
-              width={115}
-              height={22}
+              width={100}
+              height={20}
               className="cursor-pointer"
             />
           </Link>
-          <div className="ml-12 flex h-full items-center text-grey60">
+          <div className="ml-12 hidden h-full items-center text-grey60 md:flex">
             <Link
               href="/"
-              className="mt-2 flex items-center border-b-2 border-transparent px-7 pb-2 hover:border-main hover:text-grey100"
+              className="mt-2 flex items-center border-b-2 border-transparent px-4 pb-2 hover:border-main hover:text-grey100"
             >
               팀원
             </Link>
             <Link
               href="/"
-              className="mt-2 flex items-center border-b-2 border-transparent px-7 pb-2 hover:border-main hover:text-grey100"
+              className="mt-2 flex items-center border-b-2 border-transparent px-4 pb-2 hover:border-main hover:text-grey100"
             >
               팀
             </Link>
             <Link
               href="/"
-              className="mt-2 flex items-center border-b-2 border-transparent px-7 pb-2 hover:border-main hover:text-grey100"
+              className="mt-2 flex items-center border-b-2 border-transparent px-4 pb-2 hover:border-main hover:text-grey100"
             >
               모집 공고
             </Link>
@@ -107,59 +92,29 @@ export default function Header() {
 
         <div className="flex items-center font-normal text-grey90">
           {loading ? (
-            // 로딩 중 UI: 로그인 상태에 따라 다르게 표시
             isLogin ? (
-              <div className="flex gap-[1.38rem] font-semibold">
+              <div className="hidden gap-[1.38rem] font-semibold md:flex">
                 <Link className="rounded-[1.375rem] bg-[#D3E1FE] px-[1.62rem] py-[0.38rem]" href="/profile">
                   매칭 관리
                 </Link>
-                <button
-                  className="toggle-button flex rounded-[1.38rem] px-[1.62rem] py-[0.38rem] font-semibold"
-                  onClick={toggleModal}
-                >
-                  마이페이지{' '}
-                  <Image
-                    src={isModalOpen ? '/common/icons/up_arrow.svg' : '/common/icons/under_arrow.svg'}
-                    width={24}
-                    height={24}
-                    alt="arrow"
-                  />
-                </button>
-                {isModalOpen && <ProfileMenu />} {/* ProfileMenu 컴포넌트 */}
               </div>
             ) : (
-              // 로딩 중 UI
-              <div className="flex gap-[1.38rem] font-semibold">
+              <div className="hidden gap-[1.38rem] font-semibold md:flex">
                 <button className="px-7"></button>
               </div>
             )
           ) : isLogin ? (
-            // 로그인된 상태 UI
-            <div className="relative flex gap-[1.38rem] font-semibold">
+            <div className="relative hidden gap-[1.38rem] font-semibold md:flex">
               <Link className="rounded-[1.375rem] bg-[#D3E1FE] px-[1.62rem] py-[0.38rem]" href="/profile">
                 매칭 관리
               </Link>
-              <button
-                className="toggle-button flex rounded-[1.38rem] px-[1.62rem] py-[0.38rem] font-semibold"
-                onClick={toggleModal}
-              >
-                마이페이지{' '}
-                <Image
-                  src={isModalOpen ? '/common/icons/up_arrow.svg' : '/common/icons/under_arrow.svg'}
-                  width={24}
-                  height={24}
-                  alt="arrow"
-                />
-              </button>
-              {isModalOpen && <ProfileMenu />} {/* ProfileMenu 컴포넌트 */}
             </div>
           ) : (
-            // 비로그인 상태 UI
-            <>
-              <Link className="px-7" href="">
+            <div className="hidden gap-[1.38rem] font-semibold md:flex">
+              <Link className="px-4" href="">
                 ABOUT US
               </Link>
-              <Link className="px-7" href="">
+              <Link className="px-4" href="">
                 FAQ
               </Link>
               <Link href="/login">
@@ -167,10 +122,61 @@ export default function Header() {
                   로그인
                 </button>
               </Link>
-            </>
+            </div>
           )}
+
+          {/* 모바일 메뉴 아이콘 */}
+          <button onClick={toggleMobileMenu} className="menu-toggle-button flex md:hidden">
+            <Image
+              src={isMobileMenuOpen ? '/common/icons/delete_icon.svg' : '/common/icons/mobile_menu_icon.svg'}
+              width={26}
+              height={26}
+              alt="menu"
+            />
+          </button>
         </div>
       </header>
+
+      {/* 모바일 드롭다운 메뉴 */}
+      {isMobileMenuOpen && (
+        <div className="mobile-menu absolute left-1 top-[3.8rem] z-50 flex w-[99%] rounded-lg bg-white px-6 py-4 shadow-sm md:hidden">
+          {isLogin ? (
+            <div className="w-full space-y-4">
+              <Link href="/profile" className="flex gap-3 text-sm text-gray-700">
+                <Image src={'/common/icons/member_icon.svg'} width={14} height={14} alt="profile" />
+                팀원
+              </Link>
+              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700">
+                <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />팀
+              </Link>
+              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700">
+                <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />
+                모집 공고
+              </Link>
+              <hr />
+              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700">
+                <Image src={'/common/icons/myprofile_icon.svg'} width={14} height={14} alt="team" />내 프로필
+              </Link>
+              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700">
+                <Image src={'/common/icons/myteam_icon.svg'} width={14} height={14} alt="team" />
+                나의 팀
+              </Link>
+              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700">
+                <Image src={'/common/icons/bye_icon.svg'} width={14} height={14} alt="logout" />
+                로그아웃
+              </Link>
+            </div>
+          ) : (
+            <div className="space-y-4 text-lg font-semibold text-gray-700">
+              <Link href="">ABOUT US</Link>
+              <Link href="">FAQ</Link>
+              <Link href="/login" className="block rounded-lg bg-blue-200 px-4 py-2 text-center">
+                로그인
+              </Link>
+            </div>
+          )}
+        </div>
+      )}
     </>
   )
 }
