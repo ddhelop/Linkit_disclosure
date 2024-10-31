@@ -22,7 +22,9 @@ export default function Login() {
   return (
     <div className="flex h-screen w-full bg-white">
       {/* left container */}
-      <div className="flex h-full w-1/2 bg-[#D3E1FE] "></div>
+      <div className="flex h-full w-1/2 bg-[#EDF3FF] ">
+        <Image src="/features/auth/login_illustration.svg" width={750} height={750} alt="banner" className="m-auto" />
+      </div>
 
       {/* right container */}
       <div className="flex h-full w-1/2 flex-col items-center justify-center pb-20">
