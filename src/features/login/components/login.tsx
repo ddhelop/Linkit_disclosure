@@ -22,12 +22,12 @@ export default function Login() {
   return (
     <div className="flex h-screen w-full bg-white">
       {/* left container */}
-      <div className="flex h-full w-1/2 bg-[#EDF3FF] ">
+      <div className="hidden h-full w-1/2 bg-[#EDF3FF] lg:flex ">
         <Image src="/features/auth/login_illustration.svg" width={750} height={750} alt="banner" className="m-auto" />
       </div>
 
       {/* right container */}
-      <div className="flex h-full w-1/2 flex-col items-center justify-center pb-20">
+      <div className="flex h-full w-full flex-col items-center justify-center pb-20 lg:w-1/2">
         <div className=" flex flex-col gap-2 text-center font-normal">
           <span className="text-xl text-grey70">성공적인 팀빌딩,</span>
           <span className="flex text-2xl font-normal text-grey90">
@@ -37,11 +37,11 @@ export default function Login() {
 
         <Image src="/features/auth/bubble_guide.svg" width={234} height={45} alt="logo" className="mt-[2.94rem]" />
 
-        <div className="mt-[1.62rem] flex flex-col gap-3">
+        <div className="mt-[1.62rem] flex w-full flex-col items-center gap-3">
           {/* naver */}
           <Link
             href={NAVER_AUTH_URL}
-            className="flex w-[23.11rem] items-center justify-center gap-3 rounded-[0.39rem] bg-[#00C73C] py-3 hover:opacity-80"
+            className="flex w-[90%] items-center justify-center gap-3 rounded-[0.39rem] bg-[#00C73C] py-3 hover:opacity-80 sm:w-[23.11rem]"
           >
             <Image src="/features/auth/naver_logo.svg" width={16} height={16} alt="kakao" />
             <p className="text-sm text-white">네이버로 시작하기</p>
@@ -50,7 +50,7 @@ export default function Login() {
           {/* kakao */}
           <Link
             href={KAKAO_AUTH_URL}
-            className="flex w-[23.11rem] items-center justify-center gap-3 rounded-[0.39rem] bg-[#FFE500] py-3 hover:opacity-80"
+            className="flex w-[90%] items-center justify-center gap-3 rounded-[0.39rem] bg-[#FFE500] py-3 hover:opacity-80 sm:w-[23.11rem]"
           >
             <Image src="/features/auth/kakao_logo.svg" width={20} height={20} alt="kakao" />
             <p className="text-sm text-grey100">카카오로 시작하기</p>
@@ -59,14 +59,14 @@ export default function Login() {
           {/* google */}
           <Link
             href={GOOGLE_AUTH_URL}
-            className="flex w-[23.11rem] items-center justify-center gap-3 rounded-[0.39rem] border border-grey30 py-3 pr-2 hover:bg-grey10"
+            className="flex w-[90%] items-center justify-center gap-3 rounded-[0.39rem] border border-grey30 py-3 pr-2 hover:bg-grey10 sm:w-[23.11rem]"
           >
             <Image src="/features/auth/google_logo.svg" width={20} height={20} alt="kakao" />
             <p className="text-sm text-grey100">구글로 시작하기</p>
           </Link>
         </div>
 
-        <p className="mt-[3.87rem] flex text-xs font-normal text-grey60">
+        <p className="mt-[3.87rem] w-[90%] text-center text-xs font-normal text-grey60 lg:w-auto ">
           회원가입 시 Linkit의{' '}
           <Link href={'/'} className="cursor-pointer px-1 underline hover:brightness-150">
             서비스 이용약관

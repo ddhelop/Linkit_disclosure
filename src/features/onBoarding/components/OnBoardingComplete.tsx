@@ -6,7 +6,7 @@ export default function OnBoardingComplete() {
   return (
     <>
       <div className="flex w-full flex-col items-center">
-        <div className="mt-[5.31rem] flex w-[35%] flex-col items-center">
+        <div className="mt-[5.31rem] flex w-[90%] flex-col items-center lg:w-[35%]">
           <Image src="/features/auth/sign_up_complete.svg" width={320} height={200} alt="complete" />
 
           <div className="mt-[1.75rem] flex flex-col items-center gap-3">
@@ -15,7 +15,10 @@ export default function OnBoardingComplete() {
           </div>
 
           <Link href={'/myResume'} className="flex w-full justify-center">
-            <Button animationMode="main" className="mt-[5.13rem] w-[50%] rounded-lg bg-main text-lg text-white">
+            <Button
+              animationMode="main"
+              className="mt-[5.13rem] w-[90%] rounded-lg bg-main text-lg text-white lg:w-[50%]"
+            >
               프로필 작성하기
             </Button>
           </Link>

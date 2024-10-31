@@ -7,7 +7,7 @@ import { LoginResponse } from './authType'
 import { setCookie } from 'cookies-next'
 import { useUserStore } from '@/shared/store/useAuthStore'
 
-export const useKakaoAuth = (code: string | null) => {
+export const useNaverAuth = (code: string | null) => {
   const router = useRouter()
   const { checkLogin } = useUserStore()
   const [loading, setLoading] = useState(true)

@@ -5,10 +5,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useUserStore } from '@/shared/store/useAuthStore'
 import { useEffect, useState } from 'react'
+import ProfileMenu from './components/ProfileMenu'
 
 export default function Header() {
   const pathname = usePathname()
-  const { isLogin, checkLogin } = useUserStore()
+  const { isLogin, checkLogin, logout } = useUserStore()
   const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false) // 모바일 메뉴 상태 추가
@@ -24,31 +25,31 @@ export default function Header() {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        isMobileMenuOpen &&
-        !(event.target as HTMLElement).closest('.mobile-menu') &&
-        !(event.target as HTMLElement).closest('.menu-toggle-button')
+        (isModalOpen &&
+          !(event.target as HTMLElement).closest('.profile-menu') &&
+          !(event.target as HTMLElement).closest('.toggle-button')) ||
+        (isMobileMenuOpen &&
+          !(event.target as HTMLElement).closest('.mobile-menu') &&
+          !(event.target as HTMLElement).closest('.menu-toggle-button'))
       ) {
-        setIsMobileMenuOpen(false)
-      }
-    }
-
-    const handleEscPress = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+        setIsModalOpen(false)
         setIsMobileMenuOpen(false)
       }
     }
 
     document.addEventListener('mousedown', handleClickOutside)
-    document.addEventListener('keydown', handleEscPress)
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
-      document.removeEventListener('keydown', handleEscPress)
     }
-  }, [isMobileMenuOpen])
+  }, [isModalOpen, isMobileMenuOpen])
 
   if (hideHeaderOnPaths.includes(basePath)) {
     return null
+  }
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen)
   }
 
   const toggleMobileMenu = () => {
@@ -97,6 +98,19 @@ export default function Header() {
                 <Link className="rounded-[1.375rem] bg-[#D3E1FE] px-[1.62rem] py-[0.38rem]" href="/profile">
                   매칭 관리
                 </Link>
+                <button
+                  className="toggle-button flex rounded-[1.38rem] px-[1.62rem] py-[0.38rem] font-semibold"
+                  onClick={toggleModal}
+                >
+                  마이페이지{' '}
+                  <Image
+                    src={isModalOpen ? '/common/icons/up_arrow.svg' : '/common/icons/under_arrow.svg'}
+                    width={24}
+                    height={24}
+                    alt="arrow"
+                  />
+                </button>
+                {isModalOpen && <ProfileMenu />}
               </div>
             ) : (
               <div className="hidden gap-[1.38rem] font-semibold md:flex">
@@ -108,6 +122,19 @@ export default function Header() {
               <Link className="rounded-[1.375rem] bg-[#D3E1FE] px-[1.62rem] py-[0.38rem]" href="/profile">
                 매칭 관리
               </Link>
+              <button
+                className="toggle-button flex rounded-[1.38rem] px-[1.62rem] py-[0.38rem] font-semibold"
+                onClick={toggleModal}
+              >
+                마이페이지{' '}
+                <Image
+                  src={isModalOpen ? '/common/icons/up_arrow.svg' : '/common/icons/under_arrow.svg'}
+                  width={24}
+                  height={24}
+                  alt="arrow"
+                />
+              </button>
+              {isModalOpen && <ProfileMenu />}
             </div>
           ) : (
             <div className="hidden gap-[1.38rem] font-semibold md:flex">
@@ -137,7 +164,7 @@ export default function Header() {
         </div>
       </header>
 
-      {/* 모바일 드롭다운 메뉴 */}
+      {/* 모바일 메뉴 */}
       {isMobileMenuOpen && (
         <div className="mobile-menu absolute left-1 top-[3.8rem] z-50 flex w-[99%] rounded-lg bg-white px-6 py-4 shadow-sm md:hidden">
           {isLogin ? (
@@ -155,16 +182,22 @@ export default function Header() {
               </Link>
               <hr />
               <Link href="/profile" className="flex gap-3  text-sm  text-gray-700">
-                <Image src={'/common/icons/myprofile_icon.svg'} width={14} height={14} alt="team" />내 프로필
+                <Image src={'/common/icons/myprofile_icon.svg'} width={14} height={14} alt="profile" />내 프로필
               </Link>
               <Link href="/profile" className="flex gap-3  text-sm  text-gray-700">
                 <Image src={'/common/icons/myteam_icon.svg'} width={14} height={14} alt="team" />
                 나의 팀
               </Link>
-              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700">
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false)
+                  logout()
+                }}
+                className="flex w-full gap-3 text-left text-sm text-gray-700"
+              >
                 <Image src={'/common/icons/bye_icon.svg'} width={14} height={14} alt="logout" />
                 로그아웃
-              </Link>
+              </button>
             </div>
           ) : (
             <div className="space-y-4 text-lg font-semibold text-gray-700">
