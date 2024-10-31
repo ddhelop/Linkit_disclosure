@@ -1,14 +1,13 @@
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { useRecoilState } from 'recoil'
-import { authState } from '@/context/recoil-context'
+
 import { googleLogin } from '../api/authApi'
 import { LoginResponse } from './authType'
 import { setCookie } from 'cookies-next'
 
 export const useGoogleAuth = (code: string | null) => {
   const router = useRouter()
-  const [isAuth, setIsAuth] = useRecoilState(authState)
+
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {

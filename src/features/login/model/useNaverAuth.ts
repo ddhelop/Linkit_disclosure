@@ -1,7 +1,6 @@
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { useRecoilState } from 'recoil'
-import { accessTokenState, authState } from '@/context/recoil-context'
+
 import { naverLogin } from '../api/authApi'
 import { LoginResponse } from './authType'
 
