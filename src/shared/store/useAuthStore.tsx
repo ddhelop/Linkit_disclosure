@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { deleteCookie, getCookie } from 'cookies-next'
+import { logoutApi } from '@/features/login/api/authApi'
 
 interface userInfoProps {
   isLogin: boolean // 로그인 여부
@@ -22,7 +23,8 @@ export const useUserStore = create<userInfoProps>((set) => {
       }
     },
 
-    logout: () => {
+    logout: async () => {
+      await logoutApi() // 로그아웃 API 호출
       deleteCookie('access-token')
       set({ isLogin: false })
     },
