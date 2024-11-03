@@ -137,11 +137,11 @@ export default function Header() {
               {isModalOpen && <ProfileMenu />}
             </div>
           ) : (
-            <div className="hidden items-center gap-[1.38rem] font-semibold md:flex">
-              <Link className="px-4" href="">
+            <div className="hidden items-center gap-[1.38rem] font-normal  md:flex">
+              <Link className="px-4 text-grey50 hover:text-black" href="">
                 ABOUT US
               </Link>
-              <Link className="px-4" href="">
+              <Link className="px-4 text-grey50 hover:text-black" href="">
                 FAQ
               </Link>
               <Link href="/login">
