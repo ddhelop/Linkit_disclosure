@@ -2,14 +2,14 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSetRecoilState } from 'recoil'
-import { accessTokenState } from '@/context/recoil-context'
 import { submitConsentInfo } from '../api/memberApi'
 import { ConsentInfo } from '../types/memberTypes'
+import { setCookie } from 'cookies-next'
+import { useUserStore } from '@/shared/store/useAuthStore'
 
 export function useOnBoardingAgree() {
   const router = useRouter()
-  const setAccessToken = useSetRecoilState(accessTokenState)
+  const { isLogin, checkLogin } = useUserStore()
   const [allChecked, setAllChecked] = useState(false)
   const [checkedItems, setCheckedItems] = useState([false, false, false, false])
 
@@ -41,7 +41,8 @@ export function useOnBoardingAgree() {
     const result = await submitConsentInfo(data, accessToken)
 
     if (result) {
-      setAccessToken(accessToken) // Recoil 상태에 액세스 토큰 저장
+      setCookie('access-token', accessToken)
+      checkLogin()
       router.push('/login/onboarding-complete') // 온보딩 완료 페이지로 이동
     }
   }

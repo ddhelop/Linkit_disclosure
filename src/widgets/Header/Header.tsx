@@ -94,7 +94,7 @@ export default function Header() {
         <div className="flex items-center font-normal text-grey90">
           {loading ? (
             isLogin ? (
-              <div className="hidden gap-[1.38rem] font-semibold md:flex">
+              <div className="hidden gap-[1.38rem] md:flex">
                 <Link className="rounded-[1.375rem] bg-[#D3E1FE] px-[1.62rem] py-[0.38rem]" href="/profile">
                   매칭 관리
                 </Link>
@@ -118,14 +118,11 @@ export default function Header() {
               </div>
             )
           ) : isLogin ? (
-            <div className="relative hidden gap-[1.38rem] font-semibold md:flex">
+            <div className="relative hidden gap-[1.38rem] md:flex">
               <Link className="rounded-[1.375rem] bg-[#D3E1FE] px-[1.62rem] py-[0.38rem]" href="/profile">
                 매칭 관리
               </Link>
-              <button
-                className="toggle-button flex rounded-[1.38rem] px-[1.62rem] py-[0.38rem] font-semibold"
-                onClick={toggleModal}
-              >
+              <button className="toggle-button flex rounded-[1.38rem] px-[1.62rem] py-[0.38rem] " onClick={toggleModal}>
                 마이페이지{' '}
                 <Image
                   src={isModalOpen ? '/common/icons/up_arrow.svg' : '/common/icons/under_arrow.svg'}
