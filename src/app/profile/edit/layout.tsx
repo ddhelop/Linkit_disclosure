@@ -2,8 +2,6 @@
 
 import LeftMenu from '@/features/profile/edit/components/LeftMenu'
 import MiniProfileCard from '@/shared/components/MiniProfileCard'
-import { fetchProfileData } from '../../../features/profile/edit/api/profileEditApi'
-import { cookies } from 'next/headers'
 import ProfileProgress from '@/features/profile/edit/components/ProfileProgress'
 
 const ProfileEditLayout = async ({ children }: { children: React.ReactNode }) => {
