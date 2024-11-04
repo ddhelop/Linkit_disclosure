@@ -1,9 +1,23 @@
 // LeftMenu.tsx
+import Image from 'next/image'
 import React from 'react'
 
 const LeftMenu = () => {
   return (
-    <div className="rounded-lg bg-white p-4 shadow-md">
+    <div className="mt-12 w-[17.5rem]">
+      {/* 나의 로그 */}
+      <div className="flex cursor-pointer flex-col rounded-xl border border-[#7EA5F8] bg-grey20 py-3 pl-6 pr-3 hover:ring-4 hover:ring-grey40 hover:brightness-95">
+        <div className="flex justify-between">
+          <h2 className="text-main">나의 로그</h2>
+          <Image src="/common/icons/right_arrow_grey60.svg" width={24} height={24} alt="arrow-right" />
+        </div>
+
+        <span className="mt-2 text-xs font-normal leading-5 text-grey60">
+          나의 로그에서는 나를 기록하고 소개할 수 있어요.
+          <br /> 다른 사람들에게 나를 어필해 보세요!
+        </span>
+      </div>
+
       <h2 className="mb-4 text-lg font-semibold">프로필 관리</h2>
       <ul className="space-y-2">
         <li>
