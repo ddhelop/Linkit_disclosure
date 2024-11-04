@@ -8,7 +8,10 @@ export default function ProfileMenu() {
 
   return (
     <div className="profile-menu absolute right-0 top-12 mt-2 flex  flex-col rounded-[0.625rem] border  border-grey10 bg-white shadow-lg">
-      <Link href="/profile" className="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-100">
+      <Link
+        href="/profile/edit/log"
+        className="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-100"
+      >
         <Image src="/common/icons/user_profile.svg" width={18} height={18} alt="profile icon" />
         <p>내 프로필</p>
       </Link>
