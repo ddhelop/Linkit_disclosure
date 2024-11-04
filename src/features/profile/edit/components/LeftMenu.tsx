@@ -2,6 +2,8 @@
 import Image from 'next/image'
 import React from 'react'
 
+const menuItems = ['미니 프로필', '보유 스킬', '이력', '포트폴리오', '학력', '수상', '자격증', '링크']
+
 const LeftMenu = () => {
   return (
     <div className="mt-12 w-[17.5rem]">
@@ -18,41 +20,32 @@ const LeftMenu = () => {
         </span>
       </div>
 
-      <h2 className="mb-4 text-lg font-semibold">프로필 관리</h2>
-      <ul className="space-y-2">
-        <li>
-          <button className="w-full rounded px-4 py-2 text-left hover:bg-gray-100 focus:outline-none">
-            미니 프로필
-          </button>
-        </li>
-        <li>
-          <button className="w-full rounded px-4 py-2 text-left hover:bg-gray-100 focus:outline-none">보유 스킬</button>
-        </li>
-        <li>
-          <button className="w-full rounded px-4 py-2 text-left hover:bg-gray-100 focus:outline-none">이력</button>
-        </li>
-        <li>
-          <button className="w-full rounded px-4 py-2 text-left hover:bg-gray-100 focus:outline-none">프로필요</button>
-        </li>
-        <li>
-          <button className="w-full rounded px-4 py-2 text-left hover:bg-gray-100 focus:outline-none">학력</button>
-        </li>
-        <li>
-          <button className="w-full rounded px-4 py-2 text-left hover:bg-gray-100 focus:outline-none">수상</button>
-        </li>
-        <li>
-          <button className="w-full rounded px-4 py-2 text-left hover:bg-gray-100 focus:outline-none">자격증</button>
-        </li>
-        <li>
-          <button className="w-full rounded px-4 py-2 text-left hover:bg-gray-100 focus:outline-none">링크</button>
-        </li>
-      </ul>
-      <h2 className="mb-4 mt-6 text-lg font-semibold">계정 관리</h2>
-      <ul className="space-y-2">
-        <li>
-          <button className="w-full rounded px-4 py-2 text-left hover:bg-gray-100 focus:outline-none">계정 설정</button>
-        </li>
-      </ul>
+      {/* 왼쪽 메뉴바 - 프로필 관리*/}
+      <div className="mt-5 flex w-full flex-col">
+        <label className="rounded-xl bg-grey20 px-6 py-3">프로필 관리</label>
+        <ul className="flex w-full flex-col items-end gap-1 pl-3 pr-6 pt-3">
+          {menuItems.map((item, index) => (
+            <li
+              key={index}
+              className="mt-2 flex w-[90%] cursor-pointer items-center justify-between rounded-lg py-[0.31rem] pl-2 pr-2 hover:bg-grey20"
+            >
+              <span className="text-grey80">{item}</span>
+              <div className="ml-2 h-[1.25rem] w-[1.25rem] rounded-full border border-grey40"></div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* 왼쪽 메뉴바 - 계정 설정 */}
+      <div className="mt-5 flex w-full flex-col">
+        <label className="rounded-xl bg-grey20 px-6 py-3">계정 관리</label>
+        <ul className="flex w-full flex-col items-end gap-1 pt-3">
+          <li className="mt-2 flex w-[90%] cursor-pointer items-center justify-between py-[0.31rem] pl-5 pr-8 ">
+            <span className="text-grey80 hover:text-main">계정 설정</span>
+            <div className="ml-2 hidden h-[1.25rem] w-[1.25rem] rounded-full border border-grey40"></div>
+          </li>
+        </ul>
+      </div>
     </div>
   )
 }
