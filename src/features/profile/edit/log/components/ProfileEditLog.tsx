@@ -1,6 +1,7 @@
 'use client'
 import { Button } from '@/shared/ui/Button/Button'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
 export default function ProfileEditLog() {
@@ -34,15 +35,17 @@ export default function ProfileEditLog() {
   }, [showMenu])
 
   return (
-    <div className="mt-5 rounded-xl bg-white px-[1.62rem] pb-3 pt-[1.88rem]">
-      <Button
-        mode="main"
-        animationMode="main"
-        className="flex w-full items-center justify-center gap-[0.68rem] rounded-lg bg-[#4D82F3] px-5 py-2 text-sm font-semibold text-white"
-      >
-        <Image src="/common/icons/plus.svg" width={14} height={14} alt="plus" />
-        <p>새 글 쓰기</p>
-      </Button>
+    <div>
+      <Link href="/profile/edit/log/new">
+        <Button
+          mode="main"
+          animationMode="main"
+          className="flex w-full items-center justify-center gap-[0.68rem] rounded-lg bg-[#4D82F3] px-5 py-2 text-sm font-semibold text-white"
+        >
+          <Image src="/common/icons/plus.svg" width={14} height={14} alt="plus" />
+          <p>새 글 쓰기</p>
+        </Button>
+      </Link>
 
       {/* 로그 리스트 */}
       <div className="flex flex-col pt-1">
