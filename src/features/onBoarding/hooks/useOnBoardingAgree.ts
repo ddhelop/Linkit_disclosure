@@ -29,7 +29,7 @@ export function useOnBoardingAgree() {
   }
 
   const submitConsentInfoHandler = async () => {
-    const accessToken = sessionStorage.getItem('accessToken') || ''
+    const accessToken = sessionStorage.getItem('access-token') || ''
 
     const data: ConsentInfo = {
       isServiceUseAgree: checkedItems[0],
