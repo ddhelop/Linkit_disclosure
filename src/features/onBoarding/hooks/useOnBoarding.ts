@@ -40,7 +40,7 @@ export function useOnBoarding() {
   // 회원 정보 제출 후 페이지 이동
   const submitOnBoardingInfo = async () => {
     if (isButtonEnabled) {
-      const accessToken = sessionStorage.getItem('access-token') || '' // 세션 스토리지에서 토큰 가져오기
+      const accessToken = sessionStorage.getItem('accessToken') || '' // 세션 스토리지에서 토큰 가져오기
       const result = await submitMemberInfo(
         {
           memberName: name,

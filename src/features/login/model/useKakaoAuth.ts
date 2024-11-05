@@ -19,7 +19,7 @@ export const useKakaoAuth = (code: string | null) => {
 
         if (isMemberBasicInform) {
           // 기존 회원: Recoil 상태에 토큰 저장 후 홈으로 이동
-          setCookie('access-token', accessToken)
+          setCookie('accessToken', accessToken)
           checkLogin() // 로그인 상태 업데이트
           router.push('/')
         } else {

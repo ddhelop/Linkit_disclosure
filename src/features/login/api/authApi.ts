@@ -45,7 +45,7 @@ export const naverLogin = async (code: string) => {
 
 // 로그아웃(리프레쉬 토큰 삭제시키기)
 export const logoutApi = async () => {
-  const accessToken = getCookie('access-token')
+  const accessToken = getCookie('accessToken')
   if (!accessToken) return
 
   await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/logout`, {

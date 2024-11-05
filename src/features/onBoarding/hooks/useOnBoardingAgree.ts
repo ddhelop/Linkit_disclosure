@@ -29,7 +29,7 @@ export function useOnBoardingAgree() {
   }
 
   const submitConsentInfoHandler = async () => {
-    const accessToken = sessionStorage.getItem('access-token') || ''
+    const accessToken = sessionStorage.getItem('accessToken') || ''
 
     const data: ConsentInfo = {
       isServiceUseAgree: checkedItems[0],
@@ -41,7 +41,7 @@ export function useOnBoardingAgree() {
     const result = await submitConsentInfo(data, accessToken)
 
     if (result) {
-      setCookie('access-token', accessToken)
+      setCookie('accessToken', accessToken)
       checkLogin()
       router.push('/login/onboarding-complete') // 온보딩 완료 페이지로 이동
     }

@@ -14,7 +14,7 @@ export const useUserStore = create<userInfoProps>((set) => {
     isLogin: false,
 
     checkLogin: () => {
-      const accessToken = getCookie('access-token')
+      const accessToken = getCookie('accessToken')
 
       if (accessToken) {
         set({ isLogin: true })
@@ -25,7 +25,7 @@ export const useUserStore = create<userInfoProps>((set) => {
 
     logout: async () => {
       await logoutApi() // 로그아웃 API 호출
-      deleteCookie('access-token')
+      deleteCookie('accessToken')
       set({ isLogin: false })
     },
   }

@@ -17,13 +17,13 @@ async function refreshAccessToken() {
     credentials: 'include',
   })
   const data = await response.json()
-  setCookie('access-token', data.newAccessToken)
+  setCookie('accessToken', data.newAccessToken)
   return data.newAccessToken
 }
 
 // fetchWithAuth 함수
 async function fetchWithAuth(url: string, options: RequestInit = {}): Promise<Response> {
-  let accessToken = getCookie('access-token')
+  let accessToken = getCookie('accessToken')
 
   if (accessToken) {
     // Request 인터셉터: 액세스 토큰이 만료되었으면 갱신
