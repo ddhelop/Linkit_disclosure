@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { accessTokenState, authState, filteredTeamsState } from '@/context/recoil-context'
 import { SkillOptions } from '@/lib/data'
-import { addressData } from '@/lib/addressSelectData'
+import { addressData } from '@/shared/data/addressSelectData'
 
 import SkillModal from '../../common/component/filter/SkillModal'
 

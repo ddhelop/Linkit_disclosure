@@ -2,7 +2,7 @@
 
 import { accessTokenState } from '@/context/recoil-context'
 import { PostProfileRegion } from '@/lib/action'
-import { addressData } from '@/lib/addressSelectData'
+import { addressData } from '@/shared/data/addressSelectData'
 import { LocationResponse } from '@/lib/types'
 import { selectStyle } from '@/style/toggleStyle'
 import Image from 'next/image'
