@@ -12,7 +12,12 @@ const ProfileEditLayout = async ({ children }: { children: React.ReactNode }) =>
         <MiniProfileCard />
         <LeftMenu />
       </aside>
-      <main className=" w-3/4 bg-[#EDF3FF]">{children}</main>
+      <main
+        className="w-3/4 bg-[#EDF3FF] pb-32
+      "
+      >
+        {children}
+      </main>
     </div>
   )
 }
