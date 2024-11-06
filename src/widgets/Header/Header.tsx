@@ -56,9 +56,13 @@ export default function Header() {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false)
+  }
+
   return (
     <>
-      <header className="sticky top-0 z-[100] flex h-[3.5rem] w-full items-center justify-between bg-white px-4 md:px-10">
+      <header className="sticky top-0 z-[100] flex h-[3.5rem] w-full justify-between bg-white px-4 text-sm md:px-10">
         <div className="flex h-full items-center">
           <Link href="/">
             <Image
@@ -72,19 +76,19 @@ export default function Header() {
           <div className="ml-12 hidden h-full items-center text-grey60 md:flex">
             <Link
               href="/"
-              className="mt-2 flex items-center border-b-2 border-transparent px-4 pb-2 hover:border-main hover:text-grey100"
+              className="mt-2 flex w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
             >
               팀원
             </Link>
             <Link
               href="/"
-              className="mt-2 flex items-center border-b-2 border-transparent px-4 pb-2 hover:border-main hover:text-grey100"
+              className="mt-2 flex w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
             >
               팀
             </Link>
             <Link
               href="/"
-              className="mt-2 flex items-center border-b-2 border-transparent px-4 pb-2 hover:border-main hover:text-grey100"
+              className="mt-2 flex w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
             >
               모집 공고
             </Link>
@@ -95,7 +99,7 @@ export default function Header() {
           {loading ? (
             isLogin ? (
               <div className="hidden gap-[1.38rem] md:flex">
-                <Link className="rounded-[1.375rem] bg-[#D3E1FE] px-[1.62rem] py-[0.38rem]" href="/profile">
+                <Link className=" rounded-[1.375rem] bg-[#D3E1FE] px-[1.62rem] py-[0.38rem] " href="/profile">
                   매칭 관리
                 </Link>
                 <button
@@ -119,11 +123,17 @@ export default function Header() {
             )
           ) : isLogin ? (
             <div className="relative hidden gap-[1.38rem] md:flex">
-              <Link className="rounded-[1.375rem] bg-[#D3E1FE] px-[1.62rem] py-[0.38rem]" href="/profile">
-                매칭 관리
-              </Link>
-              <button className="toggle-button flex rounded-[1.38rem] px-[1.62rem] py-[0.38rem] " onClick={toggleModal}>
-                마이페이지{' '}
+              <div className="flex items-center">
+                <Link className="rounded-[1.375rem] bg-[#D3E1FE] px-[1.62rem] py-[0.38rem] " href="/profile">
+                  매칭 관리
+                </Link>
+              </div>
+
+              <button
+                className="toggle-button flex items-center rounded-[1.38rem] px-[1.62rem] py-[0.38rem] "
+                onClick={toggleModal}
+              >
+                <p>마이페이지</p>
                 <Image
                   src={isModalOpen ? '/common/icons/up_arrow.svg' : '/common/icons/under_arrow.svg'}
                   width={24}
@@ -131,6 +141,7 @@ export default function Header() {
                   alt="arrow"
                 />
               </button>
+
               {isModalOpen && <ProfileMenu />}
             </div>
           ) : (
@@ -166,28 +177,28 @@ export default function Header() {
         <div className="mobile-menu absolute left-1 top-[3.8rem] z-50 flex w-[99%] rounded-lg bg-white px-6 py-4 shadow-sm md:hidden">
           {isLogin ? (
             <div className="w-full space-y-4">
-              <Link href="/profile" className="flex gap-3 text-sm text-gray-700">
+              <Link href="/profile" className="flex gap-3 text-sm text-gray-700" onClick={closeMobileMenu}>
                 <Image src={'/common/icons/member_icon.svg'} width={14} height={14} alt="profile" />
                 팀원
               </Link>
-              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700">
+              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
                 <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />팀
               </Link>
-              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700">
+              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
                 <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />
                 모집 공고
               </Link>
               <hr />
-              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700">
+              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
                 <Image src={'/common/icons/myprofile_icon.svg'} width={14} height={14} alt="profile" />내 프로필
               </Link>
-              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700">
+              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
                 <Image src={'/common/icons/myteam_icon.svg'} width={14} height={14} alt="team" />
                 나의 팀
               </Link>
               <button
                 onClick={() => {
-                  setIsMobileMenuOpen(false)
+                  closeMobileMenu()
                   logout()
                 }}
                 className="flex w-full gap-3 text-left text-sm text-gray-700"
@@ -197,10 +208,25 @@ export default function Header() {
               </button>
             </div>
           ) : (
-            <div className="space-y-4 text-lg font-semibold text-gray-700">
-              <Link href="">ABOUT US</Link>
-              <Link href="">FAQ</Link>
-              <Link href="/login" className="block rounded-lg bg-blue-200 px-4 py-2 text-center">
+            <div className="w-full space-y-4">
+              <Link href="/profile" className="flex gap-3 text-sm text-gray-700" onClick={closeMobileMenu}>
+                <Image src={'/common/icons/member_icon.svg'} width={14} height={14} alt="profile" />
+                팀원
+              </Link>
+              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
+                <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />팀
+              </Link>
+              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
+                <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />
+                모집 공고
+              </Link>
+              <hr />
+
+              <Link
+                href="/login"
+                className="flex w-full justify-center rounded-lg  border border-grey30 py-2 text-sm text-grey70"
+                onClick={closeMobileMenu}
+              >
                 로그인
               </Link>
             </div>
