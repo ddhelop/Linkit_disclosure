@@ -1,4 +1,6 @@
 'use client'
+
+import { jobCategoriesData } from '@/shared/data/roleSelectData'
 import { addressData } from '@/shared/data/addressSelectData'
 import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
@@ -8,28 +10,46 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 export default function ProfileEditBasic() {
+  const [selectedCategory, setSelectedCategory] = useState('')
+  const [selectedSubCategory, setSelectedSubCategory] = useState('')
   const [selectedCity, setSelectedCity] = useState('')
+  const [selectedDistrict, setSelectedDistrict] = useState('')
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([])
   const [selectedOption, setSelectedOption] = useState<string>('option1')
 
   const options = [
-    { label: '전체공개', value: '전체공개' },
+    { label: '전체공개', value: '전체공개' },
     { label: '비공개', value: '비공개' },
   ]
 
-  // Select 컴포넌트에 표시할 대분류 옵션을 구성합니다.
-  const mainOptions = addressData.map((city) => ({
+  // 포지션 대분류 옵션을 구성합니다.
+  const mainPositionOptions = jobCategoriesData.map((category) => ({
+    label: category.name,
+    value: category.name,
+  }))
+
+  // 선택된 포지션 대분류에 따라 소분류 옵션을 구성합니다.
+  const subPositionOptions =
+    jobCategoriesData
+      .find((category) => category.name === selectedCategory)
+      ?.subCategory.map((subCategory) => ({
+        label: subCategory,
+        value: subCategory,
+      })) || []
+
+  // 활동 지역 대분류 옵션을 구성합니다.
+  const mainAreaOptions = addressData.map((city) => ({
     label: city.name,
     value: city.name,
   }))
 
-  // 선택된 대분류에 따라 하위 옵션을 구성합니다.
-  const subOptions =
+  // 선택된 활동 지역 대분류에 따라 소분류 옵션을 구성합니다.
+  const subAreaOptions =
     addressData
       .find((city) => city.name === selectedCity)
-      ?.subArea.map((area) => ({
-        label: area,
-        value: area,
+      ?.subArea.map((district) => ({
+        label: district,
+        value: district,
       })) || []
 
   const statusOptions = [
@@ -91,19 +111,27 @@ export default function ProfileEditBasic() {
         {/* 포지션 */}
         <div className="flex flex-col gap-3">
           <span className="flex text-grey80">
-            포지션(데이터 넣어야함) <p className="text-main">*</p>
+            포지션 <p className="text-main">*</p>
           </span>
 
           <div className="flex w-full gap-[1.38rem]">
             <div className="flex w-[48%] flex-col gap-2">
               <span className="text-sm text-grey70">대분류</span>
-              <Select options={mainOptions} placeholder="도/광역시 선택" onChange={(value) => setSelectedCity(value)} />
+              <Select
+                options={mainPositionOptions}
+                placeholder="대분류 선택"
+                onChange={(value) => setSelectedCategory(value)}
+              />
             </div>
 
-            {selectedCity && (
+            {selectedCategory && (
               <div className="flex w-[48%] flex-col gap-2">
                 <span className="text-sm text-grey70">소분류</span>
-                <Select options={subOptions} placeholder="구/군 선택" />
+                <Select
+                  options={subPositionOptions}
+                  placeholder="소분류 선택"
+                  onChange={(value) => setSelectedSubCategory(value)}
+                />
               </div>
             )}
           </div>
@@ -118,13 +146,21 @@ export default function ProfileEditBasic() {
           <div className="flex w-full gap-[1.38rem]">
             <div className="flex w-[48%] flex-col gap-2">
               <span className="text-sm text-grey70">시/도</span>
-              <Select options={mainOptions} placeholder="도/광역시 선택" onChange={(value) => setSelectedCity(value)} />
+              <Select
+                options={mainAreaOptions}
+                placeholder="도/광역시 선택"
+                onChange={(value) => setSelectedCity(value)}
+              />
             </div>
 
             {selectedCity && (
               <div className="flex w-[48%] flex-col gap-2">
                 <span className="text-sm text-grey70">시/군/구</span>
-                <Select options={subOptions} placeholder="구/군 선택" />
+                <Select
+                  options={subAreaOptions}
+                  placeholder="구/군 선택"
+                  onChange={(value) => setSelectedDistrict(value)}
+                />
               </div>
             )}
           </div>
@@ -157,8 +193,8 @@ export default function ProfileEditBasic() {
                 onClick={() => handleStatusClick(status)}
                 className={`cursor-pointer rounded-lg border px-4 py-3 text-sm ${
                   selectedStatuses.includes(status)
-                    ? 'border-main bg-[#EEF4FF] text-main' // 선택된 상태의 스타일
-                    : 'border-grey40 bg-[#FCFCFD] text-grey50' // 기본 상태의 스타일
+                    ? 'border-main bg-[#EEF4FF] text-main'
+                    : 'border-grey40 bg-[#FCFCFD] text-grey50'
                 }`}
               >
                 {status}
