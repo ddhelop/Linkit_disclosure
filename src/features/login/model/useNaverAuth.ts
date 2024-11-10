@@ -21,7 +21,7 @@ export const useNaverAuth = (code: string | null) => {
 
         if (isMemberBasicInform) {
           // 기존 회원: Recoil 상태에 토큰 저장 후 홈으로 이동
-          setCookie('accessToken', accessToken)
+          localStorage.setItem('accessToken', accessToken)
           checkLogin()
           router.push('/')
         } else {

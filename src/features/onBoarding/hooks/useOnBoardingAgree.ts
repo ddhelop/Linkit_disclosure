@@ -41,7 +41,7 @@ export function useOnBoardingAgree() {
     const result = await submitConsentInfo(data, accessToken)
 
     if (result) {
-      setCookie('accessToken', accessToken)
+      localStorage.setItem('accessToken', accessToken)
       checkLogin()
       router.push('/login/onboarding-complete') // 온보딩 완료 페이지로 이동
     }
