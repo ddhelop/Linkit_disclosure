@@ -1,24 +1,28 @@
-'use client'
 // LeftMenu.tsx
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import React from 'react'
+import { useProfile } from '@/features/profile/edit/context/ProfileContext'
+import { ProfileBooleanMenuType } from '../types/ProfileLayoutType'
 
-const menuItems = [
-  { label: '미니 프로필', path: '/profile/edit/basic' },
-  { label: '보유 스킬', path: '/profile/edit/skills' },
-  { label: '이력', path: '/profile/edit/history' },
-  { label: '포트폴리오', path: '/profile/edit/portfolio' },
-  { label: '학력', path: '/profile/edit/education' },
-  { label: '수상', path: '/profile/edit/awards' },
-  { label: '자격증', path: '/profile/edit/certifications' },
-  { label: '링크', path: '/profile/edit/links' },
+const menuItems: { label: string; path: string; key: keyof ProfileBooleanMenuType }[] = [
+  { label: '미니 프로필', path: '/profile/edit/basic', key: 'isMiniProfile' },
+  { label: '보유 스킬', path: '/profile/edit/skills', key: 'isProfileSkill' },
+  { label: '이력', path: '/profile/edit/history', key: 'isProfileActivity' },
+  { label: '포트폴리오', path: '/profile/edit/portfolio', key: 'isProfilePortfolio' },
+  { label: '학력', path: '/profile/edit/education', key: 'isProfileEducation' },
+  { label: '수상', path: '/profile/edit/awards', key: 'isProfileAwards' },
+  { label: '자격증', path: '/profile/edit/certifications', key: 'isProfileLicense' },
+  { label: '링크', path: '/profile/edit/links', key: 'isProfileLink' },
 ]
 
 const LeftMenu = () => {
   const router = useRouter()
   const pathname = usePathname() // 현재 경로를 가져옵니다.
+  const { profileData } = useProfile() // ProfileProvider에서 제공하는 profileData를 가져옵니다.
+  const profileBooleanMenu = profileData?.profileBooleanMenu
 
   const handleNavigation = (path: string) => {
     router.push(path)
@@ -42,12 +46,14 @@ const LeftMenu = () => {
         </span>
       </Link>
 
-      {/* 왼쪽 메뉴바 - 프로필 관리*/}
+      {/* 왼쪽 메뉴바 - 프로필 관리 */}
       <div className="mt-5 flex w-full flex-col">
         <label className="rounded-xl bg-grey20 px-6 py-3">프로필 관리</label>
         <ul className="flex w-full flex-col items-end gap-1 pl-3 pr-6 pt-3">
           {menuItems.map((item, index) => {
-            const isActive = pathname === item.path // 현재 경로가 메뉴 항목 경로와 일치하는지 확인
+            const isActive = pathname === item.path
+            const isChecked = profileBooleanMenu?.[item.key] || false
+
             return (
               <li
                 key={index}
@@ -56,9 +62,15 @@ const LeftMenu = () => {
                   isActive ? 'font-semibold text-main' : 'text-grey80'
                 }`}
               >
-                {isActive && <span className="absolute left-0 h-[70%] w-[3px]  bg-main"></span>}
+                {isActive && <span className="absolute left-0 h-[70%] w-[3px] bg-main"></span>}
                 <span>{item.label}</span>
-                <div className="ml-2 h-[1.25rem] w-[1.25rem] rounded-full border border-grey40"></div>
+                <div className="ml-2 flex h-[1.25rem] w-[1.25rem] items-center justify-center">
+                  {isChecked ? (
+                    <Image src="/common/icons/check_icon.svg" width={16} height={16} alt="check" />
+                  ) : (
+                    <div className="h-[1.25rem] w-[1.25rem] rounded-full border border-grey40"></div>
+                  )}
+                </div>
               </li>
             )
           })}
