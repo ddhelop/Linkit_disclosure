@@ -26,7 +26,7 @@ export default function OnBoardingAgree() {
             height={24}
             alt="checkbox"
           />
-          <p className="text-lg">전체 동의하기</p>
+          <p className="">전체 동의하기</p>
         </div>
 
         {/* 개별 동의 항목 리스트 */}
@@ -46,23 +46,24 @@ export default function OnBoardingAgree() {
                 >
                   <Image
                     src={checkedItems[index] ? '/common/icons/btn_blue_check.svg' : '/common/icons/btn_check.svg'}
-                    width={24}
-                    height={24}
+                    width={16}
+                    height={16}
                     alt="checkbox"
                   />
                 </div>
-                <p className="text-grey60">{item}</p>
+                <p className="text-grey70">{item}</p>
               </div>
-              <Image src="/common/icons/right_arrow.svg" width={32} height={32} alt="arrow" />
+              {/* <Image src="/common/icons/right_arrow.svg" width={32} height={32} alt="arrow" /> */}
+              <div className="cursor-pointer text-sm text-grey60 underline">보기</div>
             </div>
           ))}
         </div>
 
         <div className="flex w-full justify-end">
           <Button
-            className="mt-9 text-white"
+            className="mt-[6.94rem] text-white"
             mode="main"
-            size="lg"
+            size="md"
             animationMode="main"
             disabled={!isNextEnabled}
             onClick={submitConsentInfoHandler} // 동의 정보를 제출하는 버튼

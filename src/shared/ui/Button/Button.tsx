@@ -56,7 +56,7 @@ const buttonTheme = {
 
   size: {
     sm: 'px-2 py-1.5 text-sm',
-    md: 'px-4 py-2 text-sm',
+    md: 'px-6 py-2 text-sm rounded-[0.5rem]',
     lg: 'px-[2rem] py-3 text-xl rounded-[0.75rem]',
   },
 }

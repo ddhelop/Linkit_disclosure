@@ -39,7 +39,7 @@ export default function OnBoardingInfo() {
           <Button
             className="mt-9 text-white"
             mode="main"
-            size="lg"
+            size="md"
             animationMode="main"
             disabled={!isButtonEnabled}
             onClick={submitOnBoardingInfo}

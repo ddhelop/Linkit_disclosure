@@ -17,12 +17,12 @@ export default function OnBoardingComplete() {
           <Link href={'/myResume'} className="flex w-full justify-center">
             <Button
               animationMode="main"
-              className="mt-[5.13rem] w-[90%] rounded-lg bg-main text-lg text-white lg:w-[50%]"
+              className="mt-[5.13rem] w-[90%] rounded-lg bg-main py-3 text-lg font-semibold text-white lg:w-[62%]"
             >
               프로필 작성하기
             </Button>
           </Link>
-          <Link href={'/'} className="mt-8 cursor-pointer font-normal text-grey60 underline">
+          <Link href={'/'} className="mt-8 cursor-pointer text-sm font-normal text-grey60 underline">
             나중에 입력하기
           </Link>
         </div>
