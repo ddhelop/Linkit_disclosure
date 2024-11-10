@@ -1,4 +1,9 @@
-export async function fetchProfileData(accessToken: string) {
+// profileEditApi.ts
+
+export async function fetchProfileData() {
+  const accessToken = localStorage.getItem('accessToken') || '' // 클라이언트 컴포넌트에서만 실행 가능
+  console.log('accessToken:', accessToken)
+
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/profile/left/menu`, {
       method: 'GET',
@@ -16,6 +21,6 @@ export async function fetchProfileData(accessToken: string) {
     return await response.json()
   } catch (error) {
     console.error('Error fetching profile data:', error)
-    throw error // 필요에 따라 에러를 다시 던져 호출부에서 처리
+    throw error
   }
 }
