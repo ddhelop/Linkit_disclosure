@@ -32,8 +32,8 @@ export default function ProfileEditClient({ children }: ProfileEditClientProps) 
 
   return (
     <ProfileProvider profileData={profileData}>
-      <div className="flex bg-white pl-[8.69rem]">
-        <aside className="flex w-1/4 flex-col pt-[3.75rem]">
+      <div className="flex bg-white ">
+        <aside className="flex w-[28%] flex-col items-end pr-[4.5rem] pt-[3.75rem]">
           <ProfileProgress />
           <MiniProfileCard />
           <LeftMenu />
