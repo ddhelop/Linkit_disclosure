@@ -3,13 +3,14 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { submitMemberInfo } from '../api/memberApi'
+import { usePhoneNumberFormatter } from '@/shared/hooks/usePhoneNumberFormatter'
 
 export function useOnBoarding() {
   const [name, setName] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
   const [email, setEmail] = useState('')
   const searchParams = useSearchParams()
   const router = useRouter()
+  const { phoneNumber, setPhoneNumber } = usePhoneNumberFormatter()
 
   // URL 쿼리스트링에서 이메일 정보 가져오기
   useEffect(() => {
@@ -23,18 +24,6 @@ export function useOnBoarding() {
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value)
-  }
-
-  // 전화번호 입력 시 자동으로 하이픈(-) 추가
-  const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const input = event.target.value.replace(/\D/g, '')
-    if (input.length > 11) return
-
-    const formattedNumber = input.replace(
-      /(\d{3})(\d{0,4})(\d{0,4})/,
-      (match, p1, p2, p3) => `${p1}${p2 ? `-${p2}` : ''}${p3 ? `-${p3}` : ''}`,
-    )
-    setPhoneNumber(formattedNumber)
   }
 
   // 회원 정보 제출 후 페이지 이동
@@ -61,7 +50,7 @@ export function useOnBoarding() {
     phoneNumber,
     email,
     setName: handleNameChange,
-    setPhoneNumber: handlePhoneNumberChange,
+    setPhoneNumber,
     isButtonEnabled,
     submitOnBoardingInfo,
   }
