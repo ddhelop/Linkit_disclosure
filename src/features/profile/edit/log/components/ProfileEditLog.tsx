@@ -57,17 +57,11 @@ export default function ProfileEditLog() {
           </div>
 
           {/* 수정, 삭제, 더보기 버튼 */}
-          <div className="absolute right-0 top-1/2 flex -translate-y-1/2 gap-2 pr-10 opacity-0 transition-opacity duration-100 group-hover:opacity-100">
-            <button className="rounded border border-grey30 bg-[#FCFCFD] px-2 py-1 text-xs hover:border-grey40 hover:shadow-md">
-              수정
-            </button>
-            <button className="mr-2 rounded border border-grey30 bg-[#FCFCFD] px-2 py-1 text-xs text-red-500 hover:border-grey40 hover:shadow-md">
-              삭제
-            </button>
+          <div className="absolute right-0 top-1/2 flex -translate-y-1/2 gap-2 pr-6  duration-100 ">
             <Image
-              src="/common/icons/more.svg"
-              width={5}
-              height={3}
+              src="/common/icons/more_row.svg"
+              width={22}
+              height={22}
               alt="more"
               className="cursor-pointer"
               onClick={toggleMenu}
@@ -78,10 +72,12 @@ export default function ProfileEditLog() {
           {showMenu && (
             <div
               id="menu"
-              className="absolute right-0 mt-2 w-32 rounded-lg border border-grey40 bg-white p-2 shadow-lg"
+              className="absolute right-0 mt-2 flex w-32 flex-col rounded-lg border border-grey40 bg-white p-2 shadow-lg"
             >
-              <div className="cursor-pointer px-2 py-1 text-sm text-grey80 hover:bg-grey10">공개/비공개</div>
-              <div className="cursor-pointer px-2 py-1 text-sm text-grey80 hover:bg-grey10">대표글로 설정</div>
+              <div className="cursor-pointer px-2 py-2 text-sm text-grey70 hover:bg-grey10">수정하기</div>
+              <div className="cursor-pointer px-2 py-1 text-sm text-grey70 hover:bg-grey10">공개/비공개</div>
+              <div className="cursor-pointer px-2 py-1 text-sm text-grey70 hover:bg-grey10">대표글로 설정</div>
+              <div className="cursor-pointer px-2 py-1 text-sm text-[#FF345F] hover:bg-grey10">삭제하기</div>
             </div>
           )}
         </div>
