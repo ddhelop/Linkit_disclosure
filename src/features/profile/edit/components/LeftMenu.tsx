@@ -82,12 +82,14 @@ const LeftMenu = () => {
         <label className="rounded-xl bg-grey20 px-6 py-3">계정 관리</label>
         <ul className="flex w-full flex-col items-end gap-1 pt-3">
           <li
-            onClick={() => handleNavigation('/settings')}
+            onClick={() => handleNavigation('/profile/edit/account')}
             className={`relative mt-2 flex w-[90%] cursor-pointer items-center justify-between py-[0.31rem] pl-4 pr-8 ${
               pathname === '/settings' ? 'font-semibold text-main' : 'text-grey80'
             }`}
           >
-            {pathname === '/settings' && <span className="absolute left-0 h-full w-1 rounded-full bg-main"></span>}
+            {pathname === '/profile/edit/account' && (
+              <span className="absolute left-0 h-full w-1 rounded-full bg-main"></span>
+            )}
             <span>계정 설정</span>
             <div className="ml-2 hidden h-[1.25rem] w-[1.25rem] rounded-full border border-grey40"></div>
           </li>
