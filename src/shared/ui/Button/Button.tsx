@@ -4,7 +4,7 @@
 import { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 
-type Mode = 'main' | 'sub' | 'toggle'
+type Mode = 'main' | 'sub' | 'toggle' | 'main2'
 type Size = 'sm' | 'md' | 'lg'
 type Type = 'button' | 'submit'
 type AnimationMode = 'none' | 'main' | 'sub'
@@ -50,6 +50,7 @@ export function Button({
 const buttonTheme = {
   mode: {
     main: 'text-white bg-main',
+    main2: 'bg-main2 text-white',
     sub: 'text-main border-main bg-white',
     toggle: 'text-main border-main bg-[#D3E1FE66]',
   },

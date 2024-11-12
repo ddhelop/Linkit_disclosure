@@ -41,6 +41,7 @@ const config: Config = {
         red10: '#FFD3DD',
         red60: '#FF345F',
         main: '#2563EB',
+        main2: '#4D82F3',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
