@@ -1,4 +1,4 @@
-import ProfileEditSkills from '@/features/profile/edit/skills/ProfileEditSkills'
+import ProfileEditSkills from '@/features/profile/edit/components/ProfileEditSkills'
 
 export default function ProfileEditSkillsPage() {
   return (

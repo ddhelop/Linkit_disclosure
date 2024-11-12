@@ -1,4 +1,4 @@
-import ProfileEditHistory from '@/features/profile/edit/history/ProfileEditHistory'
+import ProfileEditHistory from '@/features/profile/edit/components/ProfileEditHistory'
 
 export default function ProfileEditHistoryPage() {
   return (

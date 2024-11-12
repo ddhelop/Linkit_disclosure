@@ -1,4 +1,4 @@
-import ProfileEditAccount from '@/features/profile/edit/account/ProfileEditAccount'
+import ProfileEditAccount from '@/features/profile/edit/components/ProfileEditAccount'
 
 export default function ProfileEditAccountPage() {
   return (

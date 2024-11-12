@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useProfile } from '@/features/profile/edit/context/ProfileContext'
-import { ProfileBooleanMenuType } from '../types/ProfileLayoutType'
+import { ProfileBooleanMenuType } from '../../types/ProfileLayoutType'
 
 const menuItems: { label: string; path: string; key: keyof ProfileBooleanMenuType }[] = [
   { label: '미니 프로필', path: '/profile/edit/basic', key: 'isMiniProfile' },

@@ -1,4 +1,4 @@
-import ProfileEditBasic from '@/features/profile/edit/basic/components/ProfileEditBasic'
+import ProfileEditBasic from '@/features/profile/edit/components/ProfileEditBasic'
 
 export default function ProfileEditBasicPage() {
   return (

@@ -1,4 +1,4 @@
-import ProfileEditLog from '@/features/profile/edit/log/components/ProfileEditLog'
+import ProfileEditLog from '@/features/profile/edit/components/ProfileEditLog'
 
 export default function ProfileEditLogPage() {
   return (

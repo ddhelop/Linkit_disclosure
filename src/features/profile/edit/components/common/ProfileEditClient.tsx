@@ -2,12 +2,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import LeftMenu from '@/features/profile/edit/components/LeftMenu'
+import LeftMenu from '@/features/profile/edit/components/common/LeftMenu'
 import MiniProfileCard from '@/shared/components/MiniProfileCard'
-import ProfileProgress from '@/features/profile/edit/components/ProfileProgress'
+import ProfileProgress from '@/features/profile/edit/components/common/ProfileProgress'
 import { ProfileProvider } from '@/features/profile/edit/context/ProfileContext'
 import { fetchProfileData } from '@/features/profile/edit/api/profileEditApi'
-import { ResultType } from '../types/ProfileLayoutType'
+import { ResultType } from '../../types/ProfileLayoutType'
 
 type ProfileEditClientProps = {
   children: React.ReactNode
