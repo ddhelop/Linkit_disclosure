@@ -12,9 +12,10 @@ interface SelectProps {
   options: SelectOption[]
   placeholder?: string
   onChange?: (value: string) => void
+  className?: string
 }
 
-const Select: React.FC<SelectProps> = ({ options, placeholder = '선택', onChange }) => {
+const Select: React.FC<SelectProps> = ({ options, placeholder = '선택', onChange, className = '' }) => {
   const [selectedValue, setSelectedValue] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const selectRef = useRef<HTMLDivElement>(null)
@@ -49,7 +50,7 @@ const Select: React.FC<SelectProps> = ({ options, placeholder = '선택', onChan
   }, [])
 
   return (
-    <div className="relative w-full" ref={selectRef}>
+    <div className={`relative ${className}`} ref={selectRef}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
