@@ -1,6 +1,7 @@
 'use client'
 import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
+import DateRangePicker from '@/shared/ui/Select/DateRangePicker'
 import Select from '@/shared/ui/Select/Select'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import Image from 'next/image'
@@ -9,8 +10,8 @@ import { useState } from 'react'
 export default function NewPortFolio() {
   const [isTeam, setIsTeam] = useState(false) // 개인/팀 토글 상태 관리
   const [isOngoing, setIsOngoing] = useState(false) // 진행 중 상태 관리
+  const [startDate, setStartDate] = useState('') // 시작 날짜 입력 값
   const [endDate, setEndDate] = useState('') // 종료 날짜 입력 값
-
   const handleToggle = () => {
     setIsTeam((prev) => !prev)
   }
@@ -98,35 +99,14 @@ export default function NewPortFolio() {
         </div>
 
         {/* 기간 */}
-        <div className="flex flex-col gap-3">
-          <span className="flex w-[10.6rem]">
-            기간<span className="text-main">*</span>
-          </span>
-          <div className="flex w-full items-center gap-2">
-            <Input placeholder="시작일자" className="w-[49%]" />
-            <span>~</span>
-            <Input
-              placeholder="종료일자"
-              className="w-[49%]"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              disabled={isOngoing} // 진행 중일 때 비활성화
-            />
-          </div>
-          <div className="flex cursor-pointer gap-2" onClick={handleOngoingToggle}>
-            <div
-              className={`rounded-[0.32rem] border p-[0.32rem] ${isOngoing ? 'bg-[#D3E1FE]' : 'border-grey40 bg-grey20'}`}
-            >
-              <Image
-                src={`/common/icons/${isOngoing ? 'btn_blue_check.svg' : 'btn_check.svg'}`}
-                width={13}
-                height={13}
-                alt="check-icon"
-              />
-            </div>
-            <span className="text-grey70"> 진행 중</span>
-          </div>
-        </div>
+        <DateRangePicker
+          startDate={startDate}
+          endDate={endDate}
+          isOngoing={isOngoing}
+          onStartDateChange={setStartDate}
+          onEndDateChange={setEndDate}
+          onToggleOngoing={handleOngoingToggle}
+        />
 
         {/* 역할 및 기여도 */}
         <div className="flex flex-col gap-3">
