@@ -27,7 +27,7 @@ const Input: React.FC<InputProps> = ({
       defaultValue={value === undefined ? '' : undefined}
       onChange={onChange}
       placeholder={placeholder}
-      className={`rounded-xl border-[1.5px] border-grey30 px-4 py-2 focus:border-[1.5px] focus:border-main focus:outline-none ${className}`}
+      className={`rounded-xl border-[1.5px] border-grey30 px-4 py-3 placeholder:text-grey40 focus:border-[1.5px] focus:border-main focus:outline-none ${className}`}
       disabled={disabled}
     />
   )
