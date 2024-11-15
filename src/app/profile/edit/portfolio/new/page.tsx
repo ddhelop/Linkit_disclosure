@@ -1,4 +1,4 @@
-import NewPortFolio from '@/features/profile/edit/components/portfolio/NewPortFolio'
+import NewPortFolio from '@/features/profile/edit/components/New/NewPortFolio'
 
 export default function NewPortFolioPage() {
   return (
