@@ -30,6 +30,7 @@ export async function refreshAccessToken() {
 
 // 인증이 필요한 요청을 처리하는 함수
 export async function fetchWithAuth(url: string, options: RequestInit = {}, retry = true) {
+  const apiUrl = `${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}${url}` // 절대 경로로 변환
   let accessToken = localStorage.getItem('accessToken') || ''
 
   // 기존 요청에 Authorization 헤더 추가
@@ -40,7 +41,7 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
 
   options.credentials = 'include' // 쿠키를 포함하여 요청
 
-  const response = await fetch(url, options)
+  const response = await fetch(apiUrl, options)
 
   // 액세스 토큰 만료 시 처리
   if (response.status === 403 && retry) {
@@ -52,7 +53,7 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
         ...options.headers,
         Authorization: `Bearer ${accessToken}`,
       }
-      return fetch(url, options)
+      return fetch(apiUrl, options)
     } catch (error) {
       console.error('Redirecting to login due to failed token refresh')
       // 액세스 토큰 재발급 실패 시 로그인 페이지로 리다이렉트 처리 가능
