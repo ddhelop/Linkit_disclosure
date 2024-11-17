@@ -1,11 +1,24 @@
 import Image from 'next/image'
+import { useState } from 'react'
+
+import Modal from '../../../../../shared/ui/Modal/Modal'
+import CertificationUploadForm from './CertificationUploadForm'
 
 export default function CertificationForm() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleModalToggle = () => {
+    setIsModalOpen((prev) => !prev)
+  }
+
   return (
     <div className="flex flex-col rounded-xl bg-white p-10">
       <span>인증</span>
 
-      <div className="mt-3 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-grey30 bg-grey20 py-5">
+      <div
+        className="mt-3 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-grey30 bg-grey20 py-5"
+        onClick={handleModalToggle}
+      >
         <div className="flex gap-2">
           <Image src="/common/icons/black_plus.svg" width={13} height={13} alt="plus" />
           <span className="text-sm font-semibold text-grey70">인증서 추가하기</span>
@@ -26,6 +39,11 @@ export default function CertificationForm() {
           • 문제가 발생하면 <p className="pl-1 text-main">채널톡</p>으로 문의해 주세요
         </p>
       </div>
+
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} onClose={handleModalToggle}>
+        <CertificationUploadForm onClose={handleModalToggle} />
+      </Modal>
     </div>
   )
 }
