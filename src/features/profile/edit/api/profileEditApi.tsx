@@ -4,7 +4,7 @@ import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 
 export async function fetchProfileData() {
   try {
-    const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/profile/left/menu`, {
+    const response = await fetchWithAuth(`/api/v1/profile/left/menu`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
