@@ -1,39 +1,72 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { getActivities } from '../../api/profileActivityApi'
+
+interface ActivityItem {
+  profileActivityId: number
+  activityName: string
+  activityRole: string
+  activityStartDate: string
+  activityEndDate: string
+}
 
 export default function ElementComponent() {
+  const [activities, setActivities] = useState<ActivityItem[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const data = await getActivities()
+        setActivities(data)
+      } catch (error) {
+        console.error('Failed to fetch activities:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchActivities()
+  }, [])
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (activities.length === 0) {
+    return <div>활동 내역이 없습니다.</div>
+  }
+
+  return (
+    <div>
+      {activities.map((activity) => (
+        <ActivityRow key={activity.profileActivityId} activity={activity} />
+      ))}
+    </div>
+  )
+}
+
+function ActivityRow({ activity }: { activity: ActivityItem }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
 
   const handleToggleMenu = () => {
     setIsMenuOpen((prev) => !prev)
   }
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-      setIsMenuOpen(false)
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
-
   return (
     <div className="relative flex items-center justify-between gap-1 rounded-lg px-6 py-5 hover:bg-grey10">
       <div className="gap-2">
-        <span className="cursor-pointer font-semibold text-grey80">리에종</span>
+        <span className="cursor-pointer font-semibold text-grey80">{activity.activityName}</span>
         <div className="flex gap-4 text-xs">
-          <span className="text-grey80">Frontend Developer</span>
-          <span className="text-grey60">2022.06. ~ 2026.06</span>
+          <span className="text-grey80">{activity.activityRole}</span>
+          <span className="text-grey60">
+            {activity.activityStartDate} ~ {activity.activityEndDate}
+          </span>
         </div>
       </div>
 
-      <div className="relative" ref={menuRef}>
+      <div className="relative">
         <Image
           src="/common/icons/more_row.svg"
           width={22}
@@ -48,13 +81,13 @@ export default function ElementComponent() {
             <ul className="py-2 text-xs">
               <li
                 className="cursor-pointer px-4 py-1 text-grey70 hover:bg-grey10"
-                onClick={() => alert('수정하기 클릭됨')}
+                onClick={() => alert(`${activity.activityName} 수정하기 클릭됨`)}
               >
                 수정하기
               </li>
               <li
                 className="cursor-pointer px-4 py-1 text-red-500 hover:bg-grey10"
-                onClick={() => alert('삭제하기 클릭됨')}
+                onClick={() => alert(`${activity.activityName} 삭제하기 클릭됨`)}
               >
                 삭제하기
               </li>
