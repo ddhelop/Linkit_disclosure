@@ -3,22 +3,64 @@ import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import DateRangePicker from '@/shared/ui/Select/DateRangePicker'
 import Textarea from '@/shared/ui/TextArea/TextArea'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import CertificationForm from './CertificationForm'
-import { addActivity } from '../../api/profileActivityApi'
+import { useSearchParams } from 'next/navigation'
+import { getActivityById, saveActivity } from '../../api/profileActivityApi'
 
 export default function NewHistory() {
+  const searchParams = useSearchParams()
+  const activityId = searchParams.get('id') // URL 쿼리에서 id 가져오기
   const [activityName, setActivityName] = useState('')
   const [activityRole, setActivityRole] = useState('')
   const [activityDescription, setActivityDescription] = useState('')
-  const [isOngoing, setIsOngoing] = useState(false) // 진행 중 상태 관리
-  const [startDate, setStartDate] = useState('') // 시작 날짜 입력 값
-  const [endDate, setEndDate] = useState('') // 종료 날짜 입력 값
-  const [isSubmitting, setIsSubmitting] = useState(false) // 요청 중 상태 관리
+  const [isOngoing, setIsOngoing] = useState(false)
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // CertificationForm의 상태 정의
+  const [certificationData, setCertificationData] = useState({
+    isActivityCertified: false,
+    isActivityInProgress: false,
+    isActivityVerified: false,
+    activityCertificationAttachFilePath: null as string | null, // 타입 수정
+  })
+
+  useEffect(() => {
+    if (activityId) {
+      const fetchActivity = async () => {
+        try {
+          const activity = await getActivityById(activityId)
+          setActivityName(activity.activityName)
+          setActivityRole(activity.activityRole)
+          setActivityDescription(activity.activityDescription)
+          setStartDate(activity.activityStartDate)
+          setEndDate(activity.activityEndDate || '')
+          setIsOngoing(activity.isActivityInProgress)
+
+          setCertificationData({
+            isActivityCertified: activity.isActivityCertified,
+            isActivityInProgress: activity.isActivityInProgress,
+            isActivityVerified: activity.isActivityVerified,
+            activityCertificationAttachFilePath: activity.activityCertificationAttachFilePath,
+          })
+        } catch (error) {
+          console.error('Failed to load activity:', error)
+        }
+      }
+
+      fetchActivity()
+    }
+  }, [activityId])
 
   const handleOngoingToggle = () => {
     setIsOngoing((prev) => !prev)
     setEndDate('') // "진행 중"을 선택할 때 종료 날짜 초기화
+    setCertificationData((prev) => ({
+      ...prev,
+      isActivityInProgress: !prev.isActivityInProgress,
+    }))
   }
 
   const handleSave = async () => {
@@ -34,12 +76,7 @@ export default function NewHistory() {
         activityDescription,
       }
 
-      const response = await addActivity(activityData)
-
-      if (!response.ok) {
-        throw new Error(`Failed to save activity. Status: ${response.status}`)
-      }
-
+      await saveActivity(activityData)
       alert('활동 이력이 성공적으로 저장되었습니다.')
     } catch (error) {
       console.error('저장 중 에러 발생:', error)
@@ -47,6 +84,13 @@ export default function NewHistory() {
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  const handleCertificationUpdate = (updatedData: Partial<typeof certificationData>) => {
+    setCertificationData((prev) => ({
+      ...prev,
+      ...updatedData,
+    }))
   }
 
   return (
@@ -115,7 +159,10 @@ export default function NewHistory() {
         </Button>
       </div>
 
-      <CertificationForm />
+      {/* CertificationForm은 상태에 따라 렌더링 */}
+      {certificationData.isActivityInProgress && (
+        <CertificationForm {...certificationData} onCertificationUpdate={handleCertificationUpdate} />
+      )}
     </>
   )
 }

@@ -1,10 +1,20 @@
+'use client'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { requestCertification } from '../../api/certificationApi'
 
-export default function CertificationUploadForm({ onClose }: { onClose: () => void }) {
+interface CertificationUploadFormProps {
+  onClose: () => void
+  onCertificationUpdate: (updatedData: { isActivityCertified: boolean; isActivityInProgress: boolean }) => void
+}
+
+export default function CertificationUploadForm({ onClose, onCertificationUpdate }: CertificationUploadFormProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false) // 요청 상태 관리
+  const searchParams = useSearchParams()
+  const activityId = searchParams.get('id') // URL에서 id 가져오기
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -31,32 +41,22 @@ export default function CertificationUploadForm({ onClose }: { onClose: () => vo
   }
 
   const handleSubmit = async () => {
-    if (!selectedFile) {
+    if (!selectedFile || !activityId) {
       setErrorMessage('파일을 업로드 해주세요.')
       return
     }
 
     setIsSubmitting(true) // 요청 시작 상태
     try {
-      const formData = new FormData()
-      formData.append('profileActivityCertificationFile', selectedFile)
+      await requestCertification(activityId, selectedFile)
+      alert('인증 요청이 성공적으로 완료되었습니다.')
 
-      const response = await fetch('/api/v1/profile/activity/certification/1', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`, // accessToken 추가
-        },
-        body: formData, // FormData 추가
-        credentials: 'include', // 쿠키 포함
+      // 부모 상태 업데이트
+      onCertificationUpdate({
+        isActivityCertified: true,
+        isActivityInProgress: true,
       })
 
-      if (!response.ok) {
-        throw new Error('서버 응답이 올바르지 않습니다.')
-      }
-
-      const data = await response.json()
-      console.log('응답 데이터:', data)
-      alert('인증 요청이 성공적으로 완료되었습니다.')
       onClose()
     } catch (error) {
       console.error('요청 중 에러 발생:', error)
