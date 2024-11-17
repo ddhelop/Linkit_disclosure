@@ -3,7 +3,9 @@ import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import DateRangePicker from '@/shared/ui/Select/DateRangePicker'
 import Textarea from '@/shared/ui/TextArea/TextArea'
+import Image from 'next/image'
 import { useState } from 'react'
+import CertificationForm from './CertificationForm'
 
 export default function NewHistory() {
   const [isOngoing, setIsOngoing] = useState(false) // 진행 중 상태 관리
@@ -53,9 +55,7 @@ export default function NewHistory() {
 
         {/* 설명 */}
         <div className="flex flex-col gap-3">
-          <span className="flex">
-            역할<span className="text-main">*</span>
-          </span>
+          <span className="flex">설명</span>
 
           <Textarea
             placeholder="회사, 동아리, 학회 등에 대한 자세한 정보와 자신의 역할을 작성해 보세요"
@@ -63,11 +63,13 @@ export default function NewHistory() {
           />
         </div>
       </div>
-      <div className="mt-5 flex justify-end">
+      <div className="mb-10 mt-5 flex justify-end">
         <Button mode="main" animationMode="main" className=" rounded-xl font-semibold">
           저장하기
         </Button>
       </div>
+
+      <CertificationForm />
     </>
   )
 }
