@@ -20,7 +20,7 @@ export default function Header() {
   useEffect(() => {
     checkLogin()
     setLoading(false)
-  }, [isLogin])
+  }, [isLogin, checkLogin])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -62,7 +62,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-[100] flex h-[4.5rem] w-full justify-between bg-white px-4 text-sm md:px-10">
+      <header className="sticky top-0 z-[100] flex h-[4rem] w-full justify-between bg-white px-4 text-sm md:px-10">
         <div className="flex h-full items-center">
           <Link href="/">
             <Image
@@ -76,19 +76,19 @@ export default function Header() {
           <div className="ml-12 hidden h-full items-center text-grey60 md:flex">
             <Link
               href="/"
-              className="mt-2 flex w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
+              className="mt-2 flex h-full w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
             >
               팀원
             </Link>
             <Link
               href="/"
-              className="mt-2 flex w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
+              className="mt-2 flex h-full w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
             >
               팀
             </Link>
             <Link
               href="/"
-              className="mt-2 flex w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
+              className="mt-2 flex h-full w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
             >
               모집 공고
             </Link>
@@ -103,7 +103,7 @@ export default function Header() {
                   매칭 관리
                 </Link>
                 <button
-                  className="toggle-button flex rounded-[1.38rem] px-[1.62rem] py-[0.38rem] font-semibold"
+                  className="toggle-button flex rounded-[1.38rem] py-[0.38rem] pr-[1.62rem] font-semibold"
                   onClick={toggleModal}
                 >
                   마이페이지{' '}
@@ -125,7 +125,7 @@ export default function Header() {
             <div className="relative hidden gap-[1.38rem] md:flex">
               <div className="flex items-center">
                 <Link
-                  className="rounded-[1.375rem] bg-[#4D82F3] px-[1.62rem] py-[0.38rem] text-white transition-colors duration-100 hover:bg-main hover:text-white hover:ring-4"
+                  className="rounded-[1.38rem] bg-[#4D82F3] px-[1.62rem] py-[0.38rem] text-white transition-colors duration-100 hover:bg-main hover:text-white hover:ring-4"
                   href="/profile"
                 >
                   매칭 관리
@@ -133,7 +133,7 @@ export default function Header() {
               </div>
 
               <button
-                className="toggle-button flex items-center rounded-[1.38rem] px-[1.62rem] py-[0.38rem] "
+                className="toggle-button flex items-center rounded-[1.38rem] py-[0.38rem] pr-[1.62rem] "
                 onClick={toggleModal}
               >
                 <p>마이페이지</p>
