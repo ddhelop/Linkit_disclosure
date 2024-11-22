@@ -222,6 +222,7 @@ export default function ProfileEditBasic() {
               <span className="text-sm text-grey70">대분류</span>
               <Select
                 options={mainPositionOptions}
+                value={selectedCategory}
                 placeholder="대분류 선택"
                 onChange={(value) => setSelectedCategory(value)}
               />
@@ -231,6 +232,7 @@ export default function ProfileEditBasic() {
               <span className="text-sm text-grey70">소분류</span>
               <Select
                 options={subPositionOptions}
+                value={selectedSubCategory}
                 placeholder={selectedCategory ? '소분류 선택' : '대분류를 먼저 선택해주세요'}
                 onChange={(value) => setSelectedSubCategory(value)}
                 disabled={!selectedCategory}
@@ -250,6 +252,7 @@ export default function ProfileEditBasic() {
               <span className="text-sm text-grey70">시/도</span>
               <Select
                 options={mainAreaOptions}
+                value={selectedCity}
                 placeholder="도/광역시 선택"
                 onChange={(value) => setSelectedCity(value)}
               />
@@ -259,6 +262,7 @@ export default function ProfileEditBasic() {
               <span className="text-sm text-grey70">시/군/구</span>
               <Select
                 options={selectedCity ? subAreaOptions : []}
+                value={selectedDistrict}
                 placeholder={selectedCity ? '구/군 선택' : '도/광역시를 먼저 선택해주세요'}
                 onChange={(value) => setSelectedDistrict(value)}
               />

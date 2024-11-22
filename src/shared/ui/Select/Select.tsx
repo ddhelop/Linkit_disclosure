@@ -14,6 +14,7 @@ interface SelectProps {
   onChange?: (value: string) => void
   className?: string
   disabled?: boolean
+  value: string
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -22,6 +23,7 @@ const Select: React.FC<SelectProps> = ({
   onChange,
   className = '',
   disabled = false,
+  value,
 }) => {
   const [selectedValue, setSelectedValue] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
