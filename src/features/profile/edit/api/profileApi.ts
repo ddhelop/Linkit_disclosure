@@ -12,8 +12,8 @@ export async function fetchProfileData(): Promise<ProfileData> {
   return data.result
 }
 
-export async function updateProfile(profileId: number, formData: FormData): Promise<void> {
-  const response = await fetchWithAuth(`/api/v1/miniProfile/${profileId}`, {
+export async function updateProfile(formData: FormData): Promise<void> {
+  const response = await fetchWithAuth(`/api/v1/miniProfile`, {
     method: 'POST',
     body: formData,
   })

@@ -10,10 +10,8 @@ interface ActivityData {
   activityDescription: string
 }
 
-// 활동 추가/수정 API
 export const saveActivity = async (activityData: ActivityData) => {
-  const url = '/api/v1/profile/activity'
-  const response = await fetchWithAuth(url, {
+  const response = await fetchWithAuth('/api/v1/profile/activity', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -25,7 +23,7 @@ export const saveActivity = async (activityData: ActivityData) => {
     throw new Error('Failed to save activity')
   }
 
-  return response
+  return response.json()
 }
 
 // 이력 전체 조회
