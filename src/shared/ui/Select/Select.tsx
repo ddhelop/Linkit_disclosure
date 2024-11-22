@@ -13,9 +13,16 @@ interface SelectProps {
   placeholder?: string
   onChange?: (value: string) => void
   className?: string
+  disabled?: boolean
 }
 
-const Select: React.FC<SelectProps> = ({ options, placeholder = '선택', onChange, className = '' }) => {
+const Select: React.FC<SelectProps> = ({
+  options,
+  placeholder = '선택',
+  onChange,
+  className = '',
+  disabled = false,
+}) => {
   const [selectedValue, setSelectedValue] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const selectRef = useRef<HTMLDivElement>(null)
