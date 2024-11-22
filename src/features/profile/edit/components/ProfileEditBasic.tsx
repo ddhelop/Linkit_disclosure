@@ -7,7 +7,8 @@ import Input from '@/shared/ui/Input/Input'
 import Radio from '@/shared/ui/Radio/Radio'
 import Select from '@/shared/ui/Select/Select'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 
 export default function ProfileEditBasic() {
   const [selectedCategory, setSelectedCategory] = useState('')
@@ -15,11 +16,47 @@ export default function ProfileEditBasic() {
   const [selectedCity, setSelectedCity] = useState('')
   const [selectedDistrict, setSelectedDistrict] = useState('')
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([])
-  const [selectedOption, setSelectedOption] = useState<string>('option1')
+  const [isProfilePublic, setIsProfilePublic] = useState<boolean>(true)
+  const [profileImage, setProfileImage] = useState<File | null>(null)
+  const [profileImagePreview, setProfileImagePreview] = useState<string>('')
+  const [name, setName] = useState('')
+  const [profileImagePath, setProfileImagePath] = useState('')
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await fetchWithAuth('/api/v1/miniProfile')
+
+        if (response.ok) {
+          const data = await response.json()
+          const profileData = data.result
+
+          // 받아온 데이터로 상태 업데이트
+          setName(profileData.memberName)
+          setSelectedCategory(profileData.profilePositionItem.majorPosition)
+          setSelectedSubCategory(profileData.profilePositionItem.subPosition)
+          setSelectedCity(profileData.cityName)
+          setSelectedDistrict(profileData.divisionName)
+          setSelectedStatuses(
+            profileData.profileCurrentStateItems.profileCurrentStates.map(
+              (state: { profileStateName: string }) => state.profileStateName,
+            ),
+          )
+          setIsProfilePublic(profileData.isProfilePublic)
+          setProfileImagePath(profileData.profileImagePath)
+        }
+      } catch (error) {
+        console.error('프로필 데이터 로딩 중 오류 발생:', error)
+        alert('프로필 데이터를 불러오는데 실패했습니다.')
+      }
+    }
+
+    fetchProfileData()
+  }, [])
 
   const options = [
-    { label: '전체공개', value: '전체공개' },
-    { label: '비공개', value: '비공개' },
+    { label: '전체공개', value: 'true' },
+    { label: '비공개', value: 'false' },
   ]
 
   // 포지션 대분류 옵션을 구성합니다.
@@ -72,6 +109,91 @@ export default function ProfileEditBasic() {
     setSelectedStatuses((prev) => prev.filter((s) => s !== status))
   }
 
+  const handleProfileVisibilityChange = (value: string) => {
+    setIsProfilePublic(value === 'true')
+  }
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      // 파일 크기 체크 (10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        alert('파일 크기는 10MB 이하여야 합니다.')
+        return
+      }
+
+      // 파일 타입 체크
+      if (!['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'].includes(file.type)) {
+        alert('PNG, JPG, GIF, SVG 파일만 업로드 가능합니다.')
+        return
+      }
+
+      setProfileImage(file)
+      // 미리보기 URL 생성
+      const previewUrl = URL.createObjectURL(file)
+      setProfileImagePreview(previewUrl)
+    }
+  }
+
+  const handleImageDelete = () => {
+    setProfileImage(null)
+    setProfileImagePreview('')
+    // 기본 이미지로 돌아가기
+    setProfileImagePath('/common/default_profile.svg')
+  }
+
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData()
+
+      if (profileImage) {
+        formData.append('profileImage', profileImage)
+      }
+
+      const updateMiniProfileRequest = {
+        majorPosition: selectedCategory,
+        subPosition: selectedSubCategory,
+        cityName: selectedCity,
+        divisionName: selectedDistrict,
+        profileStateNames: selectedStatuses,
+        isProfilePublic: isProfilePublic,
+      }
+
+      formData.append(
+        'updateMiniProfileRequest',
+        new Blob([JSON.stringify(updateMiniProfileRequest)], {
+          type: 'application/json',
+        }),
+      )
+
+      const response = await fetchWithAuth('/api/v1/miniProfile/1', {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (response.ok) {
+        alert('프로필이 성공적으로 수정되었습니다.')
+      } else {
+        const errorData = await response.json()
+        throw new Error(errorData.message || '프로필 수정에 실패했습니다.')
+      }
+    } catch (error) {
+      console.error('프로필 수정 중 오류 발생:', error)
+      alert('프로필 수정 중 오류가 발생했습니다.')
+    }
+  }
+
+  // 필수 데이터 유효성 검사
+  const isFormValid = () => {
+    return (
+      name.trim() !== '' && // 이름
+      selectedCategory !== '' && // 포지션 대분류
+      selectedSubCategory !== '' && // 포지션 소분류
+      selectedCity !== '' && // 활동지역 시/도
+      selectedDistrict !== '' // 활동지역 시/군/구
+    )
+  }
+
   return (
     <>
       <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] py-10">
@@ -85,15 +207,35 @@ export default function ProfileEditBasic() {
           </div>
 
           <div className="mt-3 flex gap-8">
-            <Image src="/common/default_profile.svg" width={150} height={150} alt="profile" />
+            <Image
+              src={profileImagePreview || profileImagePath || '/common/default_profile.svg'}
+              width={150}
+              height={150}
+              alt="profile"
+              className="h-[150px] w-[150px] rounded-[1.25rem] object-cover"
+            />
 
             <div className="flex flex-col justify-end">
               <p className="text-xs text-grey50">*10MB 이하의 PNG, JPG, GIF, SVG 파일을 업로드 해주세요</p>
               <div className="flex items-end gap-4">
-                <Button className="mt-2 rounded-xl" animationMode="main" mode="main">
+                <input
+                  type="file"
+                  id="profileImageInput"
+                  accept="image/png,image/jpeg,image/gif,image/svg+xml"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
+                <Button
+                  className="mt-2 rounded-xl"
+                  animationMode="main"
+                  mode="main"
+                  onClick={() => document.getElementById('profileImageInput')?.click()}
+                >
                   사진 업로드
                 </Button>
-                <p className="cursor-pointer text-xs text-grey50 underline">삭제하기</p>
+                <p className="cursor-pointer text-xs text-grey50 underline" onClick={handleImageDelete}>
+                  삭제하기
+                </p>
               </div>
             </div>
           </div>
@@ -104,7 +246,7 @@ export default function ProfileEditBasic() {
           <span className="flex text-grey80">
             이름<p className="text-main">*</p>
           </span>
-          <Input placeholder="이름을 입력해주세요" />
+          <Input placeholder="이름을 입력해주세요" value={name} onChange={(e) => setName(e.target.value)} />
           <span className="text-xs text-grey50">*이름은 계정 관리 - 계정 설정에서 변경할 수 있어요</span>
         </div>
 
@@ -124,16 +266,15 @@ export default function ProfileEditBasic() {
               />
             </div>
 
-            {selectedCategory && (
-              <div className="flex w-[48%] flex-col gap-2">
-                <span className="text-sm text-grey70">소분류</span>
-                <Select
-                  options={subPositionOptions}
-                  placeholder="소분류 선택"
-                  onChange={(value) => setSelectedSubCategory(value)}
-                />
-              </div>
-            )}
+            <div className="flex w-[48%] flex-col gap-2">
+              <span className="text-sm text-grey70">소분류</span>
+              <Select
+                options={subPositionOptions}
+                placeholder={selectedCategory ? '소분류 선택' : '대분류를 먼저 선택해주세요'}
+                onChange={(value) => setSelectedSubCategory(value)}
+                disabled={!selectedCategory}
+              />
+            </div>
           </div>
         </div>
 
@@ -153,16 +294,14 @@ export default function ProfileEditBasic() {
               />
             </div>
 
-            {selectedCity && (
-              <div className="flex w-[48%] flex-col gap-2">
-                <span className="text-sm text-grey70">시/군/구</span>
-                <Select
-                  options={subAreaOptions}
-                  placeholder="구/군 선택"
-                  onChange={(value) => setSelectedDistrict(value)}
-                />
-              </div>
-            )}
+            <div className="flex w-[48%] flex-col gap-2">
+              <span className="text-sm text-grey70">시/군/구</span>
+              <Select
+                options={selectedCity ? subAreaOptions : []}
+                placeholder={selectedCity ? '구/군 선택' : '도/광역시를 먼저 선택해주세요'}
+                onChange={(value) => setSelectedDistrict(value)}
+              />
+            </div>
           </div>
         </div>
 
@@ -209,12 +348,23 @@ export default function ProfileEditBasic() {
             프로필 공개 여부 <p className="text-main">*</p>
           </span>
 
-          <Radio options={options} selectedValue={selectedOption} onChange={setSelectedOption} labelClassName="" />
+          <Radio
+            options={options}
+            selectedValue={isProfilePublic.toString()}
+            onChange={handleProfileVisibilityChange}
+            labelClassName=""
+          />
         </div>
       </div>
 
       <div className="mt-[1.31rem] flex w-full justify-end">
-        <Button className="rounded-xl px-5 py-[0.38rem]" animationMode="main" mode="main">
+        <Button
+          className="rounded-xl px-5 py-[0.38rem]"
+          animationMode="main"
+          mode="main"
+          onClick={handleSubmit}
+          disabled={!isFormValid()}
+        >
           저장하기
         </Button>
       </div>
