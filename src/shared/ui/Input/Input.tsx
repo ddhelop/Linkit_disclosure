@@ -10,6 +10,7 @@ interface InputProps {
   placeholder?: string
   className?: string
   disabled?: boolean
+  maxLength?: number
 }
 
 const Input: React.FC<InputProps> = ({
@@ -19,6 +20,7 @@ const Input: React.FC<InputProps> = ({
   placeholder = '',
   className = '',
   disabled = false,
+  maxLength,
 }) => {
   return (
     <input
@@ -29,6 +31,7 @@ const Input: React.FC<InputProps> = ({
       placeholder={placeholder}
       className={`rounded-xl border-[1.5px] border-grey30 px-4 py-3 placeholder:text-grey40 focus:border-[1.5px] focus:border-main focus:outline-none ${className}`}
       disabled={disabled}
+      maxLength={maxLength}
     />
   )
 }
