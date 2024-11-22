@@ -12,6 +12,8 @@ export default function NewPortFolio() {
   const [isOngoing, setIsOngoing] = useState(false) // 진행 중 상태 관리
   const [startDate, setStartDate] = useState('') // 시작 날짜 입력 값
   const [endDate, setEndDate] = useState('') // 종료 날짜 입력 값
+  const [contribution, setContribution] = useState('') // Add this state
+
   const handleToggle = () => {
     setIsTeam((prev) => !prev)
   }
@@ -120,7 +122,13 @@ export default function NewPortFolio() {
           <div className="rounded-xl bg-grey10 px-5 py-4">
             <div className="flex gap-5">
               <Input placeholder="맡은 역할을 간단하게 입력해 주세요 (30자 이내)" className="w-[80%]" />
-              <Select options={contributionOptions} placeholder="기여도" className="w-[7rem] rounded-xl bg-white" />
+              <Select
+                value={contribution}
+                onChange={setContribution}
+                options={contributionOptions}
+                placeholder="기여도"
+                className="w-[7rem] rounded-xl bg-white"
+              />
               <Image
                 src="/common/icons/delete_x.svg"
                 width={22}
