@@ -7,14 +7,29 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useProfile } from '@/features/profile/edit/context/ProfileContext'
 import { ProfileBooleanMenuType } from '../../types/ProfileLayoutType'
 
-const menuItems: { label: string; path: string; key: keyof ProfileBooleanMenuType }[] = [
+const menuItems: { label: string; path: string; key: keyof ProfileBooleanMenuType; subPaths?: string[] }[] = [
   { label: '미니 프로필', path: '/profile/edit/basic', key: 'isMiniProfile' },
   { label: '보유 스킬', path: '/profile/edit/skills', key: 'isProfileSkill' },
-  { label: '이력', path: '/profile/edit/history', key: 'isProfileActivity' },
-  { label: '포트폴리오', path: '/profile/edit/portfolio', key: 'isProfilePortfolio' },
-  { label: '학력', path: '/profile/edit/education', key: 'isProfileEducation' },
-  { label: '수상', path: '/profile/edit/awards', key: 'isProfileAwards' },
-  { label: '자격증', path: '/profile/edit/certifications', key: 'isProfileLicense' },
+  { label: '이력', path: '/profile/edit/history', key: 'isProfileActivity', subPaths: ['/profile/edit/history/new'] },
+  {
+    label: '포트폴리오',
+    path: '/profile/edit/portfolio',
+    subPaths: ['/profile/edit/portfolio/new'],
+    key: 'isProfilePortfolio',
+  },
+  {
+    label: '학력',
+    path: '/profile/edit/education',
+    subPaths: ['/profile/edit/education/new'],
+    key: 'isProfileEducation',
+  },
+  { label: '수상', path: '/profile/edit/awards', subPaths: ['/profile/edit/awards/new'], key: 'isProfileAwards' },
+  {
+    label: '자격증',
+    path: '/profile/edit/certifications',
+    subPaths: ['/profile/edit/certifications/new'],
+    key: 'isProfileLicense',
+  },
   { label: '링크', path: '/profile/edit/links', key: 'isProfileLink' },
 ]
 
@@ -51,7 +66,7 @@ const LeftMenu = () => {
         <label className="rounded-xl bg-grey20 px-6 py-3">프로필 관리</label>
         <ul className="flex w-full flex-col items-end gap-1 pl-3 pr-6 pt-3">
           {menuItems.map((item, index) => {
-            const isActive = pathname === item.path
+            const isActive = pathname === item.path || item.subPaths?.includes(pathname)
             const isChecked = profileBooleanMenu?.[item.key] || false
 
             return (
