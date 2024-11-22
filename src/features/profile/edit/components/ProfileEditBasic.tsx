@@ -8,7 +8,9 @@ import Radio from '@/shared/ui/Radio/Radio'
 import Select from '@/shared/ui/Select/Select'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
+import { fetchProfileData, updateProfile } from '../api/profileApi'
+import { validateImageFile, createProfileFormData } from '../../lib/profileHelpers'
+import type { ProfileData } from '../../model/types'
 
 export default function ProfileEditBasic() {
   const [selectedCategory, setSelectedCategory] = useState('')
@@ -23,35 +25,29 @@ export default function ProfileEditBasic() {
   const [profileImagePath, setProfileImagePath] = useState('')
 
   useEffect(() => {
-    const fetchProfileData = async () => {
+    const loadProfileData = async () => {
       try {
-        const response = await fetchWithAuth('/api/v1/miniProfile')
-
-        if (response.ok) {
-          const data = await response.json()
-          const profileData = data.result
-
-          // 받아온 데이터로 상태 업데이트
-          setName(profileData.memberName)
-          setSelectedCategory(profileData.profilePositionItem.majorPosition)
-          setSelectedSubCategory(profileData.profilePositionItem.subPosition)
-          setSelectedCity(profileData.cityName)
-          setSelectedDistrict(profileData.divisionName)
-          setSelectedStatuses(
-            profileData.profileCurrentStateItems.profileCurrentStates.map(
-              (state: { profileStateName: string }) => state.profileStateName,
-            ),
-          )
-          setIsProfilePublic(profileData.isProfilePublic)
-          setProfileImagePath(profileData.profileImagePath)
-        }
+        const profileData = await fetchProfileData()
+        // 상태 업데이트 로직
+        setName(profileData.memberName)
+        setSelectedCategory(profileData.profilePositionItem.majorPosition)
+        setSelectedSubCategory(profileData.profilePositionItem.subPosition)
+        setSelectedCity(profileData.cityName)
+        setSelectedDistrict(profileData.divisionName)
+        setSelectedStatuses(
+          profileData.profileCurrentStateItems.profileCurrentStates.map(
+            (state: { profileStateName: string }) => state.profileStateName,
+          ),
+        )
+        setIsProfilePublic(profileData.isProfilePublic)
+        setProfileImagePath(profileData.profileImagePath)
       } catch (error) {
         console.error('프로필 데이터 로딩 중 오류 발생:', error)
         alert('프로필 데이터를 불러오는데 실패했습니다.')
       }
     }
 
-    fetchProfileData()
+    loadProfileData()
   }, [])
 
   const options = [
@@ -115,23 +111,9 @@ export default function ProfileEditBasic() {
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
-    if (file) {
-      // 파일 크기 체크 (10MB)
-      if (file.size > 10 * 1024 * 1024) {
-        alert('파일 크기는 10MB 이하여야 합니다.')
-        return
-      }
-
-      // 파일 타입 체크
-      if (!['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'].includes(file.type)) {
-        alert('PNG, JPG, GIF, SVG 파일만 업로드 가능합니다.')
-        return
-      }
-
+    if (file && validateImageFile(file)) {
       setProfileImage(file)
-      // 미리보기 URL 생성
-      const previewUrl = URL.createObjectURL(file)
-      setProfileImagePreview(previewUrl)
+      setProfileImagePreview(URL.createObjectURL(file))
     }
   }
 
@@ -144,13 +126,7 @@ export default function ProfileEditBasic() {
 
   const handleSubmit = async () => {
     try {
-      const formData = new FormData()
-
-      if (profileImage) {
-        formData.append('profileImage', profileImage)
-      }
-
-      const updateMiniProfileRequest = {
+      const profileData = {
         majorPosition: selectedCategory,
         subPosition: selectedSubCategory,
         cityName: selectedCity,
@@ -159,24 +135,9 @@ export default function ProfileEditBasic() {
         isProfilePublic: isProfilePublic,
       }
 
-      formData.append(
-        'updateMiniProfileRequest',
-        new Blob([JSON.stringify(updateMiniProfileRequest)], {
-          type: 'application/json',
-        }),
-      )
-
-      const response = await fetchWithAuth('/api/v1/miniProfile/1', {
-        method: 'POST',
-        body: formData,
-      })
-
-      if (response.ok) {
-        alert('프로필이 성공적으로 수정되었습니다.')
-      } else {
-        const errorData = await response.json()
-        throw new Error(errorData.message || '프로필 수정에 실패했습니다.')
-      }
+      const formData = createProfileFormData(profileImage, profileData)
+      await updateProfile(1, formData) // profileId는 적절히 관리 필요
+      alert('프로필이 성공적으로 수정되었습니다.')
     } catch (error) {
       console.error('프로필 수정 중 오류 발생:', error)
       alert('프로필 수정 중 오류가 발생했습니다.')
