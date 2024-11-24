@@ -10,7 +10,6 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { fetchProfileData, updateProfile } from '../api/profileApi'
 import { validateImageFile, createProfileFormData } from '../../lib/profileHelpers'
-import type { ProfileData } from '../../model/types'
 
 export default function ProfileEditBasic() {
   const [selectedCategory, setSelectedCategory] = useState('')
@@ -28,7 +27,9 @@ export default function ProfileEditBasic() {
     const loadProfileData = async () => {
       try {
         const profileData = await fetchProfileData()
-        // 상태 업데이트 로직
+        console.log('Loaded profile data:', profileData)
+        console.log('Major position:', profileData.profilePositionItem.majorPosition)
+
         setName(profileData.memberName)
         setSelectedCategory(profileData.profilePositionItem.majorPosition)
         setSelectedSubCategory(profileData.profilePositionItem.subPosition)
@@ -136,7 +137,7 @@ export default function ProfileEditBasic() {
       }
 
       const formData = createProfileFormData(profileImage, profileData)
-      await updateProfile(1, formData) // profileId는 적절히 관리 필요
+      await updateProfile(formData) // profileId는 적절히 관리 필요
       alert('프로필이 성공적으로 수정되었습니다.')
     } catch (error) {
       console.error('프로필 수정 중 오류 발생:', error)
@@ -154,6 +155,32 @@ export default function ProfileEditBasic() {
       selectedDistrict !== '' // 활동지역 시/군/구
     )
   }
+
+  // 디버깅을 위한 로그 추가
+  useEffect(() => {
+    const loadProfileData = async () => {
+      try {
+        const profileData = await fetchProfileData()
+
+        setName(profileData.memberName)
+        setSelectedCategory(profileData.profilePositionItem.majorPosition)
+        setSelectedSubCategory(profileData.profilePositionItem.subPosition)
+        setSelectedCity(profileData.cityName)
+        setSelectedDistrict(profileData.divisionName)
+        setSelectedStatuses(
+          profileData.profileCurrentStateItems.profileCurrentStates.map(
+            (state: { profileStateName: string }) => state.profileStateName,
+          ),
+        )
+        setIsProfilePublic(profileData.isProfilePublic)
+        setProfileImagePath(profileData.profileImagePath)
+      } catch (error) {
+        console.error('프로필 데이터 로딩 중 오류 발생:', error)
+      }
+    }
+
+    loadProfileData()
+  }, [])
 
   return (
     <>

@@ -25,9 +25,13 @@ const Select: React.FC<SelectProps> = ({
   disabled = false,
   value,
 }) => {
-  const [selectedValue, setSelectedValue] = useState<string | null>(null)
+  const [selectedValue, setSelectedValue] = useState<string | null>(value || null)
   const [isOpen, setIsOpen] = useState(false)
   const selectRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setSelectedValue(value || null)
+  }, [value])
 
   const handleSelect = (value: string) => {
     setSelectedValue(value)
