@@ -2,6 +2,8 @@
 import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import DateRangePicker from '@/shared/ui/Select/DateRangePicker'
+import Textarea from '@/shared/ui/TextArea/TextArea'
+import Image from 'next/image'
 
 import { useState } from 'react'
 
@@ -54,7 +56,7 @@ export default function ProfileEditEducation() {
         <div className="flex flex-col gap-3">
           <span className="flex text-grey80">설명</span>
 
-          <Input placeholder="설명을 입력해주세요." className="text-sm " />
+          <Textarea placeholder="설명을 입력해주세요." className="text-sm " />
         </div>
       </div>
       <div className="mt-5 flex justify-end">
