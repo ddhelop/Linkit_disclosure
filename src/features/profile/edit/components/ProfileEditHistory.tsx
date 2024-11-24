@@ -39,9 +39,11 @@ export default function ProfileEditHistory() {
   if (activities.length === 0) {
     return (
       <div className="flex flex-col rounded-xl bg-white px-[1.62rem] pb-7 pt-[1.87rem]">
-        <Button mode="main2" animationMode="main">
-          <Link href={'/profile/edit/history/new'}>활동 추가하기</Link>
-        </Button>
+        <Link href={'/profile/edit/history/new'} className="w-full">
+          <Button mode="main2" animationMode="main" className="w-full">
+            활동 추가하기
+          </Button>
+        </Link>
         <div className="mt-4 text-grey60">활동 내역이 없습니다.</div>
       </div>
     )
@@ -49,9 +51,11 @@ export default function ProfileEditHistory() {
 
   return (
     <div className="flex flex-col rounded-xl bg-white px-[1.62rem] pb-7 pt-[1.87rem]">
-      <Button mode="main2" animationMode="main">
-        <Link href={'/profile/edit/history/new'}>활동 추가하기</Link>
-      </Button>
+      <Link href={'/profile/edit/history/new'} className="w-full">
+        <Button mode="main2" animationMode="main" className="w-full">
+          활동 추가하기
+        </Button>
+      </Link>
 
       {/* 활동 목록 렌더링 */}
       <div className="mt-4">
