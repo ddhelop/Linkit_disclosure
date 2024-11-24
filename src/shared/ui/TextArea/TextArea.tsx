@@ -1,7 +1,7 @@
 // src/shared/ui/Textarea/Textarea.tsx
 'use client'
 
-import { useState, useEffect, useRef, ChangeEvent, TextareaHTMLAttributes } from 'react'
+import { useState, useEffect, useRef, ChangeEvent, TextareaHTMLAttributes, useCallback } from 'react'
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   autoResize?: boolean // 자동으로 높이 조절하는 옵션
@@ -11,12 +11,12 @@ const Textarea: React.FC<TextareaProps> = ({ autoResize = true, className = '', 
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const [height, setHeight] = useState('auto')
 
-  const handleResize = () => {
+  const handleResize = useCallback(() => {
     if (autoResize && textareaRef.current) {
-      textareaRef.current.style.height = 'auto' // 높이를 먼저 auto로 설정하여 줄어들 수 있게 함
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px` // scrollHeight로 높이 설정
+      textareaRef.current.style.height = 'auto'
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }
-  }
+  }, [autoResize])
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     handleResize() // 텍스트 변경 시마다 높이 조절
@@ -24,14 +24,14 @@ const Textarea: React.FC<TextareaProps> = ({ autoResize = true, className = '', 
   }
 
   useEffect(() => {
-    handleResize() // 컴포넌트가 처음 렌더링될 때 높이 조절
-  }, [props.value])
+    handleResize()
+  }, [props.value, handleResize])
 
   return (
     <textarea
       ref={textareaRef}
       onChange={handleChange}
-      className={`resize-none rounded-xl border-[1.5px] border-grey30 px-6 py-3 focus:border-main focus:outline-none ${className}`}
+      className={`resize-none rounded-xl border-[1.5px] border-grey30 px-6 py-3 placeholder:text-grey40 focus:border-main focus:outline-none ${className}`}
       {...props}
     />
   )

@@ -32,3 +32,13 @@ export const addPortfolio = async (formData: FormData, accessToken: string): Pro
 
   return response.json()
 }
+
+export const getPortfolio = async (portfolioId: number) => {
+  const response = await fetchWithAuth(`/api/v1/profile/portfolio/${portfolioId}`)
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch portfolio')
+  }
+
+  return response.json()
+}

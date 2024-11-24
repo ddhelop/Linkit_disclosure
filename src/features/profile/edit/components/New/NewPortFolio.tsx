@@ -4,12 +4,12 @@ import Input from '@/shared/ui/Input/Input'
 import DateRangePicker from '@/shared/ui/Select/DateRangePicker'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { RoleContributionInput } from '../RoleContribution/RoleContributionInput'
 import { RoleContribution } from '../../model/types'
 import { SkillInput } from '../SkillInput/SkillInput'
 import { useFileValidation } from '@/shared/lib/hooks/useFileValidation'
-import { addPortfolio } from '../../api/portfolio'
+import { addPortfolio, getPortfolio } from '../../api/portfolio'
 
 export default function NewPortFolio() {
   const accessToken = localStorage.getItem('accessToken') || ''
@@ -28,6 +28,42 @@ export default function NewPortFolio() {
   const [headCount, setHeadCount] = useState('')
   const [teamComposition, setTeamComposition] = useState('')
   const { validateFile } = useFileValidation()
+
+  useEffect(() => {
+    const loadPortfolioData = async () => {
+      try {
+        const response = await getPortfolio(1) // portfolioId를 파라미터로 받을 수 있도록 수정 가능
+        const data = response.result
+
+        // 데이터 초기화
+        setProjectName(data.projectName)
+        setProjectLineDescription(data.projectLineDescription)
+        setIsTeam(data.projectSize === 'TEAM')
+        setHeadCount(data.projectHeadCount.toString())
+        setTeamComposition(data.projectTeamComposition)
+        setStartDate(data.projectStartDate)
+        setEndDate(data.projectEndDate)
+        setIsOngoing(data.isProjectInProgress)
+        setRoles(
+          data.projectRoleAndContributions.map((item: { projectRole: string; projectContribution: string }) => ({
+            role: item.projectRole,
+            contribution: item.projectContribution,
+          })),
+        )
+        setSelectedSkills(data.projectSkillNames.map((item: { projectSkillName: string }) => item.projectSkillName))
+        setProjectLink(data.projectLink)
+        setProjectDescription(data.projectDescription)
+
+        // 이미지 처리는 URL을 받아서 표시하는 방식으로 수정 필요
+        // 현재 File 객체를 사용하고 있어서 직접적인 URL 할당은 불가능
+        // 이미지 표시 로직은 별도로 수정이 필요할 수 있습니다
+      } catch (error) {
+        console.error('Error loading portfolio:', error)
+      }
+    }
+
+    loadPortfolioData()
+  }, []) // 컴포넌트 마운트 시 한 번만 실행
 
   const handleToggle = () => {
     setIsTeam((prev) => !prev)
@@ -186,7 +222,10 @@ export default function NewPortFolio() {
             </span>
           </div>
 
-          <Input placeholder="프로젝트를 한 줄로 소개해주세요 (60자 이내)" />
+          <Input
+            onChange={(e) => setProjectLineDescription(e.target.value)}
+            placeholder="프로젝트를 한 줄로 소개해주세요 (60자 이내)"
+          />
         </div>
 
         {/* 규모, 인원, 팀 구성 */}
