@@ -6,11 +6,13 @@ import Textarea from '@/shared/ui/TextArea/TextArea'
 import Image from 'next/image'
 
 import { useState } from 'react'
+import { UniversityInput } from './UniversityInput/UniversityInput'
 
 export default function ProfileEditEducation() {
   const [startDate, setStartDate] = useState('') // 시작 날짜 입력 값
   const [endDate, setEndDate] = useState('') // 종료 날짜 입력 값
   const [isOngoing, setIsOngoing] = useState(false) // 진행 중 상태 관리
+  const [selectedUniversity, setSelectedUniversity] = useState('')
 
   const handleOngoingToggle = () => {
     setIsOngoing((prev) => !prev)
@@ -30,7 +32,7 @@ export default function ProfileEditEducation() {
               <span className="text-main">*</span>은 필수항목입니다
             </span>
           </div>
-          <Input placeholder="학교명을 입력해 주세요" className="text-sm " />
+          <UniversityInput onUniversitySelect={setSelectedUniversity} selectedUniversity={selectedUniversity} />
         </div>
 
         {/* 전공 */}

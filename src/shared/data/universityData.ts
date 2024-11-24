@@ -102,18 +102,18 @@ export const logoLists = {
     },
     {
       id: 21,
-      university: '경남도립거창대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/경남도립거창대학대학교.svg',
+      university: '경남도립거창대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/경남도립거창대학교.svg',
     },
     {
       id: 22,
-      university: '경남도립남해대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/경남도립남해대학대학교.svg',
+      university: '경남도립남해대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/경남도립남해대학교.svg',
     },
     {
       id: 23,
-      university: '경남정보대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/경남정보대학대학교.svg',
+      university: '경남정보대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/경남정보대학교.svg',
     },
     {
       id: 24,
@@ -127,18 +127,18 @@ export const logoLists = {
     },
     {
       id: 26,
-      university: '경민대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/경민대학대학교.svg',
+      university: '경민대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/경민대학교.svg',
     },
     {
       id: 27,
-      university: '경복대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/경복대학대학교.svg',
+      university: '경복대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/경복대학교.svg',
     },
     {
       id: 28,
-      university: '경북과학대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/경북과학대학대학교.svg',
+      university: '경북과학대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/경북과학대학교.svg',
     },
     {
       id: 29,
@@ -147,13 +147,13 @@ export const logoLists = {
     },
     {
       id: 30,
-      university: '경북도립대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/경북도립대학대학교.svg',
+      university: '경북도립대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/경북도립대학교.svg',
     },
     {
       id: 31,
-      university: '경북전문대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/경북전문대학대학교.svg',
+      university: '경북전문대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/경북전문대학교.svg',
     },
     {
       id: 32,
@@ -177,8 +177,8 @@ export const logoLists = {
     },
     {
       id: 36,
-      university: '경인여자대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/경인여자대학대학교.svg',
+      university: '경인여자대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/경인여자대학교.svg',
     },
     {
       id: 37,
@@ -192,8 +192,8 @@ export const logoLists = {
     },
     {
       id: 39,
-      university: '경찰대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/경찰대학대학교.svg',
+      university: '경찰대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/경찰대학교.svg',
     },
     {
       id: 40,
@@ -207,13 +207,13 @@ export const logoLists = {
     },
     {
       id: 42,
-      university: '계명문화대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/계명문화대학대학교.svg',
+      university: '계명문화대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/계명문화대학교.svg',
     },
     {
       id: 43,
-      university: '고구려대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/고구려대학대학교.svg',
+      university: '고구려대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/고구려대학교.svg',
     },
     {
       id: 44,
@@ -227,8 +227,8 @@ export const logoLists = {
     },
     {
       id: 46,
-      university: '공군사관학교대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/공군사관학교대학교.svg',
+      university: '공군사관대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/공군사관대학교.svg',
     },
     {
       id: 47,
@@ -247,8 +247,8 @@ export const logoLists = {
     },
     {
       id: 50,
-      university: '광양보건대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/광양보건대학대학교.svg',
+      university: '광양보건대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/광양보건대학교.svg',
     },
     {
       id: 51,
@@ -277,8 +277,8 @@ export const logoLists = {
     },
     {
       id: 56,
-      university: '광주보건대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/광주보건대학대학교.svg',
+      university: '광주보건대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/광주보건대학교.svg',
     },
     {
       id: 57,
@@ -287,13 +287,13 @@ export const logoLists = {
     },
     {
       id: 58,
-      university: '구미대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/구미대학대학교.svg',
+      university: '구미대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/구미대학교.svg',
     },
     {
       id: 59,
-      university: '국군간호사관학교대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/국군간호사관학교대학교.svg',
+      university: '국군간호사관대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/국군간호사관대학교.svg',
     },
     {
       id: 60,
@@ -302,13 +302,13 @@ export const logoLists = {
     },
     {
       id: 61,
-      university: '국제대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/국제대학대학교.svg',
+      university: '국제대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/국제대학교.svg',
     },
     {
       id: 62,
-      university: '군산간호대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/군산간호대학대학교.svg',
+      university: '군산간호대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/군산간호대학교.svg',
     },
     {
       id: 63,
@@ -317,8 +317,8 @@ export const logoLists = {
     },
     {
       id: 64,
-      university: '군장대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/군장대학대학교.svg',
+      university: '군장대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/군장대학교.svg',
     },
     {
       id: 65,
@@ -342,13 +342,13 @@ export const logoLists = {
     },
     {
       id: 69,
-      university: '기독간호대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/기독간호대학대학교.svg',
+      university: '기독간호대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/기독간호대학교.svg',
     },
     {
       id: 70,
-      university: '김천과학대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/김천과학대학대학교.svg',
+      university: '김천과학대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/김천과학대학교.svg',
     },
     {
       id: 71,
@@ -357,13 +357,13 @@ export const logoLists = {
     },
     {
       id: 72,
-      university: '김포대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/김포대학대학교.svg',
+      university: '김포대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/김포대학교.svg',
     },
     {
       id: 73,
-      university: '김해대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/김해대학대학교.svg',
+      university: '김해대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/김해대학교.svg',
     },
     {
       id: 74,
@@ -387,8 +387,8 @@ export const logoLists = {
     },
     {
       id: 78,
-      university: '농협대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/농협대학대학교.svg',
+      university: '농협대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/농협대학교.svg',
     },
     {
       id: 79,
@@ -397,8 +397,8 @@ export const logoLists = {
     },
     {
       id: 80,
-      university: '대경대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/대경대학대학교.svg',
+      university: '대경대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/대경대학교.svg',
     },
     {
       id: 81,
@@ -412,13 +412,13 @@ export const logoLists = {
     },
     {
       id: 83,
-      university: '대구공업대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/대구공업대학대학교.svg',
+      university: '대구공업대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/대구공업대학교.svg',
     },
     {
       id: 84,
-      university: '대구과학대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/대구과학대학대학교.svg',
+      university: '대구과학대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/대구과학대학교.svg',
     },
     {
       id: 85,
@@ -432,13 +432,13 @@ export const logoLists = {
     },
     {
       id: 87,
-      university: '대구미래대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/대구미래대학대학교.svg',
+      university: '대구미래대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/대구미래대학교.svg',
     },
     {
       id: 88,
-      university: '대구보건대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/대구보건대학대학교.svg',
+      university: '대구보건대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/대구보건대학교.svg',
     },
     {
       id: 89,
@@ -457,18 +457,18 @@ export const logoLists = {
     },
     {
       id: 92,
-      university: '대덕대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/대덕대학대학교.svg',
+      university: '대덕대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/대덕대학교.svg',
     },
     {
       id: 93,
-      university: '대동대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/대동대학대학교.svg',
+      university: '대동대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/대동대학교.svg',
     },
     {
       id: 94,
-      university: '대림대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/대림대학대학교.svg',
+      university: '대림대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/대림대학교.svg',
     },
     {
       id: 95,
@@ -477,8 +477,8 @@ export const logoLists = {
     },
     {
       id: 96,
-      university: '대원대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/대원대학대학교.svg',
+      university: '대원대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/대원대학교.svg',
     },
     {
       id: 97,
@@ -492,8 +492,8 @@ export const logoLists = {
     },
     {
       id: 99,
-      university: '대전보건대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/대전보건대학대학교.svg',
+      university: '대전보건대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/대전보건대학교.svg',
     },
     {
       id: 100,
@@ -512,8 +512,8 @@ export const logoLists = {
     },
     {
       id: 103,
-      university: '동강대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/동강대학대학교.svg',
+      university: '동강대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/동강대학교.svg',
     },
     {
       id: 104,
@@ -522,8 +522,8 @@ export const logoLists = {
     },
     {
       id: 105,
-      university: '동남보건대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/동남보건대학대학교.svg',
+      university: '동남보건대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/동남보건대학교.svg',
     },
     {
       id: 106,
@@ -537,8 +537,8 @@ export const logoLists = {
     },
     {
       id: 108,
-      university: '동부산대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/동부산대학대학교.svg',
+      university: '동부산대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/동부산대학교.svg',
     },
     {
       id: 109,
@@ -547,8 +547,8 @@ export const logoLists = {
     },
     {
       id: 110,
-      university: '동서울대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/동서울대학대학교.svg',
+      university: '동서울대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/동서울대학교.svg',
     },
     {
       id: 111,
@@ -562,13 +562,13 @@ export const logoLists = {
     },
     {
       id: 113,
-      university: '동아방송예술대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/동아방송예술대학대학교.svg',
+      university: '동아방송예술대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/동아방송예술대학교.svg',
     },
     {
       id: 114,
-      university: '동아인재대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/동아인재대학대학교.svg',
+      university: '동아인재대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/동아인재대학교.svg',
     },
     {
       id: 115,
@@ -577,23 +577,23 @@ export const logoLists = {
     },
     {
       id: 116,
-      university: '동양미래대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/동양미래대학대학교.svg',
+      university: '동양미래대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/동양미래대학교.svg',
     },
     {
       id: 117,
-      university: '동원과학기술대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/동원과학기술대학대학교.svg',
+      university: '동원과학기술대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/동원과학기술대학교.svg',
     },
     {
       id: 118,
-      university: '동원대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/동원대학대학교.svg',
+      university: '동원대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/동원대학교.svg',
     },
     {
       id: 119,
-      university: '동의과학대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/동의과학대학대학교.svg',
+      university: '동의과학대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/동의과학대학교.svg',
     },
     {
       id: 120,
@@ -602,13 +602,13 @@ export const logoLists = {
     },
     {
       id: 121,
-      university: '동주대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/동주대학대학교.svg',
+      university: '동주대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/동주대학교.svg',
     },
     {
       id: 122,
-      university: '두원공과대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/두원공과대학대학교.svg',
+      university: '두원공과대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/두원공과대학교.svg',
     },
     {
       id: 123,
@@ -617,8 +617,8 @@ export const logoLists = {
     },
     {
       id: 124,
-      university: '마산대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/마산대학대학교.svg',
+      university: '마산대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/마산대학교.svg',
     },
     {
       id: 125,
@@ -637,8 +637,8 @@ export const logoLists = {
     },
     {
       id: 128,
-      university: '목포과학대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/목포과학대학대학교.svg',
+      university: '목포과학대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/목포과학대학교.svg',
     },
     {
       id: 129,
@@ -652,8 +652,8 @@ export const logoLists = {
     },
     {
       id: 131,
-      university: '문경대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/문경대학대학교.svg',
+      university: '문경대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/문경대학교.svg',
     },
     {
       id: 132,
@@ -662,8 +662,8 @@ export const logoLists = {
     },
     {
       id: 133,
-      university: '배화여자대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/배화여자대학대학교.svg',
+      university: '배화여자대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/배화여자대학교.svg',
     },
     {
       id: 134,
@@ -672,13 +672,13 @@ export const logoLists = {
     },
     {
       id: 135,
-      university: '백석문화대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/백석문화대학대학교.svg',
+      university: '백석문화대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/백석문화대학교.svg',
     },
     {
       id: 136,
-      university: '백제예술대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/백제예술대학대학교.svg',
+      university: '백제예술대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/백제예술대학교.svg',
     },
     {
       id: 137,
@@ -692,13 +692,13 @@ export const logoLists = {
     },
     {
       id: 139,
-      university: '부산경상대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/부산경상대학대학교.svg',
+      university: '부산경상대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/부산경상대학교.svg',
     },
     {
       id: 140,
-      university: '부산과학기술대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/부산과학기술대학대학교.svg',
+      university: '부산과학기술대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/부산과학기술대학교.svg',
     },
     {
       id: 141,
@@ -712,13 +712,13 @@ export const logoLists = {
     },
     {
       id: 143,
-      university: '부산여자대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/부산여자대학대학교.svg',
+      university: '부산여자대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/부산여자대학교.svg',
     },
     {
       id: 144,
-      university: '부산예술대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/부산예술대학대학교.svg',
+      university: '부산예술대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/부산예술대학교.svg',
     },
     {
       id: 145,
@@ -732,8 +732,8 @@ export const logoLists = {
     },
     {
       id: 147,
-      university: '부천대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/부천대학대학교.svg',
+      university: '부천대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/부천대학교.svg',
     },
     {
       id: 148,
@@ -742,8 +742,8 @@ export const logoLists = {
     },
     {
       id: 149,
-      university: '삼육보건대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/삼육보건대학대학교.svg',
+      university: '삼육보건대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/삼육보건대학교.svg',
     },
     {
       id: 150,
@@ -757,8 +757,8 @@ export const logoLists = {
     },
     {
       id: 152,
-      university: '상지영서대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/상지영서대학대학교.svg',
+      university: '상지영서대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/상지영서대학교.svg',
     },
     {
       id: 153,
@@ -777,8 +777,8 @@ export const logoLists = {
     },
     {
       id: 156,
-      university: '서라벌대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/서라벌대학대학교.svg',
+      university: '서라벌대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/서라벌대학교.svg',
     },
     {
       id: 157,
@@ -822,13 +822,13 @@ export const logoLists = {
     },
     {
       id: 165,
-      university: '서울여자간호대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/서울여자간호대학대학교.svg',
+      university: '서울여자간호대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/서울여자간호대학교.svg',
     },
     {
       id: 166,
-      university: '서울예술대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/서울예술대학대학교.svg',
+      university: '서울예술대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/서울예술대학교.svg',
     },
     {
       id: 167,
@@ -842,23 +842,23 @@ export const logoLists = {
     },
     {
       id: 169,
-      university: '서일대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/서일대학대학교.svg',
+      university: '서일대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/서일대학교.svg',
     },
     {
       id: 170,
-      university: '서정대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/서정대학대학교.svg',
+      university: '서정대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/서정대학교.svg',
     },
     {
       id: 171,
-      university: '서해대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/서해대학대학교.svg',
+      university: '서해대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/서해대학교.svg',
     },
     {
       id: 172,
-      university: '선린대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/선린대학대학교.svg',
+      university: '선린대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/선린대학교.svg',
     },
     {
       id: 173,
@@ -882,13 +882,13 @@ export const logoLists = {
     },
     {
       id: 177,
-      university: '성덕대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/성덕대학대학교.svg',
+      university: '성덕대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/성덕대학교.svg',
     },
     {
       id: 178,
-      university: '세경대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/세경대학대학교.svg',
+      university: '세경대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/세경대학교.svg',
     },
     {
       id: 179,
@@ -907,8 +907,8 @@ export const logoLists = {
     },
     {
       id: 182,
-      university: '송곡대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/송곡대학대학교.svg',
+      university: '송곡대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/송곡대학교.svg',
     },
     {
       id: 183,
@@ -917,13 +917,13 @@ export const logoLists = {
     },
     {
       id: 184,
-      university: '송호대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/송호대학대학교.svg',
+      university: '송호대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/송호대학교.svg',
     },
     {
       id: 185,
-      university: '수성대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/수성대학대학교.svg',
+      university: '수성대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/수성대학교.svg',
     },
     {
       id: 186,
@@ -932,8 +932,8 @@ export const logoLists = {
     },
     {
       id: 187,
-      university: '수원과학대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/수원과학대학대학교.svg',
+      university: '수원과학대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/수원과학대학교.svg',
     },
     {
       id: 188,
@@ -942,8 +942,8 @@ export const logoLists = {
     },
     {
       id: 189,
-      university: '수원여자대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/수원여자대학대학교.svg',
+      university: '수원여자대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/수원여자대학교.svg',
     },
     {
       id: 190,
@@ -957,8 +957,8 @@ export const logoLists = {
     },
     {
       id: 192,
-      university: '순천제일대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/순천제일대학대학교.svg',
+      university: '순천제일대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/순천제일대학교.svg',
     },
     {
       id: 193,
@@ -972,8 +972,8 @@ export const logoLists = {
     },
     {
       id: 195,
-      university: '숭의여자대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/숭의여자대학대학교.svg',
+      university: '숭의여자대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/숭의여자대학교.svg',
     },
     {
       id: 196,
@@ -982,8 +982,8 @@ export const logoLists = {
     },
     {
       id: 197,
-      university: '신구대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/신구대학대학교.svg',
+      university: '신구대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/신구대학교.svg',
     },
     {
       id: 198,
@@ -992,13 +992,13 @@ export const logoLists = {
     },
     {
       id: 199,
-      university: '신성대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/신성대학대학교.svg',
+      university: '신성대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/신성대학교.svg',
     },
     {
       id: 200,
-      university: '신안산대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/신안산대학대학교.svg',
+      university: '신안산대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/신안산대학교.svg',
     },
     {
       id: 201,
@@ -1017,13 +1017,13 @@ export const logoLists = {
     },
     {
       id: 204,
-      university: '아주자동차대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/아주자동차대학대학교.svg',
+      university: '아주자동차대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/아주자동차대학교.svg',
     },
     {
       id: 205,
-      university: '안동과학대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/안동과학대학대학교.svg',
+      university: '안동과학대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/안동과학대학교.svg',
     },
     {
       id: 206,
@@ -1032,8 +1032,8 @@ export const logoLists = {
     },
     {
       id: 207,
-      university: '안산대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/안산대학대학교.svg',
+      university: '안산대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/안산대학교.svg',
     },
     {
       id: 208,
@@ -1042,13 +1042,13 @@ export const logoLists = {
     },
     {
       id: 209,
-      university: '여주대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/여주대학대학교.svg',
+      university: '여주대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/여주대학교.svg',
     },
     {
       id: 210,
-      university: '연성대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/연성대학대학교.svg',
+      university: '연성대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/연성대학교.svg',
     },
     {
       id: 211,
@@ -1057,8 +1057,8 @@ export const logoLists = {
     },
     {
       id: 212,
-      university: '연암공업대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/연암공업대학대학교.svg',
+      university: '연암공업대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/연암공업대학교.svg',
     },
     {
       id: 213,
@@ -1072,13 +1072,13 @@ export const logoLists = {
     },
     {
       id: 215,
-      university: '영남외국어대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/영남외국어대학대학교.svg',
+      university: '영남외국어대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/영남외국어대학교.svg',
     },
     {
       id: 216,
-      university: '영남이공대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/영남이공대학대학교.svg',
+      university: '영남이공대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/영남이공대학교.svg',
     },
     {
       id: 217,
@@ -1097,8 +1097,8 @@ export const logoLists = {
     },
     {
       id: 220,
-      university: '영진전문대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/영진전문대학대학교.svg',
+      university: '영진전문대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/영진전문대학교.svg',
     },
     {
       id: 221,
@@ -1112,8 +1112,8 @@ export const logoLists = {
     },
     {
       id: 223,
-      university: '오산대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/오산대학대학교.svg',
+      university: '오산대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/오산대학교.svg',
     },
     {
       id: 224,
@@ -1122,8 +1122,8 @@ export const logoLists = {
     },
     {
       id: 225,
-      university: '용인송담대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/용인송담대학대학교.svg',
+      university: '용인송담대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/용인송담대학교.svg',
     },
     {
       id: 226,
@@ -1137,8 +1137,8 @@ export const logoLists = {
     },
     {
       id: 228,
-      university: '우송정보대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/우송정보대학대학교.svg',
+      university: '우송정보대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/우송정보대학교.svg',
     },
     {
       id: 229,
@@ -1157,8 +1157,8 @@ export const logoLists = {
     },
     {
       id: 232,
-      university: '웅지세무대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/웅지세무대학대학교.svg',
+      university: '웅지세무대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/웅지세무대학교.svg',
     },
     {
       id: 233,
@@ -1172,13 +1172,13 @@ export const logoLists = {
     },
     {
       id: 235,
-      university: '유한대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/유한대학대학교.svg',
+      university: '유한대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/유한대학교.svg',
     },
     {
       id: 236,
-      university: '육군사관학교대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/육군사관학교대학교.svg',
+      university: '육군사관대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/육군사관대학교.svg',
     },
     {
       id: 237,
@@ -1192,8 +1192,8 @@ export const logoLists = {
     },
     {
       id: 239,
-      university: '인덕대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/인덕대학대학교.svg',
+      university: '인덕대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/인덕대학교.svg',
     },
     {
       id: 240,
@@ -1212,13 +1212,13 @@ export const logoLists = {
     },
     {
       id: 243,
-      university: '인천재능대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/인천재능대학대학교.svg',
+      university: '인천재능대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/인천재능대학교.svg',
     },
     {
       id: 244,
-      university: '인하공업전문대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/인하공업전문대학대학교.svg',
+      university: '인하공업전문대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/인하공업전문대학교.svg',
     },
     {
       id: 245,
@@ -1232,13 +1232,13 @@ export const logoLists = {
     },
     {
       id: 247,
-      university: '장안대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/장안대학대학교.svg',
+      university: '장안대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/장안대학교.svg',
     },
     {
       id: 248,
-      university: '전남과학대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/전남과학대학대학교.svg',
+      university: '전남과학대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/전남과학대학교.svg',
     },
     {
       id: 249,
@@ -1247,13 +1247,13 @@ export const logoLists = {
     },
     {
       id: 250,
-      university: '전남도립대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/전남도립대학대학교.svg',
+      university: '전남도립대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/전남도립대학교.svg',
     },
     {
       id: 251,
-      university: '전북과학대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/전북과학대학대학교.svg',
+      university: '전북과학대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/전북과학대학교.svg',
     },
     {
       id: 252,
@@ -1267,8 +1267,8 @@ export const logoLists = {
     },
     {
       id: 254,
-      university: '전주기전대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/전주기전대학대학교.svg',
+      university: '전주기전대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/전주기전대학교.svg',
     },
     {
       id: 255,
@@ -1277,13 +1277,13 @@ export const logoLists = {
     },
     {
       id: 256,
-      university: '전주비전대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/전주비전대학대학교.svg',
+      university: '전주비전대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/전주비전대학교.svg',
     },
     {
       id: 257,
-      university: '제주관광대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/제주관광대학대학교.svg',
+      university: '제주관광대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/제주관광대학교.svg',
     },
     {
       id: 258,
@@ -1297,13 +1297,13 @@ export const logoLists = {
     },
     {
       id: 260,
-      university: '제주한라대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/제주한라대학대학교.svg',
+      university: '제주한라대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/제주한라대학교.svg',
     },
     {
       id: 261,
-      university: '조선간호대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/조선간호대학대학교.svg',
+      university: '조선간호대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/조선간호대학교.svg',
     },
     {
       id: 262,
@@ -1312,8 +1312,8 @@ export const logoLists = {
     },
     {
       id: 263,
-      university: '조선이공대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/조선이공대학대학교.svg',
+      university: '조선이공대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/조선이공대학교.svg',
     },
     {
       id: 264,
@@ -1342,8 +1342,8 @@ export const logoLists = {
     },
     {
       id: 269,
-      university: '진주보건대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/진주보건대학대학교.svg',
+      university: '진주보건대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/진주보건대학교.svg',
     },
     {
       id: 270,
@@ -1362,23 +1362,23 @@ export const logoLists = {
     },
     {
       id: 273,
-      university: '창원문성대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/창원문성대학대학교.svg',
+      university: '창원문성대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/창원문성대학교.svg',
     },
     {
       id: 274,
-      university: '천안연암대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/천안연암대학대학교.svg',
+      university: '천안연암대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/천안연암대학교.svg',
     },
     {
       id: 275,
-      university: '청강문화산업대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/청강문화산업대학대학교.svg',
+      university: '청강문화산업대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/청강문화산업대학교.svg',
     },
     {
       id: 276,
-      university: '청암대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/청암대학대학교.svg',
+      university: '청암대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/청암대학교.svg',
     },
     {
       id: 277,
@@ -1417,8 +1417,8 @@ export const logoLists = {
     },
     {
       id: 284,
-      university: '춘해보건대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/춘해보건대학대학교.svg',
+      university: '춘해보건대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/춘해보건대학교.svg',
     },
     {
       id: 285,
@@ -1427,8 +1427,8 @@ export const logoLists = {
     },
     {
       id: 286,
-      university: '충남도립청양대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/충남도립청양대학대학교.svg',
+      university: '충남도립청양대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/충남도립청양대학교.svg',
     },
     {
       id: 287,
@@ -1437,18 +1437,18 @@ export const logoLists = {
     },
     {
       id: 288,
-      university: '충북도립대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/충북도립대학대학교.svg',
+      university: '충북도립대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/충북도립대학교.svg',
     },
     {
       id: 289,
-      university: '충북보건과학대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/충북보건과학대학대학교.svg',
+      university: '충북보건과학대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/충북보건과학대학교.svg',
     },
     {
       id: 290,
-      university: '충청대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/충청대학대학교.svg',
+      university: '충청대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/충청대학교.svg',
     },
     {
       id: 291,
@@ -1472,8 +1472,8 @@ export const logoLists = {
     },
     {
       id: 295,
-      university: '포항대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/포항대학대학교.svg',
+      university: '포항대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/포항대학교.svg',
     },
     {
       id: 296,
@@ -1482,8 +1482,8 @@ export const logoLists = {
     },
     {
       id: 297,
-      university: '한국골프대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/한국골프대학대학교.svg',
+      university: '한국골프대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/한국골프대학교.svg',
     },
     {
       id: 298,
@@ -1492,8 +1492,8 @@ export const logoLists = {
     },
     {
       id: 299,
-      university: '한국관광대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/한국관광대학대학교.svg',
+      university: '한국관광대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/한국관광대학교.svg',
     },
     {
       id: 300,
@@ -1522,8 +1522,8 @@ export const logoLists = {
     },
     {
       id: 305,
-      university: '한국복지대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/한국복지대학대학교.svg',
+      university: '한국복지대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/한국복지대학교.svg',
     },
     {
       id: 306,
@@ -1537,13 +1537,13 @@ export const logoLists = {
     },
     {
       id: 308,
-      university: '한국승강기대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/한국승강기대학대학교.svg',
+      university: '한국승강기대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/한국승강기대학교.svg',
     },
     {
       id: 309,
-      university: '한국영상대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/한국영상대학대학교.svg',
+      university: '한국영상대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/한국영상대학교.svg',
     },
     {
       id: 310,
@@ -1592,8 +1592,8 @@ export const logoLists = {
     },
     {
       id: 319,
-      university: '한림성심대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/한림성심대학대학교.svg',
+      university: '한림성심대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/한림성심대학교.svg',
     },
     {
       id: 320,
@@ -1627,13 +1627,13 @@ export const logoLists = {
     },
     {
       id: 326,
-      university: '한양여자대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/한양여자대학대학교.svg',
+      university: '한양여자대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/한양여자대학교.svg',
     },
     {
       id: 327,
-      university: '한영대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/한영대학대학교.svg',
+      university: '한영대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/한영대학교.svg',
     },
     {
       id: 328,
@@ -1652,8 +1652,8 @@ export const logoLists = {
     },
     {
       id: 331,
-      university: '해군사관학교대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/해군사관학교대학교.svg',
+      university: '해군사관대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/해군사관대학교.svg',
     },
     {
       id: 332,
@@ -1662,13 +1662,13 @@ export const logoLists = {
     },
     {
       id: 333,
-      university: '혜전대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/혜전대학대학교.svg',
+      university: '혜전대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/혜전대학교.svg',
     },
     {
       id: 334,
-      university: '혜천대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/혜천대학대학교.svg',
+      university: '혜천대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/혜천대학교.svg',
     },
     {
       id: 335,
@@ -1707,113 +1707,113 @@ export const logoLists = {
     },
     {
       id: 342,
-      university: '건양사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/건양사이버대학대학교.svg',
+      university: '건양사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/건양사이버대학교.svg',
     },
     {
       id: 343,
-      university: '경희사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/경희사이버대학대학교.svg',
+      university: '경희사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/경희사이버대학교.svg',
     },
     {
       id: 344,
-      university: '고려사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/고려사이버대학대학교.svg',
+      university: '고려사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/고려사이버대학교.svg',
     },
     {
       id: 345,
-      university: '국제사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/국제사이버대학대학교.svg',
+      university: '국제사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/국제사이버대학교.svg',
     },
     {
       id: 346,
-      university: '글로벌사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/글로벌사이버대학대학교.svg',
+      university: '글로벌사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/글로벌사이버대학교.svg',
     },
     {
       id: 347,
-      university: '대구사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/대구사이버대학대학교.svg',
+      university: '대구사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/대구사이버대학교.svg',
     },
     {
       id: 348,
-      university: '디지털서울문화예술대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/디지털서울문화예술대학대학교.svg',
+      university: '디지털서울문화예술대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/디지털서울문화예술대학교.svg',
     },
     {
       id: 349,
-      university: '부산디지털대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/부산디지털대학대학교.svg',
+      university: '부산디지털대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/부산디지털대학교.svg',
     },
     {
       id: 350,
-      university: '사이버한국외국어대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/사이버한국외국어대학대학교.svg',
+      university: '사이버한국외국어대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/사이버한국외국어대학교.svg',
     },
     {
       id: 351,
-      university: '서울디지털대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/서울디지털대학대학교.svg',
+      university: '서울디지털대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/서울디지털대학교.svg',
     },
     {
       id: 352,
-      university: '서울사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/서울사이버대학대학교.svg',
+      university: '서울사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/서울사이버대학교.svg',
     },
     {
       id: 353,
-      university: '세종사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/세종사이버대학대학교.svg',
+      university: '세종사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/세종사이버대학교.svg',
     },
     {
       id: 354,
-      university: '숭실사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/숭실사이버대학대학교.svg',
+      university: '숭실사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/숭실사이버대학교.svg',
     },
     {
       id: 355,
-      university: '열린사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/열린사이버대학대학교.svg',
+      university: '열린사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/열린사이버대학교.svg',
     },
     {
       id: 356,
-      university: '원광디지털대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/원광디지털대학대학교.svg',
+      university: '원광디지털대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/원광디지털대학교.svg',
     },
     {
       id: 357,
-      university: '한양사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/한양사이버대학대학교.svg',
+      university: '한양사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/한양사이버대학교.svg',
     },
     {
       id: 358,
-      university: '화신사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/화신사이버대학대학교.svg',
+      university: '화신사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/화신사이버대학교.svg',
     },
     {
       id: 359,
-      university: '영진사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/영진사이버대학대학교.svg',
+      university: '영진사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/영진사이버대학교.svg',
     },
     {
       id: 360,
-      university: '한국복지사이버대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/한국복지사이버대학대학교.svg',
+      university: '한국복지사이버대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/한국복지사이버대학교.svg',
     },
     {
       id: 361,
-      university: '한국폴리텍대학대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/한국폴리텍대학대학교.svg',
+      university: '한국폴리텍대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/한국폴리텍대학교.svg',
     },
     {
       id: 362,
-      university: '한국예술종합학교대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/한국예술종합학교대학교.svg',
+      university: '한국예술종합대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/한국예술종합대학교.svg',
     },
     {
       id: 363,
-      university: '서울호서직업전문학교대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/서울호서직업전문학교대학교.svg',
+      university: '서울호서직업전문대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/서울호서직업전문대학교.svg',
     },
     {
       id: 364,
@@ -1822,8 +1822,8 @@ export const logoLists = {
     },
     {
       id: 365,
-      university: '한국IT전문학교대학교',
-      downloadUrlSvg: '/common/icons/universityLogo/한국IT전문학교대학교.svg',
+      university: '한국IT전문대학교',
+      downloadUrlSvg: '/common/icons/universityLogo/한국IT전문대학교.svg',
     },
   ],
 }
