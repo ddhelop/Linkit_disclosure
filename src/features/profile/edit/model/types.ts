@@ -20,3 +20,11 @@ export interface ContributionOption {
   label: string
   value: string
 }
+
+export interface SkillInputProps {
+  placeholder?: string
+  className?: string
+  onSkillAdd?: (skill: string) => void
+  onSkillRemove?: (skill: string) => void
+  selectedSkills?: string[]
+}

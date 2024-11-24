@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { RoleContributionInput } from '../RoleContribution/RoleContributionInput'
 import { RoleContribution } from '../../model/types'
+import { SkillInput } from '../SkillInput/SkillInput'
 
 export default function NewPortFolio() {
   const [isTeam, setIsTeam] = useState(false) // 개인/팀 토글 상태 관리
@@ -14,6 +15,7 @@ export default function NewPortFolio() {
   const [startDate, setStartDate] = useState('') // 시작 날짜 입력 값
   const [endDate, setEndDate] = useState('') // 종료 날짜 입력 값
   const [roles, setRoles] = useState<RoleContribution[]>([{ role: '', contribution: '' }])
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([])
 
   const handleToggle = () => {
     setIsTeam((prev) => !prev)
@@ -44,6 +46,16 @@ export default function NewPortFolio() {
     const newRoles = [...roles]
     newRoles[index].contribution = contribution
     setRoles(newRoles)
+  }
+
+  const handleSkillAdd = (skill: string) => {
+    if (!selectedSkills.includes(skill)) {
+      setSelectedSkills([...selectedSkills, skill])
+    }
+  }
+
+  const handleSkillRemove = (skill: string) => {
+    setSelectedSkills(selectedSkills.filter((s) => s !== skill))
   }
 
   return (
@@ -136,7 +148,7 @@ export default function NewPortFolio() {
         {/* 사용 스킬 */}
         <div className="flex flex-col gap-3">
           <span className="flex w-[10.6rem]">사용 스킬</span>
-          <Input placeholder="사용한 스킬을 입력해주세요 (ex. React, TypeScript)" />
+          <SkillInput onSkillAdd={handleSkillAdd} onSkillRemove={handleSkillRemove} selectedSkills={selectedSkills} />
         </div>
 
         {/* 링크 */}
@@ -159,7 +171,7 @@ export default function NewPortFolio() {
           <div className="flex items-end gap-6">
             <Image src="/common/images/no_thumbnail.svg" width={204} height={115} alt="plus-icon" />
             <div className="flex flex-col gap-2">
-              <span className="text-xs text-grey50">*10MB 이하의 PNG, JPG 파일��� 업로드 해주세요</span>
+              <span className="text-xs text-grey50">*10MB 이하의 PNG, JPG 파일 업로드 해주세요</span>
               <div className="flex items-center gap-4">
                 <Button mode="main" animationMode="main" className="rounded-xl text-xs">
                   사진 업로드
