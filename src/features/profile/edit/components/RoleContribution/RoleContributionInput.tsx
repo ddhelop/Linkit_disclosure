@@ -13,11 +13,11 @@ interface RoleContributionInputProps {
 }
 
 const contributionOptions: ContributionOption[] = [
-  { label: '최상', value: '최상' },
-  { label: '상', value: '상' },
-  { label: '중', value: '중' },
-  { label: '하', value: '하' },
-  { label: '최하', value: '최하' },
+  { label: '상', value: 'HIGH' },
+  { label: '중상', value: 'UPPER_MIDDLE' },
+  { label: '중', value: 'MIDDLE' },
+  { label: '하', value: 'LOWER_MIDDLE' },
+  { label: '최하', value: 'LOWER' },
 ]
 
 export const RoleContributionInput = ({

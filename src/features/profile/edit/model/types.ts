@@ -28,3 +28,20 @@ export interface SkillInputProps {
   onSkillRemove?: (skill: string) => void
   selectedSkills?: string[]
 }
+
+export interface Portfolio {
+  projectName: string
+  projectLineDescription: string
+  projectSize: 'TEAM' | 'PERSONAL'
+  projectHeadCount: number
+  projectTeamComposition: string
+  projectStartDate: string
+  projectEndDate: string | null
+  isProjectInProgress: boolean
+  projectRoleAndContributions: RoleContribution[]
+  projectSkillNames: string[]
+  projectLink: string
+  projectDescription: string
+  representImage: File | null
+  subImages: File[]
+}
