@@ -3,19 +3,39 @@ import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import { useState } from 'react'
+import { createAwards } from '../../api/awardsApi'
+import { useRouter } from 'next/navigation'
 
 export default function NewAwards() {
-  const [competitionName, setCompetitionName] = useState('') // 대회명
-  const [awardRank, setAwardRank] = useState('') // 훈격
-  const [awardDate, setAwardDate] = useState('') // 수상시기
-  const [hostOrganization, setHostOrganization] = useState('') // 주최/주관
-  const [description, setDescription] = useState('') // 설명
+  const [competitionName, setCompetitionName] = useState('')
+  const [awardRank, setAwardRank] = useState('')
+  const [awardDate, setAwardDate] = useState('')
+  const [hostOrganization, setHostOrganization] = useState('')
+  const [description, setDescription] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter()
 
-  const handleSave = () => {
-    setIsSubmitting(true)
-    alert('수상 이력이 성공적으로 저장되었습니다.')
-    setIsSubmitting(false)
+  const handleSave = async () => {
+    try {
+      setIsSubmitting(true)
+
+      const awardsData = {
+        awardsName: competitionName,
+        awardsRanking: awardRank,
+        awardsDate: awardDate,
+        awardsOrganizer: hostOrganization,
+        awardsDescription: description,
+      }
+
+      await createAwards(awardsData)
+      alert('수상 이력이 성공적으로 저장되었습니다.')
+      router.push('/profile/edit/awards')
+    } catch (error) {
+      console.error('Failed to save awards:', error)
+      alert('수상 이력 저장에 실패했습니다.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
