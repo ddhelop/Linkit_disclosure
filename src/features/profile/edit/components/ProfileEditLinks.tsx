@@ -2,12 +2,26 @@
 import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { getLinkIcon } from '../lib/getLinkIcon'
-import type { LinkItem } from '../model/types'
+import { LinkItem, saveLinks, getLinks } from '../api/profileLinkApi'
 
 export default function ProfileEditLinks() {
   const [links, setLinks] = useState<LinkItem[]>([])
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    const fetchLinks = async () => {
+      try {
+        const data = await getLinks()
+        setLinks(data)
+      } catch (error) {
+        console.error('Failed to fetch links:', error)
+      }
+    }
+
+    fetchLinks()
+  }, [])
 
   const addLink = () => {
     setLinks([...links, { id: Date.now(), title: '', url: '' }])
@@ -21,15 +35,26 @@ export default function ProfileEditLinks() {
     setLinks(links.map((link) => (link.id === id ? { ...link, [field]: value } : link)))
   }
 
+  const handleSave = async () => {
+    setIsSubmitting(true)
+    try {
+      await saveLinks(links)
+      alert('링크가 성공적으로 저장되었습니다.')
+    } catch (error) {
+      console.error('Failed to save links:', error)
+      alert('링크 저장에 실패했습니다.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <>
       <div className="flex flex-col rounded-xl bg-white px-[1.62rem] pb-7 pt-[1.87rem]">
-        {/* 추가하기 버튼 */}
         <Button mode="main2" animationMode="main" className="w-full" onClick={addLink}>
           링크 추가하기
         </Button>
 
-        {/* 링크 목록 */}
         <div className="flex flex-col gap-3">
           {links.map((link) => (
             <div key={link.id} className="mt-3 flex gap-2">
@@ -69,8 +94,8 @@ export default function ProfileEditLinks() {
         </div>
       </div>
       <div className="mt-4 flex justify-end">
-        <Button mode="main2" animationMode="main">
-          저장하기
+        <Button mode="main2" animationMode="main" onClick={handleSave} disabled={isSubmitting}>
+          {isSubmitting ? '저장 중...' : '저장하기'}
         </Button>
       </div>
     </>
