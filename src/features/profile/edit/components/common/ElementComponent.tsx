@@ -3,19 +3,35 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-interface ActivityItem {
-  profileActivityId: number
-  activityName: string
-  activityRole: string
-  activityStartDate: string
-  activityEndDate: string | null
+interface ElementComponentProps {
+  id: number
+  title: string
+  subtitle?: string
+  date?: string
+  endDate?: string | null
+  editPath: string
+  onDelete?: (id: number) => void
 }
 
-export default function ElementComponent({ activity }: { activity: ActivityItem }) {
+export default function ElementComponent({
+  id,
+  title,
+  subtitle,
+  date,
+  endDate,
+  editPath,
+  onDelete,
+}: ElementComponentProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleToggleMenu = () => {
     setIsMenuOpen((prev) => !prev)
+  }
+
+  const handleDelete = () => {
+    if (onDelete) {
+      onDelete(id)
+    }
   }
 
   return (
@@ -23,18 +39,22 @@ export default function ElementComponent({ activity }: { activity: ActivityItem 
       <div className="gap-2">
         <Link
           href={{
-            pathname: '/profile/edit/history/new',
-            query: { id: activity.profileActivityId },
+            pathname: editPath,
+            query: { id },
           }}
         >
-          <span className="cursor-pointer font-semibold text-grey80">{activity.activityName}</span>
+          <span className="cursor-pointer font-semibold text-grey80">{title}</span>
         </Link>
-        <div className="flex gap-4 text-xs">
-          <span className="text-grey80">{activity.activityRole}</span>
-          <span className="text-grey60">
-            {activity.activityStartDate} ~ {activity.activityEndDate || '진행 중'}
-          </span>
-        </div>
+        {(subtitle || date) && (
+          <div className="flex gap-4 text-xs">
+            {subtitle && <span className="text-grey80">{subtitle}</span>}
+            {date && (
+              <span className="text-grey60">
+                {date} {endDate && `~ ${endDate === 'null' ? '진행 중' : endDate}`}
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="relative">
@@ -53,17 +73,14 @@ export default function ElementComponent({ activity }: { activity: ActivityItem 
               <li className="cursor-pointer px-4 py-1 text-grey70 hover:bg-grey10">
                 <Link
                   href={{
-                    pathname: '/profile/edit/history/new',
-                    query: { id: activity.profileActivityId },
+                    pathname: editPath,
+                    query: { id },
                   }}
                 >
                   수정하기
                 </Link>
               </li>
-              <li
-                className="cursor-pointer px-4 py-1 text-red-500 hover:bg-grey10"
-                onClick={() => alert(`${activity.activityName} 삭제하기 클릭됨`)}
-              >
+              <li className="cursor-pointer px-4 py-1 text-red-500 hover:bg-grey10" onClick={handleDelete}>
                 삭제하기
               </li>
             </ul>

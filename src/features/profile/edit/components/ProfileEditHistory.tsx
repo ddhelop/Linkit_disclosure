@@ -60,7 +60,15 @@ export default function ProfileEditHistory() {
       {/* 활동 목록 렌더링 */}
       <div className="mt-4">
         {activities.map((activity) => (
-          <ElementComponent key={activity.profileActivityId} activity={activity} />
+          <ElementComponent
+            key={activity.profileActivityId}
+            id={activity.profileActivityId}
+            title={activity.activityName}
+            subtitle={activity.activityRole}
+            date={activity.activityStartDate}
+            endDate={activity.activityEndDate}
+            editPath="/profile/edit/history/new"
+          />
         ))}
       </div>
     </div>
