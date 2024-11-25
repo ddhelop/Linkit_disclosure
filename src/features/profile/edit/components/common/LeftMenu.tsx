@@ -81,7 +81,7 @@ const LeftMenu = () => {
                 <span>{item.label}</span>
                 <div className="ml-2 flex h-[1.25rem] w-[1.25rem] items-center justify-center">
                   {isChecked ? (
-                    <Image src="/common/icons/check_icon.svg" width={16} height={16} alt="check" />
+                    <Image src="/common/icons/check_icon.svg" width={20} height={20} alt="check" />
                   ) : (
                     <div className="h-[1.25rem] w-[1.25rem] rounded-full border border-grey40"></div>
                   )}

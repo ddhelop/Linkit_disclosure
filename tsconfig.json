@@ -34,7 +34,8 @@
     "src/components/common/component/ToastPopUp/ToastPopup.tsㅌ",
     "src/features/login/model/useAuthStore.tsx",
     "src",
-    "@types"
+    "@types",
+    "../src/features/profile/edit/api/educationApi.ts"
   ],
   "exclude": ["node_modules"]
 }
