@@ -10,47 +10,64 @@ export default function ProfileEditAccount() {
 
   return (
     <>
-      <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] py-10">
-        {/* 이름 */}
-        <div className="flex flex-col gap-3">
-          <span>이름</span>
-          <Input placeholder="이름을 입력해주세요" className="py-3" />
-        </div>
+      <div className="flex flex-col gap-10 rounded-xl bg-white px-[1.62rem] py-[1.88rem]">
+        <div className="flex flex-col items-center gap-2">
+          {/* 단일 항목 - 이메일 */}
+          <div className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10">
+            <div className="flex items-center gap-3">
+              <Image src="/common/icons/google_email.svg" alt="edit" width={48} height={48} />
 
-        {/* 연락처 */}
-        <div className="flex flex-col gap-3">
-          <span>연락처</span>
-          <Input
-            value={phoneNumber}
-            onChange={setPhoneNumber}
-            placeholder="연락처를 입력해주세요"
-            className="py-3"
-            type="text"
-          />
-        </div>
+              <div className="flex flex-col justify-center gap-1">
+                <p className="text-xs font-normal text-grey60">구글 로그인</p>
+                <span className="font-semibold">linkit@gmail.com</span>
+              </div>
+            </div>
 
-        {/* 연동 이메일 */}
-        <div className="flex flex-col gap-3">
-          <div className="flex w-full justify-between">
-            <span>연동 이메일</span>
-            <button className="rounded-[0.25rem] bg-[#EDF3FF] px-3 text-xs text-main">변경하기</button>
+            <Image src="/common/icons/arrow-right(greyblack).svg" alt="edit" width={32} height={32} />
           </div>
-          <div className="rounded-xl border border-grey40 bg-grey20 px-6 py-3 text-grey50">clfgnm9@naver.com</div>
-        </div>
 
-        {/* 동의 */}
-        <div className="flex cursor-pointer items-center gap-3">
-          <div className={`rounded-[0.6rem] border border-grey40 bg-grey20 p-[0.54rem]`}>
-            <Image src={'/common/icons/btn_check.svg'} width={16} height={16} alt="checkbox" />
+          {/* 단일 항목 - 이름 */}
+          <div className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10">
+            <div className="flex items-center gap-3">
+              <Image src="/common/icons/user_profile_light.svg" alt="edit" width={48} height={48} />
+
+              <div className="flex flex-col justify-center gap-1">
+                <p className="text-xs font-normal text-grey60">이름</p>
+                <span className="font-semibold">김링킷</span>
+              </div>
+            </div>
+
+            <Image src="/common/icons/arrow-right(greyblack).svg" alt="edit" width={32} height={32} />
           </div>
-          <span className="text-grey70">광고성 정보 수신 동의</span>
-        </div>
-      </div>
 
-      <div className="mt-5 flex w-full justify-end">
-        <Button mode="main" animationMode="main" size="md">
-          저장하기
-        </Button>
+          {/* 단일 항목 - 전화번호 */}
+          <div className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10">
+            <div className="flex items-center gap-3">
+              <Image src="/common/icons/call_circle.svg" alt="edit" width={48} height={48} />
+
+              <div className="flex flex-col justify-center gap-1">
+                <p className="text-xs font-normal text-grey60">전화번호</p>
+                <span className="font-semibold">010-1234-5678</span>
+              </div>
+            </div>
+
+            <Image src="/common/icons/arrow-right(greyblack).svg" alt="edit" width={32} height={32} />
+          </div>
+
+          {/* 구분선 */}
+          <div className="my-[1.88rem] h-[1px] w-[96%] bg-grey30" />
+
+          {/* 체크 */}
+          <div className="flex w-full cursor-pointer items-center gap-2 pl-4">
+            <Image src="/common/icons/not_check.svg" alt="edit" width={24} height={24} />
+            <p className="text-sm font-normal text-grey70">광고성 정보 수신 동의</p>
+          </div>
+
+          {/* 회원탈퇴 */}
+          <div className="mt-[1.94rem] flex w-full cursor-pointer pl-4 text-sm font-normal text-grey60 underline">
+            회원탈퇴
+          </div>
+        </div>
       </div>
     </>
   )
