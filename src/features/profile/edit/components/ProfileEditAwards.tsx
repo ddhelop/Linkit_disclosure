@@ -2,41 +2,33 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@/shared/ui/Button/Button'
 import Link from 'next/link'
-import { getActivities } from '../api/profileActivityApi'
+import { getAwards, AwardsItem } from '../api/awardsApi'
 import ElementComponent from './common/ElementComponent'
 
-interface ActivityItem {
-  profileActivityId: number
-  activityName: string
-  activityRole: string
-  activityStartDate: string
-  activityEndDate: string | null
-}
-
 export default function ProfileEditAwards() {
-  const [activities, setActivities] = useState<ActivityItem[]>([])
+  const [awards, setAwards] = useState<AwardsItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const fetchActivities = async () => {
+    const fetchAwards = async () => {
       try {
-        const data = await getActivities()
-        setActivities(data)
+        const data = await getAwards()
+        setAwards(data)
       } catch (error) {
-        console.error('Failed to fetch activities:', error)
+        console.error('Failed to fetch awards:', error)
       } finally {
         setIsLoading(false)
       }
     }
 
-    fetchActivities()
+    fetchAwards()
   }, [])
 
   if (isLoading) {
     return <div>Loading...</div>
   }
 
-  if (activities.length === 0) {
+  if (awards.length === 0) {
     return (
       <div className="flex flex-col rounded-xl bg-white px-[1.62rem] pb-7 pt-[1.87rem]">
         <Link href="/profile/edit/awards/new">
@@ -44,7 +36,7 @@ export default function ProfileEditAwards() {
             수상 추가하기
           </Button>
         </Link>
-        <div className="mt-4 text-grey60">활동 내역이 없습니다.</div>
+        <div className="mt-4 text-grey60">수상 내역이 없습니다.</div>
       </div>
     )
   }
@@ -57,10 +49,20 @@ export default function ProfileEditAwards() {
         </Button>
       </Link>
 
-      {/* 활동 목록 렌더링 */}
       <div className="mt-4">
-        {activities.map((activity) => (
-          <ElementComponent key={activity.profileActivityId} activity={activity} />
+        {awards.map((award) => (
+          <ElementComponent
+            key={award.profileAwardsId}
+            id={award.profileAwardsId}
+            title={award.awardsName}
+            subtitle={award.awardsRanking}
+            date={award.awardsDate}
+            editPath="/profile/edit/awards/new"
+            onDelete={(id) => {
+              // 삭제 로직 구현
+              console.log(`Delete award with id: ${id}`)
+            }}
+          />
         ))}
       </div>
     </div>

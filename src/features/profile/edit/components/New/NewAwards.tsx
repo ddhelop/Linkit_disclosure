@@ -2,11 +2,13 @@
 import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import Textarea from '@/shared/ui/TextArea/TextArea'
-import { useState } from 'react'
-import { createAwards } from '../../api/awardsApi'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { createAwards, getAwardById } from '../../api/awardsApi'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function NewAwards() {
+  const searchParams = useSearchParams()
+  const awardId = searchParams.get('id')
   const [competitionName, setCompetitionName] = useState('')
   const [awardRank, setAwardRank] = useState('')
   const [awardDate, setAwardDate] = useState('')
@@ -14,6 +16,26 @@ export default function NewAwards() {
   const [description, setDescription] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    const fetchAwardDetails = async () => {
+      if (!awardId) return
+
+      try {
+        const awardDetails = await getAwardById(awardId)
+        setCompetitionName(awardDetails.awardsName)
+        setAwardRank(awardDetails.awardsRanking)
+        setAwardDate(awardDetails.awardsDate)
+        setHostOrganization(awardDetails.awardsOrganizer)
+        setDescription(awardDetails.awardsDescription)
+      } catch (error) {
+        console.error('Failed to fetch award details:', error)
+        alert('수상 이력을 불러오는데 실패했습니다.')
+      }
+    }
+
+    fetchAwardDetails()
+  }, [awardId])
 
   const handleSave = async () => {
     try {
