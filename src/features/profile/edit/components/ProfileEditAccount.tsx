@@ -2,8 +2,10 @@
 
 import { usePhoneNumberFormatter } from '@/shared/hooks/usePhoneNumberFormatter'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { getMemberBasicInform } from '../api/memberApi'
+import NameChangeModal from './NameChangeModal'
+import { updateMemberName } from '../../api/updateMemberName'
 
 export default function ProfileEditAccount() {
   const { phoneNumber, setPhoneNumber } = usePhoneNumberFormatter()
@@ -14,6 +16,7 @@ export default function ProfileEditAccount() {
     platform: '',
     isMarketingAgree: false,
   })
+  const [isNameModalOpen, setIsNameModalOpen] = useState(false)
 
   useEffect(() => {
     const fetchMemberData = async () => {
@@ -34,7 +37,7 @@ export default function ProfileEditAccount() {
     }
 
     fetchMemberData()
-  }, [setPhoneNumber])
+  }, [])
 
   const getPlatformText = (platform: string) => {
     if (!platform) return '소셜 로그인'
@@ -51,10 +54,22 @@ export default function ProfileEditAccount() {
     }
   }
 
+  const handleNameChange = async (newName: string) => {
+    try {
+      await updateMemberName(newName)
+      setMemberData((prev) => ({ ...prev, name: newName }))
+      setIsNameModalOpen(false)
+    } catch (error) {
+      console.error('Failed to update name:', error)
+      // TODO: 에러 처리 (예: 토스트 메시지 표시)
+    }
+  }
+
   return (
     <>
       <div className="flex flex-col gap-10 rounded-xl bg-white px-[1.62rem] py-[1.88rem]">
         <div className="flex flex-col items-center gap-2">
+          {/*  */}
           <div className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10">
             <div className="flex items-center gap-3">
               <Image src="/common/icons/google_email.svg" alt="edit" width={48} height={48} />
@@ -66,7 +81,10 @@ export default function ProfileEditAccount() {
             <Image src="/common/icons/arrow-right(greyblack).svg" alt="edit" width={32} height={32} />
           </div>
 
-          <div className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10">
+          <div
+            className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10"
+            onClick={() => memberData.name && setIsNameModalOpen(true)}
+          >
             <div className="flex items-center gap-3">
               <Image src="/common/icons/user_profile_light.svg" alt="edit" width={48} height={48} />
               <div className="flex flex-col justify-center gap-1">
@@ -105,6 +123,13 @@ export default function ProfileEditAccount() {
           </div>
         </div>
       </div>
+
+      <NameChangeModal
+        isOpen={isNameModalOpen}
+        onClose={() => setIsNameModalOpen(false)}
+        initialName={memberData.name}
+        onSubmit={handleNameChange}
+      />
     </>
   )
 }
