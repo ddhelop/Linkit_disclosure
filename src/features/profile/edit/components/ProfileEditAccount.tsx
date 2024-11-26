@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
 import { getMemberBasicInform } from '../api/memberApi'
 import NameChangeModal from './NameChangeModal'
-import { updateMemberName } from '../../api/updateMemberName'
+import { updateMarketingConsent, updateMemberName } from '../../api/updateMemberName'
 import PhoneChangeModal from './PhoneChangeModal'
 import EmailChangeModal from './EmailChangeModal'
 
@@ -21,6 +21,7 @@ export default function ProfileEditAccount() {
   const [isNameModalOpen, setIsNameModalOpen] = useState(false)
   const [isPhoneModalOpen, setIsPhoneModalOpen] = useState(false)
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false)
+  const [isUpdating, setIsUpdating] = useState(false)
 
   useEffect(() => {
     const fetchMemberData = async () => {
@@ -106,6 +107,22 @@ export default function ProfileEditAccount() {
     }
   }
 
+  const handleMarketingConsentChange = async () => {
+    if (isUpdating) return // 이미 업데이트 중이면 중복 요청 방지
+
+    try {
+      setIsUpdating(true)
+      await updateMarketingConsent(!memberData.isMarketingAgree)
+      setMemberData((prev) => ({ ...prev, isMarketingAgree: !prev.isMarketingAgree }))
+      alert('광고성 정보 수신 동의가 변경되었습니다.')
+    } catch (error) {
+      console.error('Failed to update marketing consent:', error)
+      // TODO: 에러 처리
+    } finally {
+      setIsUpdating(false)
+    }
+  }
+
   return (
     <>
       <div className="flex flex-col gap-10 rounded-xl bg-white px-[1.62rem] py-[1.88rem]">
@@ -154,9 +171,11 @@ export default function ProfileEditAccount() {
 
           <div className="my-[1.88rem] h-[1px] w-[96%] bg-grey30" />
 
-          <div className="flex w-full cursor-pointer items-center gap-2 pl-4">
+          <div className="flex w-full cursor-pointer items-center gap-2 pl-4" onClick={handleMarketingConsentChange}>
             <Image
-              src={memberData.isMarketingAgree ? '/common/icons/check_icon.svg' : '/common/icons/btn_not_check.svg'}
+              src={
+                memberData.isMarketingAgree ? '/common/icons/checked_square.svg' : '/common/icons/unchecked_square.svg'
+              }
               alt="edit"
               width={24}
               height={24}
