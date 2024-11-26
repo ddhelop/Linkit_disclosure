@@ -6,6 +6,7 @@ import { useEffect, useState, useRef } from 'react'
 import { getMemberBasicInform } from '../api/memberApi'
 import NameChangeModal from './NameChangeModal'
 import { updateMemberName } from '../../api/updateMemberName'
+import PhoneChangeModal from './PhoneChangeModal'
 
 export default function ProfileEditAccount() {
   const { phoneNumber, setPhoneNumber } = usePhoneNumberFormatter()
@@ -17,6 +18,7 @@ export default function ProfileEditAccount() {
     isMarketingAgree: false,
   })
   const [isNameModalOpen, setIsNameModalOpen] = useState(false)
+  const [isPhoneModalOpen, setIsPhoneModalOpen] = useState(false)
 
   useEffect(() => {
     const fetchMemberData = async () => {
@@ -65,6 +67,17 @@ export default function ProfileEditAccount() {
     }
   }
 
+  const handlePhoneChange = async (newPhone: string) => {
+    try {
+      // TODO: API call to update phone
+      setMemberData((prev) => ({ ...prev, contact: newPhone }))
+      setIsPhoneModalOpen(false)
+    } catch (error) {
+      console.error('Failed to update phone:', error)
+      // TODO: 에러 처리
+    }
+  }
+
   return (
     <>
       <div className="flex flex-col gap-10 rounded-xl bg-white px-[1.62rem] py-[1.88rem]">
@@ -95,7 +108,10 @@ export default function ProfileEditAccount() {
             <Image src="/common/icons/arrow-right(greyblack).svg" alt="edit" width={32} height={32} />
           </div>
 
-          <div className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10">
+          <div
+            className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10"
+            onClick={() => setIsPhoneModalOpen(true)}
+          >
             <div className="flex items-center gap-3">
               <Image src="/common/icons/call_circle.svg" alt="edit" width={48} height={48} />
               <div className="flex flex-col justify-center gap-1">
@@ -129,6 +145,13 @@ export default function ProfileEditAccount() {
         onClose={() => setIsNameModalOpen(false)}
         initialName={memberData.name}
         onSubmit={handleNameChange}
+      />
+
+      <PhoneChangeModal
+        isOpen={isPhoneModalOpen}
+        onClose={() => setIsPhoneModalOpen(false)}
+        initialPhone={memberData.contact}
+        onSubmit={handlePhoneChange}
       />
     </>
   )
