@@ -57,8 +57,15 @@ export default function PhoneChangeModal({ isOpen, onClose, initialPhone, onSubm
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/50">
-      <div ref={modalRef} className="w-[90%] max-w-[510px] rounded-xl bg-white p-6">
+    <div
+      className="pointer-events-auto fixed inset-0 z-[999] flex items-center justify-center bg-black/50"
+      onClick={onClose}
+    >
+      <div
+        ref={modalRef}
+        className="w-[90%] max-w-[510px] rounded-xl bg-white p-6"
+        onClick={(e) => e.stopPropagation()}
+      >
         <h2 className="mb-6 text-center font-semibold text-grey90">변경할 전화번호를 입력해 주세요</h2>
 
         <span className="text-sm font-normal text-grey80">새로운 전화번호</span>

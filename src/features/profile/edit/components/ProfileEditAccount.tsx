@@ -7,6 +7,7 @@ import { getMemberBasicInform } from '../api/memberApi'
 import NameChangeModal from './NameChangeModal'
 import { updateMemberName } from '../../api/updateMemberName'
 import PhoneChangeModal from './PhoneChangeModal'
+import EmailChangeModal from './EmailChangeModal'
 
 export default function ProfileEditAccount() {
   const { phoneNumber, setPhoneNumber } = usePhoneNumberFormatter()
@@ -19,6 +20,7 @@ export default function ProfileEditAccount() {
   })
   const [isNameModalOpen, setIsNameModalOpen] = useState(false)
   const [isPhoneModalOpen, setIsPhoneModalOpen] = useState(false)
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false)
 
   useEffect(() => {
     const fetchMemberData = async () => {
@@ -93,11 +95,25 @@ export default function ProfileEditAccount() {
     }
   }
 
+  const handleEmailChange = async (newEmail: string, verificationCode: string) => {
+    try {
+      // TODO: API call to update email
+      setMemberData((prev) => ({ ...prev, email: newEmail }))
+      setIsEmailModalOpen(false)
+    } catch (error) {
+      console.error('Failed to update email:', error)
+      // TODO: 에러 처리
+    }
+  }
+
   return (
     <>
       <div className="flex flex-col gap-10 rounded-xl bg-white px-[1.62rem] py-[1.88rem]">
         <div className="flex flex-col items-center gap-2">
-          <div className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10">
+          <div
+            className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10"
+            onClick={() => setIsEmailModalOpen(true)}
+          >
             <div className="flex items-center gap-3">
               <Image src={getPlatformIcon(memberData.platform)} alt="platform" width={48} height={48} />
               <div className="flex flex-col justify-center gap-1">
@@ -166,6 +182,13 @@ export default function ProfileEditAccount() {
         onClose={() => setIsPhoneModalOpen(false)}
         initialPhone={memberData.contact}
         onSubmit={handlePhoneChange}
+      />
+
+      <EmailChangeModal
+        isOpen={isEmailModalOpen}
+        onClose={() => setIsEmailModalOpen(false)}
+        initialEmail={memberData.email}
+        onSubmit={handleEmailChange}
       />
     </>
   )
