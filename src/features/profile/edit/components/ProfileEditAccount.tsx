@@ -56,6 +56,21 @@ export default function ProfileEditAccount() {
     }
   }
 
+  const getPlatformIcon = (platform: string) => {
+    if (!platform) return '/common/icons/google_email.svg'
+
+    switch (platform.toLowerCase()) {
+      case 'google':
+        return '/common/icons/google_email.svg'
+      case 'naver':
+        return '/common/icons/naver_email.svg'
+      case 'kakao':
+        return '/common/icons/kakao_email.svg'
+      default:
+        return '/common/icons/google_email.svg'
+    }
+  }
+
   const handleNameChange = async (newName: string) => {
     try {
       await updateMemberName(newName)
@@ -82,10 +97,9 @@ export default function ProfileEditAccount() {
     <>
       <div className="flex flex-col gap-10 rounded-xl bg-white px-[1.62rem] py-[1.88rem]">
         <div className="flex flex-col items-center gap-2">
-          {/*  */}
           <div className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10">
             <div className="flex items-center gap-3">
-              <Image src="/common/icons/google_email.svg" alt="edit" width={48} height={48} />
+              <Image src={getPlatformIcon(memberData.platform)} alt="platform" width={48} height={48} />
               <div className="flex flex-col justify-center gap-1">
                 <p className="text-xs font-normal text-grey60">{getPlatformText(memberData.platform)}</p>
                 <span className="font-semibold">{memberData.email}</span>
