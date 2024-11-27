@@ -12,11 +12,22 @@ interface InputProps {
   disabled?: boolean
   maxLength?: number
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
+  onBlur?: () => void
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    { type = 'text', value, onChange, placeholder = '', className = '', disabled = false, maxLength, onKeyDown },
+    {
+      type = 'text',
+      value,
+      onChange,
+      placeholder = '',
+      className = '',
+      disabled = false,
+      maxLength,
+      onKeyDown,
+      onBlur,
+    },
     ref,
   ) => {
     return (
@@ -27,6 +38,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         defaultValue={value === undefined ? '' : undefined}
         onChange={onChange}
         onKeyDown={onKeyDown}
+        onBlur={onBlur}
         placeholder={placeholder}
         className={`rounded-xl border-[1.5px] border-grey30 px-4 py-3 placeholder:text-grey40 focus:border-[1.5px] focus:border-main focus:outline-none ${className}`}
         disabled={disabled}

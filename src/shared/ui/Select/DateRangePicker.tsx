@@ -3,6 +3,7 @@
 
 import Input from '@/shared/ui/Input/Input'
 import Image from 'next/image'
+import { useState, useEffect } from 'react'
 
 interface DateRangePickerProps {
   startDate: string
@@ -25,6 +26,69 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
   ongoingLabel = '진행 중', // 기본값을 "진행 중"으로 설정
   ongoingClassName = 'text-grey70', // 기본 스타일
 }) => {
+  // 입력 중인 값을 관리하기 위한 로컬 상태
+  const [localStartDate, setLocalStartDate] = useState(startDate)
+  const [localEndDate, setLocalEndDate] = useState(endDate)
+
+  useEffect(() => {
+    setLocalStartDate(startDate)
+  }, [startDate])
+
+  useEffect(() => {
+    setLocalEndDate(endDate)
+  }, [endDate])
+
+  const formatDateInput = (input: string) => {
+    // 숫자만 추출
+    const numbers = input.replace(/\D/g, '')
+
+    if (numbers.length <= 4) {
+      // YYYY
+      return numbers
+    } else {
+      // YYYY.MM
+      return `${numbers.slice(0, 4)}.${numbers.slice(4, 6)}`
+    }
+  }
+
+  const validateDate = (date: string) => {
+    const regex = /^\d{4}\.(0[1-9]|1[0-2])$/
+    if (!regex.test(date)) return false
+
+    const [year, month] = date.split('.')
+    const yearNum = parseInt(year)
+    const currentYear = new Date().getFullYear()
+
+    // 연도는 1900부터 현재 연도까지만 허용
+    return yearNum >= 1900 && yearNum <= currentYear
+  }
+
+  const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatDateInput(e.target.value)
+    setLocalStartDate(formatted)
+
+    // 형식이 완성되고 유효한 경우에만 부모 컴포넌트에 알림
+    if (formatted.length === 7 && validateDate(formatted)) {
+      onStartDateChange(formatted)
+    }
+  }
+
+  const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatDateInput(e.target.value)
+    setLocalEndDate(formatted)
+
+    // 형식이 완성되고 유효한 경우에만 부모 컴포넌트에 알림
+    if (formatted.length === 7 && validateDate(formatted)) {
+      onEndDateChange(formatted)
+    }
+  }
+
+  const handleBlur = (date: string, onChange: (date: string) => void) => {
+    if (date && !validateDate(date)) {
+      onChange('') // 유효하지 않은 날짜는 초기화
+    }
+  }
+
   return (
     <div className="flex flex-col gap-3">
       <span className="flex w-[10.6rem]">
@@ -32,18 +96,22 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
       </span>
       <div className="flex w-full items-center gap-2">
         <Input
-          placeholder="시작일자"
+          placeholder="YYYY.MM"
           className="w-[49%]"
-          value={startDate}
-          onChange={(e) => onStartDateChange(e.target.value)}
+          value={localStartDate}
+          onChange={handleStartDateChange}
+          onBlur={() => handleBlur(localStartDate, onStartDateChange)}
+          maxLength={7}
         />
         <span>~</span>
         <Input
-          placeholder="종료일자"
+          placeholder="YYYY.MM"
           className="w-[49%]"
-          value={endDate}
-          onChange={(e) => onEndDateChange(e.target.value)}
-          disabled={isOngoing} // 진행 중일 때 비활성화
+          value={localEndDate}
+          onChange={handleEndDateChange}
+          onBlur={() => handleBlur(localEndDate, onEndDateChange)}
+          maxLength={7}
+          disabled={isOngoing}
         />
       </div>
       <div className="flex cursor-pointer gap-2" onClick={onToggleOngoing}>
