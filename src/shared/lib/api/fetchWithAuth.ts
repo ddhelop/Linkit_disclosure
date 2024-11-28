@@ -7,6 +7,7 @@ export async function refreshAccessToken() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
       credentials: 'include', // 쿠키로 리프레시 토큰을 서버에서 관리
     })
@@ -44,7 +45,7 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
   const response = await fetch(apiUrl, options)
 
   // 액세스 토큰 만료 시 처리
-  if (response.status === 403 && retry) {
+  if (response.status === 401 && retry) {
     try {
       accessToken = await refreshAccessToken()
 
