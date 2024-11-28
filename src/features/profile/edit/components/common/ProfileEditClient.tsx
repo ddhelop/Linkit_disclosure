@@ -33,11 +33,17 @@ export default function ProfileEditClient({ children }: ProfileEditClientProps) 
   return (
     <ProfileProvider profileData={profileData}>
       <div className="flex bg-white">
-        <aside className="fixed top-16 flex h-[calc(100vh-4rem)] w-[28%] flex-col items-end pr-[4.5rem] pt-[3.75rem]">
-          <ProfileProgress />
-          {/* <MiniProfileCard /> */}
-          <LeftMenu />
+        <aside className=" fixed top-16 flex h-[calc(100vh-4rem)] w-[28%] flex-col items-end pr-[4.5rem] pt-[3.75rem]">
+          <div
+            className="rounded-xl border border-grey30 p-4"
+            style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
+          >
+            <ProfileProgress />
+            {/* <MiniProfileCard /> */}
+            <LeftMenu />
+          </div>
         </aside>
+
         <main className="ml-[28%] min-h-[calc(100vh-4rem)] w-3/4 bg-[#EDF3FF] pb-32">{children}</main>
       </div>
     </ProfileProvider>

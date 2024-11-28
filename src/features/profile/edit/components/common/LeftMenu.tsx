@@ -59,7 +59,7 @@ const LeftMenu = () => {
       {/* 왼쪽 메뉴바 - 프로필 관리 */}
       <div className="mt-5 flex w-full flex-col">
         <label className="rounded-xl bg-grey20 px-6 py-3">프로필 관리</label>
-        <ul className="flex w-full flex-col items-end pl-3 pr-6 pt-3">
+        <ul className="flex w-full flex-col items-end bg-[#FCFCFD] pl-3 pr-6 pt-3">
           {menuItems.map((item, index) => {
             const isActive = pathname === item.path || item.subPaths?.includes(pathname)
             const isChecked = profileBooleanMenu?.[item.key] || false
