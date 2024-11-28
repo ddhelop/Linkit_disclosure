@@ -44,7 +44,7 @@ const LeftMenu = () => {
   }
 
   return (
-    <div className="mt-12 w-[17.5rem]">
+    <div className="mt-6 w-[17.5rem]">
       {/* 나의 로그 */}
       <Link
         href={'/profile/edit/log'}
@@ -54,17 +54,12 @@ const LeftMenu = () => {
           <h2 className="text-main">나의 로그</h2>
           <Image src="/common/icons/right_arrow_grey60.svg" width={24} height={24} alt="arrow-right" />
         </div>
-
-        <span className="mt-2 text-xs font-normal leading-5 text-grey60">
-          나의 로그에서는 나를 기록하고 소개할 수 있어요.
-          <br /> 다른 사람들에게 나를 어필해 보세요!
-        </span>
       </Link>
 
       {/* 왼쪽 메뉴바 - 프로필 관리 */}
       <div className="mt-5 flex w-full flex-col">
         <label className="rounded-xl bg-grey20 px-6 py-3">프로필 관리</label>
-        <ul className="flex w-full flex-col items-end gap-1 pl-3 pr-6 pt-3">
+        <ul className="flex w-full flex-col items-end pl-3 pr-6 pt-3">
           {menuItems.map((item, index) => {
             const isActive = pathname === item.path || item.subPaths?.includes(pathname)
             const isChecked = profileBooleanMenu?.[item.key] || false
