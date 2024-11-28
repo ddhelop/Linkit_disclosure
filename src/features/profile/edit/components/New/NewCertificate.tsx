@@ -1,52 +1,91 @@
 'use client'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import Textarea from '@/shared/ui/TextArea/TextArea'
-import { formatYYYYMM, isValidYYYYMM } from '@/shared/lib/utils/dateFormat'
-import { ChangeEvent, useState } from 'react'
-import { createCertificate } from '@/features/profile/api/createCertificate'
-import { useRouter } from 'next/navigation'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
+import { getLicense, License } from '@/features/profile/api/getLicense'
 
 export default function NewCertificate() {
-  const [licenseName, setLicenseName] = useState('')
-  const [licenseInstitution, setLicenseInstitution] = useState('')
-  const [acquiredDate, setAcquiredDate] = useState('')
-  const [description, setDescription] = useState('')
+  const searchParams = useSearchParams()
+  const id = searchParams.get('id')
+
+  const [isLoading, setIsLoading] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const router = useRouter()
 
-  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const formatted = formatYYYYMM(e.target.value)
-    setAcquiredDate(formatted)
-  }
+  const [formData, setFormData] = useState({
+    licenseName: '',
+    licenseInstitution: '',
+    licenseAcquisitionDate: '',
+    licenseDescription: '',
+  })
 
-  const handleSave = async () => {
-    if (!licenseName || !licenseInstitution || !acquiredDate) {
-      // 필수 필드 검증
-      return
+  const [originalData, setOriginalData] = useState<License | null>(null)
+
+  useEffect(() => {
+    const fetchLicense = async () => {
+      if (!id) return
+
+      try {
+        setIsLoading(true)
+        const data = await getLicense(id)
+        const initialFormData = {
+          licenseName: data.licenseName,
+          licenseInstitution: data.licenseInstitution,
+          licenseAcquisitionDate: data.licenseAcquisitionDate,
+          licenseDescription: data.licenseDescription || '',
+        }
+        setFormData(initialFormData)
+        setOriginalData(data)
+      } catch (error) {
+        console.error('Failed to fetch license:', error)
+      } finally {
+        setIsLoading(false)
+      }
     }
 
+    fetchLicense()
+  }, [id])
+
+  // 데이터 변경 감지
+  const hasChanges =
+    originalData &&
+    (formData.licenseName !== originalData.licenseName ||
+      formData.licenseInstitution !== originalData.licenseInstitution ||
+      formData.licenseAcquisitionDate !== originalData.licenseAcquisitionDate ||
+      formData.licenseDescription !== (originalData.licenseDescription || ''))
+
+  // 필수 입력값 검증
+  const isFormValid =
+    formData.licenseName.trim() && formData.licenseInstitution.trim() && formData.licenseAcquisitionDate.trim()
+
+  // 버튼 활성화 조건
+  const isButtonEnabled = id ? isFormValid && hasChanges : isFormValid
+
+  const handleChange =
+    (name: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: e.target.value,
+      }))
+    }
+
+  const handleSave = async () => {
+    setIsSubmitting(true)
     try {
-      setIsSubmitting(true)
-      await createCertificate({
-        licenseName,
-        licenseInstitution,
-        licenseAcquisitionDate: acquiredDate,
-        licenseDescription: description || undefined,
-      })
-      alert('자격증이 성공적으로 저장되었습니다.')
-      router.back()
+      // TODO: Implement save logic here
+      // You'll need to add your API call to save the certificate
     } catch (error) {
-      console.error('Certificate creation failed:', error)
-      // 에러 처리
+      console.error('Failed to save certificate:', error)
     } finally {
       setIsSubmitting(false)
     }
   }
 
-  // 필수 입력값 검증
-  const isFormValid = licenseName.trim() && licenseInstitution.trim() && isValidYYYYMM(acquiredDate)
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <>
@@ -63,22 +102,23 @@ export default function NewCertificate() {
           </div>
           <Input
             placeholder="자격증 이름과 급수(점수)를 자유롭게 기재해 주세요"
-            value={licenseName}
-            onChange={(e) => setLicenseName(e.target.value)}
+            value={formData.licenseName}
+            onChange={handleChange('licenseName')}
           />
         </div>
+
         <div className="flex w-full gap-10">
           {/* 관련부처 */}
           <div className="flex w-[49%] flex-col gap-3">
-            <div className="flex justify-between ">
+            <div className="flex justify-between">
               <span className="flex">
                 관련부처<span className="text-main">*</span>
               </span>
             </div>
             <Input
               placeholder="관련 기관을 입력해 주세요"
-              value={licenseInstitution}
-              onChange={(e) => setLicenseInstitution(e.target.value)}
+              value={formData.licenseInstitution}
+              onChange={handleChange('licenseInstitution')}
             />
           </div>
 
@@ -89,9 +129,15 @@ export default function NewCertificate() {
                 취득일<span className="text-main">*</span>
               </span>
             </div>
-            <Input placeholder="YYYY.MM" value={acquiredDate} onChange={handleDateChange} maxLength={7} />
+            <Input
+              placeholder="YYYY.MM"
+              value={formData.licenseAcquisitionDate}
+              onChange={handleChange('licenseAcquisitionDate')}
+              maxLength={7}
+            />
           </div>
         </div>
+
         {/* 설명 */}
         <div className="flex w-full flex-col gap-3">
           <div className="flex justify-between">
@@ -100,15 +146,15 @@ export default function NewCertificate() {
           <Textarea
             placeholder="자격증 취득 경위를 자유롭게 기재해 주세요"
             className="min-h-32"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={formData.licenseDescription}
+            onChange={handleChange('licenseDescription')}
           />
         </div>
       </div>
 
       {/* 버튼 */}
       <div className="mt-5 flex justify-end">
-        <Button mode="main2" animationMode="main" onClick={handleSave} disabled={!isFormValid || isSubmitting}>
+        <Button mode="main2" animationMode="main" disabled={!isButtonEnabled || isSubmitting} onClick={handleSave}>
           {isSubmitting ? (
             <div className="flex items-center gap-2">
               <Spinner size="sm" />
