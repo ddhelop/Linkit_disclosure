@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@/shared/ui/Button/Button'
 import Link from 'next/link'
-import { getActivities } from '../api/profileActivityApi'
+import { deleteActivity, getActivities } from '../api/profileActivityApi'
 import ElementComponent from './common/ElementComponent'
 
 interface ActivityItem {
@@ -31,6 +31,19 @@ export default function ProfileEditHistory() {
 
     fetchActivities()
   }, [])
+
+  const handleDelete = async (id: number) => {
+    const isConfirmed = confirm('정말 삭제하시겠습니까?')
+
+    if (!isConfirmed) return
+
+    try {
+      await deleteActivity(id)
+      setActivities((prev) => prev.filter((activity) => activity.profileActivityId !== id))
+    } catch (error) {
+      console.error('Failed to delete activity:', error)
+    }
+  }
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -68,6 +81,7 @@ export default function ProfileEditHistory() {
             date={activity.activityStartDate}
             endDate={activity.activityEndDate}
             editPath="/profile/edit/history/new"
+            onDelete={handleDelete}
           />
         ))}
       </div>

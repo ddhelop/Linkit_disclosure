@@ -55,3 +55,9 @@ export const getActivityById = async (id: string) => {
   const data = await response.json()
   return data.result
 }
+
+export const deleteActivity = async (id: number): Promise<void> => {
+  await fetchWithAuth(`/api/v1/profile/activity/${id}`, {
+    method: 'DELETE',
+  })
+}
