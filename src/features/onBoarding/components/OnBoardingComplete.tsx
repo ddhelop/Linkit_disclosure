@@ -14,7 +14,7 @@ export default function OnBoardingComplete() {
             <p className="text-sm text-grey50">나머지 정보를 입력해 프로필을 완성해 보세요</p>
           </div>
 
-          <Link href={'/myResume'} className="flex w-full justify-center">
+          <Link href={'/profile/edit/basic'} className="flex w-full justify-center">
             <Button
               animationMode="main"
               className="mt-[5.13rem] w-[90%] rounded-lg bg-main py-3 text-lg font-semibold text-white lg:w-[62%]"
