@@ -93,15 +93,15 @@ const LeftMenu = () => {
         <ul className="flex w-full flex-col items-end gap-1 pt-3">
           <li
             onClick={() => handleNavigation('/profile/edit/account')}
-            className={`relative mt-2 flex w-[90%] cursor-pointer items-center justify-between py-[0.31rem] pl-4 pr-8 ${
+            className={`relative mt-2 flex w-[90%] cursor-pointer items-center justify-between rounded-lg px-8 py-[0.31rem] pl-4 hover:bg-grey10  ${
               pathname === '/settings' ? 'font-semibold text-main' : 'text-grey80'
             }`}
           >
             {pathname === '/profile/edit/account' && (
-              <span className="absolute left-0 h-full w-1 rounded-full bg-main"></span>
+              <span className="absolute left-0 h-[70%] w-[2.5px] bg-main "></span>
             )}
-            <span>계정 설정</span>
-            <div className="ml-2 hidden h-[1.25rem] w-[1.25rem] rounded-full border border-grey40"></div>
+            <span className="">계정 설정</span>
+            <div className="ml-2 flex h-[1.25rem] w-[1.25rem] items-center justify-center"></div>
           </li>
         </ul>
       </div>
