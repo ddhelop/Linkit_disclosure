@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { getProfileLogs, ProfileLogItem } from '@/features/profile/api/getProfileLogs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { deleteProfileLog, updateProfileLogType } from '../../api/profileLogApi'
 
 export default function ProfileEditLog() {
   const router = useRouter()
@@ -14,6 +15,27 @@ export default function ProfileEditLog() {
 
   useEffect(() => {
     fetchLogs()
+    // ESC 키 이벤트 리스너 추가
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setShowMenu(null)
+      }
+    }
+    window.addEventListener('keydown', handleEsc)
+
+    // 메뉴 외부 클릭 이벤트 리스너
+    const handleClickOutside = (event: MouseEvent) => {
+      const menu = document.getElementById('menu')
+      if (menu && !menu.contains(event.target as Node)) {
+        setShowMenu(null)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      window.removeEventListener('keydown', handleEsc)
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
   }, [])
 
   const fetchLogs = async () => {
@@ -51,6 +73,33 @@ export default function ProfileEditLog() {
 
   const handleLogClick = (logId: number) => {
     router.push(`/profile/edit/log/new?id=${logId}`)
+  }
+
+  const handleDeleteLog = async (logId: number) => {
+    setShowMenu(null)
+    const isConfirmed = confirm('정말 삭제하시겠습니까?')
+    if (!isConfirmed) return
+
+    try {
+      await deleteProfileLog(logId)
+      alert('로그가 성공적으로 삭제되었습니다.')
+      fetchLogs()
+    } catch (error) {
+      console.error('Failed to delete log:', error)
+      alert('로그 삭제에 실패했습니다.')
+    }
+  }
+
+  const handleUpdateLogType = async (logId: number) => {
+    setShowMenu(null)
+    try {
+      await updateProfileLogType(logId, 'GENERAL_LOG')
+      alert('대표글 설정이 변경되었습니다.')
+      fetchLogs()
+    } catch (error) {
+      console.error('Failed to update log type:', error)
+      alert('대표글 설정 변경에 실패했습니다.')
+    }
   }
 
   if (loading) {
@@ -104,10 +153,18 @@ export default function ProfileEditLog() {
                 <div className="cursor-pointer px-2 py-1 text-sm text-grey70 hover:bg-grey10">
                   {log.isLogPublic ? '비공개로 전환' : '공개로 전환'}
                 </div>
-                <div className="cursor-pointer px-2 py-1 text-sm text-grey70 hover:bg-grey10">
+                <div
+                  className="cursor-pointer px-2 py-1 text-sm text-grey70 hover:bg-grey10"
+                  onClick={() => handleUpdateLogType(log.profileLogId)}
+                >
                   {log.profileLogType === 'REPRESENTATIVE_LOG' ? '대표글 해제' : '대표글로 설정'}
                 </div>
-                <div className="cursor-pointer px-2 py-1 text-sm text-[#FF345F] hover:bg-grey10">삭제하기</div>
+                <div
+                  className="cursor-pointer px-2 py-1 text-sm text-[#FF345F] hover:bg-grey10"
+                  onClick={() => handleDeleteLog(log.profileLogId)}
+                >
+                  삭제하기
+                </div>
               </div>
             )}
           </div>
