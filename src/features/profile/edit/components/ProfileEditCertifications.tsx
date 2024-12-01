@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { getLicenses } from '@/features/profile/api/getLicenses'
 import ElementComponent from './common/ElementComponent'
 import Image from 'next/image'
+import { deleteLicense } from '@/features/profile/api/licenseApi'
 
 interface License {
   profileLicenseId: number
@@ -32,6 +33,22 @@ export default function ProfileEditCertifications() {
 
     fetchLicenses()
   }, [])
+
+  const handleDelete = async (id: number) => {
+    const isConfirmed = confirm('정말 삭제하시겠습니까?')
+    if (!isConfirmed) return
+
+    try {
+      await deleteLicense(id)
+      alert('자격증이 삭제되었습니다.')
+      // 목록 새로고침
+      const data = await getLicenses()
+      setLicenses(data)
+    } catch (error) {
+      console.error('Failed to delete license:', error)
+      alert('삭제에 실패했습니다.')
+    }
+  }
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -67,6 +84,7 @@ export default function ProfileEditCertifications() {
               subtitle={license.licenseInstitution}
               date={license.licenseAcquisitionDate}
               editPath="/profile/edit/certifications/new"
+              onDelete={handleDelete}
             />
           ))
         )}

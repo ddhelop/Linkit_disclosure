@@ -6,6 +6,7 @@ import Input from '@/shared/ui/Input/Input'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
 import { getLicense, License } from '@/features/profile/api/getLicense'
+import { createLicense, updateLicense } from '@/features/profile/api/licenseApi'
 
 export default function NewCertificate() {
   const searchParams = useSearchParams()
@@ -74,10 +75,18 @@ export default function NewCertificate() {
   const handleSave = async () => {
     setIsSubmitting(true)
     try {
-      // TODO: Implement save logic here
-      // You'll need to add your API call to save the certificate
+      if (id) {
+        await updateLicense(id, formData)
+        alert('자격증이 수정되었습니다.')
+      } else {
+        await createLicense(formData)
+        alert('자격증이 등록되었습니다.')
+      }
+      // 성공 후 리다이렉트 또는 다른 처리
+      window.history.back()
     } catch (error) {
       console.error('Failed to save certificate:', error)
+      alert('저장에 실패했습니다.')
     } finally {
       setIsSubmitting(false)
     }
