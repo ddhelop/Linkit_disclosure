@@ -8,6 +8,7 @@ import NameChangeModal from './NameChangeModal'
 import { updateMarketingConsent, updateMemberName } from '../../api/updateMemberName'
 import PhoneChangeModal from './PhoneChangeModal'
 import EmailChangeModal from './EmailChangeModal'
+import { AccountListSkeleton } from './skeletons/ListSkeletons'
 
 export default function ProfileEditAccount() {
   const { phoneNumber, setPhoneNumber } = usePhoneNumberFormatter()
@@ -22,6 +23,7 @@ export default function ProfileEditAccount() {
   const [isPhoneModalOpen, setIsPhoneModalOpen] = useState(false)
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchMemberData = async () => {
@@ -38,11 +40,21 @@ export default function ProfileEditAccount() {
         setPhoneNumber(fakeEvent)
       } catch (error) {
         console.error('Failed to fetch member data:', error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
     fetchMemberData()
   }, [])
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-10 rounded-xl bg-white px-[1.62rem] py-[1.88rem]">
+        <AccountListSkeleton />
+      </div>
+    )
+  }
 
   const getPlatformText = (platform: string) => {
     if (!platform) return '소셜 로그인'

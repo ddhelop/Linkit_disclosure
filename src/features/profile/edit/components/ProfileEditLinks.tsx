@@ -5,9 +5,11 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { getLinkIcon } from '../lib/getLinkIcon'
 import { LinkItem, saveLinks, getLinks } from '../api/profileLinkApi'
+import { LinkListSkeleton } from './skeletons/ListSkeletons'
 
 export default function ProfileEditLinks() {
   const [links, setLinks] = useState<LinkItem[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
@@ -17,11 +19,21 @@ export default function ProfileEditLinks() {
         setLinks(data)
       } catch (error) {
         console.error('Failed to fetch links:', error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
     fetchLinks()
   }, [])
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col">
+        <LinkListSkeleton />
+      </div>
+    )
+  }
 
   const addLink = () => {
     setLinks([...links, { id: Date.now(), title: '', url: '' }])

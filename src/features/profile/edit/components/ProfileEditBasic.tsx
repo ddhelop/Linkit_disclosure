@@ -10,8 +10,10 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { fetchProfileData, updateProfile } from '../api/profileApi'
 import { validateImageFile, createProfileFormData } from '../../lib/profileHelpers'
+import { BasicProfileSkeleton } from './skeletons/BasicProfileSkeleton'
 
 export default function ProfileEditBasic() {
+  const [isLoading, setIsLoading] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState('')
   const [selectedSubCategory, setSelectedSubCategory] = useState('')
   const [selectedCity, setSelectedCity] = useState('')
@@ -27,9 +29,6 @@ export default function ProfileEditBasic() {
     const loadProfileData = async () => {
       try {
         const profileData = await fetchProfileData()
-        console.log('Loaded profile data:', profileData)
-        console.log('Major position:', profileData.profilePositionItem.majorPosition)
-
         setName(profileData.memberName)
         setSelectedCategory(profileData.profilePositionItem.majorPosition)
         setSelectedSubCategory(profileData.profilePositionItem.subPosition)
@@ -44,12 +43,17 @@ export default function ProfileEditBasic() {
         setProfileImagePath(profileData.profileImagePath)
       } catch (error) {
         console.error('프로필 데이터 로딩 중 오류 발생:', error)
-        alert('프로필 데이터를 불러오는데 실패했습니다.')
+      } finally {
+        setIsLoading(false)
       }
     }
 
     loadProfileData()
   }, [])
+
+  if (isLoading) {
+    return <BasicProfileSkeleton />
+  }
 
   const options = [
     { label: '전체공개', value: 'true' },
@@ -155,32 +159,6 @@ export default function ProfileEditBasic() {
       selectedDistrict !== '' // 활동지역 시/군/구
     )
   }
-
-  // 디버깅을 위한 로그 추가
-  useEffect(() => {
-    const loadProfileData = async () => {
-      try {
-        const profileData = await fetchProfileData()
-
-        setName(profileData.memberName)
-        setSelectedCategory(profileData.profilePositionItem.majorPosition)
-        setSelectedSubCategory(profileData.profilePositionItem.subPosition)
-        setSelectedCity(profileData.cityName)
-        setSelectedDistrict(profileData.divisionName)
-        setSelectedStatuses(
-          profileData.profileCurrentStateItems.profileCurrentStates.map(
-            (state: { profileStateName: string }) => state.profileStateName,
-          ),
-        )
-        setIsProfilePublic(profileData.isProfilePublic)
-        setProfileImagePath(profileData.profileImagePath)
-      } catch (error) {
-        console.error('프로필 데이터 로딩 중 오류 발생:', error)
-      }
-    }
-
-    loadProfileData()
-  }, [])
 
   return (
     <>

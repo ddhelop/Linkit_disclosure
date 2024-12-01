@@ -6,6 +6,7 @@ import Link from 'next/link'
 import ElementComponent from './common/ElementComponent'
 import { getEducations } from '../../api/getEducations'
 import Image from 'next/image'
+import { EducationListSkeleton } from './skeletons/ListSkeletons'
 
 interface Education {
   profileEducationId: number
@@ -37,7 +38,16 @@ export default function ProfileEditEducation() {
   }, [])
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <div className="flex flex-col">
+        <Link href={'/profile/edit/education/new'} className="w-full">
+          <Button mode="main2" animationMode="main" className="w-full rounded-[0.69rem] py-2 text-sm">
+            + 추가하기
+          </Button>
+        </Link>
+        <EducationListSkeleton />
+      </div>
+    )
   }
 
   return (

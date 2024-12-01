@@ -6,9 +6,11 @@ import ProjectComponent from './common/ProjectComponent'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { getPortfolioItems, PortfolioItem } from '../../api/getPortfolioItems'
+import { PortfolioListSkeleton } from './skeletons/ListSkeletons'
 
 export default function ProfileEditPortfolio() {
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchPortfolioItems = async () => {
@@ -17,11 +19,32 @@ export default function ProfileEditPortfolio() {
         setPortfolioItems(items)
       } catch (error) {
         console.error('포트폴리오 데이터 조회 실패:', error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
     fetchPortfolioItems()
   }, [])
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col">
+        <Link href="/profile/edit/portfolio/new" className="flex w-full">
+          <Button
+            animationMode="main"
+            mode="main2"
+            size="custom"
+            className="flex w-full items-center justify-center gap-2 rounded-[0.63rem] py-2 text-sm"
+          >
+            <Image src="/common/icons/plus.svg" width={15} height={15} alt="plus-icon" />
+            추가하기
+          </Button>
+        </Link>
+        <PortfolioListSkeleton />
+      </div>
+    )
+  }
 
   return (
     <>

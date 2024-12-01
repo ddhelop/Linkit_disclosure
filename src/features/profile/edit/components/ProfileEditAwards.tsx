@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { getAwards, AwardsItem } from '../api/awardsApi'
 import ElementComponent from './common/ElementComponent'
 import Image from 'next/image'
+import { AwardListSkeleton } from './skeletons/ListSkeletons'
 
 export default function ProfileEditAwards() {
   const [awards, setAwards] = useState<AwardsItem[]>([])
@@ -26,7 +27,16 @@ export default function ProfileEditAwards() {
   }, [])
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <div className="flex flex-col rounded-xl">
+        <Link href="/profile/edit/awards/new">
+          <Button mode="main2" animationMode="main" className="w-full rounded-[0.69rem] py-2">
+            + 추가하기
+          </Button>
+        </Link>
+        <AwardListSkeleton />
+      </div>
+    )
   }
 
   return (

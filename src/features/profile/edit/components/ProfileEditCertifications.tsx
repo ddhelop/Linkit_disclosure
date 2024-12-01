@@ -6,6 +6,7 @@ import { getLicenses } from '@/features/profile/api/getLicenses'
 import ElementComponent from './common/ElementComponent'
 import Image from 'next/image'
 import { deleteLicense } from '@/features/profile/api/licenseApi'
+import { CertificationListSkeleton } from './skeletons/CertificationListSkeleton'
 
 interface License {
   profileLicenseId: number
@@ -50,45 +51,41 @@ export default function ProfileEditCertifications() {
     }
   }
 
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
   return (
     <div className="flex flex-col">
-      <Link href={'/profile/edit/certifications/new'} className="w-full">
-        <Button mode="main2" animationMode="main" className="w-full rounded-[0.69rem] py-2">
-          + 추가하기
+      <Link href="/profile/edit/certifications/new">
+        <Button
+          mode="main"
+          animationMode="main"
+          className="flex w-full items-center justify-center gap-[0.68rem] rounded-lg bg-main2 px-5 py-2 text-sm font-semibold text-white"
+        >
+          추가하기
         </Button>
       </Link>
 
-      <div className="mt-4 flex flex-col gap-4">
-        {licenses.length === 0 ? (
-          <div className="mt-5 flex w-full justify-center">
-            <Image
-              src={'/common/images/not-contents-ui.png'}
-              alt="empty"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="h-auto w-full"
-              priority
-            />
-          </div>
-        ) : (
-          licenses.map((license) => (
-            <ElementComponent
-              key={license.profileLicenseId}
-              id={license.profileLicenseId}
-              title={license.licenseName}
-              subtitle={license.licenseInstitution}
-              date={license.licenseAcquisitionDate}
-              editPath="/profile/edit/certifications/new"
-              onDelete={handleDelete}
-            />
-          ))
-        )}
-      </div>
+      {isLoading ? (
+        <CertificationListSkeleton />
+      ) : (
+        <div className="mt-4 flex flex-col gap-4">
+          {licenses.length === 0 ? (
+            <div className="flex flex-col items-center justify-center gap-4 rounded-lg bg-white py-16">
+              <span className="text-grey60">아직 등록된 자격증이 없습니다.</span>
+            </div>
+          ) : (
+            licenses.map((license) => (
+              <ElementComponent
+                key={license.profileLicenseId}
+                id={license.profileLicenseId}
+                title={license.licenseName}
+                subtitle={license.licenseInstitution}
+                date={license.licenseAcquisitionDate}
+                editPath="/profile/edit/certifications/new"
+                onDelete={handleDelete}
+              />
+            ))
+          )}
+        </div>
+      )}
     </div>
   )
 }

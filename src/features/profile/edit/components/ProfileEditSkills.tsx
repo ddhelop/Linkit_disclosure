@@ -5,6 +5,7 @@ import { toolsData } from '@/shared/data/tools'
 import Select from '@/shared/ui/Select/Select'
 import { Button } from '@/shared/ui/Button/Button'
 import { updateProfileSkills, getProfileSkills } from '../api/profileApi'
+import { SkillListSkeleton } from './skeletons/ListSkeletons'
 
 interface Skill {
   name: string
@@ -15,6 +16,7 @@ export default function ProfileEditSkills() {
   const [searchTerm, setSearchTerm] = useState('')
   const [showResults, setShowResults] = useState(false)
   const [selectedSkills, setSelectedSkills] = useState<Skill[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const [focusedIndex, setFocusedIndex] = useState(-1)
 
   useEffect(() => {
@@ -29,11 +31,28 @@ export default function ProfileEditSkills() {
         )
       } catch (error) {
         console.error('스킬 조회 중 오류 발생:', error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
     fetchSkills()
   }, [])
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] py-10">
+          <div className="relative w-full">
+            <div className="h-12 w-full animate-pulse rounded-xl bg-grey20" />
+          </div>
+        </div>
+        <div className="flex flex-col gap-5 rounded-xl bg-white px-[2.88rem] py-10">
+          <SkillListSkeleton />
+        </div>
+      </div>
+    )
+  }
 
   const filteredTools = searchTerm
     ? toolsData.tools.filter((tool) => tool.toLowerCase().includes(searchTerm.toLowerCase()))
