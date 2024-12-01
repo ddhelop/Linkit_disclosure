@@ -93,7 +93,7 @@ export default function ProfileEditLog() {
   const handleUpdateLogType = async (logId: number) => {
     setShowMenu(null)
     try {
-      await updateProfileLogType(logId, 'GENERAL_LOG')
+      await updateProfileLogType(logId, 'REPRESENTATIVE_LOG')
       alert('대표글 설정이 변경되었습니다.')
       fetchLogs()
     } catch (error) {
@@ -123,7 +123,12 @@ export default function ProfileEditLog() {
         {logs.map((log) => (
           <div key={log.profileLogId} className="group relative flex flex-col rounded-xl bg-white p-5">
             <div className="flex cursor-pointer flex-col gap-3" onClick={() => handleLogClick(log.profileLogId)}>
-              <span className="font-semibold text-grey80">{truncateText(log.logTitle, 20)}</span>
+              <div className="flex gap-2">
+                {log.profileLogType === 'REPRESENTATIVE_LOG' && (
+                  <Image src="/common/icons/pin.svg" width={18} height={18} alt="arrow" />
+                )}
+                <span className="font-semibold text-grey80">{truncateText(log.logTitle, 20)}</span>
+              </div>
               <span className="text-xs font-normal text-grey60">{new Date(log.modifiedAt).toLocaleDateString()}</span>
             </div>
 
