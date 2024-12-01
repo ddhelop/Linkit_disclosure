@@ -1,40 +1,44 @@
+// LogWriteForm.tsx
 'use client'
 
 import 'react-quill/dist/quill.snow.css'
 import ReactQuill, { Quill } from 'react-quill'
-import { useRef, useMemo, useState } from 'react'
+import { useRef, useMemo, useState, useEffect } from 'react'
 import EditorToolbar, { formats } from './EditorToolbar'
 import ImageResize from 'quill-image-resize-module-react'
+import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 
-// Register the ImageResize module with Quill
+// 필요한 경우 ImageResize 모듈 등록
 Quill.register('modules/imageResize', ImageResize)
 
-// Size 포맷을 커스터마이즈하여 원하는 크기를 추가
+// 필요 시 Size 포맷 커스터마이즈
 const Size = Quill.import('formats/size')
-Size.whitelist = ['16px', '18px', '24px'] // 본문: 16px, 제목 2: 18px, 제목 1: 24px
+Size.whitelist = ['16px', '18px', '24px']
 Quill.register(Size, true)
 
 export default function LogWriteForm() {
-  const QuillRef = useRef<ReactQuill>()
+  const QuillRef = useRef<ReactQuill | null>(null)
   const [contents, setContents] = useState('')
-  const [editorHeight, setEditorHeight] = useState('auto')
 
   // 이미지 업로드 핸들러 함수
   const imageHandler = () => {
     const input = document.createElement('input')
-    const formData = new FormData()
-
     input.setAttribute('type', 'file')
     input.setAttribute('accept', 'image/*')
     input.click()
 
     input.onchange = async () => {
-      const file = input.files
-      if (file !== null) {
-        formData.append('img', file[0])
+      const file = input.files?.[0]
+      if (file) {
+        const formData = new FormData()
+        formData.append('profileLogBodyImage', file)
         try {
-          const response = await fetch('http://localhost:8080/uploadImg', {
+          const response = await fetchWithAuth('/api/v1/profile/log/body/image', {
             method: 'POST',
+            headers: {
+              Accept: 'application/json',
+            },
+            credentials: 'include',
             body: formData,
           })
 
@@ -43,27 +47,18 @@ export default function LogWriteForm() {
           }
 
           const data = await response.json()
-          const url = data[0]
-          const range = QuillRef.current?.getEditor().getSelection()?.index
-          if (range !== null && range !== undefined) {
-            let quill = QuillRef.current?.getEditor()
-            quill?.setSelection(range, 1)
-            quill?.clipboard.dangerouslyPasteHTML(range, `<img src=${url} alt="이미지 태그가 삽입됩니다." />`)
+          const url = data.result.profileLogBodyImagePath
+
+          const quill = QuillRef.current?.getEditor()
+          if (quill) {
+            const range = quill.getSelection(true)
+            quill.insertEmbed(range.index, 'image', url)
+            quill.setSelection(range.index + 1, 0)
           }
         } catch (err) {
           console.log(err)
         }
       }
-    }
-  }
-
-  // 에디터 높이 자동 조절
-  const handleEditorChange = (value: any) => {
-    setContents(value)
-    if (QuillRef.current) {
-      const editor = QuillRef.current.getEditor()
-      const editorContent = editor.root
-      setEditorHeight(`${editorContent.scrollHeight}px`)
     }
   }
 
@@ -101,21 +96,16 @@ export default function LogWriteForm() {
         <span className="font-semibold text-grey80">내용</span>
         <EditorToolbar />
         <ReactQuill
-          ref={(element) => {
-            if (element !== null) {
-              QuillRef.current = element
-            }
-          }}
+          ref={QuillRef}
           value={contents}
-          onChange={handleEditorChange}
+          onChange={setContents}
           modules={modules}
           formats={formats}
           theme="snow"
           placeholder="팀과 팀원들에게 도움이 될 수 있는 나의 장점과 강점 등을 소개해 주세요"
           style={{
             minWidth: '430px',
-            minHeight: '300px',
-            height: editorHeight,
+            minHeight: '600px',
           }}
         />
       </div>

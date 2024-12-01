@@ -2,13 +2,15 @@ import React from 'react'
 import { Quill } from 'react-quill'
 import '../../style/editorToolbar.css'
 
-// Add custom sizes to the whitelist and register them
+// Quill 모듈 임포트
+const Font = Quill.import('formats/font')
 const Size = Quill.import('formats/size')
-Size.whitelist = ['18', '24', '30']
+
+// 사이즈 설정
+Size.whitelist = ['16px', '18px', '24px']
 Quill.register(Size, true)
 
-// Add custom fonts to the whitelist and register them
-const Font = Quill.import('formats/font')
+// 폰트 설정
 Font.whitelist = ['arial', 'comic-sans', 'courier-new', 'georgia', 'helvetica', 'lucida']
 Quill.register(Font, true)
 
@@ -50,18 +52,10 @@ export const formats = [
 export const QuillToolbar = () => (
   <div id="toolbar">
     <span className="ql-formats">
-      <select className="ql-font">
-        <option value="arial">Arial</option>
-        <option value="comic-sans">Comic Sans</option>
-        <option value="courier-new">Courier New</option>
-        <option value="georgia">Georgia</option>
-        <option value="helvetica">Helvetica</option>
-        <option value="lucida">Lucida</option>
-      </select>
-      <select className="ql-size">
-        <option value="16px">본문</option>
-        <option value="18px">제목 2</option>
-        <option value="24px">제목 1</option>
+      <select className="ql-header">
+        <option value="">본문</option>
+        <option value="2">중제목</option>
+        <option value="1">대제목</option>
       </select>
     </span>
     <span className="ql-formats">
@@ -71,19 +65,17 @@ export const QuillToolbar = () => (
       <button className="ql-strike" />
     </span>
     <span className="ql-formats">
-      <button className="ql-blockquote" />
-      <button className="ql-list" value="ordered" />
       <button className="ql-list" value="bullet" />
+      <button className="ql-list" value="ordered" />
     </span>
     <span className="ql-formats">
-      <button className="ql-image" />
       <button className="ql-link" />
+      <button className="ql-image" />
+      <button className="ql-code-block" />
     </span>
     <span className="ql-formats">
       <button className="ql-align" value="" />
       <button className="ql-align" value="center" />
-      <button className="ql-align" value="right" />
-      <button className="ql-align" value="justify" />
     </span>
   </div>
 )
