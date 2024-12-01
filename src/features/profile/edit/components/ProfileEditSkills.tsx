@@ -155,32 +155,37 @@ export default function ProfileEditSkills() {
           </div>
 
           <div className="flex flex-col gap-2">
-            {/* 스킬 항목들 */}
-            {selectedSkills.map((skill, index) => (
-              <div key={index} className="flex w-full gap-5">
-                <div className="flex-1 rounded-xl bg-grey20 py-3 pl-6 text-lg text-grey80">{skill.name}</div>
-                <Select
-                  className="w-32"
-                  value={skill.proficiency}
-                  onChange={(value) => handleProficiencyChange(skill.name, value)}
-                  options={[
-                    { value: '상', label: '상' },
-                    { value: '중상', label: '중상' },
-                    { value: '중', label: '중' },
-                    { value: '중하', label: '중하' },
-                    { value: '하', label: '하' },
-                  ]}
-                />
-                <Image
-                  src={'/common/icons/delete_x.svg'}
-                  alt="close"
-                  width={24}
-                  height={24}
-                  className="ml-[1.38rem] shrink-0 cursor-pointer"
-                  onClick={() => handleRemoveSkill(skill.name)}
-                />
+            {selectedSkills.length > 0 ? (
+              selectedSkills.map((skill, index) => (
+                <div key={index} className="flex w-full gap-5">
+                  <div className="flex-1 rounded-xl bg-grey20 py-3 pl-6 text-lg text-grey80">{skill.name}</div>
+                  <Select
+                    className="w-32"
+                    value={skill.proficiency}
+                    onChange={(value) => handleProficiencyChange(skill.name, value)}
+                    options={[
+                      { value: '상', label: '상' },
+                      { value: '중상', label: '중상' },
+                      { value: '중', label: '중' },
+                      { value: '중하', label: '중하' },
+                      { value: '하', label: '하' },
+                    ]}
+                  />
+                  <Image
+                    src={'/common/icons/delete_x.svg'}
+                    alt="close"
+                    width={24}
+                    height={24}
+                    className="ml-[1.38rem] shrink-0 cursor-pointer"
+                    onClick={() => handleRemoveSkill(skill.name)}
+                  />
+                </div>
+              ))
+            ) : (
+              <div className="flex h-[100px] w-full items-center justify-center rounded-lg bg-grey10">
+                <p className="text-grey60">등록된 스킬이 없습니다. 위 검색창에서 스킬을 추가해보세요.</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>

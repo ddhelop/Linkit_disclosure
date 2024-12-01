@@ -60,7 +60,7 @@ export default function ElementComponent({
   }
 
   return (
-    <div className="relative flex items-center justify-between gap-1 rounded-lg px-6 py-5 hover:bg-grey10">
+    <div className="relative flex items-center justify-between gap-1 rounded-lg bg-white px-10 py-5 hover:bg-grey10">
       <div className="gap-2">
         <Link
           href={{

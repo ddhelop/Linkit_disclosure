@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 
 type Mode = 'main' | 'sub' | 'toggle' | 'main2' | 'custom' | 'black'
-type Size = 'sm' | 'md' | 'lg'
+type Size = 'sm' | 'md' | 'lg' | 'custom'
 type Type = 'button' | 'submit'
 type AnimationMode = 'none' | 'main' | 'sub'
 
@@ -28,19 +28,24 @@ export function Button({
   type = 'button',
   size = 'md',
   animationMode = 'none',
-  className,
+  className = '',
 }: ButtonProps) {
-  // 애니메이션 효과를 disabled 상태에 따라 조건적으로 설정
   const animationEffect = disabled ? {} : animationModes[animationMode] || {}
+
+  // 기본 스타일과 custom className을 분리하여 관리
+  const baseStyles = `rounded-[0.25rem] border text-center font-medium ${
+    disabled ? 'cursor-not-allowed bg-grey30 text-grey50' : buttonTheme.mode[mode]
+  }`
+
+  const sizeStyles = buttonTheme.size[size]
 
   return (
     <motion.button
-      className={`${buttonTheme.size[size]} rounded-[0.25rem] border text-center font-medium 
-      ${disabled ? 'cursor-not-allowed bg-grey30 text-grey50' : `${buttonTheme.mode[mode]} `} ${className}`}
+      className={`${baseStyles} ${sizeStyles} ${className}`}
       type={type}
       onClick={onClick}
       disabled={disabled}
-      {...animationEffect} // disabled 상태일 때 빈 객체를 전달하여 애니메이션 제거
+      {...animationEffect}
     >
       {children}
     </motion.button>
@@ -61,6 +66,7 @@ const buttonTheme = {
     sm: 'px-2 py-1.5 text-sm',
     md: 'px-6 py-2 text-sm rounded-[0.5rem]',
     lg: 'px-[2rem] py-3 text-xl rounded-[0.75rem]',
+    custom: '',
   },
 }
 

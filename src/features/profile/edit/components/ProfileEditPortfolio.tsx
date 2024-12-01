@@ -25,21 +25,32 @@ export default function ProfileEditPortfolio() {
 
   return (
     <>
-      <div className="flex flex-col rounded-xl bg-white px-[1.62rem] pb-7 pt-[1.88rem]">
+      <div className="flex flex-col">
         <Link href="/profile/edit/portfolio/new" className="flex w-full">
           <Button
             animationMode="main"
             mode="main2"
-            className="flex w-full items-center justify-center gap-2 py-[0.38rem] text-sm"
+            size="custom"
+            className="flex w-full items-center justify-center gap-2 rounded-[0.63rem] py-2 text-sm"
           >
-            <Image src="/common/icons/plus.svg" width={15} height={15} alt="plus-icon" />새 프로젝트
+            <Image src="/common/icons/plus.svg" width={15} height={15} alt="plus-icon" />
+            추가하기
           </Button>
         </Link>
 
         <div className="flex flex-col gap-4 pt-6">
-          {portfolioItems.map((item) => (
-            <ProjectComponent key={item.profilePortfolioId} {...item} />
-          ))}
+          {portfolioItems.length === 0 ? (
+            <Image
+              src={'/common/images/not-contents-ui.png'}
+              alt="empty"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="h-auto w-full"
+            />
+          ) : (
+            portfolioItems.map((item) => <ProjectComponent key={item.profilePortfolioId} {...item} />)
+          )}
         </div>
       </div>
     </>

@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 import ElementComponent from './common/ElementComponent'
 import { getEducations } from '../../api/getEducations'
+import Image from 'next/image'
 
 interface Education {
   profileEducationId: number
@@ -39,39 +40,40 @@ export default function ProfileEditEducation() {
     return <div>Loading...</div>
   }
 
-  if (educations.length === 0) {
-    return (
-      <div className="flex flex-col rounded-xl bg-white px-[1.62rem] pb-7 pt-[1.87rem]">
-        <Link href={'/profile/edit/education/new'} className="w-full">
-          <Button mode="main2" animationMode="main" className="w-full">
-            학력 추가하기
-          </Button>
-        </Link>
-        <div className="mt-4 text-grey60">학력 내역이 없습니다.</div>
-      </div>
-    )
-  }
-
   return (
-    <div className="flex flex-col rounded-xl bg-white px-[1.62rem] pb-7 pt-[1.87rem]">
+    <div className="flex flex-col">
       <Link href={'/profile/edit/education/new'} className="w-full">
-        <Button mode="main2" animationMode="main" className="w-full">
-          학력 추가하기
+        <Button mode="main2" animationMode="main" className="w-full rounded-[0.69rem] py-2 text-sm">
+          + 추가하기
         </Button>
       </Link>
 
-      <div className="mt-4">
-        {educations.map((education) => (
-          <ElementComponent
-            key={education.profileEducationId}
-            id={education.profileEducationId}
-            title={education.universityName}
-            subtitle={education.majorName}
-            date={`${education.admissionYear} - ${education.graduationYear}`}
-            editPath="/profile/edit/education/new"
+      {educations.length === 0 ? (
+        <div className="mt-5 flex w-full justify-center">
+          <Image
+            src={'/common/images/not-contents-ui.png'}
+            alt="empty"
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="h-auto w-full"
+            priority
           />
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div className="mt-4">
+          {educations.map((education) => (
+            <ElementComponent
+              key={education.profileEducationId}
+              id={education.profileEducationId}
+              title={education.universityName}
+              subtitle={education.majorName}
+              date={`${education.admissionYear} - ${education.graduationYear}`}
+              editPath="/profile/edit/education/new"
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

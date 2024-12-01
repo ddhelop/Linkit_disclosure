@@ -44,7 +44,7 @@ export default function ProfileEditClient({ children }: ProfileEditClientProps) 
           </div>
         </aside>
 
-        <main className="ml-[28%] min-h-[calc(100vh-4rem)] w-3/4 bg-[#EDF3FF] pb-32">{children}</main>
+        <main className="ml-[28%] min-h-[calc(100vh-4rem)] w-3/4 bg-[#EDF3FF] pb-32 pr-[8.69rem]">{children}</main>
       </div>
     </ProfileProvider>
   )

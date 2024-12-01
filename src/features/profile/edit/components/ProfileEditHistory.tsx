@@ -4,6 +4,7 @@ import { Button } from '@/shared/ui/Button/Button'
 import Link from 'next/link'
 import { deleteActivity, getActivities } from '../api/profileActivityApi'
 import ElementComponent from './common/ElementComponent'
+import Image from 'next/image'
 
 interface ActivityItem {
   profileActivityId: number
@@ -51,21 +52,31 @@ export default function ProfileEditHistory() {
 
   if (activities.length === 0) {
     return (
-      <div className="flex flex-col rounded-xl bg-white px-[1.62rem] pb-7 pt-[1.87rem]">
+      <div className="flex flex-col ">
         <Link href={'/profile/edit/history/new'} className="w-full">
-          <Button mode="main2" animationMode="main" className="w-full">
-            활동 추가하기
+          <Button mode="main2" animationMode="main" size="custom" className="w-full rounded-[0.63rem] py-2 text-sm">
+            + 추가하기
           </Button>
         </Link>
-        <div className="mt-4 text-grey60">활동 내역이 없습니다.</div>
+        <div className="mt-5 flex w-full justify-center">
+          <Image
+            src={'/common/images/not-contents-ui.png'}
+            alt="empty"
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="h-auto w-full"
+            priority
+          />
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col rounded-xl bg-white px-[1.62rem] pb-7 pt-[1.87rem]">
+    <div className="flex flex-col">
       <Link href={'/profile/edit/history/new'} className="w-full">
-        <Button mode="main2" animationMode="main" className="w-full">
+        <Button mode="main2" animationMode="main" size="custom" className="w-[100px] py-2">
           활동 추가하기
         </Button>
       </Link>

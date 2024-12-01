@@ -50,47 +50,59 @@ export default function ProfileEditLinks() {
 
   return (
     <>
-      <div className="flex flex-col rounded-xl bg-white px-[1.62rem] pb-7 pt-[1.87rem]">
-        <Button mode="main2" animationMode="main" className="w-full" onClick={addLink}>
-          링크 추가하기
-        </Button>
-
+      <div className="flex flex-col">
         <div className="flex flex-col gap-3">
-          {links.map((link) => (
-            <div key={link.id} className="mt-3 flex gap-2">
-              <Input
-                placeholder="직접입력 (5자 내외)"
-                value={link.title}
-                onChange={(e) => updateLink(link.id, 'title', e.target.value)}
-                maxLength={10}
-              />
-              <div className="relative w-full">
-                {getLinkIcon(link.url) && (
-                  <Image
-                    src={getLinkIcon(link.url)!}
-                    alt="social icon"
-                    width={20}
-                    height={20}
-                    className="absolute left-3 top-1/2 -translate-y-1/2"
-                  />
-                )}
+          {links.length === 0 ? (
+            <div className="mt-5 flex w-full flex-col items-center bg-white px-[1.62rem] py-6">
+              <p className="text-sm text-grey70">
+                아직 추가된 링크가 없어요! 추가하기 버튼을 눌러 링크를 추가해 보세요
+              </p>
+              <Button
+                mode="custom"
+                animationMode="main"
+                className="mt-5 rounded-full border border-grey40 bg-white px-6 py-2 text-grey80"
+                onClick={addLink}
+              >
+                + 추가하기
+              </Button>
+            </div>
+          ) : (
+            links.map((link) => (
+              <div key={link.id} className="mt-3 flex gap-2">
                 <Input
-                  placeholder="링크를 입력해주세요."
-                  className={`w-full ${getLinkIcon(link.url) ? 'pl-10' : ''}`}
-                  value={link.url}
-                  onChange={(e) => updateLink(link.id, 'url', e.target.value)}
+                  placeholder="직접입력 (5자 내외)"
+                  value={link.title}
+                  onChange={(e) => updateLink(link.id, 'title', e.target.value)}
+                  maxLength={10}
+                />
+                <div className="relative w-full">
+                  {getLinkIcon(link.url) && (
+                    <Image
+                      src={getLinkIcon(link.url)!}
+                      alt="social icon"
+                      width={20}
+                      height={20}
+                      className="absolute left-3 top-1/2 -translate-y-1/2"
+                    />
+                  )}
+                  <Input
+                    placeholder="링크를 입력해주세요."
+                    className={`w-full ${getLinkIcon(link.url) ? 'pl-10' : ''}`}
+                    value={link.url}
+                    onChange={(e) => updateLink(link.id, 'url', e.target.value)}
+                  />
+                </div>
+                <Image
+                  src="/common/icons/delete_x.svg"
+                  alt="close"
+                  width={24}
+                  height={24}
+                  className="ml-4 cursor-pointer"
+                  onClick={() => deleteLink(link.id)}
                 />
               </div>
-              <Image
-                src="/common/icons/delete_x.svg"
-                alt="close"
-                width={24}
-                height={24}
-                className="ml-4 cursor-pointer"
-                onClick={() => deleteLink(link.id)}
-              />
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
       <div className="mt-4 flex justify-end">
