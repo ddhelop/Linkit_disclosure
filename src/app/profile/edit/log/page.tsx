@@ -5,7 +5,7 @@ export default function ProfileEditLogPage() {
     <div className="pl-[4.25rem] pr-[8.69rem] pt-[3.75rem]">
       <label className="text-xl font-bold">나의 로그</label>
 
-      <div className="mt-5 rounded-xl bg-white px-[1.62rem] pb-3 pt-[1.88rem]">
+      <div className="mt-5">
         <ProfileEditLog />
       </div>
     </div>
