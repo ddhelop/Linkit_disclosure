@@ -4,8 +4,10 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { getProfileLogs, ProfileLogItem } from '@/features/profile/api/getProfileLogs'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 export default function ProfileEditLog() {
+  const router = useRouter()
   const [logs, setLogs] = useState<ProfileLogItem[]>([])
   const [loading, setLoading] = useState(true)
   const [showMenu, setShowMenu] = useState<number | null>(null)
@@ -47,6 +49,10 @@ export default function ProfileEditLog() {
     setShowMenu(showMenu === logId ? null : logId)
   }
 
+  const handleLogClick = (logId: number) => {
+    router.push(`/profile/edit/log/new?id=${logId}`)
+  }
+
   if (loading) {
     return <div>로딩 중...</div>
   }
@@ -67,7 +73,7 @@ export default function ProfileEditLog() {
       <div className="mt-5 flex flex-col gap-4 pt-1">
         {logs.map((log) => (
           <div key={log.profileLogId} className="group relative flex flex-col rounded-xl bg-white p-5">
-            <div className="flex cursor-pointer flex-col gap-3">
+            <div className="flex cursor-pointer flex-col gap-3" onClick={() => handleLogClick(log.profileLogId)}>
               <span className="font-semibold text-grey80">{truncateText(log.logTitle, 20)}</span>
               <span className="text-xs font-normal text-grey60">{new Date(log.modifiedAt).toLocaleDateString()}</span>
             </div>

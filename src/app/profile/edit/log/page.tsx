@@ -1,4 +1,6 @@
 import ProfileEditLog from '@/features/profile/edit/components/ProfileEditLog'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function ProfileEditLogPage() {
   return (

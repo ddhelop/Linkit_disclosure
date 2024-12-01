@@ -3,14 +3,15 @@
 
 import 'react-quill/dist/quill.snow.css'
 import ReactQuill, { Quill } from 'react-quill'
-import { useRef, useMemo, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRef, useMemo, useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import EditorToolbar, { formats } from './EditorToolbar'
 import ImageResize from 'quill-image-resize-module-react'
 import { Button } from '@/shared/ui/Button/Button'
 import Link from 'next/link'
 import { createProfileLog } from '@/features/profile/api/createProfileLog'
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
+import { getProfileLog } from '@/features/profile/api/getProfileLogs'
 
 Quill.register('modules/imageResize', ImageResize)
 
@@ -20,36 +21,36 @@ Quill.register(Size, true)
 
 export default function LogWriteForm() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const logId = searchParams.get('id')
+
   const QuillRef = useRef<ReactQuill | null>(null)
   const [title, setTitle] = useState('')
   const [contents, setContents] = useState('')
   const [isPublic, setIsPublic] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isLoading, setIsLoading] = useState(!!logId)
 
-  const handleSubmit = async () => {
-    if (isSubmitting) return
-    if (!title.trim() || !contents.trim()) {
-      alert('제목과 내용을 입력해주세요.')
-      return
+  useEffect(() => {
+    if (logId) {
+      fetchLogDetail(parseInt(logId))
     }
+  }, [logId])
 
+  const fetchLogDetail = async (id: number) => {
     try {
-      setIsSubmitting(true)
-      await createProfileLog({
-        logTitle: title,
-        logContent: contents,
-        isLogPublic: isPublic,
-      })
-      router.push('/profile/edit/log')
+      const data = await getProfileLog(id)
+      setTitle(data.logTitle)
+      setContents(data.logContent)
+      setIsPublic(data.isLogPublic)
     } catch (error) {
-      console.error('로그 작성 실패:', error)
-      alert('로그 작성에 실패했습니다.')
+      console.error('Failed to fetch log detail:', error)
+      alert('로그 정보를 불러오는데 실패했습니다.')
     } finally {
-      setIsSubmitting(false)
+      setIsLoading(false)
     }
   }
 
-  // 이미지 업로드 핸들러 함수
   const imageHandler = () => {
     const input = document.createElement('input')
     input.setAttribute('type', 'file')
@@ -108,6 +109,33 @@ export default function LogWriteForm() {
     }),
     [],
   )
+
+  if (isLoading) {
+    return <div>로딩 중...</div>
+  }
+
+  const handleSubmit = async () => {
+    if (isSubmitting) return
+    if (!title.trim() || !contents.trim()) {
+      alert('제목과 내용을 입력해주세요.')
+      return
+    }
+
+    try {
+      setIsSubmitting(true)
+      await createProfileLog({
+        logTitle: title,
+        logContent: contents,
+        isLogPublic: isPublic,
+      })
+      router.push('/profile/edit/log')
+    } catch (error) {
+      console.error('로그 작성 실패:', error)
+      alert('로그 작성에 실패했습니다.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <>
