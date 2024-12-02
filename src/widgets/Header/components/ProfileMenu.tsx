@@ -2,22 +2,41 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useUserStore } from '@/shared/store/useAuthStore'
+import { useState, useEffect } from 'react'
+import { getUserBasicInfo } from '@/entities/user/api/userApi'
 
 export default function ProfileMenu() {
   const { logout } = useUserStore()
+  const [emailId, setEmailId] = useState<string>('')
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const userInfo = await getUserBasicInfo()
+        setEmailId(userInfo.emailId)
+      } catch (error) {
+        console.error('Failed to fetch user info:', error)
+      }
+    }
+    fetchUserInfo()
+  }, [])
 
   return (
     <div className="profile-menu absolute right-0 top-12 mt-2 flex  flex-col rounded-[0.625rem] border  border-grey10 bg-white shadow-lg">
-      <Link
-        href="/profile/edit/log"
-        className="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-100"
-      >
+      <Link href={`/${emailId}`} className="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-100">
         <Image src="/common/icons/user_profile.svg" width={18} height={18} alt="profile icon" />
         <p>내 프로필</p>
       </Link>
       <Link href="/my-team" className="flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-100">
         <Image src="/common/icons/menu.svg" width={18} height={18} alt="team icon" />
         <p>나의 팀</p>
+      </Link>
+      <Link
+        href="/profile/edit/log"
+        className="flex items-center gap-2 px-[1.1rem] py-3 text-sm text-gray-700 hover:bg-gray-100"
+      >
+        <Image src="/common/icons/edit.svg" width={23} height={23} alt="team icon" />
+        <p>설정</p>
       </Link>
       <button
         onClick={logout}
