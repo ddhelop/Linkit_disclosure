@@ -5,5 +5,4 @@ import ProfileEditClient from '@/features/profile/edit/components/common/Profile
 const ProfileEditLayout = ({ children }: { children: React.ReactNode }) => {
   return <ProfileEditClient>{children}</ProfileEditClient>
 }
-
 export default ProfileEditLayout

@@ -1,3 +1,8 @@
-export default function UserProfileLayout({ children }: { children: React.ReactNode }) {
-  return <div className="container mx-auto px-4">{children}</div>
+// layout.tsx (서버 컴포넌트)
+
+import ProfileViewClient from '@/features/profile/view/component/common/ProfileViewClient'
+
+const ProfileViewLayout = ({ children }: { children: React.ReactNode }) => {
+  return <ProfileViewClient>{children}</ProfileViewClient>
 }
+export default ProfileViewLayout
