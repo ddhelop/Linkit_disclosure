@@ -34,13 +34,13 @@ export default function ProfileViewLayout() {
   return (
     <ProfileProvider profileData={profileData}>
       <div className="flex flex-col gap-6">
-        <ProfileViewSkills />
-        <ProfileViewHistory />
-        <ProfileViewPortFolio />
-        <ProfileViewEducation />
-        <ProfileViewAwards />
-        <ProfileViewLicense />
-        <ProfileViewLinks />
+        {profileData.profileSkillItems?.length > 0 && <ProfileViewSkills />}
+        {profileData.profileActivityItems?.length > 0 && <ProfileViewHistory />}
+        {profileData.profilePortfolioItems?.length > 0 && <ProfileViewPortFolio />}
+        {profileData.profileEducationItems?.length > 0 && <ProfileViewEducation />}
+        {profileData.profileAwardsItems?.length > 0 && <ProfileViewAwards />}
+        {profileData.profileLicenseItems?.length > 0 && <ProfileViewLicense />}
+        {profileData.profileLinkItems?.length > 0 && <ProfileViewLinks />}
       </div>
     </ProfileProvider>
   )
