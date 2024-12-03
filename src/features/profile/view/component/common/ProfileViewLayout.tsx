@@ -7,6 +7,7 @@ import { ProfileDetailData } from '@/entities/profile/model/types'
 import ProfileViewSkills from '../ProfileViewSkills'
 import ProfileViewHistory from '../ProfileViewHistory'
 import ProfileViewPortFolio from '../ProfileViewPortFolio'
+import ProfileViewEducation from '../ProfileViewEducation'
 
 export default function ProfileViewLayout() {
   const params = useParams()
@@ -33,6 +34,7 @@ export default function ProfileViewLayout() {
         <ProfileViewSkills />
         <ProfileViewHistory />
         <ProfileViewPortFolio />
+        <ProfileViewEducation />
       </div>
     </ProfileProvider>
   )

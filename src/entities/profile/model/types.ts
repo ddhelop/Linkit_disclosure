@@ -26,7 +26,16 @@ export interface ProfilePortfolioItem {
   projectRepresentImagePath: string
 }
 
-// ... 다른 인터페이스들도 동일하게 정의 ...
+export interface ProfileEducationItem {
+  profileEducationId: number
+  universityName: string
+  majorName: string
+  admissionYear: string
+  graduationYear: string
+  isAttendUniversity: boolean
+  isEducationVerified: boolean
+  educationDescription: string
+}
 
 export interface ProfileDetailData {
   isMyProfile: boolean
@@ -56,5 +65,5 @@ export interface ProfileDetailData {
   profileSkillItems: ProfileSkillItem[]
   profileActivityItems: ProfileActivityItem[]
   profilePortfolioItems: ProfilePortfolioItem[]
-  // ... 나머지 항목들
+  profileEducationItems: ProfileEducationItem[]
 }
