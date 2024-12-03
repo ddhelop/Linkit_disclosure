@@ -10,6 +10,7 @@ import ProfileViewPortFolio from '../ProfileViewPortFolio'
 import ProfileViewEducation from '../ProfileViewEducation'
 import ProfileViewAwards from '../ProfileViewAwards'
 import ProfileViewLicense from '../ProfileViewLicense'
+import ProfileViewLinks from '../ProfileViewLinks'
 
 export default function ProfileViewLayout() {
   const params = useParams()
@@ -39,6 +40,7 @@ export default function ProfileViewLayout() {
         <ProfileViewEducation />
         <ProfileViewAwards />
         <ProfileViewLicense />
+        <ProfileViewLinks />
       </div>
     </ProfileProvider>
   )
