@@ -14,7 +14,7 @@ export const updateProfileLogType = async (logId: number, type: string) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ profileLogType: type }),
+    body: JSON.stringify({ logType: type }),
   })
   if (!response.ok) throw new Error('Failed to update log type')
   return response

@@ -3,7 +3,7 @@ import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 export interface ProfileLogItem {
   profileLogId: number
   isLogPublic: boolean
-  profileLogType: 'REPRESENTATIVE_LOG' | 'GENERAL_LOG'
+  logType: 'REPRESENTATIVE_LOG' | 'GENERAL_LOG'
   modifiedAt: string
   logTitle: string
   logContent: string
@@ -32,7 +32,7 @@ export const getProfileLogs = async (): Promise<ProfileLogItem[]> => {
 interface ProfileLogDetail {
   profileLogId: number
   isLogPublic: boolean
-  profileLogType: 'REPRESENTATIVE_LOG' | 'GENERAL_LOG'
+  logType: 'REPRESENTATIVE_LOG' | 'GENERAL_LOG'
   modifiedAt: string
   logTitle: string
   logContent: string

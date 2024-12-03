@@ -48,7 +48,7 @@ export interface ProfileDetailData {
   profileLogItem: {
     profileLogId: number
     isLogPublic: boolean
-    profileLogType: string
+    logType: string
     modifiedAt: string
     logTitle: string
     logContent: string

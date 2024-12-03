@@ -123,7 +123,7 @@ export default function ProfileEditLog() {
             <div key={log.profileLogId} className="group relative flex flex-col rounded-xl bg-white p-5">
               <div className="flex cursor-pointer flex-col gap-3" onClick={() => handleLogClick(log.profileLogId)}>
                 <div className="flex gap-2">
-                  {log.profileLogType === 'REPRESENTATIVE_LOG' && (
+                  {log.logType === 'REPRESENTATIVE_LOG' && (
                     <Image src="/common/icons/pin.svg" width={18} height={18} alt="arrow" />
                   )}
                   <span className="font-semibold text-grey80">{truncateText(log.logTitle, 20)}</span>
@@ -161,7 +161,7 @@ export default function ProfileEditLog() {
                     className="cursor-pointer px-2 py-1 text-sm text-grey70 hover:bg-grey10"
                     onClick={() => handleUpdateLogType(log.profileLogId)}
                   >
-                    {log.profileLogType === 'REPRESENTATIVE_LOG' ? '대표글 해제' : '대표글로 설정'}
+                    {log.logType === 'REPRESENTATIVE_LOG' ? '대표글 해제' : '대표글로 설정'}
                   </div>
                   <div
                     className="cursor-pointer px-2 py-1 text-sm text-[#FF345F] hover:bg-grey10"
