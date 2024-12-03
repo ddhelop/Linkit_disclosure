@@ -11,6 +11,7 @@ export interface ProfileActivityItem {
   activityStartDate: string
   activityEndDate: string
   isActivityVerified: boolean
+  activityDescription: string
 }
 
 export interface ProfilePortfolioItem {

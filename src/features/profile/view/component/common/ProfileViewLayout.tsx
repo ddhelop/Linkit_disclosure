@@ -5,6 +5,7 @@ import { ProfileProvider } from '@/entities/profile/model/ProfileContext'
 import { getProfileDetail } from '@/entities/profile/api/profileApi'
 import { ProfileDetailData } from '@/entities/profile/model/types'
 import ProfileViewSkills from '../ProfileViewSkills'
+import ProfileViewHistory from '../ProfileViewHistory'
 
 export default function ProfileViewLayout() {
   const params = useParams()
@@ -27,8 +28,9 @@ export default function ProfileViewLayout() {
 
   return (
     <ProfileProvider profileData={profileData}>
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-6">
         <ProfileViewSkills />
+        <ProfileViewHistory />
       </div>
     </ProfileProvider>
   )
