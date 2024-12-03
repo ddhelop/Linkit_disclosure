@@ -28,7 +28,7 @@ export default function MiniProfileCard() {
 
         {/* 프로필(개인) */}
         <div className="mt-5 flex gap-3">
-          <Image src={profileImagePath} width={80} height={80} alt="profile" />
+          <Image src={profileImagePath} width={80} height={80} alt="profile" className="rounded-lg" />
 
           <div className="flex flex-col">
             <p className="text-lg font-bold">{memberName}</p>
@@ -43,6 +43,11 @@ export default function MiniProfileCard() {
 
         {/* 구분선 */}
         <div className="mt-5 border-[0.5px] border-grey40"></div>
+
+        {/* 팀이 없을때 */}
+        <div className="mt-5 flex gap-1">
+          <p className="text-sm text-grey50">팀이 없습니다.</p>
+        </div>
       </div>
 
       {/* 미니 프로필이 완성되지 않았을 때 표시되는 오버레이 알림 */}
