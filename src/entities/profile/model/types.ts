@@ -37,6 +37,29 @@ export interface ProfileEducationItem {
   educationDescription: string
 }
 
+export interface ProfileAwardsItem {
+  profileAwardsId: number
+  awardsName: string
+  awardsRanking: string
+  awardsDate: string
+  isAwardsVerified: boolean
+  awardDescription: string
+}
+
+export interface ProfileLicenseItem {
+  profileLicenseId: number
+  licenseName: string
+  licenseInstitution: string
+  licenseAcquisitionDate: string
+  isLicenseVerified: boolean
+}
+
+export interface ProfileLinkItem {
+  profileLinkId: number
+  linkName: string
+  linkPath: string
+}
+
 export interface ProfileDetailData {
   isMyProfile: boolean
   profileCompletionMenu: {
@@ -66,4 +89,7 @@ export interface ProfileDetailData {
   profileActivityItems: ProfileActivityItem[]
   profilePortfolioItems: ProfilePortfolioItem[]
   profileEducationItems: ProfileEducationItem[]
+  profileAwardsItems: ProfileAwardsItem[]
+  profileLicenseItems: ProfileLicenseItem[]
+  profileLinkItems: ProfileLinkItem[]
 }

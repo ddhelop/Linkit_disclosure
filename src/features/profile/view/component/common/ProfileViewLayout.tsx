@@ -8,6 +8,7 @@ import ProfileViewSkills from '../ProfileViewSkills'
 import ProfileViewHistory from '../ProfileViewHistory'
 import ProfileViewPortFolio from '../ProfileViewPortFolio'
 import ProfileViewEducation from '../ProfileViewEducation'
+import ProfileViewAwards from '../ProfileViewAwards'
 
 export default function ProfileViewLayout() {
   const params = useParams()
@@ -35,6 +36,7 @@ export default function ProfileViewLayout() {
         <ProfileViewHistory />
         <ProfileViewPortFolio />
         <ProfileViewEducation />
+        <ProfileViewAwards />
       </div>
     </ProfileProvider>
   )
