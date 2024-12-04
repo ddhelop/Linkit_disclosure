@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface ProjectComponentProps {
   projectName: string
@@ -9,6 +10,7 @@ interface ProjectComponentProps {
   isProjectInProgress: boolean
   projectRoles: string[]
   projectRepresentImagePath: string
+  profilePortfolioId: number
 }
 
 export default function ProjectComponent({
@@ -19,9 +21,13 @@ export default function ProjectComponent({
   projectEndDate,
   projectRoles,
   projectRepresentImagePath,
+  profilePortfolioId,
 }: ProjectComponentProps) {
   return (
-    <div className="relative flex gap-6 rounded-xl bg-grey10 px-6 py-7">
+    <Link
+      href={`/profile/edit/portfolio/new?id=${profilePortfolioId}`}
+      className="relative flex gap-6 rounded-xl bg-grey10 px-6 py-7"
+    >
       <Image
         src="/common/icons/more_row.svg"
         width={22}
@@ -29,12 +35,15 @@ export default function ProjectComponent({
         alt="more"
         className="absolute right-5 top-5 cursor-pointer"
       />
-      <Image
-        src={projectRepresentImagePath || '/common/images/no_thumbnail.svg'}
-        width={256}
-        height={144}
-        alt="thumbnail"
-      />
+      <div className="h-[144px] w-[256px] rounded-lg">
+        <Image
+          src={projectRepresentImagePath || '/common/images/no_thumbnail.svg'}
+          width={256}
+          height={144}
+          alt="thumbnail"
+          className="h-full w-full rounded-lg object-cover"
+        />
+      </div>
       <div className="flex flex-col justify-center">
         <div className="flex items-center gap-3">
           <span className="text-lg font-semibold">{projectName}</span>
@@ -53,6 +62,6 @@ export default function ProjectComponent({
           <span className="text-grey60">역할 |</span> {projectRoles.join(', ')}
         </div>
       </div>
-    </div>
+    </Link>
   )
 }

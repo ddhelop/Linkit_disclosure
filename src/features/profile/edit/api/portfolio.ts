@@ -42,3 +42,28 @@ export const getPortfolio = async (portfolioId: number) => {
 
   return response.json()
 }
+
+export const updatePortfolio = async (portfolioId: string, formData: FormData) => {
+  const response = await fetchWithAuth(`/api/v1/profile/portfolio/${portfolioId}`, {
+    method: 'POST',
+    body: formData,
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to update portfolio')
+  }
+
+  return response.json()
+}
+
+export const getPortfolioById = async (portfolioId: string) => {
+  const response = await fetchWithAuth(`/api/v1/profile/portfolio/${portfolioId}`, {
+    method: 'GET',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch portfolio')
+  }
+
+  return response.json()
+}

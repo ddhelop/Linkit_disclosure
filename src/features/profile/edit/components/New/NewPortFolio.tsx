@@ -9,7 +9,9 @@ import { RoleContributionInput } from '../RoleContribution/RoleContributionInput
 import { RoleContribution } from '../../model/types'
 import { SkillInput } from '../SkillInput/SkillInput'
 import { useFileValidation } from '@/shared/lib/hooks/useFileValidation'
-import { addPortfolio, getPortfolio } from '../../api/portfolio'
+import { addPortfolio, getPortfolio, updatePortfolio, getPortfolioById } from '../../api/portfolio'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Spinner } from '@/shared/ui/Spinner/Spinner'
 
 export default function NewPortFolio() {
   const accessToken = localStorage.getItem('accessToken') || ''
@@ -28,42 +30,74 @@ export default function NewPortFolio() {
   const [headCount, setHeadCount] = useState('')
   const [teamComposition, setTeamComposition] = useState('')
   const { validateFile } = useFileValidation()
+  const [originalData, setOriginalData] = useState<any>(null)
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const portfolioId = searchParams.get('id')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [representImageUrl, setRepresentImageUrl] = useState<string | null>(null)
+  const [subImageUrls, setSubImageUrls] = useState<string[]>([])
 
   useEffect(() => {
-    const loadPortfolioData = async () => {
+    const fetchPortfolioData = async () => {
+      if (!portfolioId) return
+
       try {
-        const response = await getPortfolio(1) // portfolioId를 파라미터로 받을 수 있도록 수정 가능
+        const response = await getPortfolioById(portfolioId)
         const data = response.result
 
-        // 데이터 초기화
-        setProjectName(data.projectName)
-        setProjectLineDescription(data.projectLineDescription)
-        setIsTeam(data.projectSize === 'TEAM')
-        setHeadCount(data.projectHeadCount.toString())
-        setTeamComposition(data.projectTeamComposition)
-        setStartDate(data.projectStartDate)
-        setEndDate(data.projectEndDate)
-        setIsOngoing(data.isProjectInProgress)
-        setRoles(
-          data.projectRoleAndContributions.map((item: { projectRole: string; projectContribution: string }) => ({
-            role: item.projectRole,
-            contribution: item.projectContribution,
-          })),
-        )
-        setSelectedSkills(data.projectSkillNames.map((item: { projectSkillName: string }) => item.projectSkillName))
-        setProjectLink(data.projectLink)
-        setProjectDescription(data.projectDescription)
+        console.log('Fetched portfolio data:', data)
 
-        // 이미지 처리는 URL을 받아서 표시하는 방식으로 수정 필요
-        // 현재 File 객체를 사용하고 있어서 직접적인 URL 할당은 불가능
-        // 이미지 표시 로직은 별도로 수정이 필요할 수 있습니다
+        // 기본 정보 설정
+        setProjectName(data.projectName || '')
+        setProjectLineDescription(data.projectLineDescription || '')
+        setIsTeam(data.projectSize === 'TEAM')
+        setHeadCount(data.projectHeadCount?.toString() || '1')
+        setTeamComposition(data.projectTeamComposition || '')
+
+        // 날짜 정보 설정
+        setStartDate(data.projectStartDate || '') // 시작 날짜 설정
+        setEndDate(data.projectEndDate || '') // 종료 날짜 설정
+        setIsOngoing(data.isProjectInProgress)
+
+        // 역할 및 기여도 설정
+        if (data.projectRoleAndContributions?.length > 0) {
+          setRoles(
+            data.projectRoleAndContributions.map((item: any) => ({
+              role: item.projectRole || '',
+              contribution: item.projectContribution || '',
+            })),
+          )
+        }
+
+        // 스킬 설정
+        if (data.projectSkillNames?.length > 0) {
+          setSelectedSkills(data.projectSkillNames.map((item: any) => item.projectSkillName))
+        }
+
+        setProjectLink(data.projectLink || '')
+        setProjectDescription(data.projectDescription || '')
+
+        // 이미지 URL 저장
+        if (data.portfolioImages) {
+          if (data.portfolioImages.projectRepresentImagePath) {
+            setRepresentImageUrl(data.portfolioImages.projectRepresentImagePath)
+          }
+          if (data.portfolioImages.portfolioSubImages?.length > 0) {
+            setSubImageUrls(data.portfolioImages.portfolioSubImages.map((img: any) => img.projectSubImagePath))
+          }
+        }
+
+        setOriginalData(data)
       } catch (error) {
-        console.error('Error loading portfolio:', error)
+        console.error('포트폴리오 데이터 조회 실패:', error)
+        alert('데이터를 불러오는데 실패했습니다.')
+        router.back()
       }
     }
 
-    loadPortfolioData()
-  }, []) // 컴포넌트 마운트 시 한 번만 실행
+    fetchPortfolioData()
+  }, [portfolioId, router])
 
   const handleToggle = () => {
     setIsTeam((prev) => !prev)
@@ -106,51 +140,113 @@ export default function NewPortFolio() {
     setSelectedSkills(selectedSkills.filter((s) => s !== skill))
   }
 
-  const handleSubmit = async () => {
-    const formData = new FormData()
-
-    // 대표 이미지 추가
-    if (representImage) {
-      formData.append('projectRepresentImage', representImage)
-    }
-
-    // 서브 이미지들 추가
-    subImages.forEach((image) => {
-      formData.append('projectSubImages', image)
-    })
-
-    // JSON 데이터 생성
-    const portfolioData = {
-      projectName,
-      projectLineDescription,
-      projectSize: isTeam ? 'TEAM' : 'PERSONAL',
-      projectHeadCount: isTeam ? parseInt(headCount) : 1,
-      projectTeamComposition: teamComposition,
-      projectStartDate: startDate,
-      projectEndDate: isOngoing ? null : endDate,
-      isProjectInProgress: isOngoing,
-      projectRoleAndContributions: roles.map((role) => ({
-        projectRole: role.role,
-        projectContribution: role.contribution,
-      })),
-      projectSkillNames: selectedSkills.map((skill) => ({
-        projectSkillName: skill,
-      })),
-      projectLink,
-      projectDescription,
-    }
-
-    formData.append(
-      'addProfilePortfolioRequest',
-      new Blob([JSON.stringify(portfolioData)], { type: 'application/json' }),
+  const isFormValid = () => {
+    return (
+      projectName.trim() !== '' &&
+      projectLineDescription.trim() !== '' &&
+      startDate !== '' &&
+      (isOngoing || endDate !== '') &&
+      roles.every((role) => role.role.trim() !== '' && role.contribution.trim() !== '')
     )
+  }
 
+  const hasChanges = () => {
+    if (!originalData) return true // 새로운 포트폴리오 생성인 경우
+
+    // 각 필드별 변경 사항 확인
+    const changes = {
+      basicInfo:
+        originalData.projectName !== projectName ||
+        originalData.projectLineDescription !== projectLineDescription ||
+        originalData.projectSize !== (isTeam ? 'TEAM' : 'PERSONAL') ||
+        originalData.projectHeadCount !== (isTeam ? parseInt(headCount) : 1) ||
+        originalData.projectTeamComposition !== teamComposition,
+
+      dates:
+        originalData.projectStartDate !== startDate ||
+        originalData.projectEndDate !== (isOngoing ? null : endDate) ||
+        originalData.isProjectInProgress !== isOngoing,
+
+      roles:
+        JSON.stringify(originalData.projectRoleAndContributions) !==
+        JSON.stringify(
+          roles.map((role) => ({
+            projectRole: role.role,
+            projectContribution: role.contribution,
+          })),
+        ),
+
+      skills:
+        JSON.stringify(originalData.projectSkillNames) !==
+        JSON.stringify(selectedSkills.map((skill) => ({ projectSkillName: skill }))),
+
+      additionalInfo:
+        originalData.projectLink !== projectLink || originalData.projectDescription !== projectDescription,
+
+      images:
+        representImage !== null ||
+        subImages.length > 0 ||
+        subImageUrls.length !== originalData.portfolioImages?.portfolioSubImages?.length,
+    }
+
+    // 하나라도 변경된 항목이 있으면 true 반환
+    return Object.values(changes).some((changed) => changed)
+  }
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true)
     try {
-      await addPortfolio(formData, accessToken)
-      // 성공 처리 (예: 알림 표시, 페이지 이동 등)
+      const formData = new FormData()
+
+      // 대표 이미지 추가
+      if (representImage) {
+        formData.append('projectRepresentImage', representImage)
+      }
+
+      // 서브 이미지들 추가
+      subImages.forEach((image) => {
+        formData.append('projectSubImages', image)
+      })
+
+      // JSON 데이터 생성
+      const portfolioData = {
+        projectName,
+        projectLineDescription,
+        projectSize: isTeam ? 'TEAM' : 'PERSONAL',
+        projectHeadCount: isTeam ? parseInt(headCount) : 1,
+        projectTeamComposition: teamComposition,
+        projectStartDate: startDate,
+        projectEndDate: isOngoing ? null : endDate,
+        isProjectInProgress: isOngoing,
+        projectRoleAndContributions: roles.map((role) => ({
+          projectRole: role.role,
+          projectContribution: role.contribution,
+        })),
+        projectSkillNames: selectedSkills.map((skill) => ({
+          projectSkillName: skill,
+        })),
+        projectLink,
+        projectDescription,
+      }
+
+      // 수정 시에는 'updateProfilePortfolioRequest'로, 생성 시에는 'addProfilePortfolioRequest'로 전송
+      const requestKey = portfolioId ? 'updateProfilePortfolioRequest' : 'addProfilePortfolioRequest'
+
+      formData.append(requestKey, new Blob([JSON.stringify(portfolioData)], { type: 'application/json' }))
+
+      if (portfolioId) {
+        await updatePortfolio(portfolioId, formData)
+      } else {
+        await addPortfolio(formData, accessToken)
+      }
+
+      alert('포트폴리오가 성공적으로 저장되었습니다.')
+      router.back()
     } catch (error) {
       console.error('Error:', error)
-      // 에러 처리 (예: 에러 메시지 표시)
+      alert('저장 중 오류가 발생했습니다.')
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -192,6 +288,12 @@ export default function NewPortFolio() {
     fileInput?.click()
   }
 
+  const isButtonDisabled = () => {
+    if (!isFormValid()) return true // 필수 필드가 비어있는 경우
+    if (portfolioId && !hasChanges()) return true // 수정 모드에서 변경사항이 없는 경우
+    return false
+  }
+
   return (
     <>
       <div className="flex flex-col gap-10 rounded-xl bg-white px-[1.62rem] pb-7 pt-[1.88rem]">
@@ -224,6 +326,7 @@ export default function NewPortFolio() {
 
           <Input
             onChange={(e) => setProjectLineDescription(e.target.value)}
+            value={projectLineDescription}
             placeholder="프로젝트를 한 줄로 소개해주세요 (60자 이내)"
           />
         </div>
@@ -308,13 +411,22 @@ export default function NewPortFolio() {
         {/* 링크 */}
         <div className="flex flex-col gap-3">
           <span className="flex w-[10.6rem]">링크</span>
-          <Input placeholder="링크를 입력해 주세요" />
+          <Input
+            value={projectLink}
+            onChange={(e) => setProjectLink(e.target.value)}
+            placeholder="링크를 입력해 주세요"
+          />
         </div>
 
         {/* 설명 */}
         <div className="flex flex-col gap-3">
           <span className="flex w-[10.6rem]">설명</span>
-          <Textarea placeholder="프로젝트에 대한 설명을 입력해주세요" className="min-h-[8.5rem]" />
+          <Textarea
+            value={projectDescription}
+            onChange={(e) => setProjectDescription(e.target.value)}
+            placeholder="프로젝트에 대한 설명을 입력해주세요"
+            className="min-h-[8.5rem]"
+          />
         </div>
 
         {/* 이미지 */}
@@ -323,10 +435,18 @@ export default function NewPortFolio() {
           <span className="mt-3 text-sm text-grey60">대표 이미지 1장</span>
 
           <div className="flex items-end gap-6">
-            {/* 이미지 미리보기 영역 */}
+            {/* 대표 이미지 */}
             {representImage ? (
               <Image
                 src={URL.createObjectURL(representImage)}
+                width={204}
+                height={115}
+                alt="대표 이미지"
+                className="h-[115px] w-[204px] rounded-lg object-cover"
+              />
+            ) : representImageUrl ? (
+              <Image
+                src={representImageUrl}
                 width={204}
                 height={115}
                 alt="대표 이미지"
@@ -345,7 +465,7 @@ export default function NewPortFolio() {
             )}
 
             <div className="flex flex-col gap-2">
-              <span className="text-xs text-grey50">*10MB 이하의 PNG, JPG 파일 업로드 해주세요</span>
+              <span className="text-xs text-grey50">*10MB 하의 PNG, JPG 파일 업로드 해주세요</span>
               <div className="flex items-center gap-4">
                 <input
                   type="file"
@@ -375,9 +495,16 @@ export default function NewPortFolio() {
             </span>
 
             <div className="mt-2 flex flex-wrap gap-2">
+              {/* 새로 업로드된 이미지 */}
               {subImages.map((image, index) => (
-                <div key={index} className="relative">
-                  <Image src={URL.createObjectURL(image)} width={156} height={86} alt={`보조 이미지 ${index + 1}`} />
+                <div key={`new-${index}`} className="relative">
+                  <Image
+                    src={URL.createObjectURL(image)}
+                    width={156}
+                    height={86}
+                    alt={`보조 이���지 ${index + 1}`}
+                    className="h-[86px] w-[156px] object-cover" // 크기 고정
+                  />
                   <button
                     onClick={() => setSubImages((prev) => prev.filter((_, i) => i !== index))}
                     className="absolute -right-2 -top-2 rounded-full bg-grey50 p-1"
@@ -387,7 +514,27 @@ export default function NewPortFolio() {
                 </div>
               ))}
 
-              {subImages.length < 4 && (
+              {/* 기존 서브 이미지 */}
+              {subImageUrls.map((url, index) => (
+                <div key={`existing-${index}`} className="relative">
+                  <Image
+                    src={url}
+                    width={156}
+                    height={86}
+                    alt={`보조 이미지 ${index + 1}`}
+                    className="h-[86px] w-[156px] object-cover" // 크기 고정
+                  />
+                  <button
+                    onClick={() => setSubImageUrls((prev) => prev.filter((_, i) => i !== index))}
+                    className="absolute -right-2 -top-2 rounded-full bg-grey50 p-1 hover:scale-110 "
+                  >
+                    <Image src="/common/icons/delete_x.svg" width={15} height={15} alt="삭제" className="" />
+                  </button>
+                </div>
+              ))}
+
+              {/* 이미지 추가 버튼 */}
+              {subImages.length + subImageUrls.length < 4 && (
                 <label className="cursor-pointer">
                   <input
                     type="file"
@@ -407,8 +554,21 @@ export default function NewPortFolio() {
       </div>
 
       <div className="mt-5 flex justify-end">
-        <Button mode="main" animationMode="main" className=" rounded-xl font-semibold" onClick={handleSubmit}>
-          저장하기
+        <Button
+          mode="main"
+          animationMode="main"
+          className="rounded-xl font-semibold"
+          onClick={handleSubmit}
+          disabled={isButtonDisabled() || isSubmitting}
+        >
+          {isSubmitting ? (
+            <div className="flex items-center gap-2">
+              <Spinner size="sm" />
+              <span>저장 중...</span>
+            </div>
+          ) : (
+            '저장하기'
+          )}
         </Button>
       </div>
     </>
