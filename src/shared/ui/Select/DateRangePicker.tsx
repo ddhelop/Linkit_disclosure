@@ -23,20 +23,13 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
   onStartDateChange,
   onEndDateChange,
   onToggleOngoing,
-  ongoingLabel = '진행 중', // 기본값을 "진행 중"으로 설정
-  ongoingClassName = 'text-grey70', // 기본 스타일
+  ongoingLabel = '진행 중',
+  ongoingClassName = 'text-grey70',
 }) => {
-  // 입력 중인 값을 관리하기 위한 로컬 상태
   const [localStartDate, setLocalStartDate] = useState(startDate)
   const [localEndDate, setLocalEndDate] = useState(endDate)
-
-  useEffect(() => {
-    setLocalStartDate(startDate)
-  }, [startDate])
-
-  useEffect(() => {
-    setLocalEndDate(endDate)
-  }, [endDate])
+  const [isStartDateValid, setIsStartDateValid] = useState(true)
+  const [isEndDateValid, setIsEndDateValid] = useState(true)
 
   const formatDateInput = (input: string) => {
     // 숫자만 추출
@@ -52,6 +45,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
   }
 
   const validateDate = (date: string) => {
+    if (!date) return true
     const regex = /^\d{4}\.(0[1-9]|1[0-2])$/
     if (!regex.test(date)) return false
 
@@ -59,7 +53,6 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
     const yearNum = parseInt(year)
     const currentYear = new Date().getFullYear()
 
-    // 연도는 1900부터 현재 연도까지만 허용
     return yearNum >= 1900 && yearNum <= currentYear
   }
 
@@ -67,8 +60,11 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
     const formatted = formatDateInput(e.target.value)
     setLocalStartDate(formatted)
 
-    // 형식이 완성되고 유효한 경우에만 부모 컴포넌트에 알림
-    if (formatted.length === 7 && validateDate(formatted)) {
+    const isValid = validateDate(formatted)
+    setIsStartDateValid(isValid)
+
+    // 유효한 경우에만 부모 컴포넌트에 값 전달
+    if (isValid && formatted.length === 7) {
       onStartDateChange(formatted)
     }
   }
@@ -77,15 +73,22 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
     const formatted = formatDateInput(e.target.value)
     setLocalEndDate(formatted)
 
-    // 형식이 완성되고 유효한 경우에만 부모 컴포넌트에 알림
-    if (formatted.length === 7 && validateDate(formatted)) {
+    const isValid = validateDate(formatted)
+    setIsEndDateValid(isValid)
+
+    // 유효한 경우에만 부모 컴포넌트에 값 전달
+    if (isValid && formatted.length === 7) {
       onEndDateChange(formatted)
     }
   }
 
-  const handleBlur = (date: string, onChange: (date: string) => void) => {
-    if (date && !validateDate(date)) {
-      onChange('') // 유효하지 않은 날짜는 초기화
+  const handleOngoingToggle = () => {
+    onToggleOngoing()
+    if (!isOngoing) {
+      // 진행중으로 변경될 때
+      setLocalEndDate('') // 종료일 로컬 상태 초기화
+      onEndDateChange('') // 부모 컴포넌트 종료일 초기화
+      setIsEndDateValid(true) // 종료일 유효성 상태 초기화
     }
   }
 
@@ -97,24 +100,22 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
       <div className="flex w-full items-center gap-2">
         <Input
           placeholder="YYYY.MM"
-          className="w-[49%]"
+          className={`w-[49%] ${!isStartDateValid ? 'border-red-500' : ''}`}
           value={localStartDate}
           onChange={handleStartDateChange}
-          onBlur={() => handleBlur(localStartDate, onStartDateChange)}
           maxLength={7}
         />
         <span>~</span>
         <Input
           placeholder="YYYY.MM"
-          className="w-[49%]"
+          className={`w-[49%] ${!isEndDateValid ? 'border-red-500' : ''}`}
           value={localEndDate}
           onChange={handleEndDateChange}
-          onBlur={() => handleBlur(localEndDate, onEndDateChange)}
           maxLength={7}
           disabled={isOngoing}
         />
       </div>
-      <div className="flex cursor-pointer gap-2" onClick={onToggleOngoing}>
+      <div className="flex cursor-pointer gap-2" onClick={handleOngoingToggle}>
         <div
           className={`rounded-[0.32rem] border p-[0.32rem] ${isOngoing ? 'bg-[#D3E1FE]' : 'border-grey40 bg-grey20'}`}
         >
