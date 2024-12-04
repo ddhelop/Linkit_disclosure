@@ -3,9 +3,11 @@ import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import DateRangePicker from '@/shared/ui/Select/DateRangePicker'
 import Textarea from '@/shared/ui/TextArea/TextArea'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { UniversityInput } from '../UniversityInput/UniversityInput'
-import { createEducation } from '../../api/educationApi'
+import { createEducation, getEducationById, updateEducation } from '../../api/educationApi'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Spinner } from '@/shared/ui/Spinner/Spinner'
 
 export default function NewEducation() {
   const [selectedUniversity, setSelectedUniversity] = useState('')
@@ -14,13 +16,66 @@ export default function NewEducation() {
   const [endDate, setEndDate] = useState('')
   const [isOngoing, setIsOngoing] = useState(false)
   const [description, setDescription] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [originalData, setOriginalData] = useState<any>(null)
+
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const educationId = searchParams.get('id')
+
+  // 데이터 조회
+  useEffect(() => {
+    const fetchEducationData = async () => {
+      if (!educationId) return
+
+      try {
+        const response = await getEducationById(educationId)
+        const data = response.result
+
+        setSelectedUniversity(data.universityName || '')
+        setMajorName(data.majorName || '')
+        setStartDate(data.admissionYear || '')
+        setEndDate(data.graduationYear || '')
+        setIsOngoing(data.isAttendUniversity || false)
+        setDescription(data.educationDescription || '')
+
+        setOriginalData(data)
+      } catch (error) {
+        console.error('Failed to fetch education:', error)
+        alert('데이터를 불러오는데 실패했습니다.')
+        router.back()
+      }
+    }
+
+    fetchEducationData()
+  }, [educationId, router])
 
   const handleOngoingToggle = () => {
     setIsOngoing((prev) => !prev)
     setEndDate('')
   }
 
+  // 필수 필드 검증
+  const isFormValid = () => {
+    return selectedUniversity !== '' && majorName !== '' && startDate !== ''
+  }
+
+  // 변경사항 확인
+  const hasChanges = () => {
+    if (!originalData) return true // 새로운 교육정보 생성인 경우
+
+    return (
+      originalData.universityName !== selectedUniversity ||
+      originalData.majorName !== majorName ||
+      originalData.admissionYear !== startDate ||
+      originalData.graduationYear !== endDate ||
+      originalData.isAttendUniversity !== isOngoing ||
+      originalData.educationDescription !== description
+    )
+  }
+
   const handleSubmit = async () => {
+    setIsSubmitting(true)
     try {
       const educationData = {
         universityName: selectedUniversity,
@@ -31,11 +86,19 @@ export default function NewEducation() {
         educationDescription: description,
       }
 
-      await createEducation(educationData)
-      // 성공 처리 (예: 알림 표시, 페이지 이동 등)
+      if (educationId) {
+        await updateEducation(educationId, educationData)
+      } else {
+        await createEducation(educationData)
+      }
+
+      alert('교육정보가 성공적으로 저장되었습니다.')
+      router.back()
     } catch (error) {
-      // 에러 처리
       console.error('Failed to save education:', error)
+      alert('저장 중 오류가 발생했습니다.')
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -90,8 +153,21 @@ export default function NewEducation() {
       </div>
 
       <div className="mt-5 flex justify-end">
-        <Button mode="main" animationMode="main" className="rounded-xl font-semibold" onClick={handleSubmit}>
-          저장하기
+        <Button
+          mode="main"
+          animationMode="main"
+          className="rounded-xl font-semibold"
+          onClick={handleSubmit}
+          disabled={!isFormValid() || !hasChanges() || isSubmitting}
+        >
+          {isSubmitting ? (
+            <div className="flex items-center gap-2">
+              <Spinner size="sm" />
+              <span>저장 중...</span>
+            </div>
+          ) : (
+            '저장하기'
+          )}
         </Button>
       </div>
     </>

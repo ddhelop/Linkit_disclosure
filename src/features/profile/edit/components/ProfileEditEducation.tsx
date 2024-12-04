@@ -5,8 +5,10 @@ import Link from 'next/link'
 
 import ElementComponent from './common/ElementComponent'
 import { getEducations } from '../../api/getEducations'
+import { deleteEducation } from '../api/educationApi'
 import Image from 'next/image'
 import { EducationListSkeleton } from './skeletons/ListSkeletons'
+import EducationElementComponent from './common/EducationElementComponent'
 
 interface Education {
   profileEducationId: number
@@ -22,20 +24,34 @@ export default function ProfileEditEducation() {
   const [educations, setEducations] = useState<Education[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    const fetchEducations = async () => {
-      try {
-        const data = await getEducations()
-        setEducations(data.result.profileEducationItems)
-      } catch (error) {
-        console.error('Failed to fetch educations:', error)
-      } finally {
-        setIsLoading(false)
-      }
+  const fetchEducations = async () => {
+    try {
+      const data = await getEducations()
+      setEducations(data.result.profileEducationItems)
+    } catch (error) {
+      console.error('Failed to fetch educations:', error)
+    } finally {
+      setIsLoading(false)
     }
+  }
 
+  useEffect(() => {
     fetchEducations()
   }, [])
+
+  const handleDelete = async (id: number) => {
+    if (!window.confirm('정말로 삭제하시겠습니까?')) return
+
+    try {
+      await deleteEducation(id)
+      // 삭제 성공 후 목록 새로고침
+      await fetchEducations()
+      alert('성공적으로 삭제되었습니다.')
+    } catch (error) {
+      console.error('Failed to delete education:', error)
+      alert('삭제 중 오류가 발생했습니다.')
+    }
+  }
 
   if (isLoading) {
     return (
@@ -71,15 +87,16 @@ export default function ProfileEditEducation() {
           />
         </div>
       ) : (
-        <div className="mt-4">
+        <div className="mt-5 flex flex-col gap-5">
           {educations.map((education) => (
-            <ElementComponent
+            <EducationElementComponent
               key={education.profileEducationId}
               id={education.profileEducationId}
               title={education.universityName}
               subtitle={education.majorName}
               date={`${education.admissionYear} - ${education.graduationYear}`}
               editPath="/profile/edit/education/new"
+              onDelete={handleDelete}
             />
           ))}
         </div>
