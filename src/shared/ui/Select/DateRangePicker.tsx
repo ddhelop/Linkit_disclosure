@@ -31,6 +31,12 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
   const [isStartDateValid, setIsStartDateValid] = useState(true)
   const [isEndDateValid, setIsEndDateValid] = useState(true)
 
+  // props로 받은 날짜가 변경될 때 로컬 상태 업데이트
+  useEffect(() => {
+    setLocalStartDate(startDate)
+    setLocalEndDate(endDate)
+  }, [startDate, endDate])
+
   const formatDateInput = (input: string) => {
     // 숫자만 추출
     const numbers = input.replace(/\D/g, '')
