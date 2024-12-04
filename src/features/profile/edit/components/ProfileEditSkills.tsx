@@ -6,6 +6,7 @@ import Select from '@/shared/ui/Select/Select'
 import { Button } from '@/shared/ui/Button/Button'
 import { updateProfileSkills, getProfileSkills } from '../api/profileApi'
 import { SkillListSkeleton } from './skeletons/ListSkeletons'
+import { Spinner } from '@/shared/ui/Spinner/Spinner'
 
 interface Skill {
   name: string
@@ -16,19 +17,21 @@ export default function ProfileEditSkills() {
   const [searchTerm, setSearchTerm] = useState('')
   const [showResults, setShowResults] = useState(false)
   const [selectedSkills, setSelectedSkills] = useState<Skill[]>([])
+  const [originalSkills, setOriginalSkills] = useState<Skill[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [focusedIndex, setFocusedIndex] = useState(-1)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     const fetchSkills = async () => {
       try {
         const skills = await getProfileSkills()
-        setSelectedSkills(
-          skills.map((skill) => ({
-            name: skill.skillName,
-            proficiency: skill.skillLevel,
-          })),
-        )
+        const formattedSkills = skills.map((skill) => ({
+          name: skill.skillName,
+          proficiency: skill.skillLevel,
+        }))
+        setSelectedSkills(formattedSkills)
+        setOriginalSkills(formattedSkills)
       } catch (error) {
         console.error('스킬 조회 중 오류 발생:', error)
       } finally {
@@ -38,6 +41,15 @@ export default function ProfileEditSkills() {
 
     fetchSkills()
   }, [])
+
+  const hasChanges = () => {
+    if (selectedSkills.length !== originalSkills.length) return true
+
+    return selectedSkills.some((skill) => {
+      const originalSkill = originalSkills.find((orig) => orig.name === skill.name)
+      return !originalSkill || originalSkill.proficiency !== skill.proficiency
+    })
+  }
 
   if (isLoading) {
     return (
@@ -104,16 +116,20 @@ export default function ProfileEditSkills() {
 
   const handleSubmit = async () => {
     try {
+      setIsSubmitting(true)
       const skillsData = selectedSkills.map((skill) => ({
         skillName: skill.name,
         skillLevel: skill.proficiency,
       }))
 
       await updateProfileSkills(skillsData)
+      setOriginalSkills(selectedSkills)
       alert('스킬이 성공적으로 업데이트되었습니다.')
     } catch (error) {
       console.error('스킬 업데이트 중 오류 발생:', error)
       alert('스킬 업데이트에 실패했습니다.')
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -209,8 +225,21 @@ export default function ProfileEditSkills() {
         </div>
       </div>
       <div className="mt-5 flex w-full justify-end">
-        <Button mode="main" animationMode="main" onClick={handleSubmit}>
-          저장하기
+        <Button
+          mode="main"
+          animationMode="main"
+          onClick={handleSubmit}
+          disabled={!hasChanges() || isSubmitting}
+          className={`${!hasChanges() || isSubmitting ? 'cursor-not-allowed opacity-50' : ''}`}
+        >
+          {isSubmitting ? (
+            <div className="flex items-center gap-2">
+              <Spinner size="sm" />
+              <span>저장 중...</span>
+            </div>
+          ) : (
+            '저장하기'
+          )}
         </Button>
       </div>
     </>
