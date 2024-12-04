@@ -5,8 +5,9 @@ import DateRangePicker from '@/shared/ui/Select/DateRangePicker'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import { useState, useEffect } from 'react'
 import CertificationForm from './CertificationForm'
-import { useSearchParams } from 'next/navigation'
-import { getActivityById, saveActivity } from '../../api/profileActivityApi'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { getActivityById, saveActivity, updateActivity } from '../../api/profileActivityApi'
+import { Spinner } from '@/shared/ui/Spinner/Spinner'
 
 export default function NewHistory() {
   const searchParams = useSearchParams()
@@ -18,6 +19,16 @@ export default function NewHistory() {
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [originalData, setOriginalData] = useState({
+    activityName: '',
+    activityRole: '',
+    activityDescription: '',
+    isOngoing: false,
+    startDate: '',
+    endDate: '',
+  })
+
+  const router = useRouter()
 
   // CertificationForm의 상태 정의
   const [certificationData, setCertificationData] = useState({
@@ -32,24 +43,27 @@ export default function NewHistory() {
       const fetchActivity = async () => {
         try {
           const activity = await getActivityById(activityId)
-          setActivityName(activity.activityName)
-          setActivityRole(activity.activityRole)
-          setActivityDescription(activity.activityDescription)
-          setStartDate(activity.activityStartDate)
-          setEndDate(activity.activityEndDate || '')
-          setIsOngoing(activity.isActivityInProgress)
+          const activityData = {
+            activityName: activity.activityName,
+            activityRole: activity.activityRole,
+            activityDescription: activity.activityDescription,
+            startDate: activity.activityStartDate,
+            endDate: activity.activityEndDate || '',
+            isOngoing: activity.isActivityInProgress,
+          }
 
-          setCertificationData({
-            isActivityCertified: activity.isActivityCertified,
-            isActivityInProgress: activity.isActivityInProgress,
-            isActivityVerified: activity.isActivityVerified,
-            activityCertificationAttachFilePath: activity.activityCertificationAttachFilePath,
-          })
+          // Set both current and original data
+          setActivityName(activityData.activityName)
+          setActivityRole(activityData.activityRole)
+          setActivityDescription(activityData.activityDescription)
+          setStartDate(activityData.startDate)
+          setEndDate(activityData.endDate)
+          setIsOngoing(activityData.isOngoing)
+          setOriginalData(activityData)
         } catch (error) {
           console.error('Failed to load activity:', error)
         }
       }
-
       fetchActivity()
     }
   }, [activityId])
@@ -76,8 +90,14 @@ export default function NewHistory() {
         activityDescription,
       }
 
-      await saveActivity(activityData)
+      if (activityId) {
+        await updateActivity(activityId, activityData)
+      } else {
+        await saveActivity(activityData)
+      }
+
       alert('활동 이력이 성공적으로 저장되었습니다.')
+      router.back()
     } catch (error) {
       console.error('저장 중 에러 발생:', error)
       alert('활동 이력 저장 중 오류가 발생했습니다.')
@@ -91,6 +111,24 @@ export default function NewHistory() {
       ...prev,
       ...updatedData,
     }))
+  }
+
+  const hasChanges = () => {
+    return (
+      originalData.activityName !== activityName ||
+      originalData.activityRole !== activityRole ||
+      originalData.activityDescription !== activityDescription ||
+      originalData.startDate !== startDate ||
+      originalData.endDate !== endDate ||
+      originalData.isOngoing !== isOngoing
+    )
+  }
+
+  const isFormValid = () => {
+    if (!activityName.trim() || !activityRole.trim()) return false
+    if (!startDate) return false
+    if (!isOngoing && !endDate) return false
+    return true
   }
 
   return (
@@ -151,11 +189,20 @@ export default function NewHistory() {
         <Button
           mode="main"
           animationMode="main"
-          className="rounded-xl font-semibold"
+          disabled={!isFormValid() || !hasChanges() || isSubmitting}
+          className={`rounded-xl font-semibold ${
+            !isFormValid() || !hasChanges() || isSubmitting ? 'cursor-not-allowed opacity-50' : ''
+          }`}
           onClick={handleSave}
-          disabled={isSubmitting}
         >
-          {isSubmitting ? '저장 중...' : '저장하기'}
+          {isSubmitting ? (
+            <div className="flex items-center gap-2">
+              <Spinner size="sm" />
+              저장 중...
+            </div>
+          ) : (
+            '저장하기'
+          )}
         </Button>
       </div>
 

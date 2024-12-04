@@ -90,7 +90,7 @@ export default function ProfileEditHistory() {
         </Button>
       </Link>
 
-      <div className="mt-4">
+      <div className="mt-5 flex flex-col gap-5">
         {activities.map((activity) => (
           <ElementComponent
             key={activity.profileActivityId}

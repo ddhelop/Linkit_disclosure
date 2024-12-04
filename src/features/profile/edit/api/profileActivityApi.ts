@@ -61,3 +61,19 @@ export const deleteActivity = async (id: number): Promise<void> => {
     method: 'DELETE',
   })
 }
+
+export const updateActivity = async (id: string, activityData: ActivityData) => {
+  const response = await fetchWithAuth(`/api/v1/profile/activity/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(activityData),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to update activity')
+  }
+
+  return response.json()
+}
