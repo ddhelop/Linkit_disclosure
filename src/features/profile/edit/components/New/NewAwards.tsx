@@ -3,8 +3,9 @@ import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import { useState, useEffect } from 'react'
-import { createAwards, getAwardById } from '../../api/awardsApi'
+import { createAwards, getAwardById, updateAwards } from '../../api/awardsApi'
 import { useRouter, useSearchParams } from 'next/navigation'
+import DatePicker from '@/shared/ui/Select/DatePicker'
 
 export default function NewAwards() {
   const searchParams = useSearchParams()
@@ -49,7 +50,12 @@ export default function NewAwards() {
         awardsDescription: description,
       }
 
-      await createAwards(awardsData)
+      if (awardId) {
+        await updateAwards(awardId, awardsData)
+      } else {
+        await createAwards(awardsData)
+      }
+
       alert('수상 이력이 성공적으로 저장되었습니다.')
       router.push('/profile/edit/awards')
     } catch (error) {
@@ -95,10 +101,7 @@ export default function NewAwards() {
 
           {/* 수상시기 */}
           <div className="flex w-[49%] flex-col gap-3">
-            <span className="flex ">
-              수상시기<span className="text-main">*</span>
-            </span>
-            <Input placeholder="2021.03" value={awardDate} onChange={(e) => setAwardDate(e.target.value)} />
+            <DatePicker date={awardDate} onDateChange={setAwardDate} label="수상시기" required={true} />
           </div>
         </div>
 
@@ -118,9 +121,7 @@ export default function NewAwards() {
 
         {/* 설명 */}
         <div className="flex flex-col gap-3">
-          <span className="flex">
-            설명<span className="text-main">*</span>
-          </span>
+          <span className="flex">설명</span>
 
           <Textarea
             placeholder="설명을 입력해 주세요"

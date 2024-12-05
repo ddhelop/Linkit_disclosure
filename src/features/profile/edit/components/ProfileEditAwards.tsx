@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@/shared/ui/Button/Button'
 import Link from 'next/link'
-import { getAwards, AwardsItem } from '../api/awardsApi'
+import { getAwards, AwardsItem, deleteAward } from '../api/awardsApi'
 import ElementComponent from './common/ElementComponent'
 import Image from 'next/image'
 import { AwardListSkeleton } from './skeletons/ListSkeletons'
@@ -11,20 +11,33 @@ export default function ProfileEditAwards() {
   const [awards, setAwards] = useState<AwardsItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    const fetchAwards = async () => {
-      try {
-        const data = await getAwards()
-        setAwards(data)
-      } catch (error) {
-        console.error('Failed to fetch awards:', error)
-      } finally {
-        setIsLoading(false)
-      }
+  const fetchAwards = async () => {
+    try {
+      const data = await getAwards()
+      setAwards(data)
+    } catch (error) {
+      console.error('Failed to fetch awards:', error)
+    } finally {
+      setIsLoading(false)
     }
+  }
 
+  useEffect(() => {
     fetchAwards()
   }, [])
+
+  const handleDelete = async (id: number) => {
+    if (!window.confirm('정말로 삭제하시겠습니까?')) return
+
+    try {
+      await deleteAward(id)
+      await fetchAwards() // 목록 새로고침
+      alert('성공적으로 삭제되었습니다.')
+    } catch (error) {
+      console.error('Failed to delete award:', error)
+      alert('삭제 중 오류가 발생했습니다.')
+    }
+  }
 
   if (isLoading) {
     return (
@@ -60,7 +73,7 @@ export default function ProfileEditAwards() {
           />
         </div>
       ) : (
-        <div className="mt-4">
+        <div className="mt-5 flex flex-col gap-5">
           {awards.map((award) => (
             <ElementComponent
               key={award.profileAwardsId}
@@ -69,10 +82,7 @@ export default function ProfileEditAwards() {
               subtitle={award.awardsRanking}
               date={award.awardsDate}
               editPath="/profile/edit/awards/new"
-              onDelete={(id) => {
-                // 삭제 로직 구현
-                console.log(`Delete award with id: ${id}`)
-              }}
+              onDelete={handleDelete}
             />
           ))}
         </div>

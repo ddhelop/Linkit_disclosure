@@ -87,3 +87,38 @@ export const getAwardById = async (id: string): Promise<AwardDetail> => {
   const data = await response.json()
   return data.result
 }
+
+// 수상 이력 수정
+export const updateAwards = async (id: string, awardsData: any) => {
+  const response = await fetchWithAuth(`/api/v1/profile/awards/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(awardsData),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to update awards')
+  }
+
+  return response.json()
+}
+
+// 수상 이력 삭제
+export const deleteAward = async (id: number) => {
+  try {
+    const response = await fetchWithAuth(`/api/v1/profile/awards/${id}`, {
+      method: 'DELETE',
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to delete award')
+    }
+
+    return await response.json()
+  } catch (error) {
+    console.error('Error deleting award:', error)
+    throw error
+  }
+}
