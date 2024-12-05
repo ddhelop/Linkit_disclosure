@@ -64,7 +64,7 @@ export const deleteActivity = async (id: number): Promise<void> => {
 
 export const updateActivity = async (id: string, activityData: ActivityData) => {
   const response = await fetchWithAuth(`/api/v1/profile/activity/${id}`, {
-    method: 'PUT',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
