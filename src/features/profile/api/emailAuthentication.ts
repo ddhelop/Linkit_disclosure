@@ -7,7 +7,7 @@ interface EmailAuthenticationResponse {
 
 // 이메일 인증 코드 요청
 export const requestEmailAuthentication = async (email: string): Promise<EmailAuthenticationResponse> => {
-  const response = await fetchWithAuth('/api/v1/email/re-authentication', {
+  const response = await fetchWithAuth('/api/v1/member/email/re-authentication', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export const verifyEmailAndChange = async (
   changeRequestEmail: string,
   authCode: string,
 ): Promise<EmailAuthenticationResponse> => {
-  const response = await fetchWithAuth('/api/v1/email/verification', {
+  const response = await fetchWithAuth('/api/v1/member/email/verification', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
