@@ -17,15 +17,15 @@ export default function ProfileProgress() {
 
         {/* 프로그레스 바 */}
         <div
-          className="absolute h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-teal-400"
+          className="absolute z-10 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-teal-400"
           style={{ width: `${progress}%` }}
         ></div>
 
         {/* 완료 지점 도형 (마름모 모양) */}
         {progress > 0 && (
           <div
-            className="absolute top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 transform bg-teal-400"
-            style={{ left: `calc(${progress}% - 0.375rem)` }}
+            className="absolute top-1/2 z-10 h-3 w-3 -translate-y-1/2 rotate-45 transform bg-teal-400"
+            style={{ left: `calc(${progress}% - 0.75rem)` }}
           ></div>
         )}
 
