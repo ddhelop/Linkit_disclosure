@@ -7,6 +7,7 @@ import Textarea from '@/shared/ui/TextArea/TextArea'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
 import { getLicense, License } from '@/features/profile/api/getLicense'
 import { createLicense, updateLicense } from '@/features/profile/api/licenseApi'
+import DatePicker from '@/shared/ui/Select/DatePicker'
 
 export default function NewCertificate() {
   const searchParams = useSearchParams()
@@ -133,16 +134,11 @@ export default function NewCertificate() {
 
           {/* 취득일 */}
           <div className="flex w-[49%] flex-col gap-3">
-            <div className="flex justify-between">
-              <span className="flex">
-                취득일<span className="text-main">*</span>
-              </span>
-            </div>
-            <Input
-              placeholder="YYYY.MM"
-              value={formData.licenseAcquisitionDate}
-              onChange={handleChange('licenseAcquisitionDate')}
-              maxLength={7}
+            <DatePicker
+              date={formData.licenseAcquisitionDate}
+              onDateChange={(date) => setFormData({ ...formData, licenseAcquisitionDate: date })}
+              label="취득일"
+              required={true}
             />
           </div>
         </div>
