@@ -48,9 +48,18 @@ export default function ProfileEditLinks() {
   }
 
   const handleSave = async () => {
+    const validLinks = links.filter((link) => {
+      return link.title.trim() !== '' && link.url.trim() !== ''
+    })
+
+    if (validLinks.length === 0) {
+      alert('저장할 링크 데이터가 없습니다.')
+      return
+    }
+
     setIsSubmitting(true)
     try {
-      await saveLinks(links)
+      await saveLinks(validLinks)
       alert('링크가 성공적으로 저장되었습니다.')
     } catch (error) {
       console.error('Failed to save links:', error)
@@ -58,6 +67,10 @@ export default function ProfileEditLinks() {
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  const hasValidLinks = () => {
+    return links.some((link) => link.title.trim() !== '' && link.url.trim() !== '')
   }
 
   return (
@@ -79,46 +92,58 @@ export default function ProfileEditLinks() {
               </Button>
             </div>
           ) : (
-            links.map((link) => (
-              <div key={link.id} className="mt-3 flex gap-2">
-                <Input
-                  placeholder="직접입력 (5자 내외)"
-                  value={link.title}
-                  onChange={(e) => updateLink(link.id, 'title', e.target.value)}
-                  maxLength={10}
-                />
-                <div className="relative w-full">
-                  {getLinkIcon(link.url) && (
-                    <Image
-                      src={getLinkIcon(link.url)!}
-                      alt="social icon"
-                      width={20}
-                      height={20}
-                      className="absolute left-3 top-1/2 -translate-y-1/2"
-                    />
-                  )}
+            <>
+              {links.map((link) => (
+                <div key={link.id} className="mt-3 flex gap-2">
                   <Input
-                    placeholder="링크를 입력해주세요."
-                    className={`w-full ${getLinkIcon(link.url) ? 'pl-10' : ''}`}
-                    value={link.url}
-                    onChange={(e) => updateLink(link.id, 'url', e.target.value)}
+                    placeholder="직접입력 (5자 내외)"
+                    value={link.title}
+                    onChange={(e) => updateLink(link.id, 'title', e.target.value)}
+                    maxLength={10}
+                  />
+                  <div className="relative w-full">
+                    {getLinkIcon(link.url) && (
+                      <Image
+                        src={getLinkIcon(link.url)!}
+                        alt="social icon"
+                        width={20}
+                        height={20}
+                        className="absolute left-3 top-1/2 -translate-y-1/2"
+                      />
+                    )}
+                    <Input
+                      placeholder="링크를 입력해주세요."
+                      className={`w-full ${getLinkIcon(link.url) ? 'pl-10' : ''}`}
+                      value={link.url}
+                      onChange={(e) => updateLink(link.id, 'url', e.target.value)}
+                    />
+                  </div>
+                  <Image
+                    src="/common/icons/delete_x.svg"
+                    alt="close"
+                    width={24}
+                    height={24}
+                    className="ml-4 cursor-pointer"
+                    onClick={() => deleteLink(link.id)}
                   />
                 </div>
-                <Image
-                  src="/common/icons/delete_x.svg"
-                  alt="close"
-                  width={24}
-                  height={24}
-                  className="ml-4 cursor-pointer"
-                  onClick={() => deleteLink(link.id)}
-                />
+              ))}
+              <div className=" flex justify-center">
+                <Button
+                  mode="custom"
+                  animationMode="main"
+                  className="mt-5 w-fit rounded-full border border-grey40 bg-white px-6 py-2 text-grey80"
+                  onClick={addLink}
+                >
+                  + 추가하기
+                </Button>
               </div>
-            ))
+            </>
           )}
         </div>
       </div>
       <div className="mt-4 flex justify-end">
-        <Button mode="main2" animationMode="main" onClick={handleSave} disabled={isSubmitting}>
+        <Button mode="main2" animationMode="main" onClick={handleSave} disabled={isSubmitting || !hasValidLinks()}>
           {isSubmitting ? '저장 중...' : '저장하기'}
         </Button>
       </div>
