@@ -9,7 +9,7 @@ import EditorToolbar, { formats } from './EditorToolbar'
 import ImageResize from 'quill-image-resize-module-react'
 import { Button } from '@/shared/ui/Button/Button'
 import Link from 'next/link'
-import { createProfileLog } from '@/features/profile/api/createProfileLog'
+import { createProfileLog, updateProfileLog } from '@/features/profile/api/createProfileLog'
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 import { getProfileLog } from '@/features/profile/api/getProfileLogs'
 
@@ -123,15 +123,25 @@ export default function LogWriteForm() {
 
     try {
       setIsSubmitting(true)
-      await createProfileLog({
+      const logData = {
         logTitle: title,
         logContent: contents,
         isLogPublic: isPublic,
-      })
+      }
+
+      if (logId) {
+        // ID가 있는 경우 수정 API 호출
+        await updateProfileLog(logId, logData)
+      } else {
+        // ID가 없는 경우 생성 API 호출
+        await createProfileLog(logData)
+      }
+
+      alert('로그가 성공적으로 저장되었습니다.')
       router.push('/profile/edit/log')
     } catch (error) {
-      console.error('로그 작성 실패:', error)
-      alert('로그 작성에 실패했습니다.')
+      console.error('로그 저장 실패:', error)
+      alert('로그 저장에 실패했습니다.')
     } finally {
       setIsSubmitting(false)
     }

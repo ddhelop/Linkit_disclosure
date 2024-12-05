@@ -117,6 +117,18 @@ export default function ProfileEditLog() {
 
       {loading ? (
         <LogListSkeleton />
+      ) : logs.length === 0 ? (
+        <div className="mt-5 flex w-full justify-center">
+          <Image
+            src={'/common/images/not-contents-ui.png'}
+            alt="empty"
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="h-auto w-full"
+            priority
+          />
+        </div>
       ) : (
         <div className="mt-5 flex flex-col gap-4 pt-1">
           {logs.map((log) => (
