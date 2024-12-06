@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { naverLogin } from '../api/authApi'
 import { LoginResponse } from './authType'
 
-import { setCookie } from 'cookies-next'
 import { useUserStore } from '@/shared/store/useAuthStore'
 
 export const useNaverAuth = (code: string | null) => {
@@ -36,7 +35,7 @@ export const useNaverAuth = (code: string | null) => {
     }
 
     login()
-  }, [code, router])
+  }, [code, router, checkLogin])
 
   return { loading }
 }

@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { kakaoLogin } from '../api/authApi'
 import { LoginResponse } from './authType'
-import { setCookie } from 'cookies-next'
+
 import { useUserStore } from '@/shared/store/useAuthStore'
 
 export const useKakaoAuth = (code: string | null) => {
@@ -34,7 +34,7 @@ export const useKakaoAuth = (code: string | null) => {
     }
 
     login()
-  }, [code, router])
+  }, [code, router, checkLogin])
 
   return { loading }
 }

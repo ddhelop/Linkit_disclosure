@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { deleteCookie, getCookie } from 'cookies-next'
 import { logoutApi } from '@/features/login/api/authApi'
 
 interface userInfoProps {

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { submitConsentInfo } from '../api/memberApi'
 import { ConsentInfo } from '../types/memberTypes'
-import { setCookie } from 'cookies-next'
+
 import { useUserStore } from '@/shared/store/useAuthStore'
 
 export function useOnBoardingAgree() {
