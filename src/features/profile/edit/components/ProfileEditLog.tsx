@@ -94,7 +94,7 @@ export default function ProfileEditLog() {
   const handleUpdateLogType = async (logId: number) => {
     setShowMenu(null)
     try {
-      await updateProfileLogType(logId, 'REPRESENTATIVE_LOG')
+      await updateProfileLogType(logId)
       alert('대표글 설정이 변경되었습니다.')
       fetchLogs()
     } catch (error) {
