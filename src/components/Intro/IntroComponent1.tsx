@@ -1,17 +1,13 @@
 'use client'
 import Image from 'next/image'
 import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { useRecoilState } from 'recoil'
-import { myDataState } from '@/context/recoil-context'
+
 type PositionKey = '개발자' | '디자이너' | '마케터' | '기획자' | '리서처' | '비즈니스'
 
 export default function IntroComponentTemp() {
   const [selectedRole, setSelectedRole] = useState<PositionKey>('개발자')
-
-  // recoil 데이터 가져오기
-  const [myData, setMyData] = useRecoilState(myDataState)
 
   const positions: Record<PositionKey, { text: string; image: string; bgImage: string; mobilebg: string }> = {
     개발자: {

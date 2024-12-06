@@ -2,18 +2,12 @@
 
 import { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
-
 import { GoogleAnalytics } from '@next/third-parties/google'
-
 import './globals.css'
 import Scripts from '@/components/script'
-
-import ClientProvider from '@/components/common/ClientProvider'
-
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import Header from '@/widgets/Header/Header'
-import Footer from '@/widgets/Footer/Footer'
 
 export const metadata: Metadata = {
   title: '링킷, Linkit',
@@ -54,14 +48,11 @@ export default function RootLayout({
         <meta name="naver-site-verification" content="17163296e94f835f71bb3d1994ea168bd456675b" />
       </head>
       <body className={`${pretendard.className} bg-[#fff]`}>
-        <ClientProvider>
-          {/* <FetchSetting> */}
-          <Header />
-          <ToastContainer />
-          <div className="bg-grey10">{children}</div>
-          {/* <Footer /> */}
-          {/* </FetchSetting> */}
-        </ClientProvider>
+        {/* <FetchSetting> */}
+        <Header />
+        <ToastContainer />
+        <div className="bg-grey10">{children}</div>
+
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
         <Scripts />
       </body>

@@ -11,12 +11,13 @@ import Landing3 from './1_0_Landing/Landing3'
 import Landing4 from './1_0_Landing/Landing4'
 import Landing5 from './1_0_Landing/Landing5'
 import Landing6 from './1_0_Landing/Landing6'
-import { useRecoilValue } from 'recoil'
-import { authState } from '@/context/recoil-context'
+
 import LoggedInLanding1 from './1_0_Landing/LoggedInLanding1'
 import FooterComponent from '@/widgets/Footer/FooterComponent'
+import { useUserStore } from '@/shared/store/useAuthStore'
 
 export default function IntroLayout() {
+  const { isLogin } = useUserStore()
   useEffect(() => {
     const CT = new ChannelService()
     //주의! 여기서 CT.loadScript()를 선언하면 ChannelIO script included twice. 오류 발생합니다!
@@ -28,7 +29,7 @@ export default function IntroLayout() {
     }
   }, [])
 
-  const isAuth = useRecoilValue(authState)
+  // zustand
   return (
     <div className="flex h-screen w-full flex-col overflow-y-scroll bg-[#F0F2F6] sm:snap-y sm:snap-mandatory ">
       {/* <IntroComponent1 /> */}
@@ -40,7 +41,7 @@ export default function IntroLayout() {
       {/* <IntroComponent7 /> */}
       {/* <IntroComponent8 /> */}
       {/* <IntroComponent9 /> */}
-      {isAuth ? <LoggedInLanding1 /> : <Landing1 />}
+      {isLogin ? <LoggedInLanding1 /> : <Landing1 />}
       <Landing2 />
       <Landing3 />
       <Landing4 />

@@ -88,7 +88,7 @@ const LeftMenu = () => {
       </div>
 
       {/* 왼쪽 메뉴바 - 계정 설정 */}
-      <div className="mt-5 flex w-full flex-col">
+      {/* <div className="mt-5 flex w-full flex-col">
         <label className="rounded-xl bg-grey20 px-6 py-3">계정 관리</label>
         <ul className="flex w-full flex-col items-end gap-1 pt-3">
           <li
@@ -104,7 +104,7 @@ const LeftMenu = () => {
             <div className="ml-2 flex h-[1.25rem] w-[1.25rem] items-center justify-center"></div>
           </li>
         </ul>
-      </div>
+      </div> */}
     </div>
   )
 }
