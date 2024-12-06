@@ -122,14 +122,9 @@ export default function Header() {
               </div>
             )
           ) : isLogin ? (
-            <div className="relative hidden gap-[1.38rem] md:flex">
-              <div className="flex items-center">
-                <Link
-                  className="rounded-[1.38rem] bg-[#4D82F3] px-[1.62rem] py-[0.38rem] text-white transition-colors duration-100 hover:bg-main hover:text-white hover:ring-4"
-                  href="/profile"
-                >
-                  매칭 관리
-                </Link>
+            <div className="relative hidden gap-[2rem] md:flex">
+              <div className="flex cursor-pointer items-center">
+                <Image src={'/common/icons/alarm_circle.svg'} width={32} height={32} alt="alarm" />
               </div>
 
               <button
