@@ -1,7 +1,10 @@
-export default function TeamEditBasic() {
+import TeamEditBasic from '@/features/team/edit/basic/TeamEditBasic'
+
+export default function TeamEditBasicPage() {
   return (
-    <div>
-      <h1>123</h1>
+    <div className="flex flex-col gap-5">
+      <h1 className="text-xl font-bold">기본정보</h1>
+      <TeamEditBasic />
     </div>
   )
 }

@@ -41,7 +41,9 @@ export default function TeamEditClient({ children }: ProfileEditClientProps) {
         </div>
       </aside>
 
-      <main className="ml-[28%] min-h-[calc(100vh-4rem)] w-3/4 bg-[#EDF3FF] pb-32 pr-[8.69rem]">{children}</main>
+      <main className="ml-[28%] min-h-[calc(100vh-4rem)] w-3/4 bg-[#EDF3FF] pb-32 pl-[4.25rem] pr-[8.69rem] pt-[3.62rem]">
+        {children}
+      </main>
     </div>
     // </ProfileProvider>
   )
