@@ -1,3 +1,9 @@
+import TeamViewHistory from '@/features/team/view/history/TeamViewHistory'
+
 export default function TeamHistoryPage() {
-  return <div className="">{/* 페이지의 컨텐츠 */}</div>
+  return (
+    <div className="">
+      <TeamViewHistory />
+    </div>
+  )
 }

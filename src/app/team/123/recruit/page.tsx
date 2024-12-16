@@ -1,3 +1,9 @@
+import TeamViewRecruitment from '@/features/team/view/recruitment/TeamViewRecruitment'
+
 export default function TeamRecruitPage() {
-  return <div className="">{/* 페이지의 컨텐츠 */}</div>
+  return (
+    <div className="">
+      <TeamViewRecruitment />
+    </div>
+  )
 }
