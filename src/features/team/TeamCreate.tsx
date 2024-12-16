@@ -7,8 +7,11 @@ import Radio from '@/shared/ui/Radio/Radio'
 import Select from '@/shared/ui/Select/Select'
 import Image from 'next/image'
 import { useState } from 'react'
+import { createTeam } from './api/teamApi'
+import { useRouter } from 'next/navigation'
 
 export default function TeamCreate() {
+  const router = useRouter()
   // 필수 입력 항목
   const [teamName, setTeamName] = useState('')
   const [teamIntro, setTeamIntro] = useState('')
@@ -94,6 +97,40 @@ export default function TeamCreate() {
       selectedCity !== '' &&
       selectedDistrict !== ''
     )
+  }
+
+  const handleSubmit = async () => {
+    try {
+      // FormData 객체 생성
+      const formData = new FormData()
+
+      // 팀 로고 이미지 추가
+      if (teamLogo) {
+        formData.append('teamLogoImage', teamLogo)
+      }
+
+      // 팀 정보 JSON 추가
+      const teamData = {
+        teamName,
+        teamShortDescription: teamIntro,
+        scaleName: selectedTeamSize,
+        cityName: selectedCity,
+        divisionName: selectedDistrict,
+        teamStateNames: recruitmentStatus,
+        isTeamPublic,
+      }
+
+      formData.append('addTeamRequest', new Blob([JSON.stringify(teamData)], { type: 'application/json' }))
+
+      // API 호출
+      await createTeam(formData)
+
+      // 성공 시 팀 목록 페이지로 이동
+      router.push('/team')
+    } catch (error) {
+      console.error('팀 생성 실패:', error)
+      // 에러 처리 로직 추가
+    }
   }
 
   return (
@@ -272,7 +309,7 @@ export default function TeamCreate() {
           className="w-full rounded-xl px-5 py-3"
           animationMode="main"
           mode="main"
-          onClick={() => {}}
+          onClick={handleSubmit}
           disabled={!isFormValid()}
         >
           팀 생성하기
