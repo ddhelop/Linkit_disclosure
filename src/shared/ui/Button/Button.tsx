@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 type Mode = 'main' | 'sub' | 'toggle' | 'main2' | 'custom' | 'black'
 type Size = 'sm' | 'md' | 'lg' | 'custom'
 type Type = 'button' | 'submit'
-type AnimationMode = 'none' | 'main' | 'sub'
+type AnimationMode = 'none' | 'main' | 'sub' | 'black'
 
 interface ButtonProps {
   children: ReactNode
@@ -96,8 +96,21 @@ export const subHoverEffect = {
   },
 }
 
+export const blackHoverEffect = {
+  whileHover: {
+    scale: 1.0,
+    transition: {
+      duration: 0.1, // 애니메이션이 0.1초 동안 진행
+      ease: 'easeInOut', // 애니메이션을 부드럽게
+    },
+    outline: '4px solid rgba(0, 0, 0, 0.5)',
+    outlineOffset: '0.5px',
+  },
+}
+
 export const animationModes = {
   none: {},
   main: mainHoverEffect,
   sub: subHoverEffect,
+  black: blackHoverEffect,
 }
