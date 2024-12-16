@@ -1,20 +1,48 @@
 import { RefObject, useEffect } from 'react'
 
-export function useOnClickOutside(ref: RefObject<HTMLElement>, handler: (event: MouseEvent | TouchEvent) => void) {
+interface UseOnClickOutsideProps {
+  refs: RefObject<HTMLElement>[]
+  handler: () => void
+  isEnabled?: boolean
+  shouldListenEscape?: boolean
+}
+
+export function useOnClickOutside({
+  refs,
+  handler,
+  isEnabled = true,
+  shouldListenEscape = true,
+}: UseOnClickOutsideProps) {
   useEffect(() => {
-    const listener = (event: MouseEvent | TouchEvent) => {
-      if (!ref.current || ref.current.contains(event.target as Node)) {
-        return
+    if (!isEnabled) return
+
+    const clickListener = (event: MouseEvent | TouchEvent) => {
+      const isClickedOutside = refs.every((ref) => !ref.current || !ref.current.contains(event.target as Node))
+
+      if (isClickedOutside) {
+        handler()
       }
-      handler(event)
     }
 
-    document.addEventListener('mousedown', listener)
-    document.addEventListener('touchstart', listener)
+    const escapeListener = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        handler()
+      }
+    }
+
+    document.addEventListener('mousedown', clickListener)
+    document.addEventListener('touchstart', clickListener)
+
+    if (shouldListenEscape) {
+      document.addEventListener('keydown', escapeListener)
+    }
 
     return () => {
-      document.removeEventListener('mousedown', listener)
-      document.removeEventListener('touchstart', listener)
+      document.removeEventListener('mousedown', clickListener)
+      document.removeEventListener('touchstart', clickListener)
+      if (shouldListenEscape) {
+        document.removeEventListener('keydown', escapeListener)
+      }
     }
-  }, [ref, handler])
+  }, [refs, handler, isEnabled, shouldListenEscape])
 }
