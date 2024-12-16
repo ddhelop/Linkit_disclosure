@@ -1,43 +1,23 @@
 'use client'
 
 import Image from 'next/image'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
+import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 
 export default function TeamLogComponent() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
-        setIsMenuOpen(false)
-      }
-    }
-
-    const handleEscKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsMenuOpen(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    document.addEventListener('keydown', handleEscKey)
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-      document.removeEventListener('keydown', handleEscKey)
-    }
-  }, [])
+  useOnClickOutside({
+    refs: [menuRef, buttonRef],
+    handler: () => setIsMenuOpen(false),
+    isEnabled: isMenuOpen,
+  })
 
   return (
     <div>
-      <div className="flex w-full flex-col rounded-xl bg-white p-5">
+      <div className="flex w-full flex-col rounded-xl border bg-white p-5 hover:border-main">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Image src="/common/icons/pin.svg" width={20} height={20} alt="pin" />

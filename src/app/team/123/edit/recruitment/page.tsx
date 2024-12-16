@@ -1,3 +1,4 @@
+import TeamEditRecruitList from '@/features/team/edit/recruitment/TeamEditRecruitList'
 import TeamEditRecruitment from '@/features/team/edit/recruitment/TeamEditRecruitment'
 import { Button } from '@/shared/ui/Button/Button'
 import Link from 'next/link'
@@ -14,6 +15,7 @@ export default function TeamEditRecruitmentPage() {
           + 추가하기
         </Button>
       </Link>
+      <TeamEditRecruitList />
     </div>
   )
 }
