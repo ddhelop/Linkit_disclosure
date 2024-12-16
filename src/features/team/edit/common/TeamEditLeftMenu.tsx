@@ -5,18 +5,18 @@ import { useRouter } from 'next/navigation'
 import TeamEditProfileCard from './TeamEditProfileCard'
 
 const menuItems: { label: string; path: string; subPaths?: string[] }[] = [
-  { label: '팀 로그', path: '/team/edit/log' },
-  { label: '기본 정보', path: '/team/edit/basic' },
-  { label: '모집 공고', path: '/team/edit/recruitment' },
+  { label: '팀 로그', path: '/team/123/edit/log' },
+  { label: '기본 정보', path: '/team/123/edit/basic' },
+  { label: '모집 공고', path: '/team/123/edit/recruitment' },
   {
     label: '팀 구성원',
-    path: '/team/edit/members',
+    path: '/team/123/edit/members',
   },
   {
     label: '프로덕트',
-    path: '/team/edit/products',
+    path: '/team/123/edit/products',
   },
-  { label: '연혁', path: '/team/edit/history' },
+  { label: '연혁', path: '/team/123/edit/history' },
 ]
 
 const TeamEditLeftMenu = () => {
