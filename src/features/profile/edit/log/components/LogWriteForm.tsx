@@ -4,7 +4,7 @@
 import 'react-quill/dist/quill.snow.css'
 import ReactQuill, { Quill } from 'react-quill'
 import { useRef, useMemo, useState, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import EditorToolbar, { formats } from './EditorToolbar'
 import ImageResize from 'quill-image-resize-module-react'
 import { Button } from '@/shared/ui/Button/Button'
@@ -19,10 +19,43 @@ const Size = Quill.import('formats/size')
 Size.whitelist = ['16px', '18px', '24px']
 Quill.register(Size, true)
 
+// 팀 로그 생성 API 함수
+const createTeamLog = async (
+  teamName: string,
+  logData: {
+    logTitle: string
+    logContent: string
+    isLogPublic: boolean
+  },
+) => {
+  try {
+    const response = await fetchWithAuth(`/api/v1/team/${teamName}/log`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(logData),
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to create team log')
+    }
+
+    return await response.json()
+  } catch (error) {
+    console.error('Error creating team log:', error)
+    throw error
+  }
+}
+
 export default function LogWriteForm() {
   const router = useRouter()
+  const pathname = usePathname()
   const searchParams = useSearchParams()
   const logId = searchParams.get('id')
+
+  // URL에서 teamName 추출
+  const teamName = pathname.includes('/team/') ? pathname.split('/')[2] : null
 
   const QuillRef = useRef<ReactQuill | null>(null)
   const [title, setTitle] = useState('')
@@ -130,15 +163,26 @@ export default function LogWriteForm() {
       }
 
       if (logId) {
-        // ID가 있는 경우 수정 API 호출
+        // 수정 로직
         await updateProfileLog(logId, logData)
       } else {
-        // ID가 없는 경우 생성 API 호출
-        await createProfileLog(logData)
+        // 새로운 로그 생성
+        if (teamName) {
+          // 팀 로그 생성
+          await createTeamLog(teamName, logData)
+        } else {
+          // 프로필 로그 생성
+          await createProfileLog(logData)
+        }
       }
 
       alert('로그가 성공적으로 저장되었습니다.')
-      router.push('/profile/edit/log')
+      // 팀/프로필에 따른 리다이렉트 처리
+      if (teamName) {
+        router.push(`/team/${teamName}/log`)
+      } else {
+        router.push('/profile/edit/log')
+      }
     } catch (error) {
       console.error('로그 저장 실패:', error)
       alert('로그 저장에 실패했습니다.')
@@ -173,7 +217,7 @@ export default function LogWriteForm() {
               modules={modules}
               formats={formats}
               theme="snow"
-              placeholder="팀과 팀원들에게 도움이 될 수 있는 나의 장점과 강점 등을 소개해 주세요"
+              placeholder="팀과 팀원들에게 도움이 될 수 있는 나의 장점과 강점 등을 소개해 ���세요"
               className="min-h-[600px] min-w-[430px]"
             />
           </div>
