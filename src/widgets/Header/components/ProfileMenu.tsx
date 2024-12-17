@@ -30,7 +30,7 @@ export default function ProfileMenu() {
         <p>내 프로필</p>
       </Link>
       <Link
-        href="/team"
+        href="/team/select"
         className="flex items-center gap-3 rounded-[0.38rem] py-1 pl-4 pr-9 text-gray-700 hover:bg-gray-100"
       >
         <p>나의 팀</p>

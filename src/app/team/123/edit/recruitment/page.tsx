@@ -10,7 +10,7 @@ export default function TeamEditRecruitmentPage() {
       <p className="pt-2 text-xs font-normal text-grey60"></p>
 
       <TeamEditRecruitment />
-      <Link href="/team/edit/123/recruitment/new">
+      <Link href="/team/123/edit/recruitment/new">
         <Button mode="main2" animationMode="main" className="mt-5 w-full rounded-[0.69rem] py-2">
           + 추가하기
         </Button>
