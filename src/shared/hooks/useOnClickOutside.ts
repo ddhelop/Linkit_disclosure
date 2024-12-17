@@ -8,22 +8,23 @@ interface UseOnClickOutsideProps {
 }
 
 export function useOnClickOutside({
-  refs = [], // 기본값: 빈 배열
+  refs = [],
   handler,
   isEnabled = true,
   shouldListenEscape = true,
 }: UseOnClickOutsideProps) {
   useEffect(() => {
-    if (!isEnabled) return
+    // 브라우저 환경인지 확인
+    if (typeof window === 'undefined' || typeof document === 'undefined' || !isEnabled) {
+      return
+    }
 
     const clickListener = (event: MouseEvent | TouchEvent) => {
-      // refs가 배열인지 확인
       if (!Array.isArray(refs)) {
         console.warn('Refs should be an array of RefObject elements.')
         return
       }
 
-      // 모든 ref가 클릭 외부인지 확인
       const isClickedOutside = refs.every((ref) => !ref.current || !ref.current.contains(event.target as Node))
 
       if (isClickedOutside) {
@@ -37,7 +38,6 @@ export function useOnClickOutside({
       }
     }
 
-    // 이벤트 리스너 등록
     document.addEventListener('mousedown', clickListener)
     document.addEventListener('touchstart', clickListener)
 
@@ -45,7 +45,6 @@ export function useOnClickOutside({
       document.addEventListener('keydown', escapeListener)
     }
 
-    // 클린업
     return () => {
       document.removeEventListener('mousedown', clickListener)
       document.removeEventListener('touchstart', clickListener)

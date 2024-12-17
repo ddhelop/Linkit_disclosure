@@ -7,6 +7,7 @@ import { Button } from '@/shared/ui/Button/Button'
 import { updateProfileSkills, getProfileSkills } from '../api/profileApi'
 import { SkillListSkeleton } from './skeletons/ListSkeletons'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
+import { SearchDropdown } from '@/shared/ui/SearchDropdown/SearchDropdown'
 
 interface Skill {
   name: string
@@ -66,16 +67,10 @@ export default function ProfileEditSkills() {
     )
   }
 
-  const filteredTools = searchTerm
-    ? toolsData.tools.filter((tool) => tool.toLowerCase().includes(searchTerm.toLowerCase()))
-    : []
-
   const handleAddSkill = (skillName: string) => {
     if (!selectedSkills.find((skill) => skill.name === skillName)) {
       setSelectedSkills([...selectedSkills, { name: skillName, proficiency: '중' }])
     }
-    setSearchTerm('')
-    setShowResults(false)
   }
 
   const handleRemoveSkill = (skillName: string) => {
@@ -86,32 +81,6 @@ export default function ProfileEditSkills() {
     setSelectedSkills(
       selectedSkills.map((skill) => (skill.name === skillName ? { ...skill, proficiency: newProficiency } : skill)),
     )
-  }
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (!showResults || !searchTerm) return
-
-    switch (e.key) {
-      case 'ArrowDown':
-        e.preventDefault()
-        setFocusedIndex((prev) => (prev < filteredTools.length - 1 ? prev + 1 : prev))
-        break
-      case 'ArrowUp':
-        e.preventDefault()
-        setFocusedIndex((prev) => (prev > 0 ? prev - 1 : prev))
-        break
-      case 'Enter':
-        e.preventDefault()
-        if (focusedIndex >= 0 && filteredTools[focusedIndex]) {
-          handleAddSkill(filteredTools[focusedIndex])
-          setFocusedIndex(-1)
-        }
-        break
-      case 'Escape':
-        setShowResults(false)
-        setFocusedIndex(-1)
-        break
-    }
   }
 
   const handleSubmit = async () => {
@@ -137,44 +106,12 @@ export default function ProfileEditSkills() {
     <>
       <div className="flex flex-col gap-10">
         <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] py-10">
-          <div className="relative w-full">
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value)
-                setShowResults(true)
-              }}
-              onFocus={() => setShowResults(true)}
-              placeholder="스킬을 영어로 검색해보세요"
-              className="w-full rounded-xl border border-grey40 bg-white px-6 py-4 placeholder-grey40 focus:outline-none focus:ring-2 focus:ring-main"
-              onKeyDown={handleKeyDown}
-            />
-            <div className="absolute right-4 top-1/2 -translate-y-1/2">
-              <Image src={'/common/icons/search.svg'} alt="search" width={24} height={24} />
-            </div>
-
-            {/* Search Results */}
-            {showResults && searchTerm && (
-              <div className="absolute z-10 mt-2 max-h-[300px] w-full overflow-y-auto rounded-xl border border-grey40 bg-white shadow-lg">
-                {filteredTools.length > 0 ? (
-                  filteredTools.map((tool, index) => (
-                    <div
-                      key={index}
-                      className={`cursor-pointer px-6 py-3 ${
-                        focusedIndex === index ? 'bg-gray-100' : 'hover:bg-gray-100'
-                      }`}
-                      onClick={() => handleAddSkill(tool)}
-                    >
-                      {tool}
-                    </div>
-                  ))
-                ) : (
-                  <div className="px-6 py-3 text-grey40">검색 결과가 없습니다</div>
-                )}
-              </div>
-            )}
-          </div>
+          <SearchDropdown
+            items={toolsData.tools}
+            filterFunction={(tool, searchTerm) => tool.toLowerCase().includes(searchTerm.toLowerCase())}
+            onSelect={handleAddSkill}
+            placeholder="스킬을 영어로 검색해보세요"
+          />
         </div>
 
         {/* 스킬 목록 */}

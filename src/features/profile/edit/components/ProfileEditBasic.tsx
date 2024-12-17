@@ -1,6 +1,5 @@
 'use client'
 
-import { jobCategoriesData } from '@/shared/data/roleSelectData'
 import { addressData } from '@/shared/data/addressSelectData'
 import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
@@ -11,11 +10,10 @@ import { useState, useEffect } from 'react'
 import { fetchProfileData, updateProfile } from '../api/profileApi'
 import { validateImageFile, createProfileFormData } from '../../lib/profileHelpers'
 import { BasicProfileSkeleton } from './skeletons/BasicProfileSkeleton'
+import { usePositionSelect } from '@/shared/hooks/usePositionSelect'
 
 export default function ProfileEditBasic() {
   const [isLoading, setIsLoading] = useState(true)
-  const [selectedCategory, setSelectedCategory] = useState('')
-  const [selectedSubCategory, setSelectedSubCategory] = useState('')
   const [selectedCity, setSelectedCity] = useState('')
   const [selectedDistrict, setSelectedDistrict] = useState('')
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([])
@@ -24,6 +22,15 @@ export default function ProfileEditBasic() {
   const [profileImagePreview, setProfileImagePreview] = useState<string>('')
   const [name, setName] = useState('')
   const [profileImagePath, setProfileImagePath] = useState('')
+
+  const {
+    selectedCategory,
+    selectedSubCategory,
+    mainPositionOptions,
+    subPositionOptions,
+    setSelectedCategory,
+    setSelectedSubCategory,
+  } = usePositionSelect()
 
   useEffect(() => {
     const loadProfileData = async () => {
@@ -60,22 +67,7 @@ export default function ProfileEditBasic() {
     { label: '비공개', value: 'false' },
   ]
 
-  // 포지션 대분류 옵션을 구성합니다.
-  const mainPositionOptions = jobCategoriesData.map((category) => ({
-    label: category.name,
-    value: category.name,
-  }))
-
-  // 선택된 포지션 대분류에 따라 소분류 옵션을 구성합니다.
-  const subPositionOptions =
-    jobCategoriesData
-      .find((category) => category.name === selectedCategory)
-      ?.subCategory.map((subCategory) => ({
-        label: subCategory,
-        value: subCategory,
-      })) || []
-
-  // 활동 지역 대분류 옵션을 구성합니다.
+  // 포동 지역 대분류 옵션을 구성합니다.
   const mainAreaOptions = addressData.map((city) => ({
     label: city.name,
     value: city.name,
@@ -229,7 +221,7 @@ export default function ProfileEditBasic() {
                 options={mainPositionOptions}
                 value={selectedCategory}
                 placeholder="대분류 선택"
-                onChange={(value) => setSelectedCategory(value)}
+                onChange={setSelectedCategory}
               />
             </div>
 
@@ -239,7 +231,7 @@ export default function ProfileEditBasic() {
                 options={subPositionOptions}
                 value={selectedSubCategory}
                 placeholder={selectedCategory ? '소분류 선택' : '대분류를 먼저 선택해주세요'}
-                onChange={(value) => setSelectedSubCategory(value)}
+                onChange={setSelectedSubCategory}
                 disabled={!selectedCategory}
               />
             </div>
