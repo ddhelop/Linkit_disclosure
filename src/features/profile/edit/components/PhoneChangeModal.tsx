@@ -42,7 +42,12 @@ export default function PhoneChangeModal({ isOpen, onClose, initialPhone, onSubm
     }
   }
 
-  useOnClickOutside(modalRef, onClose)
+  useOnClickOutside({
+    refs: [modalRef],
+    handler: onClose,
+    isEnabled: true,
+    shouldListenEscape: true,
+  })
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {

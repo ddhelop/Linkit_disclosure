@@ -35,17 +35,12 @@ export default function NameChangeModal({ isOpen, onClose, initialName, onSubmit
     }
   }, [isOpen])
 
-  useOnClickOutside(modalRef, onClose)
-
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose()
-      }
-    }
-    window.addEventListener('keydown', handleEsc)
-    return () => window.removeEventListener('keydown', handleEsc)
-  }, [onClose])
+  useOnClickOutside({
+    refs: [modalRef],
+    handler: onClose,
+    isEnabled: true,
+    shouldListenEscape: true,
+  })
 
   if (!isOpen) return null
 
