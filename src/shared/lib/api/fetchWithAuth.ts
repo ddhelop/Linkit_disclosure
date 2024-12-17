@@ -45,7 +45,7 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
   const response = await fetch(apiUrl, options)
 
   // 액세스 토큰 만료 시 처리
-  if (response.status === 401 && retry) {
+  if (response.status === 401 || response.status === 404 || retry) {
     try {
       accessToken = await refreshAccessToken()
 
@@ -57,8 +57,7 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
       return fetch(apiUrl, options)
     } catch (error) {
       console.error('Redirecting to login due to failed token refresh')
-      // 액세스 토큰 재발급 실패 시 로그인 페이지로 리다이렉트 처리 가능
-      // 예: window.location.href = '/login';
+
       throw error
     }
   }
