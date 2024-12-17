@@ -1,6 +1,11 @@
-import LogWriteForm from '@/features/profile/edit/log/components/LogWriteForm'
+'use client'
+
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
+
+// LogWriteForm을 동적으로 임포트
+const LogWriteForm = dynamic(() => import('@/features/profile/edit/log/components/LogWriteForm'), { ssr: false })
 
 export default function TeamEditLogNewPage() {
   return (

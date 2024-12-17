@@ -1,6 +1,16 @@
+'use client'
+
 import React from 'react'
-import { Quill } from 'react-quill'
+import dynamic from 'next/dynamic'
 import '../../style/editorToolbar.css'
+
+// Quill을 동적으로 임포트
+const ReactQuill = dynamic(() => import('react-quill'), {
+  ssr: false,
+  loading: () => <p>Loading...</p>,
+})
+
+const { Quill } = ReactQuill as any
 
 // Quill 모듈 임포트
 const Font = Quill.import('formats/font')
