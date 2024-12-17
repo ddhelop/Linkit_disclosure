@@ -3,9 +3,12 @@
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
+import { Button } from '@/shared/ui/Button/Button'
+import { AddMemberModal } from './AddMemberModal'
 
 export default function TeamEditMembersList() {
   const [showMenu, setShowMenu] = useState(false)
+  const [showAddModal, setShowAddModal] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLDivElement>(null)
 
@@ -16,7 +19,18 @@ export default function TeamEditMembersList() {
   })
 
   return (
-    <div className="mt-5 flex w-full flex-col">
+    <div className=" flex w-full flex-col gap-5">
+      <Button
+        mode="main2"
+        animationMode="main"
+        className="mt-5 w-full rounded-[0.69rem] py-2"
+        onClick={() => setShowAddModal(true)}
+      >
+        + 추가하기
+      </Button>
+
+      <AddMemberModal isOpen={showAddModal} onClose={() => setShowAddModal(false)} />
+
       {/* 각 요소 */}
       <div className="flex items-center justify-between rounded-xl bg-white px-9 py-5">
         <div className="flex items-center gap-5">
