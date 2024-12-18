@@ -126,7 +126,7 @@ export default function TeamCreate() {
       await createTeam(formData)
 
       // 성공 시 팀 목록 페이지로 이동
-      router.push('/team')
+      router.push('/team/select')
     } catch (error) {
       console.error('팀 생성 실패:', error)
       // 에러 처리 로직 추가

@@ -45,7 +45,7 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
   const response = await fetch(apiUrl, options)
 
   // 액세스 토큰 만료 시 처리
-  if (response.status === 401 || response.status === 404 || retry) {
+  if ((response.status === 401 || response.status === 404) && retry) {
     try {
       accessToken = await refreshAccessToken()
 
