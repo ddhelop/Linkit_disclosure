@@ -1,5 +1,5 @@
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
-import { TeamResponse } from '../types/team.types'
+import { TeamInfoResponse, TeamResponse } from '../types/team.types'
 
 interface CreateTeamRequest {
   teamName: string
@@ -38,4 +38,12 @@ export const getMyTeams = async (): Promise<TeamResponse> => {
     throw new Error('Failed to fetch teams')
   }
   return response.json()
+}
+
+export async function getTeamInfo(teamName: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team info')
+  }
+  return response.json() as Promise<TeamInfoResponse>
 }

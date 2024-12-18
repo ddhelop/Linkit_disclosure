@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function TeamSelectPage() {
   return (
-    <div className={`flex  h-[calc(100vh-4rem)] flex-col items-center`}>
+    <div className={`flex h-[calc(100vh-4rem)] flex-col items-center `}>
       <div className="flex w-[55%] flex-col pt-[5rem]">
         <h1 className="text-2xl font-bold">나의 팀</h1>
         <p className="pt-2 text-sm font-normal text-grey60">생성되어 있는 나의 팀을 선택해 팀 프로필을 관리해 보세요</p>

@@ -28,3 +28,25 @@ export interface TeamResponse {
     teamInformMenus: TeamInformation[]
   }
 }
+
+export interface TeamInfoResponse {
+  isSuccess: boolean
+  code: string
+  message: string
+  result: {
+    isMyTeam: boolean
+    teamInformMenu: {
+      teamCurrentStates: Array<{ teamStateName: string }>
+      teamName: string
+      teamShortDescription: string
+      teamLogoImagePath: string
+      teamScaleItem: {
+        teamScaleName: string
+      }
+      regionDetail: {
+        cityName: string
+        divisionName: string
+      }
+    }
+  }
+}

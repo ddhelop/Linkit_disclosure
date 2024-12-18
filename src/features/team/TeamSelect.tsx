@@ -1,11 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import TeamItem from './TeamItem'
 import { getMyTeams } from './api/teamApi'
 import { TeamInformation } from './types/team.types'
 
 export default function TeamSelect() {
+  const router = useRouter()
   const [teams, setTeams] = useState<TeamInformation[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -45,7 +47,7 @@ export default function TeamSelect() {
               key={index}
               team={team}
               onClick={() => {
-                // 팀 선택 핸들러
+                router.push(`/team/${encodeURIComponent(team.teamName)}/log`)
               }}
             />
           ))}
