@@ -51,7 +51,7 @@ export default function RootLayout({
         {/* <FetchSetting> */}
         <Header />
         <ToastContainer />
-        <div className="bg-grey10">{children}</div>
+        <div className="bg-[#fcfcfd]">{children}</div>
 
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
         <Scripts />
