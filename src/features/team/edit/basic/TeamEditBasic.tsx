@@ -8,7 +8,7 @@ import Radio from '@/shared/ui/Radio/Radio'
 import Select from '@/shared/ui/Select/Select'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { getTeamBasicInfo } from '../../api/teamApi'
+import { getTeamBasicInfo, updateTeamBasicInfo } from '../../api/teamApi'
 
 export default function TeamEditBasic({ params }: { params: { teamName: string } }) {
   // 필수 입력 항목
@@ -98,12 +98,27 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
     )
   }
 
+  const [initialData, setInitialData] = useState<any>(null)
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
     const fetchTeamInfo = async () => {
       try {
         const data = await getTeamBasicInfo(params.teamName)
         const { teamInformMenu } = data.result
 
+        // 초기 데이터 저장
+        setInitialData({
+          teamName: teamInformMenu.teamName,
+          teamIntro: teamInformMenu.teamShortDescription,
+          teamSize: teamInformMenu.teamScaleItem.teamScaleName,
+          city: teamInformMenu.regionDetail.cityName,
+          district: teamInformMenu.regionDetail.divisionName,
+          logoPath: teamInformMenu.teamLogoImagePath,
+          status: teamInformMenu.teamCurrentStates.map((state) => state.teamStateName),
+        })
+
+        // 폼 데이터 설정
         setTeamName(teamInformMenu.teamName)
         setTeamIntro(teamInformMenu.teamShortDescription)
         setSelectedTeamSize(teamInformMenu.teamScaleItem.teamScaleName)
@@ -113,11 +128,73 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
         setRecruitmentStatus(teamInformMenu.teamCurrentStates.map((state) => state.teamStateName))
       } catch (error) {
         console.error('Failed to fetch team info:', error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
     fetchTeamInfo()
   }, [params.teamName])
+
+  // 변경사항 감지
+  const hasChanges = () => {
+    if (!initialData) return false
+
+    return (
+      teamName !== initialData.teamName ||
+      teamIntro !== initialData.teamIntro ||
+      selectedTeamSize !== initialData.teamSize ||
+      selectedCity !== initialData.city ||
+      selectedDistrict !== initialData.district ||
+      teamLogo !== null || // 새로운 로고가 선택된 경우
+      JSON.stringify(recruitmentStatus) !== JSON.stringify(initialData.status)
+    )
+  }
+
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData()
+
+      // 이미지가 있는 경우에만 추가
+      if (teamLogo) {
+        formData.append('teamLogoImage', teamLogo)
+      }
+
+      const updateTeamRequest = {
+        teamName,
+        teamShortDescription: teamIntro,
+        scaleName: selectedTeamSize,
+        cityName: selectedCity,
+        divisionName: selectedDistrict,
+        teamStateNames: recruitmentStatus,
+        isTeamPublic,
+      }
+
+      formData.append(
+        'updateTeamRequest',
+        new Blob([JSON.stringify(updateTeamRequest)], {
+          type: 'application/json',
+        }),
+      )
+
+      await updateTeamBasicInfo(formData, params.teamName)
+      alert('팀 정보가 성공적으로 수정되었습니다.')
+
+      // 초기 데이터 업데이트
+      setInitialData({
+        teamName,
+        teamIntro,
+        teamSize: selectedTeamSize,
+        city: selectedCity,
+        district: selectedDistrict,
+        logoPath: teamLogoPath,
+        status: recruitmentStatus,
+      })
+    } catch (error) {
+      console.error('Failed to update team info:', error)
+      alert('팀 정보 수정에 실패했습니다.')
+    }
+  }
 
   return (
     <>
@@ -295,8 +372,8 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
           className="rounded-xl px-5 py-[0.38rem]"
           animationMode="main"
           mode="main"
-          onClick={() => {}}
-          disabled={!isFormValid()}
+          onClick={handleSubmit}
+          disabled={isLoading || !hasChanges() || !isFormValid()}
         >
           저장하기
         </Button>

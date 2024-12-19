@@ -178,3 +178,25 @@ export async function getTeamBasicInfo(teamName: string): Promise<TeamBasicInfo>
   }
   return response.json()
 }
+
+interface UpdateTeamRequest {
+  teamName: string
+  teamShortDescription: string
+  scaleName: string
+  cityName: string
+  divisionName: string
+  teamStateNames: string[]
+  isTeamPublic: boolean
+}
+
+export async function updateTeamBasicInfo(formData: FormData, teamName: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}`, {
+    method: 'POST',
+    body: formData,
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to update team info')
+  }
+  return response.json()
+}
