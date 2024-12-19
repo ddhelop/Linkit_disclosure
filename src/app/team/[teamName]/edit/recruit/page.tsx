@@ -3,7 +3,7 @@ import TeamEditRecruitment from '@/features/team/edit/recruitment/TeamEditRecrui
 import { Button } from '@/shared/ui/Button/Button'
 import Link from 'next/link'
 
-export default function TeamEditRecruitmentPage() {
+export default function TeamEditRecruitPage() {
   return (
     <div className="flex flex-col">
       <h1 className="text-xl font-bold">모집 공고</h1>
