@@ -56,6 +56,14 @@ export async function getTeamLogs(teamName: string): Promise<TeamLogsResponse> {
   return response.json()
 }
 
+export async function getTeamLog(teamName: string, logId: number) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/log/${logId}`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team log')
+  }
+  return response.json()
+}
+
 export async function deleteTeamLog(teamName: string, logId: number): Promise<void> {
   const response = await fetchWithAuth(`/api/v1/team/${teamName}/log/${logId}`, {
     method: 'DELETE',
@@ -64,4 +72,79 @@ export async function deleteTeamLog(teamName: string, logId: number): Promise<vo
   if (!response.ok) {
     throw new Error('Failed to delete team log')
   }
+}
+
+export async function updateTeamLog(
+  teamName: string,
+  logId: number,
+  logData: {
+    logTitle: string
+    logContent: string
+    isLogPublic: boolean
+  },
+) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/log/${logId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(logData),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to update team log')
+  }
+
+  return response.json()
+}
+
+export async function createTeamLog(
+  teamName: string,
+  logData: {
+    logTitle: string
+    logContent: string
+    isLogPublic: boolean
+  },
+) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/log`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(logData),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to create team log')
+  }
+
+  return response.json()
+}
+
+export async function setTeamLogAsRepresentative(teamName: string, logId: number) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/log/type/${logId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to set representative log')
+  }
+  return response.json()
+}
+
+export async function toggleTeamLogVisibility(teamName: string, logId: number) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/log/state/${logId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to toggle log visibility')
+  }
+  return response.json()
 }

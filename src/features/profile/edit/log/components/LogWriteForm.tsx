@@ -12,41 +12,13 @@ import Link from 'next/link'
 import { createProfileLog, updateProfileLog } from '@/features/profile/api/createProfileLog'
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 import { getProfileLog } from '@/features/profile/api/getProfileLogs'
+import { getTeamLog, createTeamLog, updateTeamLog } from '@/features/team/api/teamApi'
 
 Quill.register('modules/imageResize', ImageResize)
 
 const Size = Quill.import('formats/size')
 Size.whitelist = ['16px', '18px', '24px']
 Quill.register(Size, true)
-
-// 팀 로그 생성 API 함수
-const createTeamLog = async (
-  teamName: string,
-  logData: {
-    logTitle: string
-    logContent: string
-    isLogPublic: boolean
-  },
-) => {
-  try {
-    const response = await fetchWithAuth(`/api/v1/team/${teamName}/log`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(logData),
-    })
-
-    if (!response.ok) {
-      throw new Error('Failed to create team log')
-    }
-
-    return await response.json()
-  } catch (error) {
-    console.error('Error creating team log:', error)
-    throw error
-  }
-}
 
 export default function LogWriteForm() {
   const router = useRouter()
@@ -68,14 +40,24 @@ export default function LogWriteForm() {
     if (logId) {
       fetchLogDetail(parseInt(logId))
     }
-  }, [logId])
+  }, [logId, teamName])
 
   const fetchLogDetail = async (id: number) => {
     try {
-      const data = await getProfileLog(id)
-      setTitle(data.logTitle)
-      setContents(data.logContent)
-      setIsPublic(data.isLogPublic)
+      let data
+      if (teamName) {
+        // 팀 로그 조회
+        data = await getTeamLog(teamName, id)
+        setTitle(data.result.logTitle)
+        setContents(data.result.logContent)
+        setIsPublic(data.result.isLogPublic)
+      } else {
+        // 프로필 로그 조회
+        data = await getProfileLog(id)
+        setTitle(data.logTitle)
+        setContents(data.logContent)
+        setIsPublic(data.isLogPublic)
+      }
     } catch (error) {
       console.error('Failed to fetch log detail:', error)
       alert('로그 정보를 불러오는데 실패했습니다.')
@@ -164,7 +146,13 @@ export default function LogWriteForm() {
 
       if (logId) {
         // 수정 로직
-        await updateProfileLog(logId, logData)
+        if (teamName) {
+          // 팀 로그 수정
+          await updateTeamLog(teamName, parseInt(logId), logData)
+        } else {
+          // 프로필 로그 수정
+          await updateProfileLog(logId, logData)
+        }
       } else {
         // 새로운 로그 생성
         if (teamName) {
