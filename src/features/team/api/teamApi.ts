@@ -55,3 +55,13 @@ export async function getTeamLogs(teamName: string): Promise<TeamLogsResponse> {
   }
   return response.json()
 }
+
+export async function deleteTeamLog(teamName: string, logId: number): Promise<void> {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/log/${logId}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to delete team log')
+  }
+}

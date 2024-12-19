@@ -4,21 +4,39 @@ import Image from 'next/image'
 import { useState, useRef } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import { TeamLogItem } from '../../types/team.types'
+import { deleteTeamLog } from '../../api/teamApi'
+import { useParams } from 'next/navigation'
 
 interface TeamLogComponentProps {
   log: TeamLogItem
+  onDelete?: () => void // 삭제 후 목록 새로고침을 위한 콜백
 }
 
-export default function TeamLogComponent({ log }: TeamLogComponentProps) {
+export default function TeamLogComponent({ log, onDelete }: TeamLogComponentProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLDivElement>(null)
+  const params = useParams()
+  const teamName = params.teamName as string
 
   useOnClickOutside({
     refs: [menuRef, buttonRef],
     handler: () => setIsMenuOpen(false),
     isEnabled: isMenuOpen,
   })
+
+  const handleDelete = async () => {
+    if (window.confirm('정말로 이 로그를 삭제하시겠습니까?')) {
+      try {
+        await deleteTeamLog(teamName, log.teamLogId)
+        setIsMenuOpen(false)
+        onDelete?.() // 삭제 후 목록 새로고침
+      } catch (error) {
+        console.error('Failed to delete log:', error)
+        alert('로그 삭제에 실패했습니다.')
+      }
+    }
+  }
 
   return (
     <div>
@@ -45,7 +63,10 @@ export default function TeamLogComponent({ log }: TeamLogComponentProps) {
                   <button className="w-full px-4 py-2 text-left text-xs text-grey70 hover:bg-gray-100">
                     대표글로 설정
                   </button>
-                  <button className="w-full px-4 py-2 text-left text-xs text-[#FF345F] hover:bg-gray-100">
+                  <button
+                    onClick={handleDelete}
+                    className="w-full px-4 py-2 text-left text-xs text-[#FF345F] hover:bg-gray-100"
+                  >
                     삭제하기
                   </button>
                 </div>

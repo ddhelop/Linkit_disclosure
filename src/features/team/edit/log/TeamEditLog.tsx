@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { getTeamLogs } from '../../api/teamApi'
 import TeamLogComponent from './TeamLogComponent'
 import { TeamLogItem } from '../../types/team.types'
+import Image from 'next/image'
 
 export default function TeamEditLog({ teamName }: { teamName: string }) {
   const [logs, setLogs] = useState<TeamLogItem[]>([])
@@ -24,13 +25,22 @@ export default function TeamEditLog({ teamName }: { teamName: string }) {
     fetchLogs()
   }, [teamName])
 
+  // 로그 삭제 후 UI 업데이트를 위한 핸들러
+  const handleLogDelete = (deletedLogId: number) => {
+    setLogs((prevLogs) => prevLogs.filter((log) => log.teamLogId !== deletedLogId))
+  }
+
   if (isLoading) return <div>Loading...</div>
 
   return (
     <div className="mt-6 flex flex-col gap-6">
-      {logs.map((log) => (
-        <TeamLogComponent key={log.teamLogId} log={log} />
-      ))}
+      {logs.length > 0 ? (
+        logs.map((log) => (
+          <TeamLogComponent key={log.teamLogId} log={log} onDelete={() => handleLogDelete(log.teamLogId)} />
+        ))
+      ) : (
+        <Image src="/common/images/not-contents-ui.png" width={800} height={200} alt="empty_log" />
+      )}
     </div>
   )
 }
