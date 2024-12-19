@@ -179,7 +179,7 @@ export default function LogWriteForm() {
       alert('로그가 성공적으로 저장되었습니다.')
       // 팀/프로필에 따른 리다이렉트 처리
       if (teamName) {
-        router.push(`/team/${teamName}/log`)
+        router.push(`/team/${teamName}/edit/log`)
       } else {
         router.push('/profile/edit/log')
       }

@@ -3,8 +3,13 @@
 import Image from 'next/image'
 import { useState, useRef } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
+import { TeamLogItem } from '../../types/team.types'
 
-export default function TeamLogComponent() {
+interface TeamLogComponentProps {
+  log: TeamLogItem
+}
+
+export default function TeamLogComponent({ log }: TeamLogComponentProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLDivElement>(null)
@@ -21,9 +26,9 @@ export default function TeamLogComponent() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Image src="/common/icons/pin.svg" width={20} height={20} alt="pin" />
-            <span className="font-semibold text-grey80">제목제목제목</span>
+            <span className="font-semibold text-grey80">{log.logTitle}</span>
             <span className="gap-2 text-grey50">|</span>
-            <span className="text-xs text-grey60">2024-12-12</span>
+            <span className="text-xs text-grey60">{new Date(log.modifiedAt).toLocaleDateString()}</span>
           </div>
           <div className="relative">
             <div ref={buttonRef} onClick={() => setIsMenuOpen(!isMenuOpen)} className="cursor-pointer">
@@ -50,7 +55,7 @@ export default function TeamLogComponent() {
         </div>
 
         <div className="mt-5 rounded-xl bg-grey10 p-5">
-          <p className="text-sm text-grey70">내용내용내용</p>
+          <p className="text-sm text-grey70">{log.logContent}</p>
         </div>
       </div>
     </div>
