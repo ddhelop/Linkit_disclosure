@@ -148,3 +148,33 @@ export async function toggleTeamLogVisibility(teamName: string, logId: number) {
   }
   return response.json()
 }
+
+interface TeamBasicInfo {
+  isSuccess: boolean
+  code: string
+  message: string
+  result: {
+    isMyTeam: boolean
+    teamInformMenu: {
+      teamCurrentStates: Array<{ teamStateName: string }>
+      teamName: string
+      teamShortDescription: string
+      teamLogoImagePath: string
+      teamScaleItem: {
+        teamScaleName: string
+      }
+      regionDetail: {
+        cityName: string
+        divisionName: string
+      }
+    }
+  }
+}
+
+export async function getTeamBasicInfo(teamName: string): Promise<TeamBasicInfo> {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team info')
+  }
+  return response.json()
+}

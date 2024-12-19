@@ -8,8 +8,9 @@ import Radio from '@/shared/ui/Radio/Radio'
 import Select from '@/shared/ui/Select/Select'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import { getTeamBasicInfo } from '../../api/teamApi'
 
-export default function TeamEditBasic() {
+export default function TeamEditBasic({ params }: { params: { teamName: string } }) {
   // 필수 입력 항목
   const [teamName, setTeamName] = useState('')
   const [teamIntro, setTeamIntro] = useState('')
@@ -96,6 +97,27 @@ export default function TeamEditBasic() {
       selectedDistrict !== ''
     )
   }
+
+  useEffect(() => {
+    const fetchTeamInfo = async () => {
+      try {
+        const data = await getTeamBasicInfo(params.teamName)
+        const { teamInformMenu } = data.result
+
+        setTeamName(teamInformMenu.teamName)
+        setTeamIntro(teamInformMenu.teamShortDescription)
+        setSelectedTeamSize(teamInformMenu.teamScaleItem.teamScaleName)
+        setSelectedCity(teamInformMenu.regionDetail.cityName)
+        setSelectedDistrict(teamInformMenu.regionDetail.divisionName)
+        setTeamLogoPath(teamInformMenu.teamLogoImagePath)
+        setRecruitmentStatus(teamInformMenu.teamCurrentStates.map((state) => state.teamStateName))
+      } catch (error) {
+        console.error('Failed to fetch team info:', error)
+      }
+    }
+
+    fetchTeamInfo()
+  }, [params.teamName])
 
   return (
     <>
