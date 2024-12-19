@@ -1,29 +1,24 @@
 // LeftMenu.tsx
 'use client'
 
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter, usePathname, useParams } from 'next/navigation'
 import TeamEditProfileCard from './TeamEditProfileCard'
-
-const menuItems: { label: string; path: string; subPaths?: string[] }[] = [
-  { label: '팀 로그', path: '/team/123/edit/log' },
-  { label: '기본 정보', path: '/team/123/edit/basic' },
-  { label: '모집 공고', path: '/team/123/edit/recruit' },
-  {
-    label: '팀 구성원',
-    path: '/team/123/edit/members',
-  },
-  {
-    label: '프로덕트',
-    path: '/team/123/edit/products',
-  },
-  { label: '연혁', path: '/team/123/edit/history' },
-]
 
 const TeamEditLeftMenu = () => {
   const router = useRouter()
   const pathname = usePathname()
-
+  const params = useParams()
+  const teamName = params.teamName
   const currentSection = pathname.split('/').pop()
+
+  const menuItems = [
+    { label: '팀 로그', path: `/team/${teamName}/edit/log` },
+    { label: '기본 정보', path: `/team/${teamName}/edit/basic` },
+    { label: '모집 공고', path: `/team/${teamName}/edit/recruit` },
+    { label: '팀 구성원', path: `/team/${teamName}/edit/members` },
+    { label: '프로덕트', path: `/team/${teamName}/edit/products` },
+    { label: '연혁', path: `/team/${teamName}/edit/history` },
+  ]
 
   const handleNavigation = (path: string) => {
     router.push(path)
