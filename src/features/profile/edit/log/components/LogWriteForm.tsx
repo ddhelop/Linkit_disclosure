@@ -217,7 +217,7 @@ export default function LogWriteForm() {
               modules={modules}
               formats={formats}
               theme="snow"
-              placeholder="팀과 팀원들에게 도움이 될 수 있는 나의 장점과 강점 등을 소개해 ���세요"
+              placeholder="팀과 팀원들에게 도움이 될 수 있는 나의 장점과 강점 등을 소개해 주세요"
               className="min-h-[600px] min-w-[430px]"
             />
           </div>

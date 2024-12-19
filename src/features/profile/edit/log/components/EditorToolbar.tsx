@@ -4,25 +4,27 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import '../../style/editorToolbar.css'
 
-// Quill을 동적으로 임포트
 const ReactQuill = dynamic(() => import('react-quill'), {
   ssr: false,
   loading: () => <p>Loading...</p>,
 })
 
-const { Quill } = ReactQuill as any
+// Quill 관련 설정을 클라이언트 사이드에서만 실행
+if (typeof window !== 'undefined') {
+  const Quill = require('react-quill').Quill
 
-// Quill 모듈 임포트
-const Font = Quill.import('formats/font')
-const Size = Quill.import('formats/size')
+  // Quill 모듈 임포트
+  const Font = Quill.import('formats/font')
+  const Size = Quill.import('formats/size')
 
-// 사이즈 설정
-Size.whitelist = ['16px', '18px', '24px']
-Quill.register(Size, true)
+  // 사이즈 설정
+  Size.whitelist = ['16px', '18px', '24px']
+  Quill.register(Size, true)
 
-// 폰트 설정
-Font.whitelist = ['arial', 'comic-sans', 'courier-new', 'georgia', 'helvetica', 'lucida']
-Quill.register(Font, true)
+  // 폰트 설정
+  Font.whitelist = ['arial', 'comic-sans', 'courier-new', 'georgia', 'helvetica', 'lucida']
+  Quill.register(Font, true)
+}
 
 // Quill modules and formats configuration
 export const modules = {
