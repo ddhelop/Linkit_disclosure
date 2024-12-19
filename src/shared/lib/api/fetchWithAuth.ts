@@ -44,6 +44,15 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
 
   const response = await fetch(apiUrl, options)
 
+  // 403 상태 코드 처리 추가
+  if (response.status === 403) {
+    // 로그아웃 처리
+    localStorage.removeItem('accessToken')
+    alert('세션이 만료되었습니다. 다시 로그인해주세요.')
+    window.location.href = '/login' // 로그인 페이지로 리다이렉트
+    throw new Error('Session expired')
+  }
+
   // 액세스 토큰 만료 시 처리
   if ((response.status === 401 || response.status === 404) && retry) {
     try {
