@@ -12,6 +12,7 @@ import { useFileValidation } from '@/shared/lib/hooks/useFileValidation'
 import { addPortfolio, getPortfolio, updatePortfolio, getPortfolioById } from '../../api/portfolio'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
+import { ImageUploader } from '@/shared/ui/ImageUploader/ImageUploader'
 
 export default function NewPortFolio() {
   const accessToken = localStorage.getItem('accessToken') || ''
@@ -26,7 +27,7 @@ export default function NewPortFolio() {
   const [projectLink, setProjectLink] = useState('')
   const [projectDescription, setProjectDescription] = useState('')
   const [representImage, setRepresentImage] = useState<File | null>(null)
-  const [subImages, setSubImages] = useState<File[]>([])
+  const [subImages, setSubImages] = useState<{ id: number; file: File }[]>([])
   const [headCount, setHeadCount] = useState('')
   const [teamComposition, setTeamComposition] = useState('')
   const { validateFile } = useFileValidation()
@@ -205,7 +206,7 @@ export default function NewPortFolio() {
 
       // 서브 이미지들 추가
       subImages.forEach((image) => {
-        formData.append('projectSubImages', image)
+        formData.append('projectSubImages', image.file)
       })
 
       // JSON 데이터 생성
@@ -240,7 +241,7 @@ export default function NewPortFolio() {
         await addPortfolio(formData, accessToken)
       }
 
-      alert('포트폴리오가 성공적으로 저장되었습니다.')
+      alert('포트폴리오가 성공적으로 저장���었습니다.')
       router.back()
     } catch (error) {
       console.error('Error:', error)
@@ -250,22 +251,16 @@ export default function NewPortFolio() {
     }
   }
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      const validation = validateFile(file)
-      if (!validation.isValid) {
-        alert(validation.error)
-        return
-      }
-      setRepresentImage(file)
+  const handleMainImageUpload = (file: File) => {
+    const validation = validateFile(file)
+    if (!validation.isValid) {
+      alert(validation.error)
+      return
     }
+    setRepresentImage(file)
   }
 
-  const handleSubImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || [])
-
-    // 파일 유효성 검사
+  const handleSubImageUpload = (files: File[]) => {
     const validFiles = files.filter((file) => {
       const validation = validateFile(file)
       if (!validation.isValid) {
@@ -280,12 +275,7 @@ export default function NewPortFolio() {
       return
     }
 
-    setSubImages((prev) => [...prev, ...validFiles])
-  }
-
-  const handleButtonClick = () => {
-    const fileInput = document.querySelector<HTMLInputElement>('input[type="file"]')
-    fileInput?.click()
+    setSubImages((prev) => [...prev, ...validFiles.map((file) => ({ id: Date.now() + Math.random(), file }))])
   }
 
   const isButtonDisabled = () => {
@@ -430,127 +420,17 @@ export default function NewPortFolio() {
         </div>
 
         {/* 이미지 */}
-        <div className="flex flex-col gap-3">
-          <span className="flex w-[10.6rem]">이미지</span>
-          <span className="mt-3 text-sm text-grey60">대표 이미지 1장</span>
-
-          <div className="flex items-end gap-6">
-            {/* 대표 이미지 */}
-            {representImage ? (
-              <Image
-                src={URL.createObjectURL(representImage)}
-                width={204}
-                height={115}
-                alt="대표 이미지"
-                className="h-[115px] w-[204px] rounded-lg object-cover"
-              />
-            ) : representImageUrl ? (
-              <Image
-                src={representImageUrl}
-                width={204}
-                height={115}
-                alt="대표 이미지"
-                className="h-[115px] w-[204px] rounded-lg object-cover"
-              />
-            ) : (
-              <div className="flex h-[115px] w-[204px] items-center justify-center rounded-lg border-2 border-dashed border-grey30 bg-grey10">
-                <Image
-                  src="/common/images/no_thumbnail.svg"
-                  width={204}
-                  height={115}
-                  alt="이미지 업로드"
-                  className="h-[115px] w-[204px] object-contain"
-                />
-              </div>
-            )}
-
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-grey50">*10MB 하의 PNG, JPG 파일 업로드 해주세요</span>
-              <div className="flex items-center gap-4">
-                <input
-                  type="file"
-                  className="hidden"
-                  accept="image/png,image/jpeg,image/jpg"
-                  onChange={handleImageUpload}
-                />
-                <Button mode="main" animationMode="main" className="rounded-xl text-xs" onClick={handleButtonClick}>
-                  사진 업로드
-                </Button>
-                {representImage && (
-                  <button
-                    onClick={() => setRepresentImage(null)}
-                    className="cursor-pointer text-xs text-grey50 underline"
-                  >
-                    삭제하기
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* 부가 이미지 */}
-          <div className="mt-6 flex flex-col">
-            <span className="text-sm text-grey60">
-              프로젝트를 설명할 수 있는 보조 이미지가 있다면 추가해 주세요 (최대 4장)
-            </span>
-
-            <div className="mt-2 flex flex-wrap gap-2">
-              {/* 새로 업로드된 이미지 */}
-              {subImages.map((image, index) => (
-                <div key={`new-${index}`} className="relative">
-                  <Image
-                    src={URL.createObjectURL(image)}
-                    width={156}
-                    height={86}
-                    alt={`보조 이���지 ${index + 1}`}
-                    className="h-[86px] w-[156px] object-cover" // 크기 고정
-                  />
-                  <button
-                    onClick={() => setSubImages((prev) => prev.filter((_, i) => i !== index))}
-                    className="absolute -right-2 -top-2 rounded-full bg-grey50 p-1"
-                  >
-                    <Image src="/common/icons/close.svg" width={12} height={12} alt="삭제" />
-                  </button>
-                </div>
-              ))}
-
-              {/* 기존 서브 이미지 */}
-              {subImageUrls.map((url, index) => (
-                <div key={`existing-${index}`} className="relative">
-                  <Image
-                    src={url}
-                    width={156}
-                    height={86}
-                    alt={`보조 이미지 ${index + 1}`}
-                    className="h-[86px] w-[156px] object-cover" // 크기 고정
-                  />
-                  <button
-                    onClick={() => setSubImageUrls((prev) => prev.filter((_, i) => i !== index))}
-                    className="absolute -right-2 -top-2 rounded-full bg-grey50 p-1 hover:scale-110 "
-                  >
-                    <Image src="/common/icons/delete_x.svg" width={15} height={15} alt="삭제" className="" />
-                  </button>
-                </div>
-              ))}
-
-              {/* 이미지 추가 버튼 */}
-              {subImages.length + subImageUrls.length < 4 && (
-                <label className="cursor-pointer">
-                  <input
-                    type="file"
-                    className="hidden"
-                    accept="image/png,image/jpeg,image/jpg"
-                    multiple
-                    onChange={handleSubImageUpload}
-                  />
-                  <div className="flex h-[5.4rem] w-[9.75rem] items-center justify-center rounded-lg bg-grey30 hover:bg-grey40">
-                    <Image src="/common/icons/black_plus.svg" width={15} height={15} alt="plus-icon" />
-                  </div>
-                </label>
-              )}
-            </div>
-          </div>
-        </div>
+        <ImageUploader
+          mainImage={representImage}
+          mainImageUrl={representImageUrl}
+          subImages={subImages}
+          subImageUrls={subImageUrls}
+          onMainImageUpload={handleMainImageUpload}
+          onMainImageDelete={() => setRepresentImage(null)}
+          onSubImageUpload={handleSubImageUpload}
+          onSubImageDelete={(id) => setSubImages((prev) => prev.filter((img) => img.id !== id))}
+          onSubImageUrlDelete={(index) => setSubImageUrls((prev) => prev.filter((_, i) => i !== index))}
+        />
       </div>
 
       <div className="mt-5 flex justify-end">
