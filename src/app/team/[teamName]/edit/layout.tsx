@@ -2,7 +2,7 @@
 
 import TeamEditClient from '@/features/team/edit/common/TeamEditClient'
 
-const TeamEditLayout = ({ children }: { children: React.ReactNode }) => {
-  return <TeamEditClient>{children}</TeamEditClient>
+const TeamEditLayout = ({ children, params }: { children: React.ReactNode; params: { teamName: string } }) => {
+  return <TeamEditClient params={params}>{children}</TeamEditClient>
 }
 export default TeamEditLayout

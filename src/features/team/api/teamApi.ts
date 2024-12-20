@@ -39,7 +39,7 @@ export const getMyTeams = async (): Promise<TeamResponse> => {
   }
   return response.json()
 }
-
+// 팀 상세조회
 export async function getTeamInfo(teamName: string) {
   const response = await fetchWithAuth(`/api/v1/team/${teamName}`)
   if (!response.ok) {

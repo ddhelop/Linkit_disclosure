@@ -1,18 +1,14 @@
 // ProfileEditClient.tsx (클라이언트 컴포넌트)
 'use client'
 
-import { useEffect, useState } from 'react'
-import LeftMenu from '@/features/profile/edit/components/common/LeftMenu'
-
-import { ProfileProvider } from '@/features/profile/edit/context/ProfileContext'
-import { fetchProfileData } from '@/features/profile/edit/api/profileEditApi'
 import TeamEditLeftMenu from './TeamEditLeftMenu'
 
-type ProfileEditClientProps = {
+type TeamEditClientProps = {
   children: React.ReactNode
+  params: { teamName: string }
 }
 
-export default function TeamEditClient({ children }: ProfileEditClientProps) {
+export default function TeamEditClient({ children, params }: TeamEditClientProps) {
   // const [profileData, setProfileData] = useState<ResultType | null>(null)
 
   // useEffect(() => {
@@ -37,7 +33,7 @@ export default function TeamEditClient({ children }: ProfileEditClientProps) {
           className="rounded-xl border border-grey30 p-4"
           style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
         >
-          <TeamEditLeftMenu />
+          <TeamEditLeftMenu params={params} />
         </div>
       </aside>
 

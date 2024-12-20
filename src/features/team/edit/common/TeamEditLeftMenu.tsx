@@ -4,10 +4,10 @@
 import { useRouter, usePathname, useParams } from 'next/navigation'
 import TeamEditProfileCard from './TeamEditProfileCard'
 
-const TeamEditLeftMenu = () => {
+const TeamEditLeftMenu = ({ params }: { params: { teamName: string } }) => {
   const router = useRouter()
   const pathname = usePathname()
-  const params = useParams()
+
   const teamName = params.teamName
   const currentSection = pathname.split('/').pop()
 
@@ -27,7 +27,7 @@ const TeamEditLeftMenu = () => {
   return (
     <div className="mt-6 w-[17.5rem]">
       <div className="flex w-full flex-col rounded-xl bg-[#FCFCFD]">
-        <TeamEditProfileCard />
+        <TeamEditProfileCard params={params} />
         <ul className="mt-8 flex w-full flex-col items-end gap-4">
           {menuItems.map((item, index) => {
             const isSelected = item.path.includes(currentSection ?? '')
