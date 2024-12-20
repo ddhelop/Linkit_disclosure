@@ -23,9 +23,10 @@ const Select: React.FC<SelectProps> = ({
   onChange,
   className = '',
   disabled = false,
+
   value,
 }) => {
-  const [selectedValue, setSelectedValue] = useState<string | null>(value || null)
+  const [selectedValue, setSelectedValue] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const selectRef = useRef<HTMLDivElement>(null)
 

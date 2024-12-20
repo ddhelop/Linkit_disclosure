@@ -237,3 +237,28 @@ export async function createRecruitment(data: CreateRecruitmentRequest, teamName
   }
   return response.json()
 }
+
+interface InviteMemberRequest {
+  teamMemberInvitationEmail: string
+  teamMemberType: 'TEAM_MANAGER' | 'TEAM_VIEWER'
+}
+
+export async function inviteTeamMember(
+  data: { teamMemberInvitationEmail: string; teamMemberType: string },
+  teamName: string,
+) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/member`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json()
+    throw new Error(errorData.message || '팀원 초대에 실패했습니다.')
+  }
+
+  return response.json()
+}

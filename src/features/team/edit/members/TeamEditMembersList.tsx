@@ -6,7 +6,7 @@ import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import { Button } from '@/shared/ui/Button/Button'
 import { AddMemberModal } from './AddMemberModal'
 
-export default function TeamEditMembersList() {
+export default function TeamEditMembersList({ teamName }: { teamName: string }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -29,7 +29,7 @@ export default function TeamEditMembersList() {
         + 추가하기
       </Button>
 
-      <AddMemberModal isOpen={showAddModal} onClose={() => setShowAddModal(false)} />
+      <AddMemberModal teamName={teamName} isOpen={showAddModal} onClose={() => setShowAddModal(false)} />
 
       {/* 각 요소 */}
       <div className="flex items-center justify-between rounded-xl bg-white px-9 py-5">
