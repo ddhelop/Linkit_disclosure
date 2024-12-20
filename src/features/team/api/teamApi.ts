@@ -200,3 +200,40 @@ export async function updateTeamBasicInfo(formData: FormData, teamName: string) 
   }
   return response.json()
 }
+
+interface AnnouncementSkill {
+  announcementSkillName: string
+}
+
+interface CreateRecruitmentRequest {
+  announcementTitle: string
+  majorPosition: string
+  subPosition: string
+  announcementSkillNames: AnnouncementSkill[]
+  announcementStartDate: string
+  announcementEndDate: string
+  cityName: string
+  divisionName: string
+  isRegionFlexible: boolean
+  mainTasks: string
+  workMethod: string
+  idealCandidate: string
+  preferredQualifications?: string
+  joiningProcess?: string
+  benefits?: string
+}
+
+export async function createRecruitment(data: CreateRecruitmentRequest, teamName: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to create recruitment')
+  }
+  return response.json()
+}

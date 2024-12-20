@@ -13,8 +13,9 @@ import DateRange from '@/shared/ui/Input/DateRange'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import { Button } from '@/shared/ui/Button/Button'
 import Image from 'next/image'
+import { createRecruitment } from '../../api/teamApi'
 
-export default function TeamEditRecruitment() {
+export default function TeamEditRecruitment({ params }: { params: { teamName: string } }) {
   const {
     selectedCategory,
     selectedSubCategory,
@@ -27,6 +28,13 @@ export default function TeamEditRecruitment() {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([])
   const { startDate, endDate, setStartDate, setEndDate } = useDateRange()
   const [isExpanded, setIsExpanded] = useState(false)
+  const [title, setTitle] = useState('')
+  const [mainTasks, setMainTasks] = useState('')
+  const [workMethod, setWorkMethod] = useState('')
+  const [idealCandidate, setIdealCandidate] = useState('')
+  const [preferredQualifications, setPreferredQualifications] = useState('')
+  const [joiningProcess, setJoiningProcess] = useState('')
+  const [benefits, setBenefits] = useState('')
 
   const handleAddSkill = (skill: string) => {
     if (!selectedSkills.includes(skill)) {
@@ -36,6 +44,40 @@ export default function TeamEditRecruitment() {
 
   const handleRemoveSkill = (skillToRemove: string) => {
     setSelectedSkills(selectedSkills.filter((skill) => skill !== skillToRemove))
+  }
+
+  const handleSubmit = async () => {
+    try {
+      const formattedStartDate = new Date(startDate).toISOString().split('T')[0]
+      const formattedEndDate = new Date(endDate).toISOString().split('T')[0]
+
+      const recruitmentData = {
+        announcementTitle: title,
+        majorPosition: selectedCategory,
+        subPosition: selectedSubCategory,
+        announcementSkillNames: selectedSkills.map((skill) => ({
+          announcementSkillName: skill,
+        })),
+        announcementStartDate: formattedStartDate,
+        announcementEndDate: formattedEndDate,
+        cityName: '', // 활동 지역 관련 state 추가 필요
+        divisionName: '', // 활동 지역 관련 state 추가 필요
+        isRegionFlexible: false, // 지역 유연성 관련 state 추가 필요
+        mainTasks: mainTasks,
+        workMethod: workMethod,
+        idealCandidate: idealCandidate,
+        preferredQualifications: isExpanded ? preferredQualifications : undefined,
+        joiningProcess: isExpanded ? joiningProcess : undefined,
+        benefits: isExpanded ? benefits : undefined,
+      }
+
+      await createRecruitment(recruitmentData, params.teamName)
+      alert('채용 공고가 성공적으로 등록되었습니다.')
+      // 성공 후 리다이렉트 또는 초기화 로직
+    } catch (error) {
+      console.error('Failed to create recruitment:', error)
+      alert('채용 공고 등록에 실패했습니다.')
+    }
   }
 
   return (
@@ -51,7 +93,11 @@ export default function TeamEditRecruitment() {
               <span className="pr-1 text-main">*</span>은 필수항목입니다
             </span>
           </div>
-          <Input placeholder="어떤 포지션 공고인지, 어떤 팀인지 간단하게 적어주세요" />
+          <Input
+            placeholder="어떤 포지션 공고인지, 어떤 팀인지 간단하게 적어주세요"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </div>
 
         {/* 찾는 포지션 */}
@@ -144,7 +190,11 @@ export default function TeamEditRecruitment() {
               중요 업무<span className="placeholder:-1 text-main">*</span>
             </span>
           </div>
-          <Textarea placeholder="새로 합류할 팀원이 할 업무에 대해 자세히 적어 주세요" />
+          <Textarea
+            placeholder="새로 합류할 팀원이 할 업무에 대해 자세히 적어 주세요"
+            value={mainTasks}
+            onChange={(e) => setMainTasks(e.target.value)}
+          />
         </div>
 
         {/* 업무 방식 */}
@@ -154,7 +204,11 @@ export default function TeamEditRecruitment() {
               업무 방식<span className="placeholder:-1 text-main">*</span>
             </span>
           </div>
-          <Textarea placeholder="팀의 업무 방식에 대해 설명해 주세요" />
+          <Textarea
+            placeholder="팀의 업무 방식에 대해 설명해 주세요"
+            value={workMethod}
+            onChange={(e) => setWorkMethod(e.target.value)}
+          />
         </div>
 
         {/* 이런 분을 찾고 있어요 */}
@@ -164,7 +218,11 @@ export default function TeamEditRecruitment() {
               업무 방식<span className="placeholder:-1 text-main">*</span>
             </span>
           </div>
-          <Textarea placeholder="새로 합류할 팀원이 필수적으로 갖추어야 할 역에 대해 알려 주세요" />
+          <Textarea
+            placeholder="새로 합류할 팀원이 필수적으로 갖추어야 할 역에 대해 알려 주세요"
+            value={idealCandidate}
+            onChange={(e) => setIdealCandidate(e.target.value)}
+          />
         </div>
 
         {/* 확장/축소 버튼 */}
@@ -191,7 +249,11 @@ export default function TeamEditRecruitment() {
               <div className="flex items-center justify-between">
                 <span className="text-grey80">우대사항</span>
               </div>
-              <Textarea placeholder="있다면 우대하는 경력이나 경험에 대해 알려주세요" />
+              <Textarea
+                placeholder="있다면 우대하는 경력이나 경험에 대해 알려주세요"
+                value={preferredQualifications}
+                onChange={(e) => setPreferredQualifications(e.target.value)}
+              />
             </div>
 
             {/* 복지 및 혜택 */}
@@ -199,7 +261,11 @@ export default function TeamEditRecruitment() {
               <div className="flex items-center justify-between">
                 <span className="text-grey80">복지 및 혜택</span>
               </div>
-              <Textarea placeholder="팀원들을 위해 제공하는 복지와 혜택을 알려주세요" />
+              <Textarea
+                placeholder="팀원들을 위해 제공하는 복지와 혜택을 알려주세요"
+                value={benefits}
+                onChange={(e) => setBenefits(e.target.value)}
+              />
             </div>
 
             {/* 기타 유의사항 */}
@@ -207,13 +273,23 @@ export default function TeamEditRecruitment() {
               <div className="flex items-center justify-between">
                 <span className="text-grey80">기타 유의사항</span>
               </div>
-              <Textarea placeholder="지원자들이 알아야 할 다른 사항이 있다면 알려주세요" />
+              <Textarea
+                placeholder="지원자들이 알아야 할 다른 사항이 있다면 알려주세요"
+                value={joiningProcess}
+                onChange={(e) => setJoiningProcess(e.target.value)}
+              />
             </div>
           </>
         )}
       </div>
       <div className="mt-5 flex justify-end">
-        <Button mode="main" animationMode="main" className="rounded-xl font-semibold">
+        <Button
+          mode="main"
+          animationMode="main"
+          className="rounded-xl font-semibold"
+          onClick={handleSubmit}
+          disabled={!title || !selectedCategory || !selectedSubCategory || selectedSkills.length === 0}
+        >
           저장하기
         </Button>
       </div>

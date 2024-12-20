@@ -1,6 +1,6 @@
 import TeamEditRecruitComponent from './TeamEditRecruitComponent'
 
-export default function TeamEditRecruitList() {
+export default function TeamEditRecruitList({ params }: { params: { teamName: string } }) {
   return (
     <div className="flex flex-col">
       {/* 필터링 */}
