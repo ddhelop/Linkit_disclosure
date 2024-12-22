@@ -329,3 +329,16 @@ export async function getTeamProducts(teamName: string): Promise<TeamProductResp
   }
   return response.json()
 }
+
+// 팀 프로덕트 삭제
+export async function deleteTeamProduct(teamName: string, productId: number) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/product/${productId}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to delete team product')
+  }
+
+  return response
+}

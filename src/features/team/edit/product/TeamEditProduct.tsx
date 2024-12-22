@@ -35,10 +35,19 @@ export default function TeamEditProduct({ teamName }: { teamName: string }) {
     fetchProducts()
   }, [teamName])
 
+  const handleDeleteProduct = (deletedProductId: number) => {
+    setProducts((prevProducts) => prevProducts.filter((product) => product.teamProductId !== deletedProductId))
+  }
+
   return (
     <div className="mt-5 flex flex-col gap-5">
       {products.map((product) => (
-        <TeamProductComponent key={product.teamProductId} product={product} />
+        <TeamProductComponent
+          key={product.teamProductId}
+          product={product}
+          teamName={teamName}
+          onDelete={handleDeleteProduct}
+        />
       ))}
     </div>
   )
