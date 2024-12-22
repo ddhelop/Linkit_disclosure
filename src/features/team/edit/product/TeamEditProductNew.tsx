@@ -3,7 +3,7 @@
 import Input from '@/shared/ui/Input/Input'
 import Select from '@/shared/ui/Select/Select'
 import { productFields } from '@/shared/data/productFields'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import DateRangePicker from '@/shared/ui/Select/DateRangePicker'
 import { DynamicLinkList } from '@/shared/ui/DynamicLinkList/DynamicLinkList'
 import Textarea from '@/shared/ui/TextArea/TextArea'
@@ -11,12 +11,14 @@ import { ImageUploader } from '@/shared/ui/ImageUploader/ImageUploader'
 import { useFileValidation } from '@/shared/lib/hooks/useFileValidation'
 import { Button } from '@/shared/ui/Button/Button'
 
-import { useRouter } from 'next/navigation'
-import { createTeamProduct } from '../../api/teamApi'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { createTeamProduct, updateTeamProduct, getTeamProduct } from '../../api/teamApi'
 
 type ProjectSize = 'TEAM' | 'PERSONAL'
 
 export default function TeamEditProductNew({ teamName }: { teamName: string }) {
+  const searchParams = useSearchParams()
+  const productId = searchParams.get('id')
   const [selectedField, setSelectedField] = useState<string>('')
   const [startDate, setStartDate] = useState<string>('')
   const [endDate, setEndDate] = useState<string>('')
@@ -34,6 +36,39 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
   const [teamComposition, setTeamComposition] = useState('')
   const [productDescription, setProductDescription] = useState('')
   const [linkSync, setLinkSync] = useState<{ title: string; url: string }[]>([])
+
+  useEffect(() => {
+    const loadProductData = async () => {
+      if (!productId) return
+
+      try {
+        const response = await getTeamProduct(teamName, Number(productId))
+        const product = response.result
+
+        setProductName(product.productName)
+        setProductLineDescription(product.productLineDescription)
+        setIsTeam(product.projectSize === 'TEAM')
+        setHeadCount(String(product.productHeadCount))
+        setTeamComposition(product.productTeamComposition)
+        setStartDate(product.productStartDate)
+        setEndDate(product.productEndDate || '')
+        setIsOngoing(product.isProductInProgress)
+        setProductDescription(product.productDescription)
+        setLinkSync(
+          product.teamProductLinks.map((link: { productLinkName: string; productLinkPath: string }) => ({
+            title: link.productLinkName,
+            url: link.productLinkPath,
+          })),
+        )
+        // 이미지 처리는 별도로 해야 할 수 있습니다
+      } catch (error) {
+        console.error('Failed to load product:', error)
+        alert('프로덕트 정보를 불러오는데 실패했습니다.')
+      }
+    }
+
+    loadProductData()
+  }, [productId, teamName])
 
   const onStartDateChange = (date: string) => {
     setStartDate(date)
@@ -94,13 +129,18 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         productDescription,
       }
 
-      await createTeamProduct(teamName, productData, mainImage, subImages)
+      if (productId) {
+        await updateTeamProduct(teamName, Number(productId), productData, mainImage, subImages)
+        alert('프로덕트가 성공적으로 수정되었습니다.')
+      } else {
+        await createTeamProduct(teamName, productData, mainImage, subImages)
+        alert('프로덕트가 성공적으로 생성되었습니다.')
+      }
 
-      alert('프로덕트가 성공적으로 생성되었습니다.')
       router.push(`/team/${teamName}/edit/products`)
     } catch (error) {
-      console.error('Failed to create product:', error)
-      alert('프로덕트 생성에 실패했습니다.')
+      console.error('Failed to save product:', error)
+      alert('프로덕트 저장에 실패했습니다.')
     } finally {
       setIsSubmitting(false)
     }

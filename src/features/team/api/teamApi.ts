@@ -342,3 +342,47 @@ export async function deleteTeamProduct(teamName: string, productId: number) {
 
   return response
 }
+
+// 팀 프로덕트 상세 조회
+export async function getTeamProduct(teamName: string, productId: number) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/product/${productId}`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team product')
+  }
+  return response.json()
+}
+
+// 팀 프로덕트 수정
+export async function updateTeamProduct(
+  teamName: string,
+  productId: number,
+  data: TeamProductRequest,
+  mainImage: File | null,
+  subImages: { id: number; file: File }[],
+) {
+  const formData = new FormData()
+
+  // JSON 데이터 추가
+  formData.append('updateTeamProductRequest', new Blob([JSON.stringify(data)], { type: 'application/json' }))
+
+  // 대표 이미지 추가
+  if (mainImage) {
+    formData.append('productRepresentImage', mainImage)
+  }
+
+  // 서브 이미지들 추가
+  subImages.forEach(({ file }) => {
+    formData.append('productSubImages', file)
+  })
+
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/product/${productId}`, {
+    method: 'POST',
+    body: formData,
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to update team product')
+  }
+
+  return response.json()
+}
