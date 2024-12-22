@@ -262,3 +262,52 @@ export async function inviteTeamMember(
 
   return response.json()
 }
+
+interface TeamProductRequest {
+  productName: string
+  productLineDescription: string
+  projectSize: 'PERSONAL' | 'TEAM'
+  productHeadCount: number
+  productTeamComposition: string
+  productStartDate: string
+  productEndDate: string | null
+  isProductInProgress: boolean
+  teamProductLinks: {
+    productLinkName: string
+    productLinkPath: string
+  }[]
+  productDescription: string
+}
+
+export async function createTeamProduct(
+  teamName: string,
+  data: TeamProductRequest,
+  mainImage: File | null,
+  subImages: { id: number; file: File }[],
+) {
+  const formData = new FormData()
+
+  // JSON 데이터 추가
+  formData.append('addTeamProductRequest', new Blob([JSON.stringify(data)], { type: 'application/json' }))
+
+  // 대표 이미지 추가
+  if (mainImage) {
+    formData.append('productRepresentImage', mainImage)
+  }
+
+  // 서브 이미지들 추가
+  subImages.forEach(({ file }) => {
+    formData.append('productSubImages', file)
+  })
+
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/product`, {
+    method: 'POST',
+    body: formData,
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to create team product')
+  }
+
+  return response.json()
+}

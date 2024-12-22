@@ -11,7 +11,12 @@ import { ImageUploader } from '@/shared/ui/ImageUploader/ImageUploader'
 import { useFileValidation } from '@/shared/lib/hooks/useFileValidation'
 import { Button } from '@/shared/ui/Button/Button'
 
-export default function TeamEditProductNew() {
+import { useRouter } from 'next/navigation'
+import { createTeamProduct } from '../../api/teamApi'
+
+type ProjectSize = 'TEAM' | 'PERSONAL'
+
+export default function TeamEditProductNew({ teamName }: { teamName: string }) {
   const [selectedField, setSelectedField] = useState<string>('')
   const [startDate, setStartDate] = useState<string>('')
   const [endDate, setEndDate] = useState<string>('')
@@ -19,6 +24,16 @@ export default function TeamEditProductNew() {
   const [mainImage, setMainImage] = useState<File | null>(null)
   const [subImages, setSubImages] = useState<{ id: number; file: File }[]>([])
   const { validateFile } = useFileValidation()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter()
+
+  const [productName, setProductName] = useState('')
+  const [productLineDescription, setProductLineDescription] = useState('')
+  const [isTeam, setIsTeam] = useState(true)
+  const [headCount, setHeadCount] = useState('')
+  const [teamComposition, setTeamComposition] = useState('')
+  const [productDescription, setProductDescription] = useState('')
+  const [linkSync, setLinkSync] = useState<{ title: string; url: string }[]>([])
 
   const onStartDateChange = (date: string) => {
     setStartDate(date)
@@ -52,11 +67,43 @@ export default function TeamEditProductNew() {
     })
 
     if (subImages.length + validFiles.length > 4) {
-      alert('최대 4개의 이미지만 업로드 가능합니다.')
+      alert('최대 4개의 이미지 업로드 가능합니다.')
       return
     }
 
     setSubImages((prev) => [...prev, ...validFiles.map((file) => ({ id: Date.now() + Math.random(), file }))])
+  }
+
+  const handleSubmit = async () => {
+    try {
+      setIsSubmitting(true)
+
+      const productData = {
+        productName,
+        productLineDescription,
+        projectSize: (isTeam ? 'TEAM' : 'PERSONAL') as ProjectSize,
+        productHeadCount: isTeam ? Number(headCount) : 1,
+        productTeamComposition: teamComposition,
+        productStartDate: startDate,
+        productEndDate: isOngoing ? null : endDate,
+        isProductInProgress: isOngoing,
+        teamProductLinks: linkSync.map((link) => ({
+          productLinkName: link.title,
+          productLinkPath: link.url,
+        })),
+        productDescription,
+      }
+
+      await createTeamProduct(teamName, productData, mainImage, subImages)
+
+      alert('프로덕트가 성공적으로 생성되었습니다.')
+      router.push(`/team/${teamName}/edit/products`)
+    } catch (error) {
+      console.error('Failed to create product:', error)
+      alert('프로덕트 생성에 실패했습니다.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -72,7 +119,11 @@ export default function TeamEditProductNew() {
               <p className="text-main">*</p>은 필수항목입니다
             </span>
           </div>
-          <Input placeholder="프로덕트명을 입력해주세요" />
+          <Input
+            placeholder="프로덕트명을 입력해주세요"
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
+          />
         </div>
 
         {/* 한줄소개 */}
@@ -81,7 +132,11 @@ export default function TeamEditProductNew() {
             한줄소개<p className="text-main">*</p>
           </span>
 
-          <Input placeholder="프로젝트를 한 줄로 소개해주세요 (60자 이내)" />
+          <Input
+            placeholder="프로젝트를 한 줄로 소개해주세요 (60자 이내)"
+            value={productLineDescription}
+            onChange={(e) => setProductLineDescription(e.target.value)}
+          />
         </div>
 
         {/* 분야 */}
@@ -116,7 +171,7 @@ export default function TeamEditProductNew() {
           <DynamicLinkList
             initialLinks={[]}
             onChange={(links) => {
-              // 링크 변경 처리
+              setLinkSync(links)
             }}
           />
         </div>
@@ -124,7 +179,11 @@ export default function TeamEditProductNew() {
         {/* 설명 */}
         <div className="flex w-full flex-col justify-between gap-3 ">
           <span className="flex gap-1 text-grey80">설명</span>
-          <Textarea placeholder="진행한 프로덕트에 대해 자세히 설명해 주세요" />
+          <Textarea
+            placeholder="진행한 프로덕트에 대해 자세히 설명해 주세요"
+            value={productDescription}
+            onChange={(e) => setProductDescription(e.target.value)}
+          />
         </div>
 
         {/* 이미지 */}
@@ -139,7 +198,7 @@ export default function TeamEditProductNew() {
         />
       </div>
       <div className="flex justify-end">
-        <Button mode="main" animationMode="main" className="rounded-xl font-semibold">
+        <Button mode="main" animationMode="main" className="rounded-xl font-semibold" onClick={handleSubmit}>
           저장하기
         </Button>
       </div>
