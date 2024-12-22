@@ -13,7 +13,7 @@ export default function TeamEditProductsPage({ params }: { params: { teamName: s
         </Button>
       </Link>
 
-      <TeamEditProduct />
+      <TeamEditProduct teamName={params.teamName} />
     </div>
   )
 }

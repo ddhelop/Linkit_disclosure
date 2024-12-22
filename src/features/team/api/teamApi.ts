@@ -1,5 +1,6 @@
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 import { TeamInfoResponse, TeamResponse, TeamLogsResponse } from '../types/team.types'
+import { TeamProduct } from '../edit/product/TeamEditProduct'
 
 interface CreateTeamRequest {
   teamName: string
@@ -309,5 +310,22 @@ export async function createTeamProduct(
     throw new Error('Failed to create team product')
   }
 
+  return response.json()
+}
+
+interface TeamProductResponse {
+  isSuccess: boolean
+  code: string
+  message: string
+  result: {
+    teamProductItems: TeamProduct[]
+  }
+}
+
+export async function getTeamProducts(teamName: string): Promise<TeamProductResponse> {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/product`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team products')
+  }
   return response.json()
 }
