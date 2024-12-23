@@ -267,9 +267,7 @@ export async function inviteTeamMember(
 interface TeamProductRequest {
   productName: string
   productLineDescription: string
-  projectSize: 'PERSONAL' | 'TEAM'
-  productHeadCount: number
-  productTeamComposition: string
+  productField: string
   productStartDate: string
   productEndDate: string | null
   isProductInProgress: boolean

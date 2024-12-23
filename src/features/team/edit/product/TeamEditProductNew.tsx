@@ -61,6 +61,7 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         setIsTeam(product.projectSize === 'TEAM')
         setHeadCount(String(product.productHeadCount))
         setTeamComposition(product.productTeamComposition)
+        setSelectedField(product.productField)
         setStartDate(product.productStartDate)
         setEndDate(product.productEndDate || '')
         setIsOngoing(product.isProductInProgress)
@@ -138,7 +139,7 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         productLineDescription,
         projectSize: (isTeam ? 'TEAM' : 'PERSONAL') as ProjectSize,
         productHeadCount: isTeam ? Number(headCount) : 1,
-        productTeamComposition: selectedField,
+        productTeamComposition: teamComposition,
         productStartDate: startDate,
         productEndDate: isOngoing ? null : endDate,
         isProductInProgress: isOngoing,
@@ -147,6 +148,7 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
           productLinkPath: link.url,
         })),
         productDescription,
+        productField: selectedField,
       }
 
       if (productId) {
@@ -180,7 +182,7 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
             </span>
           </div>
           <Input
-            placeholder="프로덕트명을 입력해주세요"
+            placeholder="프로젝트명을 입력해주세요"
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
           />
