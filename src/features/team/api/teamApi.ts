@@ -386,3 +386,27 @@ export async function updateTeamProduct(
 
   return response.json()
 }
+
+interface TeamHistoryRequest {
+  historyName: string
+  historyStartDate: string
+  historyEndDate: string | null
+  isHistoryInProgress: boolean
+  historyDescription: string
+}
+
+export async function createTeamHistory(teamName: string, data: TeamHistoryRequest) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/history`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to create team history')
+  }
+
+  return response.json()
+}

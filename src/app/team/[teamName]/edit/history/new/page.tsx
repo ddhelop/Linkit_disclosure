@@ -1,4 +1,4 @@
-import TeamEditHistoryNew from '@/features/team/edit/history/\bTeamEditHistoryNew'
+import TeamEditHistoryNew from '@/features/team/edit/history/TeamEditHistoryNew'
 import Image from 'next/image'
 import Link from 'next/link'
 
