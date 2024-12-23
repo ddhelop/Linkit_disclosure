@@ -1,34 +1,35 @@
 'use client'
 import Image from 'next/image'
 import { useState } from 'react'
-import { useSearchParams, usePathname } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { requestCertification } from '../../api/certificationApi'
 
 interface CertificationUploadFormProps {
   onClose: () => void
   onCertificationUpdate: (updatedData: { isActivityCertified: boolean; isActivityInProgress: boolean }) => void
+  pathname: string
 }
 
-export default function CertificationUploadForm({ onClose, onCertificationUpdate }: CertificationUploadFormProps) {
+export default function CertificationUploadForm({
+  onClose,
+  onCertificationUpdate,
+  pathname,
+}: CertificationUploadFormProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const searchParams = useSearchParams()
-  const pathname = usePathname()
   const activityId = searchParams.get('id')
 
-  const getApiEndpoint = (id: string) => {
-    if (pathname.includes('/profile/edit/education')) {
-      return `/api/v1/profile/education/certification/${id}`
-    }
-    if (pathname.includes('/profile/edit/history')) {
-      return `/api/v1/profile/activity/certification/${id}`
-    }
-    if (pathname.includes('/profile/edit/awards')) {
-      return `/api/v1/profile/award/certification/${id}`
-    }
-    if (pathname.includes('/profile/edit/license')) {
-      return `/api/v1/profile/license/certification/${id}`
+  const getApiEndpoint = (id: string): string => {
+    if (pathname.includes('/profile/edit/awards/new')) {
+      return 'Awards'
+    } else if (pathname.includes('/profile/edit/education/new')) {
+      return 'Education'
+    } else if (pathname.includes('/profile/edit/history/new')) {
+      return 'Activity'
+    } else if (pathname.includes('/profile/edit/license/new')) {
+      return 'License'
     }
     throw new Error('지원하지 않는 URL 경로입니다.')
   }
@@ -65,8 +66,8 @@ export default function CertificationUploadForm({ onClose, onCertificationUpdate
 
     setIsSubmitting(true)
     try {
-      const apiEndpoint = getApiEndpoint(activityId)
-      await requestCertification(activityId, selectedFile, apiEndpoint)
+      const endpointType = getApiEndpoint(activityId)
+      await requestCertification(activityId, selectedFile, endpointType)
       alert('인증 요청이 성공적으로 완료되었습니다.')
 
       onCertificationUpdate({

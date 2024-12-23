@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, usePathname } from 'next/navigation'
 import Modal from '../../../../../shared/ui/Modal/Modal'
 import CertificationUploadForm from './CertificationUploadForm'
 import Link from 'next/link'
@@ -9,7 +9,6 @@ import { deleteCertification } from '../../api/certificationApi'
 
 interface CertificationFormProps {
   isActivityCertified: boolean
-  isActivityInProgress: boolean
   isActivityVerified: boolean
   activityCertificationAttachFilePath: string | null
   onCertificationUpdate: (updatedData: Partial<CertificationFormProps>) => void
@@ -17,12 +16,13 @@ interface CertificationFormProps {
 
 export default function CertificationForm({
   isActivityCertified,
-  isActivityInProgress,
   isActivityVerified,
   activityCertificationAttachFilePath,
   onCertificationUpdate,
 }: CertificationFormProps) {
   const searchParams = useSearchParams()
+  const pathname = usePathname()
+
   const activityId = searchParams.get('id')
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -52,56 +52,56 @@ export default function CertificationForm({
   }
 
   const renderCertificationUI = () => {
-    if (isActivityCertified && isActivityVerified) {
-      return (
-        <div className="mt-3 flex flex-col items-center justify-center gap-2 rounded-xl border border-grey30 bg-[#EDF3FF] py-5">
-          <div className="flex items-center gap-2">
-            <Image src="/common/cert_badge.svg" width={20} height={20} alt="success" />
-            <span className="text-sm font-semibold text-grey70">인증 완료</span>
+    if (isActivityCertified) {
+      if (isActivityVerified) {
+        return (
+          <div className="mt-3 flex flex-col items-center justify-center gap-2 rounded-xl border border-grey30 bg-[#EDF3FF] py-5">
+            <div className="flex items-center gap-2">
+              <Image src="/common/cert_badge.svg" width={20} height={20} alt="success" />
+              <span className="text-sm font-semibold text-grey70">인증 완료</span>
+            </div>
+            <div className="flex gap-2 text-xs">
+              {activityCertificationAttachFilePath && (
+                <Link
+                  href={activityCertificationAttachFilePath}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cursor-pointer text-grey50 underline"
+                >
+                  인증서 보기
+                </Link>
+              )}
+              <span className="cursor-pointer text-red-500 underline" onClick={handleDelete}>
+                삭제하기
+              </span>
+            </div>
           </div>
-          <div className="flex gap-2 text-xs">
-            {activityCertificationAttachFilePath && (
-              <Link
-                href={activityCertificationAttachFilePath}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cursor-pointer text-grey50 underline"
-              >
-                인증서 보기
-              </Link>
-            )}
-            <span className="cursor-pointer text-red-500 underline" onClick={handleDelete}>
-              삭제하기
-            </span>
+        )
+      } else {
+        return (
+          <div className="mt-3 flex flex-col items-center justify-center gap-2 rounded-xl border border-grey30 bg-[#EDF3FF] py-5">
+            <div className="flex items-center gap-2">
+              <Image src="/common/icons/loading.svg" width={20} height={20} alt="pending" />
+              <span className="text-sm font-semibold text-grey70">인증 대기중</span>
+            </div>
+            <div className="flex gap-2 text-xs">
+              {activityCertificationAttachFilePath && (
+                <Link
+                  href={activityCertificationAttachFilePath}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cursor-pointer text-grey50 underline"
+                >
+                  인증서 보기
+                </Link>
+              )}
+              <span className="cursor-pointer text-red-500 underline" onClick={handleDelete}>
+                삭제하기
+              </span>
+            </div>
           </div>
-        </div>
-      )
-    }
-
-    if (!isActivityVerified && isActivityCertified) {
-      return (
-        <div className="mt-3 flex flex-col items-center justify-center gap-2 rounded-xl border border-grey30 bg-[#EDF3FF] py-5">
-          <div className="flex items-center gap-2">
-            <Image src="/common/icons/loading.svg" width={20} height={20} alt="in-progress" />
-            <span className="text-sm font-semibold text-grey70">인증 진행 중</span>
-          </div>
-          <div className="flex gap-2 text-xs">
-            {activityCertificationAttachFilePath && (
-              <Link
-                href={activityCertificationAttachFilePath}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cursor-pointer text-grey50 underline"
-              >
-                인증서 보기
-              </Link>
-            )}
-            <span className="cursor-pointer text-red-500 underline" onClick={handleDelete}>
-              삭제하기
-            </span>
-          </div>
-        </div>
-      )
+        )
+      }
     }
 
     return (
@@ -138,7 +138,8 @@ export default function CertificationForm({
       <Modal isOpen={isModalOpen} onClose={handleModalToggle}>
         <CertificationUploadForm
           onClose={handleModalToggle}
-          onCertificationUpdate={onCertificationUpdate} // 이 부분 추가
+          onCertificationUpdate={onCertificationUpdate}
+          pathname={pathname}
         />
       </Modal>
     </div>

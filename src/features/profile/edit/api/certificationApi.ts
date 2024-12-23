@@ -3,9 +3,9 @@ import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 // 인증 요청 API
 export const requestCertification = async (id: string, file: File, apiEndpoint: string) => {
   const formData = new FormData()
-  formData.append('profileEducationCertificationFile', file)
+  formData.append(`profile${apiEndpoint}CertificationFile`, file)
 
-  const response = await fetchWithAuth(`/api/v1/profile/education/certification/${id}`, {
+  const response = await fetchWithAuth(`/api/v1/profile/${apiEndpoint.toLowerCase()}/certification/${id}`, {
     method: 'POST',
     body: formData,
   })

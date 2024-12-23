@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { createAwards, getAwardById, updateAwards } from '../../api/awardsApi'
 import { useRouter, useSearchParams } from 'next/navigation'
 import DatePicker from '@/shared/ui/Select/DatePicker'
+import CertificationForm from './CertificationForm'
 
 export default function NewAwards() {
   const searchParams = useSearchParams()
@@ -18,6 +19,12 @@ export default function NewAwards() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
 
+  const [certificationData, setCertificationData] = useState({
+    isActivityCertified: false,
+    isActivityVerified: false,
+    activityCertificationAttachFilePath: null as string | null,
+  })
+
   useEffect(() => {
     const fetchAwardDetails = async () => {
       if (!awardId) return
@@ -29,6 +36,13 @@ export default function NewAwards() {
         setAwardDate(awardDetails.awardsDate)
         setHostOrganization(awardDetails.awardsOrganizer)
         setDescription(awardDetails.awardsDescription)
+
+        // 증명서 상태 설정
+        setCertificationData({
+          isActivityCertified: awardDetails.isAwardsCertified || false,
+          isActivityVerified: awardDetails.isAwardsVerified || false,
+          activityCertificationAttachFilePath: awardDetails.awardsCertificationAttachFilePath || null,
+        })
       } catch (error) {
         console.error('Failed to fetch award details:', error)
         alert('수상 이력을 불러오는데 실패했습니다.')
@@ -53,7 +67,9 @@ export default function NewAwards() {
       if (awardId) {
         await updateAwards(awardId, awardsData)
       } else {
-        await createAwards(awardsData)
+        const response = await createAwards(awardsData)
+        router.push(`/profile/edit/awards/new?id=${response.id}`)
+        return
       }
 
       alert('수상 이력이 성공적으로 저장되었습니다.')
@@ -64,6 +80,13 @@ export default function NewAwards() {
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  const handleCertificationUpdate = (updatedData: Partial<typeof certificationData>) => {
+    setCertificationData((prev) => ({
+      ...prev,
+      ...updatedData,
+    }))
   }
 
   return (
@@ -143,6 +166,15 @@ export default function NewAwards() {
           {isSubmitting ? '저장 중...' : '저장하기'}
         </Button>
       </div>
+
+      {awardId && (
+        <CertificationForm
+          isActivityCertified={certificationData.isActivityCertified}
+          isActivityVerified={certificationData.isActivityVerified}
+          activityCertificationAttachFilePath={certificationData.activityCertificationAttachFilePath}
+          onCertificationUpdate={handleCertificationUpdate}
+        />
+      )}
     </>
   )
 }
