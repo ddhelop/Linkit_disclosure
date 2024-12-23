@@ -16,6 +16,15 @@ import { createTeamProduct, updateTeamProduct, getTeamProduct } from '../../api/
 
 type ProjectSize = 'TEAM' | 'PERSONAL'
 
+interface TeamProductLink {
+  productLinkName: string
+  productLinkPath: string
+}
+
+interface SubImage {
+  productSubImagePath: string
+}
+
 export default function TeamEditProductNew({ teamName }: { teamName: string }) {
   const searchParams = useSearchParams()
   const productId = searchParams.get('id')
@@ -36,6 +45,8 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
   const [teamComposition, setTeamComposition] = useState('')
   const [productDescription, setProductDescription] = useState('')
   const [linkSync, setLinkSync] = useState<{ title: string; url: string }[]>([])
+  const [mainImageUrl, setMainImageUrl] = useState<string | null>(null)
+  const [subImageUrls, setSubImageUrls] = useState<string[]>([])
 
   useEffect(() => {
     const loadProductData = async () => {
@@ -54,13 +65,22 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         setEndDate(product.productEndDate || '')
         setIsOngoing(product.isProductInProgress)
         setProductDescription(product.productDescription)
-        setLinkSync(
-          product.teamProductLinks.map((link: { productLinkName: string; productLinkPath: string }) => ({
-            title: link.productLinkName,
-            url: link.productLinkPath,
-          })),
-        )
-        // 이미지 처리는 별도로 해야 할 수 있습니다
+        if (product.teamProductLinks?.length > 0) {
+          setLinkSync(
+            product.teamProductLinks.map((link: TeamProductLink) => ({
+              title: link.productLinkName,
+              url: link.productLinkPath,
+            })),
+          )
+        }
+        if (product.teamProductImages) {
+          if (product.teamProductImages.productRepresentImagePath) {
+            setMainImageUrl(product.teamProductImages.productRepresentImagePath)
+          }
+          if (product.teamProductImages.productSubImages?.length > 0) {
+            setSubImageUrls(product.teamProductImages.productSubImages.map((img: SubImage) => img.productSubImagePath))
+          }
+        }
       } catch (error) {
         console.error('Failed to load product:', error)
         alert('프로덕트 정보를 불러오는데 실패했습니다.')
@@ -173,7 +193,7 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
           </span>
 
           <Input
-            placeholder="프로젝트를 한 줄로 소개해주세요 (60자 이내)"
+            placeholder="프로젝트를 한 줄 소개해주세요 (60자 이내)"
             value={productLineDescription}
             onChange={(e) => setProductLineDescription(e.target.value)}
           />
@@ -229,12 +249,19 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         {/* 이미지 */}
         <ImageUploader
           mainImage={mainImage}
+          mainImageUrl={mainImageUrl}
           subImages={subImages}
+          subImageUrls={subImageUrls}
           onMainImageUpload={handleMainImageUpload}
-          onMainImageDelete={() => setMainImage(null)}
+          onMainImageDelete={() => {
+            setMainImage(null)
+            setMainImageUrl(null)
+          }}
           onSubImageUpload={handleSubImageUpload}
           onSubImageDelete={(id) => setSubImages((prev) => prev.filter((img) => img.id !== id))}
-          onSubImageUrlDelete={() => {}}
+          onSubImageUrlDelete={(index) => {
+            setSubImageUrls((prev) => prev.filter((_, i) => i !== index))
+          }}
         />
       </div>
       <div className="flex justify-end">
