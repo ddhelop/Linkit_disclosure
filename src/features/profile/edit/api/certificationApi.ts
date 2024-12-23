@@ -1,22 +1,20 @@
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 
 // 인증 요청 API
-export const requestCertification = async (activityId: string, selectedFile: File) => {
+export const requestCertification = async (id: string, file: File, apiEndpoint: string) => {
   const formData = new FormData()
-  formData.append('profileActivityCertificationFile', selectedFile)
+  formData.append('profileEducationCertificationFile', file)
 
-  const url = `/api/v1/profile/activity/certification/${activityId}`
-  const response = await fetchWithAuth(url, {
+  const response = await fetchWithAuth(`/api/v1/profile/education/certification/${id}`, {
     method: 'POST',
-    body: formData, // FormData 추가
-    credentials: 'include', // 쿠키 포함
+    body: formData,
   })
 
   if (!response.ok) {
-    throw new Error('Failed to request certification')
+    throw new Error('Failed to upload certification')
   }
 
-  return response.json()
+  return await response.json()
 }
 
 // 인증 삭제

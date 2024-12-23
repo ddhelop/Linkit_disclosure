@@ -53,7 +53,7 @@ export const createEducation = async (educationData: EducationRequest) => {
 export const updateEducation = async (id: string, educationData: EducationRequest) => {
   try {
     const response = await fetchWithAuth(`/api/v1/profile/education/${id}`, {
-      method: 'PUT',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },

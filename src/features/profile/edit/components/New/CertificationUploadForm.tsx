@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, usePathname } from 'next/navigation'
 import { requestCertification } from '../../api/certificationApi'
 
 interface CertificationUploadFormProps {
@@ -12,16 +12,33 @@ interface CertificationUploadFormProps {
 export default function CertificationUploadForm({ onClose, onCertificationUpdate }: CertificationUploadFormProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const [isSubmitting, setIsSubmitting] = useState(false) // 요청 상태 관리
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const searchParams = useSearchParams()
-  const activityId = searchParams.get('id') // URL에서 id 가져오기
+  const pathname = usePathname()
+  const activityId = searchParams.get('id')
+
+  const getApiEndpoint = (id: string) => {
+    if (pathname.includes('/profile/edit/education')) {
+      return `/api/v1/profile/education/certification/${id}`
+    }
+    if (pathname.includes('/profile/edit/history')) {
+      return `/api/v1/profile/activity/certification/${id}`
+    }
+    if (pathname.includes('/profile/edit/awards')) {
+      return `/api/v1/profile/award/certification/${id}`
+    }
+    if (pathname.includes('/profile/edit/license')) {
+      return `/api/v1/profile/license/certification/${id}`
+    }
+    throw new Error('지원하지 않는 URL 경로입니다.')
+  }
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
 
     if (file) {
-      const fileSizeInMB = file.size / (1024 * 1024) // 파일 크기 MB 단위 변환
-      const validFormats = ['application/pdf', 'image/jpeg', 'image/png'] // 허용된 파일 포맷
+      const fileSizeInMB = file.size / (1024 * 1024)
+      const validFormats = ['application/pdf', 'image/jpeg', 'image/png']
 
       if (fileSizeInMB > 10) {
         setErrorMessage('파일 크기가 10MB를 초과합니다.')
@@ -35,8 +52,8 @@ export default function CertificationUploadForm({ onClose, onCertificationUpdate
         return
       }
 
-      setErrorMessage(null) // 에러 초기화
-      setSelectedFile(file) // 파일 설정
+      setErrorMessage(null)
+      setSelectedFile(file)
     }
   }
 
@@ -46,12 +63,12 @@ export default function CertificationUploadForm({ onClose, onCertificationUpdate
       return
     }
 
-    setIsSubmitting(true) // 요청 시작 상태
+    setIsSubmitting(true)
     try {
-      await requestCertification(activityId, selectedFile)
+      const apiEndpoint = getApiEndpoint(activityId)
+      await requestCertification(activityId, selectedFile, apiEndpoint)
       alert('인증 요청이 성공적으로 완료되었습니다.')
 
-      // 부모 상태 업데이트
       onCertificationUpdate({
         isActivityCertified: true,
         isActivityInProgress: true,
@@ -60,9 +77,13 @@ export default function CertificationUploadForm({ onClose, onCertificationUpdate
       onClose()
     } catch (error) {
       console.error('요청 중 에러 발생:', error)
-      alert('인증 요청 중 오류가 발생했습니다. 다시 시도해주세요.')
+      if (error instanceof Error && error.message === '지원하지 않는 URL 경로입니다.') {
+        alert('잘못된 접근입니다.')
+      } else {
+        alert('인증 요청 중 오류가 발생했습니다. 다시 시도해주세요.')
+      }
     } finally {
-      setIsSubmitting(false) // 요청 완료 상태
+      setIsSubmitting(false)
     }
   }
 
@@ -97,7 +118,7 @@ export default function CertificationUploadForm({ onClose, onCertificationUpdate
         </button>
         <button
           onClick={handleSubmit}
-          disabled={!selectedFile || isSubmitting} // 파일이 없거나 요청 중일 때 비활성화
+          disabled={!selectedFile || isSubmitting}
           className={`w-[49%] rounded-lg px-4 py-[0.88rem] text-white ${
             !selectedFile || isSubmitting ? 'cursor-not-allowed bg-gray-300' : 'bg-blue-500 hover:bg-blue-600'
           }`}

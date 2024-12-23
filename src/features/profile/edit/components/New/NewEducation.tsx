@@ -8,6 +8,7 @@ import { UniversityInput } from '../UniversityInput/UniversityInput'
 import { createEducation, getEducationById, updateEducation } from '../../api/educationApi'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
+import CertificationForm from './CertificationForm'
 
 export default function NewEducation() {
   const [selectedUniversity, setSelectedUniversity] = useState('')
@@ -18,6 +19,13 @@ export default function NewEducation() {
   const [description, setDescription] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [originalData, setOriginalData] = useState<any>(null)
+
+  const [certificationData, setCertificationData] = useState({
+    isActivityCertified: false,
+    isActivityInProgress: false,
+    isActivityVerified: false,
+    activityCertificationAttachFilePath: null as string | null,
+  })
 
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -40,6 +48,13 @@ export default function NewEducation() {
         setDescription(data.educationDescription || '')
 
         setOriginalData(data)
+
+        setCertificationData({
+          isActivityCertified: data.isActivityCertified || false,
+          isActivityInProgress: data.isActivityInProgress || false,
+          isActivityVerified: data.isActivityVerified || false,
+          activityCertificationAttachFilePath: data.activityCertificationAttachFilePath || null,
+        })
       } catch (error) {
         console.error('Failed to fetch education:', error)
         alert('데이터를 불러오는데 실패했습니다.')
@@ -88,18 +103,25 @@ export default function NewEducation() {
 
       if (educationId) {
         await updateEducation(educationId, educationData)
+        alert('교육정보가 성공적으로 수정되었습니다.')
       } else {
-        await createEducation(educationData)
+        const reponse = await createEducation(educationData)
+        alert('교육정보가 성공적으로 저장되었습니다.')
+        router.push(`/profile/edit/education/new?id=${reponse.result.profileEducationId}`)
       }
-
-      alert('교육정보가 성공적으로 저장되었습니다.')
-      router.back()
     } catch (error) {
       console.error('Failed to save education:', error)
       alert('저장 중 오류가 발생했습니다.')
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  const handleCertificationUpdate = (updatedData: Partial<typeof certificationData>) => {
+    setCertificationData((prev) => ({
+      ...prev,
+      ...updatedData,
+    }))
   }
 
   return (
@@ -169,6 +191,10 @@ export default function NewEducation() {
             '저장하기'
           )}
         </Button>
+      </div>
+
+      <div className="mt-5">
+        {educationId && <CertificationForm {...certificationData} onCertificationUpdate={handleCertificationUpdate} />}
       </div>
     </>
   )
