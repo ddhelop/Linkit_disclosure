@@ -35,6 +35,12 @@ export default function ProfileViewLinks() {
       <h1 className="font-semibold">링크</h1>
 
       <div className="flex flex-col gap-2">
+        {/* 데이터가 없을 시 */}
+        {profileData?.profileLinkItems.length === 0 && (
+          <div className="flex w-full items-center text-sm text-grey60">
+            수정 버튼을 눌러 내용을 작성하면 매칭 가능성이 높아져요
+          </div>
+        )}
         {profileData?.profileLinkItems.map((link) => {
           const iconPath = getSocialIcon(link.linkPath)
           return (
