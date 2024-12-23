@@ -410,3 +410,31 @@ export async function createTeamHistory(teamName: string, data: TeamHistoryReque
 
   return response.json()
 }
+
+export interface TeamAnnouncement {
+  teamMemberAnnouncementId: number
+  announcementTitle: string
+  majorPosition: string
+  announcementSkillNames: {
+    announcementSkillName: string
+  }[]
+  isAnnouncementPublic: boolean
+  isAnnouncementInProgress: boolean
+}
+
+interface TeamAnnouncementResponse {
+  isSuccess: boolean
+  code: string
+  message: string
+  result: {
+    teamMemberAnnouncementItems: TeamAnnouncement[]
+  }
+}
+
+export async function getTeamAnnouncements(teamName: string): Promise<TeamAnnouncementResponse> {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team announcements')
+  }
+  return response.json()
+}
