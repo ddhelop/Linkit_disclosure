@@ -438,3 +438,35 @@ export async function getTeamAnnouncements(teamName: string): Promise<TeamAnnoun
   }
   return response.json()
 }
+
+interface TeamMember {
+  profileImagePath: string
+  memberName: string
+  majorPosition: string
+  teamMemberType: 'TEAM_MANAGER' | 'TEAM_VIEWER'
+  teamMemberInviteState: 'ACCEPTED' | 'PENDING'
+}
+
+interface PendingTeamMember {
+  teamMemberInvitationEmail: string
+  teamMemberType: 'TEAM_MANAGER' | 'TEAM_VIEWER'
+  teamMemberInviteState: 'PENDING'
+}
+
+interface TeamMembersResponse {
+  isSuccess: boolean
+  code: string
+  message: string
+  result: {
+    acceptedTeamMemberItems: TeamMember[]
+    pendingTeamMemberItems: PendingTeamMember[]
+  }
+}
+
+export async function getTeamMembers(teamName: string): Promise<TeamMembersResponse> {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/members/invitation`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team members')
+  }
+  return response.json()
+}
