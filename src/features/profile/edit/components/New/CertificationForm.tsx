@@ -52,7 +52,7 @@ export default function CertificationForm({
   }
 
   const renderCertificationUI = () => {
-    if (isActivityCertified && isActivityInProgress && isActivityVerified) {
+    if (isActivityCertified && isActivityVerified) {
       return (
         <div className="mt-3 flex flex-col items-center justify-center gap-2 rounded-xl border border-grey30 bg-[#EDF3FF] py-5">
           <div className="flex items-center gap-2">
@@ -78,7 +78,7 @@ export default function CertificationForm({
       )
     }
 
-    if (isActivityInProgress && isActivityCertified) {
+    if (!isActivityVerified && isActivityCertified) {
       return (
         <div className="mt-3 flex flex-col items-center justify-center gap-2 rounded-xl border border-grey30 bg-[#EDF3FF] py-5">
           <div className="flex items-center gap-2">

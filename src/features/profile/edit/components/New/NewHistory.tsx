@@ -60,6 +60,14 @@ export default function NewHistory() {
           setEndDate(activityData.endDate)
           setIsOngoing(activityData.isOngoing)
           setOriginalData(activityData)
+
+          // 인증 관련 데이터도 설정
+          setCertificationData({
+            isActivityCertified: activity.isActivityCertified,
+            isActivityInProgress: activity.isActivityInProgress,
+            isActivityVerified: activity.isActivityVerified,
+            activityCertificationAttachFilePath: activity.activityCertificationAttachFilePath,
+          })
         } catch (error) {
           console.error('Failed to load activity:', error)
         }
@@ -91,13 +99,14 @@ export default function NewHistory() {
       }
 
       if (activityId) {
-        await updateActivity(activityId, activityData)
+        const result = await updateActivity(activityId, activityData)
+        alert('활동 이력이 성공적으로 저장되었습니다.')
+        router.push(`/profile/edit/history/new?id=${result.result.profileActivityId}`)
       } else {
-        await saveActivity(activityData)
+        const result = await saveActivity(activityData)
+        alert('활동 이력이 성공적으로 저장되었습니다.')
+        router.push(`/profile/edit/history/new?id=${result.result.profileActivityId}`)
       }
-
-      alert('활동 이력이 성공적으로 저장되었습니다.')
-      router.back()
     } catch (error) {
       console.error('저장 중 에러 발생:', error)
       alert('활동 이력 저장 중 오류가 발생했습니다.')
@@ -207,9 +216,7 @@ export default function NewHistory() {
       </div>
 
       {/* CertificationForm은 상태에 따라 렌더링 */}
-      {certificationData.isActivityInProgress && (
-        <CertificationForm {...certificationData} onCertificationUpdate={handleCertificationUpdate} />
-      )}
+      {activityId && <CertificationForm {...certificationData} onCertificationUpdate={handleCertificationUpdate} />}
     </>
   )
 }
