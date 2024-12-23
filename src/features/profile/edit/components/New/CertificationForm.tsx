@@ -7,7 +7,7 @@ import CertificationUploadForm from './CertificationUploadForm'
 import Link from 'next/link'
 import { deleteCertification } from '../../api/certificationApi'
 
-interface CertificationFormProps {
+export interface CertificationFormProps {
   isActivityCertified: boolean
   isActivityVerified: boolean
   activityCertificationAttachFilePath: string | null

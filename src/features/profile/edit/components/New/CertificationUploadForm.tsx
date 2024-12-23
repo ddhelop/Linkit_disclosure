@@ -28,7 +28,7 @@ export default function CertificationUploadForm({
       return 'Education'
     } else if (pathname.includes('/profile/edit/history/new')) {
       return 'Activity'
-    } else if (pathname.includes('/profile/edit/license/new')) {
+    } else if (pathname.includes('/profile/edit/certifications/new')) {
       return 'License'
     }
     throw new Error('지원하지 않는 URL 경로입니다.')

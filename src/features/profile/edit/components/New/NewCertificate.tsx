@@ -8,6 +8,13 @@ import { Spinner } from '@/shared/ui/Spinner/Spinner'
 import { getLicense, License } from '@/features/profile/api/getLicense'
 import { createLicense, updateLicense } from '@/features/profile/api/licenseApi'
 import DatePicker from '@/shared/ui/Select/DatePicker'
+import CertificationForm, { CertificationFormProps } from './CertificationForm'
+
+type CertificationDataType = {
+  isActivityCertified: boolean
+  isActivityVerified: boolean
+  activityCertificationAttachFilePath: string | null
+}
 
 export default function NewCertificate() {
   const searchParams = useSearchParams()
@@ -21,6 +28,12 @@ export default function NewCertificate() {
     licenseInstitution: '',
     licenseAcquisitionDate: '',
     licenseDescription: '',
+  })
+
+  const [certificationData, setCertificationData] = useState<CertificationDataType>({
+    isActivityCertified: false,
+    isActivityVerified: false,
+    activityCertificationAttachFilePath: null,
   })
 
   const [originalData, setOriginalData] = useState<License | null>(null)
@@ -39,6 +52,11 @@ export default function NewCertificate() {
           licenseDescription: data.licenseDescription || '',
         }
         setFormData(initialFormData)
+        setCertificationData({
+          isActivityCertified: data.isLicenseCertified || false,
+          isActivityVerified: data.isLicenseVerified || false,
+          activityCertificationAttachFilePath: data.licenseCertificationAttachFilePath || null,
+        })
         setOriginalData(data)
       } catch (error) {
         console.error('Failed to fetch license:', error)
@@ -73,17 +91,28 @@ export default function NewCertificate() {
       }))
     }
 
+  const handleCertificationUpdate = (updatedData: Partial<CertificationDataType>) => {
+    setCertificationData((prev) => ({
+      ...prev,
+      ...updatedData,
+    }))
+  }
+
   const handleSave = async () => {
     setIsSubmitting(true)
     try {
+      const saveData = {
+        ...formData,
+        ...certificationData,
+      }
+
       if (id) {
-        await updateLicense(id, formData)
+        await updateLicense(id, saveData)
         alert('자격증이 수정되었습니다.')
       } else {
-        await createLicense(formData)
+        await createLicense(saveData)
         alert('자격증이 등록되었습니다.')
       }
-      // 성공 후 리다이렉트 또는 다른 처리
       window.history.back()
     } catch (error) {
       console.error('Failed to save certificate:', error)
@@ -111,7 +140,7 @@ export default function NewCertificate() {
             </span>
           </div>
           <Input
-            placeholder="자격증 이름과 급수(점수)를 자유롭게 기재해 주세요"
+            placeholder="자격증 이름과 급수(점��)를 자유롭게 기재해 주세요"
             value={formData.licenseName}
             onChange={handleChange('licenseName')}
           />
@@ -169,6 +198,16 @@ export default function NewCertificate() {
             '저장하기'
           )}
         </Button>
+      </div>
+
+      {/* 인증서 폼 - 버튼 아래에 배치 */}
+      <div className="mt-5">
+        <CertificationForm
+          isActivityCertified={certificationData.isActivityCertified}
+          isActivityVerified={certificationData.isActivityVerified}
+          activityCertificationAttachFilePath={certificationData.activityCertificationAttachFilePath}
+          onCertificationUpdate={handleCertificationUpdate}
+        />
       </div>
     </>
   )
