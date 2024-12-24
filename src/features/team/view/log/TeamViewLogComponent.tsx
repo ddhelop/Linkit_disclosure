@@ -10,7 +10,7 @@ export default function TeamViewLogComponent({ log, teamName }: { log: TeamLogIt
       className="flex w-full cursor-pointer flex-col gap-5 rounded-xl bg-white p-5 transition-all hover:shadow-md"
     >
       <div className="flex items-center gap-2">
-        <Image src="/common/icons/pin.svg" width={20} height={20} alt="pin" />
+        {log.logType === 'REPRESENTATIVE_LOG' && <Image src="/common/icons/pin.svg" width={20} height={20} alt="pin" />}
         <h1 className="font-semibold text-grey80">{log.logTitle}</h1>
         <span className="text-xs font-normal text-grey60">|</span>
         <span className="text-xs font-normal text-grey60">{new Date(log.modifiedAt).toLocaleDateString()}</span>
