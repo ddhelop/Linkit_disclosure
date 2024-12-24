@@ -7,6 +7,7 @@ import { TeamLogItem } from '../../types/team.types'
 import { deleteTeamLog, setTeamLogAsRepresentative, toggleTeamLogVisibility } from '../../api/teamApi'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
+import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
 
 interface TeamLogComponentProps {
   log: TeamLogItem & {
@@ -24,20 +25,6 @@ export default function TeamLogComponent({ log, onDelete }: TeamLogComponentProp
   const buttonRef = useRef<HTMLDivElement>(null)
   const params = useParams()
   const teamName = params.teamName as string
-
-  const stripHtmlAndImages = (html: string) => {
-    // 임시 div 엘리먼트 생성
-    const doc = new DOMParser().parseFromString(html, 'text/html')
-
-    // 이미지 태그 제거
-    doc.querySelectorAll('img').forEach((img) => img.remove())
-
-    // HTML을 텍스트로 변환
-    const textContent = doc.body.textContent || doc.body.innerText || ''
-
-    // 연속된 공백 제거 및 트림
-    return textContent.replace(/\s+/g, ' ').trim()
-  }
 
   useOnClickOutside({
     refs: [menuRef, buttonRef],
