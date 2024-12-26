@@ -35,10 +35,12 @@ export default function TeamViewLog({ params }: { params: { teamName: string } }
         <TeamViewNotView />
       ) : (
         <>
-          {logs.result.teamLogItems.map((log) => (
-            <TeamViewLogComponent key={log.teamLogId} log={log} teamName={params.teamName} />
-          ))}
-          <div className="flex justify-center">
+          <div className="mt-10 flex flex-col gap-6">
+            {logs.result.teamLogItems.map((log) => (
+              <TeamViewLogComponent key={log.teamLogId} log={log} teamName={params.teamName} />
+            ))}
+          </div>
+          <div className="mt-10 flex justify-center">
             <Link href={`/team/${params.teamName}/log/list`}>
               <Button
                 mode="custom"
