@@ -43,11 +43,32 @@ const DateRange: React.FC<DateRangeProps> = ({ startDate, endDate, onStartDateCh
     return yearNum >= 1900 && yearNum <= currentYear
   }
 
+  const parseYearMonth = (date: string) => {
+    const [year, month] = date.split('.')
+    return new Date(parseInt(year), parseInt(month) - 1)
+  }
+
+  const validateDates = (start: string, end: string) => {
+    if (!start || !end) return true
+    if (!validateDate(start) || !validateDate(end)) return false
+
+    const [startYear, startMonth] = start.split('.').map(Number)
+    const [endYear, endMonth] = end.split('.').map(Number)
+
+    // 연도가 다르면 연도만 비교
+    if (startYear !== endYear) {
+      return startYear < endYear
+    }
+
+    // 연도가 같으면 월 비교
+    return startMonth <= endMonth
+  }
+
   const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formatted = formatDateInput(e.target.value)
     setLocalStartDate(formatted)
 
-    const isValid = validateDate(formatted)
+    const isValid = validateDate(formatted) && validateDates(formatted, localEndDate)
     setIsStartDateValid(isValid)
 
     if (isValid && formatted.length === 7) {
@@ -59,7 +80,7 @@ const DateRange: React.FC<DateRangeProps> = ({ startDate, endDate, onStartDateCh
     const formatted = formatDateInput(e.target.value)
     setLocalEndDate(formatted)
 
-    const isValid = validateDate(formatted)
+    const isValid = validateDate(formatted) && validateDates(localStartDate, formatted)
     setIsEndDateValid(isValid)
 
     if (isValid && formatted.length === 7) {
