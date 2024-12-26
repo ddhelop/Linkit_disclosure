@@ -5,6 +5,9 @@ import TeamViewNotView from '../common/TeamViewNotView'
 import TeamViewLogComponent from './TeamViewLogComponent'
 import { getTeamLogs } from '../../api/teamApi'
 import { TeamLogsResponse } from '../../types/team.types'
+import Link from 'next/link'
+import { Button } from '@/shared/ui/Button/Button'
+import Image from 'next/image'
 
 export default function TeamViewLog({ params }: { params: { teamName: string } }) {
   const [logs, setLogs] = useState<TeamLogsResponse>({
@@ -23,7 +26,7 @@ export default function TeamViewLog({ params }: { params: { teamName: string } }
       console.log(response)
     }
     fetchData()
-  }, [])
+  }, [params.teamName])
 
   return (
     // 데이터가 없을 때
@@ -31,7 +34,24 @@ export default function TeamViewLog({ params }: { params: { teamName: string } }
       {logs.result.teamLogItems.length === 0 ? (
         <TeamViewNotView />
       ) : (
-        logs.result.teamLogItems.map((log) => <TeamViewLogComponent log={log} teamName={params.teamName} />)
+        <>
+          {logs.result.teamLogItems.map((log) => (
+            <TeamViewLogComponent key={log.teamLogId} log={log} teamName={params.teamName} />
+          ))}
+          <div className="flex justify-center">
+            <Link href={`/team/${params.teamName}/log/list`}>
+              <Button
+                mode="custom"
+                animationMode="grey"
+                size="custom"
+                className="flex items-center gap-2 rounded-full border border-grey30 bg-white px-6 py-2 text-sm text-grey80"
+              >
+                <span>팀이름의 로그 더보기</span>
+                <Image src={'/common/icons/arrow-right(greyblack).svg'} alt="arrow-right" width={22} height={22} />
+              </Button>
+            </Link>
+          </div>
+        </>
       )}
     </div>
   )
