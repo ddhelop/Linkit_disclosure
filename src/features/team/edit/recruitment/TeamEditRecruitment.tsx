@@ -14,8 +14,10 @@ import Textarea from '@/shared/ui/TextArea/TextArea'
 import { Button } from '@/shared/ui/Button/Button'
 import Image from 'next/image'
 import { createRecruitment } from '../../api/teamApi'
+import { useRouter } from 'next/navigation'
 
 export default function TeamEditRecruitment({ params }: { params: { teamName: string } }) {
+  const router = useRouter()
   const {
     selectedCategory,
     selectedSubCategory,
@@ -73,7 +75,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
 
       await createRecruitment(recruitmentData, params.teamName)
       alert('채용 공고가 성공적으로 등록되었습니다.')
-      // 성공 후 리다이렉트 또는 초기화 로직
+      router.push(`/team/${params.teamName}/edit/recruit`)
     } catch (error) {
       console.error('Failed to create recruitment:', error)
       alert('채용 공고 등록에 실패했습니다.')
