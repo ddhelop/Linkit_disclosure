@@ -468,3 +468,9 @@ export async function getTeamMembers(teamName: string): Promise<TeamMembersRespo
   }
   return response.json()
 }
+
+export async function deleteTeamAnnouncement(teamName: string, announcementId: number) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement/${announcementId}`, {
+    method: 'DELETE',
+  })
+}

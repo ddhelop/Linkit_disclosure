@@ -62,6 +62,11 @@ export default function TeamEditRecruitList({ params }: { params: { teamName: st
             key={announcement.teamMemberAnnouncementId}
             announcement={announcement}
             teamName={params.teamName}
+            onDelete={() => {
+              setAnnouncements((prev) =>
+                prev.filter((a) => a.teamMemberAnnouncementId !== announcement.teamMemberAnnouncementId),
+              )
+            }}
           />
         ))}
       </div>

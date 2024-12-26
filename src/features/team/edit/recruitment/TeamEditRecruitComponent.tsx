@@ -3,14 +3,16 @@
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
-import { TeamAnnouncement } from '../../api/teamApi'
+import { deleteTeamAnnouncement, TeamAnnouncement } from '../../api/teamApi'
+import { toast } from 'react-toastify'
 
 interface TeamEditRecruitComponentProps {
   announcement: TeamAnnouncement
   teamName: string
+  onDelete?: () => void
 }
 
-export default function TeamEditRecruitComponent({ announcement, teamName }: TeamEditRecruitComponentProps) {
+export default function TeamEditRecruitComponent({ announcement, teamName, onDelete }: TeamEditRecruitComponentProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLDivElement>(null)
@@ -19,6 +21,18 @@ export default function TeamEditRecruitComponent({ announcement, teamName }: Tea
     refs: [menuRef, buttonRef],
     handler: () => setIsMenuOpen(false),
   })
+
+  const handleDeleteAnnouncement = async () => {
+    try {
+      if (confirm('정말로 삭제하시겠습니까?')) {
+        await deleteTeamAnnouncement(teamName, announcement.teamMemberAnnouncementId)
+        onDelete?.()
+        alert('삭제되었습니다.')
+      }
+    } catch (error) {
+      console.error('Failed to delete team announcement', error)
+    }
+  }
 
   return (
     <div className="flex w-full flex-col rounded-xl bg-white px-10 py-5">
@@ -36,7 +50,12 @@ export default function TeamEditRecruitComponent({ announcement, teamName }: Tea
               <button className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100">
                 {announcement.isAnnouncementPublic ? '비공개로 전환' : '공개로 전환'}
               </button>
-              <button className="w-full px-4 py-2 text-left text-sm text-red-500 hover:bg-gray-100">삭제하기</button>
+              <button
+                className="w-full px-4 py-2 text-left text-sm text-red-500 hover:bg-gray-100"
+                onClick={handleDeleteAnnouncement}
+              >
+                삭제하기
+              </button>
             </div>
           )}
         </div>
