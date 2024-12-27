@@ -488,3 +488,58 @@ export async function toggleTeamAnnouncementPublic(teamName: string, announcemen
 
   return response.json()
 }
+
+export interface TeamAnnouncementDetail {
+  isSuccess: boolean
+  code: string
+  message: string
+  result: {
+    teamMemberAnnouncementId: number
+    announcementTitle: string
+    announcementPositionItem: {
+      majorPosition: string
+      subPosition: string
+    }
+    announcementSkillNames: {
+      announcementSkillName: string
+    }[]
+    announcementStartDate: string
+    announcementEndDate: string
+    isRegionFlexible: boolean
+    mainTasks: string
+    workMethod: string
+    idealCandidate: string
+    preferredQualifications?: string
+    joiningProcess?: string
+    benefits?: string
+  }
+}
+
+export async function getTeamAnnouncement(teamName: string, id: number): Promise<TeamAnnouncementDetail> {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement/${id}`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team announcement')
+  }
+  return response.json()
+}
+
+// 팀원 공고 수정
+export async function updateTeamAnnouncement(
+  teamName: string,
+  id: number,
+  data: CreateRecruitmentRequest, // 기존 CreateRecruitmentRequest 인터페이스 재사용
+) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to update team announcement')
+  }
+
+  return response.json()
+}

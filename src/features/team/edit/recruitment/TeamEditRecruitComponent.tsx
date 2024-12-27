@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import { deleteTeamAnnouncement, TeamAnnouncement, toggleTeamAnnouncementPublic } from '../../api/teamApi'
 import { toast } from 'react-toastify'
+import Link from 'next/link'
 
 interface TeamEditRecruitComponentProps {
   announcement: TeamAnnouncement
@@ -30,7 +31,7 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
   // 팀원 공고 삭제
   const handleDeleteAnnouncement = async () => {
     try {
-      if (confirm('정말로 삭제하시겠습니까?')) {
+      if (confirm('정말로 ��제하시겠습니까?')) {
         await deleteTeamAnnouncement(teamName, announcement.teamMemberAnnouncementId)
         onDelete?.()
         alert('삭제되었습니다.')
@@ -60,18 +61,33 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
   }
 
   return (
-    <div className="flex w-full flex-col rounded-xl bg-white px-10 py-5">
+    <Link
+      href={`/team/${teamName}/edit/recruit/new?id=${announcement.teamMemberAnnouncementId}`}
+      className="flex w-full flex-col rounded-xl bg-white px-10 py-5 hover:shadow-md"
+    >
       <div className="flex items-center justify-between">
         <div className="flex rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">
           {announcement.isAnnouncementInProgress ? '모집중' : '모집완료'}
         </div>
         <div className="relative">
-          <div ref={buttonRef} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <div
+            ref={buttonRef}
+            onClick={(e) => {
+              e.preventDefault() // Link 이동 방지
+              e.stopPropagation() // 이벤트 버블링 방지
+              setIsMenuOpen(!isMenuOpen)
+            }}
+          >
             <Image src="/common/icons/more_row.svg" alt="edit" width={20} height={20} className="cursor-pointer" />
           </div>
           {isMenuOpen && (
             <div ref={menuRef} className="absolute left-0 mt-2 w-32 rounded-lg bg-white py-2 shadow-lg">
-              <button className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100">수정하기</button>
+              <Link
+                href={`/team/${teamName}/edit/recruit/new?id=${announcement.teamMemberAnnouncementId}`}
+                className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
+              >
+                수정하기
+              </Link>
               <button
                 onClick={handleToggleAnnouncementPublic}
                 className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
@@ -100,6 +116,6 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
           </div>
         ))}
       </div>
-    </div>
+    </Link>
   )
 }

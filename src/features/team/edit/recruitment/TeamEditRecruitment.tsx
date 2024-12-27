@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 import { usePositionSelect } from '@/shared/hooks/usePositionSelect'
 import Input from '@/shared/ui/Input/Input'
@@ -13,11 +14,23 @@ import DateRange from '@/shared/ui/Input/DateRange'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import { Button } from '@/shared/ui/Button/Button'
 import Image from 'next/image'
-import { createRecruitment } from '../../api/teamApi'
+import {
+  createRecruitment,
+  getTeamAnnouncement,
+  TeamAnnouncementDetail,
+  updateTeamAnnouncement,
+} from '../../api/teamApi'
 import { useRouter } from 'next/navigation'
 
 export default function TeamEditRecruitment({ params }: { params: { teamName: string } }) {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const id = searchParams.get('id')
+
+  // 원본 데이터 저장용 state
+  const [originalData, setOriginalData] = useState<TeamAnnouncementDetail['result'] | null>(null)
+  const [isDataChanged, setIsDataChanged] = useState(false)
+
   const {
     selectedCategory,
     selectedSubCategory,
@@ -73,14 +86,96 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
         benefits: isExpanded ? benefits : undefined,
       }
 
-      await createRecruitment(recruitmentData, params.teamName)
-      alert('채용 공고가 성공적으로 등록되었습니다.')
+      if (id) {
+        // 수정
+        await updateTeamAnnouncement(params.teamName, Number(id), recruitmentData)
+        alert('채용 공고가 성공적으로 수정되었습니다.')
+      } else {
+        // 생성
+        await createRecruitment(recruitmentData, params.teamName)
+        alert('채용 공고가 성공적으로 등록되었습니다.')
+      }
+
       router.push(`/team/${params.teamName}/edit/recruit`)
     } catch (error) {
-      console.error('Failed to create recruitment:', error)
-      alert('채용 공고 등록에 실패했습니다.')
+      console.error('Failed to save recruitment:', error)
+      alert(id ? '채용 공고 수정에 실패했습니다.' : '채용 공고 등록에 실패했습니다.')
     }
   }
+
+  // 데이터 로딩
+  useEffect(() => {
+    const loadAnnouncementData = async () => {
+      if (id) {
+        try {
+          const data = await getTeamAnnouncement(params.teamName, Number(id))
+          setOriginalData(data.result)
+
+          // 각 필드에 데이터 설정
+          setTitle(data.result.announcementTitle)
+          setSelectedCategory(data.result.announcementPositionItem.majorPosition)
+          setSelectedSubCategory(data.result.announcementPositionItem.subPosition)
+          setSelectedSkills(data.result.announcementSkillNames.map((skill) => skill.announcementSkillName))
+          setStartDate(data.result.announcementStartDate)
+          setEndDate(data.result.announcementEndDate)
+          setMainTasks(data.result.mainTasks)
+          setWorkMethod(data.result.workMethod)
+          setIdealCandidate(data.result.idealCandidate)
+
+          if (data.result.preferredQualifications || data.result.joiningProcess || data.result.benefits) {
+            setIsExpanded(true)
+            setPreferredQualifications(data.result.preferredQualifications || '')
+            setJoiningProcess(data.result.joiningProcess || '')
+            setBenefits(data.result.benefits || '')
+          }
+        } catch (error) {
+          console.error('Failed to load announcement:', error)
+          alert('공고 정보를 불러오는데 실패했습니다.')
+        }
+      }
+    }
+
+    loadAnnouncementData()
+  }, [id, params.teamName])
+
+  // 데이터 변경 감지
+  useEffect(() => {
+    if (!originalData) return
+
+    const currentData = {
+      announcementTitle: title,
+      announcementPositionItem: {
+        majorPosition: selectedCategory,
+        subPosition: selectedSubCategory,
+      },
+      announcementSkillNames: selectedSkills,
+      announcementStartDate: startDate,
+      announcementEndDate: endDate,
+      mainTasks,
+      workMethod,
+      idealCandidate,
+      preferredQualifications,
+      joiningProcess,
+      benefits,
+    }
+
+    const isChanged = JSON.stringify(currentData) !== JSON.stringify(originalData)
+    setIsDataChanged(isChanged)
+  }, [
+    title,
+    selectedCategory,
+    selectedSubCategory,
+    selectedSkills,
+    startDate,
+    endDate,
+    mainTasks,
+    workMethod,
+    idealCandidate,
+    preferredQualifications,
+    joiningProcess,
+    benefits,
+    originalData,
+  ])
 
   return (
     <>
@@ -289,8 +384,8 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
           mode="main"
           animationMode="main"
           className="rounded-xl font-semibold"
+          disabled={!isDataChanged}
           onClick={handleSubmit}
-          disabled={!title || !selectedCategory || !selectedSubCategory || selectedSkills.length === 0}
         >
           저장하기
         </Button>
