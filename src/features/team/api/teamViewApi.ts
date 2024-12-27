@@ -17,3 +17,12 @@ export async function getTeamAnnouncement(teamName: string) {
   }
   return response.json()
 }
+
+// 팀원 공고 상세 조회
+export async function getTeamAnnouncementDetail(teamName: string, id: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement/${id}`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team announcement detail')
+  }
+  return response.json()
+}

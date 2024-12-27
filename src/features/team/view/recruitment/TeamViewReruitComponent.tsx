@@ -2,10 +2,16 @@ import Image from 'next/image'
 import { TeamAnnouncement } from '../../api/teamApi'
 import Link from 'next/link'
 
-export default function TeamViewReruitComponent({ announcement }: { announcement: TeamAnnouncement }) {
+export default function TeamViewReruitComponent({
+  announcement,
+  teamName,
+}: {
+  announcement: TeamAnnouncement
+  teamName: string
+}) {
   return (
     <Link
-      href={`/team/${announcement.teamMemberAnnouncementId}`}
+      href={`/team/${teamName}/recruit/${announcement.teamMemberAnnouncementId}`}
       className="flex flex-col rounded-xl bg-white px-10 py-5 hover:shadow-md"
     >
       <div className="flex justify-between">

@@ -13,8 +13,8 @@ export default function TeamViewClient() {
   // 기본 메뉴 스타일
   const defaultStyle = 'flex cursor-pointer rounded-xl px-6 py-4 text-sm text-grey60 hover:bg-grey20'
 
-  // /team/{teamName}/log/{id} 패턴 매칭
-  const pattern = /^\/team\/[^/]+\/log\/[^/]+$/
+  // /team/{teamName}/log/{id} 또는 /team/{teamName}/recruit/{id} 패턴 매칭
+  const pattern = /^\/team\/[^/]+\/(log|recruit)\/[^/]+$/
 
   if (pathname && pattern.test(pathname)) {
     return <></> // 해당 패턴에 맞으면 빈 컴포넌트 반환

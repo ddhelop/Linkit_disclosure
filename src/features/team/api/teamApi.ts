@@ -418,6 +418,27 @@ export interface TeamAnnouncement {
   }[]
   isAnnouncementPublic: boolean
   isAnnouncementInProgress: boolean
+  announcementEndDate: string
+}
+export interface TeamAnnouncementDetail {
+  teamMemberAnnouncementId: number
+  announcementTitle: string
+  announcementPositionItem: {
+    majorPosition: string
+    subPosition: string
+  }
+  announcementSkillNames: {
+    announcementSkillName: string
+  }[]
+  isAnnouncementPublic: boolean
+  isAnnouncementInProgress: boolean
+  announcementEndDate: string
+  mainTasks: string
+  workMethod: string
+  idealCandidate: string
+  preferredQualifications?: string
+  joiningProcess?: string
+  benefits?: string
 }
 
 interface TeamAnnouncementResponse {

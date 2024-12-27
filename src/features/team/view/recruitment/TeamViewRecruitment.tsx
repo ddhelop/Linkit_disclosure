@@ -58,7 +58,11 @@ export default function TeamViewRecruitment({ teamName }: { teamName: string }) 
       {filteredAnnouncements && filteredAnnouncements.length > 0 ? (
         <div className="mt-8 flex flex-col gap-6 pb-10">
           {filteredAnnouncements.map((announcement) => (
-            <TeamViewReruitComponent key={announcement.teamMemberAnnouncementId} announcement={announcement} />
+            <TeamViewReruitComponent
+              key={announcement.teamMemberAnnouncementId}
+              announcement={announcement}
+              teamName={teamName}
+            />
           ))}
         </div>
       ) : (
