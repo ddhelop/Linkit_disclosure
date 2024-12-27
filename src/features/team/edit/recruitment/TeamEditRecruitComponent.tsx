@@ -1,9 +1,9 @@
 'use client'
 
 import Image from 'next/image'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
-import { deleteTeamAnnouncement, TeamAnnouncement } from '../../api/teamApi'
+import { deleteTeamAnnouncement, TeamAnnouncement, toggleTeamAnnouncementPublic } from '../../api/teamApi'
 import { toast } from 'react-toastify'
 
 interface TeamEditRecruitComponentProps {
@@ -14,14 +14,20 @@ interface TeamEditRecruitComponentProps {
 
 export default function TeamEditRecruitComponent({ announcement, teamName, onDelete }: TeamEditRecruitComponentProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isPublic, setIsPublic] = useState(announcement.isAnnouncementPublic)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setIsPublic(announcement.isAnnouncementPublic)
+  }, [announcement.isAnnouncementPublic])
 
   useOnClickOutside({
     refs: [menuRef, buttonRef],
     handler: () => setIsMenuOpen(false),
   })
 
+  // 팀원 공고 삭제
   const handleDeleteAnnouncement = async () => {
     try {
       if (confirm('정말로 삭제하시겠습니까?')) {
@@ -31,6 +37,25 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
       }
     } catch (error) {
       console.error('Failed to delete team announcement', error)
+    }
+  }
+
+  // 팀원 공고 공개/비공개 전환
+  const handleToggleAnnouncementPublic = async () => {
+    try {
+      const response = await toggleTeamAnnouncementPublic(teamName, announcement.teamMemberAnnouncementId)
+      // setIsPublic(response.isAnnouncementPublic)
+      if (response.result.isAnnouncementPublic) {
+        alert('공개로 전환되었습니다.')
+        setIsPublic(true)
+      } else {
+        alert('비공개로 전환되었습니다.')
+        setIsPublic(false)
+      }
+      setIsMenuOpen(false)
+    } catch (error) {
+      console.error('Failed to toggle team announcement public', error)
+      alert('상태 변경에 실패했습니다.')
     }
   }
 
@@ -47,8 +72,11 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
           {isMenuOpen && (
             <div ref={menuRef} className="absolute left-0 mt-2 w-32 rounded-lg bg-white py-2 shadow-lg">
               <button className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100">수정하기</button>
-              <button className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100">
-                {announcement.isAnnouncementPublic ? '비공개로 전환' : '공개로 전환'}
+              <button
+                onClick={handleToggleAnnouncementPublic}
+                className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
+              >
+                {isPublic ? '비공개로 전환' : '공개로 전환'}
               </button>
               <button
                 className="w-full px-4 py-2 text-left text-sm text-red-500 hover:bg-gray-100"
@@ -61,6 +89,7 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
         </div>
       </div>
       <div className="mt-2 flex gap-2">
+        {!isPublic && <Image src="/common/icons/lock.svg" alt="edit" width={10} height={10} />}
         <h1 className="text-grey90">{announcement.announcementTitle}</h1>
       </div>
       <div className="mt-3 flex gap-4">

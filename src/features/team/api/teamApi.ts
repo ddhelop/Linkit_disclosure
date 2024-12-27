@@ -469,8 +469,22 @@ export async function getTeamMembers(teamName: string): Promise<TeamMembersRespo
   return response.json()
 }
 
+// 팀원 공고 삭제
 export async function deleteTeamAnnouncement(teamName: string, announcementId: number) {
   const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement/${announcementId}`, {
     method: 'DELETE',
   })
+}
+
+// 팀원 공고 공개/비공개 전환
+export async function toggleTeamAnnouncementPublic(teamName: string, announcementId: number) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement/state/${announcementId}`, {
+    method: 'POST',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to toggle team announcement public')
+  }
+
+  return response.json()
 }
