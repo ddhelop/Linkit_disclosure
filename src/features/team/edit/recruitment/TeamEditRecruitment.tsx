@@ -14,6 +14,7 @@ import DateRange from '@/shared/ui/Input/DateRange'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import { Button } from '@/shared/ui/Button/Button'
 import Image from 'next/image'
+
 import {
   createRecruitment,
   getTeamAnnouncement,

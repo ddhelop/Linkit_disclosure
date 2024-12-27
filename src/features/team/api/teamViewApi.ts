@@ -8,3 +8,12 @@ export async function getTeamLogDetail(teamName: string, logId: number) {
   }
   return response.json()
 }
+
+// 팀원 공고 조회
+export async function getTeamAnnouncement(teamName: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement/`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team announcement')
+  }
+  return response.json()
+}

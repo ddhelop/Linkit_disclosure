@@ -1,0 +1,31 @@
+import Image from 'next/image'
+import { TeamAnnouncement } from '../../api/teamApi'
+import Link from 'next/link'
+
+export default function TeamViewReruitComponent({ announcement }: { announcement: TeamAnnouncement }) {
+  return (
+    <Link
+      href={`/team/${announcement.teamMemberAnnouncementId}`}
+      className="flex flex-col rounded-xl bg-white px-10 py-5 hover:shadow-md"
+    >
+      <div className="flex justify-between">
+        <div className="rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">*데이터 미반환중</div>
+        <div className="flex gap-2 text-[#4D82F3]">
+          <Image src={'/common/icons/save.svg'} alt="save" width={22} height={22} />
+          <span>*데이터 미반환중</span>
+        </div>
+      </div>
+
+      <span className="mt-3 text-xl font-semibold text-grey90">{announcement.announcementTitle}</span>
+
+      <div className="flex gap-4">
+        <div className="mt-5 rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-main">
+          {announcement.majorPosition}
+        </div>
+        <div className="mt-5 rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-main">
+          {announcement.announcementSkillNames.map((skill) => skill.announcementSkillName).join(', ')}
+        </div>
+      </div>
+    </Link>
+  )
+}
