@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 import { getTeamAnnouncements, TeamAnnouncement } from '../../api/teamApi'
 import TeamViewReruitComponent from './TeamViewReruitComponent'
+import TeamViewNotView from '../common/TeamViewNotView'
 
 export default function TeamViewRecruitment({ teamName }: { teamName: string }) {
   const [data, setData] = useState<TeamAnnouncement[] | null>(null)
@@ -26,6 +27,10 @@ export default function TeamViewRecruitment({ teamName }: { teamName: string }) 
         return true
     }
   })
+
+  if (!data || data.length === 0) {
+    return <TeamViewNotView />
+  }
 
   return (
     <>
