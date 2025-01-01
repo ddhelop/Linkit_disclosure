@@ -26,3 +26,12 @@ export async function getTeamAnnouncementDetail(teamName: string, id: string) {
   }
   return response.json()
 }
+
+// 팀원 조회
+export async function getTeamMembers(teamName: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/members/view`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team members')
+  }
+  return response.json()
+}

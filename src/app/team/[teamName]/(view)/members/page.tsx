@@ -1,9 +1,9 @@
 import TeamViewMembers from '@/features/team/view/members/TeamViewMembers'
 
-export default function TeamMembersPage() {
+export default function TeamMembersPage({ params }: { params: { teamName: string } }) {
   return (
     <div className="">
-      <TeamViewMembers />
+      <TeamViewMembers params={params} />
     </div>
   )
 }
