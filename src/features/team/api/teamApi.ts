@@ -573,3 +573,10 @@ export async function getTeamHistory(teamName: string) {
   }
   return response.json()
 }
+
+// 팀 연혁 단일 삭제
+export async function deleteTeamHistory(teamName: string, historyId: number) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/history/${historyId}`, {
+    method: 'DELETE',
+  })
+}
