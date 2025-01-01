@@ -4,12 +4,45 @@ import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import DateRangePicker from '@/shared/ui/Select/DateRangePicker'
 import Textarea from '@/shared/ui/TextArea/TextArea'
-import { useState } from 'react'
-import { createTeamHistory } from '../../api/teamApi'
-import { useParams, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { createTeamHistory, getTeamHistory, getTeamHistoryDetail, updateTeamHistory } from '../../api/teamApi'
+import { useRouter, useSearchParams } from 'next/navigation'
 
-export default function TeamEditHistoryNew() {
-  const { teamName } = useParams() as { teamName: string }
+export default function TeamEditHistoryNew({ teamName }: { teamName: string }) {
+  const searchParams = useSearchParams()
+  const id = searchParams.get('id')
+  console.log(id)
+
+  const [originalData, setOriginalData] = useState({
+    historyName: '',
+    historyStartDate: '',
+    historyEndDate: '',
+    isHistoryInProgress: false,
+    historyDescription: '',
+  })
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      if (id) {
+        const history = await getTeamHistoryDetail(teamName, Number(id))
+        const historyData = history.result
+        setOriginalData({
+          historyName: historyData.historyName,
+          historyStartDate: historyData.historyStartDate,
+          historyEndDate: historyData.historyEndDate,
+          isHistoryInProgress: historyData.isHistoryInProgress,
+          historyDescription: historyData.historyDescription,
+        })
+        setHistoryName(historyData.historyName)
+        setStartDate(historyData.historyStartDate)
+        setEndDate(historyData.historyEndDate)
+        setIsOngoing(historyData.isHistoryInProgress)
+        setDescription(historyData.historyDescription)
+      }
+    }
+    fetchHistory()
+  }, [teamName, id])
+
   const [historyName, setHistoryName] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
@@ -39,13 +72,30 @@ export default function TeamEditHistoryNew() {
         historyDescription: description,
       }
 
-      await createTeamHistory(teamName, historyData)
+      if (id) {
+        await updateTeamHistory(teamName, Number(id), historyData)
+      } else {
+        await createTeamHistory(teamName, historyData)
+      }
+
       alert('연혁이 생성되었습니다.')
       router.push(`/team/${teamName}/edit/history`)
     } catch (error) {
       console.error('Failed to create team history:', error)
       // TODO: 에러 처리
     }
+  }
+
+  const isDataChanged = () => {
+    if (!id) return true
+
+    return (
+      originalData.historyName !== historyName ||
+      originalData.historyStartDate !== startDate ||
+      originalData.historyEndDate !== endDate ||
+      originalData.isHistoryInProgress !== isOngoing ||
+      originalData.historyDescription !== description
+    )
   }
 
   return (
@@ -94,7 +144,13 @@ export default function TeamEditHistoryNew() {
         </div>
       </div>
       <div className="flex justify-end">
-        <Button mode="main2" animationMode="main" className="rounded-[0.69rem] py-2" onClick={handleSubmit}>
+        <Button
+          mode="main2"
+          animationMode="main"
+          className="rounded-[0.69rem] py-2"
+          onClick={handleSubmit}
+          disabled={!isDataChanged()}
+        >
           저장하기
         </Button>
       </div>

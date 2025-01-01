@@ -10,7 +10,7 @@ export default function TeamEditHistoryNewPage({ params }: { params: { teamName:
         <label className="text-xl font-bold">연혁</label>
       </Link>
 
-      <TeamEditHistoryNew />
+      <TeamEditHistoryNew teamName={params.teamName} />
     </div>
   )
 }

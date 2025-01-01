@@ -409,6 +409,16 @@ export async function createTeamHistory(teamName: string, data: TeamHistoryReque
   return response.json()
 }
 
+export async function updateTeamHistory(teamName: string, historyId: number, data: TeamHistoryRequest) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/history/${historyId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+}
+
 export interface TeamAnnouncement {
   teamMemberAnnouncementId: number
   announcementTitle: string
@@ -570,6 +580,15 @@ export async function getTeamHistory(teamName: string) {
   const response = await fetchWithAuth(`/api/v1/team/${teamName}/history`)
   if (!response.ok) {
     throw new Error('Failed to fetch team history')
+  }
+  return response.json()
+}
+
+// 팀 연혁 단일 조회
+export async function getTeamHistoryDetail(teamName: string, historyId: number) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/history/${historyId}`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team history detail')
   }
   return response.json()
 }
