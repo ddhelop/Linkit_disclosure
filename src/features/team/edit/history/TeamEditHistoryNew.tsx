@@ -6,7 +6,7 @@ import DateRangePicker from '@/shared/ui/Select/DateRangePicker'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import { useState } from 'react'
 import { createTeamHistory } from '../../api/teamApi'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 export default function TeamEditHistoryNew() {
   const { teamName } = useParams() as { teamName: string }
@@ -15,6 +15,7 @@ export default function TeamEditHistoryNew() {
   const [endDate, setEndDate] = useState('')
   const [isOngoing, setIsOngoing] = useState(false)
   const [description, setDescription] = useState('')
+  const router = useRouter()
 
   const handleStartDateChange = (date: string) => {
     setStartDate(date)
@@ -39,7 +40,8 @@ export default function TeamEditHistoryNew() {
       }
 
       await createTeamHistory(teamName, historyData)
-      // TODO: 성공 시 처리 (예: 알림, 페이지 이동 등)
+      alert('연혁이 생성되었습니다.')
+      router.push(`/team/${teamName}/edit/history`)
     } catch (error) {
       console.error('Failed to create team history:', error)
       // TODO: 에러 처리
