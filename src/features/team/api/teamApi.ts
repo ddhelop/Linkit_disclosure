@@ -564,3 +564,12 @@ export async function updateTeamAnnouncement(
 
   return response.json()
 }
+
+// 팀 연혁 리스트 조회
+export async function getTeamHistory(teamName: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/history`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team history')
+  }
+  return response.json()
+}

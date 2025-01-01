@@ -13,7 +13,7 @@ export default function TeamEditHistoryPage({ params }: { params: { teamName: st
         </Button>
       </Link>
 
-      <TeamEditHistoy />
+      <TeamEditHistoy teamName={params.teamName} />
     </div>
   )
 }

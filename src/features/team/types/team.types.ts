@@ -68,3 +68,11 @@ export interface TeamLogsResponse {
     teamLogItems: TeamLogItem[]
   }
 }
+
+export interface TeamHistory {
+  teamHistoryId: number
+  historyName: string
+  historyStartDate: string
+  historyEndDate: string
+  isHistoryInProgress: boolean
+}
