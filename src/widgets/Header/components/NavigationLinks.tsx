@@ -1,4 +1,5 @@
 // src/widgets/Header/components/NavigationLinks.tsx
+import Image from 'next/image'
 import Link from 'next/link'
 
 interface NavigationLinksProps {
@@ -9,7 +10,7 @@ interface NavigationLinksProps {
 const NavigationLinks: React.FC<NavigationLinksProps> = ({ isAuth, openLoginModal }) => (
   <div className="flex gap-[2.19rem]">
     <Link href="/" className="-m-1.5 p-1.5">
-      <img src="/assets/colorLogo.svg" alt="Logo" />
+      <Image src="/assets/colorLogo.svg" alt="Logo" width={100} height={100} />
     </Link>
     <div className="hidden gap-[1.88rem] md:flex">
       <Link href="#" onClick={openLoginModal} className="font-medium text-grey90 hover:text-main">

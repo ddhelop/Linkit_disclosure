@@ -50,7 +50,10 @@ export default function TeamViewRecruitDetail({ teamName, id }: { teamName: stri
         </div>
         {/*  */}
         {data?.announcementSkillNames.map((skill) => (
-          <div className="rounded-[0.38rem] bg-[#EDF3FF] px-4 py-1 text-sm text-[#2563EB]">
+          <div
+            key={skill.announcementSkillName}
+            className="rounded-[0.38rem] bg-[#EDF3FF] px-4 py-1 text-sm text-[#2563EB]"
+          >
             {skill.announcementSkillName}
           </div>
         ))}
