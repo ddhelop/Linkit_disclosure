@@ -15,7 +15,7 @@ export default function MiniTeamCard({ teamName }: { teamName: string }) {
       console.log(teamInfo)
     }
     fetchTeamInfo()
-  }, [teamName])
+  }, [teamName, teamInfo])
 
   return (
     <div
@@ -24,8 +24,10 @@ export default function MiniTeamCard({ teamName }: { teamName: string }) {
     >
       <div className="flex justify-between">
         <div className="flex gap-2">
-          {teamInfo?.result.teamInformMenu.teamCurrentStates.map((state) => (
-            <div className="rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-xs text-[#3774F4]">{state.teamStateName}</div>
+          {teamInfo?.result.teamInformMenu.teamCurrentStates.map((state, index) => (
+            <div key={index} className="rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-xs text-[#3774F4]">
+              {state.teamStateName}
+            </div>
           ))}
         </div>
         <Image src={`/common/icons/not_save.svg`} alt="close" width={20} height={20} className="cursor-pointer" />
