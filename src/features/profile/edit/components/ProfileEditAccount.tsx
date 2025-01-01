@@ -9,6 +9,8 @@ import { updateMarketingConsent, updateMemberName } from '../../api/updateMember
 import PhoneChangeModal from './PhoneChangeModal'
 import EmailChangeModal from './EmailChangeModal'
 import { AccountListSkeleton } from './skeletons/ListSkeletons'
+import { fetchWithdraw } from '../api/profileEditApi'
+import WithdrawModal from './WithdrawModal'
 
 export default function ProfileEditAccount() {
   const { phoneNumber, setPhoneNumber } = usePhoneNumberFormatter()
@@ -24,6 +26,7 @@ export default function ProfileEditAccount() {
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false)
 
   useEffect(() => {
     const fetchMemberData = async () => {
@@ -135,6 +138,16 @@ export default function ProfileEditAccount() {
     }
   }
 
+  // 회원탈퇴
+  const handleWithdraw = async () => {
+    try {
+      await fetchWithdraw()
+      // 회원탈퇴 성공 후 처리 (예: 로그아웃, 홈으로 리다이렉트 등)
+    } catch (error) {
+      console.error('Failed to withdraw:', error)
+    }
+  }
+
   return (
     <>
       <div className="flex flex-col gap-10 rounded-xl border border-grey20 bg-white px-[1.62rem] py-[1.88rem]">
@@ -195,7 +208,10 @@ export default function ProfileEditAccount() {
             <p className="text-sm font-normal text-grey70">광고성 정보 수신 동의</p>
           </div>
 
-          <div className="mt-[1.94rem] flex w-full cursor-pointer pl-4 text-sm font-normal text-grey60 underline">
+          <div
+            onClick={() => setIsWithdrawModalOpen(true)}
+            className="mt-[1.94rem] flex w-full cursor-pointer pl-4 text-sm font-normal text-grey60 underline"
+          >
             회원탈퇴
           </div>
         </div>
@@ -220,6 +236,12 @@ export default function ProfileEditAccount() {
         onClose={() => setIsEmailModalOpen(false)}
         initialEmail={memberData.email}
         onSubmit={handleEmailChange}
+      />
+
+      <WithdrawModal
+        isOpen={isWithdrawModalOpen}
+        onClose={() => setIsWithdrawModalOpen(false)}
+        onWithdraw={handleWithdraw}
       />
     </>
   )

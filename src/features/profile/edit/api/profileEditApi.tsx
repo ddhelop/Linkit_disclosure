@@ -21,3 +21,14 @@ export async function fetchProfileData() {
     throw error
   }
 }
+
+// 회원탈퇴
+export async function fetchWithdraw() {
+  const response = await fetchWithAuth(`/api/v1/quit`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    throw new Error('회원탈퇴에 실패했습니다.')
+  }
+}
