@@ -5,7 +5,18 @@ import { Button } from '@/shared/ui/Button/Button'
 import { useOnBoarding } from '../hooks/useOnBoarding'
 
 export default function OnBoardingInfo() {
-  const { name, phoneNumber, email, setName, setPhoneNumber, isButtonEnabled, submitOnBoardingInfo } = useOnBoarding()
+  const {
+    name,
+    phoneNumber,
+    email,
+    userId,
+    userIdError,
+    setName,
+    setPhoneNumber,
+    setUserId,
+    isButtonEnabled,
+    submitOnBoardingInfo,
+  } = useOnBoarding()
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -27,6 +38,18 @@ export default function OnBoardingInfo() {
             className="mt-3"
             type="text"
           />
+        </div>
+
+        <div className="mt-7 flex flex-col">
+          <h2 className="text-grey60">유저 아이디</h2>
+          <Input
+            value={userId}
+            onChange={setUserId}
+            placeholder="'영문' 혹은 '영문+숫자 조합'만 가능합니다"
+            className={`mt-3 ${userIdError ? 'border-red-500' : ''}`}
+            type="text"
+          />
+          {userIdError && <p className="mt-1 text-sm text-red-500">{userIdError}</p>}
         </div>
 
         <div className="mt-7 flex flex-col">
