@@ -35,3 +35,12 @@ export async function getTeamMembers(teamName: string) {
   }
   return response.json()
 }
+
+// 팀 프로덕트 조회
+export async function getTeamProducts(teamName: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/product`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team products')
+  }
+  return response.json()
+}
