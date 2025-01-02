@@ -19,7 +19,9 @@ export default function TeamCreate() {
   const [selectedCity, setSelectedCity] = useState('')
   const [selectedDistrict, setSelectedDistrict] = useState('')
   const [isTeamPublic, setIsTeamPublic] = useState<boolean>(true)
-
+  const [teamCode, setTeamCode] = useState('')
+  const [teamCodeError, setTeamCodeError] = useState('')
+  const [isTeamCodeValid, setIsTeamCodeValid] = useState(true)
   // 선택 입력 항목
   const [teamLogo, setTeamLogo] = useState<File | null>(null)
   const [teamLogoPreview, setTeamLogoPreview] = useState<string>('')
@@ -88,6 +90,24 @@ export default function TeamCreate() {
     setTeamLogoPath('/common/default_team.svg')
   }
 
+  // 팀 코드 유효성 검사 (영문 또는 영문+숫자)
+  const validateTeamCode = (code: string) => {
+    return /^[a-zA-Z][a-zA-Z0-9]*$/.test(code)
+  }
+
+  // 팀 코드 변경 핸들러
+  const handleTeamCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newCode = e.target.value
+    setTeamCode(newCode)
+    setTeamCodeError('')
+    setIsTeamCodeValid(true)
+
+    if (newCode && !validateTeamCode(newCode)) {
+      setTeamCodeError('영문 또는 영문+숫자 조합만 가능합니다')
+      setIsTeamCodeValid(false)
+    }
+  }
+
   // 필수 데이터 유효성 검사
   const isFormValid = () => {
     return (
@@ -95,23 +115,24 @@ export default function TeamCreate() {
       teamIntro.trim() !== '' &&
       selectedTeamSize !== '' &&
       selectedCity !== '' &&
-      selectedDistrict !== ''
+      selectedDistrict !== '' &&
+      teamCode !== '' &&
+      isTeamCodeValid
     )
   }
 
   const handleSubmit = async () => {
     try {
-      // FormData 객체 생성
       const formData = new FormData()
 
-      // 팀 로고 이미지 추가
       if (teamLogo) {
         formData.append('teamLogoImage', teamLogo)
       }
 
-      // 팀 정보 JSON 추가
+      // 팀 정보 JSON에 teamCode 추가
       const teamData = {
         teamName,
+        teamCode,
         teamShortDescription: teamIntro,
         scaleName: selectedTeamSize,
         cityName: selectedCity,
@@ -122,14 +143,16 @@ export default function TeamCreate() {
 
       formData.append('addTeamRequest', new Blob([JSON.stringify(teamData)], { type: 'application/json' }))
 
-      // API 호출
       await createTeam(formData)
-
-      // 성공 시 팀 목록 페이지로 이동
       router.push('/team/select')
-    } catch (error) {
-      console.error('팀 생성 실패:', error)
-      // 에러 처리 로직 추가
+    } catch (error: any) {
+      if (error.response?.status === 409) {
+        setTeamCodeError('이미 사용 중인 팀 코드입니다')
+        setIsTeamCodeValid(false)
+      } else {
+        console.error('팀 생성 실패:', error)
+        alert('팀 생성 중 오류가 발생했습니다.')
+      }
     }
   }
 
@@ -186,6 +209,22 @@ export default function TeamCreate() {
             팀명<p className="text-main">*</p>
           </span>
           <Input placeholder="팀명을 입력해주세요" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
+        </div>
+
+        {/* 팀 코드 */}
+        <div className="flex flex-col gap-3">
+          <span className="flex text-grey80">
+            팀 코드<p className="text-main">*</p>
+          </span>
+          <div className="flex flex-col gap-1">
+            <Input
+              placeholder="영문 또는 영문+숫자 조합만 가능합니다"
+              value={teamCode}
+              onChange={handleTeamCodeChange}
+              className={`${!isTeamCodeValid ? 'border-[#FF345F]' : ''}`}
+            />
+            {teamCodeError && <span className="text-sm text-[#FF345F]">{teamCodeError}</span>}
+          </div>
         </div>
 
         {/* 한줄 소개 */}
