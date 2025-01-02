@@ -47,7 +47,7 @@ export default function RootLayout({
         <meta name="google-site-verification" content="PP9z5zXtPDA9QeD8TEvKvlzTGIDZt3R9tCpcUZfoFZ4" />
         <meta name="naver-site-verification" content="17163296e94f835f71bb3d1994ea168bd456675b" />
       </head>
-      <body className={`${pretendard.className} bg-[#fff]`}>
+      <body className={`${pretendard.className} bg-[#FCFCFD]`}>
         {/* <FetchSetting> */}
         <Header />
         <ToastContainer />

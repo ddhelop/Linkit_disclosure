@@ -48,45 +48,53 @@ export default function TeamViewHistory({ teamName }: { teamName: string }) {
   }
 
   return (
-    <div className="relative ml-8">
+    <div className="relative mx-auto max-w-[960px] px-32">
       {/* 타임라인 세로선 */}
-      <div className="absolute left-0 top-0 h-full w-[1px] bg-grey20" />
+      <div className="absolute left-[219px] top-0 h-full w-[2px] bg-grey40" />
 
       {/* 연도별 그룹 */}
-      {historyData.map((yearGroup) => {
+      {historyData.map((yearGroup, index) => {
         const year = Object.keys(yearGroup)[0]
         const months = yearGroup[year]
 
         return (
-          <div key={year} className="relative mb-12">
-            {/* 연도 표시 */}
-            <div className="mb-8 text-2xl font-semibold text-main">{year}</div>
+          <div key={year} className="mb-20">
+            {/* 연도 표시와 회색 동그라미 */}
+            <div className="relative mb-12">
+              <h2 className="absolute -left-4 text-[28px] font-bold text-[#4168F6]">{year}</h2>
+              <div className="absolute left-[87.5px] top-[14px] h-[9px] w-[9px] rounded-full bg-grey40" />
+            </div>
 
             {/* 월별 그룹 */}
-            {months.map((monthGroup, monthIndex) => {
+            {months.map((monthGroup) => {
               const month = Object.keys(monthGroup)[0]
               const histories = monthGroup[month]
 
               return (
-                <div key={`${year}-${month}`} className="relative mb-8">
-                  {/* 월 표시와 점 */}
-                  <div className="relative mb-4 flex items-center">
-                    <div className="absolute -left-[2.15rem] h-4 w-4 rounded-full border-2 border-main bg-white" />
-                    <span className="ml-4 text-xl font-medium text-main">{month}</span>
-                  </div>
-
-                  {/* 해당 월의 연혁들 */}
-                  {histories.map((history: HistoryItem) => (
-                    <div key={history.teamHistoryId} className="mb-4 ml-4 rounded-xl bg-white p-6 shadow-sm">
-                      <div className="mb-2 flex items-center justify-between">
-                        <h3 className="text-lg font-medium text-grey80">{history.historyName}</h3>
-                        <span className="text-sm text-grey60">
-                          {history.historyStartDate} ~ {history.isHistoryInProgress ? '진행중' : history.historyEndDate}
-                        </span>
-                      </div>
-                      <p className="text-grey70">{history.historyDescription}</p>
+                <div key={`${year}-${month}`} className="last:mb-0">
+                  <div className="relative flex">
+                    {/* 월 표시와 파란색 동그라미 */}
+                    <div className="relative flex w-[150px] items-center">
+                      <div className="absolute left-[87px] h-[10px] w-[10px] rounded-full border-2 border-[#4D82F3] bg-white" />
+                      <span className="absolute left-[110px] text-xl font-bold text-[#4D82F3]">{month}</span>
                     </div>
-                  ))}
+
+                    {/* 해당 월의 연혁들 */}
+                    <div className="mt-24 flex-1">
+                      {histories.map((history: HistoryItem) => (
+                        <div key={history.teamHistoryId} className=" rounded-xl bg-white p-5">
+                          <h3 className=" font-semibold text-grey80">{history.historyName}</h3>
+                          <div className="mt-1 text-[13px] text-[#9EA4AA]">
+                            {history.historyStartDate} ~{' '}
+                            {history.isHistoryInProgress ? '진행중' : history.historyEndDate}
+                          </div>
+                          {history.historyDescription && (
+                            <div className="mt-4 text-[13px] text-[#4D5358]">{history.historyDescription}</div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               )
             })}
