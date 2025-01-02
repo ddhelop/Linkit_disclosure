@@ -36,6 +36,12 @@ export default function ProfileMenu() {
         <p>나의 팀</p>
       </Link>
       <Link
+        href="/match/inbox"
+        className="flex items-center gap-2 rounded-[0.38rem] py-1 pl-4 pr-9  text-gray-700 hover:bg-gray-100"
+      >
+        <p>매칭 관리</p>
+      </Link>
+      <Link
         href="/profile/account"
         className="flex items-center gap-2 rounded-[0.38rem] py-1 pl-4 pr-9  text-gray-700 hover:bg-gray-100"
       >
