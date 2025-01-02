@@ -7,7 +7,6 @@ interface MemberBasicInfo {
   memberName: string
   emailId: string
   contact: string
-  userId: string
 }
 
 export async function submitMemberInfo(data: MemberBasicInfo) {

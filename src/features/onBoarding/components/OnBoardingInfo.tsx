@@ -9,11 +9,12 @@ export default function OnBoardingInfo() {
     name,
     phoneNumber,
     email,
-    userId,
-    userIdError,
+
+    emailId,
+    emailIdError,
     setName,
     setPhoneNumber,
-    setUserId,
+    setEmailId,
     isButtonEnabled,
     submitOnBoardingInfo,
   } = useOnBoarding()
@@ -43,13 +44,13 @@ export default function OnBoardingInfo() {
         <div className="mt-7 flex flex-col">
           <h2 className="text-grey60">유저 아이디</h2>
           <Input
-            value={userId}
-            onChange={setUserId}
+            value={emailId}
+            onChange={setEmailId}
             placeholder="'영문' 혹은 '영문+숫자 조합'만 가능합니다"
-            className={`mt-3 ${userIdError ? 'border-red-500' : ''}`}
+            className={`mt-3 ${emailIdError ? 'border-red-500' : ''}`}
             type="text"
           />
-          {userIdError && <p className="mt-1 text-sm text-red-500">{userIdError}</p>}
+          {emailIdError && <p className="mt-1 text-sm text-red-500">{emailIdError}</p>}
         </div>
 
         <div className="mt-7 flex flex-col">
