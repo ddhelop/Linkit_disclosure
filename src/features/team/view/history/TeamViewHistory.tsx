@@ -83,13 +83,15 @@ export default function TeamViewHistory({ teamName }: { teamName: string }) {
                     <div className="mt-24 flex-1">
                       {histories.map((history: HistoryItem) => (
                         <div key={history.teamHistoryId} className=" rounded-xl bg-white p-5">
-                          <h3 className=" font-semibold text-grey80">{history.historyName}</h3>
-                          <div className="mt-1 text-[13px] text-[#9EA4AA]">
-                            {history.historyStartDate} ~{' '}
-                            {history.isHistoryInProgress ? '진행중' : history.historyEndDate}
+                          <div className="flex items-center gap-2">
+                            <h3 className=" font-semibold text-grey80">{history.historyName}</h3>
+                            <div className="text-xs text-grey60">
+                              {history.historyStartDate} ~{' '}
+                              {history.isHistoryInProgress ? '진행중' : history.historyEndDate}
+                            </div>
                           </div>
                           {history.historyDescription && (
-                            <div className="mt-4 text-[13px] text-[#4D5358]">{history.historyDescription}</div>
+                            <div className="mt-4 text-xs text-grey60">{history.historyDescription}</div>
                           )}
                         </div>
                       ))}
