@@ -3,14 +3,15 @@
 import { useState, useEffect } from 'react'
 import MatchScrapFilter from './MatchScrapFilter'
 import MiniProfileCard_2 from '@/shared/components/MiniProfileCard_2'
-import { getProfileScraps } from '../api/MatchApi'
-import { ProfileInform } from '../types/MatchTypes'
+import { getProfileScraps, getTeamScraps } from '../api/MatchApi'
+import { ProfileInform, TeamInformMenu } from '../types/MatchTypes'
+import MiniTeamCard_2 from '@/shared/components/MiniTeamCard_2'
 
 type FilterType = 'MEMBER' | 'TEAM' | 'RECRUITMENT'
 
 export default function MatchScrap() {
   const [selectedFilter, setSelectedFilter] = useState<FilterType>('MEMBER')
-  const [scrapData, setScrapData] = useState<ProfileInform[]>([])
+  const [scrapData, setScrapData] = useState<ProfileInform[] | TeamInformMenu[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   const fetchScrapData = async (filterType: FilterType) => {
@@ -20,7 +21,10 @@ export default function MatchScrap() {
         const data = await getProfileScraps()
         setScrapData(data)
       }
-      // TODO: 팀과 모집공고 API 추가 예정
+      if (filterType === 'TEAM') {
+        const data = await getTeamScraps()
+        setScrapData(data)
+      }
     } catch (error) {
       console.error('Error fetching scrap data:', error)
     } finally {
@@ -39,8 +43,12 @@ export default function MatchScrap() {
       <div className="mt-8 grid grid-cols-2 gap-4">
         {isLoading ? (
           <div>로딩 중...</div>
+        ) : selectedFilter === 'MEMBER' ? (
+          (scrapData as ProfileInform[]).map((profile) => <MiniProfileCard_2 key={profile.emailId} profile={profile} />)
+        ) : selectedFilter === 'TEAM' ? (
+          (scrapData as TeamInformMenu[]).map((team) => <MiniTeamCard_2 key={team.teamName} team={team} />)
         ) : (
-          scrapData.map((profile) => <MiniProfileCard_2 key={profile.emailId} profile={profile} />)
+          <>모집공고</>
         )}
       </div>
     </div>

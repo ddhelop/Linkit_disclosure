@@ -32,3 +32,31 @@ export interface ScrapResponse {
     profileInformMenus: ProfileInform[]
   }
 }
+
+export interface TeamState {
+  teamStateName: string
+}
+
+export interface TeamScaleItem {
+  teamScaleName: string
+}
+
+export interface TeamInformMenu {
+  teamCurrentStates: TeamState[]
+  isTeamScrap: boolean
+  teamScrapCount: number
+  teamName: string
+  teamShortDescription: string
+  teamLogoImagePath: string
+  teamScaleItem: TeamScaleItem
+  regionDetail: RegionDetail
+}
+
+export interface TeamScrapResponse {
+  isSuccess: boolean
+  code: string
+  message: string
+  result: {
+    teamInformMenus: TeamInformMenu[]
+  }
+}

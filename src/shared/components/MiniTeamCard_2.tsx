@@ -1,6 +1,11 @@
+import { TeamInformMenu } from '@/features/match/types/MatchTypes'
 import Image from 'next/image'
 
-export default function MiniTeamCard_2() {
+interface MiniTeamCard_2Props {
+  team: TeamInformMenu
+}
+
+export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
   return (
     <div
       className="flex flex-col rounded-xl px-7 py-[1.12rem] hover:border hover:border-[#7EA5F8]"
