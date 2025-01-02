@@ -40,3 +40,19 @@ export const updateMarketingConsent = async (isMarketingAgree: boolean): Promise
 
   return response.json()
 }
+
+export const updateEmailId = async (emailId: string) => {
+  const response = await fetchWithAuth('/api/v1/member/userId', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ emailId }),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to update emailId')
+  }
+
+  return response.json()
+}

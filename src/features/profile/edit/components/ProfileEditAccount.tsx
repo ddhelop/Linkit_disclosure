@@ -5,12 +5,13 @@ import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
 import { getMemberBasicInform } from '../api/memberApi'
 import NameChangeModal from './NameChangeModal'
-import { updateMarketingConsent, updateMemberName } from '../../api/updateMemberName'
+import { updateEmailId, updateMarketingConsent, updateMemberName } from '../../api/updateAccount'
 import PhoneChangeModal from './PhoneChangeModal'
 import EmailChangeModal from './EmailChangeModal'
 import { AccountListSkeleton } from './skeletons/ListSkeletons'
 import { fetchWithdraw } from '../api/profileEditApi'
 import WithdrawModal from './WithdrawModal'
+import EmailIdChangeModal from './EmailIdChangeModal'
 
 export default function ProfileEditAccount() {
   const { phoneNumber, setPhoneNumber } = usePhoneNumberFormatter()
@@ -20,10 +21,12 @@ export default function ProfileEditAccount() {
     contact: '',
     platform: '',
     isMarketingAgree: false,
+    emailId: '',
   })
   const [isNameModalOpen, setIsNameModalOpen] = useState(false)
   const [isPhoneModalOpen, setIsPhoneModalOpen] = useState(false)
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false)
+  const [isEmailIdModalOpen, setIsEmailIdModalOpen] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false)
@@ -38,6 +41,7 @@ export default function ProfileEditAccount() {
           contact: data.contact,
           platform: data.platform,
           isMarketingAgree: data.isMarketingAgree,
+          emailId: data.emailId,
         })
         const fakeEvent = { target: { value: data.contact } } as React.ChangeEvent<HTMLInputElement>
         setPhoneNumber(fakeEvent)
@@ -111,6 +115,17 @@ export default function ProfileEditAccount() {
     }
   }
 
+  const handleEmailIdChange = async (newEmailId: string) => {
+    try {
+      await updateEmailId(newEmailId)
+      setMemberData((prev) => ({ ...prev, emailId: newEmailId }))
+      setIsEmailIdModalOpen(false)
+    } catch (error) {
+      console.error('Failed to update emailId:', error)
+      // TODO: 에러 처리
+    }
+  }
+
   const handleEmailChange = async (newEmail: string, verificationCode: string) => {
     try {
       // TODO: API call to update email
@@ -180,6 +195,22 @@ export default function ProfileEditAccount() {
             <Image src="/common/icons/arrow-right(greyblack).svg" alt="edit" width={32} height={32} />
           </div>
 
+          {/* 유저아이디 */}
+          <div
+            className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10"
+            onClick={() => memberData.emailId && setIsEmailIdModalOpen(true)}
+          >
+            <div className="flex items-center gap-3">
+              <Image src="/common/icons/@.svg" alt="edit" width={48} height={48} />
+              <div className="flex flex-col justify-center gap-1">
+                <p className="text-xs font-normal text-grey60">유저 아이디</p>
+                <span className="font-semibold">{memberData.emailId}</span>
+              </div>
+            </div>
+            <Image src="/common/icons/arrow-right(greyblack).svg" alt="edit" width={32} height={32} />
+          </div>
+
+          {/* 전화번호 */}
           <div
             className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10"
             onClick={() => setIsPhoneModalOpen(true)}
@@ -229,6 +260,13 @@ export default function ProfileEditAccount() {
         onClose={() => setIsPhoneModalOpen(false)}
         initialPhone={memberData.contact}
         onSubmit={handlePhoneChange}
+      />
+
+      <EmailIdChangeModal
+        isOpen={isEmailIdModalOpen}
+        onClose={() => setIsEmailIdModalOpen(false)}
+        initialEmailId={memberData.emailId}
+        onSubmit={handleEmailIdChange}
       />
 
       <EmailChangeModal

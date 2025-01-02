@@ -7,6 +7,7 @@ interface MemberBasicInform {
   email: string
   platform: string
   isMarketingAgree: boolean
+  emailId: string
 }
 
 export const getMemberBasicInform = async (): Promise<MemberBasicInform> => {
