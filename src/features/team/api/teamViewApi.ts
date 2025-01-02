@@ -44,3 +44,12 @@ export async function getTeamProducts(teamName: string) {
   }
   return response.json()
 }
+
+// 팀 연혁 조회
+export async function getTeamHistory(teamName: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/history/view`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team history')
+  }
+  return response.json()
+}

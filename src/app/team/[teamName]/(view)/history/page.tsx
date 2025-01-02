@@ -1,9 +1,10 @@
 import TeamViewHistory from '@/features/team/view/history/TeamViewHistory'
 
-export default function TeamHistoryPage() {
+export default function TeamHistoryPage({ params }: { params: { teamName: string } }) {
+  const { teamName } = params
   return (
     <div className="">
-      <TeamViewHistory />
+      <TeamViewHistory teamName={teamName} />
     </div>
   )
 }
