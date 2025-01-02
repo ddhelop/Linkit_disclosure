@@ -43,11 +43,14 @@ export function useOnBoarding() {
     if (isButtonEnabled) {
       try {
         const accessToken = sessionStorage.getItem('accessToken') || ''
-        const result = await submitMemberInfo({
-          memberName: name,
-          contact: phoneNumber.replace(/\D/g, ''),
-          emailId: emailId,
-        })
+        const result = await submitMemberInfo(
+          {
+            memberName: name,
+            contact: phoneNumber.replace(/\D/g, ''),
+            emailId: emailId,
+          },
+          accessToken,
+        )
 
         if (result) {
           router.push('/login/onboarding-agree')

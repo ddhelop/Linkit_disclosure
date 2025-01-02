@@ -9,14 +9,16 @@ interface MemberBasicInfo {
   contact: string
 }
 
-export async function submitMemberInfo(data: MemberBasicInfo) {
+export async function submitMemberInfo(data: MemberBasicInfo, accessToken: string) {
   try {
-    const response = await fetchWithAuth('/api/v1/member/basic-inform', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/member/basic-inform`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(data),
+      credentials: 'include',
     })
 
     if (!response.ok) {
