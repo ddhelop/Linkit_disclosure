@@ -1,8 +1,10 @@
 'use client'
 import Image from 'next/image'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { getTeamInfo } from '../../api/teamApi'
+import Link from 'next/link'
+import { Button } from '@/shared/ui/Button/Button'
 
 interface TeamData {
   isMyTeam: boolean
@@ -21,11 +23,10 @@ interface TeamData {
   }
 }
 
-export default function TeamInfo() {
-  const params = useParams()
+export default function TeamInfo({ params }: { params: { teamName: string } }) {
   const [teamData, setTeamData] = useState<TeamData | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-
+  const router = useRouter()
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
@@ -58,11 +59,12 @@ export default function TeamInfo() {
           ))}
         </div>
 
-        <div className="mt-5 flex justify-center">
+        <div className="mt-5 flex justify-between">
           <div className="flex gap-8">
             <Image
               src={teamInformMenu.teamLogoImagePath || '/common/default_profile.svg'}
               alt="team-profile"
+              className="rounded-xl"
               width={132}
               height={132}
             />
@@ -88,6 +90,23 @@ export default function TeamInfo() {
           </div>
         </div>
       </div>
+      {teamData.isMyTeam ? (
+        <div>
+          <Button
+            onClick={() => {
+              router.push(`/team/${params.teamName}/edit/log`)
+            }}
+            animationMode="grey"
+            className="flex gap-2 rounded-full border border-grey30 bg-white px-6 py-3 text-sm text-grey60"
+            mode="custom"
+          >
+            <Image src="/common/icons/pencil.svg" alt="edit" width={16} height={16} />
+            수정하기
+          </Button>
+        </div>
+      ) : (
+        <div>123123</div>
+      )}
     </div>
   )
 }

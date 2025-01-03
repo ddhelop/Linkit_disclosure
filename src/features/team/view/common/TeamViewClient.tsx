@@ -3,9 +3,8 @@ import Link from 'next/link'
 import { usePathname, useParams } from 'next/navigation'
 import TeamInfo from './TeamInfo'
 
-export default function TeamViewClient() {
+export default function TeamViewClient({ params }: { params: { teamName: string } }) {
   const pathname = usePathname()
-  const params = useParams()
   const teamName = params.teamName
 
   // 선택된 메뉴의 스타일
@@ -27,7 +26,7 @@ export default function TeamViewClient() {
         className="flex h-[22.4rem] flex-col px-[7.12rem] py-8"
         style={{ background: 'linear-gradient(180deg, #D3E1FE -16.67%, #FFFFFF 100%)' }}
       >
-        <TeamInfo />
+        <TeamInfo params={{ teamName }} />
         {/* 팀 정보 영역 */}
         <div className="flex gap-6 pt-[4.69rem]">
           <Link href={`/team/${teamName}/log`} className={pathname.includes('/log') ? selectedStyle : defaultStyle}>
