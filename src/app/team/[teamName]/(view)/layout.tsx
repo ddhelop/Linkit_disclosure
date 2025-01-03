@@ -7,7 +7,7 @@ export default function TeamLayout({ children, params }: { children: React.React
     flex flex-col bg-grey10`}
     >
       <TeamViewClient />
-      <div className=" bg-grey10 px-[7.12rem]">{children}</div>
+      <div className="min-h-[calc(100vh-26.5rem)] bg-grey10 px-[7.12rem]">{children}</div>
     </div>
   )
 }
