@@ -1,20 +1,13 @@
 export interface TeamMember {
-  profileCurrentStates: [
-    {
-      profileStateName: string
-    },
-    {
-      profileStateName: string
-    },
-  ]
-  profileImagePath: string | null
+  profileImagePath: string
   memberName: string
-  isProfilePublic: boolean
   majorPosition: string
   regionDetail: {
     cityName: string | null
     divisionName: string | null
   }
+  teamMemberType: string
+  teamMemberInviteState: string
 }
 
 export interface TeamProduct {

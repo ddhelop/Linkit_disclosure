@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { TeamMember } from '../../types/teamView.types'
 
 export default function MyTeamViewMemberComponent({ member }: { member: TeamMember }) {
-  const hasProfileInfo = member.profileCurrentStates.length > 0
+  const hasProfileInfo = member.majorPosition.length > 0 && member?.regionDetail?.cityName !== null
 
   return (
     <div className="w-full cursor-pointer hover:shadow-md">
@@ -21,7 +21,7 @@ export default function MyTeamViewMemberComponent({ member }: { member: TeamMemb
             )}
             {hasProfileInfo && (
               <div className=" flex items-center gap-2 text-xs text-grey50">
-                지역 | <span className="text-sm text-grey70">{member.regionDetail.cityName}</span>
+                지역 | <span className="text-sm text-grey70">{member.regionDetail?.cityName}</span>
               </div>
             )}
           </div>

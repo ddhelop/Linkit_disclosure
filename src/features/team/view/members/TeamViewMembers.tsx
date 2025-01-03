@@ -12,7 +12,7 @@ export default function TeamViewMembers({ params }: { params: { teamName: string
     const fetchData = async () => {
       const data = await getTeamMembers(params.teamName)
       console.log(data)
-      setMembers(data.result.profileInformMenus)
+      setMembers(data.result.acceptedTeamMemberItems)
     }
     fetchData()
   }, [params.teamName])

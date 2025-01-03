@@ -29,7 +29,7 @@ export async function getTeamAnnouncementDetail(teamName: string, id: string) {
 
 // 팀원 조회
 export async function getTeamMembers(teamName: string) {
-  const response = await fetchWithAuth(`/api/v1/team/${teamName}/members/view`)
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/members/edit`)
   if (!response.ok) {
     throw new Error('Failed to fetch team members')
   }
