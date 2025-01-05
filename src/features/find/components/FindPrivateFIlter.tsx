@@ -1,23 +1,34 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { useRouter, useSearchParams } from 'next/navigation'
 import PositionFilter from './filters/PositionFilter'
 import SkillFilter from './filters/SkillFilter'
 import LocationFilter from './filters/LocationFilter'
 import StatusFilter from './filters/StatusFilter'
 
 export default function FindPrivateFilter() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  // 초기 상태를 URL 파라미터에서 가져오기
   const [isPositionOpen, setIsPositionOpen] = useState(false)
   const [isSkillOpen, setIsSkillOpen] = useState(false)
-  const [selectedPositions, setSelectedPositions] = useState<string[]>([])
-  const [selectedSkills, setSelectedSkills] = useState<string[]>([])
+  const [selectedPositions, setSelectedPositions] = useState<string[]>(
+    [searchParams.get('majorPosition')].filter(Boolean) as string[],
+  )
+  const [selectedSkills, setSelectedSkills] = useState<string[]>(searchParams.getAll('skillName'))
   const [positionSearchText, setPositionSearchText] = useState('')
   const [skillSearchText, setSkillSearchText] = useState('')
   const [isLocationOpen, setIsLocationOpen] = useState(false)
-  const [selectedLocations, setSelectedLocations] = useState<string[]>([])
+  const [selectedLocations, setSelectedLocations] = useState<string[]>(
+    [searchParams.get('cityName')].filter(Boolean) as string[],
+  )
   const [locationSearchText, setLocationSearchText] = useState('')
   const [isStatusOpen, setIsStatusOpen] = useState(false)
-  const [selectedStatus, setSelectedStatus] = useState<string[]>([])
+  const [selectedStatus, setSelectedStatus] = useState<string[]>(
+    [searchParams.get('profileStateName')].filter(Boolean) as string[],
+  )
   const [statusSearchText, setStatusSearchText] = useState('')
   const [isFocused, setIsFocused] = useState({
     position: false,
@@ -26,16 +37,46 @@ export default function FindPrivateFilter() {
     status: false,
   })
 
-  const handlePositionSelect = (position: string) => {
-    if (selectedPositions.includes(position)) {
-      setSelectedPositions(selectedPositions.filter((p) => p !== position))
-    } else {
-      setSelectedPositions([...selectedPositions, position])
+  // URL 업데이트 함수
+  const updateURL = () => {
+    const params = new URLSearchParams()
+
+    // 선택된 값들을 URL 파라미터로 변환
+    if (selectedPositions.length > 0) {
+      params.set('majorPosition', selectedPositions[0]) // API는 단일 포지션만 지원
     }
+
+    selectedSkills.forEach((skill) => {
+      params.append('skillName', skill)
+    })
+
+    if (selectedLocations.length > 0) {
+      params.set('cityName', selectedLocations[0]) // API는 단일 지역만 지원
+    }
+
+    if (selectedStatus.length > 0) {
+      params.set('profileStateName', selectedStatus[0]) // API는 단일 상태만 지원
+    }
+
+    // 페이지 초기화
+    params.set('page', '1')
+
+    // URL 업데이트
+    router.push(`/find/private?${params.toString()}`)
+  }
+
+  // 선택 값이 변경될 때마다 URL 업데이트
+  useEffect(() => {
+    updateURL()
+  }, [selectedPositions, selectedSkills, selectedLocations, selectedStatus])
+
+  const handlePositionSelect = (position: string) => {
+    // API는 단일 포지션만 지원하므로 이전 선택을 대체
+    setSelectedPositions([position])
   }
 
   const removePosition = (position: string) => {
-    setSelectedPositions(selectedPositions.filter((p) => p !== position))
+    setSelectedPositions([])
   }
 
   const handleSkillSelect = (skill: string) => {
@@ -51,27 +92,21 @@ export default function FindPrivateFilter() {
   }
 
   const handleLocationSelect = (location: string) => {
-    if (selectedLocations.includes(location)) {
-      setSelectedLocations(selectedLocations.filter((l) => l !== location))
-    } else {
-      setSelectedLocations([...selectedLocations, location])
-    }
+    // API는 단일 지역만 지원하므로 이전 선택을 대체
+    setSelectedLocations([location])
   }
 
   const removeLocation = (location: string) => {
-    setSelectedLocations(selectedLocations.filter((l) => l !== location))
+    setSelectedLocations([])
   }
 
   const handleStatusSelect = (status: string) => {
-    if (selectedStatus.includes(status)) {
-      setSelectedStatus(selectedStatus.filter((s) => s !== status))
-    } else {
-      setSelectedStatus([...selectedStatus, status])
-    }
+    // API는 단일 상태만 지원하므로 이전 선택을 대체
+    setSelectedStatus([status])
   }
 
   const removeStatus = (status: string) => {
-    setSelectedStatus(selectedStatus.filter((s) => s !== status))
+    setSelectedStatus([])
   }
 
   return (

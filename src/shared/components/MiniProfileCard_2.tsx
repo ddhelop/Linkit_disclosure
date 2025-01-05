@@ -8,7 +8,7 @@ interface MiniProfileCard2Props {
 
 export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
   return (
-    <div className="flex w-[17.5rem] cursor-pointer flex-col rounded-xl bg-[#EDF3FF] p-[1.37rem] hover:border hover:border-main">
+    <div className="flex w-full cursor-pointer flex-col rounded-xl bg-[#EDF3FF] p-[1.37rem] hover:border hover:border-main">
       {/* 첫째줄 */}
       <div className="flex justify-between">
         <div className="flex gap-2">
@@ -27,7 +27,13 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
       </div>
 
       <div className="mt-[1.59rem] flex gap-3">
-        <Image src={profile.profileImagePath || '/common/default_profile.svg'} width={80} height={80} alt="profile" />
+        <Image
+          src={profile.profileImagePath || '/common/default_profile.svg'}
+          width={80}
+          height={80}
+          alt="profile"
+          className="h-20 w-20 object-cover"
+        />
         <div className="flex flex-col justify-center">
           <span className="text-lg font-bold text-grey90">{profile.memberName}</span>
           <span className="flex gap-1">
@@ -55,6 +61,7 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
             width={40}
             height={40}
             alt={team.teamName}
+            className="h-10 w-10 object-cover"
           />
         ))}
       </div>
