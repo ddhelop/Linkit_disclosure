@@ -1,5 +1,5 @@
 import FindPrivateFIlter from '@/features/find/components/FindPrivateFIlter'
-import FilterResult from '@/features/find/components/resultFilter/FilterResult'
+import PrivateFilterResult from '@/features/find/components/resultFilter/PrivateFilterResult'
 
 export default function FindPrivatePage() {
   return (
@@ -29,7 +29,7 @@ export default function FindPrivatePage() {
 
           {/* 필터링 결과 */}
           <div className="mt-12">
-            <FilterResult />
+            <PrivateFilterResult />
           </div>
         </div>
       </div>

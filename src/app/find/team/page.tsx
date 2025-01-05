@@ -1,4 +1,5 @@
 import FindTeamFilter from '@/features/find/components/FindTeamFilter'
+import TeamFilterResult from '@/features/find/components/resultFilter/TeamFilterResult'
 
 export default function FindTeamPage() {
   return (
@@ -25,6 +26,11 @@ export default function FindTeamPage() {
           {/* 필터 */}
           <div className="mt-[2.19rem]">
             <FindTeamFilter />
+          </div>
+
+          {/* 필터링 결과 */}
+          <div className="mt-12">
+            <TeamFilterResult />
           </div>
         </div>
       </div>

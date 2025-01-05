@@ -5,7 +5,7 @@ import MiniProfileCard_2 from '@/shared/components/MiniProfileCard_2'
 import { getFindPrivateProfile } from '../../api/FindApi'
 import { Profile, SearchParams } from '../../types/FindTypes'
 
-export default function FilterResult() {
+export default function PrivateFilterResult() {
   const searchParams = useSearchParams()
   const [profiles, setProfiles] = useState<Profile[]>([])
   const [isLoading, setIsLoading] = useState(false)
