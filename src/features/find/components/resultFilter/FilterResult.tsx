@@ -11,7 +11,7 @@ export default function FilterResult() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [totalElements, setTotalElements] = useState(0)
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(0)
 
   useEffect(() => {
     const fetchProfiles = async () => {

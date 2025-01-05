@@ -72,3 +72,52 @@ export interface ApiResponse {
   message: string
   result: PageData
 }
+
+export interface TeamSearchParams {
+  scaleName?: string[]
+  isAnnouncement?: boolean
+  cityName?: string[]
+  teamStateName?: string[]
+  page?: number
+  size?: number
+}
+
+export interface TeamState {
+  teamStateName: string
+}
+
+export interface TeamScale {
+  teamScaleName: string
+}
+
+export interface Team {
+  teamCurrentStates: TeamState[]
+  isTeamScrap: boolean
+  teamScrapCount: number
+  teamName: string
+  teamShortDescription: string
+  teamLogoImagePath: string
+  teamScaleItem: TeamScale
+  regionDetail: RegionDetail
+}
+
+export interface TeamPageData {
+  content: Team[]
+  pageable: Pageable
+  last: boolean
+  totalElements: number
+  totalPages: number
+  first: boolean
+  size: number
+  number: number
+  sort: Sort
+  numberOfElements: number
+  empty: boolean
+}
+
+export interface TeamApiResponse {
+  isSuccess: boolean
+  code: string
+  message: string
+  result: TeamPageData
+}
