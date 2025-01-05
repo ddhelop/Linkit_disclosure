@@ -75,13 +75,13 @@ export default function Header() {
           </Link>
           <div className="ml-12 hidden h-full items-center text-grey60 md:flex">
             <Link
-              href="/"
+              href="/find/private"
               className="mt-2 flex h-full w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
             >
               팀원
             </Link>
             <Link
-              href="/"
+              href="/find/team"
               className="mt-2 flex h-full w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
             >
               팀
