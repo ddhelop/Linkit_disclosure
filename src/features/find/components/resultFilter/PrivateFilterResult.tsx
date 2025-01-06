@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import MiniProfileCard_2 from '@/shared/components/MiniProfileCard_2'
 import { getFindPrivateProfile } from '../../api/FindApi'
+import { ProfileInform } from '@/features/match/types/MatchTypes'
 import { Profile, SearchParams } from '../../types/FindTypes'
 
 export default function PrivateFilterResult() {

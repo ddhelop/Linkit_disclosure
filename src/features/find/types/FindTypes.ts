@@ -30,6 +30,7 @@ export interface Profile {
   isProfilePublic: boolean
   majorPosition: string
   regionDetail: RegionDetail
+  profileScrapCount: number
   profileTeamInforms: TeamInform[]
 }
 

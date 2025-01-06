@@ -3,9 +3,10 @@ import React, { useState } from 'react'
 import { ProfileInform } from '@/features/match/types/MatchTypes'
 import Link from 'next/link'
 import { profileScrap } from '../api/commonApi'
+import { Profile, Team } from '@/features/find/types/FindTypes'
 
 interface MiniProfileCard2Props {
-  profile: ProfileInform
+  profile: Profile
 }
 
 export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
