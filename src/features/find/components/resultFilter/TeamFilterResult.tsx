@@ -74,14 +74,12 @@ export default function TeamFilterResult() {
 
   return (
     <div className="px-12">
-      <div className="mb-4">
-        <p className="text-sm text-grey70">총 {totalElements}개의 검색결과</p>
-      </div>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {teams.map((team, index) => (
           <MiniTeamCard_2
             key={`${team.teamName}-${index}`}
             team={{
+              teamCode: team.teamCode,
               teamCurrentStates: team.teamCurrentStates,
               isTeamScrap: team.isTeamScrap,
               teamScrapCount: team.teamScrapCount,

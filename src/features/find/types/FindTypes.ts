@@ -91,6 +91,7 @@ export interface TeamScale {
 }
 
 export interface Team {
+  teamCode: string
   teamCurrentStates: TeamState[]
   isTeamScrap: boolean
   teamScrapCount: number

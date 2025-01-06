@@ -1,5 +1,6 @@
 import { Team } from '@/features/find/types/FindTypes'
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface MiniTeamCard_2Props {
   team: Team
@@ -7,8 +8,9 @@ interface MiniTeamCard_2Props {
 
 export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
   return (
-    <div
-      className="flex flex-col rounded-xl px-7 py-[1.12rem] hover:border hover:border-[#7EA5F8]"
+    <Link
+      href={`/team/${team.teamCode}/log`}
+      className="flex cursor-pointer flex-col rounded-xl px-7 py-[1.12rem] hover:border hover:border-[#7EA5F8]"
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
     >
       <div className="flex justify-between">
@@ -58,6 +60,6 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
           </span>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
