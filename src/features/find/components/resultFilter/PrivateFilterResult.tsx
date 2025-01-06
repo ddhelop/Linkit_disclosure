@@ -74,9 +74,6 @@ export default function PrivateFilterResult() {
 
   return (
     <div className="px-12">
-      <div className="mb-4">
-        <p className="text-sm text-grey70">총 {totalElements}개의 검색결과</p>
-      </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {profiles.map((profile, index) => (
           <MiniProfileCard_2 key={`${profile.emailId}-${index}`} profile={profile} />

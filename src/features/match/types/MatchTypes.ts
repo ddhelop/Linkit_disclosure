@@ -22,6 +22,7 @@ export interface ProfileInform {
   majorPosition: string
   regionDetail: RegionDetail
   profileTeamInforms: TeamInform[]
+  profileScrapCount: number
 }
 
 export interface ScrapResponse {
