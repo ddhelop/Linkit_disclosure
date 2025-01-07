@@ -51,6 +51,7 @@ export interface TeamInformMenu {
   teamLogoImagePath: string
   teamScaleItem: TeamScaleItem
   regionDetail: RegionDetail
+  teamCode: string
 }
 
 export interface TeamScrapResponse {
