@@ -14,19 +14,17 @@ interface CreateTeamRequest {
 
 export const createTeam = async (formData: FormData) => {
   try {
-    if (formData.get('teamLogoImage')) {
-      const response = await fetchWithAuth('/api/v1/team', {
-        method: 'POST',
-        body: formData,
-      })
+    const response = await fetchWithAuth('/api/v1/team', {
+      method: 'POST',
+      body: formData,
+    })
 
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || 'Failed to create team')
-      }
-
-      return await response.json()
+    if (!response.ok) {
+      const errorData = await response.json()
+      throw new Error(errorData.message || 'Failed to create team')
     }
+
+    return response
   } catch (error) {
     console.error('Error creating team:', error)
     throw error

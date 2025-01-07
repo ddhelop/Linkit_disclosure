@@ -129,28 +129,29 @@ export default function TeamCreate() {
         formData.append('teamLogoImage', teamLogo)
       }
 
-      // 팀 정보 JSON에 teamCode 추가
       const teamData = {
         teamName,
-        teamCode,
         teamShortDescription: teamIntro,
         scaleName: selectedTeamSize,
         cityName: selectedCity,
         divisionName: selectedDistrict,
         teamStateNames: recruitmentStatus,
         isTeamPublic,
+        teamCode,
       }
 
       formData.append('addTeamRequest', new Blob([JSON.stringify(teamData)], { type: 'application/json' }))
 
-      await createTeam(formData)
-      router.push('/team/select')
+      const response = await createTeam(formData)
+      if (response.ok) {
+        router.push('/team/select')
+      }
     } catch (error: any) {
-      if (error.response?.status === 409) {
+      console.error('팀 생성 실패:', error)
+      if (error.message.includes('409')) {
         setTeamCodeError('이미 사용 중인 팀 코드입니다')
         setIsTeamCodeValid(false)
       } else {
-        console.error('팀 생성 실패:', error)
         alert('팀 생성 중 오류가 발생했습니다.')
       }
     }
