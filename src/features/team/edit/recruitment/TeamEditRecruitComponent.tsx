@@ -29,9 +29,11 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
   })
 
   // 팀원 공고 삭제
-  const handleDeleteAnnouncement = async () => {
+  const handleDeleteAnnouncement = async (e: React.MouseEvent) => {
+    e.preventDefault() // Link 이동 방지
+    e.stopPropagation() // 이벤트 버블링 방지
     try {
-      if (confirm('정말로 ��제하시겠습니까?')) {
+      if (confirm('정말로 삭제하시겠습니까?')) {
         await deleteTeamAnnouncement(teamName, announcement.teamMemberAnnouncementId)
         onDelete?.()
         alert('삭제되었습니다.')
@@ -42,10 +44,11 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
   }
 
   // 팀원 공고 공개/비공개 전환
-  const handleToggleAnnouncementPublic = async () => {
+  const handleToggleAnnouncementPublic = async (e: React.MouseEvent) => {
+    e.preventDefault() // Link 이동 방지
+    e.stopPropagation() // 이벤트 버블링 방지
     try {
       const response = await toggleTeamAnnouncementPublic(teamName, announcement.teamMemberAnnouncementId)
-      // setIsPublic(response.isAnnouncementPublic)
       if (response.result.isAnnouncementPublic) {
         alert('공개로 전환되었습니다.')
         setIsPublic(true)
