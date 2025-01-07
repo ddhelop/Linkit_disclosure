@@ -47,7 +47,7 @@ export default function TeamSelect() {
               key={index}
               team={team}
               onClick={() => {
-                router.push(`/team/${encodeURIComponent(team.teamName)}/log`)
+                router.push(`/team/${encodeURIComponent(team.teamCode)}/log`)
               }}
             />
           ))}

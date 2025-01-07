@@ -18,6 +18,7 @@ export interface TeamInformation {
   teamLogoImagePath: string
   teamScaleItem: TeamScale
   regionDetail: RegionDetail
+  teamCode: string
 }
 
 export interface TeamResponse {

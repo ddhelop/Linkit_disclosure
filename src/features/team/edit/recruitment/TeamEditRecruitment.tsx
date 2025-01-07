@@ -141,28 +141,47 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
 
   // 데이터 변경 감지
   useEffect(() => {
-    if (!originalData) return
+    if (id) {
+      // 수정 모드: 기존 데이터와 비교
+      if (!originalData) return
 
-    const currentData = {
-      announcementTitle: title,
-      announcementPositionItem: {
-        majorPosition: selectedCategory,
-        subPosition: selectedSubCategory,
-      },
-      announcementSkillNames: selectedSkills,
-      announcementStartDate: startDate,
-      announcementEndDate: endDate,
-      mainTasks,
-      workMethod,
-      idealCandidate,
-      preferredQualifications,
-      joiningProcess,
-      benefits,
+      const currentData = {
+        announcementTitle: title,
+        announcementPositionItem: {
+          majorPosition: selectedCategory,
+          subPosition: selectedSubCategory,
+        },
+        announcementSkillNames: selectedSkills,
+        announcementStartDate: startDate,
+        announcementEndDate: endDate,
+        mainTasks,
+        workMethod,
+        idealCandidate,
+        preferredQualifications,
+        joiningProcess,
+        benefits,
+      }
+
+      const isChanged = JSON.stringify(currentData) !== JSON.stringify(originalData)
+      setIsDataChanged(isChanged)
+    } else {
+      // 생성 모드: 필수 항목 검증
+      const isValid =
+        title.trim() !== '' &&
+        selectedCategory !== '' &&
+        selectedSubCategory !== '' &&
+        selectedSkills.length > 0 &&
+        startDate !== '' &&
+        endDate !== '' &&
+        mainTasks.trim() !== '' &&
+        workMethod.trim() !== '' &&
+        idealCandidate.trim() !== ''
+
+      setIsDataChanged(isValid)
     }
-
-    const isChanged = JSON.stringify(currentData) !== JSON.stringify(originalData)
-    setIsDataChanged(isChanged)
   }, [
+    id,
+    originalData,
     title,
     selectedCategory,
     selectedSubCategory,
@@ -175,7 +194,6 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
     preferredQualifications,
     joiningProcess,
     benefits,
-    originalData,
   ])
 
   return (
