@@ -3,6 +3,7 @@ export interface SearchParams {
   skillName?: string[]
   cityName?: string
   profileStateName?: string
+  scale?: string
   page?: number
   size?: number
 }
@@ -67,11 +68,11 @@ export interface PageData {
   empty: boolean
 }
 
-export interface ApiResponse {
+export interface ApiResponse<T = Profile> {
   isSuccess: boolean
   code: string
   message: string
-  result: PageData
+  result: T extends Profile ? PageData : AnnouncementPageData
 }
 
 export interface TeamSearchParams {
@@ -122,4 +123,48 @@ export interface TeamApiResponse {
   code: string
   message: string
   result: TeamPageData
+}
+
+interface AnnouncementPositionItem {
+  majorPosition: string
+  subPosition: string
+}
+
+interface AnnouncementSkillName {
+  announcementSkillName: string
+}
+
+export interface Announcement {
+  teamLogoImagePath: string
+  teamName: string
+  teamCode: string
+  teamScaleItem: TeamScale
+  regionDetail: RegionDetail
+  announcementDDay: number
+  announcementTitle: string
+  isAnnouncementScrap: boolean
+  announcementScrapCount: number
+  announcementPositionItem: AnnouncementPositionItem
+  announcementSkillNames: AnnouncementSkillName[]
+}
+
+export interface AnnouncementPageData {
+  content: Announcement[]
+  pageable: Pageable
+  last: boolean
+  totalElements: number
+  totalPages: number
+  first: boolean
+  size: number
+  number: number
+  sort: Sort
+  numberOfElements: number
+  empty: boolean
+}
+
+export interface AnnouncementApiResponse {
+  isSuccess: boolean
+  code: string
+  message: string
+  result: AnnouncementPageData
 }

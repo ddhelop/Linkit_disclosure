@@ -1,4 +1,5 @@
 import FindAnnouncementFilter from '@/features/find/components/FindAnnouncementFilter'
+import AnnouncementFilterResult from '@/features/find/components/resultFilter/AnnouncementFilterResult'
 
 export default function FindAnnouncementPage() {
   return (
@@ -27,9 +28,9 @@ export default function FindAnnouncementPage() {
           </div>
 
           {/* 필터링 결과 */}
-          {/* <div className="mt-12">
-            <PrivateFilterResult />
-          </div> */}
+          <div className="mt-12">
+            <AnnouncementFilterResult />
+          </div>
         </div>
       </div>
     </div>
