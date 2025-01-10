@@ -1,5 +1,12 @@
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
-import { ProfileInform, ScrapResponse, TeamInformMenu, TeamScrapResponse } from '../types/MatchTypes'
+import {
+  ProfileInform,
+  ScrapResponse,
+  TeamInformMenu,
+  TeamScrapResponse,
+  MatchingMenuResponse,
+  ReceiverType,
+} from '../types/MatchTypes'
 
 export const getProfileScraps = async (): Promise<ProfileInform[]> => {
   try {
@@ -25,6 +32,35 @@ export const getTeamScraps = async (): Promise<TeamInformMenu[]> => {
     return data.result.teamInformMenus
   } catch (error) {
     console.error('Error fetching team scraps:', error)
+    throw error
+  }
+}
+
+export const getMatchingMessages = async (
+  page: number = 0,
+  size: number = 20,
+  receiverType?: ReceiverType,
+): Promise<MatchingMenuResponse> => {
+  try {
+    const queryParams = new URLSearchParams({
+      page: page.toString(),
+      size: size.toString(),
+    })
+
+    if (receiverType) {
+      queryParams.append('receiverType', receiverType)
+    }
+
+    const response = await fetchWithAuth(`/api/v1/matching/received/menu?${queryParams}`)
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch matching messages')
+    }
+
+    const data: MatchingMenuResponse = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error fetching matching messages:', error)
     throw error
   }
 }
