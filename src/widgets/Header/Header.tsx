@@ -87,7 +87,7 @@ export default function Header() {
               팀
             </Link>
             <Link
-              href="/"
+              href="/find/announcement"
               className="mt-2 flex h-full w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
             >
               모집 공고
@@ -175,14 +175,14 @@ export default function Header() {
         <div className="mobile-menu absolute left-1 top-[3.8rem] z-50 flex w-[99%] rounded-lg bg-white px-6 py-4 shadow-sm md:hidden">
           {isLogin ? (
             <div className="w-full space-y-4">
-              <Link href="/profile" className="flex gap-3 text-sm text-gray-700" onClick={closeMobileMenu}>
+              <Link href="/find/private" className="flex gap-3 text-sm text-gray-700" onClick={closeMobileMenu}>
                 <Image src={'/common/icons/member_icon.svg'} width={14} height={14} alt="profile" />
                 팀원
               </Link>
-              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
+              <Link href="/find/team" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
                 <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />팀
               </Link>
-              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
+              <Link href="/find/announcement" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
                 <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />
                 모집 공고
               </Link>
@@ -190,7 +190,7 @@ export default function Header() {
               <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
                 <Image src={'/common/icons/myprofile_icon.svg'} width={14} height={14} alt="profile" />내 프로필
               </Link>
-              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
+              <Link href="/" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
                 <Image src={'/common/icons/myteam_icon.svg'} width={14} height={14} alt="team" />
                 나의 팀
               </Link>
@@ -207,14 +207,14 @@ export default function Header() {
             </div>
           ) : (
             <div className="w-full space-y-4">
-              <Link href="/profile" className="flex gap-3 text-sm text-gray-700" onClick={closeMobileMenu}>
+              <Link href="/find/private" className="flex gap-3 text-sm text-gray-700" onClick={closeMobileMenu}>
                 <Image src={'/common/icons/member_icon.svg'} width={14} height={14} alt="profile" />
                 팀원
               </Link>
               <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
                 <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />팀
               </Link>
-              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
+              <Link href="/find/announcement" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
                 <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />
                 모집 공고
               </Link>
