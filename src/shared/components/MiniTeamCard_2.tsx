@@ -18,7 +18,7 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
   const handleScrap = async (e: React.MouseEvent) => {
     e.preventDefault() // Link 컴포넌트의 기본 동작 방지
     try {
-      const response = await teamScrap(team.teamName, !isScraped)
+      const response = await teamScrap(team.teamCode, !isScraped)
       if (response.ok) {
         setIsScraped(!isScraped)
         setScrapCount((prev) => (isScraped ? prev - 1 : prev + 1))

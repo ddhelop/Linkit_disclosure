@@ -1,5 +1,6 @@
 import { Announcement } from '@/features/find/types/FindTypes'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function AnnouncementCard({ announcement }: { announcement: Announcement }) {
   return (

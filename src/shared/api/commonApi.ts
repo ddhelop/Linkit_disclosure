@@ -1,8 +1,8 @@
 import { fetchWithAuth } from '../lib/api/fetchWithAuth'
 
 // 팀 스크랩 및 취소
-export const teamScrap = async (teamName: string, changeScrapValue: boolean) => {
-  const response = await fetchWithAuth(`/api/v1/team/scrap/${teamName}`, {
+export const teamScrap = async (teamCode: string, changeScrapValue: boolean) => {
+  const response = await fetchWithAuth(`/api/v1/team/scrap/${teamCode}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
