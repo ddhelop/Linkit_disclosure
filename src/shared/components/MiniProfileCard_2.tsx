@@ -35,14 +35,14 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
       {/* 첫째줄 */}
       <div className="flex justify-between">
         <div className="flex gap-2">
-          {profile.profileCurrentStates.slice(0, 2).map((state, index) => (
+          {profile?.profileCurrentStates?.slice(0, 2).map((state, index) => (
             <div key={index} className="rounded-[0.38rem] bg-white px-2 py-1 text-xs text-grey90">
-              {state.profileStateName}
+              {state?.profileStateName}
             </div>
           ))}
-          {profile.profileCurrentStates.length > 2 && (
+          {profile?.profileCurrentStates?.length > 2 && (
             <div className="rounded-[0.38rem] bg-white px-2 py-1 text-xs text-grey90">
-              +{profile.profileCurrentStates.length - 2}
+              +{profile?.profileCurrentStates?.length - 2}
             </div>
           )}
         </div>
@@ -64,7 +64,7 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
 
       <div className="mt-[1.59rem] flex gap-3">
         <Image
-          src={profile.profileImagePath || '/common/default_profile.svg'}
+          src={profile?.profileImagePath || '/common/default_profile.svg'}
           width={80}
           height={80}
           alt="profile"
@@ -72,19 +72,19 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
         />
         <div className="flex flex-col justify-center">
           <div className="flex items-center gap-3">
-            <span className="text-lg font-bold text-grey90">{profile.memberName}</span>
+            <span className="text-lg font-bold text-grey90">{profile?.memberName}</span>
             <span className="text-xs text-grey70">스크랩 수 {scrapCount}</span>
           </div>
           <span className="flex gap-1">
             <span className="text-xs text-grey50">포지션</span>
             <span className="text-xs text-grey50">|</span>
-            <span className="text-xs text-grey70">{profile.majorPosition}</span>
+            <span className="text-xs text-grey70">{profile?.majorPosition}</span>
           </span>
           <span className="flex gap-1">
             <span className="text-xs text-grey50">지역</span>
             <span className="pl-[0.655rem] text-xs text-grey50">|</span>
             <span className="text-xs text-grey70">
-              {profile.regionDetail.cityName} {profile.regionDetail.divisionName}
+              {profile?.regionDetail?.cityName} {profile?.regionDetail?.divisionName}
             </span>
           </span>
         </div>
@@ -93,13 +93,13 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
 
       {/* 팀 목록 */}
       <div className="flex gap-4">
-        {profile.profileTeamInforms.map((team, index) => (
+        {profile?.profileTeamInforms?.map((team, index) => (
           <Image
             key={index}
-            src={team.teamLogoImagePath || '/common/default_profile.svg'}
+            src={team?.teamLogoImagePath || '/common/default_profile.svg'}
             width={40}
             height={40}
-            alt={team.teamName}
+            alt={team?.teamName}
             className="h-10 w-10 rounded-lg object-cover"
           />
         ))}

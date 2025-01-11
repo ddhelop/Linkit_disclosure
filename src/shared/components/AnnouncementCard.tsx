@@ -10,29 +10,29 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
     >
       <div className="flex justify-between">
         <span className="rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">
-          D-{announcement.announcementDDay}
+          D-{announcement?.announcementDDay}
         </span>
         <Image src="/common/icons/save.svg" alt="announcement-icon" width={20} height={20} />
       </div>
 
       <div className="flex items-center gap-2">
         <Image src="/common/default_profile.svg" alt="announcement-icon" width={22} height={22} />
-        <span className="text-sm text-grey90">{announcement.teamName}</span>
+        <span className="text-sm text-grey90">{announcement?.teamName}</span>
       </div>
       <div className="flex w-[90%] flex-col gap-1 ">
-        <span className="text-lg font-semibold text-grey90">{announcement.announcementTitle}</span>
-        <span className="text-xs text-grey70">스크랩수 {announcement.announcementScrapCount}</span>
+        <span className="text-lg font-semibold text-grey90">{announcement?.announcementTitle}</span>
+        <span className="text-xs text-grey70">스크랩수 {announcement?.announcementScrapCount}</span>
       </div>
 
       <div className="flex gap-2">
         <div className="rounded-[0.38rem] bg-[#D3E1FE] px-3 py-1 text-sm text-main">
-          {announcement.announcementPositionItem.majorPosition}
+          {announcement?.announcementPositionItem?.majorPosition}
         </div>
         <div className="rounded-[0.38rem] bg-[#EDF3FF] px-3 py-1 text-sm text-main">
-          {announcement.announcementSkillNames.map((skill) => skill.announcementSkillName).join(', ')}
+          {announcement?.announcementSkillNames?.map((skill) => skill?.announcementSkillName).join(', ')}
         </div>
         <div className="rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-sm text-main">
-          +{announcement.announcementSkillNames.length}
+          +{announcement?.announcementSkillNames?.length}
         </div>
       </div>
     </div>
