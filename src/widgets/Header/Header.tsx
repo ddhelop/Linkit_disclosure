@@ -123,8 +123,15 @@ export default function Header() {
             )
           ) : isLogin ? (
             <div className="relative hidden gap-[2rem] md:flex">
-              <div className="flex cursor-pointer items-center">
-                <Image src={'/common/icons/alarm_circle.svg'} width={32} height={32} alt="alarm" />
+              <div className="flex gap-5">
+                <Link href="/chat">
+                  <div className="flex cursor-pointer items-center">
+                    <Image src={'/common/icons/chat_circle.svg'} width={32} height={32} alt="alarm" />
+                  </div>
+                </Link>
+                <div className="flex cursor-pointer items-center">
+                  <Image src={'/common/icons/alarm_circle.svg'} width={32} height={32} alt="alarm" />
+                </div>
               </div>
 
               <button
