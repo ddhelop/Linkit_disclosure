@@ -54,6 +54,22 @@ export interface TeamInformMenu {
   teamCode: string
 }
 
+export interface AnnouncementScrapResponse {
+  teamLogoImagePath: string
+  teamName: string
+  teamCode: string
+  teamScaleItem: {
+    teamScaleName: string
+  }
+  regionDetail: RegionDetail
+  announcementDDay: number
+  announcementTitle: string
+  isAnnouncementScrap: boolean
+  announcementScrapCount: number
+  announcementPositionItem: PositionDetail
+  announcementSkillNames: AnnouncementSkill[]
+}
+
 export interface TeamScrapResponse {
   isSuccess: boolean
   code: string
@@ -156,3 +172,5 @@ export interface MatchingMenuResponse {
 }
 
 export type ReceiverType = 'PROFILE' | 'TEAM' | undefined
+
+export type FilterType = 'MEMBER' | 'TEAM' | 'ANNOUNCEMENT'

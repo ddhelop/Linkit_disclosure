@@ -1,4 +1,4 @@
-type FilterType = 'MEMBER' | 'TEAM' | 'RECRUITMENT'
+import { FilterType } from '../types/MatchTypes'
 
 interface FilterButtonProps {
   type: FilterType
@@ -29,7 +29,7 @@ export default function MatchScrapFilter({
     <div className="mt-9 flex gap-3">
       <FilterButton type="MEMBER" label="팀원" selected={selected} onClick={onFilterChange} />
       <FilterButton type="TEAM" label="팀" selected={selected} onClick={onFilterChange} />
-      <FilterButton type="RECRUITMENT" label="모집공고" selected={selected} onClick={onFilterChange} />
+      <FilterButton type="ANNOUNCEMENT" label="모집공고" selected={selected} onClick={onFilterChange} />
     </div>
   )
 }
