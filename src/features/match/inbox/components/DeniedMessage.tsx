@@ -24,7 +24,7 @@ export default function DeniedMessage({ message }: DeniedMessageProps) {
           <span className="line-clamp-1 text-sm font-normal text-grey50">{message.requestMessage}</span>
         </div>
         <span className="absolute right-6 top-6 z-20 text-xs font-normal text-grey80">
-          {message.senderTeamInformation.teamName} · {message.requestedDate}
+          {message.senderTeamInformation.teamName} · {message.modifiedAt}
         </span>
       </div>
     </div>

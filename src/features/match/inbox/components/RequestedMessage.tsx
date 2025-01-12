@@ -29,7 +29,7 @@ export default function RequestedMessage({ message, onClick }: RequestedMessageP
           <span className="line-clamp-1 text-sm font-normal text-grey70">{message.requestMessage}</span>
         </div>
         <span className="absolute right-6 top-6 text-xs font-normal text-grey80">
-          {message.senderTeamInformation.teamName} · {message.requestedDate}
+          {message.senderTeamInformation.teamName} · {message.modifiedAt}
         </span>
       </div>
     </div>

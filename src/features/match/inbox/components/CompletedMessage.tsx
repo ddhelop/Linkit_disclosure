@@ -24,7 +24,7 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
           </div>
           <div className="absolute right-6 flex flex-col items-end gap-2">
             <span className="text-xs font-normal text-grey80">
-              {message.senderTeamInformation.teamName} · {message.requestedDate}
+              {message.senderTeamInformation.teamName} · {message.modifiedAt}
             </span>
           </div>
         </div>

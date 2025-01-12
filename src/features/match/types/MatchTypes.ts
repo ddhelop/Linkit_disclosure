@@ -112,7 +112,7 @@ export interface AnnouncementInformation {
 
 export interface MatchingMessage {
   matchingId: number
-  requestedDate: string
+  modifiedAt: string
   senderType: 'PROFILE' | 'TEAM'
   receiverType: 'PROFILE' | 'TEAM'
   senderProfileInformation: ProfileInformation
