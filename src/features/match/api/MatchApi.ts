@@ -108,7 +108,7 @@ export const getMatchingMessages = async (
 
 export const markMatchingAsRead = async (matchingIds: number[]): Promise<void> => {
   try {
-    const response = await fetchWithAuth('/api/v1/matching/received/menu/completed/read', {
+    const response = await fetchWithAuth('/api/v1/matching/received/menu/read', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
