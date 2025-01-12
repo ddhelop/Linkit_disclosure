@@ -59,7 +59,7 @@ function BulkActionBar({
       <div className="flex gap-4">
         <button
           onClick={onMarkRead}
-          className="flex items-center gap-2 rounded-[0.38rem] border border-grey40 px-3 py-1 text-sm text-grey70"
+          className="p flex items-center gap-2 rounded-[0.38rem] border border-grey40 px-3 text-sm text-grey70"
         >
           읽음 처리
         </button>
@@ -145,10 +145,11 @@ export default function InBoxRequestMessage({ messages, onUpdate }: InBoxMessage
 
   const handleAccept = async () => {
     if (!selectedMessage) return
+
     try {
       await updateMatchingStatus(selectedMessage.matchingId, 'COMPLETED')
-      setSelectedMessage(null)
       onUpdate?.()
+      setSelectedMessage(null)
     } catch (error) {
       console.error('Error accepting matching:', error)
     }
@@ -158,8 +159,8 @@ export default function InBoxRequestMessage({ messages, onUpdate }: InBoxMessage
     if (!selectedMessage) return
     try {
       await updateMatchingStatus(selectedMessage.matchingId, 'DENIED')
-      setSelectedMessage(null)
       onUpdate?.()
+      setSelectedMessage(null)
     } catch (error) {
       console.error('Error rejecting matching:', error)
     }
@@ -208,6 +209,7 @@ export default function InBoxRequestMessage({ messages, onUpdate }: InBoxMessage
           onClose={() => setSelectedMessage(null)}
           onAccept={handleAccept}
           onReject={handleReject}
+          modalRef={modalRef}
         />
       )}
     </div>

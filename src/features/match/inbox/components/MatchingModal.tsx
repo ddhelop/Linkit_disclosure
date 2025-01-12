@@ -8,12 +8,13 @@ interface MatchingModalProps {
   onClose: () => void
   onAccept: () => void
   onReject: () => void
+  modalRef: React.RefObject<HTMLDivElement>
 }
 
-export default function MatchingModal({ message, onClose, onAccept, onReject }: MatchingModalProps) {
+export default function MatchingModal({ message, onClose, onAccept, onReject, modalRef }: MatchingModalProps) {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-[31.25rem] rounded-xl bg-white p-8">
+      <div ref={modalRef} className="w-[31.25rem] rounded-xl bg-white p-8">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-xl font-semibold">매칭 요청</h2>
           <button onClick={onClose}>
@@ -40,12 +41,21 @@ export default function MatchingModal({ message, onClose, onAccept, onReject }: 
 
         <div className="flex gap-4">
           <button
-            onClick={onReject}
+            onClick={(e) => {
+              e.stopPropagation()
+              onReject()
+            }}
             className="flex-1 rounded-lg border border-grey30 py-3 text-grey70 hover:bg-grey10"
           >
             거절하기
           </button>
-          <button onClick={onAccept} className="flex-1 rounded-lg bg-main py-3 text-white hover:bg-blue-600">
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              onAccept()
+            }}
+            className="flex-1 rounded-lg bg-main py-3 text-white hover:bg-blue-600"
+          >
             수락하기
           </button>
         </div>
