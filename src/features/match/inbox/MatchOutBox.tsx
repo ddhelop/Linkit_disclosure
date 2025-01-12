@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import MatchFilter from '../common/MatchFilter'
-import InBoxMessage from './InBoxMessage'
+import InBoxMessage from './InBoxRequestMessage'
 import { getMatchingMessages, getRequestedMatchingMessages } from '../api/MatchApi'
 import { MatchingMessage } from '../types/MatchTypes'
 

@@ -7,24 +7,34 @@ interface CompletedMessageProps {
 
 export default function CompletedMessage({ message }: CompletedMessageProps) {
   return (
-    <div className="w-full">
-      <div className="relative flex w-full gap-5 rounded-xl border border-grey30 bg-white px-10 py-7">
-        <Image
-          src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
-          alt="profile"
-          width={64}
-          height={64}
-        />
-        <div className="flex flex-col justify-center">
-          <span className="text-lg font-semibold text-main">
-            {message.senderProfileInformation.memberName}님과 매칭 성사!
-          </span>
-          <span className="line-clamp-1 text-sm font-normal text-grey70">{message.requestMessage}</span>
+    <>
+      <div className="relative w-full">
+        <div className="relative flex w-full gap-5 rounded-xl border border-grey30 bg-white px-10 py-7">
+          <Image
+            src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
+            alt="profile"
+            width={64}
+            height={64}
+          />
+          <div className="flex flex-col justify-center">
+            <span className="text-lg font-semibold text-main">
+              {message.senderProfileInformation.memberName}님과 매칭 성사!
+            </span>
+            <span className="line-clamp-1 text-sm font-normal text-grey70">{message.requestMessage}</span>
+          </div>
+          <div className="absolute right-6 flex flex-col items-end gap-2">
+            <span className="text-xs font-normal text-grey80">
+              {message.senderTeamInformation.teamName} · {message.requestedDate}
+            </span>
+          </div>
         </div>
-        <span className="absolute right-6 top-6 text-xs font-normal text-grey80">
-          {message.senderTeamInformation.teamName} · {message.requestedDate}
-        </span>
+        <div className="absolute right-[-124px] top-10 flex">
+          <button className=" flex items-center gap-2 rounded-full bg-[#3774F4] px-4 py-2 text-sm text-white hover:bg-blue-600">
+            <Image src="/common/icons/chat.svg" alt="chat" width={16} height={16} />
+            채팅하기
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
