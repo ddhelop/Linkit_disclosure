@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { MatchingMessage } from '../../types/MatchTypes'
+import Link from 'next/link'
 
 interface MatchingModalProps {
   message: MatchingMessage
@@ -14,32 +15,47 @@ interface MatchingModalProps {
 export default function MatchingModal({ message, onClose, onAccept, onReject, modalRef }: MatchingModalProps) {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-50">
-      <div ref={modalRef} className="w-[31.25rem] rounded-xl bg-white p-8">
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-xl font-semibold">매칭 요청</h2>
-          <button onClick={onClose}>
-            <Image src="/common/icons/close.svg" alt="close" width={24} height={24} />
-          </button>
+      <div ref={modalRef} className="w-[42rem] rounded-xl bg-white p-8 px-[2.75rem] py-6">
+        <div className="flex justify-center">
+          <h2 className="text-sm font-semibold text-grey90">상대방의 매칭 요청</h2>
         </div>
 
-        <div className="mb-6 flex flex-col gap-4">
-          <div className="flex items-center gap-4">
+        <div className="flex w-full items-center justify-between">
+          <div className="mt-3 flex gap-5">
             <Image
               src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
               alt="profile"
-              width={64}
-              height={64}
+              width={54}
+              height={54}
               className="rounded-full"
             />
-            <div>
-              <p className="text-lg font-semibold">{message.senderProfileInformation.memberName}</p>
-              <p className="text-sm text-grey70">{message.senderTeamInformation.teamName}</p>
+            <div className="flex flex-col justify-center gap-1">
+              <p className="text-sm font-semibold text-grey90">{message.senderProfileInformation.memberName}</p>
+              <div className="flex gap-1">
+                <p className="text-xs text-grey60">
+                  {message.senderProfileInformation.profilePositionDetail.majorPosition} ·
+                </p>
+                <p className="text-xs text-grey60">
+                  {message.senderProfileInformation.profilePositionDetail.subPosition}
+                </p>
+              </div>
             </div>
           </div>
-          <p className="whitespace-pre-wrap text-sm text-grey80">{message.requestMessage}</p>
+          <div>
+            <Link
+              href={`/${message.senderProfileInformation.emailId}`}
+              className="rounded-full bg-[#D3E1FE] px-4 py-2 text-sm text-grey70"
+            >
+              프로필 보러가기 &gt;
+            </Link>
+          </div>
         </div>
 
-        <div className="flex gap-4">
+        <div className="mt-4 rounded-xl bg-grey20 px-7 py-5">
+          <p className="whitespace-pre-wrap text-sm text-grey90">{message.requestMessage}</p>
+        </div>
+
+        <div className="mt-5 flex gap-4">
           <button
             onClick={(e) => {
               e.stopPropagation()
