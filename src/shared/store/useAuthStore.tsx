@@ -28,9 +28,9 @@ export const useUserStore = create<userInfoProps>((set, get) => {
           stompClient = createStompClient(accessToken)
           const currentEmailId = get().emailId
           // 알림 구독 설정
-          stompClient.subscribe(`/sub/notification/${currentEmailId}`, (message) => {
-            console.log('New notification:', JSON.parse(message.body))
-          })
+          // stompClient.subscribe(`/sub/notification/${currentEmailId}`, (message) => {
+          //   console.log('New notification:', JSON.parse(message.body))
+          // })
         }
 
         // 회원 알림 구독
