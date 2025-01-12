@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@hotjar/browser": "^1.0.9",
     "@next/third-parties": "14.0.5-canary.38",
+    "@stomp/stompjs": "^7.0.0",
     "@types/react-select": "^5.0.1",
     "framer-motion": "^11.1.7",
     "next": "^14.2.3",
@@ -24,7 +25,6 @@
     "react-lottie-player": "^2.0.0",
     "react-quill": "^2.0.0",
     "react-toastify": "^10.0.5",
-    "stompjs": "^2.3.3",
     "yup": "^1.4.0",
     "zustand": "^5.0.0"
   },
