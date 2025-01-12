@@ -8,7 +8,7 @@ import { useUserStore } from '@/shared/store/useAuthStore'
 
 export const useNaverAuth = (code: string | null) => {
   const router = useRouter()
-  const { checkLogin } = useUserStore()
+  const { checkLogin, setEmailId } = useUserStore()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export const useNaverAuth = (code: string | null) => {
       try {
         const responseData: LoginResponse = await naverLogin(code)
         const { accessToken, email, isMemberBasicInform } = responseData.result
-
+        setEmailId(responseData.result.emailId)
         if (isMemberBasicInform) {
           localStorage.setItem('accessToken', accessToken)
           checkLogin()

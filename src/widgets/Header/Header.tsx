@@ -20,7 +20,7 @@ export default function Header() {
   useEffect(() => {
     checkLogin()
     setLoading(false)
-  }, [isLogin, checkLogin])
+  }, [checkLogin])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
