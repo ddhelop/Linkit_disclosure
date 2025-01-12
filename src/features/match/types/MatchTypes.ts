@@ -112,6 +112,7 @@ export interface AnnouncementInformation {
 
 export interface MatchingMessage {
   matchingId: number
+  requestedDate: string
   senderType: 'PROFILE' | 'TEAM'
   receiverType: 'PROFILE' | 'TEAM'
   senderProfileInformation: ProfileInformation
@@ -120,7 +121,7 @@ export interface MatchingMessage {
   receiverTeamInformation: TeamInformation
   receiverAnnouncementInformation: AnnouncementInformation
   requestMessage: string
-  matchingStatusType: 'REQUESTED' | 'COMPLETED'
+  matchingStatusType: 'REQUESTED' | 'COMPLETED' | 'DENIED'
   receiverReadStatus: 'UNREAD_REQUESTED_MATCHING' | 'READ_COMPLETED_MATCHING'
 }
 

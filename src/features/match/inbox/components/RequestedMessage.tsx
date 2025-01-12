@@ -5,26 +5,16 @@ import { MatchingMessage } from '../../types/MatchTypes'
 
 interface RequestedMessageProps {
   message: MatchingMessage
-  onClick: () => void
+  onClick?: () => void
 }
 
 export default function RequestedMessage({ message, onClick }: RequestedMessageProps) {
   return (
-    <div className="flex gap-3">
-      <Image
-        src={
-          message.receiverReadStatus === 'UNREAD_REQUESTED_MATCHING'
-            ? '/common/icons/empty_check.svg'
-            : '/common/icons/filled_check.svg'
-        }
-        alt="inbox-message"
-        width={20}
-        height={20}
-      />
+    <div className="w-full">
       <div
         role="button"
         onClick={onClick}
-        className="relative flex w-full cursor-pointer gap-5 rounded-xl border border-grey30 px-10 py-7 hover:bg-[#EDF3FF]"
+        className="relative flex w-full cursor-pointer gap-5 rounded-xl border border-grey30 bg-white px-10 py-7 hover:bg-[#EDF3FF]"
       >
         <Image
           src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}

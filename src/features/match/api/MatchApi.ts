@@ -105,3 +105,60 @@ export const getMatchingMessages = async (
     throw error
   }
 }
+
+export const markMatchingAsRead = async (matchingIds: number[]): Promise<void> => {
+  try {
+    const response = await fetchWithAuth('/api/v1/matching/received/menu/completed/read', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ matchingIds }),
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to mark matching as read')
+    }
+  } catch (error) {
+    console.error('Error marking matching as read:', error)
+    throw error
+  }
+}
+
+export const updateMatchingStatus = async (matchingId: number, status: 'COMPLETED' | 'DENIED'): Promise<void> => {
+  try {
+    const response = await fetchWithAuth(`/api/v1/matching/${matchingId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ matchingStatusType: status }),
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to update matching status')
+    }
+  } catch (error) {
+    console.error('Error updating matching status:', error)
+    throw error
+  }
+}
+
+export const deleteMatchings = async (matchingIds: number[]): Promise<void> => {
+  try {
+    const response = await fetchWithAuth('/api/v1/matching/received/menu/delete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ matchingIds }),
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to delete matchings')
+    }
+  } catch (error) {
+    console.error('Error deleting matchings:', error)
+    throw error
+  }
+}

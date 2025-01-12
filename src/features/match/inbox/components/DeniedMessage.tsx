@@ -7,8 +7,7 @@ interface DeniedMessageProps {
 
 export default function DeniedMessage({ message }: DeniedMessageProps) {
   return (
-    <div className="flex gap-3">
-      <Image src="/common/icons/empty_check.svg" alt="denied" width={20} height={20} />
+    <div className="w-full">
       <div className="relative flex w-full gap-5 rounded-xl border border-grey30 bg-grey10 px-10 py-7">
         <div className="absolute inset-0 z-10 rounded-xl bg-grey20 opacity-10" />
         <Image

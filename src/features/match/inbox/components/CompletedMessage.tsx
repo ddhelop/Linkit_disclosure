@@ -7,8 +7,7 @@ interface CompletedMessageProps {
 
 export default function CompletedMessage({ message }: CompletedMessageProps) {
   return (
-    <div className="flex gap-3">
-      <Image src="/common/icons/empty_check.svg" alt="completed" width={20} height={20} />
+    <div className="w-full">
       <div className="relative flex w-full gap-5 rounded-xl border border-grey30 bg-white px-10 py-7">
         <Image
           src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
