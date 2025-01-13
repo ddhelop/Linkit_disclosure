@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { logoutApi } from '@/features/login/api/authApi'
 import createStompClient from '../utils/stompClient'
-import Stomp, { Client } from '@stomp/stompjs'
+import { Client } from '@stomp/stompjs'
 
 interface userInfoProps {
   isLogin: boolean // 로그인 여부
@@ -12,7 +12,7 @@ interface userInfoProps {
 }
 
 export const useUserStore = create<userInfoProps>((set, get) => {
-  let stompClient: Stomp.Client | null = null
+  let stompClient: Client | null = null
 
   return {
     isLogin: false,
