@@ -2,15 +2,15 @@
 'use client'
 
 import { createContext, useContext, ReactNode } from 'react'
-import { ResultType } from '../types/ProfileLayoutType'
+import { ProfileLayoutType } from '../types/ProfileLayoutType'
 
 type ProfileContextType = {
-  profileData: ResultType
+  profileData: ProfileLayoutType
 }
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined)
 
-export const ProfileProvider = ({ children, profileData }: { children: ReactNode; profileData: ResultType }) => {
+export const ProfileProvider = ({ children, profileData }: { children: ReactNode; profileData: ProfileLayoutType }) => {
   return <ProfileContext.Provider value={{ profileData }}>{children}</ProfileContext.Provider>
 }
 

@@ -1,11 +1,12 @@
 'use client'
 import ProfileProgress from '@/features/profile/edit/components/common/ProfileProgress'
 import { ProfileProvider } from '@/features/profile/edit/context/ProfileContext'
-import { ResultType } from '@/features/profile/edit/types/ProfileLayoutType'
+import { ProfileLayoutType, ResultType } from '@/features/profile/edit/types/ProfileLayoutType'
 import MiniProfileCard from '@/shared/components/MiniProfileCard'
-import { fetchProfileData } from '@/features/profile/edit/api/profileEditApi'
 import { useEffect, useState } from 'react'
 import { fetchProfileDetailData } from '@/features/profile/api/profileViewApi'
+import ProfileScarap from './ProfileScrap'
+import ProfileScrap from './ProfileScrap'
 
 export default function ProfileViewClient({
   children,
@@ -14,12 +15,13 @@ export default function ProfileViewClient({
   children: React.ReactNode
   params: { emailId: string }
 }) {
-  const [profileData, setProfileData] = useState<ResultType | null>(null)
+  const [profileData, setProfileData] = useState<ProfileLayoutType | null>(null)
 
   useEffect(() => {
     const getData = async () => {
       try {
         const data = await fetchProfileDetailData(params.emailId)
+        console.log(data.result)
         setProfileData(data.result) // 데이터 구조에 맞춰 설정
       } catch (error) {
         console.error('Error fetching profile data:', error)
@@ -41,6 +43,9 @@ export default function ProfileViewClient({
           >
             <ProfileProgress />
             <MiniProfileCard />
+
+            {/* 스크랩 버튼 */}
+            <ProfileScrap />
           </div>
         </aside>
       </ProfileProvider>
