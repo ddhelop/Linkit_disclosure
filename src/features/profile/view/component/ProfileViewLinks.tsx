@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { useProfile } from '@/entities/profile/model/ProfileContext'
 import { EditableContainer } from './common/EditableContainer'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 
 export default function ProfileViewLinks() {
-  const { profileData } = useProfile()
+  const { profileData } = useProfileView()
   const isMyProfile = profileData?.isMyProfile
   const [hoveredLink, setHoveredLink] = useState<string | null>(null)
 

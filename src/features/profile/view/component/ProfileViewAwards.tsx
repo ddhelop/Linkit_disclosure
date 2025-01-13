@@ -1,11 +1,11 @@
 'use client'
-import { useProfile } from '@/entities/profile/model/ProfileContext'
 import { EditableContainer } from './common/EditableContainer'
 import { useState } from 'react'
 import Image from 'next/image'
+import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 
 export default function ProfileViewAwards() {
-  const { profileData } = useProfile()
+  const { profileData } = useProfileView()
   const isMyProfile = profileData?.isMyProfile
 
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({})

@@ -1,9 +1,9 @@
-import { useProfile } from '@/entities/profile/model/ProfileContext'
+import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 import { EditableContainer } from './common/EditableContainer'
 import Image from 'next/image'
 
 export default function ProfileViewPortFolio() {
-  const { profileData } = useProfile()
+  const { profileData } = useProfileView()
   const isMyProfile = profileData?.isMyProfile
   const portfolioItems = profileData?.profilePortfolioItems || []
 

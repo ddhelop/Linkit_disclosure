@@ -1,8 +1,8 @@
-import { useProfile } from '@/features/profile/edit/context/ProfileContext'
+import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 import Image from 'next/image'
 
 export default function ProfileScrap() {
-  const { profileData } = useProfile()
+  const { profileData } = useProfileView()
 
   return (
     <div className="mt-7 flex w-full items-center justify-between rounded-full bg-grey20 py-[0.38rem] pl-4 pr-[0.39rem] text-sm text-grey70">

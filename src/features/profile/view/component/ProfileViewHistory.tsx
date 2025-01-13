@@ -1,10 +1,10 @@
-import { useProfile } from '@/entities/profile/model/ProfileContext'
+import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 import { EditableContainer } from './common/EditableContainer'
 import Image from 'next/image'
 import { useState } from 'react'
 
 export default function ProfileViewHistory() {
-  const { profileData } = useProfile()
+  const { profileData } = useProfileView()
   const historyItems = profileData?.profileActivityItems || []
   const isMyProfile = profileData?.isMyProfile
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({})

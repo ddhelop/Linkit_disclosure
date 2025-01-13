@@ -4,8 +4,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useProfile } from '@/features/profile/edit/context/ProfileContext'
 import { ProfileBooleanMenuType } from '../../types/ProfileLayoutType'
+import { useProfileEdit } from '../../context/ProfileEditContext'
 
 const menuItems: { label: string; path: string; key: keyof ProfileBooleanMenuType; subPaths?: string[] }[] = [
   { label: '미니 프로필', path: '/profile/edit/basic', key: 'isMiniProfile' },
@@ -36,8 +36,8 @@ const menuItems: { label: string; path: string; key: keyof ProfileBooleanMenuTyp
 const LeftMenu = () => {
   const router = useRouter()
   const pathname = usePathname() // 현재 경로를 가져옵니다.
-  const { profileData } = useProfile() // ProfileProvider에서 제공하는 profileData를 가져옵니다.
-  const profileBooleanMenu = profileData?.profileBooleanMenu
+  const { profileData } = useProfileEdit() // ProfileProvider에서 제공하는 profileData를 가져옵니다.
+  const profileBooleanMenu = profileData.profileBooleanMenu
 
   const handleNavigation = (path: string) => {
     router.push(path)
@@ -86,25 +86,6 @@ const LeftMenu = () => {
           })}
         </ul>
       </div>
-
-      {/* 왼쪽 메뉴바 - 계정 설정 */}
-      {/* <div className="mt-5 flex w-full flex-col">
-        <label className="rounded-xl bg-grey20 px-6 py-3">계정 관리</label>
-        <ul className="flex w-full flex-col items-end gap-1 pt-3">
-          <li
-            onClick={() => handleNavigation('/profile/edit/account')}
-            className={`relative mt-2 flex w-[90%] cursor-pointer items-center justify-between rounded-lg px-8 py-[0.31rem] pl-4 hover:bg-grey10  ${
-              pathname === '/settings' ? 'font-semibold text-main' : 'text-grey80'
-            }`}
-          >
-            {pathname === '/profile/edit/account' && (
-              <span className="absolute left-0 h-[70%] w-[2.5px] bg-main "></span>
-            )}
-            <span className="">계정 설정</span>
-            <div className="ml-2 flex h-[1.25rem] w-[1.25rem] items-center justify-center"></div>
-          </li>
-        </ul>
-      </div> */}
     </div>
   )
 }

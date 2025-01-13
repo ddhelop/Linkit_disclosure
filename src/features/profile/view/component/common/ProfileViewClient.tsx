@@ -1,12 +1,13 @@
 'use client'
 import ProfileProgress from '@/features/profile/edit/components/common/ProfileProgress'
-import { ProfileProvider } from '@/features/profile/edit/context/ProfileContext'
-import { ProfileLayoutType, ResultType } from '@/features/profile/edit/types/ProfileLayoutType'
-import MiniProfileCard from '@/shared/components/MiniProfileCard'
+import { ProfileLayoutType } from '@/features/profile/edit/types/ProfileLayoutType'
 import { useEffect, useState } from 'react'
 import { fetchProfileDetailData } from '@/features/profile/api/profileViewApi'
 import ProfileScarap from './ProfileScrap'
 import ProfileScrap from './ProfileScrap'
+import { ProfileViewProvider } from '@/entities/profile/model/ProfileViewContext'
+import { ProfileDetailData } from '@/entities/profile/model/types'
+import MiniProfileCard from '@/shared/components/MiniProfileCard'
 
 export default function ProfileViewClient({
   children,
@@ -15,7 +16,7 @@ export default function ProfileViewClient({
   children: React.ReactNode
   params: { emailId: string }
 }) {
-  const [profileData, setProfileData] = useState<ProfileLayoutType | null>(null)
+  const [profileData, setProfileData] = useState<ProfileDetailData | null>(null)
 
   useEffect(() => {
     const getData = async () => {
@@ -34,7 +35,7 @@ export default function ProfileViewClient({
 
   return (
     <div className="flex bg-white">
-      <ProfileProvider profileData={profileData}>
+      <ProfileViewProvider profileData={profileData}>
         {/* 왼쪽 사이드바 영역 */}
         <aside className=" fixed top-16 flex h-[calc(100vh-4rem)] w-[28%] flex-col items-end pr-[4.5rem] pt-[3.75rem]">
           <div
@@ -48,7 +49,7 @@ export default function ProfileViewClient({
             <ProfileScrap />
           </div>
         </aside>
-      </ProfileProvider>
+      </ProfileViewProvider>
 
       {/* 오른쪽 메인 컨텐츠 영역 */}
       <main className="ml-[28%] min-h-[calc(100vh-4rem)] w-3/4 bg-[#EDF3FF] pb-32 pr-[8.69rem]">{children}</main>

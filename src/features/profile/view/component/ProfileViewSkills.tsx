@@ -1,9 +1,9 @@
 'use client'
-import { useProfile } from '@/entities/profile/model/ProfileContext'
+import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 import { EditableContainer } from './common/EditableContainer'
 
 export default function ProfileViewSkills() {
-  const { profileData } = useProfile()
+  const { profileData } = useProfileView()
   const skillItems = profileData?.profileSkillItems || []
   const isMyProfile = profileData?.isMyProfile
 

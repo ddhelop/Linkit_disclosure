@@ -1,10 +1,11 @@
+import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
+import { useProfileEdit } from '@/features/profile/edit/context/ProfileEditContext'
 import Image from 'next/image'
-import { useProfile } from '@/features/profile/edit/context/ProfileContext'
 import Link from 'next/link'
 
 export default function MiniProfileCard() {
   // ProfileProvider에서 제공하는 profileData를 받아옵니다.
-  const { profileData } = useProfile()
+  const { profileData } = useProfileView()
 
   // 필요한 데이터 추출
   const profileState = profileData?.profileInformMenu?.profileCurrentStates[0]?.profileStateName || '상태 없음'

@@ -3,11 +3,12 @@
 
 import { useEffect, useState } from 'react'
 import LeftMenu from '@/features/profile/edit/components/common/LeftMenu'
-import MiniProfileCard from '@/shared/components/MiniProfileCard'
+
 import ProfileProgress from '@/features/profile/edit/components/common/ProfileProgress'
-import { ProfileProvider } from '@/features/profile/edit/context/ProfileContext'
 import { fetchProfileData } from '@/features/profile/edit/api/profileEditApi'
 import { ResultType } from '../../types/ProfileLayoutType'
+
+import { ProfileEditProvider } from '../../context/ProfileEditContext'
 
 type ProfileEditClientProps = {
   children: React.ReactNode
@@ -20,7 +21,7 @@ export default function ProfileEditClient({ children }: ProfileEditClientProps) 
     const getData = async () => {
       try {
         const data = await fetchProfileData()
-        setProfileData(data.result) // 데이터 구조에 맞춰 설정
+        setProfileData(data.result)
       } catch (error) {
         console.error('Error fetching profile data:', error)
       }
@@ -31,21 +32,19 @@ export default function ProfileEditClient({ children }: ProfileEditClientProps) 
   if (!profileData) return <div>Loading...</div>
 
   return (
-    <ProfileProvider profileData={profileData}>
+    <ProfileEditProvider profileData={profileData}>
       <div className="flex bg-white">
-        <aside className=" fixed top-16 flex h-[calc(100vh-4rem)] w-[28%] flex-col items-end pr-[4.5rem] pt-[3.75rem]">
+        <aside className="fixed top-16 flex h-[calc(100vh-4rem)] w-[28%] flex-col items-end pr-[4.5rem] pt-[3.75rem]">
           <div
             className="rounded-xl border border-grey30 p-4"
             style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
           >
             <ProfileProgress />
-            {/* <MiniProfileCard /> */}
             <LeftMenu />
           </div>
         </aside>
-
         <main className="ml-[28%] min-h-[calc(100vh-4rem)] w-3/4 bg-[#EDF3FF] pb-32 pr-[8.69rem]">{children}</main>
       </div>
-    </ProfileProvider>
+    </ProfileEditProvider>
   )
 }

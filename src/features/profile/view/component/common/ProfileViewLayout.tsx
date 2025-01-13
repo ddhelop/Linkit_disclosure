@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-import { ProfileProvider } from '@/entities/profile/model/ProfileContext'
 import { getProfileDetail } from '@/entities/profile/api/profileApi'
 import { ProfileDetailData } from '@/entities/profile/model/types'
 import ProfileViewSkills from '../ProfileViewSkills'
@@ -11,6 +10,7 @@ import ProfileViewEducation from '../ProfileViewEducation'
 import ProfileViewAwards from '../ProfileViewAwards'
 import ProfileViewLicense from '../ProfileViewLicense'
 import ProfileViewLinks from '../ProfileViewLinks'
+import { ProfileViewProvider } from '@/entities/profile/model/ProfileViewContext'
 
 export default function ProfileViewLayout() {
   const params = useParams()
@@ -32,15 +32,8 @@ export default function ProfileViewLayout() {
   if (!profileData) return <div>Loading...</div>
 
   return (
-    <ProfileProvider profileData={profileData}>
+    <ProfileViewProvider profileData={profileData}>
       <div className="flex flex-col gap-6">
-        {/* {profileData.profileSkillItems?.length > 0 && <ProfileViewSkills />}
-        {profileData.profileActivityItems?.length > 0 && <ProfileViewHistory />}
-        {profileData.profilePortfolioItems?.length > 0 && <ProfileViewPortFolio />}
-        {profileData.profileEducationItems?.length > 0 && <ProfileViewEducation />}
-        {profileData.profileAwardsItems?.length > 0 && <ProfileViewAwards />}
-        {profileData.profileLicenseItems?.length > 0 && <ProfileViewLicense />}
-        {profileData.profileLinkItems?.length > 0 && <ProfileViewLinks />} */}
         <ProfileViewSkills />
         <ProfileViewHistory />
         <ProfileViewPortFolio />
@@ -49,6 +42,6 @@ export default function ProfileViewLayout() {
         <ProfileViewLicense />
         <ProfileViewLinks />
       </div>
-    </ProfileProvider>
+    </ProfileViewProvider>
   )
 }
