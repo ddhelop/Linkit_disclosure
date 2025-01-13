@@ -5,21 +5,28 @@ import { ResultType } from '@/features/profile/edit/types/ProfileLayoutType'
 import MiniProfileCard from '@/shared/components/MiniProfileCard'
 import { fetchProfileData } from '@/features/profile/edit/api/profileEditApi'
 import { useEffect, useState } from 'react'
+import { fetchProfileDetailData } from '@/features/profile/api/profileViewApi'
 
-export default function ProfileViewClient({ children }: { children: React.ReactNode }) {
+export default function ProfileViewClient({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: { emailId: string }
+}) {
   const [profileData, setProfileData] = useState<ResultType | null>(null)
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const data = await fetchProfileData()
+        const data = await fetchProfileDetailData(params.emailId)
         setProfileData(data.result) // 데이터 구조에 맞춰 설정
       } catch (error) {
         console.error('Error fetching profile data:', error)
       }
     }
     getData()
-  }, [])
+  }, [params.emailId])
 
   if (!profileData) return <div>Loading...</div>
 

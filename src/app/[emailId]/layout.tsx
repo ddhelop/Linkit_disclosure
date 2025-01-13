@@ -2,7 +2,7 @@
 
 import ProfileViewClient from '@/features/profile/view/component/common/ProfileViewClient'
 
-const ProfileViewLayout = ({ children }: { children: React.ReactNode }) => {
-  return <ProfileViewClient>{children}</ProfileViewClient>
+const ProfileViewLayout = ({ children, params }: { children: React.ReactNode; params: { emailId: string } }) => {
+  return <ProfileViewClient params={params}>{children}</ProfileViewClient>
 }
 export default ProfileViewLayout
