@@ -1,13 +1,13 @@
 'use client'
-import ProfileProgress from '@/features/profile/edit/components/common/ProfileProgress'
-import { ProfileLayoutType } from '@/features/profile/edit/types/ProfileLayoutType'
+
 import { useEffect, useState } from 'react'
 import { fetchProfileDetailData } from '@/features/profile/api/profileViewApi'
-import ProfileScarap from './ProfileScrap'
+
 import ProfileScrap from './ProfileScrap'
 import { ProfileViewProvider } from '@/entities/profile/model/ProfileViewContext'
 import { ProfileDetailData } from '@/entities/profile/model/types'
 import MiniProfileCard from '@/shared/components/MiniProfileCard'
+import ProfileViewProgress from '@/features/profile/edit/components/common/ProfileViewProgress'
 
 export default function ProfileViewClient({
   children,
@@ -42,7 +42,7 @@ export default function ProfileViewClient({
             className="rounded-xl border border-grey30 p-4"
             style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
           >
-            <ProfileProgress />
+            <ProfileViewProgress />
             <MiniProfileCard />
 
             {/* 스크랩 버튼 */}
