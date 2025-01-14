@@ -1,7 +1,6 @@
 'use client'
 import { createContext, useContext, ReactNode } from 'react'
 import { ProfileDetailData } from './types'
-import { ProfileLayoutType } from '@/features/profile/edit/types/ProfileLayoutType'
 
 interface ProfileViewContextType {
   profileData: ProfileDetailData | null

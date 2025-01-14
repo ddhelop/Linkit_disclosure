@@ -1,10 +1,11 @@
 // ProfileProgress.tsx
 
 import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
+import { useProfileEdit } from '../../context/ProfileEditContext'
 
 export default function ProfileProgress() {
   // ProfileProvider에서 제공하는 profileData를 받아옵니다.
-  const { profileData } = useProfileView()
+  const { profileData } = useProfileEdit()
 
   // 프로필 완성도 (progress)를 가져옵니다.
   const progress = profileData?.profileCompletionMenu?.profileCompletion || 0
