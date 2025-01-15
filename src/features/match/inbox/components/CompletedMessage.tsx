@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { MatchingMessage } from '../../types/MatchTypes'
+import ChatButton from './ChatButton'
 
 interface CompletedMessageProps {
   message: MatchingMessage
@@ -28,12 +29,28 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
             </span>
           </div>
         </div>
-        <div className="absolute right-[-124px] top-10 flex">
+        {/* <div className="absolute right-[-124px] top-10 flex">
           <button className=" flex items-center gap-2 rounded-full bg-[#3774F4] px-4 py-2 text-sm text-white hover:bg-blue-600">
             <Image src="/common/icons/chat.svg" alt="chat" width={16} height={16} />
             채팅하기
           </button>
-        </div>
+        </div> */}
+
+        <ChatButton
+          chatRoomId={message.chatRoomId}
+          matchingId={message.matchingId}
+          senderType={message.senderType}
+          senderInfo={{
+            emailId: message.senderProfileInformation?.emailId,
+            teamCode: message.senderTeamInformation?.teamCode,
+          }}
+          receiverType={message.receiverType}
+          receiverInfo={{
+            emailId: message.receiverProfileInformation?.emailId,
+            teamCode: message.receiverTeamInformation?.teamCode,
+          }}
+          isChatRoomCreated={message.isChatRoomCreated}
+        />
       </div>
     </>
   )

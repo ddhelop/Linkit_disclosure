@@ -110,6 +110,8 @@ export interface AnnouncementInformation {
 }
 
 export interface MatchingMessage {
+  isChatRoomCreated: boolean
+  chatRoomId?: number
   matchingId: number
   modifiedAt: string
   senderType: 'PROFILE' | 'TEAM'
