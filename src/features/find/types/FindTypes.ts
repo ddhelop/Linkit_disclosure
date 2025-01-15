@@ -135,6 +135,7 @@ interface AnnouncementSkillName {
 }
 
 export interface Announcement {
+  teamMemberAnnouncementId: number
   teamLogoImagePath: string
   teamName: string
   teamCode: string

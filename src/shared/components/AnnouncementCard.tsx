@@ -1,8 +1,20 @@
+'use client'
 import { Announcement } from '@/features/find/types/FindTypes'
+
 import Image from 'next/image'
-import Link from 'next/link'
+import { useState } from 'react'
+import { announcementScrap } from '../api/commonApi'
 
 export default function AnnouncementCard({ announcement }: { announcement: Announcement }) {
+  const [isScrap, setIsScrap] = useState(announcement?.isAnnouncementScrap)
+
+  const handleScrap = async () => {
+    const response = await announcementScrap(announcement?.teamMemberAnnouncementId, !isScrap)
+    if (response.ok) {
+      setIsScrap(!isScrap)
+    }
+  }
+
   return (
     <div
       className="flex cursor-pointer flex-col gap-3 rounded-lg border bg-grey10 px-[1.62rem] py-[1.38rem] hover:border-[#7EA5F8]"
@@ -12,7 +24,17 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
         <span className="rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">
           D-{announcement?.announcementDDay}
         </span>
-        <Image src="/common/icons/save.svg" alt="announcement-icon" width={20} height={20} />
+        {isScrap ? (
+          <Image src="/common/icons/save.svg" alt="announcement-icon" width={20} height={20} onClick={handleScrap} />
+        ) : (
+          <Image
+            src="/common/icons/not_save.svg"
+            alt="announcement-icon"
+            width={20}
+            height={20}
+            onClick={handleScrap}
+          />
+        )}
       </div>
 
       <div className="flex items-center gap-2">
