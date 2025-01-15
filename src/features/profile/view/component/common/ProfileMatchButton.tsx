@@ -21,11 +21,6 @@ export default function ProfileMatchButton() {
       const emailId = params.emailId as string
       const data = await getMatchingProfileMenu(emailId)
 
-      if (!data.isTeamInformationExists) {
-        alert('매칭 요청을 보내기 위해서는 팀 프로필이 필요합니다.')
-        return
-      }
-
       setMatchingData(data)
       setIsProfileModalOpen(true)
     } catch (error) {
