@@ -36,7 +36,6 @@ export default function ProfileScrap() {
         ) : (
           <Image src="/common/icons/not_save.svg" alt="scrap" width={20} height={20} />
         )}
-        <span>스크랩하기</span>
       </button>
     </div>
   )
