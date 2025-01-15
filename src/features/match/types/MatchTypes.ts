@@ -55,6 +55,7 @@ export interface TeamInformMenu {
 }
 
 export interface AnnouncementScrapResponse {
+  teamMemberAnnouncementId: number
   teamLogoImagePath: string
   teamName: string
   teamCode: string
