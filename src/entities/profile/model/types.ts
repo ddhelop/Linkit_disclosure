@@ -66,6 +66,8 @@ export interface ProfileDetailData {
     profileCompletion: number
   }
   profileInformMenu: {
+    emailId: string
+    isProfileScrap: boolean
     profileCurrentStates: Array<{ profileStateName: string }>
     profileImagePath: string
     memberName: string
