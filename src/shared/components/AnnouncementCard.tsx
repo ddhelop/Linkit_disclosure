@@ -38,7 +38,19 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
       </div>
 
       <div className="flex items-center gap-2">
-        <Image src="/common/default_profile.svg" alt="announcement-icon" width={22} height={22} />
+        {announcement?.teamLogoImagePath ? (
+          <div className="h-[22px] w-[22px] overflow-hidden rounded-lg">
+            <Image
+              src={announcement?.teamLogoImagePath}
+              alt="announcement-icon"
+              width={22}
+              height={22}
+              className="object-cover"
+            />
+          </div>
+        ) : (
+          <Image src="/common/default_profile.svg" alt="announcement-icon" width={22} height={22} />
+        )}
         <span className="text-sm text-grey90">{announcement?.teamName}</span>
       </div>
       <div className="flex w-[90%] flex-col gap-1 ">
