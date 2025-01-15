@@ -95,9 +95,8 @@ export interface TeamInformation {
   teamCode: string
   teamName: string
   teamLogoImagePath: string
-  teamScaleItem: {
-    teamScaleName: string
-  }
+  teamScaleItem: TeamScaleItem
+  emailId?: string
 }
 
 export interface AnnouncementSkill {
@@ -175,3 +174,34 @@ export interface MatchingMenuResponse {
 export type ReceiverType = 'PROFILE' | 'TEAM' | undefined
 
 export type FilterType = 'MEMBER' | 'TEAM' | 'ANNOUNCEMENT'
+
+// 매칭 요청
+interface ProfilePositionDetail {
+  majorPosition: string
+  subPosition: string
+}
+
+export interface TeamScaleItem {
+  teamScaleName: string
+}
+
+export interface ProfileInformation {
+  profileImagePath: string
+  memberName: string
+  emailId: string
+  profilePositionDetail: ProfilePositionDetail
+}
+
+export interface TeamInformation {
+  teamCode: string
+  teamName: string
+  teamLogoImagePath: string
+  teamScaleItem: TeamScaleItem
+}
+
+export interface MatchingProfileMenuResponse {
+  isTeamInformationExists: boolean
+  senderProfileInformation: ProfileInformation
+  senderTeamInformation: TeamInformation[]
+  receiverProfileInformation: ProfileInformation
+}

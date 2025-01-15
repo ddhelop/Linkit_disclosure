@@ -8,6 +8,7 @@ import { ProfileViewProvider } from '@/entities/profile/model/ProfileViewContext
 import { ProfileDetailData } from '@/entities/profile/model/types'
 import MiniProfileCard from '@/shared/components/MiniProfileCard'
 import ProfileViewProgress from '@/features/profile/edit/components/common/ProfileViewProgress'
+import ProfileMatchButton from './ProfileMatchButton'
 
 export default function ProfileViewClient({
   children,
@@ -47,6 +48,8 @@ export default function ProfileViewClient({
 
             {/* 스크랩 버튼 */}
             <ProfileScrap />
+            {/* 매칭 버튼 */}
+            <ProfileMatchButton />
           </div>
         </aside>
       </ProfileViewProvider>

@@ -7,6 +7,7 @@ import {
   MatchingMenuResponse,
   ReceiverType,
   AnnouncementScrapResponse,
+  MatchingProfileMenuResponse,
 } from '../types/MatchTypes'
 
 export const getProfileScraps = async (): Promise<ProfileInform[]> => {
@@ -161,4 +162,36 @@ export const deleteMatchings = async (matchingIds: number[]): Promise<void> => {
     console.error('Error deleting matchings:', error)
     throw error
   }
+}
+
+export const getMatchingProfileMenu = async (emailId: string): Promise<MatchingProfileMenuResponse> => {
+  const response = await fetchWithAuth(`/api/v1/matching/profile/${emailId}/select/request/menu`)
+  const data = await response.json()
+  return data.result
+}
+
+interface MatchingRequest {
+  senderType: 'PROFILE' | 'TEAM'
+  receiverType: 'PROFILE' | 'TEAM'
+  senderEmailId?: string
+  senderTeamCode?: string
+  receiverEmailId?: string
+  receiverTeamCode?: string
+  requestMessage: string
+}
+
+export const sendMatchingRequest = async (requestData: MatchingRequest) => {
+  const response = await fetchWithAuth('/api/v1/matching', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestData),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to send matching request')
+  }
+
+  return response.json()
 }
