@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { ChatMessage } from '../types/ChatTypes'
 import { getChatMessages } from '../api/ChatApi'
 import ChattingBasicProfile from './ChattingBasicProfile'
 import ChattingInput from './ChattingInput'
 import SendFromMessage from './SendFromMessage'
 import SendToMessage from './SendToMessage'
+import { useStompSubscription } from '../hooks/useStompSubscription'
 
 interface ChattingRoomProps {
   chatRoomId?: number
@@ -15,6 +16,15 @@ interface ChattingRoomProps {
 export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [isLoading, setIsLoading] = useState(false)
+
+  const handleNewMessage = useCallback((message: ChatMessage) => {
+    setMessages((prev) => [message, ...prev])
+  }, [])
+
+  useStompSubscription({
+    chatRoomId,
+    onMessageReceived: handleNewMessage,
+  })
 
   useEffect(() => {
     if (!chatRoomId) return
@@ -59,7 +69,7 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
       {/* 메시지 영역 */}
       <div className="flex flex-1 flex-col justify-end overflow-y-auto px-5">
         {/* 날짜 구분선 */}
-        <div className="sticky top-0 my-6 flex items-center bg-grey10 py-2">
+        <div className="bg-grey10ㅗ sticky top-0 my-6 flex items-center py-2">
           <div className="h-[1px] flex-1 bg-grey50"></div>
           <span className="mx-4 text-sm text-grey60">2025년 01월 01일</span>
           <div className="h-[1px] flex-1 bg-grey50"></div>
