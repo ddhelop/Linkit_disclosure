@@ -2,9 +2,14 @@
 
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useUserStore } from '@/shared/store/useAuthStore'
 import { useEffect, useState } from 'react'
+import Logo from './components/Logo'
+import Navigation from './components/Navigation'
+import UserMenu from './components/UserMenu'
+import GuestMenu from './components/GuestMenu'
+import MobileMenu from './components/MobileMenu'
+import Link from 'next/link'
 import ProfileMenu from './components/ProfileMenu'
 
 export default function Header() {
@@ -64,35 +69,8 @@ export default function Header() {
     <>
       <header className="sticky top-0 z-[100] flex h-[4rem] w-full justify-between bg-white px-4 text-sm md:px-10">
         <div className="flex h-full items-center">
-          <Link href="/">
-            <Image
-              src="/common/icons/blue_logo_row.svg"
-              alt="Linkit"
-              width={100}
-              height={20}
-              className="cursor-pointer"
-            />
-          </Link>
-          <div className="ml-12 hidden h-full items-center text-grey60 md:flex">
-            <Link
-              href="/find/private"
-              className="mt-2 flex h-full w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
-            >
-              팀원
-            </Link>
-            <Link
-              href="/find/team"
-              className="mt-2 flex h-full w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
-            >
-              팀
-            </Link>
-            <Link
-              href="/find/announcement"
-              className="mt-2 flex h-full w-[6.12rem] items-center justify-center border-b-2 border-transparent pb-2 hover:border-main hover:text-grey100"
-            >
-              모집 공고
-            </Link>
-          </div>
+          <Logo />
+          <Navigation />
         </div>
 
         <div className="flex items-center font-normal text-grey90">
@@ -122,50 +100,11 @@ export default function Header() {
               </div>
             )
           ) : isLogin ? (
-            <div className="relative hidden gap-[2rem] md:flex">
-              <div className="flex gap-5">
-                <Link href="/chat">
-                  <div className="flex cursor-pointer items-center">
-                    <Image src={'/common/icons/chat_circle.svg'} width={32} height={32} alt="alarm" />
-                  </div>
-                </Link>
-                <div className="flex cursor-pointer items-center">
-                  <Image src={'/common/icons/alarm_circle.svg'} width={32} height={32} alt="alarm" />
-                </div>
-              </div>
-
-              <button
-                className="toggle-button flex items-center rounded-[1.38rem] py-[0.38rem] pr-[1.62rem] "
-                onClick={toggleModal}
-              >
-                <p>마이페이지</p>
-                <Image
-                  src={isModalOpen ? '/common/icons/up_arrow.svg' : '/common/icons/under_arrow.svg'}
-                  width={24}
-                  height={24}
-                  alt="arrow"
-                />
-              </button>
-
-              {isModalOpen && <ProfileMenu />}
-            </div>
+            <UserMenu isModalOpen={isModalOpen} toggleModal={toggleModal} />
           ) : (
-            <div className="hidden items-center gap-[1.38rem] font-normal  md:flex">
-              <Link className="px-4 text-grey50 hover:text-black" href="">
-                ABOUT US
-              </Link>
-              <Link className="px-4 text-grey50 hover:text-black" href="">
-                FAQ
-              </Link>
-              <Link href="/login">
-                <button className="rounded-[1.38rem] bg-[#4D82F3] px-[1.62rem] py-[0.38rem] font-semibold text-white transition-colors duration-100 hover:bg-main hover:text-white hover:ring-4">
-                  로그인
-                </button>
-              </Link>
-            </div>
+            <GuestMenu />
           )}
 
-          {/* 모바일 메뉴 아이콘 */}
           <button onClick={toggleMobileMenu} className="menu-toggle-button flex md:hidden">
             <Image
               src={isMobileMenuOpen ? '/common/icons/delete_icon.svg' : '/common/icons/mobile_menu_icon.svg'}
@@ -177,67 +116,7 @@ export default function Header() {
         </div>
       </header>
 
-      {/* 모바일 메뉴 */}
-      {isMobileMenuOpen && (
-        <div className="mobile-menu absolute left-1 top-[3.8rem] z-50 flex w-[99%] rounded-lg bg-white px-6 py-4 shadow-sm md:hidden">
-          {isLogin ? (
-            <div className="w-full space-y-4">
-              <Link href="/find/private" className="flex gap-3 text-sm text-gray-700" onClick={closeMobileMenu}>
-                <Image src={'/common/icons/member_icon.svg'} width={14} height={14} alt="profile" />
-                팀원
-              </Link>
-              <Link href="/find/team" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
-                <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />팀
-              </Link>
-              <Link href="/find/announcement" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
-                <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />
-                모집 공고
-              </Link>
-              <hr />
-              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
-                <Image src={'/common/icons/myprofile_icon.svg'} width={14} height={14} alt="profile" />내 프로필
-              </Link>
-              <Link href="/" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
-                <Image src={'/common/icons/myteam_icon.svg'} width={14} height={14} alt="team" />
-                나의 팀
-              </Link>
-              <button
-                onClick={() => {
-                  closeMobileMenu()
-                  logout()
-                }}
-                className="flex w-full gap-3 text-left text-sm text-gray-700"
-              >
-                <Image src={'/common/icons/bye_icon.svg'} width={14} height={14} alt="logout" />
-                로그아웃
-              </button>
-            </div>
-          ) : (
-            <div className="w-full space-y-4">
-              <Link href="/find/private" className="flex gap-3 text-sm text-gray-700" onClick={closeMobileMenu}>
-                <Image src={'/common/icons/member_icon.svg'} width={14} height={14} alt="profile" />
-                팀원
-              </Link>
-              <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
-                <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />팀
-              </Link>
-              <Link href="/find/announcement" className="flex gap-3  text-sm  text-gray-700" onClick={closeMobileMenu}>
-                <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />
-                모집 공고
-              </Link>
-              <hr />
-
-              <Link
-                href="/login"
-                className="flex w-full justify-center rounded-lg  border border-grey30 py-2 text-sm text-grey70"
-                onClick={closeMobileMenu}
-              >
-                로그인
-              </Link>
-            </div>
-          )}
-        </div>
-      )}
+      {isMobileMenuOpen && <MobileMenu isLogin={isLogin} onClose={closeMobileMenu} onLogout={logout} />}
     </>
   )
 }
