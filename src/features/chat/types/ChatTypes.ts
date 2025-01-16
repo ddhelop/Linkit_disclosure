@@ -55,6 +55,7 @@ export interface ChatMessage {
   content: string
   timestamp: string
   read: boolean
+  isMyMessage: boolean
 }
 
 export interface ChatMessagesResponse {

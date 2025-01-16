@@ -37,7 +37,7 @@ export default function ChattingInput({ onSendMessage }: ChattingInputProps) {
         onClick={handleSubmit}
         className="flex h-11 w-11 items-center justify-center rounded-lg bg-main hover:bg-blue-600"
       >
-        <Image src="/common/icons/send_icon.svg" width={24} height={24} alt="send" />
+        <Image src="/common/icons/send.svg" width={24} height={24} alt="send" />
       </button>
     </div>
   )

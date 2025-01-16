@@ -53,7 +53,7 @@ export const useStompSubscription = ({ chatRoomId, onMessageReceived }: UseStomp
     }
 
     clientRef.current.publish({
-      destination: '/pub/chat/message',
+      destination: '/pub/chat/send',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },

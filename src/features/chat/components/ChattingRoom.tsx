@@ -67,33 +67,29 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-10rem)] w-[48rem] flex-col rounded-2xl border border-grey30 bg-grey10">
+    <div className="flex h-[calc(100vh-10rem)] w-[48rem] flex-col rounded-2xl border border-grey30 bg-grey10">
       <div className="flex-shrink-0 border-b border-grey30 px-5 py-6">
         <ChattingBasicProfile />
       </div>
 
-      {/* 메시지 영역 */}
-      <div className="flex flex-1 flex-col justify-end overflow-y-auto px-5">
-        {/* 날짜 구분선 */}
-        <div className="bg-grey10ㅗ sticky top-0 my-6 flex items-center py-2">
+      <div className="flex flex-1 flex-col overflow-hidden px-5">
+        <div className="sticky top-0 z-10 my-6 flex items-center bg-grey10 py-2">
           <div className="h-[1px] flex-1 bg-grey50"></div>
           <span className="mx-4 text-sm text-grey60">2025년 01월 01일</span>
           <div className="h-[1px] flex-1 bg-grey50"></div>
         </div>
 
-        {/* 채팅 내용 */}
-        <div className="flex flex-col-reverse gap-6">
+        <div className="flex flex-1 flex-col-reverse gap-6 overflow-y-auto">
           {messages.map((message) =>
-            message.messageSenderType === 'PROFILE' ? (
-              <SendFromMessage key={message.messageId} message={message} />
-            ) : (
+            message.isMyMessage ? (
               <SendToMessage key={message.messageId} message={message} />
+            ) : (
+              <SendFromMessage key={message.messageId} message={message} />
             ),
           )}
         </div>
       </div>
 
-      {/* 채팅입력창 */}
       <div className="flex-shrink-0 border-t border-grey30 p-4">
         <ChattingInput onSendMessage={handleSendMessage} />
       </div>
