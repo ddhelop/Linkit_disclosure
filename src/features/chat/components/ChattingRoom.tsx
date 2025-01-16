@@ -36,33 +36,37 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
 
   if (!chatRoomId) {
     return (
-      <div className="flex h-[calc(100vh-4rem)] w-[48rem] items-center justify-center text-grey60">
+      <div className="flex min-h-[calc(100vh-10rem)] w-[48rem] items-center justify-center rounded-2xl border border-grey30 bg-white text-grey60">
         대화 내역이 없어요
       </div>
     )
   }
 
   if (isLoading) {
-    return <div>로딩 중...</div>
+    return (
+      <div className="flex min-h-[calc(100vh-10rem)] w-[48rem] items-center justify-center rounded-2xl border border-grey30 bg-grey10">
+        로딩 중...
+      </div>
+    )
   }
 
   return (
-    <div className="flex flex-col">
-      <div
-        className="flex w-[48rem] flex-col rounded-t-[1.25rem] bg-grey10 px-5 py-6"
-        style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
-      >
+    <div className="flex min-h-[calc(100vh-10rem)] w-[48rem] flex-col rounded-2xl border border-grey30 bg-grey10">
+      <div className="flex-shrink-0 border-b border-grey30 px-5 py-6">
         <ChattingBasicProfile />
+      </div>
 
+      {/* 메시지 영역 */}
+      <div className="flex flex-1 flex-col justify-end overflow-y-auto px-5">
         {/* 날짜 구분선 */}
-        <div className="my-6 flex items-center">
+        <div className="sticky top-0 my-6 flex items-center bg-grey10 py-2">
           <div className="h-[1px] flex-1 bg-grey50"></div>
           <span className="mx-4 text-sm text-grey60">2025년 01월 01일</span>
           <div className="h-[1px] flex-1 bg-grey50"></div>
         </div>
 
         {/* 채팅 내용 */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col-reverse gap-6">
           {messages.map((message) =>
             message.messageSenderType === 'PROFILE' ? (
               <SendFromMessage key={message.messageId} message={message} />
@@ -72,8 +76,9 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
           )}
         </div>
       </div>
+
       {/* 채팅입력창 */}
-      <div>
+      <div className="flex-shrink-0 border-t border-grey30 p-4">
         <ChattingInput />
       </div>
     </div>

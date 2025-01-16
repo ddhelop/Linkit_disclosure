@@ -18,7 +18,7 @@ export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoom
   }, [])
 
   return (
-    <div className="flex w-[22.5rem] flex-col rounded-2xl border border-grey30 bg-white p-4">
+    <div className="flex min-h-[calc(100vh-10rem)] w-[22.5rem] flex-col rounded-2xl border border-grey30 bg-white p-4">
       {chattingList.map((chatting) => (
         <ChattingListComponent
           chattingList={chatting}

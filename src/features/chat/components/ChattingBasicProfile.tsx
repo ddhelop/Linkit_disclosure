@@ -4,7 +4,7 @@ export default function ChattingBasicProfile() {
   return (
     <>
       {/* 기본 정보 */}
-      <div className="flex w-full gap-4 bg-white px-[1.88rem] py-3">
+      <div className="flex w-full gap-4 rounded-xl bg-white px-[1.88rem] py-3">
         <Image src={'/common/default_profile.svg'} width={70} height={70} alt="Profile" />
 
         <div className="flex w-full items-center justify-between">
