@@ -1,6 +1,7 @@
 'use client'
 
 import Banner from '../Banner/Banner'
+import Footer from './Footer'
 import HomeAnnouncementSection from './HomeAnnouncementSection'
 import HomeTeamMemberSection from './HomeTeamMemberSection'
 import HomeTeamSection from './HomeTeamSection'
@@ -21,6 +22,9 @@ export default function Home() {
         {/* 팀원 추천 섹션 */}
         <HomeTeamMemberSection />
       </div>
+
+      {/* 푸터 */}
+      <Footer />
     </div>
   )
 }
