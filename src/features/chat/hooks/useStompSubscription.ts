@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react'
-import { Client, StompHeaders } from '@stomp/stompjs'
+import { useEffect } from 'react'
 import { ChatMessage } from '../types/ChatTypes'
+import { useStompStore } from '@/shared/store/useStompStore'
 
 interface UseStompSubscriptionProps {
   chatRoomId?: number
@@ -8,58 +8,38 @@ interface UseStompSubscriptionProps {
 }
 
 export const useStompSubscription = ({ chatRoomId, onMessageReceived }: UseStompSubscriptionProps) => {
-  const clientRef = useRef<Client | null>(null)
+  const stompClient = useStompStore((state) => state.stompClient)
 
   useEffect(() => {
-    if (!chatRoomId) return
+    if (!chatRoomId || !stompClient?.connected) return
 
-    const accessToken = localStorage.getItem('accessToken')
-
-    const headers: StompHeaders = {
-      Authorization: `Bearer ${accessToken}`,
-    }
-    const client = new Client({
-      brokerURL: process.env.NEXT_PUBLIC_SOCKET_URL,
-      connectHeaders: headers,
-      onConnect: () => {
-        console.log('Connected to WebSocket')
-        client.subscribe(
-          `/sub/chat/${chatRoomId}`,
-          (message) => {
-            const receivedMessage = JSON.parse(message.body)
-            onMessageReceived(receivedMessage)
-          },
-          headers,
-        )
+    const subscription = stompClient.subscribe(
+      `/sub/chat/${chatRoomId}`,
+      (message) => {
+        const receivedMessage = JSON.parse(message.body)
+        onMessageReceived(receivedMessage)
       },
-    })
-
-    clientRef.current = client
-    client.activate()
+      {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    )
 
     return () => {
-      if (client.connected) {
-        client.deactivate()
-      }
+      subscription.unsubscribe()
     }
-  }, [chatRoomId, onMessageReceived])
+  }, [chatRoomId, stompClient, onMessageReceived])
 
   const publish = (content: string) => {
-    if (!clientRef.current?.connected || !chatRoomId) return
+    if (!stompClient?.connected || !chatRoomId) return
 
-    const message = {
-      chatRoomId,
-      content,
-    }
-
-    clientRef.current.publish({
+    stompClient.publish({
       destination: '/pub/chat/send',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
-      body: JSON.stringify(message),
+      body: JSON.stringify({ chatRoomId, content }),
     })
   }
 
-  return { client: clientRef.current, publish }
+  return { publish }
 }

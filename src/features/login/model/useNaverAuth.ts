@@ -5,12 +5,14 @@ import { naverLogin } from '../api/authApi'
 import { LoginResponse } from './authType'
 
 import { useUserStore } from '@/shared/store/useAuthStore'
-import { Client } from '@stomp/stompjs'
+import { useStompStore } from '@/shared/store/useStompStore'
 import createStompClient from '@/shared/utils/stompClient'
+import { Client } from '@stomp/stompjs'
 
 export const useNaverAuth = (code: string | null) => {
   const router = useRouter()
   const { checkLogin, setEmailId } = useUserStore()
+  const connect = useStompStore((state) => state.connect)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -24,6 +26,7 @@ export const useNaverAuth = (code: string | null) => {
         if (isMemberBasicInform) {
           localStorage.setItem('accessToken', accessToken)
           checkLogin()
+          connect(accessToken)
 
           // 웹 소켓 연결
           if (!stompClient) {
