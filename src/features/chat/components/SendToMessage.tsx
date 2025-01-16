@@ -1,4 +1,10 @@
-export default function SendToMessage() {
+import { ChatMessage } from '../types/ChatTypes'
+
+interface SendToMessageProps {
+  message: ChatMessage
+}
+
+export default function SendToMessage({ message }: SendToMessageProps) {
   return (
     <div>
       {/* 내가 보낸 메세지 */}

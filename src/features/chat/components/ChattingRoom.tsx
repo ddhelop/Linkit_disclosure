@@ -1,9 +1,51 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { ChatMessage } from '../types/ChatTypes'
+import { getChatMessages } from '../api/ChatApi'
 import ChattingBasicProfile from './ChattingBasicProfile'
 import ChattingInput from './ChattingInput'
 import SendFromMessage from './SendFromMessage'
 import SendToMessage from './SendToMessage'
 
-export default function ChattingRoom() {
+interface ChattingRoomProps {
+  chatRoomId?: number
+}
+
+export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
+  const [messages, setMessages] = useState<ChatMessage[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    if (!chatRoomId) return
+
+    const fetchMessages = async () => {
+      try {
+        setIsLoading(true)
+        const response = await getChatMessages(chatRoomId)
+        setMessages(response.result.messages)
+      } catch (error) {
+        console.error('Failed to fetch messages:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchMessages()
+  }, [chatRoomId])
+
+  if (!chatRoomId) {
+    return (
+      <div className="flex h-[calc(100vh-4rem)] w-[48rem] items-center justify-center text-grey60">
+        대화 내역이 없어요
+      </div>
+    )
+  }
+
+  if (isLoading) {
+    return <div>로딩 중...</div>
+  }
+
   return (
     <div className="flex flex-col">
       <div
@@ -21,8 +63,13 @@ export default function ChattingRoom() {
 
         {/* 채팅 내용 */}
         <div className="flex flex-col gap-6">
-          <SendFromMessage />
-          <SendToMessage />
+          {messages.map((message) =>
+            message.messageSenderType === 'PROFILE' ? (
+              <SendFromMessage key={message.messageId} message={message} />
+            ) : (
+              <SendToMessage key={message.messageId} message={message} />
+            ),
+          )}
         </div>
       </div>
       {/* 채팅입력창 */}

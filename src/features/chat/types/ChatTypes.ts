@@ -46,3 +46,20 @@ export interface ChattingListType {
   unreadCount: number | null
   online: boolean
 }
+
+export interface ChatMessage {
+  messageId: string
+  chatRoomId: number
+  messageSenderType: 'TEAM' | 'PROFILE'
+  messageSenderId: string
+  content: string
+  timestamp: string
+  read: boolean
+}
+
+export interface ChatMessagesResponse {
+  totalElements: number
+  totalPages: number
+  hasNext: boolean
+  messages: ChatMessage[]
+}

@@ -5,8 +5,9 @@ import ChattingListComponent from './ChattingListComponent'
 import { getChattingList } from '../api/ChatApi'
 import { ChattingListType } from '../types/ChatTypes'
 
-export default function ChattingList() {
+export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoomId: number) => void }) {
   const [chattingList, setChattingList] = useState<ChattingListType[]>([])
+  const [selectedChatId, setSelectedChatId] = useState<number>()
 
   useEffect(() => {
     const fetchChattingList = async () => {
@@ -19,7 +20,15 @@ export default function ChattingList() {
   return (
     <div className="flex w-[22.5rem] flex-col rounded-2xl border border-grey30 bg-white p-4">
       {chattingList.map((chatting) => (
-        <ChattingListComponent chattingList={chatting} key={chatting.chatRoomId} />
+        <ChattingListComponent
+          chattingList={chatting}
+          key={chatting.chatRoomId}
+          isSelected={selectedChatId === chatting.chatRoomId}
+          onClick={() => {
+            setSelectedChatId(chatting.chatRoomId)
+            onSelectChat(chatting.chatRoomId)
+          }}
+        />
       ))}
     </div>
   )

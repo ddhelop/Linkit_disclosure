@@ -1,6 +1,11 @@
 import Image from 'next/image'
+import { ChatMessage } from '../types/ChatTypes'
 
-export default function SendFromMessage() {
+interface SendFromMessageProps {
+  message: ChatMessage
+}
+
+export default function SendFromMessage({ message }: SendFromMessageProps) {
   return (
     <>
       {/* 상대방이 보낸 메세지 */}

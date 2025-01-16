@@ -1,9 +1,21 @@
 import Image from 'next/image'
 import { ChattingListType } from '../types/ChatTypes'
 
-export default function ChattingListComponent({ chattingList }: { chattingList: ChattingListType }) {
+export default function ChattingListComponent({
+  chattingList,
+  isSelected,
+  onClick,
+}: {
+  chattingList: ChattingListType
+  isSelected?: boolean
+  onClick: () => void
+}) {
   return (
-    <div className="flex w-full cursor-pointer gap-3 rounded-xl border border-grey20 p-4 hover:bg-grey10">
+    <div
+      onClick={onClick}
+      className={`flex w-full cursor-pointer gap-3 rounded-xl border p-4 hover:bg-grey10
+        ${isSelected ? 'border-main bg-grey10' : 'border-grey20'}`}
+    >
       {chattingList.chatPartnerInformation.chatPartnerImageUrl ? (
         <Image
           src={chattingList.chatPartnerInformation.chatPartnerImageUrl}
