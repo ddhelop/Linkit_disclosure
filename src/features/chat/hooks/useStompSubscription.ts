@@ -44,5 +44,22 @@ export const useStompSubscription = ({ chatRoomId, onMessageReceived }: UseStomp
     }
   }, [chatRoomId, onMessageReceived])
 
-  return clientRef.current
+  const publish = (content: string) => {
+    if (!clientRef.current?.connected || !chatRoomId) return
+
+    const message = {
+      chatRoomId,
+      content,
+    }
+
+    clientRef.current.publish({
+      destination: '/pub/chat/message',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      body: JSON.stringify(message),
+    })
+  }
+
+  return { client: clientRef.current, publish }
 }

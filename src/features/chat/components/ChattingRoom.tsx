@@ -21,10 +21,16 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
     setMessages((prev) => [message, ...prev])
   }, [])
 
-  useStompSubscription({
+  const { publish } = useStompSubscription({
     chatRoomId,
     onMessageReceived: handleNewMessage,
   })
+
+  const handleSendMessage = (content: string) => {
+    if (publish) {
+      publish(content)
+    }
+  }
 
   useEffect(() => {
     if (!chatRoomId) return
@@ -89,7 +95,7 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
 
       {/* 채팅입력창 */}
       <div className="flex-shrink-0 border-t border-grey30 p-4">
-        <ChattingInput />
+        <ChattingInput onSendMessage={handleSendMessage} />
       </div>
     </div>
   )
