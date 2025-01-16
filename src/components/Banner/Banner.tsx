@@ -59,7 +59,7 @@ export default function Banner() {
           {slides.map((slide, index) => (
             <div key={index} className="flex-shrink-0 flex-grow-0 basis-full">
               <div className="relative h-full w-full">
-                <Image src={slide} alt={`Banner ${index + 1}`} fill className="object-cover" priority={index === 0} />
+                {/* <Image src={slide} alt={`Banner ${index + 1}`} fill className="object-cover" priority={index === 0} /> */}
               </div>
             </div>
           ))}
