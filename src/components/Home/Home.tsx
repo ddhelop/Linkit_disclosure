@@ -2,6 +2,7 @@
 
 import Banner from '../Banner/Banner'
 import HomeAnnouncementSection from './HomeAnnouncementSection'
+import HomeTeamMemberSection from './HomeTeamMemberSection'
 import HomeTeamSection from './HomeTeamSection'
 
 export default function Home() {
@@ -14,8 +15,11 @@ export default function Home() {
         {/* 모집 공고 섹션 */}
         <HomeAnnouncementSection />
 
-        {/* 팀 섹션 */}
+        {/* 팀 추천 섹션 */}
         <HomeTeamSection />
+
+        {/* 팀원 추천 섹션 */}
+        <HomeTeamMemberSection />
       </div>
     </div>
   )

@@ -21,3 +21,14 @@ export const getTeamRecommend = async () => {
     throw error
   }
 }
+
+// 홈화면 - 팀원 추천
+export const getTeamMemberRecommend = async () => {
+  try {
+    const response = await fetchWithAuth('/api/v1/home/profile')
+    return response.json()
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
