@@ -67,7 +67,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-[100] flex h-[4rem] w-full justify-between bg-white px-4 text-sm md:px-10">
+      <header className="sticky top-0 z-[100] mb-1 flex h-[4rem] w-full justify-between bg-white px-4 text-sm md:px-10">
         <div className="flex h-full items-center">
           <Logo />
           <Navigation />
