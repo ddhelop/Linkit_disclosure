@@ -1,46 +1,47 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import { logoutApi } from '@/features/login/api/authApi'
-import createStompClient from '../utils/stompClient'
-import { Client } from '@stomp/stompjs'
 
-interface userInfoProps {
-  isLogin: boolean // 로그인 여부
-  emailId: string | null // 이메일 아이디
-  checkLogin: () => void // 로그인 여부 확인 함수
-  logout: () => void // 로그아웃
-  setEmailId: (emailId: string) => void // 이메일 아이디 설정 함수
+interface AuthStore {
+  isLogin: boolean
+  emailId: string | null
+  checkLogin: () => void
+  logout: () => void
+  setEmailId: (emailId: string) => void
+  setLoginState: (isLogin: boolean) => void
 }
 
-export const useUserStore = create<userInfoProps>((set, get) => {
-  let stompClient: Client | null = null
+export const useAuthStore = create<AuthStore>()(
+  persist(
+    (set) => ({
+      isLogin: false,
+      emailId: null,
 
-  return {
-    isLogin: false,
-    emailId: null,
+      setLoginState: (isLogin: boolean) => {
+        set({ isLogin })
+      },
 
-    checkLogin: () => {
-      const accessToken = localStorage.getItem('accessToken')
+      checkLogin: () => {
+        const token = document.cookie.split(';').find((cookie) => cookie.trim().startsWith('accessToken='))
+        set({ isLogin: !!token })
+      },
 
-      if (accessToken) {
-        set({ isLogin: true })
+      setEmailId: (emailId: string) => {
+        set({ emailId })
+      },
 
-        // 회원 알림 구독
-      } else {
-        set({ isLogin: false })
-      }
+      logout: async () => {
+        await logoutApi()
+        document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT'
+        set({ isLogin: false, emailId: null })
+      },
+    }),
+    {
+      name: 'auth-storage',
+      partialize: (state) => ({
+        emailId: state.emailId,
+        isLogin: state.isLogin,
+      }),
     },
-    setEmailId: (emailId: string) => {
-      set({ emailId })
-    },
-
-    logout: async () => {
-      await logoutApi() // 로그아웃 API 호출
-      localStorage.removeItem('accessToken')
-      if (stompClient) {
-        stompClient.deactivate()
-        stompClient = null
-      }
-      set({ isLogin: false })
-    },
-  }
-})
+  ),
+)

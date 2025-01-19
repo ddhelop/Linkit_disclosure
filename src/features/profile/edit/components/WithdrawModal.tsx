@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useUserStore } from '@/shared/store/useAuthStore'
+import { useAuthStore } from '@/shared/store/useAuthStore'
 
 interface WithdrawModalProps {
   isOpen: boolean
@@ -13,7 +13,7 @@ interface WithdrawModalProps {
 export default function WithdrawModal({ isOpen, onClose, onWithdraw }: WithdrawModalProps) {
   const modalRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
-  const { logout } = useUserStore()
+  const { logout } = useAuthStore()
 
   useOnClickOutside({
     refs: [modalRef],

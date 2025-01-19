@@ -1,12 +1,13 @@
 // src/features/profile/components/ProfileMenu.tsx
 import Image from 'next/image'
 import Link from 'next/link'
-import { useUserStore } from '@/shared/store/useAuthStore'
+
 import { useState, useEffect } from 'react'
 import { getUserBasicInfo } from '@/entities/user/api/userApi'
+import { useAuthStore } from '@/shared/store/useAuthStore'
 
 export default function ProfileMenu() {
-  const { logout } = useUserStore()
+  const { logout } = useAuthStore()
   const [emailId, setEmailId] = useState<string>('')
 
   useEffect(() => {

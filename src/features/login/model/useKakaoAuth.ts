@@ -3,40 +3,29 @@ import { useEffect, useState } from 'react'
 import { kakaoLogin } from '../api/authApi'
 import { LoginResponse } from './authType'
 
-import { useUserStore } from '@/shared/store/useAuthStore'
+import { useAuthStore } from '@/shared/store/useAuthStore'
 import { Client } from '@stomp/stompjs'
 import createStompClient from '@/shared/utils/stompClient'
 
 export const useKakaoAuth = (code: string | null) => {
   const router = useRouter()
-  const { checkLogin } = useUserStore()
+  const { setLoginState, setEmailId } = useAuthStore()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const login = async () => {
       if (!code) return
       try {
-        const responseData: LoginResponse = await kakaoLogin(code)
-        let stompClient: Client | null = null
-        const { accessToken, email, isMemberBasicInform } = responseData.result
+        const response = await kakaoLogin(code)
+        const { accessToken, email, isMemberBasicInform, emailId } = response.result
+
+        document.cookie = `accessToken=${accessToken}; path=/; max-age=3600`
 
         if (isMemberBasicInform) {
-          localStorage.setItem('accessToken', accessToken)
-          checkLogin() // 로그인 상태 업데이트
-          // 웹 소켓 연결
-          if (!stompClient) {
-            stompClient = createStompClient(accessToken)
-            // 알림 구독
-            stompClient.onConnect = () => {
-              stompClient?.subscribe(`/sub/notification/${responseData.result.emailId}`, (message) => {
-                console.log('New notification:', JSON.parse(message.body))
-              })
-            }
-          }
+          setLoginState(true)
+          setEmailId(emailId)
           router.push('/')
         } else {
-          // 신규 회원: 세션 스토리지에 토큰 저장 후 온보딩 페이지로 이동
-          sessionStorage.setItem('accessToken', accessToken)
           router.push(`/login/onboarding-info?email=${email}`)
         }
       } catch (error) {
@@ -47,7 +36,7 @@ export const useKakaoAuth = (code: string | null) => {
     }
 
     login()
-  }, [code, router, checkLogin])
+  }, [code, router, setLoginState, setEmailId])
 
   return { loading }
 }

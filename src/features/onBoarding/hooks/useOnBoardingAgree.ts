@@ -4,12 +4,11 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { submitConsentInfo } from '../api/memberApi'
 import { ConsentInfo } from '../types/memberTypes'
-
-import { useUserStore } from '@/shared/store/useAuthStore'
+import { useAuthStore } from '@/shared/store/useAuthStore'
 
 export function useOnBoardingAgree() {
   const router = useRouter()
-  const { isLogin, checkLogin } = useUserStore()
+  const { isLogin, checkLogin } = useAuthStore()
   const [allChecked, setAllChecked] = useState(false)
   const [checkedItems, setCheckedItems] = useState([false, false, false, false])
 

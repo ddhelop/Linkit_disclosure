@@ -40,11 +40,22 @@ export const getMyTeams = async (): Promise<TeamResponse> => {
 }
 // 팀 상세조회
 export async function getTeamInfo(teamName: string) {
-  const response = await fetchWithAuth(`/api/v1/team/${teamName}`)
-  if (!response.ok) {
-    throw new Error('Failed to fetch team info')
+  try {
+    const response = await fetchWithAuth(`/api/v1/team/${teamName}`)
+    if (!response.ok) {
+      console.error('Team info fetch failed:', {
+        status: response.status,
+        statusText: response.statusText,
+      })
+      const errorData = await response.json().catch(() => ({}))
+      console.error('Error details:', errorData)
+      throw new Error(`Failed to fetch team info: ${response.status}`)
+    }
+    return response.json() as Promise<TeamInfoResponse>
+  } catch (error) {
+    console.error('Team info fetch error:', error)
+    throw error
   }
-  return response.json() as Promise<TeamInfoResponse>
 }
 
 export async function getTeamLogs(teamName: string): Promise<TeamLogsResponse> {

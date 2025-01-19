@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
-import { useUserStore } from '@/shared/store/useAuthStore'
+import { useAuthStore } from '@/shared/store/useAuthStore'
 import { useEffect, useState } from 'react'
 import Logo from './components/Logo'
 import Navigation from './components/Navigation'
@@ -14,17 +14,19 @@ import ProfileMenu from './components/ProfileMenu'
 
 export default function Header() {
   const pathname = usePathname()
-  const { isLogin, checkLogin, logout } = useUserStore()
+  const { isLogin, checkLogin, logout } = useAuthStore()
   const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false) // 모바일 메뉴 상태 추가
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const hideHeaderOnPaths = ['/login/onboarding-info', '/login/onboarding-agree', '/login/onboarding-complete']
   const basePath = pathname.split('?')[0]
 
   useEffect(() => {
-    checkLogin()
-    setLoading(false)
+    if (typeof window !== 'undefined') {
+      checkLogin()
+      setLoading(false)
+    }
   }, [checkLogin])
 
   useEffect(() => {
