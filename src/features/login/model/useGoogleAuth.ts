@@ -20,13 +20,14 @@ export const useGoogleAuth = (code: string | null) => {
         const response = await googleLogin(code)
         const { accessToken, email, isMemberBasicInform, emailId } = response.result
 
-        document.cookie = `accessToken=${accessToken}; path=/; max-age=3600`
-
         if (isMemberBasicInform) {
+          document.cookie = `accessToken=${accessToken}; path=/; max-age=3600`
           setLoginState(true)
           setEmailId(emailId)
           router.push('/')
         } else {
+          // 세션스토리지에 액세스토큰 저장
+          sessionStorage.setItem('accessToken', accessToken)
           router.push(`/login/onboarding-info?email=${email}`)
         }
       } catch (error) {
