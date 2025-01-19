@@ -15,7 +15,7 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
   const accessToken = getAccessToken()
 
   options.headers = {
-    'Content-Type': 'application/json',
+    // 'Content-Type': 'application/json',
     ...options.headers,
     Authorization: `Bearer ${accessToken || ''}`,
   }
