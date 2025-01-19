@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { getTeamAnnouncementDetail } from '../../api/teamViewApi'
 import { TeamAnnouncementDetail } from '../../api/teamApi'
 
@@ -22,13 +22,18 @@ function calculateDday(endDate: string): string {
 export default function TeamViewRecruitDetail({ teamName, id }: { teamName: string; id: string }) {
   const [data, setData] = useState<TeamAnnouncementDetail | null>(null)
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const fetchData = useCallback(async () => {
+    try {
       const response = await getTeamAnnouncementDetail(teamName, id)
       setData(response.result)
+    } catch (error) {
+      console.error('Failed to fetch announcement detail:', error)
     }
-    fetchData()
   }, [teamName, id])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
   return (
     <div className="flex flex-col rounded-xl border border-grey30 bg-white px-[3.38rem] py-10">
@@ -38,7 +43,7 @@ export default function TeamViewRecruitDetail({ teamName, id }: { teamName: stri
         </div>
         <div className="flex gap-2">
           <Image src="/common/icons/save.svg" alt="save" width={20} height={20} className="cursor-pointer" />
-          <span className="text-main">데이터반환필요</span>
+          <span className="text-main">{data?.announcementScrapCount}</span>
         </div>
       </div>
 

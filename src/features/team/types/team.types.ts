@@ -36,7 +36,9 @@ export interface TeamInfoResponse {
   message: string
   result: {
     isMyTeam: boolean
+
     teamInformMenu: {
+      teamScrapCount: number
       teamCurrentStates: Array<{ teamStateName: string }>
       teamName: string
       teamShortDescription: string

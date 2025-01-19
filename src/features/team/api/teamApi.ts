@@ -433,6 +433,7 @@ export interface TeamAnnouncement {
 export interface TeamAnnouncementDetail {
   teamMemberAnnouncementId: number
   announcementTitle: string
+  announcementScrapCount: number
   announcementPositionItem: {
     majorPosition: string
     subPosition: string
