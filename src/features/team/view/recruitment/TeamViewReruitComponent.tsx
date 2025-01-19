@@ -15,10 +15,12 @@ export default function TeamViewReruitComponent({
       className="flex flex-col rounded-xl bg-white px-10 py-5 hover:shadow-md"
     >
       <div className="flex justify-between">
-        <div className="rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">*데이터 미반환중</div>
+        <div className="rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">
+          D-{announcement.announcementDDay}
+        </div>
         <div className="flex gap-2 text-[#4D82F3]">
           <Image src={'/common/icons/save.svg'} alt="save" width={22} height={22} />
-          <span>*데이터 미반환중</span>
+          <span>{announcement.announcementScrapCount}</span>
         </div>
       </div>
 

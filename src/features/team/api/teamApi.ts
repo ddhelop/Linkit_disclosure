@@ -418,6 +418,8 @@ export async function updateTeamHistory(teamName: string, historyId: number, dat
 }
 
 export interface TeamAnnouncement {
+  announcementScrapCount: number
+  announcementDDay: number
   teamMemberAnnouncementId: number
   announcementTitle: string
   majorPosition: string
@@ -460,6 +462,14 @@ interface TeamAnnouncementResponse {
 
 export async function getTeamAnnouncements(teamName: string): Promise<TeamAnnouncementResponse> {
   const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team announcements')
+  }
+  return response.json()
+}
+// 뷰어 모드
+export async function getTeamAnnouncementsView(teamName: string): Promise<TeamAnnouncementResponse> {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement/view`)
   if (!response.ok) {
     throw new Error('Failed to fetch team announcements')
   }

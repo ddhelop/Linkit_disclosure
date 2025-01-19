@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { getTeamAnnouncementDetail } from '../../api/teamViewApi'
-import { TeamAnnouncement, TeamAnnouncementDetail } from '../../api/teamApi'
+import { TeamAnnouncementDetail } from '../../api/teamApi'
 
 function calculateDday(endDate: string): string {
   const today = new Date()
