@@ -9,8 +9,8 @@ export default async function TeamViewLogListPage({ params }: { params: { teamNa
 
   return (
     <>
-      <div className="flex h-[calc(100vh-4rem)] w-full justify-center px-0">
-        <div className="flex w-[83%] flex-col items-center  gap-8">
+      <div className="flex h-[calc(100vh-4rem)] w-full justify-center ">
+        <div className="flex w-[83%] flex-col items-center  gap-8 py-[3.62rem]">
           {/* 헤더 */}
           <div className="flex w-full gap-1">
             <Link href={`/team/${params.teamName}/log`}>
