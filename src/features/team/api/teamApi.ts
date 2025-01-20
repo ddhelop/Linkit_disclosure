@@ -619,3 +619,22 @@ export async function deleteTeamHistory(teamName: string, historyId: number) {
     method: 'DELETE',
   })
 }
+
+// 팀 스크랩
+export async function teamScrap(teamName: string, isScrap: boolean) {
+  const response = await fetchWithAuth(`/api/v1/team/scrap/${teamName}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+    },
+    body: JSON.stringify({
+      changeScrapValue: !isScrap,
+    }),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to team scrap')
+  }
+
+  return response.json()
+}

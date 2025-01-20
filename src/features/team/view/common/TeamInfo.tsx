@@ -2,13 +2,14 @@
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { getTeamInfo } from '../../api/teamApi'
+import { getTeamInfo, teamScrap } from '../../api/teamApi'
 import Link from 'next/link'
 import { Button } from '@/shared/ui/Button/Button'
 
 interface TeamData {
   isMyTeam: boolean
   teamInformMenu: {
+    isTeamScrap: boolean
     teamCurrentStates: Array<{ teamStateName: string }>
     teamName: string
     teamShortDescription: string
@@ -26,13 +27,17 @@ interface TeamData {
 export default function TeamInfo({ params }: { params: { teamName: string } }) {
   const [teamData, setTeamData] = useState<TeamData | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [isScrapLoading, setIsScrapLoading] = useState(false)
+  const [isTeamScrap, setIsTeamScrap] = useState(false)
   const router = useRouter()
+
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
         const teamName = params.teamName as string
         const response = await getTeamInfo(teamName)
         setTeamData(response.result)
+        setIsTeamScrap(response.result.teamInformMenu.isTeamScrap)
       } catch (error) {
         console.error('Failed to fetch team data:', error)
       } finally {
@@ -47,6 +52,21 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
   if (!teamData) return <div>Team not found</div>
 
   const { teamInformMenu } = teamData
+
+  // 팀 스크랩
+  const onClickTeamScrap = async () => {
+    if (isScrapLoading) return // 이미 처리 중이면 중복 요청 방지
+
+    try {
+      setIsScrapLoading(true)
+      const response = await teamScrap(params.teamName, isTeamScrap)
+      setIsTeamScrap(response.result.isTeamScrap)
+    } catch (error) {
+      console.error('Failed to scrap team:', error)
+    } finally {
+      setIsScrapLoading(false)
+    }
+  }
 
   return (
     <div className="flex w-full justify-between">
@@ -106,8 +126,16 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
         </div>
       ) : (
         <div className="mt-12 flex flex-col gap-5">
-          <div className="flex w-[19rem] cursor-pointer justify-center gap-3 rounded-full bg-[#D3E1FE] px-[1.38rem] py-3">
-            <Image src="/common/icons/not_save.svg" alt="scrap" width={20} height={20} />
+          <div
+            onClick={onClickTeamScrap}
+            className="flex w-[19rem] cursor-pointer justify-center gap-3 rounded-full bg-[#D3E1FE] px-[1.38rem] py-3"
+          >
+            <Image
+              src={isTeamScrap ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
+              alt="scrap"
+              width={20}
+              height={20}
+            />
             <span className="text-sm font-semibold text-[#4D82F3]">스크랩 하기</span>
           </div>
           <div className="flex w-[19rem] cursor-pointer justify-center gap-3 rounded-full bg-[#D3E1FE] px-[1.38rem] py-3">
