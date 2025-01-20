@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
 import { useAuthStore } from '@/shared/store/useAuthStore'
+import useNotificationStore from '@/shared/store/useNotificationStore'
 
 export default function useNotificationSubscription(emailId: string) {
   const subscriptionRef = useRef<any>(null)
   const { getClient, isConnected } = useWebSocketStore()
   // const { incrementUnreadCount } = useNotificationStore()
   const { isLogin } = useAuthStore()
+  const { incrementUnreadChat, incrementUnreadNotification } = useNotificationStore()
 
   useEffect(() => {
     const client = getClient()
@@ -28,6 +30,13 @@ export default function useNotificationSubscription(emailId: string) {
     subscriptionRef.current = client.subscribe(`/sub/notification/header/${emailId}`, (message) => {
       const notification = JSON.parse(message.body)
       console.log('New notification received:', notification)
+
+      // 알림 타입에 따라 카운트 증가
+      if (notification.type === 'CHAT') {
+        incrementUnreadChat()
+      } else {
+        incrementUnreadNotification()
+      }
     })
 
     return () => {
@@ -35,5 +44,5 @@ export default function useNotificationSubscription(emailId: string) {
         subscriptionRef.current.unsubscribe()
       }
     }
-  }, [isConnected, emailId, isLogin])
+  }, [isConnected, emailId, isLogin, incrementUnreadChat, incrementUnreadNotification])
 }

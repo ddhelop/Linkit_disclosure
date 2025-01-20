@@ -30,6 +30,7 @@ export const getChattingList = async () => {
   return response.json()
 }
 
+// 채팅방 메시지 조회
 export const getChatMessages = async (chatRoomId: number, page = 0, size = 50) => {
   const response = await fetchWithAuth(
     `/api/v1/chat/room/${chatRoomId}/messages?page=${page}&size=${size}&sort=timestamp%2Cdesc`,
