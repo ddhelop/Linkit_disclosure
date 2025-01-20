@@ -12,10 +12,12 @@ import MobileMenu from './components/MobileMenu'
 import Link from 'next/link'
 import ProfileMenu from './components/ProfileMenu'
 import useNotificationSubscription from '@/shared/components/webSocket/useNotificationSubscription'
+import useWebSocketStore from '@/shared/store/useWebSocketStore'
 
 export default function Header() {
   const pathname = usePathname()
   const { isLogin, checkLogin, logout, emailId } = useAuthStore()
+  const { initializeClient } = useWebSocketStore()
   const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -25,10 +27,18 @@ export default function Header() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      checkLogin()
+      const accessToken = document.cookie
+        .split(';')
+        .find((cookie) => cookie.trim().startsWith('accessToken='))
+        ?.split('=')[1]
+
+      if (accessToken) {
+        checkLogin()
+        initializeClient(accessToken)
+      }
       setLoading(false)
     }
-  }, [checkLogin])
+  }, [checkLogin, initializeClient])
 
   useNotificationSubscription(emailId || '')
 

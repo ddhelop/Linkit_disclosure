@@ -8,6 +8,7 @@ import Scripts from '@/components/script'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import Header from '@/widgets/Header/Header'
+import WebSocketInitializer from '@/shared/components/webSocket/WebSocketInitializer'
 
 export const metadata: Metadata = {
   title: '링킷, Linkit',
@@ -48,7 +49,7 @@ export default function RootLayout({
         <meta name="naver-site-verification" content="17163296e94f835f71bb3d1994ea168bd456675b" />
       </head>
       <body className={`${pretendard.className} bg-[#FCFCFD]`}>
-        {/* <FetchSetting> */}
+        <WebSocketInitializer />
         <Header />
         <ToastContainer />
         <div className="bg-[#fcfcfd]">{children}</div>
