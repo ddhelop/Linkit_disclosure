@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ProfileMenu from './ProfileMenu'
 import NotificationMenu from './NotificationMenu'
 import useNotificationStore from '@/shared/store/useNotificationStore'
