@@ -91,13 +91,13 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
         </div>
       </div>
       {teamData.isMyTeam ? (
-        <div>
+        <div className="mt-12">
           <Button
             onClick={() => {
               router.push(`/team/${params.teamName}/edit/log`)
             }}
             animationMode="grey"
-            className="flex gap-2 rounded-full border border-grey30 bg-white px-6 py-3 text-sm text-grey60"
+            className=" flex gap-2 rounded-full border border-grey30 bg-white px-6 py-3 text-sm text-grey60"
             mode="custom"
           >
             <Image src="/common/icons/pencil.svg" alt="edit" width={16} height={16} />
@@ -105,7 +105,16 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
           </Button>
         </div>
       ) : (
-        <div>123123</div>
+        <div className="mt-12 flex flex-col gap-5">
+          <div className="flex w-[19rem] cursor-pointer justify-center gap-3 rounded-full bg-[#D3E1FE] px-[1.38rem] py-3">
+            <Image src="/common/icons/not_save.svg" alt="scrap" width={20} height={20} />
+            <span className="text-sm font-semibold text-[#4D82F3]">스크랩 하기</span>
+          </div>
+          <div className="flex w-[19rem] cursor-pointer justify-center gap-3 rounded-full bg-[#D3E1FE] px-[1.38rem] py-3">
+            <Image src="/common/icons/send.svg" alt="scrap" width={20} height={20} />
+            <span className="text-sm font-semibold text-[#4D82F3]">매칭 요청하기</span>
+          </div>
+        </div>
       )}
     </div>
   )
