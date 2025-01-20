@@ -10,7 +10,7 @@ interface MiniTeamCardProps {
 export default function MiniTeamCard({ teamInfo }: MiniTeamCardProps) {
   return (
     <div
-      className="flex w-[28.125rem] flex-col rounded-xl bg-white px-7 py-[1.12rem]"
+      className="flex w-[19.525rem] flex-col rounded-xl bg-white px-7 py-[1.12rem]"
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.1)' }}
     >
       <div className="flex justify-between">

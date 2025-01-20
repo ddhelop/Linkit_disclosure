@@ -7,7 +7,7 @@ export default async function TeamViewRecruitDetailPage({ params }: { params: { 
   const teamInfo = await getTeamInfo(params.teamName)
 
   return (
-    <div className="absolute left-0 flex h-[calc(100vh-4rem)] w-full justify-center bg-white pt-[3.63rem]">
+    <div className="absolute left-0 flex h-[calc(100vh-4rem)] w-full justify-center bg-[#FCFCFD] pt-[3.63rem]">
       <div className="flex w-[83%] justify-center gap-8">
         <div className="w-[49rem]">
           <TeamViewRecruitDetail teamName={params.teamName} id={params.id} />
