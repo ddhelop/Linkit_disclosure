@@ -7,7 +7,6 @@ import ChattingBasicProfile from './ChattingBasicProfile'
 import ChattingInput from './ChattingInput'
 import SendFromMessage from './SendFromMessage'
 import SendToMessage from './SendToMessage'
-import { useStompSubscription } from '../hooks/useStompSubscription'
 
 interface ChattingRoomProps {
   chatRoomId?: number
@@ -16,21 +15,6 @@ interface ChattingRoomProps {
 export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [isLoading, setIsLoading] = useState(false)
-
-  const handleNewMessage = useCallback((message: ChatMessage) => {
-    setMessages((prev) => [message, ...prev])
-  }, [])
-
-  const { publish } = useStompSubscription({
-    chatRoomId,
-    onMessageReceived: handleNewMessage,
-  })
-
-  const handleSendMessage = (content: string) => {
-    if (publish) {
-      publish(content)
-    }
-  }
 
   useEffect(() => {
     if (!chatRoomId) return
@@ -90,9 +74,7 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
         </div>
       </div>
 
-      <div className="flex-shrink-0 border-t border-grey30 p-4">
-        <ChattingInput onSendMessage={handleSendMessage} />
-      </div>
+      <div className="flex-shrink-0 border-t border-grey30 p-4">{/* <ChattingInput /> */}</div>
     </div>
   )
 }
