@@ -9,6 +9,7 @@ interface WebSocketState {
   initializeClient: (token: string) => void
   disconnectClient: () => void
   getClient: () => Client | null
+  reconnect: () => void
 }
 
 const useWebSocketStore = create<WebSocketState>((set, get) => ({
@@ -20,12 +21,13 @@ const useWebSocketStore = create<WebSocketState>((set, get) => ({
       return
     }
 
+    // 기존 클라이언트가 있다면 정리
     if (stompClient?.active) {
       stompClient.deactivate()
     }
 
     stompClient = new Client({
-      brokerURL: `${process.env.NEXT_PUBLIC_SOCKET_URL}`,
+      brokerURL: `${process.env.NEXT_PUBLIC_SOCKET_URL}/stomp/linkit`,
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },
@@ -47,12 +49,15 @@ const useWebSocketStore = create<WebSocketState>((set, get) => ({
     stompClient.onWebSocketClose = () => {
       console.log('WebSocket connection closed')
       set({ isConnected: false })
-      if (stompClient && !stompClient.active) {
-        stompClient.activate()
-      }
+      // 자동 재연결 시도
+      get().reconnect()
     }
 
-    stompClient.activate()
+    try {
+      stompClient.activate()
+    } catch (error) {
+      console.error('Failed to activate WebSocket:', error)
+    }
   },
 
   disconnectClient: () => {
@@ -64,6 +69,17 @@ const useWebSocketStore = create<WebSocketState>((set, get) => ({
   },
 
   getClient: () => stompClient,
+
+  reconnect: () => {
+    const client = get().getClient()
+    if (client && !client.active) {
+      try {
+        client.activate()
+      } catch (error) {
+        console.error('Failed to reconnect:', error)
+      }
+    }
+  },
 }))
 
 export default useWebSocketStore

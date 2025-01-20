@@ -1,12 +1,14 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { ChatMessage } from '../types/ChatTypes'
 import { getChatMessages } from '../api/ChatApi'
 import ChattingBasicProfile from './ChattingBasicProfile'
 import ChattingInput from './ChattingInput'
 import SendFromMessage from './SendFromMessage'
 import SendToMessage from './SendToMessage'
+import { useChatStore } from '../store/useChatStore'
+import useWebSocketStore from '@/shared/store/useWebSocketStore'
 
 interface ChattingRoomProps {
   chatRoomId?: number
@@ -14,38 +16,103 @@ interface ChattingRoomProps {
 
 export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
+  const { updateLastMessage } = useChatStore()
+  const { getClient } = useWebSocketStore()
+  const subscriptionRef = useRef<any>(null)
   const [isLoading, setIsLoading] = useState(false)
+
+  // 메시지 추가 함수
+  const addMessage = useCallback((message: ChatMessage) => {
+    setMessages((prev) => [message, ...prev])
+  }, [])
 
   useEffect(() => {
     if (!chatRoomId) return
+    console.log('chatRoomId', chatRoomId)
 
-    const fetchMessages = async () => {
+    const client = getClient()
+    if (!client) {
+      console.log('No WebSocket client available')
+      return
+    }
+
+    const initializeChat = async () => {
       try {
         setIsLoading(true)
+
+        // 연결이 끊어진 경우 재연결 시도
+        if (!client.connected) {
+          await new Promise<void>((resolve) => {
+            client.onConnect = () => {
+              console.log('Reconnected to WebSocket')
+              resolve()
+            }
+            client.activate()
+          })
+        }
+
+        // 이전 메시지 로드
         const response = await getChatMessages(chatRoomId)
         setMessages(response.result.messages)
+
+        // 채팅방 구독
+        subscriptionRef.current = client.subscribe(`/sub/chat/${chatRoomId}`, (message) => {
+          const receivedMessage = JSON.parse(message.body)
+          // 받은 메시지는 항상 상대방 메시지로 처리
+          const newMessage = {
+            ...receivedMessage,
+            isMyMessage: false,
+          }
+          addMessage(newMessage)
+          updateLastMessage(chatRoomId, newMessage.content, new Date(newMessage.timestamp).toLocaleTimeString())
+        })
       } catch (error) {
-        console.error('Failed to fetch messages:', error)
+        console.error('Failed to initialize chat:', error)
       } finally {
         setIsLoading(false)
       }
     }
 
-    fetchMessages()
-  }, [chatRoomId])
+    initializeChat()
+
+    return () => {
+      if (subscriptionRef.current) {
+        subscriptionRef.current.unsubscribe()
+      }
+    }
+  }, [chatRoomId, getClient, addMessage, updateLastMessage])
+
+  // 메시지 전송 핸들러
+  const handleSendMessage = useCallback(
+    (content: string) => {
+      // UI에 즉시 내 메시지 추가
+      const myMessage: ChatMessage = {
+        messageId: Date.now().toString(), // 임시 ID
+        chatRoomId: Number(chatRoomId),
+        content,
+        timestamp: new Date().toISOString(),
+        isMyMessage: true,
+        messageSenderType: 'PROFILE',
+        messageSenderId: '', // 필요한 경우 추가
+        read: false,
+      }
+      addMessage(myMessage)
+    },
+    [chatRoomId, addMessage],
+  )
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[calc(100vh-10rem)] w-[48rem] items-center justify-center rounded-2xl border border-grey30 bg-white">
+        로딩 중...
+      </div>
+    )
+  }
 
   if (!chatRoomId) {
     return (
       <div className="flex min-h-[calc(100vh-10rem)] w-[48rem] items-center justify-center rounded-2xl border border-grey30 bg-white text-grey60">
         대화 내역이 없어요
-      </div>
-    )
-  }
-
-  if (isLoading) {
-    return (
-      <div className="flex min-h-[calc(100vh-10rem)] w-[48rem] items-center justify-center rounded-2xl border border-grey30 bg-grey10">
-        로딩 중...
       </div>
     )
   }
@@ -74,7 +141,9 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
         </div>
       </div>
 
-      <div className="flex-shrink-0 border-t border-grey30 p-4">{/* <ChattingInput /> */}</div>
+      <div className="flex-shrink-0 border-t border-grey30 p-4">
+        <ChattingInput onMessageSent={handleSendMessage} />
+      </div>
     </div>
   )
 }
