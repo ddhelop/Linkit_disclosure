@@ -1,6 +1,7 @@
 // src/features/profile/api/authApi.ts
 
 import { useAuthStore } from '@/shared/store/useAuthStore'
+import useWebSocketStore from '@/shared/store/useWebSocketStore'
 
 function getAccessToken() {
   if (typeof document === 'undefined') return null
@@ -40,10 +41,9 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
 
     if ((response.status === 401 || response.status === 404) && retry) {
       try {
-        const refreshResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/auth/refresh`,
-          { credentials: 'include' }, // 리프레시 요청에도 credentials 추가
-        )
+        const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/auth/refresh`, {
+          credentials: 'include',
+        })
         if (!refreshResponse.ok) {
           throw new Error('Token refresh failed')
         }
@@ -51,6 +51,9 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
 
         // 새 토큰으로 쿠키 업데이트
         document.cookie = `accessToken=${data.result.accessToken}; path=/; max-age=3600`
+
+        // 웹소켓 재연결 추가
+        useWebSocketStore.getState().initializeClient(data.result.accessToken)
 
         // 새 토큰으로 헤더 업데이트
         return fetch(apiUrl, {

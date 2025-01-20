@@ -1,47 +1,69 @@
 import { create } from 'zustand'
 import { Client } from '@stomp/stompjs'
 
+// 싱글톤으로 WebSocket 클라이언트 관리
+let stompClient: Client | null = null
+
 interface WebSocketState {
-  client: Client | null
+  isConnected: boolean
   initializeClient: (token: string) => void
   disconnectClient: () => void
+  getClient: () => Client | null
 }
 
 const useWebSocketStore = create<WebSocketState>((set, get) => ({
-  client: null,
+  isConnected: false,
 
   initializeClient: (token: string) => {
-    const { client } = get()
-    if (client?.connected) {
+    if (stompClient?.connected) {
       console.log('WebSocket already connected')
       return
     }
 
-    const newClient = new Client({
+    if (stompClient?.active) {
+      stompClient.deactivate()
+    }
+
+    stompClient = new Client({
       brokerURL: `${process.env.NEXT_PUBLIC_SOCKET_URL}`,
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },
       reconnectDelay: 5000,
-      onConnect: () => {
-        console.log('Connected to WebSocket server')
-      },
-      onStompError: (frame) => {
-        console.error('STOMP Error:', frame)
-      },
+      heartbeatIncoming: 10000,
+      heartbeatOutgoing: 10000,
     })
 
-    newClient.activate()
-    set({ client: newClient })
+    stompClient.onConnect = () => {
+      console.log('WebSocket connected')
+      set({ isConnected: true })
+    }
+
+    stompClient.onDisconnect = () => {
+      console.log('WebSocket disconnected')
+      set({ isConnected: false })
+    }
+
+    stompClient.onWebSocketClose = () => {
+      console.log('WebSocket connection closed')
+      set({ isConnected: false })
+      if (stompClient && !stompClient.active) {
+        stompClient.activate()
+      }
+    }
+
+    stompClient.activate()
   },
 
   disconnectClient: () => {
-    const { client } = get()
-    if (client?.connected) {
-      client.deactivate()
-      set({ client: null })
+    if (stompClient?.connected) {
+      stompClient.deactivate()
+      stompClient = null
+      set({ isConnected: false })
     }
   },
+
+  getClient: () => stompClient,
 }))
 
 export default useWebSocketStore

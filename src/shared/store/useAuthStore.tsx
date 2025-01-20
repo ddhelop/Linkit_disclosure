@@ -2,6 +2,13 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { logoutApi } from '@/features/login/api/authApi'
 
+function getAccessToken() {
+  if (typeof document === 'undefined') return null
+  const cookies = document.cookie.split(';')
+  const tokenCookie = cookies.find((cookie) => cookie.trim().startsWith('accessToken='))
+  return tokenCookie ? tokenCookie.split('=')[1].trim() : null
+}
+
 interface AuthStore {
   isLogin: boolean
   emailId: string | null
