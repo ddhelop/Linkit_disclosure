@@ -68,6 +68,11 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
     }
   }
 
+  // 매칭 요청
+  const onClickTeamMatching = () => {
+    alert('구현중')
+  }
+
   return (
     <div className="flex w-full justify-between">
       <div className="flex flex-col">
@@ -138,7 +143,10 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
             />
             <span className="text-sm font-semibold text-[#4D82F3]">스크랩 하기</span>
           </div>
-          <div className="flex w-[19rem] cursor-pointer justify-center gap-3 rounded-full bg-[#D3E1FE] px-[1.38rem] py-3">
+          <div
+            onClick={onClickTeamMatching}
+            className="flex w-[19rem] cursor-pointer justify-center gap-3 rounded-full bg-[#D3E1FE] px-[1.38rem] py-3"
+          >
             <Image src="/common/icons/send.svg" alt="scrap" width={20} height={20} />
             <span className="text-sm font-semibold text-[#4D82F3]">매칭 요청하기</span>
           </div>
