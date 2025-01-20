@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
-import useNotificationStore from '@/shared/store/useNotificationStore'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 
 export default function useNotificationSubscription(emailId: string) {

@@ -41,7 +41,11 @@ export default function UserMenu({ isModalOpen, toggleModal }: UserMenuProps) {
               <div className="absolute right-0 top-0 h-2 w-2 rounded-full bg-red-500"></div>
             )}
           </div>
-          <NotificationMenu isOpen={isNotificationOpen} onClose={() => setIsNotificationOpen(false)} />
+          <NotificationMenu
+            isOpen={isNotificationOpen}
+            onClose={() => setIsNotificationOpen(false)}
+            emailId={emailId || ''}
+          />
         </div>
       </div>
 

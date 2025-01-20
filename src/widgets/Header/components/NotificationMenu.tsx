@@ -1,12 +1,15 @@
 'use client'
 
-import Image from 'next/image'
-import { useRef, useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import useWebSocketStore from '@/shared/store/useWebSocketStore'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
+import useNotificationStore from '@/shared/store/useNotificationStore'
+import Image from 'next/image'
 
 interface NotificationMenuProps {
   isOpen: boolean
   onClose: () => void
+  emailId: string
 }
 
 interface NotificationItem {
@@ -16,8 +19,11 @@ interface NotificationItem {
   isRead: boolean
 }
 
-export default function NotificationMenu({ isOpen, onClose }: NotificationMenuProps) {
+export default function NotificationMenu({ isOpen, onClose, emailId }: NotificationMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null)
+  const subscriptionRef = useRef<any>(null)
+  const { getClient } = useWebSocketStore()
+  // const { notifications, setNotifications } = useNotificationListStore()
 
   useOnClickOutside({
     refs: [menuRef],
@@ -25,39 +31,42 @@ export default function NotificationMenu({ isOpen, onClose }: NotificationMenuPr
     isEnabled: isOpen,
   })
 
-  // 임시 알림 데이터
-  const notifications: NotificationItem[] = [
-    {
-      id: 1,
-      title: '상대방님의 매칭 요청',
-      time: '1시간 전',
-      isRead: false,
-    },
-    {
-      id: 2,
-      title: '상대방님과 매칭 성사!',
-      time: '3시간 전',
-      isRead: false,
-    },
-    {
-      id: 3,
-      title: '상대방님의 새로운 메시지',
-      time: '하루 전',
-      isRead: true,
-    },
-  ]
+  // 메뉴가 열릴 때 구독 시작
+  useEffect(() => {
+    if (!isOpen || !emailId) return
+
+    const client = getClient()
+    if (!client?.connected) return
+
+    // 알림 목록 초기화 API 호출 (필요한 경우)
+    // fetchNotifications(emailId)
+
+    // 실시간 알림 구독
+    subscriptionRef.current = client.subscribe(`/sub/notification/${emailId}`, (message) => {
+      const notification = JSON.parse(message.body)
+      console.log('New notification:', notification)
+      // setNotifications([notification, ...notifications])
+    })
+
+    return () => {
+      // 메뉴가 닫힐 때 구독 해제
+      if (subscriptionRef.current) {
+        subscriptionRef.current.unsubscribe()
+      }
+    }
+  }, [isOpen, emailId])
 
   if (!isOpen) return null
 
   return (
     <div
       ref={menuRef}
-      className="absolute right-0 top-12 z-50 max-h-[25.8rem] w-[23.3rem] rounded-xl border border-grey30 bg-white py-3 shadow-lg "
+      className="absolute right-0 top-12 z-50 max-h-[25.8rem] w-[23.3rem] rounded-xl border border-grey30 bg-white py-3 shadow-lg"
     >
-      <div className="flex flex-col">
-        {notifications.map((notification) => (
+      {/* <div className="flex flex-col">
+        {notifications.map((notification, index) => (
           <div
-            key={notification.id}
+            key={index}
             className={`flex cursor-pointer items-center gap-4 rounded-lg px-7 py-5 hover:bg-grey20 ${
               !notification.isRead ? 'bg-[#EDF3FF]' : ''
             }`}
@@ -72,7 +81,7 @@ export default function NotificationMenu({ isOpen, onClose }: NotificationMenuPr
             {!notification.isRead && <div className="h-2 w-2 rounded-full bg-main" />}
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -14,4 +14,9 @@ const useNotificationStore = create<NotificationStore>((set) => ({
   setUnReadNotificationCount: (count: number) => set({ unReadNotificationCount: count }),
 }))
 
+const useNotificationListStore = create<any>((set) => ({
+  notifications: [],
+  setNotifications: (notifications: any[]) => set({ notifications }),
+}))
+
 export default useNotificationStore
