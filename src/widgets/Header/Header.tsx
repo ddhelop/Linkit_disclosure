@@ -11,10 +11,11 @@ import GuestMenu from './components/GuestMenu'
 import MobileMenu from './components/MobileMenu'
 import Link from 'next/link'
 import ProfileMenu from './components/ProfileMenu'
+import useNotificationSubscription from '@/shared/components/webSocket/useNotificationSubscription'
 
 export default function Header() {
   const pathname = usePathname()
-  const { isLogin, checkLogin, logout } = useAuthStore()
+  const { isLogin, checkLogin, logout, emailId } = useAuthStore()
   const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -29,27 +30,7 @@ export default function Header() {
     }
   }, [checkLogin])
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        (isModalOpen &&
-          !(event.target as HTMLElement).closest('.profile-menu') &&
-          !(event.target as HTMLElement).closest('.toggle-button')) ||
-        (isMobileMenuOpen &&
-          !(event.target as HTMLElement).closest('.mobile-menu') &&
-          !(event.target as HTMLElement).closest('.menu-toggle-button'))
-      ) {
-        setIsModalOpen(false)
-        setIsMobileMenuOpen(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isModalOpen, isMobileMenuOpen])
+  useNotificationSubscription(emailId || '')
 
   if (hideHeaderOnPaths.includes(basePath)) {
     return null

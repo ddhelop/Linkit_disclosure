@@ -2,9 +2,12 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ProfileMenu from './ProfileMenu'
 import NotificationMenu from './NotificationMenu'
+import useNotificationStore from '@/shared/store/useNotificationStore'
+import { useAuthStore } from '@/shared/store/useAuthStore'
+import useNotificationSubscription from '@/shared/components/webSocket/useNotificationSubscription'
 
 interface UserMenuProps {
   isModalOpen: boolean
@@ -13,6 +16,10 @@ interface UserMenuProps {
 
 export default function UserMenu({ isModalOpen, toggleModal }: UserMenuProps) {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false)
+  const { emailId } = useAuthStore()
+  const unReadChatCount = useNotificationStore((state) => state.unReadChatCount)
+  const unReadNotificationCount = useNotificationStore((state) => state.unReadNotificationCount)
+  useNotificationSubscription(emailId || '')
 
   const toggleNotification = () => {
     setIsNotificationOpen(!isNotificationOpen)
@@ -22,13 +29,17 @@ export default function UserMenu({ isModalOpen, toggleModal }: UserMenuProps) {
     <div className="relative hidden gap-[2rem] md:flex">
       <div className="flex gap-5">
         <Link href="/chat">
-          <div className="flex cursor-pointer items-center">
+          <div className="relative flex cursor-pointer items-center">
             <Image src={'/common/icons/chat_circle.svg'} width={32} height={32} alt="chat" />
+            {unReadChatCount > 0 && <div className="absolute right-0 top-0 h-2 w-2 rounded-full bg-red-500"></div>}
           </div>
         </Link>
         <div className="relative">
           <div className="flex cursor-pointer items-center" onClick={toggleNotification}>
             <Image src={'/common/icons/alarm_circle.svg'} width={32} height={32} alt="notification" />
+            {unReadNotificationCount > 0 && (
+              <div className="absolute right-0 top-0 h-2 w-2 rounded-full bg-red-500"></div>
+            )}
           </div>
           <NotificationMenu isOpen={isNotificationOpen} onClose={() => setIsNotificationOpen(false)} />
         </div>
