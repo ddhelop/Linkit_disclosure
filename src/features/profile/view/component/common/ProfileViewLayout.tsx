@@ -11,6 +11,7 @@ import ProfileViewAwards from '../ProfileViewAwards'
 import ProfileViewLicense from '../ProfileViewLicense'
 import ProfileViewLinks from '../ProfileViewLinks'
 import { ProfileViewProvider } from '@/entities/profile/model/ProfileViewContext'
+import ProfileViewLog from '../ProfileViewLog'
 
 export default function ProfileViewLayout() {
   const params = useParams()
@@ -34,6 +35,7 @@ export default function ProfileViewLayout() {
   return (
     <ProfileViewProvider profileData={profileData}>
       <div className="flex flex-col gap-6">
+        <ProfileViewLog />
         <ProfileViewSkills />
         <ProfileViewHistory />
         <ProfileViewPortFolio />
