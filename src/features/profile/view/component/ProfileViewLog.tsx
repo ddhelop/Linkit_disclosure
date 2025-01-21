@@ -1,6 +1,7 @@
 import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function ProfileViewLog() {
   const { profileData } = useProfileView()
@@ -24,10 +25,13 @@ export default function ProfileViewLog() {
 
       {/* 더보기 */}
       <div className="flex justify-end ">
-        <div className="flex cursor-pointer items-center rounded-xl bg-grey10 py-2 pl-4 pr-2 text-sm text-grey60">
+        <Link
+          href={`/${profileData?.profileInformMenu.emailId}/logs`}
+          className="flex cursor-pointer items-center rounded-xl bg-grey10 py-2 pl-4 pr-2 text-sm text-grey60"
+        >
           로그 더보기
           <Image src="/common/icons/right_arrow.svg" width={20} height={20} alt="arrow" />
-        </div>
+        </Link>
       </div>
     </div>
   )

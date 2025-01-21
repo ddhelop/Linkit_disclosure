@@ -38,6 +38,7 @@ export interface TeamInfoResponse {
     isMyTeam: boolean
 
     teamInformMenu: {
+      teamCode: string
       teamScrapCount: number
       isTeamScrap: boolean
       teamCurrentStates: Array<{ teamStateName: string }>
