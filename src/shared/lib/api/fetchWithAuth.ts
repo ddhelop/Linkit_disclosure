@@ -41,8 +41,12 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
 
     if ((response.status === 401 || response.status === 404) && retry) {
       try {
-        const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/auth/refresh`, {
+        const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/renew/token`, {
           credentials: 'include',
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${accessToken || ''}`,
+          },
         })
         if (!refreshResponse.ok) {
           throw new Error('Token refresh failed')
