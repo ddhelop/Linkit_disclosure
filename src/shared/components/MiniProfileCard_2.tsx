@@ -10,19 +10,25 @@ interface MiniProfileCard2Props {
 
 export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
   const [isHovered, setIsHovered] = useState(false)
-  const [isScraped, setIsScraped] = useState(profile.isProfileScrap)
-  const [scrapCount, setScrapCount] = useState(profile.profileScrapCount)
+  const [isScrap, setIsScrap] = useState(profile?.isProfileScrap ?? false)
+  const [scrapCount, setScrapCount] = useState(profile?.profileScrapCount ?? 0)
+  const [isScrapLoading, setIsScrapLoading] = useState(false)
 
   const handleScrap = async (e: React.MouseEvent) => {
-    e.preventDefault() // Link 컴포넌트의 기본 동작 방지
+    e.preventDefault()
+    if (isScrapLoading) return
+
     try {
-      const response = await profileScrap(profile.emailId, !isScraped)
+      setIsScrapLoading(true)
+      const response = await profileScrap(profile.emailId, !isScrap)
       if (response.ok) {
-        setIsScraped(!isScraped)
-        setScrapCount((prev) => (isScraped ? prev - 1 : prev + 1))
+        setIsScrap(!isScrap)
+        setScrapCount((prev) => (isScrap ? prev - 1 : prev + 1))
       }
     } catch (error) {
       console.error('Failed to update scrap:', error)
+    } finally {
+      setIsScrapLoading(false)
     }
   }
 
@@ -53,7 +59,7 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
           className="cursor-pointer p-1"
         >
           <Image
-            src={isScraped || isHovered ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
+            src={isScrap || isHovered ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
             width={18}
             height={18}
             alt="save"

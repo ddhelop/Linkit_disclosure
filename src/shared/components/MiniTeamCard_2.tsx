@@ -12,20 +12,25 @@ interface MiniTeamCard_2Props {
 
 export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
   const [isHovered, setIsHovered] = useState(false)
-  const [isScraped, setIsScraped] = useState(team.isTeamScrap)
-  const [scrapCount, setScrapCount] = useState(team.teamScrapCount)
+  const [isScrap, setIsScrap] = useState(team?.isTeamScrap ?? false)
+  const [scrapCount, setScrapCount] = useState(team?.teamScrapCount ?? 0)
+  const [isScrapLoading, setIsScrapLoading] = useState(false)
 
   const handleScrap = async (e: React.MouseEvent) => {
-    e.preventDefault() // Link 컴포넌트의 기본 동작 방지
+    e.preventDefault()
+    if (isScrapLoading) return
+
     try {
-      const response = await teamScrap(team.teamCode, !isScraped)
+      setIsScrapLoading(true)
+      const response = await teamScrap(team.teamCode, !isScrap)
       if (response.ok) {
-        setIsScraped(!isScraped)
-        setScrapCount((prev) => (isScraped ? prev - 1 : prev + 1))
-        alert('스크랩 완료되었습니다.')
+        setIsScrap(!isScrap)
+        setScrapCount((prev) => (isScrap ? prev - 1 : prev + 1))
       }
     } catch (error) {
       console.error('Failed to update scrap:', error)
+    } finally {
+      setIsScrapLoading(false)
     }
   }
 
@@ -63,7 +68,7 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
           className="cursor-pointer p-1" // 클릭 영역 확장
         >
           <Image
-            src={isScraped || isHovered ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
+            src={isScrap || isHovered ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
             width={18}
             height={18}
             alt="save"

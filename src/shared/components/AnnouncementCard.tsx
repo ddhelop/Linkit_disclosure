@@ -7,12 +7,25 @@ import { announcementScrap } from '../api/commonApi'
 import Link from 'next/link'
 
 export default function AnnouncementCard({ announcement }: { announcement: Announcement }) {
-  const [isScrap, setIsScrap] = useState(announcement?.isAnnouncementScrap)
+  const [isScrap, setIsScrap] = useState(announcement?.isAnnouncementScrap ?? false)
+  const [isScrapLoading, setIsScrapLoading] = useState(false)
+  const [scrapCount, setScrapCount] = useState(announcement?.announcementScrapCount)
 
-  const handleScrap = async () => {
-    const response = await announcementScrap(announcement?.teamMemberAnnouncementId, !isScrap)
-    if (response.ok) {
-      setIsScrap(!isScrap)
+  const handleScrap = async (e: React.MouseEvent<HTMLImageElement>) => {
+    e.preventDefault() // Link 컴포넌트의 기본 동작 방지
+    if (isScrapLoading) return
+
+    try {
+      setIsScrapLoading(true)
+      const response = await announcementScrap(announcement?.teamMemberAnnouncementId, !isScrap)
+      if (response.ok) {
+        setIsScrap(!isScrap)
+        setScrapCount((prev) => (isScrap ? prev - 1 : prev + 1))
+      }
+    } catch (error) {
+      console.error('Failed to update scrap:', error)
+    } finally {
+      setIsScrapLoading(false)
     }
   }
 
@@ -26,17 +39,14 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
         <span className="rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">
           D-{announcement?.announcementDDay}
         </span>
-        {isScrap ? (
-          <Image src="/common/icons/save.svg" alt="announcement-icon" width={20} height={20} onClick={handleScrap} />
-        ) : (
-          <Image
-            src="/common/icons/not_save.svg"
-            alt="announcement-icon"
-            width={20}
-            height={20}
-            onClick={handleScrap}
-          />
-        )}
+        <Image
+          src={isScrap ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
+          alt="announcement-icon"
+          width={20}
+          height={20}
+          onClick={handleScrap}
+          className="cursor-pointer"
+        />
       </div>
 
       <div className="flex items-center gap-2">
