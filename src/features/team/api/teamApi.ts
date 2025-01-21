@@ -625,10 +625,10 @@ export async function teamScrap(teamName: string, isScrap: boolean) {
   const response = await fetchWithAuth(`/api/v1/team/scrap/${teamName}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json;charset=UTF-8',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      changeScrapValue: !isScrap,
+      changeScrapValue: isScrap,
     }),
   })
 
@@ -636,5 +636,5 @@ export async function teamScrap(teamName: string, isScrap: boolean) {
     throw new Error('Failed to team scrap')
   }
 
-  return response.json()
+  return response
 }

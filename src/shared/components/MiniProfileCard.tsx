@@ -1,5 +1,4 @@
 import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
-import { useProfileEdit } from '@/features/profile/edit/context/ProfileEditContext'
 import Image from 'next/image'
 import Link from 'next/link'
 
