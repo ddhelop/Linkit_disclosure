@@ -208,3 +208,23 @@ export interface MatchingProfileMenuResponse {
   senderTeamInformation: TeamInformation[]
   receiverProfileInformation: ProfileInformation
 }
+
+export interface TeamMatchingResponse {
+  isSuccess: boolean
+  code: string
+  message: string
+  result: {
+    isTeamInformationExists: boolean
+    senderProfileInformation: {
+      profileImagePath: string
+      memberName: string
+      emailId: string
+      profilePositionDetail: {
+        majorPosition: string
+        subPosition: string
+      }
+    }
+    senderTeamInformation: TeamInformation[]
+    receiverTeamInformation: TeamInformation
+  }
+}

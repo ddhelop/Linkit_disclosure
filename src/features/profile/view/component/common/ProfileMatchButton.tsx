@@ -1,38 +1,26 @@
 'use client'
-import { useState } from 'react'
-import { useParams } from 'next/navigation'
-import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
-import { getMatchingProfileMenu } from '@/features/match/api/MatchApi'
+
 import Image from 'next/image'
+import { useParams } from 'next/navigation'
+import { useMatching } from '@/shared/hooks/useMatching'
 import MatchingModal from './MatchingModal'
 import MatchingRequestModal from './MatchingRequestModal'
-import { MatchingProfileMenuResponse, TeamInformation } from '@/features/match/types/MatchTypes'
 
 export default function ProfileMatchButton() {
-  const { profileData } = useProfileView()
   const params = useParams()
-  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false)
-  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false)
-  const [matchingData, setMatchingData] = useState<MatchingProfileMenuResponse | null>(null)
-  const [selectedProfile, setSelectedProfile] = useState<TeamInformation | null>(null)
-
-  const onClickMatching = async () => {
-    try {
-      const emailId = params.emailId as string
-      const data = await getMatchingProfileMenu(emailId)
-
-      setMatchingData(data)
-      setIsProfileModalOpen(true)
-    } catch (error) {
-      console.error('Error fetching matching data:', error)
-    }
-  }
-
-  const handleSelectProfile = (profile: TeamInformation) => {
-    setSelectedProfile(profile)
-    setIsProfileModalOpen(false)
-    setIsRequestModalOpen(true)
-  }
+  const {
+    isProfileModalOpen,
+    isRequestModalOpen,
+    matchingData,
+    selectedProfile,
+    onClickMatching,
+    handleSelectProfile,
+    handleCloseModals,
+    type,
+  } = useMatching({
+    type: 'PROFILE',
+    id: params.emailId as string,
+  })
 
   return (
     <>
@@ -50,16 +38,21 @@ export default function ProfileMatchButton() {
 
       <MatchingModal
         isOpen={isProfileModalOpen}
-        onClose={() => setIsProfileModalOpen(false)}
+        onClose={handleCloseModals}
         matchingData={matchingData}
         onSelectProfile={handleSelectProfile}
       />
 
       <MatchingRequestModal
         isOpen={isRequestModalOpen}
-        onClose={() => setIsRequestModalOpen(false)}
+        onClose={handleCloseModals}
         selectedProfile={selectedProfile}
-        receiverProfile={matchingData?.receiverProfileInformation || null}
+        receiverProfile={
+          type === 'PROFILE' && matchingData && 'receiverProfileInformation' in matchingData
+            ? matchingData.receiverProfileInformation
+            : null
+        }
+        type="PROFILE"
       />
     </>
   )

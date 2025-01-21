@@ -11,7 +11,9 @@ interface MatchingRequestModalProps {
   isOpen: boolean
   onClose: () => void
   selectedProfile: TeamInformation | null
-  receiverProfile: ProfileInformation | null
+  receiverProfile: (TeamInformation | ProfileInformation) | null
+  type?: 'PROFILE' | 'TEAM'
+  receiverAnnouncementId?: number
 }
 
 export default function MatchingRequestModal({
@@ -19,6 +21,8 @@ export default function MatchingRequestModal({
   onClose,
   selectedProfile,
   receiverProfile,
+  type = 'PROFILE',
+  receiverAnnouncementId,
 }: MatchingRequestModalProps) {
   const modalRef = useRef<HTMLDivElement>(null)
   const [requestMessage, setRequestMessage] = useState('')
@@ -42,6 +46,12 @@ export default function MatchingRequestModal({
     }
   }, [isOpen])
 
+  useEffect(() => {
+    if (!isOpen) {
+      setRequestMessage('')
+    }
+  }, [isOpen])
+
   const handleSendRequest = async () => {
     if (!selectedProfile || !receiverProfile || !requestMessage.trim()) return
 
@@ -50,11 +60,14 @@ export default function MatchingRequestModal({
 
       const requestData = {
         senderType: selectedProfile.teamCode === 'personal' ? ('PROFILE' as const) : ('TEAM' as const),
-        receiverType: 'PROFILE' as const,
+        receiverType: type,
         ...(selectedProfile.teamCode === 'personal'
           ? { senderEmailId: selectedProfile.emailId }
           : { senderTeamCode: selectedProfile.teamCode }),
-        receiverEmailId: receiverProfile.emailId,
+        ...(type === 'TEAM'
+          ? { receiverTeamCode: (receiverProfile as TeamInformation).teamCode }
+          : { receiverEmailId: (receiverProfile as ProfileInformation).emailId }),
+        ...(receiverAnnouncementId && { receiverAnnouncementId }),
         requestMessage: requestMessage.trim(),
       }
 
@@ -66,6 +79,30 @@ export default function MatchingRequestModal({
       alert('매칭 요청 전송에 실패했습니다. 다시 시도해주세요.')
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const renderReceiverProfile = () => {
+    if (type === 'TEAM') {
+      const teamProfile = receiverProfile as TeamInformation
+      return (
+        <>
+          <span className="text-sm font-semibold text-grey90">{teamProfile.teamName}</span>
+          <span className="text-xs text-grey60">{teamProfile.teamScaleItem?.teamScaleName}</span>
+        </>
+      )
+    } else {
+      const profileInfo = receiverProfile as ProfileInformation
+      return (
+        <>
+          <span className="text-sm font-semibold text-grey90">{profileInfo.memberName}</span>
+          <div className="flex gap-1 text-xs text-grey60">
+            <span>{profileInfo.profilePositionDetail.majorPosition}</span>
+            <span>·</span>
+            <span>{profileInfo.profilePositionDetail.subPosition}</span>
+          </div>
+        </>
+      )
     }
   }
 
@@ -82,7 +119,7 @@ export default function MatchingRequestModal({
           <div className="flex w-[15rem] items-center gap-4 rounded-xl border border-grey30 px-5 py-3">
             <div className="h-[50px] w-[50px] flex-shrink-0">
               <Image
-                src={selectedProfile.teamLogoImagePath || '/common/default_profile.svg'}
+                src={selectedProfile?.teamLogoImagePath || '/common/default_profile.svg'}
                 alt="sender"
                 width={50}
                 height={50}
@@ -90,29 +127,26 @@ export default function MatchingRequestModal({
               />
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-sm font-semibold text-grey90">{selectedProfile.teamName}</span>
-              <span className="text-xs text-grey60">{selectedProfile.teamScaleItem.teamScaleName}</span>
+              <span className="text-sm font-semibold text-grey90">{selectedProfile?.teamName}</span>
+              <span className="text-xs text-grey60">{selectedProfile?.teamScaleItem?.teamScaleName}</span>
             </div>
           </div>
           <Image src="/common/icons/gradient_arrow.svg" alt="arrow" width={40} height={16} />
-          <div className="flex w-[15rem] items-center gap-4 rounded-xl border border-grey30 px-5 py-3 ">
+          <div className="flex w-[15rem] items-center gap-4 rounded-xl border border-grey30 px-5 py-3">
             <div className="h-[50px] w-[50px] flex-shrink-0">
               <Image
-                src={receiverProfile.profileImagePath || '/common/default_profile.svg'}
+                src={
+                  type === 'TEAM'
+                    ? (receiverProfile as TeamInformation)?.teamLogoImagePath
+                    : (receiverProfile as ProfileInformation)?.profileImagePath || '/common/default_profile.svg'
+                }
                 alt="receiver"
                 width={50}
                 height={50}
                 className="h-full w-full rounded-lg object-cover"
               />
             </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-semibold text-grey90">{receiverProfile.memberName}</span>
-              <div className="flex gap-1 text-xs text-grey60">
-                <span>{receiverProfile.profilePositionDetail.majorPosition}</span>
-                <span>·</span>
-                <span>{receiverProfile.profilePositionDetail.subPosition}</span>
-              </div>
-            </div>
+            <div className="flex flex-col">{renderReceiverProfile()}</div>
           </div>
         </div>
 

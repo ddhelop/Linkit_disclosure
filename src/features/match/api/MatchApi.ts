@@ -195,3 +195,41 @@ export const sendMatchingRequest = async (requestData: MatchingRequest) => {
 
   return response.json()
 }
+
+export const getMatchingTeamMenu = async (teamCode: string) => {
+  const response = await fetchWithAuth(`/api/v1/matching/team/${teamCode}/menu`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team matching menu')
+  }
+  return response.json()
+}
+
+export const getTeamMatchingRequestMenu = async (teamCode: string) => {
+  const response = await fetchWithAuth(`/api/v1/matching/team/${teamCode}/select/request/menu`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team matching request menu')
+  }
+  return response.json()
+}
+
+export const sendTeamMatchingRequest = async (requestData: {
+  senderType: 'PROFILE' | 'TEAM'
+  senderEmailId?: string
+  senderTeamCode?: string
+  receiverTeamCode: string
+  requestMessage: string
+}) => {
+  const response = await fetchWithAuth('/api/v1/matching/team/request', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestData),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to send team matching request')
+  }
+
+  return response.json()
+}
