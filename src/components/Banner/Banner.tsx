@@ -8,7 +8,7 @@ export default function Banner() {
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
 
-  const slides = ['/banner1.png', '/banner2.png', '/banner3.png']
+  const slides = ['/common/images/banner1.png', '/common/images/banner2.png', '/common/images/banner4.png']
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1))
@@ -59,7 +59,7 @@ export default function Banner() {
           {slides.map((slide, index) => (
             <div key={index} className="flex-shrink-0 flex-grow-0 basis-full">
               <div className="relative h-full w-full">
-                {/* <Image src={slide} alt={`Banner ${index + 1}`} fill className="object-cover" priority={index === 0} /> */}
+                <Image src={slide} alt={`Banner ${index + 1}`} fill className="object-cover" priority={index === 0} />
               </div>
             </div>
           ))}
