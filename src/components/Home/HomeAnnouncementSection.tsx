@@ -1,3 +1,5 @@
+'use client'
+
 import AnnouncementCard from '@/shared/components/AnnouncementCard'
 import { useEffect, useState } from 'react'
 import { getAnnouncement } from './api/HomeApi'

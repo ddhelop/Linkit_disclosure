@@ -1,3 +1,5 @@
+'use client'
+
 import MiniTeamCard_2 from '@/shared/components/MiniTeamCard_2'
 import { useEffect, useState } from 'react'
 import { getTeamRecommend } from './api/HomeApi'

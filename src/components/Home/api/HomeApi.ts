@@ -32,3 +32,14 @@ export const getTeamMemberRecommend = async () => {
     throw error
   }
 }
+
+// 인기 로그
+export const getPopularLog = async () => {
+  try {
+    const response = await fetchWithAuth('/api/v1/home/logs')
+    return response.json()
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
