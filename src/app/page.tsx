@@ -7,18 +7,16 @@ import HomeAnnouncementSection from '@/components/Home/HomeAnnouncementSection'
 import HomeLogSection from '@/components/Home/HomeLogSection'
 import HomeTeamMemberSection from '@/components/Home/HomeTeamMemberSection'
 import HomeTeamSection from '@/components/Home/HomeTeamSection'
-import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 import { ILogCard } from '@/shared/types/Card/LogCardTypes'
 import { useEffect, useState } from 'react'
 
-export default async function Intropage() {
+export default function Intropage() {
   const [popularLog, setPopularLog] = useState<ILogCard[]>([])
 
   useEffect(() => {
     const fetchData = async () => {
       // 인기 로그 조회
       const response = await getPopularLog()
-      console.log(response)
       setPopularLog(response.result.logInformMenus)
     }
     fetchData()
