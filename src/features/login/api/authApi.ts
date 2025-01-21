@@ -1,3 +1,5 @@
+import { getAccessToken } from '@/shared/store/useAuthStore'
+
 // 구글 로그인
 export const googleLogin = async (code: string) => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/login/google`, {
@@ -43,7 +45,7 @@ export const naverLogin = async (code: string) => {
 
 // 로그아웃(리프레쉬 토큰 삭제시키기)
 export const logoutApi = async () => {
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = getAccessToken()
   if (!accessToken) return
 
   await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/logout`, {
