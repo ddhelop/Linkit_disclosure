@@ -46,10 +46,10 @@ export default function ProfileViewClient({
             <ProfileViewProgress />
             <MiniProfileCard />
 
-            {/* 스크랩 버튼 */}
-            <ProfileScrap />
-            {/* 매칭 버튼 */}
-            <ProfileMatchButton />
+            {/* 내 프로필일 경우 스크랩 버튼 보이기 */}
+            {!profileData.isMyProfile && <ProfileScrap />}
+            {/* 내 프로필일 경우 매칭 버튼 보이기 */}
+            {!profileData.isMyProfile && <ProfileMatchButton />}
           </div>
         </aside>
       </ProfileViewProvider>

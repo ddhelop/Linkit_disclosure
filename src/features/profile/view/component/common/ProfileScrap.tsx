@@ -6,8 +6,6 @@ import { useState } from 'react'
 
 export default function ProfileScrap() {
   const { profileData } = useProfileView()
-  console.log(profileData)
-
   const [scrapCount, setScrapCount] = useState(profileData?.profileScrapCount)
   const [isScrap, setIsScrap] = useState(profileData?.profileInformMenu.isProfileScrap)
 
