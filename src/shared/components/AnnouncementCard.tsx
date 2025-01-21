@@ -4,6 +4,7 @@ import { Announcement } from '@/features/find/types/FindTypes'
 import Image from 'next/image'
 import { useState } from 'react'
 import { announcementScrap } from '../api/commonApi'
+import Link from 'next/link'
 
 export default function AnnouncementCard({ announcement }: { announcement: Announcement }) {
   const [isScrap, setIsScrap] = useState(announcement?.isAnnouncementScrap)
@@ -16,7 +17,8 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
   }
 
   return (
-    <div
+    <Link
+      href={`/team/${announcement?.teamCode}/recruit/${announcement?.teamMemberAnnouncementId}`}
       className="flex cursor-pointer flex-col gap-3 rounded-lg border bg-grey10 px-[1.62rem] py-[1.38rem] hover:border-[#7EA5F8]"
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
     >
@@ -69,6 +71,6 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
           +{announcement?.announcementSkillNames?.length}
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
