@@ -1,11 +1,18 @@
 import Image from 'next/image'
 import { ILogCard } from '@/shared/types/Card/LogCardTypes'
 import Link from 'next/link'
+import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
+import { truncateText } from '@/shared/utils/stringUtils'
 
 export default function LogCard({ log }: { log: ILogCard }) {
   return (
-    <div
-      className="flex flex-col gap-3 rounded-xl px-8 py-6"
+    <Link
+      href={
+        log.domainType === 'PROFILE'
+          ? `/${log.logInformDetails.emailId}/log/${log.id}`
+          : `/team/${log.logInformDetails.teamCode}/log/${log.id}`
+      }
+      className="flex h-[10rem] flex-col gap-3 rounded-xl border border-transparent px-8 py-6 hover:border-main"
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
     >
       <div className="flex justify-between">
@@ -27,22 +34,7 @@ export default function LogCard({ log }: { log: ILogCard }) {
       </div>
 
       {/* 내용 */}
-      <div className="text-sm text-grey60">{log.logContent}</div>
-
-      {/* 더보기 */}
-      <Link
-        href={
-          log.domainType === 'PROFILE'
-            ? `/${log.logInformDetails.memberName}/log/${log.logInformDetails.emailId}`
-            : `/team/${log.logInformDetails.teamName}log/${log.logInformDetails.teamCode}`
-        }
-        className="flex w-full justify-end "
-      >
-        <div className="flex cursor-pointer items-center justify-center rounded-lg bg-grey10 py-2 pl-5 pr-3">
-          <div className=" text-xs text-grey60">더보기</div>
-          <Image src={'/common/icons/right_arrow.svg'} alt="더보기" width={20} height={20} />
-        </div>
-      </Link>
-    </div>
+      <div className="text-sm text-grey60">{truncateText(stripHtmlAndImages(log.logContent), 100)}</div>
+    </Link>
   )
 }
