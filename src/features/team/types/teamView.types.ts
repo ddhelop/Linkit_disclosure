@@ -1,4 +1,5 @@
 export interface TeamMember {
+  emailId: string
   profileImagePath: string
   memberName: string
   majorPosition: string

@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import { TeamMember } from '../../types/teamView.types'
+import Link from 'next/link'
 
 export default function MyTeamViewMemberComponent({ member }: { member: TeamMember }) {
-  const hasProfileInfo = member.majorPosition.length > 0 && member?.regionDetail?.cityName !== null
+  const hasProfileInfo = member.majorPosition?.length > 0 && member?.regionDetail?.cityName !== null
 
   return (
-    <div className="w-full cursor-pointer hover:shadow-md">
+    <Link href={`/${member.emailId}`} className="w-full cursor-pointer hover:shadow-md">
       <div className="flex rounded-xl bg-white px-8 py-6" style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}>
         <div className={`flex gap-5 ${!hasProfileInfo ? 'w-full items-center' : ''}`}>
           <Image src="/common/default_profile.svg" alt="default-profile" width={80} height={80} />
@@ -27,6 +28,6 @@ export default function MyTeamViewMemberComponent({ member }: { member: TeamMemb
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
