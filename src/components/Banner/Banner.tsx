@@ -43,57 +43,66 @@ export default function Banner() {
   }
 
   return (
-    <div className="relative h-[400px] w-full overflow-hidden bg-[#4263EB]">
-      <div
-        className="relative h-full w-full overflow-hidden"
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-      >
+    <div className="flex w-full justify-center bg-white">
+      <div className="relative h-[260px] w-full max-w-[90rem] overflow-hidden">
         <div
-          className="flex h-full w-full transition-transform duration-500 ease-in-out"
-          style={{
-            transform: `translateX(-${currentSlide * 100}%)`,
-          }}
+          className="relative h-full w-full overflow-hidden"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
-          {slides.map((slide, index) => (
-            <div key={index} className="flex-shrink-0 flex-grow-0 basis-full">
-              <div className="relative h-full w-full">
-                <Image src={slide} alt={`Banner ${index + 1}`} fill className="object-cover" priority={index === 0} />
+          <div
+            className="flex h-full w-full transition-transform duration-500 ease-in-out"
+            style={{
+              transform: `translateX(-${currentSlide * 100}%)`,
+            }}
+          >
+            {slides.map((slide, index) => (
+              <div key={index} className="relative flex-shrink-0 flex-grow-0 basis-full">
+                <div className="relative h-full w-full">
+                  <Image
+                    src={slide}
+                    alt={`Banner ${index + 1}`}
+                    fill
+                    className="object-cover object-center"
+                    priority={index === 0}
+                    sizes="100vw"
+                  />
+                </div>
               </div>
-            </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation Buttons */}
+        <button
+          className="absolute left-5 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white transition-colors hover:bg-white/20"
+          onClick={prevSlide}
+          aria-label="Previous slide"
+        >
+          ‹
+        </button>
+        <button
+          className="absolute right-5 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white transition-colors hover:bg-white/20"
+          onClick={nextSlide}
+          aria-label="Next slide"
+        >
+          ›
+        </button>
+
+        {/* Pagination */}
+        <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2">
+          {[0, 1, 2].map((index) => (
+            <button
+              key={index}
+              className={`h-1 rounded-[2px] transition-all ${
+                index === currentSlide ? 'w-[54px] bg-white' : 'w-[30px] bg-white/50'
+              }`}
+              onClick={() => setCurrentSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
           ))}
         </div>
-      </div>
-
-      {/* Navigation Buttons */}
-      <button
-        className="absolute left-5 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white transition-colors hover:bg-white/20"
-        onClick={prevSlide}
-        aria-label="Previous slide"
-      >
-        ‹
-      </button>
-      <button
-        className="absolute right-5 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white transition-colors hover:bg-white/20"
-        onClick={nextSlide}
-        aria-label="Next slide"
-      >
-        ›
-      </button>
-
-      {/* Pagination */}
-      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2">
-        {[0, 1, 2].map((index) => (
-          <button
-            key={index}
-            className={`h-1 rounded-[2px] transition-all ${
-              index === currentSlide ? 'w-[54px] bg-white' : 'w-[30px] bg-white/50'
-            }`}
-            onClick={() => setCurrentSlide(index)}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
       </div>
     </div>
   )
