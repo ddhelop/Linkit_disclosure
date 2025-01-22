@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import { TeamInfoResponse } from '@/features/team/types/team.types'
 
 export default function TeamViewRecruitDetailPage({ params }: { params: { teamName: string; id: string } }) {
-  const [teamInfo, setTeamInfo] = useState<TeamInfoResponse | null>(null)
+  const [teamInfo, setTeamInfo] = useState<TeamInfoResponse>()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,9 +24,7 @@ export default function TeamViewRecruitDetailPage({ params }: { params: { teamNa
         <div className="w-[49rem]">
           <TeamViewRecruitDetail teamName={params.teamName} id={params.id} />
         </div>
-        <div>
-          <MiniTeamCard teamInfo={teamInfo} />
-        </div>
+        <div>{teamInfo && <MiniTeamCard teamInfo={teamInfo} />}</div>
       </div>
     </div>
   )

@@ -36,7 +36,6 @@ export interface TeamInfoResponse {
   message: string
   result: {
     isMyTeam: boolean
-
     teamInformMenu: {
       teamCode: string
       teamScrapCount: number
