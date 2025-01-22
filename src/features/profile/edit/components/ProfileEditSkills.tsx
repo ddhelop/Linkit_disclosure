@@ -154,8 +154,8 @@ export default function ProfileEditSkills() {
                 </div>
               ))
             ) : (
-              <div className="flex h-[100px] w-full items-center justify-center rounded-lg bg-grey10">
-                <p className="text-grey60">등록된 스킬이 없습니다. 위 검색창에서 스킬을 추가해보세요.</p>
+              <div className="flex w-full items-center rounded-lg bg-grey10 px-6 py-3 text-sm text-grey60">
+                <p className="text-grey60">아직 추가하신 스킬이 없어요! 스킬을 검색하고 추가해보세요</p>
               </div>
             )}
           </div>

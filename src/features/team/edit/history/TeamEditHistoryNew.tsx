@@ -132,9 +132,7 @@ export default function TeamEditHistoryNew({ teamName }: { teamName: string }) {
 
         {/* 설명 */}
         <div className="flex w-full flex-col justify-between gap-3 ">
-          <span className="flex gap-1 text-grey80">
-            설명<p className="text-main">*</p>
-          </span>
+          <span className="flex gap-1 text-grey80">설명</span>
 
           <Textarea
             placeholder="연혁 설명을 입력해주세요"

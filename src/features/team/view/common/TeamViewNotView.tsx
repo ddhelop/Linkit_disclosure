@@ -12,7 +12,7 @@ export default function TeamViewNotView() {
 
   return (
     <div className="mt-[6.25rem] flex h-full w-full flex-col items-center">
-      <p className="text-sm text-grey60">팀을 나타낼 수 있는 정보들을 적어보세요.</p>
+      <p className="text-sm text-grey60">팀 프로필을 완성해 보세요</p>
       <Link href={`/team/${teamName}/edit/${currentSection}`}>
         <Button
           animationMode="black"
@@ -20,7 +20,7 @@ export default function TeamViewNotView() {
           size="custom"
           className="mt-8 rounded-full px-10 py-3 text-base font-semibold"
         >
-          작성하기
+          추가하기
         </Button>
       </Link>
     </div>

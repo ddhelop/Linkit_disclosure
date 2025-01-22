@@ -25,8 +25,8 @@ const TeamEditLeftMenu = ({ params }: { params: { teamName: string } }) => {
   }
 
   return (
-    <div className="mt-6 w-[17.5rem]">
-      <div className="flex w-full flex-col rounded-xl bg-[#FCFCFD]">
+    <div className=" w-[17.5rem]">
+      <div className="flex w-full flex-col rounded-xl bg-white">
         <TeamEditProfileCard params={params} />
         <ul className="mt-8 flex w-full flex-col items-end gap-4">
           {menuItems.map((item, index) => {

@@ -17,7 +17,7 @@ export default function TeamEditProfileCard({ params }: { params: { teamName: st
   }, [params.teamName])
 
   return (
-    <div className="flex gap-4 rounded-xl border border-grey40 bg-white p-4">
+    <div className="flex gap-4 rounded-xl border border-grey40 bg-[#FCFCFD] p-4">
       <Image
         src={teamInfo?.result.teamInformMenu.teamLogoImagePath ?? '/common/default_profile.svg'}
         width={80}

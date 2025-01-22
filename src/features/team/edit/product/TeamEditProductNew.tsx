@@ -37,12 +37,11 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
   const { validateFile } = useFileValidation()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
-
   const [productName, setProductName] = useState('')
   const [productLineDescription, setProductLineDescription] = useState('')
   const [isTeam, setIsTeam] = useState(true)
   const [headCount, setHeadCount] = useState('')
-  const [teamComposition, setTeamComposition] = useState('')
+
   const [productDescription, setProductDescription] = useState('')
   const [linkSync, setLinkSync] = useState<{ title: string; url: string }[]>([])
   const [mainImageUrl, setMainImageUrl] = useState<string | null>(null)
@@ -60,7 +59,7 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         setProductLineDescription(product.productLineDescription)
         setIsTeam(product.projectSize === 'TEAM')
         setHeadCount(String(product.productHeadCount))
-        setTeamComposition(product.productTeamComposition)
+
         setSelectedField(product.productField)
         setStartDate(product.productStartDate)
         setEndDate(product.productEndDate || '')
@@ -139,7 +138,6 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         productLineDescription,
         projectSize: (isTeam ? 'TEAM' : 'PERSONAL') as ProjectSize,
         productHeadCount: isTeam ? Number(headCount) : 1,
-        productTeamComposition: teamComposition,
         productStartDate: startDate,
         productEndDate: isOngoing ? null : endDate,
         isProductInProgress: isOngoing,
@@ -265,20 +263,6 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
             setSubImageUrls((prev) => prev.filter((_, i) => i !== index))
           }}
         />
-
-        {/* 팀 구성 입력 필드는 팀 프로젝트일 때만 표시 */}
-        {isTeam && (
-          <div className="flex w-full flex-col justify-between gap-3">
-            <span className="flex gap-1 text-grey80">
-              팀 구성<p className="text-main">*</p>
-            </span>
-            <Input
-              placeholder="팀 구성을 입력해주세요 (예: 프론트엔드 2명, 백엔드 3명)"
-              value={teamComposition}
-              onChange={(e) => setTeamComposition(e.target.value)}
-            />
-          </div>
-        )}
       </div>
       <div className="flex justify-end">
         <Button mode="main" animationMode="main" className="rounded-xl font-semibold" onClick={handleSubmit}>
