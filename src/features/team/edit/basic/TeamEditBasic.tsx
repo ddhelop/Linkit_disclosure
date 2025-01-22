@@ -1,6 +1,4 @@
 'use client'
-
-import { jobCategoriesData } from '@/shared/data/roleSelectData'
 import { addressData } from '@/shared/data/addressSelectData'
 import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
@@ -9,8 +7,10 @@ import Select from '@/shared/ui/Select/Select'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { getTeamBasicInfo, updateTeamBasicInfo } from '../../api/teamApi'
+import { useRouter } from 'next/navigation'
 
 export default function TeamEditBasic({ params }: { params: { teamName: string } }) {
+  const router = useRouter()
   // 필수 입력 항목
   const [teamName, setTeamName] = useState('')
   const [teamIntro, setTeamIntro] = useState('')
@@ -18,6 +18,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
   const [selectedCity, setSelectedCity] = useState('')
   const [selectedDistrict, setSelectedDistrict] = useState('')
   const [isTeamPublic, setIsTeamPublic] = useState<boolean>(true)
+  const [teamCode, setTeamCode] = useState('')
 
   // 선택 입력 항목
   const [teamLogo, setTeamLogo] = useState<File | null>(null)
@@ -116,6 +117,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
           district: teamInformMenu.regionDetail.divisionName,
           logoPath: teamInformMenu.teamLogoImagePath,
           status: teamInformMenu.teamCurrentStates.map((state) => state.teamStateName),
+          teamCode: teamInformMenu.teamCode,
         })
 
         // 폼 데이터 설정
@@ -126,6 +128,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
         setSelectedDistrict(teamInformMenu.regionDetail.divisionName)
         setTeamLogoPath(teamInformMenu.teamLogoImagePath)
         setRecruitmentStatus(teamInformMenu.teamCurrentStates.map((state) => state.teamStateName))
+        setTeamCode(teamInformMenu.teamCode)
       } catch (error) {
         console.error('Failed to fetch team info:', error)
       } finally {
@@ -147,6 +150,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
       selectedCity !== initialData.city ||
       selectedDistrict !== initialData.district ||
       teamLogo !== null || // 새로운 로고가 선택된 경우
+      teamCode !== initialData.teamCode ||
       JSON.stringify(recruitmentStatus) !== JSON.stringify(initialData.status)
     )
   }
@@ -155,7 +159,6 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
     try {
       const formData = new FormData()
 
-      // 이미지가 있는 경우에만 추가
       if (teamLogo) {
         formData.append('teamLogoImage', teamLogo)
       }
@@ -168,6 +171,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
         divisionName: selectedDistrict,
         teamStateNames: recruitmentStatus,
         isTeamPublic,
+        teamCode,
       }
 
       formData.append(
@@ -177,22 +181,30 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
         }),
       )
 
-      await updateTeamBasicInfo(formData, params.teamName)
-      alert('팀 정보가 성공적으로 수정되었습니다.')
+      const response = await updateTeamBasicInfo(formData, params.teamName)
 
-      // 초기 데이터 업데이트
-      setInitialData({
-        teamName,
-        teamIntro,
-        teamSize: selectedTeamSize,
-        city: selectedCity,
-        district: selectedDistrict,
-        logoPath: teamLogoPath,
-        status: recruitmentStatus,
-      })
+      if (response.isSuccess) {
+        alert('팀 정보가 성공적으로 수정되었습니다.')
+        const newTeamCode = response.result.teamCode
+        router.push(`/team/${newTeamCode}/edit/basic`)
+
+        // 초기 데이터 업데이트
+        setInitialData({
+          teamName,
+          teamIntro,
+          teamSize: selectedTeamSize,
+          city: selectedCity,
+          district: selectedDistrict,
+          logoPath: teamLogoPath,
+          status: recruitmentStatus,
+          teamCode,
+        })
+      } else {
+        throw new Error(response.message)
+      }
     } catch (error) {
       console.error('Failed to update team info:', error)
-      alert('팀 정보 수정에 실패했습니다.')
+      alert(error instanceof Error ? error.message : '팀 정보 수정에 실패했습니다.')
     }
   }
 
@@ -249,6 +261,14 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
             팀명<p className="text-main">*</p>
           </span>
           <Input placeholder="팀명을 입력해주세요" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
+        </div>
+
+        {/* 팀 코드 */}
+        <div className="flex flex-col gap-3">
+          <span className="flex text-grey80">
+            팀 아이디<p className="text-main">*</p>
+          </span>
+          <Input placeholder="팀명을 입력해주세요" value={teamCode} onChange={(e) => setTeamCode(e.target.value)} />
         </div>
 
         {/* 한줄 소개 */}

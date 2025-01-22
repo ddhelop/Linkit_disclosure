@@ -165,6 +165,7 @@ interface TeamBasicInfo {
   message: string
   result: {
     isMyTeam: boolean
+
     teamInformMenu: {
       teamCurrentStates: Array<{ teamStateName: string }>
       teamName: string
@@ -173,6 +174,7 @@ interface TeamBasicInfo {
       teamScaleItem: {
         teamScaleName: string
       }
+      teamCode: string
       regionDetail: {
         cityName: string
         divisionName: string
@@ -189,14 +191,11 @@ export async function getTeamBasicInfo(teamName: string): Promise<TeamBasicInfo>
   return response.json()
 }
 
-interface UpdateTeamRequest {
-  teamName: string
-  teamShortDescription: string
-  scaleName: string
-  cityName: string
-  divisionName: string
-  teamStateNames: string[]
-  isTeamPublic: boolean
+interface UpdateTeamBasicInfoResponse {
+  isSuccess: boolean
+  code: string
+  message: string
+  result: TeamBasicInfo['result'] // 기존 TeamBasicInfo의 result 타입 재사용
 }
 
 export async function updateTeamBasicInfo(formData: FormData, teamName: string) {
@@ -206,8 +205,10 @@ export async function updateTeamBasicInfo(formData: FormData, teamName: string) 
   })
 
   if (!response.ok) {
-    throw new Error('Failed to update team info')
+    const errorData = await response.json()
+    throw new Error(errorData.message || 'Failed to update team info')
   }
+
   return response.json()
 }
 
