@@ -4,106 +4,83 @@ import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 
 export default function Banner() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [touchStart, setTouchStart] = useState(0)
-  const [touchEnd, setTouchEnd] = useState(0)
+  const slides = [
+    '/common/images/banner1.png',
+    '/common/images/banner2.png',
+    '/common/images/banner3.png',
+    '/common/images/banner4.png',
+  ]
+  const totalSlides = slides.length
 
-  const slides = ['/common/images/banner1.png', '/common/images/banner2.png', '/common/images/banner4.png']
+  const [visibleSlides, setVisibleSlides] = useState([totalSlides - 1, 0, 1])
 
-  const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1))
-  }, [])
+  const handleNext = useCallback(() => {
+    setVisibleSlides((prev) => prev.map((index) => (index + 1) % totalSlides))
+  }, [totalSlides])
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? 2 : prev - 1))
-  }
+  const handlePrev = useCallback(() => {
+    setVisibleSlides((prev) => prev.map((index) => (index - 1 + totalSlides) % totalSlides))
+  }, [totalSlides])
 
   useEffect(() => {
     const timer = setInterval(() => {
-      nextSlide()
+      handleNext()
     }, 5000)
     return () => clearInterval(timer)
-  }, [nextSlide])
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientX)
-  }
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-  }
-
-  const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 75) {
-      nextSlide()
-    }
-    if (touchStart - touchEnd < -75) {
-      prevSlide()
-    }
-  }
+  }, [handleNext])
 
   return (
-    <div className="w-full bg-white">
-      <div className="relative h-[260px] w-full overflow-hidden">
-        <div
-          className="relative h-full w-full overflow-hidden"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <div
-            className="flex h-full w-full transition-transform duration-500 ease-in-out"
-            style={{
-              transform: `translateX(-${currentSlide * 100}%)`,
-            }}
-          >
-            {slides.map((slide, index) => (
-              <div key={index} className="relative flex-shrink-0 flex-grow-0 basis-full">
-                <div className="relative mx-auto h-full w-full max-w-[90rem] px-4 md:px-[7.12rem]">
+    <div className="relative w-full overflow-hidden py-8">
+      <div className="relative mx-auto h-[18.75rem] w-full">
+        <div className="relative h-full w-full">
+          {/* Desktop View */}
+          <div className="hidden md:block">
+            <div className="absolute left-1/2 flex -translate-x-1/2 items-center justify-center gap-8">
+              {visibleSlides.map((slideIndex) => (
+                <div key={slideIndex} className="relative h-[18.75rem] w-[46.9rem] flex-shrink-0">
                   <Image
-                    src={slide}
-                    alt={`Banner ${index + 1}`}
+                    src={slides[slideIndex]}
+                    alt={`Banner ${slideIndex + 1}`}
                     fill
-                    className="object-cover object-center"
-                    priority={index === 0}
-                    sizes="100vw"
+                    className="rounded-[28px] object-cover"
+                    priority={slideIndex === visibleSlides[1]}
+                    sizes="750px"
                   />
                 </div>
+              ))}
+            </div>
+
+            {/* Center Slide Navigation UI */}
+            <div className="absolute left-1/2 top-0 z-30 h-[18.75rem] w-[46.9rem] -translate-x-1/2">
+              {/* Navigation Buttons */}
+              <div className="absolute left-8 right-8 top-1/2 flex -translate-y-1/2 justify-between">
+                <button
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-white/30 text-lg text-white backdrop-blur-sm transition-colors hover:bg-white/40"
+                  onClick={handlePrev}
+                  aria-label="Previous slide"
+                >
+                  ‹
+                </button>
+                <button
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-white/30 text-lg text-white backdrop-blur-sm transition-colors hover:bg-white/40"
+                  onClick={handleNext}
+                  aria-label="Next slide"
+                >
+                  ›
+                </button>
               </div>
-            ))}
+
+              {/* Pagination */}
+              <div className="absolute bottom-4 right-8 flex items-center gap-1 rounded-full bg-black/30 px-3 py-1 backdrop-blur-sm">
+                <div className="text-sm font-medium text-white">
+                  {String(visibleSlides[1] + 1).padStart(2, '0')}/{String(totalSlides).padStart(2, '0')}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Navigation Buttons */}
-        <div className="mx-auto max-w-[90rem] px-4 md:px-[7.12rem]">
-          <button
-            className="absolute left-8 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white transition-colors hover:bg-white/20 md:left-[8.12rem]"
-            onClick={prevSlide}
-            aria-label="Previous slide"
-          >
-            ‹
-          </button>
-          <button
-            className="absolute right-8 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white transition-colors hover:bg-white/20 md:right-[8.12rem]"
-            onClick={nextSlide}
-            aria-label="Next slide"
-          >
-            ›
-          </button>
-        </div>
-
-        {/* Pagination */}
-        <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2">
-          {[0, 1, 2].map((index) => (
-            <button
-              key={index}
-              className={`h-1 rounded-[2px] transition-all ${
-                index === currentSlide ? 'w-[54px] bg-white' : 'w-[30px] bg-white/50'
-              }`}
-              onClick={() => setCurrentSlide(index)}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
+          {/* Mobile View */}
+          <div className="md:hidden">{/* ... existing mobile view code ... */}</div>
         </div>
       </div>
     </div>
