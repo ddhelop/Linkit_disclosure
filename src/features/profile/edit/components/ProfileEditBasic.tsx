@@ -20,8 +20,8 @@ export default function ProfileEditBasic() {
   const [isProfilePublic, setIsProfilePublic] = useState<boolean>(true)
   const [profileImage, setProfileImage] = useState<File | null>(null)
   const [profileImagePreview, setProfileImagePreview] = useState<string>('')
-  const [name, setName] = useState('')
   const [profileImagePath, setProfileImagePath] = useState('')
+  const [memberName, setMemberName] = useState('')
 
   const {
     selectedCategory,
@@ -36,7 +36,6 @@ export default function ProfileEditBasic() {
     const loadProfileData = async () => {
       try {
         const profileData = await fetchProfileData()
-        setName(profileData.memberName)
         setSelectedCategory(profileData.profilePositionItem.majorPosition)
         setSelectedSubCategory(profileData.profilePositionItem.subPosition)
         setSelectedCity(profileData.cityName)
@@ -48,6 +47,7 @@ export default function ProfileEditBasic() {
         )
         setIsProfilePublic(profileData.isProfilePublic)
         setProfileImagePath(profileData.profileImagePath)
+        setMemberName(profileData.memberName)
       } catch (error) {
         console.error('프로필 데이터 로딩 중 오류 발생:', error)
       } finally {
@@ -144,7 +144,6 @@ export default function ProfileEditBasic() {
   // 필수 데이터 유효성 검사
   const isFormValid = () => {
     return (
-      name.trim() !== '' && // 이름
       selectedCategory !== '' && // 포지션 대분류
       selectedSubCategory !== '' && // 포지션 소분류
       selectedCity !== '' && // 활동지역 시/도
@@ -204,7 +203,7 @@ export default function ProfileEditBasic() {
           <span className="flex text-grey80">
             이름<p className="text-main">*</p>
           </span>
-          <Input placeholder="이름을 입력해주세요" value={name} onChange={(e) => setName(e.target.value)} />
+          <div className="rounded-xl border border-grey40 px-6 py-3 font-semibold text-grey50">{memberName}</div>
           <span className="text-xs text-grey50">*이름은 계정 관리 - 계정 설정에서 변경할 수 있어요</span>
         </div>
 
