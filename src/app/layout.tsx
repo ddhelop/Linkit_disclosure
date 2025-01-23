@@ -8,6 +8,7 @@ import Scripts from '@/components/script'
 import 'react-toastify/dist/ReactToastify.css'
 import Header from '@/widgets/Header/Header'
 import WebSocketInitializer from '@/shared/components/webSocket/WebSocketInitializer'
+import Toast from '@/shared/components/Toast/Toast'
 
 export const metadata: Metadata = {
   title: '링킷, Linkit',
@@ -51,7 +52,7 @@ export default function RootLayout({
         <WebSocketInitializer />
         <Header />
         <div className="bg-[#fcfcfd]">{children}</div>
-
+        <Toast />
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
         <Scripts />
       </body>
