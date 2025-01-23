@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { profileScrap } from '../api/commonApi'
 import { Profile, Team } from '@/features/find/types/FindTypes'
+import { useToast } from '../hooks/useToast'
 
 interface MiniProfileCard2Props {
   profile: Profile
@@ -13,6 +14,7 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
   const [isScrap, setIsScrap] = useState(profile?.isProfileScrap ?? false)
   const [scrapCount, setScrapCount] = useState(profile?.profileScrapCount ?? 0)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
+  const toast = useToast()
 
   const handleScrap = async (e: React.MouseEvent) => {
     e.preventDefault()
@@ -24,9 +26,10 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
       if (response.ok) {
         setIsScrap(!isScrap)
         setScrapCount((prev) => (isScrap ? prev - 1 : prev + 1))
+        toast.success('스크랩 상태가 변경되었습니다.')
       }
     } catch (error) {
-      console.error('Failed to update scrap:', error)
+      toast.alert('스크랩 상태 변경에 실패했습니다.')
     } finally {
       setIsScrapLoading(false)
     }

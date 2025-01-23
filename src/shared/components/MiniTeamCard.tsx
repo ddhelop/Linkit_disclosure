@@ -5,6 +5,7 @@ import { TeamInfoResponse } from '@/features/team/types/team.types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { useToast } from '../hooks/useToast'
 
 interface MiniTeamCardProps {
   teamInfo: TeamInfoResponse
@@ -13,6 +14,7 @@ interface MiniTeamCardProps {
 export default function MiniTeamCard({ teamInfo }: MiniTeamCardProps) {
   const [isTeamScrap, setIsTeamScrap] = useState(teamInfo?.result?.teamInformMenu.isTeamScrap ?? false)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
+  const toast = useToast()
 
   const handleScrapClick = async (e: React.MouseEvent) => {
     e.preventDefault()
@@ -23,9 +25,10 @@ export default function MiniTeamCard({ teamInfo }: MiniTeamCardProps) {
       const response = await teamScrap(teamInfo?.result?.teamInformMenu.teamCode || '', nextScrapState)
       if (response.ok) {
         setIsTeamScrap(nextScrapState)
+        toast.success('스크랩 상태가 변경되었습니다.')
       }
     } catch (error) {
-      console.error('Failed to team scrap:', error)
+      toast.alert('스크랩 상태 변경에 실패했습니다.')
     } finally {
       setIsScrapLoading(false)
     }

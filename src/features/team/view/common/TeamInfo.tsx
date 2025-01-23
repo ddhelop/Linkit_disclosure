@@ -7,6 +7,7 @@ import { Button } from '@/shared/ui/Button/Button'
 import { useMatching } from '@/shared/hooks/useMatching'
 import MatchingModal from '@/features/profile/view/component/common/MatchingModal'
 import MatchingRequestModal from '@/features/profile/view/component/common/MatchingRequestModal'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface TeamData {
   isMyTeam: boolean
@@ -33,6 +34,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
   const [isScrapLoading, setIsScrapLoading] = useState(false)
   const [isTeamScrap, setIsTeamScrap] = useState(false)
   const router = useRouter()
+  const toast = useToast()
 
   const {
     isProfileModalOpen,
@@ -53,8 +55,10 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
       try {
         const teamName = params.teamName as string
         const response = await getTeamInfo(teamName)
-        setTeamData(response.result)
-        setIsTeamScrap(response.result.teamInformMenu.isTeamScrap)
+        if (response.isSuccess) {
+          setTeamData(response.result)
+          setIsTeamScrap(response.result.teamInformMenu.isTeamScrap)
+        }
       } catch (error) {
         console.error('Failed to fetch team data:', error)
       } finally {
@@ -72,14 +76,29 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
 
   // 팀 스크랩
   const onClickTeamScrap = async () => {
-    if (isScrapLoading) return // 이미 처리 중이면 중복 요청 방지
+    if (isScrapLoading) return
+
+    const newScrapState = !isTeamScrap
+
+    // 즉시 UI 업데이트
+    setIsTeamScrap(newScrapState)
 
     try {
       setIsScrapLoading(true)
-      const response = await teamScrap(params.teamName, isTeamScrap)
-      setIsTeamScrap(response.result.isTeamScrap)
+      const data = await teamScrap(params.teamName, newScrapState)
+
+      if (data.isSuccess) {
+        toast.success('스크랩 상태가 변경되었습니다.')
+      } else {
+        // API 실패시 원래 상태로 롤백
+        setIsTeamScrap(!newScrapState)
+        toast.alert(data.message || '스크랩 상태 변경에 실패했습니다.')
+      }
     } catch (error) {
-      console.error('Failed to scrap team:', error)
+      // 에러 발생시 원래 상태로 롤백
+      setIsTeamScrap(!newScrapState)
+      console.error('Failed to update scrap:', error)
+      toast.alert('스크랩 상태 변경에 실패했습니다.')
     } finally {
       setIsScrapLoading(false)
     }
