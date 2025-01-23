@@ -18,3 +18,12 @@ export const updateProfileLogType = async (logId: number) => {
   if (!response.ok) throw new Error('Failed to update log type')
   return response
 }
+
+// 프로필 로그 리스트 조회
+export const getProfileLogs = async (emailId: string) => {
+  const response = await fetchWithAuth(`/api/v1/profile/log/view/${emailId}`, {
+    method: 'GET',
+  })
+  if (!response.ok) throw new Error('Failed to get profile logs')
+  return response.json()
+}
