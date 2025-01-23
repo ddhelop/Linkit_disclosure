@@ -27,3 +27,12 @@ export const getProfileLogs = async (emailId: string) => {
   if (!response.ok) throw new Error('Failed to get profile logs')
   return response.json()
 }
+
+// 프로필 로그 상세 조회
+export const getProfileLog = async (profileLogId: number) => {
+  const response = await fetchWithAuth(`/api/v1/profile/log/view/detail/${profileLogId}`, {
+    method: 'GET',
+  })
+  if (!response.ok) throw new Error('Failed to get profile log')
+  return response.json()
+}
