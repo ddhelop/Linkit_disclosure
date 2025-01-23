@@ -28,7 +28,6 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
 
   useEffect(() => {
     if (!chatRoomId) return
-    console.log('chatRoomId', chatRoomId)
 
     const client = getClient()
     if (!client) {

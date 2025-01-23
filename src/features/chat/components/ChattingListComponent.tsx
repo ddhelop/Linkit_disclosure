@@ -16,17 +16,27 @@ export default function ChattingListComponent({
       className={`flex w-full cursor-pointer gap-3 rounded-xl border p-4 hover:bg-grey10
         ${isSelected ? 'border-main bg-grey10' : 'border-grey20'}`}
     >
-      {chattingList.chatPartnerInformation.chatPartnerImageUrl ? (
-        <Image
-          src={chattingList.chatPartnerInformation.chatPartnerImageUrl}
-          width={60}
-          height={60}
-          alt="Profile"
-          className="rounded-lg"
-        />
-      ) : (
-        <Image src={'/common/default_profile.svg'} width={60} height={60} alt="Profile" className="rounded-lg" />
-      )}
+      <div className="h-[60px] w-[60px] flex-shrink-0">
+        {chattingList.chatPartnerInformation.chatPartnerImageUrl ? (
+          <Image
+            src={chattingList.chatPartnerInformation.chatPartnerImageUrl}
+            width={60}
+            height={60}
+            alt="Profile"
+            className="rounded-lg object-cover"
+            style={{ width: '60px', height: '60px' }}
+          />
+        ) : (
+          <Image
+            src={'/common/default_profile.svg'}
+            width={60}
+            height={60}
+            alt="Profile"
+            className="rounded-lg object-cover"
+            style={{ width: '60px', height: '60px' }}
+          />
+        )}
+      </div>
 
       <div className="flex w-full flex-col gap-[0.38rem]">
         <div className="flex w-full items-center justify-between">
