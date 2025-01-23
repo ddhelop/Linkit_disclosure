@@ -10,5 +10,6 @@ export interface ILogCard {
     memberName: string
     emailId: string
     teamCode: string
+    profileImagePath: string
   }
 }

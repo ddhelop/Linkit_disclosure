@@ -9,7 +9,7 @@ export default function LogCard({ log }: { log: ILogCard }) {
     <Link
       href={
         log.domainType === 'PROFILE'
-          ? `/${log.logInformDetails.emailId}/log/${log.id}`
+          ? `/${log.logInformDetails.emailId}/logs/${log.id}`
           : `/team/${log.logInformDetails.teamCode}/log/${log.id}`
       }
       className="flex h-[10rem] flex-col gap-3 rounded-xl border border-transparent px-8 py-6 hover:border-main"
@@ -22,14 +22,28 @@ export default function LogCard({ log }: { log: ILogCard }) {
           <span className="text-xs font-normal text-grey60">{log.logInformDetails.teamName}</span>
         </div>
         <div className="flex items-center gap-2">
-          <Image
-            src={log.logInformDetails.teamLogoImagePath}
-            alt="팀 로고"
-            width={28}
-            height={28}
-            className="rounded-lg"
-          />
-          <span className="text-sm font-semibold text-grey90">{log.logInformDetails.teamName}</span>
+          {log.domainType === 'PROFILE' ? (
+            <Image
+              src={log.logInformDetails.profileImagePath}
+              alt="팀 로고"
+              width={28}
+              height={28}
+              className="rounded-lg"
+            />
+          ) : (
+            <Image
+              src={log.logInformDetails.teamLogoImagePath}
+              alt="팀 로고"
+              width={28}
+              height={28}
+              className="rounded-lg"
+            />
+          )}
+          {log.domainType === 'PROFILE' ? (
+            <span className="text-sm font-semibold text-grey90">{log.logInformDetails.memberName}</span>
+          ) : (
+            <span className="text-sm font-semibold text-grey90">{log.logInformDetails.teamName}</span>
+          )}
         </div>
       </div>
 
