@@ -6,6 +6,7 @@ import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import { createPortal } from 'react-dom'
 import { ProfileInformation, TeamInformation } from '@/features/match/types/MatchTypes'
 import { sendMatchingRequest } from '@/features/match/api/MatchApi'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface MatchingRequestModalProps {
   isOpen: boolean
@@ -27,6 +28,7 @@ export default function MatchingRequestModal({
   const modalRef = useRef<HTMLDivElement>(null)
   const [requestMessage, setRequestMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const toast = useToast()
 
   useOnClickOutside({
     refs: [modalRef],
@@ -72,11 +74,10 @@ export default function MatchingRequestModal({
       }
 
       await sendMatchingRequest(requestData)
-      alert('매칭 요청이 성공적으로 전송되었습니다.')
+      toast.success('매칭 요청이 성공적으로 전송되었습니다.')
       onClose()
     } catch (error) {
-      console.error('Error sending matching request:', error)
-      alert('매칭 요청 전송에 실패했습니다. 다시 시도해주세요.')
+      toast.alert('매칭 요청 전송에 실패했습니다. 다시 시도해주세요.')
     } finally {
       setIsLoading(false)
     }

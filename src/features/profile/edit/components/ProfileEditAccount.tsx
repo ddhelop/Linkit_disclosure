@@ -12,6 +12,7 @@ import { AccountListSkeleton } from './skeletons/ListSkeletons'
 import { fetchWithdraw } from '../api/profileEditApi'
 import WithdrawModal from './WithdrawModal'
 import EmailIdChangeModal from './EmailIdChangeModal'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function ProfileEditAccount() {
   const { phoneNumber, setPhoneNumber } = usePhoneNumberFormatter()
@@ -30,6 +31,7 @@ export default function ProfileEditAccount() {
   const [isUpdating, setIsUpdating] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false)
+  const toast = useToast()
 
   useEffect(() => {
     const fetchMemberData = async () => {
@@ -144,10 +146,10 @@ export default function ProfileEditAccount() {
       setIsUpdating(true)
       await updateMarketingConsent(!memberData.isMarketingAgree)
       setMemberData((prev) => ({ ...prev, isMarketingAgree: !prev.isMarketingAgree }))
-      alert('광고성 정보 수신 동의가 변경되었습니다.')
+      toast.success('광고성 정보 수신 동의가 변경되었습니다.')
     } catch (error) {
       console.error('Failed to update marketing consent:', error)
-      // TODO: 에러 처리
+      toast.alert('광고성 정보 수신 동의 변경에 실패했습니다.')
     } finally {
       setIsUpdating(false)
     }
@@ -157,9 +159,10 @@ export default function ProfileEditAccount() {
   const handleWithdraw = async () => {
     try {
       await fetchWithdraw()
-      // 회원탈퇴 성공 후 처리 (예: 로그아웃, 홈으로 리다이렉트 등)
+      toast.success('회원탈퇴가 성공적으로 완료되었습니다.')
     } catch (error) {
       console.error('Failed to withdraw:', error)
+      toast.alert('회원탈퇴에 실패했습니다.')
     }
   }
 

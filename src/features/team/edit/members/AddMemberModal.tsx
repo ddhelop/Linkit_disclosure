@@ -8,6 +8,7 @@ import { Button } from '@/shared/ui/Button/Button'
 import Select from '@/shared/ui/Select/Select'
 import { useEmailValidation } from '@/shared/lib/hooks/useEmailValidations'
 import { inviteTeamMember } from '../../api/teamApi'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface AddMemberModalProps {
   isOpen: boolean
@@ -20,7 +21,7 @@ export function AddMemberModal({ isOpen, onClose, teamName }: AddMemberModalProp
   const { email, setEmail, isValid } = useEmailValidation()
   const [role, setRole] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-
+  const toast = useToast()
   const isFormValid = isValid && role !== ''
 
   const handleClose = () => {
@@ -41,11 +42,11 @@ export function AddMemberModal({ isOpen, onClose, teamName }: AddMemberModalProp
         },
         teamName,
       )
-      alert('팀원 초대가 성공적으로 전송되었습니다.')
+      toast.success('팀원 초대가 성공적으로 전송되었습니다.')
       handleClose()
     } catch (error) {
       const errorMessage = error instanceof Error && error.message ? error.message : '알 수 없는 오류가 발생했습니다.'
-      alert(errorMessage)
+      toast.alert(errorMessage)
     } finally {
       setIsSubmitting(false)
     }

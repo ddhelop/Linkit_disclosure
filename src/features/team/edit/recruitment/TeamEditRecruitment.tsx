@@ -22,12 +22,13 @@ import {
   updateTeamAnnouncement,
 } from '../../api/teamApi'
 import { useRouter } from 'next/navigation'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function TeamEditRecruitment({ params }: { params: { teamName: string } }) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
-
+  const toast = useToast()
   // 원본 데이터 저장용 state
   const [originalData, setOriginalData] = useState<TeamAnnouncementDetail['result'] | null>(null)
   const [isDataChanged, setIsDataChanged] = useState(false)
@@ -90,17 +91,17 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
       if (id) {
         // 수정
         await updateTeamAnnouncement(params.teamName, Number(id), recruitmentData)
-        alert('채용 공고가 성공적으로 수정되었습니다.')
+        toast.success('채용 공고가 성공적으로 수정되었습니다.')
       } else {
         // 생성
         await createRecruitment(recruitmentData, params.teamName)
-        alert('채용 공고가 성공적으로 등록되었습니다.')
+        toast.success('채용 공고가 성공적으로 등록되었습니다.')
       }
 
       router.push(`/team/${params.teamName}/edit/recruit`)
     } catch (error) {
       console.error('Failed to save recruitment:', error)
-      alert(id ? '채용 공고 수정에 실패했습니다.' : '채용 공고 등록에 실패했습니다.')
+      toast.alert(id ? '채용 공고 수정에 실패했습니다.' : '채용 공고 등록에 실패했습니다.')
     }
   }
 
@@ -131,7 +132,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
           }
         } catch (error) {
           console.error('Failed to load announcement:', error)
-          alert('공고 정보를 불러오는데 실패했습니다.')
+          toast.alert('공고 정보를 불러오는데 실패했습니다.')
         }
       }
     }

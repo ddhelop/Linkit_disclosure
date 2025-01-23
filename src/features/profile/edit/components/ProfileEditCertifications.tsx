@@ -7,6 +7,7 @@ import ElementComponent from './common/ElementComponent'
 import Image from 'next/image'
 import { deleteLicense } from '@/features/profile/api/licenseApi'
 import { CertificationListSkeleton } from './skeletons/CertificationListSkeleton'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface License {
   profileLicenseId: number
@@ -19,6 +20,7 @@ interface License {
 export default function ProfileEditCertifications() {
   const [licenses, setLicenses] = useState<License[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const toast = useToast()
 
   useEffect(() => {
     const fetchLicenses = async () => {
@@ -41,13 +43,13 @@ export default function ProfileEditCertifications() {
 
     try {
       await deleteLicense(id)
-      alert('자격증이 삭제되었습니다.')
+      toast.success('자격증이 삭제되었습니다.')
       // 목록 새로고침
       const data = await getLicenses()
       setLicenses(data)
     } catch (error) {
       console.error('Failed to delete license:', error)
-      alert('삭제에 실패했습니다.')
+      toast.alert('삭제에 실패했습니다.')
     }
   }
 

@@ -13,6 +13,7 @@ import { Button } from '@/shared/ui/Button/Button'
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createTeamProduct, updateTeamProduct, getTeamProduct } from '../../api/teamApi'
+import { useToast } from '@/shared/hooks/useToast'
 
 type ProjectSize = 'TEAM' | 'PERSONAL'
 
@@ -26,6 +27,7 @@ interface SubImage {
 }
 
 export default function TeamEditProductNew({ teamName }: { teamName: string }) {
+  const toast = useToast()
   const searchParams = useSearchParams()
   const productId = searchParams.get('id')
   const [selectedField, setSelectedField] = useState<string>('')
@@ -83,7 +85,7 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         }
       } catch (error) {
         console.error('Failed to load product:', error)
-        alert('프로덕트 정보를 불러오는데 실패했습니다.')
+        toast.alert('프로덕트 정보를 불러오는데 실패했습니다.')
       }
     }
 
@@ -122,7 +124,7 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
     })
 
     if (subImages.length + validFiles.length > 4) {
-      alert('최대 4개의 이미지 업로드 가능합니다.')
+      toast.alert('최대 4개의 이미지 업로드 가능합니다.')
       return
     }
 
@@ -151,16 +153,16 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
 
       if (productId) {
         await updateTeamProduct(teamName, Number(productId), productData, mainImage, subImages)
-        alert('프로덕트가 성공적으로 수정되었습니다.')
+        toast.success('프로덕트가 성공적으로 수정되었습니다.')
       } else {
         await createTeamProduct(teamName, productData, mainImage, subImages)
-        alert('프로덕트가 성공적으로 생성되었습니다.')
+        toast.success('프로덕트가 성공적으로 생성되었습니다.')
       }
 
       router.push(`/team/${teamName}/edit/products`)
     } catch (error) {
       console.error('Failed to save product:', error)
-      alert('프로덕트 저장에 실패했습니다.')
+      toast.alert('프로덕트 저장에 실패했습니다.')
     } finally {
       setIsSubmitting(false)
     }

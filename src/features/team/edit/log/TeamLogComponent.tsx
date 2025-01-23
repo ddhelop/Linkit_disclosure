@@ -8,6 +8,7 @@ import { deleteTeamLog, setTeamLogAsRepresentative, toggleTeamLogVisibility } fr
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface TeamLogComponentProps {
   log: TeamLogItem & {
@@ -25,6 +26,7 @@ export default function TeamLogComponent({ log, onDelete }: TeamLogComponentProp
   const buttonRef = useRef<HTMLDivElement>(null)
   const params = useParams()
   const teamName = params.teamName as string
+  const toast = useToast()
 
   useOnClickOutside({
     refs: [menuRef, buttonRef],
@@ -37,10 +39,11 @@ export default function TeamLogComponent({ log, onDelete }: TeamLogComponentProp
       try {
         await deleteTeamLog(teamName, log.teamLogId)
         setIsMenuOpen(false)
+        toast.success('로그가 삭제되었습니다.')
         onDelete?.() // 삭제 후 목록 새로고침
       } catch (error) {
         console.error('Failed to delete log:', error)
-        alert('로그 삭제에 실패했습니다.')
+        toast.alert('로그 삭제에 실패했습니다.')
       }
     }
   }
@@ -50,10 +53,10 @@ export default function TeamLogComponent({ log, onDelete }: TeamLogComponentProp
       await setTeamLogAsRepresentative(teamName, log.teamLogId)
       setLogType('REPRESENTATIVE_LOG')
       setIsMenuOpen(false)
-      alert('대표글로 설정되었습니다.')
+      toast.success('대표글로 설정되었습니다.')
     } catch (error) {
       console.error('Failed to set representative:', error)
-      alert('대표글 설정에 실패했습니다.')
+      toast.alert('대표글 설정에 실패했습니다.')
     }
   }
 
@@ -62,10 +65,10 @@ export default function TeamLogComponent({ log, onDelete }: TeamLogComponentProp
       await toggleTeamLogVisibility(teamName, log.teamLogId)
       setIsPublic(!isPublic)
       setIsMenuOpen(false)
-      alert(isPublic ? '비공개로 설정되었습니다.' : '공개로 설정되었습니다.')
+      toast.success(isPublic ? '비공개로 설정되었습니다.' : '공개로 설정되었습니다.')
     } catch (error) {
       console.error('Failed to toggle visibility:', error)
-      alert('설정 변경에 실패했습니다.')
+      toast.alert('설정 변경에 실패했습니다.')
     }
   }
 

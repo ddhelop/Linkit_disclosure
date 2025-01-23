@@ -6,11 +6,13 @@ import { deleteTeamHistory, getTeamHistory } from '../../api/teamApi'
 import { TeamHistory } from '../../types/team.types'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import Link from 'next/link'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function TeamEditHistoy({ teamName }: { teamName: string }) {
   const [history, setHistory] = useState<TeamHistory[]>([])
   const [openMenuId, setOpenMenuId] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
+  const toast = useToast()
 
   useOnClickOutside({
     refs: [menuRef],
@@ -36,11 +38,11 @@ export default function TeamEditHistoy({ teamName }: { teamName: string }) {
         // 삭제 후 목록 다시 불러오기 대신 상태 직접 업데이트
         setHistory(history.filter((item) => item.teamHistoryId !== teamHistoryId))
         setOpenMenuId(null) // 메뉴 닫기
-        alert('연혁이 삭제되었습니다.')
+        toast.success('연혁이 삭제되었습니다.')
       }
     } catch (error) {
       console.error('연혁 삭제 중 오류 발생:', error)
-      alert('연혁 삭제 중 오류가 발생했습니다.')
+      toast.alert('연혁 삭제 중 오류가 발생했습니다.')
     }
   }
 

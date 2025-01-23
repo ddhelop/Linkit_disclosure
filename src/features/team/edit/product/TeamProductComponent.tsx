@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import Link from 'next/link'
 import { deleteTeamProduct } from '../../api/teamApi'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface TeamProduct {
   teamProductId: number
@@ -28,6 +29,7 @@ interface TeamProductComponentProps {
 export default function TeamProductComponent({ product, teamName, onDelete }: TeamProductComponentProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const toast = useToast()
 
   useOnClickOutside({
     refs: [menuRef],
@@ -40,9 +42,10 @@ export default function TeamProductComponent({ product, teamName, onDelete }: Te
         await deleteTeamProduct(teamName, product.teamProductId)
         onDelete(product.teamProductId)
         setIsMenuOpen(false)
+        toast.success('삭제에 성공했습니다.')
       } catch (error) {
         console.error('Failed to delete product:', error)
-        alert('삭제에 실패했습니다.')
+        toast.alert('삭제에 실패했습니다.')
       }
     }
   }

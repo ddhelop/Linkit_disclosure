@@ -6,6 +6,7 @@ import Modal from '../../../../../shared/ui/Modal/Modal'
 import CertificationUploadForm from './CertificationUploadForm'
 import Link from 'next/link'
 import { deleteCertification } from '../../api/certificationApi'
+import { useToast } from '@/shared/hooks/useToast'
 
 export interface CertificationFormProps {
   isActivityCertified: boolean
@@ -20,6 +21,7 @@ export default function CertificationForm({
   activityCertificationAttachFilePath,
   onCertificationUpdate,
 }: CertificationFormProps) {
+  const toast = useToast()
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
@@ -32,7 +34,7 @@ export default function CertificationForm({
 
   const handleDelete = async () => {
     if (!activityId) {
-      alert('활동 ID가 유효하지 않습니다.')
+      toast.alert('활동 ID가 유효하지 않습니다.')
       return
     }
 
@@ -40,14 +42,14 @@ export default function CertificationForm({
 
     try {
       await deleteCertification(activityId)
-      alert('인증서가 성공적으로 삭제되었습니다.')
+      toast.success('인증서가 성공적으로 삭제되었습니다.')
       onCertificationUpdate({
         isActivityCertified: false,
         activityCertificationAttachFilePath: null,
       })
     } catch (error) {
       console.error('인증서 삭제 중 오류 발생:', error)
-      alert('인증서 삭제 중 오류가 발생했습니다. 다시 시도해주세요.')
+      toast.alert('인증서 삭제 중 오류가 발생했습니다. 다시 시도해주세요.')
     }
   }
 

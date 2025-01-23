@@ -8,9 +8,11 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { getTeamBasicInfo, updateTeamBasicInfo } from '../../api/teamApi'
 import { useRouter } from 'next/navigation'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function TeamEditBasic({ params }: { params: { teamName: string } }) {
   const router = useRouter()
+  const toast = useToast()
   // 필수 입력 항목
   const [teamName, setTeamName] = useState('')
   const [teamIntro, setTeamIntro] = useState('')
@@ -184,7 +186,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
       const response = await updateTeamBasicInfo(formData, params.teamName)
 
       if (response.isSuccess) {
-        alert('팀 정보가 성공적으로 수정되었습니다.')
+        toast.success('팀 정보가 성공적으로 수정되었습니다.')
         const newTeamCode = response.result.teamCode
         router.push(`/team/${newTeamCode}/edit/basic`)
 
@@ -204,7 +206,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
       }
     } catch (error) {
       console.error('Failed to update team info:', error)
-      alert(error instanceof Error ? error.message : '팀 정보 수정에 실패했습니다.')
+      toast.alert('팀 정보 수정에 실패했습니다.')
     }
   }
 

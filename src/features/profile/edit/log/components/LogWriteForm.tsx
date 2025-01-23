@@ -13,6 +13,7 @@ import { createProfileLog, updateProfileLog } from '@/features/profile/api/creat
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 import { getProfileLog } from '@/features/profile/api/getProfileLogs'
 import { getTeamLog, createTeamLog, updateTeamLog } from '@/features/team/api/teamApi'
+import { useToast } from '@/shared/hooks/useToast'
 
 Quill.register('modules/imageResize', ImageResize)
 
@@ -21,6 +22,7 @@ Size.whitelist = ['16px', '18px', '24px']
 Quill.register(Size, true)
 
 export default function LogWriteForm() {
+  const toast = useToast()
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -59,8 +61,7 @@ export default function LogWriteForm() {
         setIsPublic(data.isLogPublic)
       }
     } catch (error) {
-      console.error('Failed to fetch log detail:', error)
-      alert('로그 정보를 불러오는데 실패했습니다.')
+      toast.alert('로그 정보를 불러오는데 실패했습니다.')
     } finally {
       setIsLoading(false)
     }
@@ -132,7 +133,7 @@ export default function LogWriteForm() {
   const handleSubmit = async () => {
     if (isSubmitting) return
     if (!title.trim() || !contents.trim()) {
-      alert('제목과 내용을 입력해주세요.')
+      toast.alert('제목과 내용을 입력해주세요.')
       return
     }
 
@@ -164,7 +165,7 @@ export default function LogWriteForm() {
         }
       }
 
-      alert('로그가 성공적으로 저장되었습니다.')
+      toast.success('로그가 성공적으로 저장되었습니다.')
       // 팀/프로필에 따른 리다이렉트 처리
       if (teamName) {
         router.push(`/team/${teamName}/edit/log`)
@@ -172,8 +173,7 @@ export default function LogWriteForm() {
         router.push('/profile/edit/log')
       }
     } catch (error) {
-      console.error('로그 저장 실패:', error)
-      alert('로그 저장에 실패했습니다.')
+      toast.alert('로그 저장에 실패했습니다.')
     } finally {
       setIsSubmitting(false)
     }

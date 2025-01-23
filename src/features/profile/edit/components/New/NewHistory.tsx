@@ -8,8 +8,10 @@ import CertificationForm from './CertificationForm'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { getActivityById, saveActivity, updateActivity } from '../../api/profileActivityApi'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function NewHistory() {
+  const toast = useToast()
   const searchParams = useSearchParams()
   const activityId = searchParams.get('id') // URL 쿼리에서 id 가져오기
   const [activityName, setActivityName] = useState('')
@@ -100,16 +102,16 @@ export default function NewHistory() {
 
       if (activityId) {
         const result = await updateActivity(activityId, activityData)
-        alert('활동 이력이 성공적으로 저장되었습니다.')
+        toast.success('활동 이력이 성공적으로 저장되었습니다.')
         router.push(`/profile/edit/history/new?id=${result.result.profileActivityId}`)
       } else {
         const result = await saveActivity(activityData)
-        alert('활동 이력이 성공적으로 저장되었습니다.')
+        toast.success('활동 이력이 성공적으로 저장되었습니다.')
         router.push(`/profile/edit/history/new?id=${result.result.profileActivityId}`)
       }
     } catch (error) {
       console.error('저장 중 에러 발생:', error)
-      alert('활동 이력 저장 중 오류가 발생했습니다.')
+      toast.alert('활동 이력 저장 중 오류가 발생했습니다.')
     } finally {
       setIsSubmitting(false)
     }

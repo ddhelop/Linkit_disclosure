@@ -9,6 +9,7 @@ import { getLicense, License } from '@/features/profile/api/getLicense'
 import { createLicense, updateLicense } from '@/features/profile/api/licenseApi'
 import DatePicker from '@/shared/ui/Select/DatePicker'
 import CertificationForm, { CertificationFormProps } from './CertificationForm'
+import { useToast } from '@/shared/hooks/useToast'
 
 type CertificationDataType = {
   isActivityCertified: boolean
@@ -17,6 +18,7 @@ type CertificationDataType = {
 }
 
 export default function NewCertificate() {
+  const toast = useToast()
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
 
@@ -108,15 +110,15 @@ export default function NewCertificate() {
 
       if (id) {
         await updateLicense(id, saveData)
-        alert('자격증이 수정되었습니다.')
+        toast.success('자격증이 수정되었습니다.')
       } else {
         await createLicense(saveData)
-        alert('자격증이 등록되었습니다.')
+        toast.success('자격증이 등록되었습니다.')
       }
       window.history.back()
     } catch (error) {
       console.error('Failed to save certificate:', error)
-      alert('저장에 실패했습니다.')
+      toast.alert('저장에 실패했습니다.')
     } finally {
       setIsSubmitting(false)
     }

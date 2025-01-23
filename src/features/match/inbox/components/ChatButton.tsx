@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from 'next/navigation'
 import { createChatRoom } from '@/features/chat/api/ChatApi'
 import Image from 'next/image'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface ChatButtonProps {
   matchingId: number
@@ -32,6 +33,7 @@ export default function ChatButton({
 }: ChatButtonProps) {
   const router = useRouter()
   const pathname = usePathname()
+  const toast = useToast()
 
   const handleCreateChatRoom = async () => {
     if (isChatRoomCreated) {
@@ -61,17 +63,15 @@ export default function ChatButton({
             : { receiverTeamCode: receiverInfo.teamCode }),
       }
 
-      console.log('Request data:', requestData)
       const response = await createChatRoom(requestData)
-      console.log('Chat room created:', response)
 
       router.push(`/chat/${response.result.chatRoomId}`)
     } catch (error) {
       console.error('Detailed error:', error)
       if (error instanceof Error) {
-        alert(`채팅방 생성 실패: ${error.message}`)
+        toast.alert(`채팅방 생성 실패: ${error.message}`)
       } else {
-        alert('채팅방 생성에 실패했습니다. 다시 시도해주세요.')
+        toast.alert('채팅방 생성에 실패했습니다. 다시 시도해주세요.')
       }
     }
   }

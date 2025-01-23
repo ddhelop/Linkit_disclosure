@@ -6,10 +6,12 @@ import { getAwards, AwardsItem, deleteAward } from '../api/awardsApi'
 import ElementComponent from './common/ElementComponent'
 import Image from 'next/image'
 import { AwardListSkeleton } from './skeletons/ListSkeletons'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function ProfileEditAwards() {
   const [awards, setAwards] = useState<AwardsItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const toast = useToast()
 
   const fetchAwards = async () => {
     try {
@@ -32,10 +34,10 @@ export default function ProfileEditAwards() {
     try {
       await deleteAward(id)
       await fetchAwards() // 목록 새로고침
-      alert('성공적으로 삭제되었습니다.')
+      toast.success('성공적으로 삭제되었습니다.')
     } catch (error) {
       console.error('Failed to delete award:', error)
-      alert('삭제 중 오류가 발생했습니다.')
+      toast.alert('삭제 중 오류가 발생했습니다.')
     }
   }
 

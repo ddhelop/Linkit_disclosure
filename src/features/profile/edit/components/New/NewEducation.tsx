@@ -9,8 +9,10 @@ import { createEducation, getEducationById, updateEducation } from '../../api/ed
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
 import CertificationForm from './CertificationForm'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function NewEducation() {
+  const toast = useToast()
   const [selectedUniversity, setSelectedUniversity] = useState('')
   const [majorName, setMajorName] = useState('')
   const [startDate, setStartDate] = useState('')
@@ -57,7 +59,7 @@ export default function NewEducation() {
         })
       } catch (error) {
         console.error('Failed to fetch education:', error)
-        alert('데이터를 불러오는데 실패했습니다.')
+        toast.alert('데이터를 불러오는데 실패했습니다.')
         router.back()
       }
     }
@@ -103,15 +105,15 @@ export default function NewEducation() {
 
       if (educationId) {
         await updateEducation(educationId, educationData)
-        alert('교육정보가 성공적으로 수정되었습니다.')
+        toast.success('학력이 성공적으로 수정되었습니다.')
       } else {
         const reponse = await createEducation(educationData)
-        alert('교육정보가 성공적으로 저장되었습니다.')
+        toast.success('학력이 성공적으로 저장되었습니다.')
         router.push(`/profile/edit/education/new?id=${reponse.result.profileEducationId}`)
       }
     } catch (error) {
       console.error('Failed to save education:', error)
-      alert('저장 중 오류가 발생했습니다.')
+      toast.alert('저장 중 오류가 발생했습니다.')
     } finally {
       setIsSubmitting(false)
     }

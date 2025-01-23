@@ -9,9 +9,11 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { createTeam } from './api/teamApi'
 import { useRouter } from 'next/navigation'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function TeamCreate() {
   const router = useRouter()
+  const toast = useToast()
   // 필수 입력 항목
   const [teamName, setTeamName] = useState('')
   const [teamIntro, setTeamIntro] = useState('')
@@ -152,7 +154,7 @@ export default function TeamCreate() {
         setTeamCodeError('이미 사용 중인 팀 코드입니다')
         setIsTeamCodeValid(false)
       } else {
-        alert('팀 생성 중 오류가 발생했습니다.')
+        toast.alert('팀 생성 중 오류가 발생했습니다.')
       }
     }
   }

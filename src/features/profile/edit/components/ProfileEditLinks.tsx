@@ -5,12 +5,14 @@ import { LinkItem, saveLinks, getLinks } from '../api/profileLinkApi'
 import { LinkListSkeleton } from './skeletons/ListSkeletons'
 import { DynamicLinkList } from '@/shared/ui/DynamicLinkList/DynamicLinkList'
 import { Button } from '@/shared/ui/Button/Button'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function ProfileEditLinks() {
   const [initialLinks, setInitialLinks] = useState<LinkItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [links, setLinks] = useState<LinkItem[]>([])
+  const toast = useToast()
 
   useEffect(() => {
     const fetchLinks = async () => {
@@ -34,17 +36,17 @@ export default function ProfileEditLinks() {
     })
 
     if (validLinks.length === 0) {
-      alert('저장할 링크 데이터가 없습니다.')
+      toast.alert('저장할 링크 데이터가 없습니다.')
       return
     }
 
     setIsSubmitting(true)
     try {
       await saveLinks(validLinks)
-      alert('링크가 성공적으로 저장되었습니다.')
+      toast.success('링크가 성공적으로 저장되었습니다.')
     } catch (error) {
       console.error('Failed to save links:', error)
-      alert('링크 저장에 실패했습니다.')
+      toast.alert('링크 저장에 실패했습니다.')
     } finally {
       setIsSubmitting(false)
     }

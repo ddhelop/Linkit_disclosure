@@ -7,8 +7,10 @@ import { createAwards, getAwardById, updateAwards } from '../../api/awardsApi'
 import { useRouter, useSearchParams } from 'next/navigation'
 import DatePicker from '@/shared/ui/Select/DatePicker'
 import CertificationForm from './CertificationForm'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function NewAwards() {
+  const toast = useToast()
   const searchParams = useSearchParams()
   const awardId = searchParams.get('id')
   const [competitionName, setCompetitionName] = useState('')
@@ -45,7 +47,7 @@ export default function NewAwards() {
         })
       } catch (error) {
         console.error('Failed to fetch award details:', error)
-        alert('수상 이력을 불러오는데 실패했습니다.')
+        toast.alert('수상 이력을 불러오는데 실패했습니다.')
       }
     }
 
@@ -72,11 +74,11 @@ export default function NewAwards() {
         return
       }
 
-      alert('수상 이력이 성공적으로 저장되었습니다.')
+      toast.success('수상 이력이 성공적으로 저장되었습니다.')
       router.push('/profile/edit/awards')
     } catch (error) {
       console.error('Failed to save awards:', error)
-      alert('수상 이력 저장에 실패했습니다.')
+      toast.alert('수상 이력 저장에 실패했습니다.')
     } finally {
       setIsSubmitting(false)
     }

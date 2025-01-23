@@ -7,11 +7,12 @@ import Textarea from '@/shared/ui/TextArea/TextArea'
 import { useEffect, useState } from 'react'
 import { createTeamHistory, getTeamHistory, getTeamHistoryDetail, updateTeamHistory } from '../../api/teamApi'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function TeamEditHistoryNew({ teamName }: { teamName: string }) {
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
-  console.log(id)
+  const toast = useToast()
 
   const [originalData, setOriginalData] = useState({
     historyName: '',
@@ -78,7 +79,7 @@ export default function TeamEditHistoryNew({ teamName }: { teamName: string }) {
         await createTeamHistory(teamName, historyData)
       }
 
-      alert('연혁이 생성되었습니다.')
+      toast.success('연혁이 생성되었습니다.')
       router.push(`/team/${teamName}/edit/history`)
     } catch (error) {
       console.error('Failed to create team history:', error)

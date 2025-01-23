@@ -8,6 +8,7 @@ import { updateProfileSkills, getProfileSkills } from '../api/profileApi'
 import { SkillListSkeleton } from './skeletons/ListSkeletons'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
 import { SearchDropdown } from '@/shared/ui/SearchDropdown/SearchDropdown'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface Skill {
   name: string
@@ -15,6 +16,7 @@ interface Skill {
 }
 
 export default function ProfileEditSkills() {
+  const toast = useToast()
   const [searchTerm, setSearchTerm] = useState('')
   const [showResults, setShowResults] = useState(false)
   const [selectedSkills, setSelectedSkills] = useState<Skill[]>([])
@@ -93,10 +95,10 @@ export default function ProfileEditSkills() {
 
       await updateProfileSkills(skillsData)
       setOriginalSkills(selectedSkills)
-      alert('스킬이 성공적으로 업데이트되었습니다.')
+      toast.success('스킬이 성공적으로 업데이트되었습니다.')
     } catch (error) {
       console.error('스킬 업데이트 중 오류 발생:', error)
-      alert('스킬 업데이트에 실패했습니다.')
+      toast.alert('스킬 업데이트에 실패했습니다.')
     } finally {
       setIsSubmitting(false)
     }

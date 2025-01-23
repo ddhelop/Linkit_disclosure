@@ -10,12 +10,14 @@ import { LogListSkeleton } from './skeletons/LogListSkeleton'
 
 import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
 import { truncateText } from '@/shared/utils/stringUtils'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function ProfileEditLog() {
   const router = useRouter()
   const [logs, setLogs] = useState<ProfileLogItem[]>([])
   const [loading, setLoading] = useState(true)
   const [showMenu, setShowMenu] = useState<number | null>(null)
+  const toast = useToast()
 
   useEffect(() => {
     fetchLogs()
@@ -48,6 +50,7 @@ export default function ProfileEditLog() {
       setLogs(data)
     } catch (error) {
       console.error('Failed to fetch logs:', error)
+      toast.alert('로그 조회에 실패했습니다.')
     } finally {
       setLoading(false)
     }
@@ -68,11 +71,11 @@ export default function ProfileEditLog() {
 
     try {
       await deleteProfileLog(logId)
-      alert('로그가 성공적으로 삭제되었습니다.')
+      toast.success('로그가 성공적으로 삭제되었습니다.')
       fetchLogs()
     } catch (error) {
       console.error('Failed to delete log:', error)
-      alert('로그 삭제에 실패했습니다.')
+      toast.alert('로그 삭제에 실패했습니다.')
     }
   }
 
@@ -80,11 +83,11 @@ export default function ProfileEditLog() {
     setShowMenu(null)
     try {
       await updateProfileLogType(logId)
-      alert('대표글 설정이 변경되었습니다.')
+      toast.success('대표글 설정이 변경되었습니다.')
       fetchLogs()
     } catch (error) {
       console.error('Failed to update log type:', error)
-      alert('대표글 설정 변경에 실패했습니다.')
+      toast.alert('대표글 설정 변경에 실패했습니다.')
     }
   }
 

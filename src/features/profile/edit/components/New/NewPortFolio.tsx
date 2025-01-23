@@ -13,8 +13,10 @@ import { addPortfolio, getPortfolio, updatePortfolio, getPortfolioById } from '.
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
 import { ImageUploader } from '@/shared/ui/ImageUploader/ImageUploader'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function NewPortFolio() {
+  const toast = useToast()
   const accessToken = localStorage.getItem('accessToken') || ''
   const [isTeam, setIsTeam] = useState(false) // 개인/팀 토글 상태 관리
   const [isOngoing, setIsOngoing] = useState(false) // 진행 중 상태 관리
@@ -92,7 +94,7 @@ export default function NewPortFolio() {
         setOriginalData(data)
       } catch (error) {
         console.error('포트폴리오 데이터 조회 실패:', error)
-        alert('데이터를 불러오는데 실패했습니다.')
+        toast.alert('데이터를 불러오는데 실패했습니다.')
         router.back()
       }
     }
@@ -241,11 +243,11 @@ export default function NewPortFolio() {
         await addPortfolio(formData, accessToken)
       }
 
-      alert('포트폴리오가 성공적으로 저장���었습니다.')
+      toast.success('포트폴리오가 성공적으로 저장되었습니다.')
       router.back()
     } catch (error) {
       console.error('Error:', error)
-      alert('저장 중 오류가 발생했습니다.')
+      toast.alert('저장 중 오류가 발생했습니다.')
     } finally {
       setIsSubmitting(false)
     }

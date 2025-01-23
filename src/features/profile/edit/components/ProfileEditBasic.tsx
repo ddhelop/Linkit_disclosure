@@ -11,9 +11,13 @@ import { fetchProfileData, updateProfile } from '../api/profileApi'
 import { validateImageFile, createProfileFormData } from '../../lib/profileHelpers'
 import { BasicProfileSkeleton } from './skeletons/BasicProfileSkeleton'
 import { usePositionSelect } from '@/shared/hooks/usePositionSelect'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function ProfileEditBasic() {
+  const toast = useToast()
+
   const [isLoading, setIsLoading] = useState(true)
+  const [isSaving, setIsSaving] = useState(false)
   const [selectedCity, setSelectedCity] = useState('')
   const [selectedDistrict, setSelectedDistrict] = useState('')
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([])
@@ -22,6 +26,15 @@ export default function ProfileEditBasic() {
   const [profileImagePreview, setProfileImagePreview] = useState<string>('')
   const [profileImagePath, setProfileImagePath] = useState('')
   const [memberName, setMemberName] = useState('')
+  const [initialValues, setInitialValues] = useState({
+    category: '',
+    subCategory: '',
+    city: '',
+    district: '',
+    statuses: [] as string[],
+    isPublic: true,
+    imagePath: '',
+  })
 
   const {
     selectedCategory,
@@ -48,6 +61,19 @@ export default function ProfileEditBasic() {
         setIsProfilePublic(profileData.isProfilePublic)
         setProfileImagePath(profileData.profileImagePath)
         setMemberName(profileData.memberName)
+
+        // 초기값 저장
+        setInitialValues({
+          category: profileData.profilePositionItem.majorPosition,
+          subCategory: profileData.profilePositionItem.subPosition,
+          city: profileData.cityName,
+          district: profileData.divisionName,
+          statuses: profileData.profileCurrentStateItems.profileCurrentStates.map(
+            (state: { profileStateName: string }) => state.profileStateName,
+          ),
+          isPublic: profileData.isProfilePublic,
+          imagePath: profileData.profileImagePath,
+        })
       } catch (error) {
         console.error('프로필 데이터 로딩 중 오류 발생:', error)
       } finally {
@@ -123,6 +149,7 @@ export default function ProfileEditBasic() {
 
   const handleSubmit = async () => {
     try {
+      setIsSaving(true)
       const profileData = {
         majorPosition: selectedCategory,
         subPosition: selectedSubCategory,
@@ -133,22 +160,52 @@ export default function ProfileEditBasic() {
       }
 
       const formData = createProfileFormData(profileImage, profileData)
-      await updateProfile(formData) // profileId는 적절히 관리 필요
-      alert('프로필이 성공적으로 수정되었습니다.')
+      await updateProfile(formData)
+
+      // 저장 성공 후 초기값 업데이트
+      setInitialValues({
+        category: selectedCategory,
+        subCategory: selectedSubCategory,
+        city: selectedCity,
+        district: selectedDistrict,
+        statuses: selectedStatuses,
+        isPublic: isProfilePublic,
+        imagePath: profileImage ? 'new_image' : profileImagePath,
+      })
+
+      toast.success('프로필이 성공적으로 수정되었습니다.')
     } catch (error) {
+      toast.alert('프로필 수정 중 오류가 발생했습니다.')
       console.error('프로필 수정 중 오류 발생:', error)
-      alert('프로필 수정 중 오류가 발생했습니다.')
+    } finally {
+      setIsSaving(false)
     }
+  }
+
+  // 변경사항 체크 함수
+  const hasChanges = () => {
+    const currentImagePath = profileImage ? 'new_image' : profileImagePath
+
+    return (
+      selectedCategory !== initialValues.category ||
+      selectedSubCategory !== initialValues.subCategory ||
+      selectedCity !== initialValues.city ||
+      selectedDistrict !== initialValues.district ||
+      JSON.stringify(selectedStatuses) !== JSON.stringify(initialValues.statuses) ||
+      isProfilePublic !== initialValues.isPublic ||
+      currentImagePath !== initialValues.imagePath
+    )
   }
 
   // 필수 데이터 유효성 검사
   const isFormValid = () => {
-    return (
+    const requiredFieldsValid =
       selectedCategory !== '' && // 포지션 대분류
       selectedSubCategory !== '' && // 포지션 소분류
       selectedCity !== '' && // 활동지역 시/도
       selectedDistrict !== '' // 활동지역 시/군/구
-    )
+
+    return requiredFieldsValid && hasChanges()
   }
 
   return (
@@ -324,9 +381,9 @@ export default function ProfileEditBasic() {
           animationMode="main"
           mode="main"
           onClick={handleSubmit}
-          disabled={!isFormValid()}
+          disabled={!isFormValid() || isSaving}
         >
-          저장하기
+          {isSaving ? '저장 중...' : '저장하기'}
         </Button>
       </div>
     </>

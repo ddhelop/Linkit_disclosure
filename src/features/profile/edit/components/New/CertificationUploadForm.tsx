@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { requestCertification } from '../../api/certificationApi'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface CertificationUploadFormProps {
   onClose: () => void
@@ -20,6 +21,7 @@ export default function CertificationUploadForm({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const searchParams = useSearchParams()
   const activityId = searchParams.get('id')
+  const toast = useToast()
 
   const getApiEndpoint = (id: string): string => {
     if (pathname.includes('/profile/edit/awards/new')) {
@@ -42,13 +44,13 @@ export default function CertificationUploadForm({
       const validFormats = ['application/pdf', 'image/jpeg', 'image/png']
 
       if (fileSizeInMB > 10) {
-        setErrorMessage('파일 크기가 10MB를 초과합니다.')
+        toast.alert('파일 크기가 10MB를 초과합니다.')
         setSelectedFile(null)
         return
       }
 
       if (!validFormats.includes(file.type)) {
-        setErrorMessage('PDF, JPEG, PNG 형식의 파일만 업로드 가능합니다.')
+        toast.alert('PDF, JPEG, PNG 형식의 파일만 업로드 가능합니다.')
         setSelectedFile(null)
         return
       }
@@ -60,7 +62,7 @@ export default function CertificationUploadForm({
 
   const handleSubmit = async () => {
     if (!selectedFile || !activityId) {
-      setErrorMessage('파일을 업로드 해주세요.')
+      toast.alert('파일을 업로드 해주세요.')
       return
     }
 
@@ -68,7 +70,7 @@ export default function CertificationUploadForm({
     try {
       const endpointType = getApiEndpoint(activityId)
       await requestCertification(activityId, selectedFile, endpointType)
-      alert('인증 요청이 성공적으로 완료되었습니다.')
+      toast.success('인증 요청이 성공적으로 완료되었습니다.')
 
       onCertificationUpdate({
         isActivityCertified: true,
@@ -79,9 +81,9 @@ export default function CertificationUploadForm({
     } catch (error) {
       console.error('요청 중 에러 발생:', error)
       if (error instanceof Error && error.message === '지원하지 않는 URL 경로입니다.') {
-        alert('잘못된 접근입니다.')
+        toast.alert('잘못된 접근입니다.')
       } else {
-        alert('인증 요청 중 오류가 발생했습니다. 다시 시도해주세요.')
+        toast.alert('인증 요청 중 오류가 발생했습니다. 다시 시도해주세요.')
       }
     } finally {
       setIsSubmitting(false)

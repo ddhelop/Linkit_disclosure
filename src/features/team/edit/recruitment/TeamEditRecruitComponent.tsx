@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import { deleteTeamAnnouncement, TeamAnnouncement, toggleTeamAnnouncementPublic } from '../../api/teamApi'
 import Link from 'next/link'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface TeamEditRecruitComponentProps {
   announcement: TeamAnnouncement
@@ -17,6 +18,7 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
   const [isPublic, setIsPublic] = useState(announcement.isAnnouncementPublic)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLDivElement>(null)
+  const toast = useToast()
 
   useEffect(() => {
     setIsPublic(announcement.isAnnouncementPublic)
@@ -35,10 +37,11 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
       if (confirm('정말로 삭제하시겠습니까?')) {
         await deleteTeamAnnouncement(teamName, announcement.teamMemberAnnouncementId)
         onDelete?.()
-        alert('삭제되었습니다.')
+        toast.success('삭제되었습니다.')
       }
     } catch (error) {
       console.error('Failed to delete team announcement', error)
+      toast.alert('삭제에 실패했습니다.')
     }
   }
 
@@ -49,16 +52,16 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
     try {
       const response = await toggleTeamAnnouncementPublic(teamName, announcement.teamMemberAnnouncementId)
       if (response.result.isAnnouncementPublic) {
-        alert('공개로 전환되었습니다.')
+        toast.success('공개로 전환되었습니다.')
         setIsPublic(true)
       } else {
-        alert('비공개로 전환되었습니다.')
+        toast.success('비공개로 전환되었습니다.')
         setIsPublic(false)
       }
       setIsMenuOpen(false)
     } catch (error) {
       console.error('Failed to toggle team announcement public', error)
-      alert('상태 변경에 실패했습니다.')
+      toast.alert('상태 변경에 실패했습니다.')
     }
   }
 
