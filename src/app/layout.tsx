@@ -6,7 +6,6 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 import Scripts from '@/components/script'
 import 'react-toastify/dist/ReactToastify.css'
-import { ToastContainer } from 'react-toastify'
 import Header from '@/widgets/Header/Header'
 import WebSocketInitializer from '@/shared/components/webSocket/WebSocketInitializer'
 
@@ -51,7 +50,6 @@ export default function RootLayout({
       <body className={`${pretendard.className} bg-[#FCFCFD]`}>
         <WebSocketInitializer />
         <Header />
-        <ToastContainer />
         <div className="bg-[#fcfcfd]">{children}</div>
 
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />

@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { useRef, useState, useEffect } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import { deleteTeamAnnouncement, TeamAnnouncement, toggleTeamAnnouncementPublic } from '../../api/teamApi'
-import { toast } from 'react-toastify'
 import Link from 'next/link'
 
 interface TeamEditRecruitComponentProps {
