@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Linkit, 성공을 잇는 팀빌딩 서비스
 
-## Getting Started
+## 🚀 서비스 소개
+![linkit1](https://github.com/user-attachments/assets/a0fba7d0-91aa-44c3-a9a0-8e03bd71463f)
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🕹️ 주요 기능
+### 🦉 1. 팀원 모집 공고작성 및 지원하기
+![linkit2](https://github.com/user-attachments/assets/48b1a878-e90b-4610-82ee-89a36e3ec3c7)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🐸 2. 웹 내 채팅 및 알림 기능
+![linkit3](https://github.com/user-attachments/assets/bf657a4e-41a2-4860-a544-427a7bdf7822)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🐵 3. 팀 생성 및 팀원 초대
+![linkit4](https://github.com/user-attachments/assets/2d1a34f2-a66d-4dfd-a330-1a25aa112ac6)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 🐣 4. 개인 포트폴리오 및 팀 프로덕트 소개
+![linkit5](https://github.com/user-attachments/assets/56d903a2-aff1-43f2-b58a-c5bbeb4802b4)
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## ↘ 배포 링크
+[배포 링크 - main](https://www.linkit.im/)
+[배포 링크 - dev](https://www.liaison-dev.site/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ 기술 스택
+<img width="537" alt="tech" src="https://github.com/user-attachments/assets/8b7408f0-8d9e-4396-baa4-35777bcb0208" />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Developer
+| [김동혁](https://github.com/ddhelop)  |
+|-------|
+| <img width="170" alt="tech" src="https://github.com/user-attachments/assets/7c531a87-b581-41fa-b921-93fe2b77ed0a" />|
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
