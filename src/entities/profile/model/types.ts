@@ -77,6 +77,11 @@ export interface ProfileDetailData {
       cityName: string
       divisionName: string
     }
+    profileTeamInforms: {
+      teamName: string
+      teamCode: string
+      teamLogoImagePath: string
+    }[]
   }
   profileScrapCount: number
   profileLogItem: {

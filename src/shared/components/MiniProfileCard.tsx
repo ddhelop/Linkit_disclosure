@@ -13,6 +13,7 @@ export default function MiniProfileCard() {
   const majorPosition = profileData?.profileInformMenu?.majorPosition || '' // 없으면 빈 문자열
   const cityName = profileData?.profileInformMenu?.regionDetail?.cityName || '' // 없으면 빈 문자열
   const divisionName = profileData?.profileInformMenu?.regionDetail?.divisionName || '구/군 없음'
+  const teamInfo = profileData?.profileInformMenu?.profileTeamInforms
 
   // 블러 처리를 위한 조건
   const isIncomplete = !majorPosition || !cityName
@@ -45,8 +46,18 @@ export default function MiniProfileCard() {
         <div className="mt-5 border-[0.5px] border-grey40"></div>
 
         {/* 팀이 없을때 */}
-        <div className="mt-5 flex gap-1">
-          <p className="text-sm text-grey50">팀이 없습니다.</p>
+        {teamInfo?.length === 0 && <div className="mt-5 text-sm text-grey50">팀이 없습니다.</div>}
+        <div className="mt-5 flex items-center gap-4">
+          {teamInfo?.slice(0, 4).map((team) => (
+            <Link href={`/team/${team.teamCode}/log`} className="relative h-[40px] w-[40px]" key={team.teamCode}>
+              <Image src={team.teamLogoImagePath} layout="fill" alt="team" className="rounded-lg object-cover" />
+            </Link>
+          ))}
+          {teamInfo && teamInfo.length > 4 && (
+            <span className="rounded-full bg-[#D3E1FE] px-2 py-1 text-xs font-medium text-[#4D82F3]">
+              +{teamInfo.length - 4}
+            </span>
+          )}
         </div>
       </div>
 
