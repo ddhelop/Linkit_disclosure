@@ -38,7 +38,8 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
   return (
     <Link
       href={`/${profile.emailId}`}
-      className="flex w-full cursor-pointer flex-col rounded-xl bg-[#EDF3FF] p-[1.37rem] hover:border hover:border-main"
+      className="flex w-full cursor-pointer flex-col rounded-xl border border-transparent bg-[#EDF3FF] p-[1.37rem] hover:border-main"
+      style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
     >
       {/* 첫째줄 */}
       <div className="flex justify-between">
