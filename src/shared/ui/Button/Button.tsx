@@ -78,8 +78,8 @@ export const mainHoverEffect = {
       duration: 0.1, // 애니메이션이 0.1초 동안 진행
       ease: 'easeInOut', // 애니메이션을 부드럽게
     },
-    outline: '4px solid rgba(37, 99, 235, 0.5)',
-    outlineOffset: '0.5px',
+    // 호버시 배경색 어둡게
+    backgroundColor: 'rgba(37, 99, 235, 0.9)',
   },
 }
 
@@ -91,8 +91,7 @@ export const subHoverEffect = {
       duration: 0.1, // 애니메이션이 0.1초 동안 진행
       ease: 'easeInOut', // 애니메이션을 부드럽게
     },
-    outline: '4px solid rgba(37, 99, 235, 0.2)',
-    outlineOffset: '0.5px',
+    backgroundColor: 'rgba(37, 99, 235, 0.9)',
   },
 }
 
@@ -103,8 +102,7 @@ export const blackHoverEffect = {
       duration: 0.1, // 애니메이션이 0.1초 동안 진행
       ease: 'easeInOut', // 애니메이션을 부드럽게
     },
-    outline: '4px solid rgba(0, 0, 0, 0.5)',
-    outlineOffset: '0.5px',
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
   },
 }
 
@@ -115,8 +113,11 @@ export const greyHoverEffect = {
       duration: 0.1, // 애니메이션이 0.1초 동안 진행
       ease: 'easeInOut', // 애니메이션을 부드럽게
     },
-    outline: '4px solid rgba(69, 69, 69, 0.2)',
-    outlineOffset: '0.5px',
+
+    backgroundColor: 'rgba(69, 69, 69, 0.9)',
+
+    // outline: '4px solid rgba(69, 69, 69, 0.2)',
+    // outlineOffset: '0.5px',
   },
 }
 
