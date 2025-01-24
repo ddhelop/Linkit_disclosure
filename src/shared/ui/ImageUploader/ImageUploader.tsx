@@ -78,7 +78,7 @@ export function ImageUploader({
             className="h-[115px] w-[204px] rounded-lg object-cover"
           />
         ) : (
-          <div className="flex h-[115px] w-[204px] items-center justify-center rounded-lg border-2 border-dashed border-grey30 bg-grey10">
+          <div className="flex h-[115px] w-[204px] items-center justify-center rounded-lg bg-grey10">
             <Image
               src="/common/images/no_thumbnail.svg"
               width={204}
