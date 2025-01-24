@@ -25,7 +25,7 @@ export default function PositionFilter({
   onSelect,
   onRemove,
 }: PositionFilterProps) {
-  const positions = ['기획', '디자인', '마케팅', '프론트엔드', '백엔드']
+  const positions = ['창업·비즈니스', '개발', '디자인', '기획', '마케팅·광고', '투자자']
   const filteredPositions = positions.filter((position) => position.toLowerCase().includes(searchText.toLowerCase()))
 
   return (
