@@ -197,17 +197,21 @@ export default function LogWriteForm() {
           {/* 에디터 */}
           <div className="mt-6 flex flex-col gap-3">
             <span className="font-semibold text-grey80">내용</span>
-            <EditorToolbar />
-            <ReactQuill
-              ref={QuillRef}
-              value={contents}
-              onChange={setContents}
-              modules={modules}
-              formats={formats}
-              theme="snow"
-              placeholder="팀과 팀원들에게 도움이 될 수 있는 나의 장점과 강점 등을 소개해 주세요"
-              className="min-h-[600px] min-w-[430px]"
-            />
+            <div className="relative overflow-hidden rounded-xl border border-grey30">
+              <div className="sticky top-0 z-50 bg-white">
+                <EditorToolbar />
+              </div>
+              <ReactQuill
+                ref={QuillRef}
+                value={contents}
+                onChange={setContents}
+                modules={modules}
+                formats={formats}
+                theme="snow"
+                placeholder="팀과 팀원들에게 도움이 될 수 있는 나의 장점과 강점 등을 소개해 주세요"
+                className="min-h-[600px] w-full bg-white"
+              />
+            </div>
           </div>
         </div>
 

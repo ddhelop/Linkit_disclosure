@@ -43,7 +43,9 @@ export default function ProfileEditClient({ children }: ProfileEditClientProps) 
             <LeftMenu />
           </div>
         </aside>
-        <main className="ml-[28%] min-h-[calc(100vh-4rem)] w-3/4 bg-[#EDF3FF] pb-32 pr-[8.69rem]">{children}</main>
+        <main className="ml-[28%] min-h-[calc(100vh-4rem)] w-full bg-[#EDF3FF] px-[4.25rem] pb-32 pt-[3.75rem] lg:pr-[13.69rem]">
+          {children}
+        </main>
       </div>
     </ProfileEditProvider>
   )

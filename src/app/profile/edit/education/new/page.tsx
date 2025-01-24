@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function ProfileEditEducationPage() {
   return (
-    <div className="pl-[4.25rem] pr-[8.69rem] pt-[3.75rem]">
+    <>
       <Link href="/profile/edit/education" className="flex items-center gap-2">
         <Image src="/common/icons/arrow-left.svg" width={24} height={24} alt="뒤로가기" />
         <label className="text-xl font-bold">학력</label>
@@ -13,6 +13,6 @@ export default function ProfileEditEducationPage() {
       <div className="mt-5 rounded-xl">
         <NewEducation />
       </div>
-    </div>
+    </>
   )
 }
