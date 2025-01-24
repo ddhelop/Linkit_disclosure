@@ -67,3 +67,15 @@ export const getPortfolioById = async (portfolioId: string) => {
 
   return response.json()
 }
+
+export const deletePortfolio = async (portfolioId: number) => {
+  const response = await fetchWithAuth(`/api/v1/profile/portfolio/${portfolioId}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to delete portfolio')
+  }
+
+  return response.json()
+}
