@@ -7,7 +7,7 @@ export default function MiniProfileCard() {
   const { profileData } = useProfileView()
 
   // 필요한 데이터 추출
-  const profileState = profileData?.profileInformMenu?.profileCurrentStates[0]?.profileStateName || '상태 없음'
+  const profileState = profileData?.profileInformMenu?.profileCurrentStates || null
   const profileImagePath = profileData?.profileInformMenu?.profileImagePath || '/common/default_profile.svg'
   const memberName = profileData?.profileInformMenu?.memberName || '이름 없음'
   const majorPosition = profileData?.profileInformMenu?.majorPosition || '' // 없으면 빈 문자열
@@ -24,7 +24,16 @@ export default function MiniProfileCard() {
       <div className={`relative ${isIncomplete ? 'blur-sm' : ''}`}>
         {/* 뱃지 */}
         <div className="flex gap-2">
-          <div className="rounded-[0.38rem] bg-[#4D82F3] px-2 py-1 text-xs text-white">{profileState}</div>
+          {profileState?.slice(0, 2).map((state) => (
+            <div className="rounded-[0.38rem] bg-[#4D82F3] px-2 py-1 text-xs text-white" key={state.profileStateName}>
+              {state.profileStateName}
+            </div>
+          ))}
+          {profileState && profileState.length > 2 && (
+            <span className="rounded-full bg-[#D3E1FE] px-2 py-1 text-xs font-medium text-[#4D82F3]">
+              +{profileState.length - 2}
+            </span>
+          )}
         </div>
 
         {/* 프로필(개인) */}
