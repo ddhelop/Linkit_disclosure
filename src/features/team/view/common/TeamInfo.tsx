@@ -14,6 +14,7 @@ interface TeamData {
   teamInformMenu: {
     teamCode: string
     isTeamScrap: boolean
+    isTeamMatching: boolean
     teamCurrentStates: Array<{ teamStateName: string }>
     teamName: string
     teamShortDescription: string
@@ -33,6 +34,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
   const [isLoading, setIsLoading] = useState(true)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
   const [isTeamScrap, setIsTeamScrap] = useState(false)
+  const [isTeamMatching, setIsTeamMatching] = useState(false)
   const router = useRouter()
   const toast = useToast()
 
@@ -58,6 +60,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
         if (response.isSuccess) {
           setTeamData(response.result)
           setIsTeamScrap(response.result.teamInformMenu.isTeamScrap)
+          setIsTeamMatching(response.result.teamInformMenu.isTeamMatching)
         }
       } catch (error) {
         console.error('Failed to fetch team data:', error)
@@ -173,14 +176,23 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
                 width={20}
                 height={20}
               />
-              <span className="text-sm font-semibold text-[#4D82F3]">스크랩 하기</span>
+              <span className="text-sm font-semibold text-[#4D82F3]">
+                {isTeamScrap ? '스크랩 취소' : '스크랩 하기'}
+              </span>
             </div>
             <div
               onClick={onClickMatching}
               className="flex w-[19rem] cursor-pointer justify-center gap-3 rounded-full bg-[#D3E1FE] px-[1.38rem] py-3"
             >
-              <Image src="/common/icons/send.svg" alt="scrap" width={20} height={20} />
-              <span className="text-sm font-semibold text-[#4D82F3]">매칭 요청하기</span>
+              <Image
+                src={isTeamMatching ? '/common/icons/send.svg' : '/common/icons/not_send.svg'}
+                alt="scrap"
+                width={20}
+                height={20}
+              />
+              <span className="text-sm font-semibold text-[#4D82F3]">
+                {isTeamMatching ? '요청 전송완료' : '매칭 요청하기'}
+              </span>
             </div>
           </div>
         )}

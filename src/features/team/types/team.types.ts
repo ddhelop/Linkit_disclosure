@@ -40,6 +40,7 @@ export interface TeamInfoResponse {
       teamCode: string
       teamScrapCount: number
       isTeamScrap: boolean
+      isTeamMatching: boolean
       teamCurrentStates: Array<{ teamStateName: string }>
       teamName: string
       teamShortDescription: string
