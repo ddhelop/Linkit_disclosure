@@ -29,7 +29,7 @@ export default function ProfileViewLinks() {
   return (
     <EditableContainer
       isEditable={isMyProfile}
-      editPath="/profile/edit/link"
+      editPath="/profile/edit/links"
       className="flex w-[95%] flex-col gap-5 rounded-xl bg-white px-[2.75rem] py-[1.88rem]"
     >
       <h1 className="font-semibold">링크</h1>

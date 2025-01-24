@@ -10,6 +10,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
 import CertificationForm from './CertificationForm'
 import { useToast } from '@/shared/hooks/useToast'
+import Image from 'next/image'
 
 export default function NewEducation() {
   const toast = useToast()
@@ -153,7 +154,7 @@ export default function NewEducation() {
           />
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex w-full flex-col gap-3">
           <DateRangePicker
             startDate={startDate}
             endDate={endDate}
@@ -161,7 +162,7 @@ export default function NewEducation() {
             onStartDateChange={setStartDate}
             onEndDateChange={setEndDate}
             onToggleOngoing={handleOngoingToggle}
-            ongoingLabel="재학중"
+            ongoingLabel="재학 중"
           />
         </div>
 

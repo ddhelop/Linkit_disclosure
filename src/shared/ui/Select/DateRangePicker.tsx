@@ -24,7 +24,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
   onEndDateChange,
   onToggleOngoing,
   ongoingLabel = '진행 중',
-  ongoingClassName = 'text-grey70',
+  ongoingClassName = 'text-grey70 cursor-pointer',
 }) => {
   const [localStartDate, setLocalStartDate] = useState(startDate)
   const [localEndDate, setLocalEndDate] = useState(endDate)
@@ -99,7 +99,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex w-full flex-col gap-3">
       <span className="flex w-[10.6rem]">
         기간<span className="text-main">*</span>
       </span>
@@ -121,18 +121,39 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
           disabled={isOngoing}
         />
       </div>
-      <div className="flex cursor-pointer gap-2" onClick={handleOngoingToggle}>
-        <div
-          className={`rounded-[0.32rem] border p-[0.32rem] ${isOngoing ? 'bg-[#D3E1FE]' : 'border-grey40 bg-grey20'}`}
-        >
-          <Image
-            src={`/common/icons/${isOngoing ? 'btn_blue_check.svg' : 'btn_check.svg'}`}
-            width={13}
-            height={13}
-            alt="check-icon"
-          />
+      <div className="flex w-full gap-2" onClick={handleOngoingToggle}>
+        <div className="flex w-full items-center gap-2">
+          <div
+            className={`cursor-pointer rounded-[0.32rem] border p-[0.32rem] ${
+              isOngoing ? 'bg-[#D3E1FE]' : 'border-grey40 bg-grey20'
+            }`}
+          >
+            <Image
+              src={`/common/icons/${isOngoing ? 'btn_blue_check.svg' : 'btn_check.svg'}`}
+              width={13}
+              height={13}
+              alt="check-icon"
+            />
+          </div>
+          <span className={ongoingClassName}>{ongoingLabel}</span>
+          {ongoingLabel === '재학 중' && (
+            <div className="group relative">
+              <Image
+                src="/common/icons/info.svg"
+                alt="info"
+                width={16}
+                height={16}
+                className="cursor-pointer text-grey80"
+              />
+              <div
+                className="absolute left-20 top-[calc(100%+0.5rem)] hidden -translate-x-1/2 whitespace-nowrap rounded-lg border border-grey30 bg-white p-3 text-xs text-grey70 group-hover:block"
+                style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
+              >
+                재학 중에는 휴학도 포함됩니다
+              </div>
+            </div>
+          )}
         </div>
-        <span className={ongoingClassName}>{ongoingLabel}</span>
       </div>
     </div>
   )
