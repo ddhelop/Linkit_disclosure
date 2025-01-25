@@ -1,8 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useState, useCallback } from 'react'
-import { getTeamAnnouncementDetail } from '../../api/teamViewApi'
 import { TeamAnnouncementDetail } from '../../api/teamApi'
 
 function calculateDday(endDate: string): string {
@@ -19,42 +17,31 @@ function calculateDday(endDate: string): string {
   return `D-${diffDays}`
 }
 
-export default function TeamViewRecruitDetail({ teamName, id }: { teamName: string; id: string }) {
-  const [data, setData] = useState<TeamAnnouncementDetail | null>(null)
+interface TeamViewRecruitDetailProps {
+  recruitmentDetail: TeamAnnouncementDetail['result']
+}
 
-  const fetchData = useCallback(async () => {
-    try {
-      const response = await getTeamAnnouncementDetail(teamName, id)
-      setData(response.result)
-    } catch (error) {
-      console.error('Failed to fetch announcement detail:', error)
-    }
-  }, [teamName, id])
-
-  useEffect(() => {
-    fetchData()
-  }, [fetchData])
-
+export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRecruitDetailProps) {
   return (
     <div className="flex flex-col rounded-xl border border-grey30 bg-white px-[3.38rem] py-10">
       <div className="flex justify-between">
         <div className="rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">
-          {data && calculateDday(data.announcementEndDate)}
+          {calculateDday(recruitmentDetail.announcementEndDate)}
         </div>
         <div className="flex gap-2">
           <Image src="/common/icons/save.svg" alt="save" width={20} height={20} className="cursor-pointer" />
-          <span className="text-main">{data?.announcementScrapCount}</span>
+          <span className="text-main">{recruitmentDetail.announcementScrapCount}</span>
         </div>
       </div>
 
-      <span className="mt-3 text-2xl font-semibold text-grey90">{data && data.announcementTitle}</span>
+      <span className="mt-3 text-2xl font-semibold text-grey90">{recruitmentDetail.announcementTitle}</span>
 
       <div className="mt-3 flex gap-3">
         <div className="rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-[#2563EB]">
-          {data && data.announcementPositionItem.majorPosition}
+          {recruitmentDetail.announcementPositionItem.majorPosition}
         </div>
         {/*  */}
-        {data?.announcementSkillNames.map((skill) => (
+        {recruitmentDetail.announcementSkillNames.map((skill) => (
           <div
             key={skill.announcementSkillName}
             className="rounded-[0.38rem] bg-[#EDF3FF] px-4 py-1 text-sm text-[#2563EB]"
@@ -68,45 +55,45 @@ export default function TeamViewRecruitDetail({ teamName, id }: { teamName: stri
 
       {/* 내용 */}
       <div className="mt-[3.62rem] flex flex-col gap-12">
-        {data?.mainTasks && (
+        {recruitmentDetail.mainTasks && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">주요업무</h3>
-            <span className="mt-3 pl-1 text-grey80">{data.mainTasks}</span>
+            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.mainTasks}</span>
           </div>
         )}
 
-        {data?.benefits && (
+        {recruitmentDetail.benefits && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">혜택</h3>
-            <span className="mt-3 pl-1 text-grey80">{data.benefits}</span>
+            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.benefits}</span>
           </div>
         )}
 
-        {data?.idealCandidate && (
+        {recruitmentDetail.idealCandidate && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">이런 분을 찾습니다</h3>
-            <span className="mt-3 pl-1 text-grey80">{data.idealCandidate}</span>
+            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.idealCandidate}</span>
           </div>
         )}
 
-        {data?.preferredQualifications && (
+        {recruitmentDetail.preferredQualifications && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">우대사항</h3>
-            <span className="mt-3 pl-1 text-grey80">{data.preferredQualifications}</span>
+            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.preferredQualifications}</span>
           </div>
         )}
 
-        {data?.joiningProcess && (
+        {recruitmentDetail.joiningProcess && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">합류 과정</h3>
-            <span className="mt-3 pl-1 text-grey80">{data.joiningProcess}</span>
+            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.joiningProcess}</span>
           </div>
         )}
 
-        {data?.workMethod && (
+        {recruitmentDetail.workMethod && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">근무 방식</h3>
-            <span className="mt-3 pl-1 text-grey80">{data.workMethod}</span>
+            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.workMethod}</span>
           </div>
         )}
       </div>

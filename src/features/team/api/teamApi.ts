@@ -442,25 +442,30 @@ export interface TeamAnnouncement {
   announcementEndDate: string
 }
 export interface TeamAnnouncementDetail {
-  teamMemberAnnouncementId: number
-  announcementTitle: string
-  announcementScrapCount: number
-  announcementPositionItem: {
-    majorPosition: string
-    subPosition: string
+  isSuccess: boolean
+  code: string
+  message: string
+  result: {
+    teamMemberAnnouncementId: number
+    announcementTitle: string
+    announcementScrapCount: number
+    announcementPositionItem: {
+      majorPosition: string
+      subPosition: string
+    }
+    announcementSkillNames: {
+      announcementSkillName: string
+    }[]
+    isAnnouncementPublic: boolean
+    isAnnouncementInProgress: boolean
+    announcementEndDate: string
+    mainTasks: string
+    workMethod: string
+    idealCandidate: string
+    preferredQualifications?: string
+    joiningProcess?: string
+    benefits?: string
   }
-  announcementSkillNames: {
-    announcementSkillName: string
-  }[]
-  isAnnouncementPublic: boolean
-  isAnnouncementInProgress: boolean
-  announcementEndDate: string
-  mainTasks: string
-  workMethod: string
-  idealCandidate: string
-  preferredQualifications?: string
-  joiningProcess?: string
-  benefits?: string
 }
 
 interface TeamAnnouncementResponse {
@@ -538,32 +543,6 @@ export async function toggleTeamAnnouncementPublic(teamName: string, announcemen
   }
 
   return response.json()
-}
-
-export interface TeamAnnouncementDetail {
-  isSuccess: boolean
-  code: string
-  message: string
-  result: {
-    teamMemberAnnouncementId: number
-    announcementTitle: string
-    announcementPositionItem: {
-      majorPosition: string
-      subPosition: string
-    }
-    announcementSkillNames: {
-      announcementSkillName: string
-    }[]
-    announcementStartDate: string
-    announcementEndDate: string
-    isRegionFlexible: boolean
-    mainTasks: string
-    workMethod: string
-    idealCandidate: string
-    preferredQualifications?: string
-    joiningProcess?: string
-    benefits?: string
-  }
 }
 
 export async function getTeamAnnouncement(teamName: string, id: number): Promise<TeamAnnouncementDetail> {
