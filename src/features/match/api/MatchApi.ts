@@ -178,6 +178,7 @@ interface MatchingRequest {
   receiverEmailId?: string
   receiverTeamCode?: string
   requestMessage: string
+  receiverAnnouncementId?: number
 }
 
 export const sendMatchingRequest = async (requestData: MatchingRequest) => {

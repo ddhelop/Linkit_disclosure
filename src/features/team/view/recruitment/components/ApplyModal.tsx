@@ -7,6 +7,9 @@ import { TeamInfoResponse } from '@/features/team/types/team.types'
 import { Button } from '@/shared/ui/Button/Button'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import { TeamAnnouncementDetail } from '@/features/team/api/teamApi'
+import { sendMatchingRequest } from '@/features/match/api/MatchApi'
+import { useAuthStore } from '@/shared/store/useAuthStore'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface ApplyModalProps {
   teamInfo: TeamInfoResponse['result']['teamInformMenu']
@@ -17,12 +20,39 @@ interface ApplyModalProps {
 export default function ApplyModal({ teamInfo, recruitmentDetail, onClose }: ApplyModalProps) {
   const modalRef = useRef<HTMLDivElement>(null)
   const [applyMessage, setApplyMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const { emailId } = useAuthStore()
+  const toast = useToast()
 
   useOnClickOutside({
     refs: [modalRef],
     handler: onClose,
     isEnabled: true,
   })
+
+  const handleApply = async () => {
+    if (!emailId) return
+
+    try {
+      setIsLoading(true)
+      const response = await sendMatchingRequest({
+        senderType: 'PROFILE',
+        receiverType: 'TEAM',
+        senderEmailId: emailId,
+        receiverTeamCode: teamInfo.teamCode,
+        receiverAnnouncementId: recruitmentDetail.teamMemberAnnouncementId,
+        requestMessage: applyMessage,
+      })
+      if (response.isSuccess) {
+        toast.success('지원 요청이 완료되었습니다.')
+        onClose()
+      }
+    } catch (error) {
+      console.error('Failed to send matching request:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40">
@@ -76,11 +106,11 @@ export default function ApplyModal({ teamInfo, recruitmentDetail, onClose }: App
         <p className="mt-3 text-xs text-grey50">필요한 자료들은 내 프로필에 업로드 후 지원해 주세요</p>
 
         {/* 버튼 영역 */}
-        <div className="mt-3 flex gap-3">
+        <div className="mt-8 flex gap-3">
           <Button
             mode="custom"
             size="custom"
-            className="flex-1 rounded-xl bg-grey30 py-4 font-normal text-grey80"
+            className="flex-1 rounded-xl bg-grey30 py-4 text-base font-normal text-grey80"
             onClick={onClose}
           >
             취소하기
@@ -88,12 +118,11 @@ export default function ApplyModal({ teamInfo, recruitmentDetail, onClose }: App
           <Button
             mode="main"
             size="custom"
-            className="flex-1 rounded-xl py-4 text-base"
-            onClick={() => {
-              console.log('공고 지원하기', applyMessage)
-            }}
+            className="flex-1 rounded-xl py-4 text-base font-semibold"
+            disabled={isLoading}
+            onClick={handleApply}
           >
-            공고 지원하기
+            {isLoading ? '지원 중...' : '공고 지원하기'}
           </Button>
         </div>
       </div>
