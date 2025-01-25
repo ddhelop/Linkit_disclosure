@@ -85,7 +85,7 @@ export default function Header() {
                     alt="arrow"
                   />
                 </button>
-                {isModalOpen && <ProfileMenu />}
+                {isModalOpen && <ProfileMenu onClose={() => setIsModalOpen(false)} />}
               </div>
             ) : (
               <div className="hidden gap-[1.38rem] font-semibold md:flex">
@@ -93,7 +93,7 @@ export default function Header() {
               </div>
             )
           ) : isLogin ? (
-            <UserMenu isModalOpen={isModalOpen} toggleModal={toggleModal} />
+            <UserMenu />
           ) : (
             <GuestMenu />
           )}

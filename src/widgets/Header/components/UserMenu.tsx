@@ -2,31 +2,41 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import ProfileMenu from './ProfileMenu'
 import NotificationMenu from './NotificationMenu'
 import useNotificationStore from '@/shared/store/useNotificationStore'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 import useNotificationSubscription from '@/shared/components/webSocket/useNotificationSubscription'
+import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 
-interface UserMenuProps {
-  isModalOpen: boolean
-  toggleModal: () => void
-}
-
-export default function UserMenu({ isModalOpen, toggleModal }: UserMenuProps) {
+export default function UserMenu() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [isNotificationOpen, setIsNotificationOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
   const { emailId } = useAuthStore()
   const unreadChatCount = useNotificationStore((state) => state.unreadChatCount)
   const unreadNotificationCount = useNotificationStore((state) => state.unreadNotificationCount)
   useNotificationSubscription(emailId || '')
+
+  useOnClickOutside({
+    refs: [menuRef, buttonRef],
+    handler: () => setIsModalOpen(false),
+    isEnabled: true,
+  })
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen)
+  }
 
   const toggleNotification = () => {
     setIsNotificationOpen(!isNotificationOpen)
   }
 
   return (
-    <div className="relative hidden gap-[2rem] md:flex">
+    <div className="flex items-center gap-[2rem]">
       <div className="flex gap-5">
         <Link href="/chat">
           <div className="relative flex cursor-pointer items-center">
@@ -49,20 +59,27 @@ export default function UserMenu({ isModalOpen, toggleModal }: UserMenuProps) {
         </div>
       </div>
 
-      <button
-        className="toggle-button flex items-center rounded-[1.38rem] py-[0.38rem] pr-[1.62rem]"
-        onClick={toggleModal}
-      >
-        <p>마이페이지</p>
-        <Image
-          src={isModalOpen ? '/common/icons/up_arrow.svg' : '/common/icons/under_arrow.svg'}
-          width={24}
-          height={24}
-          alt="arrow"
-        />
-      </button>
+      <div className="relative w-[6.5rem]">
+        <button
+          ref={buttonRef}
+          className="flex w-full items-center justify-between whitespace-nowrap rounded-[1.38rem] px-4 py-[0.38rem]"
+          onClick={toggleModal}
+        >
+          <span className="font-medium text-grey80">마이페이지</span>
+          <Image
+            src={isModalOpen ? '/common/icons/up_arrow.svg' : '/common/icons/under_arrow.svg'}
+            width={24}
+            height={24}
+            alt="arrow"
+          />
+        </button>
 
-      {isModalOpen && <ProfileMenu />}
+        {isModalOpen && (
+          <div ref={menuRef}>
+            <ProfileMenu onClose={() => setIsModalOpen(false)} />
+          </div>
+        )}
+      </div>
     </div>
   )
 }
