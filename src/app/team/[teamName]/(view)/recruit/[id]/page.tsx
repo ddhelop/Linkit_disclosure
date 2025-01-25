@@ -41,16 +41,18 @@ export default function TeamViewRecruitDetailPage({ params }: { params: { teamNa
       </div>
 
       {/* 플로팅 버튼 */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2">
-        <Button
-          mode="main"
-          size="custom"
-          className="w-[12.5rem] rounded-xl py-4 text-base font-semibold hover:bg-[#486FEE]"
-          onClick={() => setShowApplyModal(true)}
-        >
-          지원하기
-        </Button>
-      </div>
+      {!teamInfo?.result.isMyTeam && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2">
+          <Button
+            mode="main"
+            size="custom"
+            className="w-[12.5rem] rounded-xl py-4 text-base font-semibold hover:bg-[#486FEE]"
+            onClick={() => setShowApplyModal(true)}
+          >
+            지원하기
+          </Button>
+        </div>
+      )}
 
       {/* 지원하기 모달 */}
       {showApplyModal && teamInfo && recruitmentDetail && (
