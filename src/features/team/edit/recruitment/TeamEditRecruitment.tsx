@@ -9,8 +9,6 @@ import { SearchDropdown } from '@/shared/ui/SearchDropdown/SearchDropdown'
 import Select from '@/shared/ui/Select/Select'
 import { toolsData } from '@/shared/data/tools'
 
-import { useDateRange } from '@/shared/hooks/useDateRange'
-import DateRange from '@/shared/ui/Input/DateRange'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import { Button } from '@/shared/ui/Button/Button'
 import Image from 'next/image'
@@ -43,7 +41,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
   } = usePositionSelect()
 
   const [selectedSkills, setSelectedSkills] = useState<string[]>([])
-  const { startDate, endDate, setStartDate, setEndDate } = useDateRange()
+  const [endDate, setEndDate] = useState('')
   const [isExpanded, setIsExpanded] = useState(false)
   const [title, setTitle] = useState('')
   const [mainTasks, setMainTasks] = useState('')
@@ -63,10 +61,44 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
     setSelectedSkills(selectedSkills.filter((skill) => skill !== skillToRemove))
   }
 
+  const formatDateInput = (input: string) => {
+    const numbers = input.replace(/\D/g, '')
+    if (numbers.length <= 4) {
+      return numbers
+    } else if (numbers.length <= 6) {
+      return `${numbers.slice(0, 4)}.${numbers.slice(4, 6)}`
+    } else {
+      return `${numbers.slice(0, 4)}.${numbers.slice(4, 6)}.${numbers.slice(6, 8)}`
+    }
+  }
+
+  const validateDate = (date: string) => {
+    if (!date) return true
+    const regex = /^\d{4}\.(0[1-9]|1[0-2])\.(0[1-9]|[12]\d|3[01])$/
+    if (!regex.test(date)) return false
+
+    const [year, month, day] = date.split('.').map(Number)
+    const currentYear = new Date().getFullYear()
+
+    // 날짜 유효성 검사
+    const dateObj = new Date(year, month - 1, day)
+    return (
+      year >= 1900 &&
+      year <= currentYear + 1 && // 현재 년도 + 1년까지 허용
+      dateObj.getFullYear() === year &&
+      dateObj.getMonth() === month - 1 &&
+      dateObj.getDate() === day
+    )
+  }
+
+  const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatDateInput(e.target.value)
+    setEndDate(formatted)
+  }
+
   const handleSubmit = async () => {
     try {
-      const formattedStartDate = new Date(startDate).toISOString().split('T')[0]
-      const formattedEndDate = new Date(endDate).toISOString().split('T')[0]
+      const formattedEndDate = new Date(endDate.replace('.', '-')).toISOString().split('T')[0]
 
       const recruitmentData = {
         announcementTitle: title,
@@ -75,7 +107,6 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
         announcementSkillNames: selectedSkills.map((skill) => ({
           announcementSkillName: skill,
         })),
-        announcementStartDate: formattedStartDate,
         announcementEndDate: formattedEndDate,
         cityName: '', // 활동 지역 관련 state 추가 필요
         divisionName: '', // 활동 지역 관련 state 추가 필요
@@ -118,7 +149,6 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
           setSelectedCategory(data.result.announcementPositionItem.majorPosition)
           setSelectedSubCategory(data.result.announcementPositionItem.subPosition)
           setSelectedSkills(data.result.announcementSkillNames.map((skill) => skill.announcementSkillName))
-          setStartDate(data.result.announcementStartDate)
           setEndDate(data.result.announcementEndDate)
           setMainTasks(data.result.mainTasks)
           setWorkMethod(data.result.workMethod)
@@ -153,7 +183,6 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
           subPosition: selectedSubCategory,
         },
         announcementSkillNames: selectedSkills,
-        announcementStartDate: startDate,
         announcementEndDate: endDate,
         mainTasks,
         workMethod,
@@ -172,7 +201,6 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
         selectedCategory !== '' &&
         selectedSubCategory !== '' &&
         selectedSkills.length > 0 &&
-        startDate !== '' &&
         endDate !== '' &&
         mainTasks.trim() !== '' &&
         workMethod.trim() !== '' &&
@@ -187,7 +215,6 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
     selectedCategory,
     selectedSubCategory,
     selectedSkills,
-    startDate,
     endDate,
     mainTasks,
     workMethod,
@@ -285,15 +312,10 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <span className="text-grey80">
-              모집 기간<span className="pl-1 text-main">*</span>
+              모집 마감일<span className="pl-1 text-main">*</span>
             </span>
           </div>
-          <DateRange
-            startDate={startDate}
-            endDate={endDate}
-            onStartDateChange={setStartDate}
-            onEndDateChange={setEndDate}
-          />
+          <Input placeholder="YYYY.MM.DD" value={endDate} onChange={handleEndDateChange} maxLength={10} />
         </div>
 
         <hr />

@@ -221,7 +221,6 @@ interface CreateRecruitmentRequest {
   majorPosition: string
   subPosition: string
   announcementSkillNames: AnnouncementSkill[]
-  announcementStartDate: string
   announcementEndDate: string
   cityName: string
   divisionName: string
