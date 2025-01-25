@@ -1,4 +1,6 @@
+'use client'
 import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
+import { EditableContainer } from '@/features/profile/view/component/common/EditableContainer'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -14,14 +16,18 @@ export default function MiniProfileCard() {
   const cityName = profileData?.profileInformMenu?.regionDetail?.cityName || '' // 없으면 빈 문자열
   const divisionName = profileData?.profileInformMenu?.regionDetail?.divisionName || '구/군 없음'
   const teamInfo = profileData?.profileInformMenu?.profileTeamInforms
-
+  const isMyProfile = profileData?.isMyProfile
   // 블러 처리를 위한 조건
   const isIncomplete = !majorPosition || !cityName
 
   return (
-    <div className="relative h-[14.5rem] w-[17.5rem] rounded-xl bg-[#EDF3FF] px-6 py-5">
+    <EditableContainer
+      isEditable={isMyProfile}
+      editPath="/profile/edit/basic"
+      className="group relative h-[14.5rem] w-[17.5rem] rounded-xl bg-[#EDF3FF] px-6 py-5"
+    >
       {/* 카드의 내용이 블러 처리되도록 조건부 클래스 적용 */}
-      <div className={`relative ${isIncomplete ? 'blur-sm' : ''}`}>
+      <div className={`relative z-0 ${isIncomplete ? 'blur-sm' : ''}`}>
         {/* 뱃지 */}
         <div className="flex gap-2">
           {profileState?.slice(0, 2).map((state) => (
@@ -72,7 +78,7 @@ export default function MiniProfileCard() {
 
       {/* 미니 프로필이 완성되지 않았을 때 표시되는 오버레이 알림 */}
       {isIncomplete && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center rounded-xl border bg-white bg-opacity-90">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-xl border bg-white bg-opacity-90">
           <p className="text-lg font-semibold text-gray-800">앗! 아직 미니프로필이 없어요</p>
           <p className="mt-2 text-center text-sm text-gray-600">
             정보를 입력하고 나에게 맞는
@@ -84,6 +90,6 @@ export default function MiniProfileCard() {
           </Link>
         </div>
       )}
-    </div>
+    </EditableContainer>
   )
 }

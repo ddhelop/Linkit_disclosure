@@ -14,7 +14,7 @@ export function EditableContainer({ children, isEditable = false, editPath, clas
       {isEditable && editPath && (
         <Link
           href={editPath}
-          className="absolute right-4 top-4 opacity-0 transition-opacity duration-300 group-hover/container:opacity-100"
+          className="absolute right-4 top-4 z-50 opacity-0 transition-opacity duration-300 group-hover/container:opacity-100"
         >
           <Image src={'/common/icons/editable.svg'} alt="edit" width={32} height={32} className="" />
         </Link>
