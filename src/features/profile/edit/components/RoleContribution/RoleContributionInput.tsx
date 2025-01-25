@@ -28,7 +28,7 @@ export const RoleContributionInput = ({
   onContributionChange,
 }: RoleContributionInputProps) => {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 ">
       <div className="flex justify-between">
         <div className="flex items-center">
           역할 및 기여도<span className="text-main">*</span>
@@ -49,7 +49,7 @@ export const RoleContributionInput = ({
               value={role.contribution}
               onChange={(value) => onContributionChange(index, value)}
               options={contributionOptions}
-              placeholder="기여도"
+              placeholder="선택"
               className="w-[7rem] rounded-xl bg-white"
             />
             {roles.length > 1 && (

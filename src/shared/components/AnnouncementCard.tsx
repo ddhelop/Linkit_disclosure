@@ -5,11 +5,13 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { announcementScrap } from '../api/commonApi'
 import Link from 'next/link'
+import { useToast } from '../hooks/useToast'
 
 export default function AnnouncementCard({ announcement }: { announcement: Announcement }) {
   const [isScrap, setIsScrap] = useState(announcement?.isAnnouncementScrap ?? false)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
   const [scrapCount, setScrapCount] = useState(announcement?.announcementScrapCount)
+  const toast = useToast()
 
   const handleScrap = async (e: React.MouseEvent<HTMLImageElement>) => {
     e.preventDefault() // Link 컴포넌트의 기본 동작 방지
@@ -21,9 +23,11 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
       if (response.ok) {
         setIsScrap(!isScrap)
         setScrapCount((prev) => (isScrap ? prev - 1 : prev + 1))
+        toast.success('스크랩 상태가 변경되었습니다.')
       }
     } catch (error) {
       console.error('Failed to update scrap:', error)
+      toast.alert('오류가 발생하였습니다.')
     } finally {
       setIsScrapLoading(false)
     }
