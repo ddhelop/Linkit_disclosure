@@ -27,6 +27,13 @@ export default function NewAwards() {
     isActivityVerified: false,
     activityCertificationAttachFilePath: null as string | null,
   })
+  const [originalData, setOriginalData] = useState({
+    awardsName: '',
+    awardsRanking: '',
+    awardsDate: '',
+    awardsOrganizer: '',
+    awardsDescription: '',
+  })
 
   useEffect(() => {
     const fetchAwardDetails = async () => {
@@ -39,6 +46,15 @@ export default function NewAwards() {
         setAwardDate(awardDetails.awardsDate)
         setHostOrganization(awardDetails.awardsOrganizer)
         setDescription(awardDetails.awardsDescription)
+
+        // 원본 데이터 저장
+        setOriginalData({
+          awardsName: awardDetails.awardsName,
+          awardsRanking: awardDetails.awardsRanking,
+          awardsDate: awardDetails.awardsDate,
+          awardsOrganizer: awardDetails.awardsOrganizer,
+          awardsDescription: awardDetails.awardsDescription,
+        })
 
         // 증명서 상태 설정
         setCertificationData({
@@ -55,10 +71,21 @@ export default function NewAwards() {
     fetchAwardDetails()
   }, [awardId])
 
+  const hasChanges = () => {
+    if (!awardId) return true // 새로운 수상이력 생성 시에는 항상 true
+
+    return (
+      competitionName !== originalData.awardsName ||
+      awardRank !== originalData.awardsRanking ||
+      awardDate !== originalData.awardsDate ||
+      hostOrganization !== originalData.awardsOrganizer ||
+      description !== originalData.awardsDescription
+    )
+  }
+
   const handleSave = async () => {
     try {
       setIsSubmitting(true)
-
       const awardsData = {
         awardsName: competitionName,
         awardsRanking: awardRank,
@@ -69,12 +96,13 @@ export default function NewAwards() {
 
       if (awardId) {
         await updateAwards(awardId, awardsData)
+        setOriginalData(awardsData) // 저장 성공 후 현재 데이터를 원본 데이터로 설정
         toast.success('수상 이력이 성공적으로 저장되었습니다.')
-        router.push('/profile/edit/awards')
       } else {
         const response = await createAwards(awardsData)
         if (response.isSuccess) {
           updateProfileMenu({ isProfileAwards: true })
+          toast.success('수상 이력이 성공적으로 저장되었습니다.')
           router.push(`/profile/edit/awards/new?id=${response.result.profileAwardsId}`)
         }
       }
@@ -165,7 +193,7 @@ export default function NewAwards() {
           animationMode="main"
           className="rounded-xl font-semibold"
           onClick={handleSave}
-          disabled={isSubmitting}
+          disabled={isSubmitting || !hasChanges()}
         >
           {isSubmitting ? '저장 중...' : '저장하기'}
         </Button>
