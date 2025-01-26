@@ -9,6 +9,7 @@ import { SkillListSkeleton } from './skeletons/ListSkeletons'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
 import { SearchDropdown } from '@/shared/ui/SearchDropdown/SearchDropdown'
 import { useToast } from '@/shared/hooks/useToast'
+import { useProfileMenuStore } from '../../store/useProfileMenuStore'
 
 interface Skill {
   name: string
@@ -17,12 +18,10 @@ interface Skill {
 
 export default function ProfileEditSkills() {
   const toast = useToast()
-  const [searchTerm, setSearchTerm] = useState('')
-  const [showResults, setShowResults] = useState(false)
+  const { updateProfileMenu } = useProfileMenuStore()
   const [selectedSkills, setSelectedSkills] = useState<Skill[]>([])
   const [originalSkills, setOriginalSkills] = useState<Skill[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [focusedIndex, setFocusedIndex] = useState(-1)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
@@ -35,6 +34,11 @@ export default function ProfileEditSkills() {
         }))
         setSelectedSkills(formattedSkills)
         setOriginalSkills(formattedSkills)
+
+        // 스킬 데이터가 있으면 profileBooleanMenu 업데이트
+        if (formattedSkills.length > 0) {
+          updateProfileMenu({ isProfileSkill: true })
+        }
       } catch (error) {
         console.error('스킬 조회 중 오류 발생:', error)
       } finally {
@@ -43,7 +47,7 @@ export default function ProfileEditSkills() {
     }
 
     fetchSkills()
-  }, [])
+  }, [updateProfileMenu])
 
   const hasChanges = () => {
     if (selectedSkills.length !== originalSkills.length) return true
@@ -95,6 +99,14 @@ export default function ProfileEditSkills() {
 
       await updateProfileSkills(skillsData)
       setOriginalSkills(selectedSkills)
+
+      // 스킬 저장 성공 시 profileBooleanMenu 업데이트
+      if (selectedSkills.length > 0) {
+        updateProfileMenu({ isProfileSkill: true })
+      } else {
+        updateProfileMenu({ isProfileSkill: false })
+      }
+
       toast.success('스킬이 성공적으로 업데이트되었습니다.')
     } catch (error) {
       console.error('스킬 업데이트 중 오류 발생:', error)

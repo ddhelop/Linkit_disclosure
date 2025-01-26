@@ -7,16 +7,24 @@ import ElementComponent from './common/ElementComponent'
 import Image from 'next/image'
 import { AwardListSkeleton } from './skeletons/ListSkeletons'
 import { useToast } from '@/shared/hooks/useToast'
+import { useProfileMenuStore } from '../../store/useProfileMenuStore'
 
 export default function ProfileEditAwards() {
   const [awards, setAwards] = useState<AwardsItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const toast = useToast()
+  const { updateProfileMenu } = useProfileMenuStore()
 
   const fetchAwards = async () => {
     try {
       const data = await getAwards()
       setAwards(data)
+      // 수상 데이터가 있으면 profileBooleanMenu 업데이트
+      if (data.length > 0) {
+        updateProfileMenu({ isProfileAwards: true })
+      } else {
+        updateProfileMenu({ isProfileAwards: false })
+      }
     } catch (error) {
       console.error('Failed to fetch awards:', error)
     } finally {
@@ -26,7 +34,7 @@ export default function ProfileEditAwards() {
 
   useEffect(() => {
     fetchAwards()
-  }, [])
+  }, [updateProfileMenu])
 
   const handleDelete = async (id: number) => {
     if (!window.confirm('정말로 삭제하시겠습니까?')) return

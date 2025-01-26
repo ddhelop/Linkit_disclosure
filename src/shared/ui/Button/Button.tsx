@@ -32,16 +32,14 @@ export function Button({
 }: ButtonProps) {
   const animationEffect = disabled ? {} : animationModes[animationMode] || {}
 
-  // 기본 스타일과 custom className을 분리하여 관리
-  const baseStyles = `rounded-[0.25rem] border text-center font-medium ${
-    disabled ? 'cursor-not-allowed bg-grey30 text-grey50' : buttonTheme.mode[mode]
-  }`
+  // className을 먼저 적용하고, 그 다음에 disabled 스타일을 적용
+  const baseStyles = disabled ? 'cursor-not-allowed bg-grey30 text-grey50' : buttonTheme.mode[mode]
 
   const sizeStyles = buttonTheme.size[size]
 
   return (
     <motion.button
-      className={`${baseStyles} ${sizeStyles} ${className}`}
+      className={`rounded-xl font-semibold ${className} ${baseStyles} ${sizeStyles}`}
       type={type}
       onClick={onClick}
       disabled={disabled}
@@ -64,8 +62,8 @@ const buttonTheme = {
 
   size: {
     sm: 'px-2 py-1.5 text-sm',
-    md: 'px-6 py-2 text-sm rounded-[0.5rem]',
-    lg: 'px-[2rem] py-3 text-xl rounded-[0.75rem]',
+    md: 'px-6 py-2 text-sm',
+    lg: 'px-[2rem] py-3 text-xl',
     custom: '',
   },
 }

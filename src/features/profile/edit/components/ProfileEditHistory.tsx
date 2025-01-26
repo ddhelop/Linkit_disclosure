@@ -6,6 +6,7 @@ import { deleteActivity, getActivities } from '../api/profileActivityApi'
 import ElementComponent from './common/ElementComponent'
 import Image from 'next/image'
 import { HistoryListSkeleton } from './skeletons/ListSkeletons'
+import { useProfileMenuStore } from '../../store/useProfileMenuStore'
 
 interface ActivityItem {
   profileActivityId: number
@@ -18,6 +19,18 @@ interface ActivityItem {
 export default function ProfileEditHistory() {
   const [activities, setActivities] = useState<ActivityItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const { updateProfileMenu } = useProfileMenuStore()
+
+  // activities가 변경될 때마다 profileBooleanMenu 업데이트
+  useEffect(() => {
+    if (!isLoading) {
+      if (activities.length > 0) {
+        updateProfileMenu({ isProfileActivity: true })
+      } else {
+        updateProfileMenu({ isProfileActivity: false })
+      }
+    }
+  }, [activities, isLoading, updateProfileMenu])
 
   useEffect(() => {
     const fetchActivities = async () => {

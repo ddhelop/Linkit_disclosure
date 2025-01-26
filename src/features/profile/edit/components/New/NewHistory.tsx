@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { getActivityById, saveActivity, updateActivity } from '../../api/profileActivityApi'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
 import { useToast } from '@/shared/hooks/useToast'
+import { useProfileMenuStore } from '@/features/profile/store/useProfileMenuStore'
 
 export default function NewHistory() {
   const toast = useToast()
@@ -29,7 +30,7 @@ export default function NewHistory() {
     startDate: '',
     endDate: '',
   })
-
+  const { updateProfileMenu } = useProfileMenuStore()
   const router = useRouter()
 
   // CertificationForm의 상태 정의
@@ -104,10 +105,18 @@ export default function NewHistory() {
         const result = await updateActivity(activityId, activityData)
         toast.success('활동 이력이 성공적으로 저장되었습니다.')
         router.push(`/profile/edit/history/new?id=${result.result.profileActivityId}`)
+        // 이력 데이터가 있으면 profileBooleanMenu 업데이트
+        if (result.result.profileActivityId) {
+          updateProfileMenu({ isProfileActivity: true })
+        }
       } else {
         const result = await saveActivity(activityData)
         toast.success('활동 이력이 성공적으로 저장되었습니다.')
         router.push(`/profile/edit/history/new?id=${result.result.profileActivityId}`)
+        // 이력 데이터가 있으면 profileBooleanMenu 업데이트
+        if (result.result.profileActivityId) {
+          updateProfileMenu({ isProfileActivity: true })
+        }
       }
     } catch (error) {
       console.error('저장 중 에러 발생:', error)

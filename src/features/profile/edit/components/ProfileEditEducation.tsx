@@ -9,6 +9,8 @@ import { deleteEducation } from '../api/educationApi'
 import Image from 'next/image'
 import { EducationListSkeleton } from './skeletons/ListSkeletons'
 import EducationElementComponent from './common/EducationElementComponent'
+import { useProfileMenuStore } from '../../store/useProfileMenuStore'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface Education {
   profileEducationId: number
@@ -23,11 +25,19 @@ interface Education {
 export default function ProfileEditEducation() {
   const [educations, setEducations] = useState<Education[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const { updateProfileMenu } = useProfileMenuStore()
+  const toast = useToast()
 
   const fetchEducations = async () => {
     try {
       const data = await getEducations()
       setEducations(data.result.profileEducationItems)
+      // 학력 데이터가 있으면 profileBooleanMenu 업데이트
+      if (data.result.profileEducationItems.length > 0) {
+        updateProfileMenu({ isProfileEducation: true })
+      } else {
+        updateProfileMenu({ isProfileEducation: false })
+      }
     } catch (error) {
       console.error('Failed to fetch educations:', error)
     } finally {
@@ -37,7 +47,7 @@ export default function ProfileEditEducation() {
 
   useEffect(() => {
     fetchEducations()
-  }, [])
+  }, [updateProfileMenu])
 
   const handleDelete = async (id: number) => {
     if (!window.confirm('정말로 삭제하시겠습니까?')) return
@@ -46,10 +56,10 @@ export default function ProfileEditEducation() {
       await deleteEducation(id)
       // 삭제 성공 후 목록 새로고침
       await fetchEducations()
-      alert('성공적으로 삭제되었습니다.')
+      toast.success('성공적으로 삭제되었습니다.')
     } catch (error) {
       console.error('Failed to delete education:', error)
-      alert('삭제 중 오류가 발생했습니다.')
+      toast.alert('삭제 중 오류가 발생했습니다.')
     }
   }
 

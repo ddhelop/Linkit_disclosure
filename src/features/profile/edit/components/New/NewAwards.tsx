@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import DatePicker from '@/shared/ui/Select/DatePicker'
 import CertificationForm from './CertificationForm'
 import { useToast } from '@/shared/hooks/useToast'
+import { useProfileMenuStore } from '@/features/profile/store/useProfileMenuStore'
 
 export default function NewAwards() {
   const toast = useToast()
@@ -20,7 +21,7 @@ export default function NewAwards() {
   const [description, setDescription] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
-
+  const { updateProfileMenu } = useProfileMenuStore()
   const [certificationData, setCertificationData] = useState({
     isActivityCertified: false,
     isActivityVerified: false,
@@ -68,14 +69,15 @@ export default function NewAwards() {
 
       if (awardId) {
         await updateAwards(awardId, awardsData)
+        toast.success('수상 이력이 성공적으로 저장되었습니다.')
+        router.push('/profile/edit/awards')
       } else {
         const response = await createAwards(awardsData)
-        router.push(`/profile/edit/awards/new?id=${response.id}`)
-        return
+        if (response.id) {
+          updateProfileMenu({ isProfileAwards: true })
+          router.push(`/profile/edit/awards/new?id=${response.id}`)
+        }
       }
-
-      toast.success('수상 이력이 성공적으로 저장되었습니다.')
-      router.push('/profile/edit/awards')
     } catch (error) {
       console.error('Failed to save awards:', error)
       toast.alert('수상 이력 저장에 실패했습니다.')

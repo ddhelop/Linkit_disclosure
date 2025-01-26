@@ -11,6 +11,7 @@ import { Spinner } from '@/shared/ui/Spinner/Spinner'
 import CertificationForm from './CertificationForm'
 import { useToast } from '@/shared/hooks/useToast'
 import Image from 'next/image'
+import { useProfileMenuStore } from '@/features/profile/store/useProfileMenuStore'
 
 export default function NewEducation() {
   const toast = useToast()
@@ -22,6 +23,7 @@ export default function NewEducation() {
   const [description, setDescription] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [originalData, setOriginalData] = useState<any>(null)
+  const { updateProfileMenu } = useProfileMenuStore()
 
   const [certificationData, setCertificationData] = useState({
     isActivityCertified: false,
@@ -66,7 +68,7 @@ export default function NewEducation() {
     }
 
     fetchEducationData()
-  }, [educationId, router])
+  }, [educationId, router, updateProfileMenu])
 
   const handleOngoingToggle = () => {
     setIsOngoing((prev) => !prev)
@@ -107,6 +109,10 @@ export default function NewEducation() {
       if (educationId) {
         await updateEducation(educationId, educationData)
         toast.success('학력이 성공적으로 수정되었습니다.')
+        // 학력 데이터가 있으면 profileBooleanMenu 업데이트
+        if (educationId) {
+          updateProfileMenu({ isProfileEducation: true })
+        }
       } else {
         const reponse = await createEducation(educationData)
         toast.success('학력이 성공적으로 저장되었습니다.')

@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { ProfileBooleanMenuType } from '../../types/ProfileLayoutType'
 import { useProfileEdit } from '../../context/ProfileEditContext'
+import { useProfileMenuStore } from '../../../store/useProfileMenuStore'
+import { useEffect } from 'react'
 
 const menuItems: { label: string; path: string; key: keyof ProfileBooleanMenuType; subPaths?: string[] }[] = [
   { label: '미니 프로필', path: '/profile/edit/basic', key: 'isMiniProfile' },
@@ -35,9 +37,16 @@ const menuItems: { label: string; path: string; key: keyof ProfileBooleanMenuTyp
 
 const LeftMenu = () => {
   const router = useRouter()
-  const pathname = usePathname() // 현재 경로를 가져옵니다.
-  const { profileData } = useProfileEdit() // ProfileProvider에서 제공하는 profileData를 가져옵니다.
-  const profileBooleanMenu = profileData.profileBooleanMenu
+  const pathname = usePathname()
+  const { profileData } = useProfileEdit()
+  const { profileBooleanMenu, setProfileMenu } = useProfileMenuStore()
+
+  // 초기 데이터 설정
+  useEffect(() => {
+    if (profileData.profileBooleanMenu) {
+      setProfileMenu(profileData.profileBooleanMenu)
+    }
+  }, [profileData.profileBooleanMenu, setProfileMenu])
 
   const handleNavigation = (path: string) => {
     router.push(path)
@@ -62,7 +71,7 @@ const LeftMenu = () => {
         <ul className="flex w-full flex-col items-end bg-[#FCFCFD] pl-3 pr-6 pt-3">
           {menuItems.map((item, index) => {
             const isActive = pathname === item.path || item.subPaths?.includes(pathname)
-            const isChecked = profileBooleanMenu?.[item.key] || false
+            const isChecked = profileBooleanMenu[item.key] || false
 
             return (
               <li

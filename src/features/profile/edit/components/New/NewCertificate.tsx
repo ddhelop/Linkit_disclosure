@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import Textarea from '@/shared/ui/TextArea/TextArea'
@@ -10,6 +10,7 @@ import { createLicense, updateLicense } from '@/features/profile/api/licenseApi'
 import DatePicker from '@/shared/ui/Select/DatePicker'
 import CertificationForm, { CertificationFormProps } from './CertificationForm'
 import { useToast } from '@/shared/hooks/useToast'
+import { useProfileMenuStore } from '@/features/profile/store/useProfileMenuStore'
 
 type CertificationDataType = {
   isActivityCertified: boolean
@@ -21,9 +22,10 @@ export default function NewCertificate() {
   const toast = useToast()
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
-
+  const { updateProfileMenu } = useProfileMenuStore()
   const [isLoading, setIsLoading] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter()
 
   const [formData, setFormData] = useState({
     licenseName: '',
@@ -112,10 +114,12 @@ export default function NewCertificate() {
         await updateLicense(id, saveData)
         toast.success('자격증이 수정되었습니다.')
       } else {
-        await createLicense(saveData)
-        toast.success('자격증이 등록되었습니다.')
+        const response = await createLicense(saveData)
+        if (response.isSuccess) {
+          updateProfileMenu({ isProfileLicense: true })
+          router.push(`/profile/edit/certifications/new?id=${response.result.profileLicenseId}`)
+        }
       }
-      window.history.back()
     } catch (error) {
       console.error('Failed to save certificate:', error)
       toast.alert('저장에 실패했습니다.')
@@ -142,7 +146,7 @@ export default function NewCertificate() {
             </span>
           </div>
           <Input
-            placeholder="자격증 이름과 급수(점��)를 자유롭게 기재해 주세요"
+            placeholder="자격증 이름과 급수(점수)를 자유롭게 기재해 주세요"
             value={formData.licenseName}
             onChange={handleChange('licenseName')}
           />
@@ -202,15 +206,17 @@ export default function NewCertificate() {
         </Button>
       </div>
 
+      {id && (
+        <div className="mt-5">
+          <CertificationForm
+            isActivityCertified={certificationData.isActivityCertified}
+            isActivityVerified={certificationData.isActivityVerified}
+            activityCertificationAttachFilePath={certificationData.activityCertificationAttachFilePath}
+            onCertificationUpdate={handleCertificationUpdate}
+          />
+        </div>
+      )}
       {/* 인증서 폼 - 버튼 아래에 배치 */}
-      <div className="mt-5">
-        <CertificationForm
-          isActivityCertified={certificationData.isActivityCertified}
-          isActivityVerified={certificationData.isActivityVerified}
-          activityCertificationAttachFilePath={certificationData.activityCertificationAttachFilePath}
-          onCertificationUpdate={handleCertificationUpdate}
-        />
-      </div>
     </>
   )
 }
