@@ -22,6 +22,18 @@ export const updateProfileLogType = async (logId: number) => {
   return response
 }
 
+// 비공개 공개 업데이트
+export const updateProfileLogPublic = async (logId: number) => {
+  const response = await fetchWithAuth(`/api/v1/profile/log/state/${logId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  if (!response.ok) throw new Error('Failed to update log public')
+  return response.json()
+}
+
 // 프로필 로그 리스트 조회
 export const getProfileLogs = async (emailId: string) => {
   const response = await fetchWithAuth(`/api/v1/profile/log/view/${emailId}`, {

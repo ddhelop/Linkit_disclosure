@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { getProfileLogs, ProfileLogItem } from '@/features/profile/api/getProfileLogs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { deleteProfileLog, updateProfileLogType } from '../../api/profileLogApi'
+import { deleteProfileLog, updateProfileLogPublic, updateProfileLogType } from '../../api/profileLogApi'
 import { LogListSkeleton } from './skeletons/LogListSkeleton'
 
 import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
@@ -95,6 +95,22 @@ export default function ProfileEditLog() {
     }
   }
 
+  // 비공개 공개 업데이트
+  const handleUpdateLogPublic = async (logId: number) => {
+    try {
+      const response = await updateProfileLogPublic(logId)
+      if (response.isSuccess) {
+        toast.success('공개 설정이 변경되었습니다.')
+        fetchLogs()
+      } else {
+        toast.alert(response.message || '공개 설정 변경에 실패했습니다.')
+      }
+    } catch (error) {
+      console.error('Failed to update log public:', error)
+      toast.alert('대표글 설정 변경에 실패했습니다.')
+    }
+  }
+
   return (
     <div>
       <Link href="/profile/edit/log/new">
@@ -130,6 +146,7 @@ export default function ProfileEditLog() {
                   {log.logType === 'REPRESENTATIVE_LOG' && (
                     <Image src="/common/icons/pin.svg" width={18} height={18} alt="arrow" />
                   )}
+                  {!log.isLogPublic && <Image src="/common/icons/lock.svg" width={10} height={10} alt="lock" />}
                   <span className="font-semibold text-grey80">{truncateText(log.logTitle, 20)}</span>
                 </div>
                 <span className="text-xs font-normal text-grey60">{new Date(log.modifiedAt).toLocaleDateString()}</span>
@@ -155,20 +172,30 @@ export default function ProfileEditLog() {
               {showMenu === log.profileLogId && (
                 <div
                   id="menu"
-                  className="absolute right-0 mt-2 flex w-32 flex-col rounded-lg border border-grey40 bg-white p-2 shadow-lg"
+                  className="absolute right-[-80px] top-9 mt-2 flex w-32 flex-col rounded-lg border border-grey40 bg-white p-2 shadow-lg"
                 >
-                  <div className="cursor-pointer px-2 py-2 text-sm text-grey70 hover:bg-grey10">수정하기</div>
-                  <div className="cursor-pointer px-2 py-1 text-sm text-grey70 hover:bg-grey10">
+                  <div className="cursor-pointer px-3 py-1 text-sm text-grey70 hover:bg-grey10">수정하기</div>
+                  <div
+                    onClick={() => handleUpdateLogPublic(log.profileLogId)}
+                    className="cursor-pointer px-3 py-1 text-sm text-grey70 hover:bg-grey10"
+                  >
                     {log.isLogPublic ? '비공개로 전환' : '공개로 전환'}
                   </div>
                   <div
-                    className="cursor-pointer px-2 py-1 text-sm text-grey70 hover:bg-grey10"
-                    onClick={() => handleUpdateLogType(log.profileLogId)}
+                    className={`px-3 py-1 text-sm text-grey70 ${
+                      logs.length === 1 && log.logType === 'REPRESENTATIVE_LOG'
+                        ? 'cursor-not-allowed opacity-50'
+                        : 'cursor-pointer hover:bg-grey10'
+                    }`}
+                    onClick={() => {
+                      if (logs.length === 1 && log.logType === 'REPRESENTATIVE_LOG') return
+                      handleUpdateLogType(log.profileLogId)
+                    }}
                   >
                     {log.logType === 'REPRESENTATIVE_LOG' ? '대표글 해제' : '대표글로 설정'}
                   </div>
                   <div
-                    className="cursor-pointer px-2 py-1 text-sm text-[#FF345F] hover:bg-grey10"
+                    className="cursor-pointer px-3 py-1 text-sm text-[#FF345F] hover:bg-grey10"
                     onClick={() => handleDeleteLog(log.profileLogId)}
                   >
                     삭제하기
