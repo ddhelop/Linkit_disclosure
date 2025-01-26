@@ -5,6 +5,7 @@ import ChattingListComponent from './ChattingListComponent'
 import { getChattingList } from '../api/ChatApi'
 import { useChatStore } from '../store/useChatStore'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
+import { getAccessToken } from '@/shared/store/useAuthStore'
 
 export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoomId: number) => void }) {
   const { chatList, updateChatList, addMessage, updateLastMessage } = useChatStore()
@@ -23,6 +24,8 @@ export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoom
         Object.values(subscriptionsRef.current).forEach((sub) => sub?.unsubscribe())
 
         response.result.chatRoomSummaries.forEach((chatRoom: any) => {
+          const accessToken = getAccessToken()
+
           subscriptionsRef.current[chatRoom.chatRoomId] = client.subscribe(
             `/sub/chat/${chatRoom.chatRoomId}`,
             (message) => {
@@ -41,6 +44,9 @@ export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoom
               })
               // 마지막 메시지 정보 업데이트
               updateLastMessage(chatRoom.chatRoomId, receivedMessage.content, receivedMessage.timestamp)
+            },
+            {
+              Authorization: `Bearer ${accessToken}`,
             },
           )
         })
