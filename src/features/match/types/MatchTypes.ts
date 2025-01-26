@@ -235,3 +235,19 @@ export interface TeamMatchingResponse {
     receiverTeamInformation: TeamInformation
   }
 }
+
+export interface MessageWithSenderInfo extends MatchingMessage {
+  senderInfo?: {
+    name: string
+    imagePath: string
+    scale?: string
+    position?: string
+    link: string
+  }
+}
+
+// RequestedMessage 컴포넌트의 props 타입 수정
+interface RequestedMessageProps {
+  message: MessageWithSenderInfo
+  onClick?: () => void
+}

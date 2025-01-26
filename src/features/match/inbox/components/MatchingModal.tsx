@@ -24,30 +24,41 @@ export default function MatchingModal({ message, onClose, onAccept, onReject, mo
           <div className="mt-3 flex gap-5">
             <div className="relative h-[54px] w-[54px] rounded-[0.63rem]">
               <Image
-                src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
+                src={
+                  message.senderType === 'TEAM'
+                    ? message.senderTeamInformation.teamLogoImagePath || '/common/default_profile.svg'
+                    : message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'
+                }
                 alt="profile"
                 fill
                 className="rounded-lg object-cover"
               />
             </div>
             <div className="flex flex-col justify-center gap-1">
-              <p className="text-sm font-semibold text-grey90">{message.senderProfileInformation.memberName}</p>
+              <p className="text-sm font-semibold text-grey90">
+                {message.senderType === 'TEAM'
+                  ? message.senderTeamInformation.teamName
+                  : message.senderProfileInformation.memberName}
+              </p>
               <div className="flex gap-1">
                 <p className="text-xs text-grey60">
-                  {message.senderProfileInformation.profilePositionDetail.majorPosition} ·
-                </p>
-                <p className="text-xs text-grey60">
-                  {message.senderProfileInformation.profilePositionDetail.subPosition}
+                  {message.senderType === 'TEAM'
+                    ? message.senderTeamInformation.teamScaleItem.teamScaleName
+                    : `${message.senderProfileInformation.profilePositionDetail.majorPosition} · ${message.senderProfileInformation.profilePositionDetail.subPosition}`}
                 </p>
               </div>
             </div>
           </div>
           <div>
             <Link
-              href={`/${message.senderProfileInformation.emailId}`}
+              href={
+                message.senderType === 'TEAM'
+                  ? `/team/${message.senderTeamInformation.teamCode}`
+                  : `/profile/${message.senderProfileInformation.emailId}`
+              }
               className="rounded-full bg-[#D3E1FE] px-4 py-2 text-sm text-grey70"
             >
-              프로필 보러가기 &gt;
+              {message.senderType === 'TEAM' ? '팀 보러가기 >' : '프로필 보러가기 >'}
             </Link>
           </div>
         </div>

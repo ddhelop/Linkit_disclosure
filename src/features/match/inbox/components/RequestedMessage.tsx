@@ -20,7 +20,11 @@ export default function RequestedMessage({ message, onClick }: RequestedMessageP
       >
         <div className="relative h-[64px] w-[64px] rounded-[0.63rem]">
           <Image
-            src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
+            src={
+              message.senderType === 'TEAM'
+                ? message.senderTeamInformation.teamLogoImagePath || '/common/default_profile.svg'
+                : message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'
+            }
             alt="profile"
             fill
             className="rounded-lg object-cover"
@@ -28,12 +32,16 @@ export default function RequestedMessage({ message, onClick }: RequestedMessageP
         </div>
         <div className="flex flex-col justify-center">
           <span className="text-lg font-semibold text-grey80">
-            {message.senderProfileInformation.memberName}님의 매칭 요청
+            {message.senderType === 'TEAM'
+              ? `${message.senderTeamInformation.teamName}팀의 매칭 요청`
+              : `${message.senderProfileInformation.memberName}님의 매칭 요청`}
           </span>
           <span className="line-clamp-1 text-sm font-normal text-grey70">{message.requestMessage}</span>
         </div>
         <span className="absolute right-6 top-6 text-xs font-normal text-grey80">
-          {message.senderTeamInformation.teamName} · {message.modifiedAt}
+          {message.senderType === 'TEAM'
+            ? `${message.senderTeamInformation.teamScaleItem.teamScaleName} · ${message.modifiedAt}`
+            : `${message.modifiedAt}`}
         </span>
       </div>
     </div>

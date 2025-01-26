@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { MatchingMessage } from '../types/MatchTypes'
+import { MatchingMessage, MessageWithSenderInfo } from '../types/MatchTypes'
 import { markMatchingAsRead, updateMatchingStatus, deleteMatchings } from '../api/MatchApi'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import RequestedMessage from './components/RequestedMessage'
@@ -168,11 +168,32 @@ export default function InBoxRequestMessage({ messages, onUpdate }: InBoxMessage
         DENIED: DeniedMessage,
       }[message.matchingStatusType] || RequestedMessage
 
+    // 메시지 정보 객체 생성
+    const messageInfo =
+      message.senderType === 'TEAM'
+        ? {
+            name: message.senderTeamInformation.teamName,
+            imagePath: message.senderTeamInformation.teamLogoImagePath || '/common/default_profile.svg',
+            scale: message.senderTeamInformation.teamScaleItem.teamScaleName,
+            link: `/team/${message.senderTeamInformation.teamCode}`,
+          }
+        : {
+            name: message.senderProfileInformation.memberName,
+            imagePath: message.senderProfileInformation.profileImagePath || '/common/default_profile.svg',
+            position: message.senderProfileInformation.profilePositionDetail.majorPosition,
+            link: `/profile/${message.senderProfileInformation.emailId}`,
+          }
+
     return (
       <div className="flex items-center gap-3">
         <MessageCheckbox isChecked={isChecked} onChange={() => handleCheckboxChange(message.matchingId)} />
         <MessageComponent
-          message={message}
+          message={
+            {
+              ...message,
+              senderInfo: messageInfo,
+            } as MessageWithSenderInfo
+          }
           onClick={message.matchingStatusType === 'REQUESTED' ? () => handleMessageClick(message) : undefined}
         />
       </div>
