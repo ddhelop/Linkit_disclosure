@@ -78,17 +78,18 @@ export default function ProjectComponent({
       {/* Main Content */}
       <Link href={`/profile/edit/portfolio/new?id=${profilePortfolioId}`} className="flex gap-6">
         <div className="h-[144px] w-[256px] rounded-lg">
-          <Image
-            src={projectRepresentImagePath || '/common/images/no_thumbnail.svg'}
-            width={256}
-            height={144}
-            alt="thumbnail"
-            className="h-full w-full rounded-lg object-cover"
-          />
+          <div className="relative h-[144px] w-[256px]">
+            <Image
+              src={projectRepresentImagePath || '/common/images/no_thumbnail.svg'}
+              alt="thumbnail"
+              fill
+              className="h-full w-full rounded-lg object-cover"
+            />
+          </div>
         </div>
         <div className="flex flex-col justify-center">
           <div className="flex items-center gap-3">
-            <span className="text-lg font-semibold">{projectName}</span>
+            <span className="max-w-[75%] text-lg font-semibold">{projectName}</span>
             <span className="flex items-center rounded-[62.5rem] bg-[#D3E1FE] px-[0.88rem] text-xs">
               {projectSize === 'TEAM' ? '팀' : '개인'}
             </span>
