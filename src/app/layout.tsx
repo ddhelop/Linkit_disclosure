@@ -8,6 +8,7 @@ import Scripts from '@/components/script'
 import Header from '@/widgets/Header/Header'
 import WebSocketInitializer from '@/shared/components/webSocket/WebSocketInitializer'
 import Toast from '@/shared/components/Toast/Toast'
+import CustomClient from '@/components/CustomClient'
 
 export const metadata: Metadata = {
   title: '링킷(Linkit) | 일하는 사람들의 연결점',
@@ -48,12 +49,14 @@ export default function RootLayout({
         <meta name="naver-site-verification" content="17163296e94f835f71bb3d1994ea168bd456675b" />
       </head>
       <body className={`${pretendard.className} bg-[#FCFCFD]`}>
-        <WebSocketInitializer />
-        <Header />
-        <div className="bg-[#fcfcfd]">{children}</div>
-        <Toast />
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
-        <Scripts />
+        <CustomClient>
+          <WebSocketInitializer />
+          <Header />
+          <div className="bg-[#fcfcfd]">{children}</div>
+          <Toast />
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
+          <Scripts />
+        </CustomClient>
       </body>
     </html>
   )
