@@ -73,9 +73,9 @@ export default function NewAwards() {
         router.push('/profile/edit/awards')
       } else {
         const response = await createAwards(awardsData)
-        if (response.id) {
+        if (response.isSuccess) {
           updateProfileMenu({ isProfileAwards: true })
-          router.push(`/profile/edit/awards/new?id=${response.id}`)
+          router.push(`/profile/edit/awards/new?id=${response.result.profileAwardsId}`)
         }
       }
     } catch (error) {
