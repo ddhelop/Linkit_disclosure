@@ -56,3 +56,20 @@ export const updateEmailId = async (emailId: string) => {
 
   return response.json()
 }
+
+// 휴대폰 번호 변경
+export const updatePhoneNumber = async (contact: string) => {
+  const response = await fetchWithAuth('/api/v1/member/contact', {
+    method: 'POST',
+    body: JSON.stringify({ contact }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to update phone number')
+  }
+
+  return response.json()
+}

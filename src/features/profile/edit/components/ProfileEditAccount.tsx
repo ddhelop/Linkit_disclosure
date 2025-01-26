@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
 import { getMemberBasicInform } from '../api/memberApi'
 import NameChangeModal from './NameChangeModal'
-import { updateEmailId, updateMarketingConsent, updateMemberName } from '../../api/updateAccount'
+import { updateEmailId, updateMarketingConsent, updateMemberName, updatePhoneNumber } from '../../api/updateAccount'
 import PhoneChangeModal from './PhoneChangeModal'
 import EmailChangeModal from './EmailChangeModal'
 import { AccountListSkeleton } from './skeletons/ListSkeletons'
@@ -13,6 +13,7 @@ import { fetchWithdraw } from '../api/profileEditApi'
 import WithdrawModal from './WithdrawModal'
 import EmailIdChangeModal from './EmailIdChangeModal'
 import { useToast } from '@/shared/hooks/useToast'
+import { formatPhoneNumber } from '@/shared/utils/formatPhoneNumber'
 
 export default function ProfileEditAccount() {
   const { phoneNumber, setPhoneNumber } = usePhoneNumberFormatter()
@@ -108,9 +109,14 @@ export default function ProfileEditAccount() {
 
   const handlePhoneChange = async (newPhone: string) => {
     try {
-      // TODO: API call to update phone
-      setMemberData((prev) => ({ ...prev, contact: newPhone }))
-      setIsPhoneModalOpen(false)
+      const response = await updatePhoneNumber(newPhone)
+      if (response) {
+        setMemberData((prev) => ({ ...prev, contact: newPhone }))
+        setIsPhoneModalOpen(false)
+        toast.success('전화번호가 변경되었습니다.')
+      } else {
+        throw new Error('Failed to update phone number')
+      }
     } catch (error) {
       console.error('Failed to update phone:', error)
       // TODO: 에러 처리
@@ -122,9 +128,10 @@ export default function ProfileEditAccount() {
       await updateEmailId(newEmailId)
       setMemberData((prev) => ({ ...prev, emailId: newEmailId }))
       setIsEmailIdModalOpen(false)
+      toast.success('유저 아이디가 변경되었습니다.')
     } catch (error) {
       console.error('Failed to update emailId:', error)
-      // TODO: 에러 처리
+      toast.alert('유저 아이디 변경에 실패했습니다.')
     }
   }
 
@@ -222,7 +229,7 @@ export default function ProfileEditAccount() {
               <Image src="/common/icons/call_circle.svg" alt="edit" width={48} height={48} />
               <div className="flex flex-col justify-center gap-1">
                 <p className="text-xs font-normal text-grey60">전화번호</p>
-                <span className="font-semibold">{phoneNumber}</span>
+                <span className="font-semibold">{formatPhoneNumber(memberData.contact)}</span>
               </div>
             </div>
             <Image src="/common/icons/arrow-right(greyblack).svg" alt="edit" width={32} height={32} />
