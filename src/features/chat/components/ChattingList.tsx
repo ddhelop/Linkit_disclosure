@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import ChattingListComponent from './ChattingListComponent'
 import { getChattingList } from '../api/ChatApi'
-import { ChattingListType } from '../types/ChatTypes'
+
 import { useChatStore } from '../store/useChatStore'
 
 export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoomId: number) => void }) {

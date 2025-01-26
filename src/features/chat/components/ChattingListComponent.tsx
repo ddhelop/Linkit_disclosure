@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { ChattingListType } from '../types/ChatTypes'
+import { formatDate } from '@/shared/utils/dateUtils'
 
 export default function ChattingListComponent({
   chattingList,
@@ -10,6 +11,9 @@ export default function ChattingListComponent({
   isSelected?: boolean
   onClick: () => void
 }) {
+  const formattedDate = formatDate(chattingList.chatPartnerInformation.lastMessageTime)
+  console.log(formattedDate)
+
   return (
     <div
       onClick={onClick}
@@ -41,9 +45,8 @@ export default function ChattingListComponent({
       <div className="flex w-full flex-col gap-[0.38rem]">
         <div className="flex w-full items-center justify-between">
           <span className="font-semibold text-grey90">{chattingList.chatPartnerInformation.chatPartnerName}</span>
-          <span className="text-xs font-normal text-grey70">{chattingList.chatPartnerInformation.lastMessageTime}</span>
+          <span className="text-xs font-normal text-grey70">{formattedDate}</span>
         </div>
-
         <div className="w-[90%] text-xs text-grey60">{chattingList.chatPartnerInformation.lastMessage}</div>
       </div>
     </div>
