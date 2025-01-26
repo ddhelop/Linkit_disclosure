@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { MatchingMessage } from '../../types/MatchTypes'
+import ChatButton from './ChatButton'
 
 interface OutboxMessageProps {
   message: MatchingMessage
@@ -11,7 +12,7 @@ export default function OutboxMessage({ message }: OutboxMessageProps) {
     message.receiverType === 'TEAM' ? message.receiverTeamInformation : message.receiverProfileInformation
 
   return (
-    <div className="w-full">
+    <div className="relative w-full">
       <div className="relative flex w-full gap-5 rounded-xl border border-grey30 bg-white px-10 py-7">
         <div className="relative h-[64px] w-[64px] rounded-[0.63rem]">
           <Image
@@ -47,6 +48,25 @@ export default function OutboxMessage({ message }: OutboxMessageProps) {
             : `${message.modifiedAt}`}
         </span>
       </div>
+      {isCompleted && (
+        <div className="absolute right-[-10px] top-0">
+          <ChatButton
+            chatRoomId={message.chatRoomId}
+            matchingId={message.matchingId}
+            senderType={message.senderType}
+            senderInfo={{
+              emailId: message.senderProfileInformation?.emailId,
+              teamCode: message.senderTeamInformation?.teamCode,
+            }}
+            receiverType={message.receiverType}
+            receiverInfo={{
+              emailId: message.receiverProfileInformation?.emailId,
+              teamCode: message.receiverTeamInformation?.teamCode,
+            }}
+            isChatRoomCreated={message.isChatRoomCreated}
+          />
+        </div>
+      )}
     </div>
   )
 }

@@ -11,7 +11,7 @@ export const createChatRoom = async (requestData: CreateChatRoomRequest) => {
   })
 
   if (!response.ok) {
-    throw new Error('Failed to create chat room')
+    return response.json()
   }
 
   return response.json()
@@ -24,7 +24,7 @@ export const getChattingList = async () => {
   })
 
   if (!response.ok) {
-    throw new Error('Failed to get chatting list')
+    return response.json()
   }
 
   return response.json()
