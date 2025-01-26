@@ -14,7 +14,9 @@ export default function RequestedMessage({ message, onClick }: RequestedMessageP
       <div
         role="button"
         onClick={onClick}
-        className="relative flex w-full cursor-pointer gap-5 rounded-xl border border-grey30 bg-white px-10 py-7 hover:bg-[#EDF3FF]"
+        className={`relative flex w-full cursor-pointer gap-5 rounded-xl border border-grey30 px-10 py-7 hover:bg-[#EDF3FF] ${
+          message.receiverReadStatus === 'UNREAD_REQUESTED_MATCHING' ? 'bg-[#EDF3FF]' : 'bg-white'
+        }`}
       >
         <Image
           src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}

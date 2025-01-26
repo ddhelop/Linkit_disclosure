@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import Image from 'next/image'
 import { MatchingMessage } from '../types/MatchTypes'
 import { markMatchingAsRead, updateMatchingStatus, deleteMatchings } from '../api/MatchApi'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
@@ -9,33 +8,15 @@ import RequestedMessage from './components/RequestedMessage'
 import CompletedMessage from './components/CompletedMessage'
 import DeniedMessage from './components/DeniedMessage'
 import MatchingModal from './components/MatchingModal'
+import MessageCheckbox from './components/MessageCheckbox'
 
 interface InBoxMessageProps {
   messages: MatchingMessage[]
   onUpdate?: () => void
 }
 
-interface MessageCheckboxProps {
-  isChecked: boolean
-  onChange: () => void
-}
-
-function MessageCheckbox({ isChecked, onChange }: MessageCheckboxProps) {
-  return (
-    <div onClick={onChange} className="cursor-pointer">
-      <Image
-        src={isChecked ? '/common/icons/checked.svg' : '/common/icons/empty_check.svg'}
-        alt="checkbox"
-        width={20}
-        height={20}
-      />
-    </div>
-  )
-}
-
 function BulkActionBar({
   selectedCount,
-  totalCount,
   onMarkRead,
   onDelete,
   onToggleAll,
@@ -77,7 +58,12 @@ function BulkActionBar({
 export default function InBoxRequestMessage({ messages, onUpdate }: InBoxMessageProps) {
   const [selectedMessage, setSelectedMessage] = useState<MatchingMessage | null>(null)
   const [selectedIds, setSelectedIds] = useState<number[]>([])
+  const [localMessages, setLocalMessages] = useState<MatchingMessage[]>(messages)
   const modalRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setLocalMessages(messages)
+  }, [messages])
 
   useEffect(() => {
     if (selectedMessage) {
@@ -133,13 +119,20 @@ export default function InBoxRequestMessage({ messages, onUpdate }: InBoxMessage
     }
   }
 
-  const handleMessageClick = (message: MatchingMessage) => {
+  const handleMessageClick = async (message: MatchingMessage) => {
     setSelectedMessage(message)
 
     if (message.receiverReadStatus === 'UNREAD_REQUESTED_MATCHING') {
-      markMatchingAsRead([message.matchingId]).catch((error) => {
+      try {
+        await markMatchingAsRead([message.matchingId])
+        setLocalMessages((prev) =>
+          prev.map((msg) =>
+            msg.matchingId === message.matchingId ? { ...msg, receiverReadStatus: 'READ_COMPLETED_MATCHING' } : msg,
+          ),
+        )
+      } catch (error) {
         console.error('Error marking message as read:', error)
-      })
+      }
     }
   }
 
@@ -148,8 +141,8 @@ export default function InBoxRequestMessage({ messages, onUpdate }: InBoxMessage
 
     try {
       await updateMatchingStatus(selectedMessage.matchingId, 'COMPLETED')
-      onUpdate?.()
       setSelectedMessage(null)
+      onUpdate?.()
     } catch (error) {
       console.error('Error accepting matching:', error)
     }
@@ -159,8 +152,8 @@ export default function InBoxRequestMessage({ messages, onUpdate }: InBoxMessage
     if (!selectedMessage) return
     try {
       await updateMatchingStatus(selectedMessage.matchingId, 'DENIED')
-      onUpdate?.()
       setSelectedMessage(null)
+      onUpdate?.()
     } catch (error) {
       console.error('Error rejecting matching:', error)
     }
@@ -190,15 +183,15 @@ export default function InBoxRequestMessage({ messages, onUpdate }: InBoxMessage
     <div className="flex flex-col">
       <BulkActionBar
         selectedCount={selectedIds.length}
-        totalCount={messages.length}
+        totalCount={localMessages.length}
         onMarkRead={handleBulkMarkRead}
         onDelete={handleBulkDelete}
         onToggleAll={handleToggleAll}
-        isAllSelected={selectedIds.length === messages.length}
+        isAllSelected={selectedIds.length === localMessages.length}
       />
 
       <div className="flex flex-col gap-4">
-        {messages.map((message) => (
+        {localMessages.map((message) => (
           <div key={message.matchingId}>{renderMessage(message)}</div>
         ))}
       </div>
