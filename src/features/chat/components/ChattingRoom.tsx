@@ -23,6 +23,9 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
 
   // 메시지 추가 함수
   const addMessage = useCallback((message: ChatMessage) => {
+    // 유효한 메시지인지 확인
+    if (!message.content?.trim()) return
+
     setMessages((prev) => [message, ...prev])
   }, [])
 
@@ -84,20 +87,23 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
   // 메시지 전송 핸들러
   const handleSendMessage = useCallback(
     (content: string) => {
+      const timestamp = new Date().toISOString()
       // UI에 즉시 내 메시지 추가
       const myMessage: ChatMessage = {
-        messageId: Date.now().toString(), // 임시 ID
+        messageId: Date.now().toString(),
         chatRoomId: Number(chatRoomId),
         content,
-        timestamp: new Date().toISOString(),
+        timestamp,
         isMyMessage: true,
         messageSenderType: 'PROFILE',
-        messageSenderId: '', // 필요한 경우 추가
+        messageSenderId: '',
         read: false,
       }
       addMessage(myMessage)
+      // Store 업데이트
+      updateLastMessage(Number(chatRoomId), content, timestamp)
     },
-    [chatRoomId, addMessage],
+    [chatRoomId, addMessage, updateLastMessage],
   )
 
   if (isLoading) {
@@ -130,13 +136,15 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
         </div>
 
         <div className="flex flex-1 flex-col-reverse gap-6 overflow-y-auto">
-          {messages.map((message) =>
-            message.isMyMessage ? (
-              <SendToMessage key={message.messageId} message={message} />
-            ) : (
-              <SendFromMessage key={message.messageId} message={message} />
-            ),
-          )}
+          {messages
+            .filter((message) => message.content?.trim()) // 빈 메시지 필터링
+            .map((message) =>
+              message.isMyMessage ? (
+                <SendToMessage key={message.messageId} message={message} />
+              ) : (
+                <SendFromMessage key={message.messageId} message={message} />
+              ),
+            )}
         </div>
       </div>
 
