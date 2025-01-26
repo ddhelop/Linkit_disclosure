@@ -27,7 +27,7 @@ export const createLicense = async (licenseData: LicenseData) => {
 // 자격증 수정
 export const updateLicense = async (id: string, licenseData: LicenseData) => {
   const response = await fetchWithAuth(`/api/v1/profile/license/${id}`, {
-    method: 'PUT',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },

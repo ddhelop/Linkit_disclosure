@@ -18,6 +18,14 @@ type CertificationDataType = {
   activityCertificationAttachFilePath: string | null
 }
 
+// LicenseFormData 타입을 사용하도록 변경
+type LicenseFormData = {
+  licenseName: string
+  licenseInstitution: string
+  licenseAcquisitionDate: string
+  licenseDescription: string
+}
+
 export default function NewCertificate() {
   const toast = useToast()
   const searchParams = useSearchParams()
@@ -40,7 +48,7 @@ export default function NewCertificate() {
     activityCertificationAttachFilePath: null,
   })
 
-  const [originalData, setOriginalData] = useState<License | null>(null)
+  const [originalData, setOriginalData] = useState<LicenseFormData | null>(null)
 
   useEffect(() => {
     const fetchLicense = async () => {
@@ -105,18 +113,14 @@ export default function NewCertificate() {
   const handleSave = async () => {
     setIsSubmitting(true)
     try {
-      const saveData = {
-        ...formData,
-        ...certificationData,
-      }
-
       if (id) {
-        await updateLicense(id, saveData)
+        await updateLicense(id, formData)
+        setOriginalData(formData) // 저장 성공 후 현재 데이터를 원본 데이터로 설정
         toast.success('자격증이 수정되었습니다.')
       } else {
-        const response = await createLicense(saveData)
+        const response = await createLicense(formData)
         if (response.isSuccess) {
-          updateProfileMenu({ isProfileLicense: true })
+          toast.success('자격증이 저장되었습니다.')
           router.push(`/profile/edit/certifications/new?id=${response.result.profileLicenseId}`)
         }
       }
@@ -194,7 +198,7 @@ export default function NewCertificate() {
 
       {/* 버튼 */}
       <div className="mt-5 flex justify-end">
-        <Button mode="main2" animationMode="main" disabled={!isButtonEnabled || isSubmitting} onClick={handleSave}>
+        <Button mode="main" animationMode="main" disabled={!isButtonEnabled || isSubmitting} onClick={handleSave}>
           {isSubmitting ? (
             <div className="flex items-center gap-2">
               <Spinner size="sm" />

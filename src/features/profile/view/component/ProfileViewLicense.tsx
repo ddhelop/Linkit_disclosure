@@ -9,7 +9,7 @@ export default function ProfileViewLicense() {
   return (
     <EditableContainer
       isEditable={isMyProfile}
-      editPath="/profile/edit/license"
+      editPath="/profile/edit/certifications"
       className="flex w-[95%] flex-col gap-5 rounded-xl bg-white px-[2.75rem] py-[1.88rem]"
     >
       <h1 className="font-semibold">자격증</h1>
