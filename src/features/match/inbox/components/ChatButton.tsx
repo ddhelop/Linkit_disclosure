@@ -64,15 +64,13 @@ export default function ChatButton({
       }
 
       const response = await createChatRoom(requestData)
-
-      router.push(`/chat/${response.result.chatRoomId}`)
+      if (response.isSuccess) {
+        router.push(`/chat?romm=${response.result.chatRoomId}`)
+      } else {
+        toast.alert(response.message)
+      }
     } catch (error) {
       console.error('Detailed error:', error)
-      if (error instanceof Error) {
-        toast.alert(`채팅방 생성 실패: ${error.message}`)
-      } else {
-        toast.alert('채팅방 생성에 실패했습니다. 다시 시도해주세요.')
-      }
     }
   }
 
