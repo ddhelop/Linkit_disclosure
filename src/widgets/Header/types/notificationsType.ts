@@ -3,6 +3,7 @@ export interface NotificationDetails {
   teamMemberName?: string
   chatSenderName?: string
   matchingTargetName?: string
+  teamCode: string
 }
 
 export interface NotificationItem {

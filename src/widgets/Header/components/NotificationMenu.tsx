@@ -5,37 +5,9 @@ import useWebSocketStore from '@/shared/store/useWebSocketStore'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import Image from 'next/image'
 import { NotificationItem } from '../types/notificationsType'
-
-// Mock 데이터 정의
-const mockNotifications: NotificationItem[] = [
-  {
-    notificationType: 'TEAM_INVITATION',
-    subNotificationType: 'TEAM_INVITATION_REQUESTED',
-    notificationReadStatus: 'READ',
-    notificationOccurTime: '방금 전',
-    notificationDetails: {
-      teamName: '초대된 팀 이름',
-    },
-  },
-  {
-    notificationType: 'CHATTING',
-    subNotificationType: 'NEW_CHAT',
-    notificationReadStatus: 'UNREAD',
-    notificationOccurTime: '10분 전',
-    notificationDetails: {
-      chatSenderName: '채팅 발신자 이름',
-    },
-  },
-  {
-    notificationType: 'CHATTING',
-    subNotificationType: 'NEW_CHAT',
-    notificationReadStatus: 'READ',
-    notificationOccurTime: '1시간 전',
-    notificationDetails: {
-      chatSenderName: '채팅 발신자 이름',
-    },
-  },
-]
+import { getNotificationList } from '../api/NotificationApi'
+import { getNotificationMessage } from '../utils/notificationMessage'
+import { useRouter } from 'next/navigation'
 
 interface NotificationMenuProps {
   isOpen: boolean
@@ -45,9 +17,8 @@ interface NotificationMenuProps {
 
 export default function NotificationMenu({ isOpen, onClose, emailId }: NotificationMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null)
-  const subscriptionRef = useRef<any>(null)
-  const { getClient } = useWebSocketStore()
-  const [notifications, setNotifications] = useState<NotificationItem[]>(mockNotifications)
+  const [notifications, setNotifications] = useState<NotificationItem[]>([])
+  const router = useRouter()
 
   useOnClickOutside({
     refs: [menuRef],
@@ -55,55 +26,93 @@ export default function NotificationMenu({ isOpen, onClose, emailId }: Notificat
     isEnabled: isOpen,
   })
 
+  // 이전 알림 목록 조회 및 웹소켓 구독
   useEffect(() => {
-    if (!isOpen || !emailId) return
+    // 메뉴가 열릴 때만 알림 목록 조회
+    if (!isOpen) return
 
-    const client = getClient()
-    if (!client?.connected) return
-
-    // 실시간 알림 구독
-    subscriptionRef.current = client.subscribe(`/sub/notification/${emailId}`, (message) => {
-      const notification = JSON.parse(message.body)
-      console.log('New notification:', notification)
-      setNotifications((prev) => [notification, ...prev])
-    })
-
-    return () => {
-      if (subscriptionRef.current) {
-        subscriptionRef.current.unsubscribe()
+    // 이전 알림 목록 조회
+    const fetchNotifications = async () => {
+      try {
+        const response = await getNotificationList()
+        // response.result가 배열인지 확인하고 설정
+        if (Array.isArray(response.result.notificationItems)) {
+          setNotifications(response.result.notificationItems)
+        } else {
+          console.error('Notifications data is not an array:', response)
+          setNotifications([])
+        }
+      } catch (error) {
+        console.error('Failed to fetch notifications:', error)
+        setNotifications([])
       }
     }
-  }, [isOpen, emailId, getClient])
+    fetchNotifications()
+  }, [isOpen])
+
+  const handleNotificationClick = (notification: NotificationItem) => {
+    switch (notification.notificationType) {
+      case 'MATCHING':
+        router.push('/match/inbox')
+        break
+      case 'CHATTING':
+        router.push('/chat')
+        break
+      case 'TEAM':
+      case 'TEAM_INVITATION':
+        if (notification.notificationDetails.teamCode) {
+          router.push(`/team/${notification.notificationDetails.teamCode}/log`)
+        }
+        break
+      default:
+        break
+    }
+    onClose()
+  }
 
   if (!isOpen) return null
 
   return (
     <div
       ref={menuRef}
-      className="absolute right-0 top-12 z-50 max-h-[25.8rem] w-[23.3rem] rounded-xl border border-grey30 bg-white py-3 shadow-lg"
+      className="absolute right-0 top-12 z-50 w-[23.3rem] rounded-xl border border-grey30 bg-white shadow-lg"
     >
-      <div className="flex flex-col">
-        {notifications.map((notification, index) => (
-          <div
-            key={index}
-            className={`flex cursor-pointer items-center gap-4 rounded-lg px-7 py-5 hover:bg-grey20 ${
-              notification.notificationReadStatus === 'UNREAD' ? 'bg-[#EDF3FF]' : ''
-            }`}
-          >
-            <div className="h-10 w-10 flex-shrink-0">
-              <Image src="/common/default_profile.svg" alt="profile" width={40} height={40} className="rounded-full" />
-            </div>
-            <div className="flex flex-1 flex-col">
-              <span className="text-sm font-medium text-grey90">
-                {notification.notificationType === 'CHATTING' && notification.notificationDetails.chatSenderName
-                  ? `${notification.notificationDetails.chatSenderName}님이 메시지를 보냈습니다.`
-                  : notification.notificationDetails.teamName}
-              </span>
-              <span className="text-xs text-grey60">{notification.notificationOccurTime}</span>
-            </div>
-            {notification.notificationReadStatus === 'UNREAD' && <div className="h-2 w-2 rounded-full bg-main" />}
-          </div>
-        ))}
+      <div className="max-h-[24rem] overflow-y-auto">
+        <div className="flex flex-col py-3">
+          {notifications && notifications.length > 0 ? (
+            notifications.map((notification, index) => (
+              <div
+                key={index}
+                onClick={() => handleNotificationClick(notification)}
+                className={`flex cursor-pointer items-center gap-4 rounded-lg px-7 py-5 hover:bg-grey20 ${
+                  notification.notificationReadStatus === 'UNREAD' ? 'bg-[#EDF3FF]' : ''
+                }`}
+              >
+                <div className="h-10 w-10 flex-shrink-0">
+                  <Image
+                    src="/common/default_profile.svg"
+                    alt="profile"
+                    width={40}
+                    height={40}
+                    className="rounded-lg"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col">
+                  <span className="text-sm font-medium text-grey90">
+                    {getNotificationMessage(
+                      notification.notificationType,
+                      notification.subNotificationType,
+                      notification.notificationDetails,
+                    )}
+                  </span>
+                  <span className="text-xs text-grey60">{notification.notificationOccurTime}</span>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="flex items-center justify-center py-8 text-sm text-grey60">알림이 없습니다</div>
+          )}
+        </div>
       </div>
     </div>
   )

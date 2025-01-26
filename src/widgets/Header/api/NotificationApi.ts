@@ -12,7 +12,5 @@ export async function getNotificationList() {
     throw new Error('Failed to fetch notification list')
   }
 
-  console.log('response', response.json())
-
   return response.json()
 }
