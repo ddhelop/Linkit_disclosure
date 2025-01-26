@@ -1,3 +1,3 @@
-import NaverRedirect from '@/components/Login/NaverRedirect'
+import NaverRedirect from '@/features/login/components/NaverRedirect'
 
 export default NaverRedirect

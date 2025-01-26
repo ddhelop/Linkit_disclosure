@@ -1,0 +1,108 @@
+/* 에디터 기본 스타일 */
+.ql-container.ql-snow {
+  border: none !important;
+}
+
+/* 툴바 스타일링 */
+.ql-toolbar.ql-snow {
+  border: none !important;
+}
+
+/* 버튼 스타일링 */
+.ql-toolbar button {
+  width: 28px !important;
+  height: 28px !important;
+  padding: 5px !important;
+  border-radius: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.ql-toolbar button:hover {
+  background-color: #f6f8fc !important;
+}
+
+/* 드롭다운 스타일링 */
+.ql-toolbar .ql-picker {
+  height: 28px !important;
+}
+
+.ql-toolbar .ql-picker-label {
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 4px !important;
+  height: 28px !important;
+  padding: 0 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  font-size: 14px !important;
+  color: #475569 !important;
+  min-width: 90px !important;
+}
+
+.ql-toolbar .ql-picker-options {
+  background: white !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  padding: 4px 0 !important;
+  margin-top: 4px !important;
+}
+
+.ql-toolbar .ql-picker-item {
+  padding: 6px 12px !important;
+  font-size: 14px !important;
+  color: #475569 !important;
+}
+
+.ql-toolbar .ql-picker-item:hover {
+  background-color: #f6f8fc !important;
+}
+
+/* 헤더 선택 옵션 텍스트 */
+.ql-toolbar .ql-picker.ql-header .ql-picker-label::before,
+.ql-toolbar .ql-picker.ql-header .ql-picker-item::before {
+  content: '본문' !important;
+}
+
+.ql-toolbar .ql-picker.ql-header .ql-picker-label[data-value='1']::before,
+.ql-toolbar .ql-picker.ql-header .ql-picker-item[data-value='1']::before {
+  content: '대제목' !important;
+}
+
+.ql-toolbar .ql-picker.ql-header .ql-picker-label[data-value='2']::before,
+.ql-toolbar .ql-picker.ql-header .ql-picker-item[data-value='2']::before {
+  content: '중제목' !important;
+}
+
+/* 에디터 내용 스타일링 */
+.ql-editor {
+  min-height: 600px !important;
+  padding: 16px !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+}
+
+.ql-editor h1 {
+  font-size: 24px !important;
+  font-weight: 600 !important;
+}
+
+.ql-editor h2 {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+}
+
+/* 반응형 대응 */
+@media (max-width: 640px) {
+  .ql-toolbar button {
+    width: 24px !important;
+    height: 24px !important;
+    padding: 4px !important;
+  }
+
+  .ql-toolbar .ql-picker-label {
+    padding: 0 4px !important;
+    min-width: 80px !important;
+  }
+}

@@ -1,9 +1,13 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  mode: 'jit', // 이 줄이 있으면 JIT 모드 활성화
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/features/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/shared/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/widgets/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
@@ -37,6 +41,7 @@ const config: Config = {
         red10: '#FFD3DD',
         red60: '#FF345F',
         main: '#2563EB',
+        main2: '#4D82F3',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -76,10 +81,20 @@ const config: Config = {
           '0%': { transform: 'translateX(-50%)' },
           '100%': { transform: 'translateX(0%)' },
         },
+        slideIn: {
+          '0%': { transform: 'translateX(100%)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
       },
       animation: {
         infiniteScroll: 'infiniteScroll 40s linear infinite',
         infiniteScrollReverse: 'infiniteScrollReverse 40s linear infinite',
+        slideIn: 'slideIn 0.3s ease-out',
+        slideUp: 'slideUp 0.3s ease-out',
       },
     },
   },

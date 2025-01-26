@@ -1,3 +1,3 @@
-import GoogleRedirect from '@/components/Login/GoogleRedirect'
+import GoogleRedirect from '@/features/login/components/GoogleRedirect'
 
 export default GoogleRedirect

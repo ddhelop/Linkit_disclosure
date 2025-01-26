@@ -2,20 +2,16 @@
 
 import { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
-import Header from '@/components/Layout/Header'
-import Footer from '@/components/Layout/Footer'
 import { GoogleAnalytics } from '@next/third-parties/google'
-
 import './globals.css'
 import Scripts from '@/components/script'
-
-import ClientProvider from '@/components/common/ClientProvider'
-
-import 'react-toastify/dist/ReactToastify.css'
-import { ToastContainer } from 'react-toastify'
+import Header from '@/widgets/Header/Header'
+import WebSocketInitializer from '@/shared/components/webSocket/WebSocketInitializer'
+import Toast from '@/shared/components/Toast/Toast'
+import CustomClient from '@/components/CustomClient'
 
 export const metadata: Metadata = {
-  title: '링킷, Linkit',
+  title: '링킷(Linkit) | 일하는 사람들의 연결점',
   description: '팀 빌딩 서비스, 링킷',
   icons: {
     icon: '/logo.png',
@@ -52,17 +48,15 @@ export default function RootLayout({
         <meta name="google-site-verification" content="PP9z5zXtPDA9QeD8TEvKvlzTGIDZt3R9tCpcUZfoFZ4" />
         <meta name="naver-site-verification" content="17163296e94f835f71bb3d1994ea168bd456675b" />
       </head>
-      <body className={`${pretendard.className} bg-[#fff]`}>
-        <ClientProvider>
-          {/* <FetchSetting> */}
+      <body className={`${pretendard.className} bg-[#FCFCFD]`}>
+        <CustomClient>
+          <WebSocketInitializer />
           <Header />
-          <ToastContainer />
-          <div className="bg-grey10">{children}</div>
-          <Footer />
-          {/* </FetchSetting> */}
-        </ClientProvider>
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
-        <Scripts />
+          <div className="bg-[#fcfcfd]">{children}</div>
+          <Toast />
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
+          <Scripts />
+        </CustomClient>
       </body>
     </html>
   )
