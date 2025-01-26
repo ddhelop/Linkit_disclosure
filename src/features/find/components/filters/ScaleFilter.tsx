@@ -25,7 +25,7 @@ export default function ScaleFilter({
   onSelect,
   onRemove,
 }: ScaleFilterProps) {
-  const scaleList = ['1인', '2~5인', '5~10인', '10인 이상']
+  const scaleList = ['1인', '2~5인', '6~9인', '10인 이상']
   const filteredScales = scaleList.filter((scale) => scale.toLowerCase().includes(searchText.toLowerCase()))
 
   return (

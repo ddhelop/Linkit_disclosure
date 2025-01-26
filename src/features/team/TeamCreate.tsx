@@ -37,7 +37,7 @@ export default function TeamCreate() {
   ]
 
   // 팀 규모 옵션
-  const teamSizeOptions = ['1인', '2~5인', '5~10인', '10인 이상']
+  const teamSizeOptions = ['1인', '2~5인', '6~9인', '10인 이상']
 
   // 팀 모집 상태 옵션
   const recruitmentOptions = [
