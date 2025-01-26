@@ -22,13 +22,14 @@ export default function MatchingModal({ message, onClose, onAccept, onReject, mo
 
         <div className="flex w-full items-center justify-between">
           <div className="mt-3 flex gap-5">
-            <Image
-              src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
-              alt="profile"
-              width={54}
-              height={54}
-              className="rounded-full"
-            />
+            <div className="relative h-[54px] w-[54px] rounded-[0.63rem]">
+              <Image
+                src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
+                alt="profile"
+                fill
+                className="rounded-lg object-cover"
+              />
+            </div>
             <div className="flex flex-col justify-center gap-1">
               <p className="text-sm font-semibold text-grey90">{message.senderProfileInformation.memberName}</p>
               <div className="flex gap-1">

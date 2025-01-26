@@ -18,12 +18,14 @@ export default function RequestedMessage({ message, onClick }: RequestedMessageP
           message.receiverReadStatus === 'UNREAD_REQUESTED_MATCHING' ? 'bg-[#EDF3FF]' : 'bg-white'
         }`}
       >
-        <Image
-          src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
-          alt="profile"
-          width={64}
-          height={64}
-        />
+        <div className="relative h-[64px] w-[64px] rounded-[0.63rem]">
+          <Image
+            src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
+            alt="profile"
+            fill
+            className="rounded-lg object-cover"
+          />
+        </div>
         <div className="flex flex-col justify-center">
           <span className="text-lg font-semibold text-grey80">
             {message.senderProfileInformation.memberName}님의 매칭 요청

@@ -11,12 +11,14 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
     <>
       <div className="relative w-full">
         <div className="relative flex w-full gap-5 rounded-xl border border-grey30 bg-white px-10 py-7">
-          <Image
-            src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
-            alt="profile"
-            width={64}
-            height={64}
-          />
+          <div className="relative h-[64px] w-[64px] rounded-[0.63rem]">
+            <Image
+              src={message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
+              alt="profile"
+              fill
+              className="rounded-lg object-cover"
+            />
+          </div>
           <div className="flex flex-col justify-center">
             <span className="text-lg font-semibold text-main">
               {message.senderProfileInformation.memberName}님과 매칭 성사!
