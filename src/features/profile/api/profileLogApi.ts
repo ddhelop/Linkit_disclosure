@@ -1,11 +1,14 @@
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 
 export const deleteProfileLog = async (logId: number) => {
-  const response = await fetchWithAuth(`/api/v1/profile/log/type/${logId}`, {
+  const response = await fetchWithAuth(`/api/v1/profile/log/${logId}`, {
     method: 'DELETE',
   })
-  if (!response.ok) throw new Error('Failed to delete log')
-  return response
+  if (!response.ok) {
+    return response.json()
+  }
+
+  return response.json()
 }
 
 export const updateProfileLogType = async (logId: number) => {

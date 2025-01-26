@@ -70,9 +70,13 @@ export default function ProfileEditLog() {
     if (!isConfirmed) return
 
     try {
-      await deleteProfileLog(logId)
-      toast.success('로그가 성공적으로 삭제되었습니다.')
-      fetchLogs()
+      const response = await deleteProfileLog(logId)
+      if (response.isSuccess) {
+        toast.success('로그가 성공적으로 삭제되었습니다.')
+        fetchLogs()
+      } else {
+        toast.alert(response.message || '로그 삭제에 실패했습니다.')
+      }
     } catch (error) {
       console.error('Failed to delete log:', error)
       toast.alert('로그 삭제에 실패했습니다.')
