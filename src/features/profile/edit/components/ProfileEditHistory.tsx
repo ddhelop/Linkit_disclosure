@@ -14,6 +14,7 @@ interface ActivityItem {
   activityRole: string
   activityStartDate: string
   activityEndDate: string | null
+  isActivityVerified: boolean
 }
 
 export default function ProfileEditHistory() {
@@ -113,6 +114,7 @@ export default function ProfileEditHistory() {
             date={activity.activityStartDate}
             endDate={activity.activityEndDate}
             editPath="/profile/edit/history/new"
+            isActivityVerified={activity.isActivityVerified}
             onDelete={handleDelete}
           />
         ))}

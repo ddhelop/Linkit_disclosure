@@ -10,6 +10,7 @@ interface ElementComponentProps {
   date?: string
   endDate?: string | null
   editPath: string
+  isActivityVerified?: boolean
   onDelete?: (id: number) => void
 }
 
@@ -20,6 +21,7 @@ export default function ElementComponent({
   date,
   endDate,
   editPath,
+  isActivityVerified,
   onDelete,
 }: ElementComponentProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -68,7 +70,10 @@ export default function ElementComponent({
             query: { id },
           }}
         >
-          <span className="cursor-pointer font-semibold text-grey80">{title}</span>
+          <span className="flex cursor-pointer gap-3 font-semibold text-grey80">
+            {title}
+            {isActivityVerified && <Image src="/common/cert_badge.svg" width={20} height={20} alt="cert_badge" />}
+          </span>
         </Link>
         {(subtitle || date) && (
           <div className="flex gap-4 text-xs">
