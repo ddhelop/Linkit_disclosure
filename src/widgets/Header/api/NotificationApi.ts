@@ -14,3 +14,18 @@ export async function getNotificationList() {
 
   return response.json()
 }
+
+export const readNotification = async (notificationId: string) => {
+  const response = await fetchWithAuth(`/api/v1/notification/read/${notificationId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to mark notification as read')
+  }
+
+  return response.json()
+}

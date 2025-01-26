@@ -21,6 +21,7 @@ export interface NotificationItem {
   notificationReadStatus: 'READ' | 'UNREAD'
   notificationOccurTime: string
   notificationDetails: NotificationDetails
+  notificationId: string
 }
 
 export interface Notifications {

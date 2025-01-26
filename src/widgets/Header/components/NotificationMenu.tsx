@@ -1,11 +1,10 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import useWebSocketStore from '@/shared/store/useWebSocketStore'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import Image from 'next/image'
 import { NotificationItem } from '../types/notificationsType'
-import { getNotificationList } from '../api/NotificationApi'
+import { getNotificationList, readNotification } from '../api/NotificationApi'
 import { getNotificationMessage } from '../utils/notificationMessage'
 import { useRouter } from 'next/navigation'
 
@@ -50,24 +49,32 @@ export default function NotificationMenu({ isOpen, onClose, emailId }: Notificat
     fetchNotifications()
   }, [isOpen])
 
-  const handleNotificationClick = (notification: NotificationItem) => {
-    switch (notification.notificationType) {
-      case 'MATCHING':
-        router.push('/match/inbox')
-        break
-      case 'CHATTING':
-        router.push('/chat')
-        break
-      case 'TEAM':
-      case 'TEAM_INVITATION':
-        if (notification.notificationDetails.teamCode) {
-          router.push(`/team/${notification.notificationDetails.teamCode}/log`)
-        }
-        break
-      default:
-        break
+  const handleNotificationClick = async (notification: NotificationItem) => {
+    try {
+      // 알림 읽음 처리 API 호출
+      await readNotification(notification.notificationId)
+
+      // 라우팅 처리
+      switch (notification.notificationType) {
+        case 'MATCHING':
+          router.push('/match/inbox')
+          break
+        case 'CHATTING':
+          router.push('/chat')
+          break
+        case 'TEAM':
+        case 'TEAM_INVITATION':
+          if (notification.notificationDetails.teamCode) {
+            router.push(`/team/${notification.notificationDetails.teamCode}/log`)
+          }
+          break
+        default:
+          break
+      }
+      onClose()
+    } catch (error) {
+      console.error('Failed to mark notification as read:', error)
     }
-    onClose()
   }
 
   if (!isOpen) return null
@@ -84,7 +91,7 @@ export default function NotificationMenu({ isOpen, onClose, emailId }: Notificat
               <div
                 key={index}
                 onClick={() => handleNotificationClick(notification)}
-                className={`flex cursor-pointer items-center gap-4 rounded-lg px-7 py-5 hover:bg-grey20 ${
+                className={`flex cursor-pointer items-center gap-4  px-7 py-5 hover:bg-grey20 ${
                   notification.notificationReadStatus === 'UNREAD' ? 'bg-[#EDF3FF]' : ''
                 }`}
               >
