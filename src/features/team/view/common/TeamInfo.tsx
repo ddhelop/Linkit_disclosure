@@ -1,16 +1,19 @@
 'use client'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { getTeamInfo, teamScrap } from '../../api/teamApi'
+import { useEffect, useState, useRef } from 'react'
+import { deleteTeam, getTeamInfo, requestTeamDelete, teamScrap } from '../../api/teamApi'
 import { Button } from '@/shared/ui/Button/Button'
 import { useMatching } from '@/shared/hooks/useMatching'
 import MatchingModal from '@/features/profile/view/component/common/MatchingModal'
 import MatchingRequestModal from '@/features/profile/view/component/common/MatchingRequestModal'
 import { useToast } from '@/shared/hooks/useToast'
+import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
+import AlertModal from '@/shared/ui/Modal/AlertModal'
 
 interface TeamData {
   isMyTeam: boolean
+  isTeamDeleteInProgress: boolean
   teamInformMenu: {
     teamCode: string
     isTeamScrap: boolean
@@ -22,6 +25,7 @@ interface TeamData {
     teamScaleItem: {
       teamScaleName: string
     }
+    teamScrapCount: number
     regionDetail: {
       cityName: string
       divisionName: string
@@ -35,8 +39,13 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
   const [isScrapLoading, setIsScrapLoading] = useState(false)
   const [isTeamScrap, setIsTeamScrap] = useState(false)
   const [isTeamMatching, setIsTeamMatching] = useState(false)
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const toast = useToast()
+  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false)
+  const [isDeleteRequestModalOpen, setIsDeleteRequestModalOpen] = useState(false)
+  const [isTeamDeleteInProgress, setIsTeamDeleteInProgress] = useState(false)
 
   const {
     isProfileModalOpen,
@@ -61,6 +70,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
           setTeamData(response.result)
           setIsTeamScrap(response.result.teamInformMenu.isTeamScrap)
           setIsTeamMatching(response.result.teamInformMenu.isTeamMatching)
+          setIsTeamDeleteInProgress(response.result.isTeamDeleteInProgress)
         }
       } catch (error) {
         console.error('Failed to fetch team data:', error)
@@ -71,6 +81,12 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
 
     fetchTeamData()
   }, [params.teamName])
+
+  useOnClickOutside({
+    refs: [dropdownRef],
+    handler: () => setIsDropdownOpen(false),
+    isEnabled: isDropdownOpen,
+  })
 
   if (isLoading) return <div>Loading...</div>
   if (!teamData) return <div>Team not found</div>
@@ -107,6 +123,55 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
     }
   }
 
+  const handleDeleteTeam = async () => {
+    setIsDropdownOpen(false)
+    setIsAlertModalOpen(true)
+  }
+
+  const handleConfirmDelete = async () => {
+    // 팀 삭제 로직
+    try {
+      const response = await deleteTeam(teamInformMenu.teamCode)
+      if (response.isSuccess) {
+        toast.success('팀 삭제가 요청되었습니다.')
+        // router.push('/')
+      }
+    } catch (error) {
+      console.error('Failed to delete team:', error)
+    }
+    setIsAlertModalOpen(false)
+  }
+
+  const handleDeleteRequest = () => {
+    setIsDeleteRequestModalOpen(true)
+  }
+
+  const handleConfirmDeleteRequest = async () => {
+    try {
+      const response = await requestTeamDelete(teamInformMenu.teamCode, 'ALLOW_DELETE')
+      if (response.isSuccess) {
+        toast.success('팀 삭제요청이 수락되었습니다.')
+        // router.push('/')
+      }
+    } catch (error) {
+      console.error('Failed to delete team:', error)
+    }
+    setIsDeleteRequestModalOpen(false)
+  }
+
+  const handleDenyDeleteRequest = async () => {
+    try {
+      const response = await requestTeamDelete(teamInformMenu.teamCode, 'DENY_DELETE')
+      if (response.isSuccess) {
+        toast.success('팀 삭제요청이 거절되었습니다.')
+        setIsTeamDeleteInProgress(false)
+      }
+    } catch (error) {
+      console.error('Failed to deny team delete:', error)
+    }
+    setIsDeleteRequestModalOpen(false)
+  }
+
   return (
     <>
       <div className="flex w-full justify-between">
@@ -131,6 +196,34 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
               <div className="flex flex-col justify-center">
                 <div className="flex items-center gap-3">
                   <h1 className="text-2xl font-bold text-grey90">{teamInformMenu.teamName}</h1>
+                  <span className="text-xs text-grey70">스크랩 수 {teamInformMenu.teamScrapCount}</span>
+                  <div className="relative" ref={dropdownRef}>
+                    <Image
+                      src="/common/icons/dropdown_icon.svg"
+                      alt="menu"
+                      width={16}
+                      height={16}
+                      className="cursor-pointer"
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    />
+
+                    {isDropdownOpen && (
+                      <div className="absolute left-0 top-6 z-10 w-[6rem] rounded-lg border border-grey30 bg-white py-2 shadow-lg">
+                        <div
+                          className="flex cursor-pointer items-center gap-2 px-3 py-1 text-xs text-[#FF345F] hover:bg-grey10"
+                          onClick={() => router.push(`/team/${params.teamName}/edit/log`)}
+                        >
+                          팀 나가기
+                        </div>
+                        <div
+                          className="flex cursor-pointer items-center gap-2 px-3 py-1 text-xs text-grey80 hover:bg-grey10"
+                          onClick={handleDeleteTeam}
+                        >
+                          팀 삭제하기
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <div className="mt-2 flex flex-col gap-1">
@@ -152,17 +245,30 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
         </div>
         {teamData.isMyTeam ? (
           <div className="mt-12">
-            <Button
-              onClick={() => {
-                router.push(`/team/${params.teamName}/edit/log`)
-              }}
-              animationMode="grey"
-              className=" flex gap-2 rounded-full border border-grey30 bg-white px-6 py-3 text-sm text-grey60"
-              mode="custom"
-            >
-              <Image src="/common/icons/pencil.svg" alt="edit" width={16} height={16} />
-              수정하기
-            </Button>
+            {isTeamDeleteInProgress ? (
+              <div className="flex gap-3">
+                <Image src="/common/icons/delete_messgae.svg" alt="delete" width={206} height={20} />
+                <Button
+                  animationMode="main"
+                  className="rounded-full bg-[#3774F4] px-6 py-3 text-sm font-semibold text-white"
+                  onClick={handleDeleteRequest}
+                >
+                  팀 삭제 요청
+                </Button>
+              </div>
+            ) : (
+              <Button
+                onClick={() => {
+                  router.push(`/team/${params.teamName}/edit/log`)
+                }}
+                animationMode="grey"
+                className=" flex gap-2 rounded-full border border-grey30 bg-white px-6 py-3 text-sm text-grey60"
+                mode="custom"
+              >
+                <Image src="/common/icons/pencil.svg" alt="edit" width={16} height={16} />
+                수정하기
+              </Button>
+            )}
           </div>
         ) : (
           <div className="mt-12 flex flex-col gap-5">
@@ -216,6 +322,27 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
             : null
         }
         type="TEAM"
+      />
+
+      <AlertModal
+        isOpen={isAlertModalOpen}
+        title="정말 삭제할까요?"
+        description={'팀을 삭제하면 복구할 수 없어요\n팀을 완전히 삭제할까요?'}
+        cancelText="삭제 안 함"
+        confirmText="삭제하기"
+        onCancel={() => setIsAlertModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+      />
+
+      <AlertModal
+        isOpen={isDeleteRequestModalOpen}
+        title="팀을 삭제할까요?"
+        description={'팀 관리자가 모두 수락하면 팀이 삭제되고\n되돌릴 수 없어요'}
+        cancelText="삭제 거절"
+        confirmText="삭제 수락"
+        onCancel={() => setIsDeleteRequestModalOpen(false)}
+        onCancelAction={handleDenyDeleteRequest}
+        onConfirm={handleConfirmDeleteRequest}
       />
     </>
   )

@@ -51,7 +51,7 @@ export async function getTeamInfo(teamName: string) {
       console.error('Error details:', errorData)
       throw new Error(`Failed to fetch team info: ${response.status}`)
     }
-    return response.json() as Promise<TeamInfoResponse>
+    return response.json()
   } catch (error) {
     console.error('Team info fetch error:', error)
     throw error
@@ -618,4 +618,34 @@ export async function teamScrap(teamName: string, isScrap: boolean) {
   }
 
   return data
+}
+
+// 팀 삭제하기
+export async function deleteTeam(teamCode: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamCode}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to delete team')
+  }
+
+  return response.json()
+}
+
+// 팀 삭제 수락 요청/거절
+export async function requestTeamDelete(teamCode: string, teamMemberManagingTeamState: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamCode}/managing/teamState`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ teamMemberManagingTeamState }),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to request team delete')
+  }
+
+  return response.json()
 }
