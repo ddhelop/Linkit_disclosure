@@ -6,11 +6,12 @@ import { useState } from 'react'
 import { announcementScrap } from '../api/commonApi'
 import Link from 'next/link'
 import { useToast } from '../hooks/useToast'
+import { AnnouncementInformMenu } from '@/features/match/types/MatchTypes'
 
-export default function AnnouncementCard({ announcement }: { announcement: Announcement }) {
+export default function AnnouncementCard({ announcement }: { announcement: AnnouncementInformMenu }) {
   const [isScrap, setIsScrap] = useState(announcement?.isAnnouncementScrap ?? false)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
-  const [scrapCount, setScrapCount] = useState(announcement?.announcementScrapCount)
+  const [scrapCount, setScrapCount] = useState(announcement?.announcementScrapCount ?? 0)
   const toast = useToast()
 
   const handleScrap = async (e: React.MouseEvent<HTMLImageElement>) => {
@@ -22,7 +23,7 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
       const response = await announcementScrap(announcement?.teamMemberAnnouncementId, !isScrap)
       if (response.ok) {
         setIsScrap(!isScrap)
-        setScrapCount((prev) => (isScrap ? prev - 1 : prev + 1))
+        setScrapCount((prev) => (!isScrap ? prev + 1 : prev - 1))
         toast.success('스크랩 상태가 변경되었습니다.')
       }
     } catch (error) {
@@ -71,7 +72,7 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
       </div>
       <div className="flex w-[90%] flex-col gap-1 ">
         <span className="text-lg font-semibold text-grey90">{announcement?.announcementTitle}</span>
-        <span className="text-xs text-grey70">스크랩수 {announcement?.announcementScrapCount}</span>
+        <span className="text-xs text-grey70">스크랩수 {scrapCount}</span>
       </div>
 
       <div className="flex gap-2">

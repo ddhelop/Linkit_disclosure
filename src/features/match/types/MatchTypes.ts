@@ -55,13 +55,20 @@ export interface TeamInformMenu {
 }
 
 export interface AnnouncementScrapResponse {
+  isSuccess: boolean
+  code: string
+  message: string
+  result: {
+    announcementInformMenus: AnnouncementInformMenu[]
+  }
+}
+
+export interface AnnouncementInformMenu {
   teamMemberAnnouncementId: number
   teamLogoImagePath: string
   teamName: string
   teamCode: string
-  teamScaleItem: {
-    teamScaleName: string
-  }
+  teamScaleItem: TeamScaleItem
   regionDetail: RegionDetail
   announcementDDay: number
   announcementTitle: string

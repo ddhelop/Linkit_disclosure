@@ -4,13 +4,19 @@ import { useState, useEffect } from 'react'
 import MatchScrapFilter from './MatchScrapFilter'
 import MiniProfileCard_2 from '@/shared/components/MiniProfileCard_2'
 import { getAnnouncementScraps, getProfileScraps, getTeamScraps } from '../api/MatchApi'
-import { AnnouncementScrapResponse, ProfileInform, TeamInformMenu, FilterType } from '../types/MatchTypes'
+import {
+  AnnouncementScrapResponse,
+  ProfileInform,
+  TeamInformMenu,
+  FilterType,
+  AnnouncementInformMenu,
+} from '../types/MatchTypes'
 import MiniTeamCard_2 from '@/shared/components/MiniTeamCard_2'
 import AnnouncementCard from '@/shared/components/AnnouncementCard'
 
 export default function MatchScrap() {
   const [selectedFilter, setSelectedFilter] = useState<FilterType>('MEMBER')
-  const [scrapData, setScrapData] = useState<ProfileInform[] | TeamInformMenu[] | AnnouncementScrapResponse[]>([])
+  const [scrapData, setScrapData] = useState<ProfileInform[] | TeamInformMenu[] | AnnouncementInformMenu[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   const fetchScrapData = async (filterType: FilterType) => {
@@ -52,12 +58,12 @@ export default function MatchScrap() {
         ) : selectedFilter === 'TEAM' ? (
           Array.isArray(scrapData) &&
           (scrapData as TeamInformMenu[]).map((team) => <MiniTeamCard_2 key={team.teamName} team={team} />)
-        ) : (
+        ) : selectedFilter === 'ANNOUNCEMENT' ? (
           Array.isArray(scrapData) &&
-          (scrapData as AnnouncementScrapResponse[]).map((announcement) => (
-            <AnnouncementCard key={announcement.announcementTitle} announcement={announcement} />
+          (scrapData as AnnouncementInformMenu[]).map((announcement) => (
+            <AnnouncementCard key={announcement.teamMemberAnnouncementId} announcement={announcement} />
           ))
-        )}
+        ) : null}
       </div>
     </div>
   )

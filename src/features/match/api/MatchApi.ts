@@ -8,6 +8,7 @@ import {
   ReceiverType,
   AnnouncementScrapResponse,
   MatchingProfileMenuResponse,
+  AnnouncementInformMenu,
 } from '../types/MatchTypes'
 
 export const getProfileScraps = async (): Promise<ProfileInform[]> => {
@@ -38,11 +39,11 @@ export const getTeamScraps = async (): Promise<TeamInformMenu[]> => {
   }
 }
 
-export const getAnnouncementScraps = async (): Promise<AnnouncementScrapResponse[]> => {
+export const getAnnouncementScraps = async () => {
   try {
     const response = await fetchWithAuth('/api/v1/announcement/scrap')
-    const data: AnnouncementScrapResponse[] = await response.json()
-    return data
+    const data = await response.json()
+    return data.result.announcementInformMenus
   } catch (error) {
     console.error('Error fetching announcement scraps:', error)
     throw error
