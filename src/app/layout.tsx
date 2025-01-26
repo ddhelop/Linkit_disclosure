@@ -10,7 +10,7 @@ import WebSocketInitializer from '@/shared/components/webSocket/WebSocketInitial
 import Toast from '@/shared/components/Toast/Toast'
 
 export const metadata: Metadata = {
-  title: '링킷, Linkit',
+  title: '링킷(Linkit) | 일하는 사람들의 연결점',
   description: '팀 빌딩 서비스, 링킷',
   icons: {
     icon: '/logo.png',

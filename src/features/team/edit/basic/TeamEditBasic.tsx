@@ -39,14 +39,14 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
 
   // 팀 모집 상태 옵션
   const recruitmentOptions = [
-    '팀원 모집 중',
-    '멘토 모집 중',
-    '프로젝트 진행 중',
+    '팀원 찾는 중',
     '대회 준비 중',
     '공모전 준비 중',
+    '지원사업 준비 중',
+    '둘러보는 중',
+    '프로젝트 진행 중',
+    '아이디어 찾는 중',
     '투자 유치 중',
-    '아이디어 구상 중',
-    '모집 완료',
   ]
 
   // 팀동 지역 옵션

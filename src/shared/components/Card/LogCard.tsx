@@ -22,23 +22,23 @@ export default function LogCard({ log }: { log: ILogCard }) {
           <span className="text-xs font-normal text-grey60">{log.logInformDetails.teamName}</span>
         </div>
         <div className="flex items-center gap-2">
-          {log.domainType === 'PROFILE' ? (
-            <Image
-              src={log.logInformDetails.profileImagePath}
-              alt="팀 로고"
-              width={28}
-              height={28}
-              className="rounded-lg"
-            />
-          ) : (
-            <Image
-              src={log.logInformDetails.teamLogoImagePath}
-              alt="팀 로고"
-              width={28}
-              height={28}
-              className="rounded-lg"
-            />
-          )}
+          <div className="relative h-[28px] w-[28px] rounded-lg">
+            {log.domainType === 'PROFILE' ? (
+              <Image
+                src={log.logInformDetails.profileImagePath}
+                alt="팀 로고"
+                fill
+                className="rounded-lg object-cover"
+              />
+            ) : (
+              <Image
+                src={log.logInformDetails.teamLogoImagePath}
+                alt="팀 로고"
+                fill
+                className="rounded-lg object-cover"
+              />
+            )}
+          </div>
           {log.domainType === 'PROFILE' ? (
             <span className="text-sm font-semibold text-grey90">{log.logInformDetails.memberName}</span>
           ) : (

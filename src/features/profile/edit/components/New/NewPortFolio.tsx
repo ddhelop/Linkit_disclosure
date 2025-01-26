@@ -288,7 +288,7 @@ export default function NewPortFolio() {
 
   return (
     <>
-      <div className="flex flex-col gap-10 rounded-xl bg-white px-[1.62rem] pb-7 pt-[1.88rem]">
+      <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] pb-7 pt-[1.88rem]">
         {/* 프로젝트 이름 */}
         <div className="flex flex-col gap-3">
           <div className="flex justify-between">
