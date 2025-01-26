@@ -119,20 +119,22 @@ export function ImageUploader({
         <div className="mt-2 flex flex-wrap gap-2">
           {/* 새로 로드된 이미지 */}
           {subImages.map((image) => (
-            <div key={image.id} className="relative">
-              <Image
-                src={URL.createObjectURL(image.file)}
-                width={156}
-                height={86}
-                alt="보조 이미지"
-                className="h-[86px] w-[156px] object-cover"
-              />
-              <button
+            <div key={image.id} className="group relative rounded-lg">
+              <div className="relative h-[86px] w-[156px]">
+                <Image
+                  src={URL.createObjectURL(image.file)}
+                  fill
+                  alt="보조 이미지"
+                  className="rounded-lg object-cover"
+                />
+              </div>
+              <div className="absolute inset-0 bg-black/50 opacity-0 transition-opacity group-hover:opacity-100" />
+              <div
+                className="absolute right-2 top-2 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100"
                 onClick={() => onSubImageDelete(image.id)}
-                className="absolute -right-2 -top-2 rounded-full bg-grey50 p-1"
               >
-                <Image src="/common/icons/close.svg" width={12} height={12} alt="삭제" />
-              </button>
+                <span className="cursor-pointer text-sm text-white underline">삭제하기</span>
+              </div>
             </div>
           ))}
 

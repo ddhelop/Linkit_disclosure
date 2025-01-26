@@ -68,7 +68,7 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
   return (
     <Link
       href={`/team/${teamName}/edit/recruit/new?id=${announcement.teamMemberAnnouncementId}`}
-      className="flex w-full flex-col rounded-xl bg-white px-10 py-5 hover:shadow-md"
+      className="flex w-full flex-col rounded-xl border border-transparent bg-white px-10 py-5 hover:border-main"
     >
       <div className="flex items-center justify-between">
         <div className="flex rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">

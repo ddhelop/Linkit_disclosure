@@ -140,11 +140,20 @@ export default function ProfileEditBasic() {
     }
   }
 
-  const handleImageDelete = () => {
-    setProfileImage(null)
-    setProfileImagePreview('')
-    // 기본 이미지로 돌아가기
-    setProfileImagePath('/common/default_profile.svg')
+  const handleImageDelete = async () => {
+    try {
+      // default_profile.svg를 File 객체로 변환
+      const response = await fetch('/common/default_profile.svg')
+      const blob = await response.blob()
+      const defaultImage = new File([blob], 'default_profile.svg', { type: 'image/svg+xml' })
+
+      setProfileImage(defaultImage)
+      setProfileImagePreview('')
+      setProfileImagePath('/common/default_profile.svg')
+    } catch (error) {
+      console.error('기본 이미지 설정 중 오류 발생:', error)
+      toast.alert('이미지 삭제 중 오류가 발생했습니다.')
+    }
   }
 
   const handleSubmit = async () => {
