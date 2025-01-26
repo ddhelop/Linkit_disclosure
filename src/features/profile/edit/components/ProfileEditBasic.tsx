@@ -203,7 +203,8 @@ export default function ProfileEditBasic() {
       selectedCategory !== '' && // 포지션 대분류
       selectedSubCategory !== '' && // 포지션 소분류
       selectedCity !== '' && // 활동지역 시/도
-      selectedDistrict !== '' // 활동지역 시/군/구
+      selectedDistrict !== '' && // 활동지역 시/군/구
+      selectedStatuses.length > 0 // 현재 상태가 최소 1개 이상 선택되어야 함
 
     return requiredFieldsValid && hasChanges()
   }
@@ -326,7 +327,9 @@ export default function ProfileEditBasic() {
         <div className="flex flex-col gap-4">
           {/* 현재 상태 - 선택된 상태들 */}
           <div className="flex flex-col gap-3">
-            <span className="flex text-grey80">현재 상태</span>
+            <span className="flex text-grey80">
+              현재 상태 <p className="text-main">*</p>
+            </span>
 
             <div className="flex flex-wrap gap-2">
               {selectedStatuses.map((status) => (
