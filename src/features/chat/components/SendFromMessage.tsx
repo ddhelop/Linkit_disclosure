@@ -9,7 +9,7 @@ export default function SendFromMessage({ message }: SendFromMessageProps) {
   return (
     <div className="mb-4 flex gap-3">
       <Image
-        src="/common/default_profile.svg"
+        src={message.messageSenderLogoImagePath || '/common/default_profile.svg'}
         alt="프로필 이미지"
         width={48}
         height={48}

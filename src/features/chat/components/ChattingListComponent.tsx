@@ -2,7 +2,6 @@ import Image from 'next/image'
 import { ChattingListType } from '../types/ChatTypes'
 import { formatDate } from '@/shared/utils/dateUtils'
 import { useChatStore } from '../store/useChatStore'
-import { useEffect } from 'react'
 
 export default function ChattingListComponent({
   chattingList,
@@ -13,40 +12,8 @@ export default function ChattingListComponent({
   isSelected?: boolean
   onClick: () => void
 }) {
-  const { lastMessages, initializeLastMessage } = useChatStore()
+  const { lastMessages } = useChatStore()
   const chatRoomId = chattingList.chatRoomId
-
-  // 컴포넌트 마운트 시 초기 메시지 설정
-  useEffect(() => {
-    if (chattingList.chatPartnerInformation.lastMessage) {
-      initializeLastMessage(
-        chatRoomId,
-        chattingList.chatPartnerInformation.lastMessage,
-        chattingList.chatPartnerInformation.lastMessageTime,
-      )
-    }
-  }, [
-    chatRoomId,
-    chattingList.chatPartnerInformation.lastMessage,
-    chattingList.chatPartnerInformation.lastMessageTime,
-    initializeLastMessage,
-  ])
-
-  // 디버깅을 위한 콘솔 로그
-  console.log('API lastMessage:', chattingList.chatPartnerInformation.lastMessage)
-  console.log('Store lastMessage:', lastMessages[chatRoomId]?.content)
-
-  const handleClick = () => {
-    // 클릭 이벤트 발생 시 현재 메시지 상태 유지
-    if (chattingList.chatPartnerInformation.lastMessage) {
-      initializeLastMessage(
-        chatRoomId,
-        chattingList.chatPartnerInformation.lastMessage,
-        chattingList.chatPartnerInformation.lastMessageTime,
-      )
-    }
-    onClick()
-  }
 
   const lastMessage =
     chattingList.chatPartnerInformation.lastMessage || lastMessages[chatRoomId]?.content || '새로운 대화를 시작해보세요'
@@ -54,12 +21,14 @@ export default function ChattingListComponent({
   const lastMessageTime = chattingList.chatPartnerInformation.lastMessageTime || lastMessages[chatRoomId]?.timestamp
 
   const formattedDate = formatDate(lastMessageTime)
+  const hasUnreadMessages = chattingList.unreadChatMessageCount && chattingList.unreadChatMessageCount > 0
 
   return (
     <div
-      onClick={handleClick}
+      onClick={onClick}
       className={`flex w-full cursor-pointer gap-3 rounded-xl border p-4 hover:bg-grey10
-        ${isSelected ? 'border-main bg-grey10' : 'border-grey20'}`}
+        ${isSelected ? 'border-main bg-grey10' : 'border-grey20'}
+        ${hasUnreadMessages ? 'bg-[#EDF3FF]' : ''}`}
     >
       <div className="h-[60px] w-[60px] flex-shrink-0">
         {chattingList.chatPartnerInformation.chatPartnerImageUrl ? (
@@ -85,10 +54,20 @@ export default function ChattingListComponent({
 
       <div className="flex w-full flex-col gap-[0.38rem]">
         <div className="flex w-full items-center justify-between">
-          <span className="font-semibold text-grey90">{chattingList.chatPartnerInformation.chatPartnerName}</span>
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-grey90">{chattingList.chatPartnerInformation.chatPartnerName}</span>
+            <div className={`h-2 w-2 rounded-full ${chattingList.chatPartnerOnline ? 'bg-main' : 'bg-grey50'}`} />
+          </div>
           <span className="text-xs font-normal text-grey70">{formattedDate}</span>
         </div>
-        <div className="w-[90%] text-xs text-grey60">{lastMessage}</div>
+        <div className="relative w-[90%] text-xs text-grey60">
+          <span>{lastMessage}</span>
+          {hasUnreadMessages && (
+            <div className="bg-red absolute -right-6 -top-1 flex h-5 w-5 items-center justify-center rounded-full text-xs text-white">
+              {chattingList.unreadChatMessageCount}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

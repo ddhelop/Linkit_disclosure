@@ -21,6 +21,7 @@ export interface ChattingListType {
   chatPartnerInformation: {
     chatPartnerName: string
     chatPartnerImageUrl: string
+
     partnerProfileDetailInformation: {
       profilePositionDetail: {
         majorPosition: string
@@ -43,12 +44,13 @@ export interface ChattingListType {
     lastMessage: string
     lastMessageTime: string
   }
-  unreadCount: number | null
-  online: boolean
+  unreadChatMessageCount: number | null
+  chatPartnerOnline: boolean
 }
 
 export interface ChatMessage {
   messageId: string
+  messageSenderLogoImagePath: string
   chatRoomId: number
   messageSenderType: 'TEAM' | 'PROFILE'
   messageSenderId: string

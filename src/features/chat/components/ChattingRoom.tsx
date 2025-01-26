@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback, useRef } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { ChatMessage } from '../types/ChatTypes'
 import { getChatMessages } from '../api/ChatApi'
 import ChattingBasicProfile from './ChattingBasicProfile'
@@ -8,66 +8,23 @@ import ChattingInput from './ChattingInput'
 import SendFromMessage from './SendFromMessage'
 import SendToMessage from './SendToMessage'
 import { useChatStore } from '../store/useChatStore'
-import useWebSocketStore from '@/shared/store/useWebSocketStore'
 
 interface ChattingRoomProps {
   chatRoomId?: number
 }
 
 export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
-  const [messages, setMessages] = useState<ChatMessage[]>([])
-  const { updateLastMessage } = useChatStore()
-  const { getClient } = useWebSocketStore()
-  const subscriptionRef = useRef<any>(null)
+  const { messages, setMessages, addMessage } = useChatStore()
   const [isLoading, setIsLoading] = useState(false)
-
-  // 메시지 추가 함수
-  const addMessage = useCallback((message: ChatMessage) => {
-    // 유효한 메시지인지 확인
-    if (!message.content?.trim()) return
-
-    setMessages((prev) => [message, ...prev])
-  }, [])
 
   useEffect(() => {
     if (!chatRoomId) return
 
-    const client = getClient()
-    if (!client) {
-      console.log('No WebSocket client available')
-      return
-    }
-
     const initializeChat = async () => {
       try {
         setIsLoading(true)
-
-        // 연결이 끊어진 경우 재연결 시도
-        if (!client.connected) {
-          await new Promise<void>((resolve) => {
-            client.onConnect = () => {
-              console.log('Reconnected to WebSocket')
-              resolve()
-            }
-            client.activate()
-          })
-        }
-
-        // 이전 메시지 로드
         const response = await getChatMessages(chatRoomId)
-        setMessages(response.result.messages)
-
-        // 채팅방 구독
-        subscriptionRef.current = client.subscribe(`/sub/chat/${chatRoomId}`, (message) => {
-          const receivedMessage = JSON.parse(message.body)
-          // 받은 메시지는 항상 상대방 메시지로 처리
-          const newMessage = {
-            ...receivedMessage,
-            isMyMessage: false,
-          }
-          addMessage(newMessage)
-          updateLastMessage(chatRoomId, newMessage.content, new Date(newMessage.timestamp).toLocaleTimeString())
-        })
+        setMessages(chatRoomId, response.result.messages)
       } catch (error) {
         console.error('Failed to initialize chat:', error)
       } finally {
@@ -76,19 +33,14 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
     }
 
     initializeChat()
-
-    return () => {
-      if (subscriptionRef.current) {
-        subscriptionRef.current.unsubscribe()
-      }
-    }
-  }, [chatRoomId, getClient, addMessage, updateLastMessage])
+  }, [chatRoomId, setMessages])
 
   // 메시지 전송 핸들러
   const handleSendMessage = useCallback(
     (content: string) => {
+      if (!chatRoomId) return
+
       const timestamp = new Date().toISOString()
-      // UI에 즉시 내 메시지 추가
       const myMessage: ChatMessage = {
         messageId: Date.now().toString(),
         chatRoomId: Number(chatRoomId),
@@ -98,12 +50,11 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
         messageSenderType: 'PROFILE',
         messageSenderId: '',
         read: false,
+        messageSenderLogoImagePath: '',
       }
-      addMessage(myMessage)
-      // Store 업데이트
-      updateLastMessage(Number(chatRoomId), content, timestamp)
+      addMessage(chatRoomId, myMessage)
     },
-    [chatRoomId, addMessage, updateLastMessage],
+    [chatRoomId, addMessage],
   )
 
   if (isLoading) {
@@ -136,15 +87,13 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
         </div>
 
         <div className="flex flex-1 flex-col-reverse gap-6 overflow-y-auto">
-          {messages
-            .filter((message) => message.content?.trim()) // 빈 메시지 필터링
-            .map((message) =>
-              message.isMyMessage ? (
-                <SendToMessage key={message.messageId} message={message} />
-              ) : (
-                <SendFromMessage key={message.messageId} message={message} />
-              ),
-            )}
+          {messages[chatRoomId]?.map((message) =>
+            message.isMyMessage ? (
+              <SendToMessage key={message.messageId} message={message} />
+            ) : (
+              <SendFromMessage key={message.messageId} message={message} />
+            ),
+          )}
         </div>
       </div>
 
