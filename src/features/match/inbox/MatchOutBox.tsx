@@ -6,6 +6,7 @@ import MatchFilter from '../common/MatchFilter'
 import InBoxMessage from './InBoxRequestMessage'
 import { getMatchingMessages, getRequestedMatchingMessages } from '../api/MatchApi'
 import { MatchingMessage } from '../types/MatchTypes'
+import OutBoxRequestMessage from './OutBoxRequestMessage'
 
 export default function MatchOutBox() {
   const [messages, setMessages] = useState<MatchingMessage[]>([])
@@ -43,7 +44,7 @@ export default function MatchOutBox() {
           <div>로딩 중...</div>
         ) : (
           <>
-            <InBoxMessage messages={messages} />
+            <OutBoxRequestMessage messages={messages} />
           </>
         )}
       </div>
