@@ -10,12 +10,14 @@ import MatchingRequestModal from '@/features/profile/view/component/common/Match
 import { useToast } from '@/shared/hooks/useToast'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import AlertModal from '@/shared/ui/Modal/AlertModal'
+import { useTeamStore } from '../../store/useTeamStore'
 
 interface TeamData {
   isMyTeam: boolean
   isTeamDeleteInProgress: boolean
   teamInformMenu: {
     teamCode: string
+    isTeamManager: boolean
     isTeamScrap: boolean
     isTeamMatching: boolean
     teamCurrentStates: Array<{ teamStateName: string }>
@@ -46,6 +48,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false)
   const [isDeleteRequestModalOpen, setIsDeleteRequestModalOpen] = useState(false)
   const [isTeamDeleteInProgress, setIsTeamDeleteInProgress] = useState(false)
+  const { setIsTeamManager } = useTeamStore()
 
   const {
     isProfileModalOpen,
@@ -71,6 +74,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
           setIsTeamScrap(response.result.teamInformMenu.isTeamScrap)
           setIsTeamMatching(response.result.teamInformMenu.isTeamMatching)
           setIsTeamDeleteInProgress(response.result.isTeamDeleteInProgress)
+          setIsTeamManager(response.result.isTeamManager)
         }
       } catch (error) {
         console.error('Failed to fetch team data:', error)
@@ -80,7 +84,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
     }
 
     fetchTeamData()
-  }, [params.teamName])
+  }, [params.teamName, setIsTeamManager])
 
   useOnClickOutside({
     refs: [dropdownRef],

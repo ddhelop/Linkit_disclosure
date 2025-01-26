@@ -5,9 +5,12 @@ import TeamViewNotView from '../common/TeamViewNotView'
 import TeamViewProductsComponent from './TeamViewProductsComponent'
 import { TeamProduct } from '../../types/teamView.types'
 import { getTeamProducts } from '../../api/teamViewApi'
+import { useTeamStore } from '../../store/useTeamStore'
 
 export default function TeamViewProducts({ teamName }: { teamName: string }) {
   const [products, setProducts] = useState<TeamProduct[]>([])
+  const { isTeamManager } = useTeamStore()
+
   useEffect(() => {
     const fetchTeamProducts = async () => {
       const data = await getTeamProducts(teamName)
@@ -21,7 +24,13 @@ export default function TeamViewProducts({ teamName }: { teamName: string }) {
       {/* 데이터가 없을 때 */}
       {products.length === 0 && (
         <div className="">
-          <TeamViewNotView />
+          {isTeamManager ? (
+            <TeamViewNotView />
+          ) : (
+            <div className="mt-[3rem] flex w-full justify-center font-semibold text-grey60">
+              아직 작성한 내용이 없어요
+            </div>
+          )}
         </div>
       )}
 

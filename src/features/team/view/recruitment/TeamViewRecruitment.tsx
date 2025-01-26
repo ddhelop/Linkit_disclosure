@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react'
 import { getTeamAnnouncements, TeamAnnouncement } from '../../api/teamApi'
 import TeamViewReruitComponent from './TeamViewReruitComponent'
 import TeamViewNotView from '../common/TeamViewNotView'
+import { useTeamStore } from '../../store/useTeamStore'
 
 export default function TeamViewRecruitment({ teamName }: { teamName: string }) {
   const [data, setData] = useState<TeamAnnouncement[] | null>(null)
   const [filter, setFilter] = useState<'ALL' | 'IN_PROGRESS' | 'CLOSED'>('ALL')
+  const { isTeamManager } = useTeamStore()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +31,11 @@ export default function TeamViewRecruitment({ teamName }: { teamName: string }) 
   })
 
   if (!data || data.length === 0) {
-    return <TeamViewNotView />
+    return isTeamManager ? (
+      <TeamViewNotView />
+    ) : (
+      <div className="mt-[3rem] flex w-full justify-center font-semibold text-grey60">아직 작성한 내용이 없어요</div>
+    )
   }
 
   return (

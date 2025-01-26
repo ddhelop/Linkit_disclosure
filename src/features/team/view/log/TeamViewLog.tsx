@@ -8,6 +8,7 @@ import { TeamLogsResponse } from '../../types/team.types'
 import Link from 'next/link'
 import { Button } from '@/shared/ui/Button/Button'
 import Image from 'next/image'
+import { useTeamStore } from '../../store/useTeamStore'
 
 export default function TeamViewLog({ params }: { params: { teamName: string } }) {
   const [logs, setLogs] = useState<TeamLogsResponse>({
@@ -18,6 +19,7 @@ export default function TeamViewLog({ params }: { params: { teamName: string } }
       teamLogItems: [],
     },
   })
+  const { isTeamManager } = useTeamStore()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +34,13 @@ export default function TeamViewLog({ params }: { params: { teamName: string } }
     // 데이터가 없을 때
     <div className="">
       {logs.result.teamLogItems.length === 0 ? (
-        <TeamViewNotView />
+        isTeamManager ? (
+          <TeamViewNotView />
+        ) : (
+          <div className="mt-[3rem] flex w-full justify-center font-semibold text-grey60">
+            아직 작성한 내용이 없어요
+          </div>
+        )
       ) : (
         <>
           <div className="mt-10 flex flex-col gap-6">

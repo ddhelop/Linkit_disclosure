@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import { getTeamHistory } from '../../api/teamViewApi'
 import TeamViewNotView from '../common/TeamViewNotView'
+import { useTeamStore } from '../../store/useTeamStore'
+import { useRouter } from 'next/navigation'
 
 interface HistoryItem {
   teamHistoryId: number
@@ -22,6 +24,8 @@ interface YearData {
 }
 
 export default function TeamViewHistory({ teamName }: { teamName: string }) {
+  const { isTeamManager } = useTeamStore()
+  const router = useRouter()
   const [historyData, setHistoryData] = useState<YearData[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -47,7 +51,13 @@ export default function TeamViewHistory({ teamName }: { teamName: string }) {
   if (!historyData || historyData.length === 0) {
     return (
       <div className="">
-        <TeamViewNotView />
+        {isTeamManager ? (
+          <TeamViewNotView />
+        ) : (
+          <div className="mt-[3rem] flex w-full justify-center font-semibold text-grey60">
+            아직 작성한 내용이 없어요
+          </div>
+        )}
       </div>
     )
   }
