@@ -518,7 +518,7 @@ interface TeamMembersResponse {
 }
 
 export async function getTeamMembers(teamName: string): Promise<TeamMembersResponse> {
-  const response = await fetchWithAuth(`/api/v1/team/${teamName}/members/invitation`)
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/members/edit`)
   if (!response.ok) {
     throw new Error('Failed to fetch team members')
   }
