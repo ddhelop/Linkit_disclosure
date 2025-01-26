@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState, useRef } from 'react'
-import { deleteTeam, getTeamInfo, requestTeamDelete, teamScrap } from '../../api/teamApi'
+import { deleteTeam, getTeamInfo, leaveTeam, requestTeamDelete, teamScrap } from '../../api/teamApi'
 import { Button } from '@/shared/ui/Button/Button'
 import { useMatching } from '@/shared/hooks/useMatching'
 import MatchingModal from '@/features/profile/view/component/common/MatchingModal'
@@ -172,6 +172,20 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
     setIsDeleteRequestModalOpen(false)
   }
 
+  const handleLeaveTeam = async () => {
+    try {
+      const response = await leaveTeam(teamInformMenu.teamCode)
+      if (response.isSuccess) {
+        toast.success('팀 나가기가 완료되었습니다.')
+      } else {
+        console.log(response)
+        toast.alert(response.message || '팀 나가기에 실패했습니다.')
+      }
+    } catch (error) {
+      console.error('Failed to leave team:', error)
+    }
+  }
+
   return (
     <>
       <div className="flex w-full justify-between">
@@ -211,7 +225,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
                       <div className="absolute left-0 top-6 z-10 w-[6rem] rounded-lg border border-grey30 bg-white py-2 shadow-lg">
                         <div
                           className="flex cursor-pointer items-center gap-2 px-3 py-1 text-xs text-[#FF345F] hover:bg-grey10"
-                          onClick={() => router.push(`/team/${params.teamName}/edit/log`)}
+                          onClick={handleLeaveTeam}
                         >
                           팀 나가기
                         </div>

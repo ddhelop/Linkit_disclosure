@@ -649,3 +649,16 @@ export async function requestTeamDelete(teamCode: string, teamMemberManagingTeam
 
   return response.json()
 }
+
+// 팀 나가기
+export async function leaveTeam(teamCode: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamCode}/member/out`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    return response.json()
+  }
+
+  return response.json()
+}
