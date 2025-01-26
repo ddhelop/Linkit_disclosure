@@ -5,6 +5,7 @@ import { getTeamLogs } from '../../api/teamApi'
 import TeamLogComponent from './TeamLogComponent'
 import { TeamLogItem } from '../../types/team.types'
 import Image from 'next/image'
+import NotContentsUi from '@/features/profile/edit/components/common/NotContentsUi'
 
 export default function TeamEditLog({ teamName }: { teamName: string }) {
   const [logs, setLogs] = useState<TeamLogItem[]>([])
@@ -39,7 +40,7 @@ export default function TeamEditLog({ teamName }: { teamName: string }) {
           <TeamLogComponent key={log.teamLogId} log={log} onDelete={() => handleLogDelete(log.teamLogId)} />
         ))
       ) : (
-        <Image src="/common/images/not-contents-ui.png" width={800} height={200} alt="empty_log" />
+        <NotContentsUi />
       )}
     </div>
   )

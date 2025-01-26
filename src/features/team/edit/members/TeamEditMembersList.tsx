@@ -5,6 +5,7 @@ import { AddMemberModal } from './AddMemberModal'
 import { Button } from '@/shared/ui/Button/Button'
 import { useState, useEffect } from 'react'
 import { getTeamMembers } from '../../api/teamApi'
+import NotContentsUi from '@/features/profile/edit/components/common/NotContentsUi'
 
 export default function TeamEditMembersList({ teamName }: { teamName: string }) {
   const [showAddModal, setShowAddModal] = useState(false)
@@ -42,26 +43,32 @@ export default function TeamEditMembersList({ teamName }: { teamName: string }) 
 
       <AddMemberModal teamName={teamName} isOpen={showAddModal} onClose={() => setShowAddModal(false)} />
 
-      {members.accepted.map((member, index) => (
-        <TeamMemberItem
-          key={`accepted-${index}`}
-          profileImagePath={member.profileImagePath}
-          name={member.memberName}
-          position={member.majorPosition}
-          memberType={member.teamMemberType}
-        />
-      ))}
+      {members.accepted.length > 0 ? (
+        <>
+          {members.accepted.map((member, index) => (
+            <TeamMemberItem
+              key={`accepted-${index}`}
+              profileImagePath={member.profileImagePath}
+              name={member.memberName}
+              position={member.majorPosition}
+              memberType={member.teamMemberType}
+            />
+          ))}
 
-      {members.pending.map((member, index) => (
-        <TeamMemberItem
-          key={`pending-${index}`}
-          name={member.teamMemberInvitationEmail}
-          position=""
-          memberType={member.teamMemberType}
-          isPending={true}
-          email={member.teamMemberInvitationEmail}
-        />
-      ))}
+          {members.pending.map((member, index) => (
+            <TeamMemberItem
+              key={`pending-${index}`}
+              name={member.teamMemberInvitationEmail}
+              position=""
+              memberType={member.teamMemberType}
+              isPending={true}
+              email={member.teamMemberInvitationEmail}
+            />
+          ))}
+        </>
+      ) : (
+        <NotContentsUi />
+      )}
     </div>
   )
 }

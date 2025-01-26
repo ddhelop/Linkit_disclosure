@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { deleteLicense } from '@/features/profile/api/licenseApi'
 import { CertificationListSkeleton } from './skeletons/CertificationListSkeleton'
 import { useToast } from '@/shared/hooks/useToast'
+import NotContentsUi from './common/NotContentsUi'
 
 interface License {
   profileLicenseId: number
@@ -70,8 +71,8 @@ export default function ProfileEditCertifications() {
       ) : (
         <div className="mt-4 flex flex-col gap-4">
           {licenses.length === 0 ? (
-            <div className="flex flex-col items-center justify-center gap-4 rounded-lg bg-white py-16">
-              <span className="text-grey60">아직 등록된 자격증이 없습니다.</span>
+            <div className="mt-6">
+              <NotContentsUi />
             </div>
           ) : (
             licenses.map((license) => (

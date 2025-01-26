@@ -7,6 +7,7 @@ import ElementComponent from './common/ElementComponent'
 import Image from 'next/image'
 import { HistoryListSkeleton } from './skeletons/ListSkeletons'
 import { useProfileMenuStore } from '../../store/useProfileMenuStore'
+import NotContentsUi from './common/NotContentsUi'
 
 interface ActivityItem {
   profileActivityId: number
@@ -81,16 +82,8 @@ export default function ProfileEditHistory() {
             + 추가하기
           </Button>
         </Link>
-        <div className="mt-5 flex w-full justify-center">
-          <Image
-            src={'/common/images/not-contents-ui.png'}
-            alt="empty"
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="h-auto w-full"
-            priority
-          />
+        <div className="mt-6">
+          <NotContentsUi />
         </div>
       </div>
     )

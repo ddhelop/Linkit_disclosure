@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { AwardListSkeleton } from './skeletons/ListSkeletons'
 import { useToast } from '@/shared/hooks/useToast'
 import { useProfileMenuStore } from '../../store/useProfileMenuStore'
+import NotContentsUi from './common/NotContentsUi'
 
 export default function ProfileEditAwards() {
   const [awards, setAwards] = useState<AwardsItem[]>([])
@@ -71,16 +72,8 @@ export default function ProfileEditAwards() {
       </Link>
 
       {awards.length === 0 ? (
-        <div className="mt-5 flex w-full justify-center">
-          <Image
-            src={'/common/images/not-contents-ui.png'}
-            alt="empty"
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="h-auto w-full"
-            priority
-          />
+        <div className="mt-6">
+          <NotContentsUi />
         </div>
       ) : (
         <div className="mt-5 flex flex-col gap-5">

@@ -7,6 +7,7 @@ import { TeamHistory } from '../../types/team.types'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import Link from 'next/link'
 import { useToast } from '@/shared/hooks/useToast'
+import NotContentsUi from '@/features/profile/edit/components/common/NotContentsUi'
 
 export default function TeamEditHistoy({ teamName }: { teamName: string }) {
   const [history, setHistory] = useState<TeamHistory[]>([])
@@ -48,53 +49,57 @@ export default function TeamEditHistoy({ teamName }: { teamName: string }) {
 
   return (
     <div className="mt-5 flex flex-col gap-5">
-      {history.map((item) => (
-        <div key={item.teamHistoryId} className="rounded-xl bg-white px-10 py-5">
-          <div className="flex justify-between">
-            <div className="flex flex-col gap-2">
-              <Link
-                href={`/team/${teamName}/edit/history/new?id=${item.teamHistoryId}`}
-                className="font-semibold text-grey80"
-              >
-                {item.historyName}
-              </Link>
-              <span className="text-xs font-normal text-grey60">
-                {item.historyStartDate} ~ {item.historyEndDate}
-              </span>
-            </div>
-            <div className="relative">
-              <Image
-                src="/common/icons/more_row.svg"
-                alt="more"
-                width={20}
-                height={20}
-                className="cursor-pointer"
-                onClick={() => setOpenMenuId(item.teamHistoryId.toString())}
-              />
+      {history.length > 0 ? (
+        history.map((item) => (
+          <div key={item.teamHistoryId} className="rounded-xl bg-white px-10 py-5">
+            <div className="flex justify-between">
+              <div className="flex flex-col gap-2">
+                <Link
+                  href={`/team/${teamName}/edit/history/new?id=${item.teamHistoryId}`}
+                  className="font-semibold text-grey80"
+                >
+                  {item.historyName}
+                </Link>
+                <span className="text-xs font-normal text-grey60">
+                  {item.historyStartDate} ~ {item.historyEndDate}
+                </span>
+              </div>
+              <div className="relative">
+                <Image
+                  src="/common/icons/more_row.svg"
+                  alt="more"
+                  width={20}
+                  height={20}
+                  className="cursor-pointer"
+                  onClick={() => setOpenMenuId(item.teamHistoryId.toString())}
+                />
 
-              {/* 더보기 메뉴 */}
-              {openMenuId === item.teamHistoryId.toString() && (
-                <div ref={menuRef} className="absolute right-0 top-8 z-10 w-[120px] rounded-lg bg-white shadow-md">
-                  <div className="flex flex-col py-2">
-                    <Link
-                      href={`/team/${teamName}/edit/history/new?id=${item.teamHistoryId}`}
-                      className="px-4 py-2 text-left text-sm text-grey80 hover:bg-grey10"
-                    >
-                      수정하기
-                    </Link>
-                    <button
-                      onClick={() => handleDeleteHistory(item.teamHistoryId)}
-                      className="px-4 py-2 text-left text-sm text-[#FF345F] hover:bg-grey10"
-                    >
-                      삭제하기
-                    </button>
+                {/* 더보기 메뉴 */}
+                {openMenuId === item.teamHistoryId.toString() && (
+                  <div ref={menuRef} className="absolute right-0 top-8 z-10 w-[120px] rounded-lg bg-white shadow-md">
+                    <div className="flex flex-col py-2">
+                      <Link
+                        href={`/team/${teamName}/edit/history/new?id=${item.teamHistoryId}`}
+                        className="px-4 py-2 text-left text-sm text-grey80 hover:bg-grey10"
+                      >
+                        수정하기
+                      </Link>
+                      <button
+                        onClick={() => handleDeleteHistory(item.teamHistoryId)}
+                        className="px-4 py-2 text-left text-sm text-[#FF345F] hover:bg-grey10"
+                      >
+                        삭제하기
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <NotContentsUi />
+      )}
     </div>
   )
 }

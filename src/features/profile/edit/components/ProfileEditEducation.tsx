@@ -11,6 +11,7 @@ import { EducationListSkeleton } from './skeletons/ListSkeletons'
 import EducationElementComponent from './common/EducationElementComponent'
 import { useProfileMenuStore } from '../../store/useProfileMenuStore'
 import { useToast } from '@/shared/hooks/useToast'
+import NotContentsUi from './common/NotContentsUi'
 
 interface Education {
   profileEducationId: number
@@ -85,16 +86,8 @@ export default function ProfileEditEducation() {
       </Link>
 
       {educations.length === 0 ? (
-        <div className="mt-5 flex w-full justify-center">
-          <Image
-            src={'/common/images/not-contents-ui.png'}
-            alt="empty"
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="h-auto w-full"
-            priority
-          />
+        <div className="mt-6">
+          <NotContentsUi />
         </div>
       ) : (
         <div className="mt-5 flex flex-col gap-5">

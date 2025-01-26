@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import TeamProductComponent from './TeamProductComponent'
 import { getTeamProducts } from '@/features/team/api/teamApi'
+import NotContentsUi from '@/features/profile/edit/components/common/NotContentsUi'
 
 export interface TeamProduct {
   teamProductId: number
@@ -41,14 +42,18 @@ export default function TeamEditProduct({ teamName }: { teamName: string }) {
 
   return (
     <div className="mt-5 flex flex-col gap-5">
-      {products.map((product) => (
-        <TeamProductComponent
-          key={product.teamProductId}
-          product={product}
-          teamName={teamName}
-          onDelete={handleDeleteProduct}
-        />
-      ))}
+      {products.length > 0 ? (
+        products.map((product) => (
+          <TeamProductComponent
+            key={product.teamProductId}
+            product={product}
+            teamName={teamName}
+            onDelete={handleDeleteProduct}
+          />
+        ))
+      ) : (
+        <NotContentsUi />
+      )}
     </div>
   )
 }

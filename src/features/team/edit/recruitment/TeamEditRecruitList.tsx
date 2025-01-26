@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import TeamEditRecruitComponent from './TeamEditRecruitComponent'
 import { getTeamAnnouncements } from '../../api/teamApi'
 import type { TeamAnnouncement } from '../../api/teamApi'
+import NotContentsUi from '@/features/profile/edit/components/common/NotContentsUi'
 
 export default function TeamEditRecruitList({ params }: { params: { teamName: string } }) {
   const [announcements, setAnnouncements] = useState<TeamAnnouncement[]>([])
@@ -57,18 +58,22 @@ export default function TeamEditRecruitList({ params }: { params: { teamName: st
 
       {/* 리스트 */}
       <div className="mt-6 flex flex-col gap-4">
-        {filteredAnnouncements.map((announcement) => (
-          <TeamEditRecruitComponent
-            key={announcement.teamMemberAnnouncementId}
-            announcement={announcement}
-            teamName={params.teamName}
-            onDelete={() => {
-              setAnnouncements((prev) =>
-                prev.filter((a) => a.teamMemberAnnouncementId !== announcement.teamMemberAnnouncementId),
-              )
-            }}
-          />
-        ))}
+        {filteredAnnouncements.length > 0 ? (
+          filteredAnnouncements.map((announcement) => (
+            <TeamEditRecruitComponent
+              key={announcement.teamMemberAnnouncementId}
+              announcement={announcement}
+              teamName={params.teamName}
+              onDelete={() => {
+                setAnnouncements((prev) =>
+                  prev.filter((a) => a.teamMemberAnnouncementId !== announcement.teamMemberAnnouncementId),
+                )
+              }}
+            />
+          ))
+        ) : (
+          <NotContentsUi />
+        )}
       </div>
     </div>
   )

@@ -11,6 +11,7 @@ import { PortfolioListSkeleton } from './skeletons/ListSkeletons'
 import { useToast } from '@/shared/hooks/useToast'
 import { deletePortfolio } from '../api/portfolio'
 import { useProfileMenuStore } from '../../store/useProfileMenuStore'
+import NotContentsUi from './common/NotContentsUi'
 
 export default function ProfileEditPortfolio() {
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([])
@@ -93,14 +94,9 @@ export default function ProfileEditPortfolio() {
 
       <div className="flex flex-col gap-4 pt-6">
         {portfolioItems.length === 0 ? (
-          <Image
-            src={'/common/images/not-contents-ui.png'}
-            alt="empty"
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="h-auto w-full"
-          />
+          <div className="mt-6">
+            <NotContentsUi />
+          </div>
         ) : (
           portfolioItems.map((item) => (
             <ProjectComponent key={item.profilePortfolioId} {...item} onDelete={handleDelete} />
