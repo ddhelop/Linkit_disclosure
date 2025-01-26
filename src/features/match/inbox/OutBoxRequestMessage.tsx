@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { MatchingMessage } from '../types/MatchTypes'
-import { deleteMatchings } from '../api/MatchApi'
+import { deleteRequestedMatchings } from '../api/MatchApi'
 import MessageCheckbox from './components/MessageCheckbox'
 import OutboxMessage from './components/OutboxMessage'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface OutBoxMessageProps {
   messages: MatchingMessage[]
@@ -46,6 +47,7 @@ function BulkActionBar({
 export default function OutBoxRequestMessage({ messages, onUpdate }: OutBoxMessageProps) {
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const [localMessages, setLocalMessages] = useState<MatchingMessage[]>(messages)
+  const toast = useToast()
 
   useEffect(() => {
     setLocalMessages(messages)
@@ -69,11 +71,17 @@ export default function OutBoxRequestMessage({ messages, onUpdate }: OutBoxMessa
     if (!window.confirm('선택한 메시지를 삭제하시겠습니까?')) return
 
     try {
-      await deleteMatchings(selectedIds)
-      setSelectedIds([])
-      onUpdate?.()
+      const response = await deleteRequestedMatchings(selectedIds)
+      if (response.isSuccess) {
+        toast.success('메시지 삭제에 성공했습니다.')
+        setSelectedIds([])
+        onUpdate?.()
+      } else {
+        toast.alert(response.message)
+      }
     } catch (error) {
       console.error('Error deleting messages:', error)
+      toast.alert('메시지 삭제에 실패했습니다.')
     }
   }
 

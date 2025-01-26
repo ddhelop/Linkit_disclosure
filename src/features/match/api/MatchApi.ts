@@ -165,6 +165,22 @@ export const deleteMatchings = async (matchingIds: number[]): Promise<void> => {
   }
 }
 
+export const deleteRequestedMatchings = async (matchingIds: number[]) => {
+  const response = await fetchWithAuth('/api/v1/matching/requested/menu/delete', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ matchingIds }),
+  })
+
+  if (!response.ok) {
+    return response.json()
+  }
+
+  return response.json()
+}
+
 export const getMatchingProfileMenu = async (emailId: string): Promise<MatchingProfileMenuResponse> => {
   const response = await fetchWithAuth(`/api/v1/matching/profile/${emailId}/select/request/menu`)
   const data = await response.json()
