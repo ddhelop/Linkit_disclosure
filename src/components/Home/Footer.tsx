@@ -67,7 +67,7 @@ export default function Footer() {
         {/* 개인정보처리 방침, 이용약관 */}
         <div className="mt-8 flex gap-4 text-grey80">
           <Link
-            href={'https://amusing-hygienic-ec8.notion.site/c11cc9b3354b4c55946679d00a4a5168?pvs=4'}
+            href={'https://paint-crowley-ff2.notion.site/187c158365ac81f98d69fd8fac385be7?pvs=4'}
             className="cursor-pointer font-bold hover:underline"
             target="_blank"
           >
@@ -75,7 +75,7 @@ export default function Footer() {
           </Link>
           <span className="text-grey40">|</span>
           <Link
-            href={'https://amusing-hygienic-ec8.notion.site/503c5d589f0942068517f84febb99f3c'}
+            href={'https://paint-crowley-ff2.notion.site/187c158365ac814da94cd29aa5864088?pvs=4'}
             className="cursor-pointer hover:underline"
             target="_blank"
           >

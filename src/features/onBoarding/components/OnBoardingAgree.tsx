@@ -3,10 +3,24 @@
 import { Button } from '@/shared/ui/Button/Button'
 import Image from 'next/image'
 import { useOnBoardingAgree } from '../hooks/useOnBoardingAgree'
+import Link from 'next/link'
 
 export default function OnBoardingAgree() {
   const { allChecked, checkedItems, isNextEnabled, handleCheckClick, handleAllCheckClick, submitConsentInfoHandler } =
     useOnBoardingAgree()
+
+  const agreeItems = [
+    {
+      text: '(필수) 서비스 이용약관 동의',
+      link: 'https://paint-crowley-ff2.notion.site/187c158365ac814da94cd29aa5864088?pvs=4',
+    },
+    {
+      text: '(필수) 개인정보 수집 및 이용 동의',
+      link: 'https://paint-crowley-ff2.notion.site/187c158365ac8153ac1ceeae451f337f?pvs=4',
+    },
+    { text: '(필수) 만 14세 이상입니다' },
+    { text: '(선택) 광고성 정보 수신 동의' },
+  ]
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -31,12 +45,7 @@ export default function OnBoardingAgree() {
 
         {/* 개별 동의 항목 리스트 */}
         <div className="mt-7 flex w-full flex-col gap-7">
-          {[
-            '(필수) 서비스 이용약관 동의',
-            '(필수) 개인정보 수집 및 이용 동의',
-            '(필수) 만 14세 이상입니다',
-            '(선택) 광고성 정보 수신 동의',
-          ].map((item, index) => (
+          {agreeItems.map((item, index) => (
             <div key={index} className={`flex items-center justify-between gap-6 rounded-xl`}>
               <div onClick={() => handleCheckClick(index)} className="flex cursor-pointer items-center gap-6">
                 <div
@@ -51,10 +60,18 @@ export default function OnBoardingAgree() {
                     alt="checkbox"
                   />
                 </div>
-                <p className="text-grey70">{item}</p>
+                <p className="text-grey70">{item.text}</p>
               </div>
-              {/* <Image src="/common/icons/right_arrow.svg" width={32} height={32} alt="arrow" /> */}
-              <div className="cursor-pointer text-sm text-grey60 underline">보기</div>
+              {item.link && (
+                <Link
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cursor-pointer text-sm text-grey60 underline"
+                >
+                  보기
+                </Link>
+              )}
             </div>
           ))}
         </div>
