@@ -109,92 +109,111 @@ export default function FindPrivateFilter() {
     setSelectedStatus([])
   }
 
+  const resetFilters = () => {
+    setSelectedPositions([])
+    setSelectedSkills([])
+    setSelectedLocations([])
+    setSelectedStatus([])
+    setPositionSearchText('')
+    setSkillSearchText('')
+    setLocationSearchText('')
+    setStatusSearchText('')
+  }
+
   return (
     <div className="space-y-4">
       <div>
-        <div
-          className="grid grid-cols-4 gap-4 rounded-xl bg-white px-6 py-5"
-          style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
-        >
-          <PositionFilter
-            searchText={positionSearchText}
-            isOpen={isPositionOpen}
-            isFocused={isFocused.position}
-            selectedItems={selectedPositions}
-            onSearchChange={(e) => setPositionSearchText(e.target.value)}
-            onFocus={() => {
-              setIsPositionOpen(true)
-              setIsFocused((prev) => ({ ...prev, position: true }))
-            }}
-            onBlur={() => {
-              setTimeout(() => {
-                setIsPositionOpen(false)
-                setIsFocused((prev) => ({ ...prev, position: false }))
-              }, 150)
-            }}
-            onSelect={handlePositionSelect}
-            onRemove={removePosition}
-          />
+        <div className=" rounded-xl bg-white px-6 py-5" style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}>
+          {/* Reset button */}
+          <button
+            onClick={resetFilters}
+            className="absolute right-44 top-24 flex items-center gap-1  px-3 py-2 text-sm text-grey70"
+          >
+            <Image src="/common/icons/reset.svg" alt="reset" width={16} height={16} />
+            <span>필터 초기화</span>
+          </button>
 
-          <SkillFilter
-            searchText={skillSearchText}
-            isOpen={isSkillOpen}
-            isFocused={isFocused.skill}
-            selectedItems={selectedSkills}
-            onSearchChange={(e) => setSkillSearchText(e.target.value)}
-            onFocus={() => {
-              setIsSkillOpen(true)
-              setIsFocused((prev) => ({ ...prev, skill: true }))
-            }}
-            onBlur={() => {
-              setTimeout(() => {
-                setIsSkillOpen(false)
-                setIsFocused((prev) => ({ ...prev, skill: false }))
-              }, 150)
-            }}
-            onSelect={handleSkillSelect}
-            onRemove={removeSkill}
-          />
+          <div className="grid grid-cols-4 gap-4">
+            <PositionFilter
+              searchText={positionSearchText}
+              isOpen={isPositionOpen}
+              isFocused={isFocused.position}
+              selectedItems={selectedPositions}
+              onSearchChange={(e) => setPositionSearchText(e.target.value)}
+              onFocus={() => {
+                setIsPositionOpen(true)
+                setIsFocused((prev) => ({ ...prev, position: true }))
+              }}
+              onBlur={() => {
+                setTimeout(() => {
+                  setIsPositionOpen(false)
+                  setIsFocused((prev) => ({ ...prev, position: false }))
+                }, 150)
+              }}
+              onSelect={handlePositionSelect}
+              onRemove={removePosition}
+            />
 
-          <LocationFilter
-            searchText={locationSearchText}
-            isOpen={isLocationOpen}
-            isFocused={isFocused.location}
-            selectedItems={selectedLocations}
-            onSearchChange={(e) => setLocationSearchText(e.target.value)}
-            onFocus={() => {
-              setIsLocationOpen(true)
-              setIsFocused((prev) => ({ ...prev, location: true }))
-            }}
-            onBlur={() => {
-              setTimeout(() => {
-                setIsLocationOpen(false)
-                setIsFocused((prev) => ({ ...prev, location: false }))
-              }, 150)
-            }}
-            onSelect={handleLocationSelect}
-            onRemove={removeLocation}
-          />
+            <SkillFilter
+              searchText={skillSearchText}
+              isOpen={isSkillOpen}
+              isFocused={isFocused.skill}
+              selectedItems={selectedSkills}
+              onSearchChange={(e) => setSkillSearchText(e.target.value)}
+              onFocus={() => {
+                setIsSkillOpen(true)
+                setIsFocused((prev) => ({ ...prev, skill: true }))
+              }}
+              onBlur={() => {
+                setTimeout(() => {
+                  setIsSkillOpen(false)
+                  setIsFocused((prev) => ({ ...prev, skill: false }))
+                }, 150)
+              }}
+              onSelect={handleSkillSelect}
+              onRemove={removeSkill}
+            />
 
-          <StatusFilter
-            searchText={statusSearchText}
-            isOpen={isStatusOpen}
-            isFocused={isFocused.status}
-            selectedItems={selectedStatus}
-            onSearchChange={(e) => setStatusSearchText(e.target.value)}
-            onFocus={() => {
-              setIsStatusOpen(true)
-              setIsFocused((prev) => ({ ...prev, status: true }))
-            }}
-            onBlur={() => {
-              setTimeout(() => {
-                setIsStatusOpen(false)
-                setIsFocused((prev) => ({ ...prev, status: false }))
-              }, 150)
-            }}
-            onSelect={handleStatusSelect}
-            onRemove={removeStatus}
-          />
+            <LocationFilter
+              searchText={locationSearchText}
+              isOpen={isLocationOpen}
+              isFocused={isFocused.location}
+              selectedItems={selectedLocations}
+              onSearchChange={(e) => setLocationSearchText(e.target.value)}
+              onFocus={() => {
+                setIsLocationOpen(true)
+                setIsFocused((prev) => ({ ...prev, location: true }))
+              }}
+              onBlur={() => {
+                setTimeout(() => {
+                  setIsLocationOpen(false)
+                  setIsFocused((prev) => ({ ...prev, location: false }))
+                }, 150)
+              }}
+              onSelect={handleLocationSelect}
+              onRemove={removeLocation}
+            />
+
+            <StatusFilter
+              searchText={statusSearchText}
+              isOpen={isStatusOpen}
+              isFocused={isFocused.status}
+              selectedItems={selectedStatus}
+              onSearchChange={(e) => setStatusSearchText(e.target.value)}
+              onFocus={() => {
+                setIsStatusOpen(true)
+                setIsFocused((prev) => ({ ...prev, status: true }))
+              }}
+              onBlur={() => {
+                setTimeout(() => {
+                  setIsStatusOpen(false)
+                  setIsFocused((prev) => ({ ...prev, status: false }))
+                }, 150)
+              }}
+              onSelect={handleStatusSelect}
+              onRemove={removeStatus}
+            />
+          </div>
 
           {/* 선택된 필터들 표시 */}
           {(selectedPositions.length > 0 ||

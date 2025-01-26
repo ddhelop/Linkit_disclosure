@@ -128,142 +128,161 @@ export default function FindTeamFilter() {
     setSelectedStatus(selectedStatus.filter((s) => s !== status))
   }
 
+  const resetFilters = () => {
+    setSelectedScales([])
+    setIsAnnouncement(false)
+    setSelectedLocations([])
+    setSelectedStatus([])
+    setScaleSearchText('')
+    setRecruitmentSearchText('')
+    setLocationSearchText('')
+    setStatusSearchText('')
+  }
+
   return (
     <div className="space-y-4">
       <div>
-        <div
-          className="grid grid-cols-4 gap-4 rounded-xl bg-white px-6 py-5"
-          style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
-        >
-          <ScaleFilter
-            searchText={scaleSearchText}
-            isOpen={isScaleOpen}
-            isFocused={isFocused.scale}
-            selectedItems={selectedScales}
-            onSearchChange={(e) => setScaleSearchText(e.target.value)}
-            onFocus={() => {
-              setIsScaleOpen(true)
-              setIsFocused((prev) => ({ ...prev, scale: true }))
-            }}
-            onBlur={() => {
-              setTimeout(() => {
-                setIsScaleOpen(false)
-                setIsFocused((prev) => ({ ...prev, scale: false }))
-              }, 150)
-            }}
-            onSelect={handleScaleSelect}
-            onRemove={removeScale}
-          />
+        <div className="rounded-xl bg-white px-6 py-5" style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}>
+          {/* Reset button */}
+          <button
+            onClick={resetFilters}
+            className="absolute right-44 top-24 flex items-center gap-1 px-3 py-2 text-sm text-grey70"
+          >
+            <Image src="/common/icons/reset_grey30.svg" alt="reset" width={16} height={16} />
+            <span className="text-grey30">필터 초기화</span>
+          </button>
 
-          <RecruitmentFilter
-            searchText={recruitmentSearchText}
-            isOpen={isRecruitmentOpen}
-            isFocused={isFocused.recruitment}
-            selectedItems={isAnnouncement ? ['모집 중'] : []}
-            onSearchChange={(e) => setRecruitmentSearchText(e.target.value)}
-            onFocus={() => {
-              setIsRecruitmentOpen(true)
-              setIsFocused((prev) => ({ ...prev, recruitment: true }))
-            }}
-            onBlur={() => {
-              setTimeout(() => {
-                setIsRecruitmentOpen(false)
-                setIsFocused((prev) => ({ ...prev, recruitment: false }))
-              }, 150)
-            }}
-            onSelect={handleRecruitmentSelect}
-            onRemove={removeRecruitment}
-          />
+          <div className="grid grid-cols-4 gap-4">
+            <ScaleFilter
+              searchText={scaleSearchText}
+              isOpen={isScaleOpen}
+              isFocused={isFocused.scale}
+              selectedItems={selectedScales}
+              onSearchChange={(e) => setScaleSearchText(e.target.value)}
+              onFocus={() => {
+                setIsScaleOpen(true)
+                setIsFocused((prev) => ({ ...prev, scale: true }))
+              }}
+              onBlur={() => {
+                setTimeout(() => {
+                  setIsScaleOpen(false)
+                  setIsFocused((prev) => ({ ...prev, scale: false }))
+                }, 150)
+              }}
+              onSelect={handleScaleSelect}
+              onRemove={removeScale}
+            />
 
-          <LocationFilter
-            searchText={locationSearchText}
-            isOpen={isLocationOpen}
-            isFocused={isFocused.location}
-            selectedItems={selectedLocations}
-            onSearchChange={(e) => setLocationSearchText(e.target.value)}
-            onFocus={() => {
-              setIsLocationOpen(true)
-              setIsFocused((prev) => ({ ...prev, location: true }))
-            }}
-            onBlur={() => {
-              setTimeout(() => {
-                setIsLocationOpen(false)
-                setIsFocused((prev) => ({ ...prev, location: false }))
-              }, 150)
-            }}
-            onSelect={handleLocationSelect}
-            onRemove={removeLocation}
-          />
+            <RecruitmentFilter
+              searchText={recruitmentSearchText}
+              isOpen={isRecruitmentOpen}
+              isFocused={isFocused.recruitment}
+              selectedItems={isAnnouncement ? ['모집 중'] : []}
+              onSearchChange={(e) => setRecruitmentSearchText(e.target.value)}
+              onFocus={() => {
+                setIsRecruitmentOpen(true)
+                setIsFocused((prev) => ({ ...prev, recruitment: true }))
+              }}
+              onBlur={() => {
+                setTimeout(() => {
+                  setIsRecruitmentOpen(false)
+                  setIsFocused((prev) => ({ ...prev, recruitment: false }))
+                }, 150)
+              }}
+              onSelect={handleRecruitmentSelect}
+              onRemove={removeRecruitment}
+            />
 
-          <StatusFilter
-            searchText={statusSearchText}
-            isOpen={isStatusOpen}
-            isFocused={isFocused.status}
-            selectedItems={selectedStatus}
-            onSearchChange={(e) => setStatusSearchText(e.target.value)}
-            onFocus={() => {
-              setIsStatusOpen(true)
-              setIsFocused((prev) => ({ ...prev, status: true }))
-            }}
-            onBlur={() => {
-              setTimeout(() => {
-                setIsStatusOpen(false)
-                setIsFocused((prev) => ({ ...prev, status: false }))
-              }, 150)
-            }}
-            onSelect={handleStatusSelect}
-            onRemove={removeStatus}
-          />
+            <LocationFilter
+              searchText={locationSearchText}
+              isOpen={isLocationOpen}
+              isFocused={isFocused.location}
+              selectedItems={selectedLocations}
+              onSearchChange={(e) => setLocationSearchText(e.target.value)}
+              onFocus={() => {
+                setIsLocationOpen(true)
+                setIsFocused((prev) => ({ ...prev, location: true }))
+              }}
+              onBlur={() => {
+                setTimeout(() => {
+                  setIsLocationOpen(false)
+                  setIsFocused((prev) => ({ ...prev, location: false }))
+                }, 150)
+              }}
+              onSelect={handleLocationSelect}
+              onRemove={removeLocation}
+            />
 
-          {/* 선택된 필터들 표시 */}
-          {(selectedScales.length > 0 ||
-            isAnnouncement ||
-            selectedLocations.length > 0 ||
-            selectedStatus.length > 0) && (
-            <div className="col-span-4 w-full">
-              <div className="mt-2 flex w-full items-center gap-2 overflow-x-auto">
-                {selectedScales.map((scale) => (
-                  <div
-                    key={scale}
-                    onClick={() => removeScale(scale)}
-                    className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
-                  >
-                    <span className="text-sm text-main">{scale}</span>
-                    <Image src="/common/icons/delete_icon.svg" alt="close" width={16} height={16} />
-                  </div>
-                ))}
-                {isAnnouncement && (
-                  <div
-                    onClick={removeRecruitment}
-                    className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
-                  >
-                    <span className="text-sm text-main">모집 중</span>
-                    <Image src="/common/icons/delete_icon.svg" alt="close" width={16} height={16} />
-                  </div>
-                )}
-                {selectedLocations.map((location) => (
-                  <div
-                    key={location}
-                    onClick={() => removeLocation(location)}
-                    className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
-                  >
-                    <span className="text-sm text-main">{location}</span>
-                    <Image src="/common/icons/delete_icon.svg" alt="close" width={16} height={16} />
-                  </div>
-                ))}
-                {selectedStatus.map((status) => (
-                  <div
-                    key={status}
-                    onClick={() => removeStatus(status)}
-                    className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
-                  >
-                    <span className="text-sm text-main">{status}</span>
-                    <Image src="/common/icons/delete_icon.svg" alt="close" width={16} height={16} />
-                  </div>
-                ))}
+            <StatusFilter
+              searchText={statusSearchText}
+              isOpen={isStatusOpen}
+              isFocused={isFocused.status}
+              selectedItems={selectedStatus}
+              onSearchChange={(e) => setStatusSearchText(e.target.value)}
+              onFocus={() => {
+                setIsStatusOpen(true)
+                setIsFocused((prev) => ({ ...prev, status: true }))
+              }}
+              onBlur={() => {
+                setTimeout(() => {
+                  setIsStatusOpen(false)
+                  setIsFocused((prev) => ({ ...prev, status: false }))
+                }, 150)
+              }}
+              onSelect={handleStatusSelect}
+              onRemove={removeStatus}
+            />
+
+            {/* 선택된 필터들 표시 */}
+            {(selectedScales.length > 0 ||
+              isAnnouncement ||
+              selectedLocations.length > 0 ||
+              selectedStatus.length > 0) && (
+              <div className="col-span-4 w-full">
+                <div className="mt-2 flex w-full items-center gap-2 overflow-x-auto">
+                  {selectedScales.map((scale) => (
+                    <div
+                      key={scale}
+                      onClick={() => removeScale(scale)}
+                      className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
+                    >
+                      <span className="text-sm text-main">{scale}</span>
+                      <Image src="/common/icons/delete_icon.svg" alt="close" width={16} height={16} />
+                    </div>
+                  ))}
+                  {isAnnouncement && (
+                    <div
+                      onClick={removeRecruitment}
+                      className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
+                    >
+                      <span className="text-sm text-main">모집 중</span>
+                      <Image src="/common/icons/delete_icon.svg" alt="close" width={16} height={16} />
+                    </div>
+                  )}
+                  {selectedLocations.map((location) => (
+                    <div
+                      key={location}
+                      onClick={() => removeLocation(location)}
+                      className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
+                    >
+                      <span className="text-sm text-main">{location}</span>
+                      <Image src="/common/icons/delete_icon.svg" alt="close" width={16} height={16} />
+                    </div>
+                  ))}
+                  {selectedStatus.map((status) => (
+                    <div
+                      key={status}
+                      onClick={() => removeStatus(status)}
+                      className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
+                    >
+                      <span className="text-sm text-main">{status}</span>
+                      <Image src="/common/icons/delete_icon.svg" alt="close" width={16} height={16} />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>
