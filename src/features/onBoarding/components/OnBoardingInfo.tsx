@@ -56,7 +56,6 @@ export default function OnBoardingInfo() {
         <div className="mt-7 flex flex-col">
           <h2 className="text-grey60">이메일</h2>
           <div className="mt-3 rounded-xl border border-grey30 px-6 py-3 text-grey40">{email}</div>
-          <span className="mt-3 text-xs text-grey70">*매칭 성사 시 해당 이메일 주소를 상대방이 볼 수 있어요</span>
         </div>
 
         <div className="flex w-full justify-end">
