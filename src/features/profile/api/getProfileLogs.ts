@@ -39,7 +39,7 @@ interface ProfileLogDetail {
 }
 
 export const getProfileLog = async (id: number): Promise<ProfileLogDetail> => {
-  const response = await fetchWithAuth(`/api/v1/profile/log/type/${id}`)
+  const response = await fetchWithAuth(`/api/v1/profile/log/${id}`)
 
   if (!response.ok) {
     throw new Error('Failed to fetch profile log')
