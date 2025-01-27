@@ -189,7 +189,7 @@ export const getMatchingProfileMenu = async (emailId: string): Promise<MatchingP
 
 interface MatchingRequest {
   senderType: 'PROFILE' | 'TEAM'
-  receiverType: 'PROFILE' | 'TEAM'
+  receiverType: 'PROFILE' | 'TEAM' | 'ANNOUNCEMENT'
   senderEmailId?: string
   senderTeamCode?: string
   receiverEmailId?: string
