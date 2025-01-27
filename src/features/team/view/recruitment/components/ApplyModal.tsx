@@ -37,7 +37,7 @@ export default function ApplyModal({ teamInfo, recruitmentDetail, onClose }: App
       setIsLoading(true)
       const response = await sendMatchingRequest({
         senderType: 'PROFILE',
-        receiverType: 'TEAM',
+        receiverType: 'ANNOUNCEMENT',
         senderEmailId: emailId,
         receiverTeamCode: teamInfo.teamCode,
         receiverAnnouncementId: recruitmentDetail.teamMemberAnnouncementId,
