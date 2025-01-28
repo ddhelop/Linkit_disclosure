@@ -5,7 +5,7 @@ import { useState, useRef } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import { TeamLogItem } from '../../types/team.types'
 import { deleteTeamLog, setTeamLogAsRepresentative, toggleTeamLogVisibility } from '../../api/teamApi'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
 import { useToast } from '@/shared/hooks/useToast'
@@ -27,7 +27,7 @@ export default function TeamLogComponent({ log, onDelete }: TeamLogComponentProp
   const params = useParams()
   const teamName = params.teamName as string
   const toast = useToast()
-
+  const router = useRouter()
   useOnClickOutside({
     refs: [menuRef, buttonRef],
     handler: () => setIsMenuOpen(false),
@@ -54,6 +54,7 @@ export default function TeamLogComponent({ log, onDelete }: TeamLogComponentProp
       setLogType('REPRESENTATIVE_LOG')
       setIsMenuOpen(false)
       toast.success('대표글로 설정되었습니다.')
+      window.location.reload()
     } catch (error) {
       console.error('Failed to set representative:', error)
       toast.alert('대표글 설정에 실패했습니다.')

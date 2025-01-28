@@ -100,6 +100,7 @@ export default function ProfileEditAccount() {
     try {
       await updateMemberName(newName)
       setMemberData((prev) => ({ ...prev, name: newName }))
+      toast.success('이름이 변경되었습니다.')
       setIsNameModalOpen(false)
     } catch (error) {
       console.error('Failed to update name:', error)
