@@ -627,9 +627,8 @@ export async function deleteTeam(teamCode: string) {
   const response = await fetchWithAuth(`/api/v1/team/${teamCode}`, {
     method: 'DELETE',
   })
-
   if (!response.ok) {
-    throw new Error('Failed to delete team')
+    return response.json()
   }
 
   return response.json()
