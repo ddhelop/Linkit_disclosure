@@ -9,6 +9,7 @@ import {
   AnnouncementScrapResponse,
   MatchingProfileMenuResponse,
   AnnouncementInformMenu,
+  SenderType,
 } from '../types/MatchTypes'
 
 export const getProfileScraps = async (): Promise<ProfileInform[]> => {
@@ -54,15 +55,19 @@ export const getRequestedMatchingMessages = async (
   page: number = 0,
   size: number = 20,
   receiverType?: ReceiverType,
+  senderType?: SenderType,
 ): Promise<MatchingMenuResponse> => {
   try {
     const queryParams = new URLSearchParams({
       page: page.toString(),
       size: size.toString(),
     })
-
+    console.log('1', receiverType, '2', senderType)
     if (receiverType) {
       queryParams.append('receiverType', receiverType)
+    }
+    if (senderType) {
+      queryParams.append('senderType', senderType)
     }
 
     const response = await fetchWithAuth(`/api/v1/matching/requested/menu?${queryParams}`)

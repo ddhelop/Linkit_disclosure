@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import MatchFilter from '../common/MatchFilter'
-import InBoxMessage from './InBoxRequestMessage'
-import { getMatchingMessages, getRequestedMatchingMessages } from '../api/MatchApi'
-import { MatchingMessage } from '../types/MatchTypes'
+import { getRequestedMatchingMessages } from '../api/MatchApi'
+import { MatchingMessage, SenderType } from '../types/MatchTypes'
 import OutBoxRequestMessage from './OutBoxRequestMessage'
+import OutBoxMatchFilter from '../common/OutBoxMatchFilter'
 
 export default function MatchOutBox() {
   const [messages, setMessages] = useState<MatchingMessage[]>([])
@@ -20,9 +20,9 @@ export default function MatchOutBox() {
         setIsLoading(true)
         const page = Number(searchParams.get('page')) || 0
         const size = Number(searchParams.get('size')) || 20
-        const receiverType = searchParams.get('receiverType') as 'PROFILE' | 'TEAM' | null
+        const senderType = searchParams.get('senderType') as SenderType | null
 
-        const response = await getRequestedMatchingMessages(page, size, receiverType || undefined)
+        const response = await getRequestedMatchingMessages(page, size, undefined, senderType || undefined)
         setMessages(response.result.content)
         setTotalElements(response.result.totalElements)
       } catch (error) {
@@ -37,7 +37,7 @@ export default function MatchOutBox() {
 
   return (
     <div className="mt-9 flex flex-col">
-      <MatchFilter />
+      <OutBoxMatchFilter />
 
       <div className="mt-8 flex flex-col">
         {isLoading ? (
