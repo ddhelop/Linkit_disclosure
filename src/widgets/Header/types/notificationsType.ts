@@ -7,7 +7,7 @@ export interface NotificationDetails {
 }
 
 export interface NotificationItem {
-  notificationType: 'TEAM_INVITATION' | 'CHATTING' | 'MATCHING' | 'TEAM'
+  notificationType: 'TEAM_INVITATION' | 'CHATTING' | 'MATCHING' | 'TEAM' | 'SYSTEM'
   subNotificationType:
     | 'TEAM_INVITATION_REQUESTED'
     | 'TEAM_MEMBER_JOINED'
