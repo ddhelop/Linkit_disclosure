@@ -81,7 +81,14 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
 
       {/* 팀 정보 */}
       <div className="mt-5 flex gap-4">
-        <Image src={team.teamLogoImagePath || '/common/default_profile.svg'} width={70} height={70} alt="profile" />
+        <div className="relative h-[70px] w-[70px]">
+          <Image
+            src={team.teamLogoImagePath || '/common/default_profile.svg'}
+            alt="profile"
+            fill
+            className="rounded-lg object-cover"
+          />
+        </div>
         <div className="flex flex-col justify-center gap-1">
           <div className="flex items-center gap-3">
             <span className="text-lg font-bold text-grey90">{team?.teamName}</span>

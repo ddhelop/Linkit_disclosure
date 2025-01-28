@@ -16,7 +16,14 @@ export default function TeamItem({ team, onClick }: TeamItemProps) {
       onClick={onClick}
     >
       <div className="flex gap-4">
-        <Image src={teamLogoImagePath || '/common/default_profile.svg'} alt="team-logo" width={70} height={70} />
+        <div className="relative h-[70px] w-[70px]">
+          <Image
+            src={teamLogoImagePath || '/common/default_profile.svg'}
+            alt="team-logo"
+            fill
+            className="rounded-lg object-cover"
+          />
+        </div>
         <div className="flex flex-col justify-center">
           <span className="font-semibold text-grey90">{teamName}</span>
           <div className="mt-1 flex items-center gap-1">
