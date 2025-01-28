@@ -12,9 +12,12 @@ import { validateImageFile, createProfileFormData } from '../../lib/profileHelpe
 import { BasicProfileSkeleton } from './skeletons/BasicProfileSkeleton'
 import { usePositionSelect } from '@/shared/hooks/usePositionSelect'
 import { useToast } from '@/shared/hooks/useToast'
+import { useProfileMenuStore } from '../../store/useProfileMenuStore'
 
 export default function ProfileEditBasic() {
   const toast = useToast()
+
+  const { updateProfileMenu } = useProfileMenuStore()
 
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
@@ -169,20 +172,25 @@ export default function ProfileEditBasic() {
       }
 
       const formData = createProfileFormData(profileImage, profileData)
-      await updateProfile(formData)
+      const response = await updateProfile(formData)
 
-      // 저장 성공 후 초기값 업데이트
-      setInitialValues({
-        category: selectedCategory,
-        subCategory: selectedSubCategory,
-        city: selectedCity,
-        district: selectedDistrict,
-        statuses: selectedStatuses,
-        isPublic: isProfilePublic,
-        imagePath: profileImage ? 'new_image' : profileImagePath,
-      })
+      if (response.isSuccess) {
+        // 저장 성공 후 초기값 업데이트
+        updateProfileMenu({ isMiniProfile: true })
+        setInitialValues({
+          category: selectedCategory,
+          subCategory: selectedSubCategory,
+          city: selectedCity,
+          district: selectedDistrict,
+          statuses: selectedStatuses,
+          isPublic: isProfilePublic,
+          imagePath: profileImage ? 'new_image' : profileImagePath,
+        })
 
-      toast.success('프로필이 성공적으로 수정되었습니다.')
+        toast.success('프로필이 성공적으로 수정되었습니다.')
+      } else {
+        toast.alert('프로필 수정 중 오류가 발생했습니다.')
+      }
     } catch (error) {
       toast.alert('프로필 수정 중 오류가 발생했습니다.')
       console.error('프로필 수정 중 오류 발생:', error)

@@ -12,7 +12,7 @@ export async function fetchProfileData(): Promise<ProfileData> {
   return data.result
 }
 
-export async function updateProfile(formData: FormData): Promise<void> {
+export async function updateProfile(formData: FormData): Promise<{ isSuccess: boolean }> {
   const response = await fetchWithAuth(`/api/v1/miniProfile`, {
     method: 'POST',
     body: formData,
@@ -22,6 +22,8 @@ export async function updateProfile(formData: FormData): Promise<void> {
     const errorData = await response.json()
     throw new Error(errorData.message || '프로필 수정에 실패했습니다.')
   }
+
+  return response.json()
 }
 
 interface ProfileSkillItem {
