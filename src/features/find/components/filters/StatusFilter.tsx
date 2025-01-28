@@ -48,7 +48,7 @@ export default function StatusFilter({
           onChange={onSearchChange}
           onFocus={onFocus}
           onBlur={onBlur}
-          placeholder="현재 어떤 상태인가요?"
+          placeholder="어떤 상태를 찾고 있나요?"
           className="w-full text-xs placeholder:text-grey50 focus:outline-none"
         />
       </div>

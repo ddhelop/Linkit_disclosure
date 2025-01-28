@@ -124,7 +124,7 @@ export default function ProfileEditSkills() {
             items={toolsData.tools}
             filterFunction={(tool, searchTerm) => tool.toLowerCase().includes(searchTerm.toLowerCase())}
             onSelect={handleAddSkill}
-            placeholder="스킬을 영어로 검색해보세요"
+            placeholder="스킬을 영어로 검색해 보세요"
           />
         </div>
 
@@ -169,7 +169,7 @@ export default function ProfileEditSkills() {
               ))
             ) : (
               <div className="flex w-full items-center rounded-lg bg-grey10 px-6 py-3 text-sm text-grey60">
-                <p className="text-grey60">아직 추가하신 스킬이 없어요! 스킬을 검색하고 추가해보세요</p>
+                <p className="text-grey60">아직 스킬이 없어요! 나의 보유 스킬을 검색하고 추가해 보세요</p>
               </div>
             )}
           </div>

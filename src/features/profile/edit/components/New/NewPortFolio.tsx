@@ -304,7 +304,7 @@ export default function NewPortFolio() {
           <Input
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
-            placeholder="프로젝트명을 입력해주세요"
+            placeholder="프로젝트명을 입력해 주세요"
           />
         </div>
 
@@ -319,21 +319,21 @@ export default function NewPortFolio() {
           <Input
             onChange={(e) => setProjectLineDescription(e.target.value)}
             value={projectLineDescription}
-            placeholder="프로젝트를 한 줄로 소개해주세요 (60자 이내)"
+            placeholder="프로젝트를 한 줄로 소개해 주세요 (100자 이내)"
           />
         </div>
 
         {/* 규모, 인원, 팀 구성 */}
-        <div className="flex gap-8">
+        <div className="flex h-full gap-8">
           {/* 규모 */}
-          <div className="flex flex-col gap-3">
+          <div className="flex h-full flex-col gap-3">
             <span className="flex w-[10.6rem]">
               규모<span className="text-main">*</span>
             </span>
             <div className="flex">
               <button
                 onClick={handleToggle}
-                className={`w-[5.3rem] rounded-l-[0.625rem] py-2 ${
+                className={`w-[5.3rem] rounded-l-[0.625rem] py-[0.8rem] ${
                   !isTeam ? 'bg-main2 text-white' : 'border border-grey40 bg-grey10 text-grey40'
                 }`}
               >
@@ -341,7 +341,7 @@ export default function NewPortFolio() {
               </button>
               <button
                 onClick={handleToggle}
-                className={`w-[5.3rem] rounded-r-[0.625rem] py-2 ${
+                className={`w-[5.3rem] rounded-r-[0.625rem] py-[0.8rem] ${
                   isTeam ? 'bg-main2 text-white' : 'border border-grey40 bg-grey10 text-grey40'
                 }`}
               >
@@ -367,7 +367,7 @@ export default function NewPortFolio() {
           <div className="flex w-full flex-col gap-3">
             <span>팀 구성</span>
             <Input
-              placeholder="자유롭게 작성해주세요 (ex. 기획 1, 디자인 1)"
+              placeholder="자유롭게 작성해 주세요 (ex. 기획 1, 디자인 2 등 50자 이내)"
               disabled={!isTeam}
               value={teamComposition}
               onChange={(e) => setTeamComposition(e.target.value)}
@@ -416,7 +416,7 @@ export default function NewPortFolio() {
           <Textarea
             value={projectDescription}
             onChange={(e) => setProjectDescription(e.target.value)}
-            placeholder="프로젝트에 대한 설명을 입력해주세요"
+            placeholder="프로젝트에 대해 설명해 주세요 (500자 이내)"
             className="min-h-[8.5rem]"
           />
         </div>

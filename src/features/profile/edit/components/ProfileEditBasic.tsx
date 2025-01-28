@@ -271,7 +271,7 @@ export default function ProfileEditBasic() {
             이름<p className="text-main">*</p>
           </span>
           <div className="rounded-xl border border-grey40 px-6 py-3 font-semibold text-grey50">{memberName}</div>
-          <span className="text-xs text-grey50">*이름은 계정 관리 - 계정 설정에서 변경할 수 있어요</span>
+          <span className="text-xs text-grey50">이름은 마이페이지 - 계정 설정에서 변경할 수 있어요</span>
         </div>
 
         {/* 포지션 */}
@@ -316,7 +316,7 @@ export default function ProfileEditBasic() {
               <Select
                 options={mainAreaOptions}
                 value={selectedCity}
-                placeholder="도/광역시 선택"
+                placeholder="시/도 선택"
                 onChange={(value) => setSelectedCity(value)}
               />
             </div>
@@ -326,7 +326,7 @@ export default function ProfileEditBasic() {
               <Select
                 options={selectedCity ? subAreaOptions : []}
                 value={selectedDistrict}
-                placeholder={selectedCity ? '구/군 선택' : '도/광역시를 먼저 선택해주세요'}
+                placeholder={selectedCity ? '시/군/구 선택' : '시/도를 먼저 선택해주세요'}
                 onChange={(value) => setSelectedDistrict(value)}
               />
             </div>
@@ -374,8 +374,11 @@ export default function ProfileEditBasic() {
 
         {/* 프로필 공개 여부 */}
         <div className="flex flex-col gap-3">
-          <span className="flex text-grey80">
-            프로필 공개 여부 <p className="text-main">*</p>
+          <span className="flex items-center text-grey80">
+            프로필 공개 여부 <p className="text-main">*</p>{' '}
+            <span className="ml-4 text-xs font-normal text-grey60">
+              비공개로 설정하면 다른 사용자들에게 프로필이 노출되지 않습니다
+            </span>
           </span>
 
           <Radio

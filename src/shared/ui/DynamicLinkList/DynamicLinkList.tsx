@@ -58,7 +58,7 @@ export function DynamicLinkList({
 
   if (!showForm) {
     return (
-      <div className="flex w-full flex-col items-center rounded-xl bg-white px-[1.62rem] py-6">
+      <div className="flex w-full flex-col items-center rounded-xl bg-grey10 px-[1.62rem] py-6">
         <p className="text-sm text-grey70">{emptyMessage}</p>
         <Button
           mode="custom"
@@ -73,7 +73,7 @@ export function DynamicLinkList({
 
   return (
     <>
-      <div className="flex flex-col gap-3 rounded-xl bg-white p-6">
+      <div className="flex flex-col gap-3 rounded-xl bg-grey10 p-6">
         {links.map((link) => (
           <div key={link.id} className="mt-3 flex gap-2">
             <Input

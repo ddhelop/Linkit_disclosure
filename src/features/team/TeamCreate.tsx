@@ -92,12 +92,12 @@ export default function TeamCreate() {
     setTeamLogoPath('/common/default_team.svg')
   }
 
-  // 팀 코드 유효성 검사 (영문 또는 영문+숫자)
+  // 팀 아이디 유효성 검사 (영문 또는 영문+숫자)
   const validateTeamCode = (code: string) => {
     return /^[a-zA-Z][a-zA-Z0-9]*$/.test(code)
   }
 
-  // 팀 코드 변경 핸들러
+  //팀 아이디 변경 핸들러
   const handleTeamCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newCode = e.target.value
     setTeamCode(newCode)
@@ -151,7 +151,7 @@ export default function TeamCreate() {
     } catch (error: any) {
       console.error('팀 생성 실패:', error)
       if (error.message.includes('409')) {
-        setTeamCodeError('이미 사용 중인 팀 코드입니다')
+        setTeamCodeError('이미 사용 중인 팀 아이디입니다')
         setIsTeamCodeValid(false)
       } else {
         toast.alert('팀 생성 중 오류가 발생했습니다.')
@@ -196,7 +196,7 @@ export default function TeamCreate() {
                   mode="main"
                   onClick={() => document.getElementById('teamLogoInput')?.click()}
                 >
-                  로고 업로드
+                  사진 업로드
                 </Button>
                 <p className="cursor-pointer text-xs text-grey50 underline" onClick={handleImageDelete}>
                   삭제하기
@@ -211,13 +211,17 @@ export default function TeamCreate() {
           <span className="flex text-grey80">
             팀명<p className="text-main">*</p>
           </span>
-          <Input placeholder="팀명을 입력해주세요" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
+          <Input
+            placeholder="팀명을 입력해 주세요 (50자 이내)"
+            value={teamName}
+            onChange={(e) => setTeamName(e.target.value)}
+          />
         </div>
 
-        {/* 팀 코드 */}
+        {/* 팀 아이디 */}
         <div className="flex flex-col gap-3">
           <span className="flex text-grey80">
-            팀 코드<p className="text-main">*</p>
+            팀 아이디<p className="text-main">*</p>
           </span>
           <div className="flex flex-col gap-1">
             <Input
@@ -233,10 +237,10 @@ export default function TeamCreate() {
         {/* 한줄 소개 */}
         <div className="flex flex-col gap-3">
           <span className="flex text-grey80">
-            한줄 소개<p className="text-main">*</p>
+            한 줄 소개<p className="text-main">*</p>
           </span>
           <Input
-            placeholder="한줄 소개를 입력해주세요"
+            placeholder="한 줄 소개를 입력해주세요"
             value={teamIntro}
             onChange={(e) => setTeamIntro(e.target.value)}
           />
@@ -278,7 +282,7 @@ export default function TeamCreate() {
               <Select
                 options={mainAreaOptions}
                 value={selectedCity}
-                placeholder="도/광역시 선택"
+                placeholder="시/도 선택"
                 onChange={(value) => setSelectedCity(value)}
               />
             </div>
@@ -288,7 +292,7 @@ export default function TeamCreate() {
               <Select
                 options={selectedCity ? subAreaOptions : []}
                 value={selectedDistrict}
-                placeholder={selectedCity ? '구/군 선택' : '도/광역시를 먼저 선택해주세요'}
+                placeholder={selectedCity ? '시/군/구 선택' : '시/도를 먼저 선택해주세요'}
                 onChange={(value) => setSelectedDistrict(value)}
               />
             </div>

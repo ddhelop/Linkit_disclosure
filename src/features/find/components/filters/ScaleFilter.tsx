@@ -37,7 +37,7 @@ export default function ScaleFilter({
           onChange={onSearchChange}
           onFocus={onFocus}
           onBlur={onBlur}
-          placeholder="팀의 규모가 어떻게 되나요?"
+          placeholder="찾는 팀의 규모가 어떻게 되나요?"
           className="w-full text-xs placeholder:text-grey50 focus:outline-none"
         />
       </div>

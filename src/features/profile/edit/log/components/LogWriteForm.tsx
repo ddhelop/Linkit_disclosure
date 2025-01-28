@@ -14,6 +14,7 @@ import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 import { getProfileLog } from '@/features/profile/api/getProfileLogs'
 import { getTeamLog, createTeamLog, updateTeamLog } from '@/features/team/api/teamApi'
 import { useToast } from '@/shared/hooks/useToast'
+import Radio from '@/shared/ui/Radio/Radio'
 
 Quill.register('modules/imageResize', ImageResize)
 
@@ -190,7 +191,7 @@ export default function LogWriteForm() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="w-full rounded-xl border border-grey40 px-6 py-3 outline-none"
-              placeholder="나를 한 문장으로 소개해 보세요. 나의 강점이나 목표, 관심분야도 좋아요."
+              placeholder="제목을 입력해 주세요 (100자 이내)"
             />
           </div>
 
@@ -208,7 +209,7 @@ export default function LogWriteForm() {
                 modules={modules}
                 formats={formats}
                 theme="snow"
-                placeholder="팀과 팀원들에게 도움이 될 수 있는 나의 장점과 강점 등을 소개해 주세요"
+                placeholder="내용을 입력해 주세요 (5,000자 이내)"
                 className="min-h-[600px] w-full bg-white"
               />
             </div>
@@ -220,28 +221,14 @@ export default function LogWriteForm() {
           <div className="flex flex-col gap-5">
             <span className="text-lg font-semibold text-grey80">설정</span>
             <div className="flex items-center gap-5">
-              <div className="flex items-center gap-2">
-                <input
-                  id="public"
-                  type="radio"
-                  name="visibility"
-                  checked={isPublic}
-                  onChange={() => setIsPublic(true)}
-                  className="h-3 w-3 appearance-none rounded-full border-gray-300 bg-gray-100 ring-2 ring-gray-300 checked:border-blue-600 checked:bg-blue-600 checked:ring-2 checked:ring-blue-500"
-                />
-                <label htmlFor="public">전체공개</label>
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  id="private"
-                  type="radio"
-                  name="visibility"
-                  checked={!isPublic}
-                  onChange={() => setIsPublic(false)}
-                  className="h-3 w-3 appearance-none rounded-full border-gray-300 bg-gray-100 ring-2 ring-gray-300 checked:border-blue-600 checked:bg-blue-600 checked:ring-2 checked:ring-blue-500"
-                />
-                <label htmlFor="private">비공개</label>
-              </div>
+              <Radio
+                options={[
+                  { label: '전체공개', value: 'public' },
+                  { label: '비공개', value: 'private' },
+                ]}
+                selectedValue={isPublic ? 'public' : 'private'}
+                onChange={(value) => setIsPublic(value === 'public')}
+              />
             </div>
             <p className="mt-1 text-sm text-grey60">
               {isPublic ? '모든 사람이 이 글을 볼 수 있어요' : '나만 볼 수 있어요'}

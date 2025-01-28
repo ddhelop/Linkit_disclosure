@@ -5,7 +5,7 @@ import { SkillInputProps } from '../../model/types'
 import Image from 'next/image'
 
 export const SkillInput = ({
-  placeholder = '스킬을 검색해 보세요',
+  placeholder = '스킬을 영어로 검색해 보세요',
   className = '',
   onSkillAdd,
   onSkillRemove,

@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 export default function Login() {
   // kakao_login
@@ -34,7 +35,18 @@ export default function Login() {
           </span>
         </div>
 
-        <Image src="/features/auth/bubble_guide.svg" width={234} height={45} alt="logo" className="mt-[2.94rem]" />
+        <motion.div
+          animate={{
+            y: [0, -10, 0],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        >
+          <Image src="/features/auth/bubble_guide.svg" width={234} height={45} alt="logo" className="mt-[2.94rem]" />
+        </motion.div>
 
         <div className="mt-[1.62rem] flex w-full flex-col items-center gap-3">
           {/* naver */}
@@ -64,18 +76,6 @@ export default function Login() {
             <p className="text-sm text-grey100">구글로 시작하기</p>
           </Link>
         </div>
-
-        <p className="mt-[3.87rem] w-[90%] text-center text-xs font-normal text-grey60 lg:w-auto ">
-          회원가입 시 Linkit의{' '}
-          <Link href={'/'} className="cursor-pointer px-1 underline hover:brightness-150">
-            서비스 이용약관
-          </Link>
-          과{' '}
-          <Link href={'/'} className="cursor-pointer px-1 underline hover:brightness-150">
-            개인정보 보호정책
-          </Link>
-          에 동의하게 됩니다
-        </p>
       </div>
     </div>
   )
