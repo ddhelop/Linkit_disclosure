@@ -1,8 +1,10 @@
 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_1646_25774)">
-<rect x="1" y="1" width="18" height="18" rx="5" stroke="#27364B" stroke-width="2"/>
-<circle cx="10" cy="10" r="4" stroke="#27364B" stroke-width="2"/>
-<circle cx="15.3666" cy="4.66724" r="1.21851" fill="#27364B"/>
+<g id="Frame 1487652631" clip-path="url(#clip0_1646_25774)">
+<g id="Group 1437256663">
+<rect id="Rectangle 34627840" x="1" y="1" width="18" height="18" rx="5" stroke="#27364B" stroke-width="2"/>
+<circle id="Ellipse 3999" cx="10" cy="10" r="4" stroke="#27364B" stroke-width="2"/>
+<circle id="Ellipse 4000" cx="15.3666" cy="4.66724" r="1.21851" fill="#27364B"/>
+</g>
 </g>
 <defs>
 <clipPath id="clip0_1646_25774">
