@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { toolsData } from '@/shared/data/tools'
+import { skillsData } from '@/shared/data/skillsData'
 import Select from '@/shared/ui/Select/Select'
 import { Button } from '@/shared/ui/Button/Button'
 import { updateProfileSkills, getProfileSkills } from '../api/profileApi'
@@ -121,7 +121,7 @@ export default function ProfileEditSkills() {
       <div className="flex flex-col gap-10">
         <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] py-10">
           <SearchDropdown
-            items={toolsData.tools}
+            items={skillsData.map((skill) => skill.name)}
             filterFunction={(tool, searchTerm) => tool.toLowerCase().includes(searchTerm.toLowerCase())}
             onSelect={handleAddSkill}
             placeholder="스킬을 영어로 검색해 보세요"
