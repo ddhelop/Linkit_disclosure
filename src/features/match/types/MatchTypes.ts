@@ -122,8 +122,8 @@ export interface MatchingMessage {
   chatRoomId?: number
   matchingId: number
   modifiedAt: string
-  senderType: 'PROFILE' | 'TEAM'
-  receiverType: 'PROFILE' | 'TEAM'
+  senderType: SenderType
+  receiverType: ReceiverType
   senderProfileInformation: ProfileInformation
   senderTeamInformation: TeamInformation
   receiverProfileInformation: ProfileInformation
@@ -182,6 +182,7 @@ export interface MatchingMenuResponse {
 }
 
 export type ReceiverType = 'PROFILE' | 'TEAM' | undefined
+export type SenderType = 'PROFILE' | 'TEAM' | undefined
 
 export type FilterType = 'MEMBER' | 'TEAM' | 'ANNOUNCEMENT'
 
