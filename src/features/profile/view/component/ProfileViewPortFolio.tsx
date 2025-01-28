@@ -16,11 +16,14 @@ export default function ProfileViewPortFolio() {
       <h1 className="font-semibold">포트폴리오</h1>
       <div className="flex flex-row flex-wrap gap-2">
         {/* 데이터가 없을 시 */}
-        {portfolioItems.length === 0 && (
-          <div className="flex w-full items-center text-sm text-grey60">
-            수정 버튼을 눌러 내용을 작성하면 매칭 가능성이 높아져요
-          </div>
-        )}
+        {portfolioItems.length === 0 &&
+          (isMyProfile ? (
+            <div className="flex w-full items-center text-sm text-grey60">
+              수정 버튼을 눌러 내용을 작성하면 매칭 가능성이 높아져요
+            </div>
+          ) : (
+            <div className="flex w-full items-center text-sm text-grey60">아직 추가하지 않았어요</div>
+          ))}
         {profileData?.profilePortfolioItems.map((portfolio) => (
           <div
             className="flex w-[49%] flex-col gap-3 rounded-xl border border-grey30 p-5"
