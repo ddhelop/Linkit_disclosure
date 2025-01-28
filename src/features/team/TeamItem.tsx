@@ -16,7 +16,7 @@ export default function TeamItem({ team, onClick }: TeamItemProps) {
       onClick={onClick}
     >
       <div className="flex gap-4">
-        <div className="relative h-[70px] w-[70px]">
+        <div className="relative h-[70px] w-[70px] rounded-lg">
           <Image
             src={teamLogoImagePath || '/common/default_profile.svg'}
             alt="team-logo"

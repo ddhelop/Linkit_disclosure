@@ -11,10 +11,13 @@ import { useToast } from '@/shared/hooks/useToast'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import AlertModal from '@/shared/ui/Modal/AlertModal'
 import { useTeamStore } from '../../store/useTeamStore'
+import { acceptTeamInvitation } from '../../api/teamViewApi'
+import { motion } from 'framer-motion'
 
 interface TeamData {
   isMyTeam: boolean
   isTeamDeleteInProgress: boolean
+  isTeamInvitationInProgress: boolean
   teamInformMenu: {
     teamCode: string
     isTeamManager: boolean
@@ -49,6 +52,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
   const [isDeleteRequestModalOpen, setIsDeleteRequestModalOpen] = useState(false)
   const [isTeamDeleteInProgress, setIsTeamDeleteInProgress] = useState(false)
   const { setIsTeamManager } = useTeamStore()
+  const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false)
 
   const {
     isProfileModalOpen,
@@ -190,6 +194,29 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
     }
   }
 
+  const handleInvitationResponse = async (isAccept: boolean) => {
+    try {
+      await acceptTeamInvitation(teamInformMenu.teamCode, isAccept)
+
+      // 팀 데이터 상태 업데이트
+      if (teamData) {
+        setTeamData({
+          ...teamData,
+          isMyTeam: isAccept,
+          isTeamInvitationInProgress: false,
+        })
+      }
+
+      toast.success(isAccept ? '팀 초대를 수락했습니다.' : '팀 초대를 거절했습니다.')
+      setIsInvitationModalOpen(false)
+
+      // router.refresh()
+    } catch (error) {
+      console.error('Failed to respond to invitation:', error)
+      toast.alert('초대 응답에 실패했습니다.')
+    }
+  }
+
   return (
     <>
       <div className="flex w-full justify-between">
@@ -288,6 +315,37 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
               </Button>
             )}
           </div>
+        ) : teamData.isTeamInvitationInProgress ? (
+          <div className="flex">
+            <div className="relative w-full">
+              <motion.div
+                animate={{
+                  x: [0, 10, 0], // 0px -> 10px -> 0px로 이동
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              >
+                <Image
+                  src="/common/images/Team_Invitation_Balloon.svg"
+                  alt="invitation"
+                  width={210}
+                  height={34}
+                  className="absolute right-[7rem] top-1 h-auto w-[210px]"
+                  style={{ maxWidth: 'none' }}
+                />
+              </motion.div>
+
+              <button
+                onClick={() => setIsInvitationModalOpen(true)}
+                className="cursor-pointer rounded-full bg-[#3774F4] px-6 py-3 text-sm font-semibold text-white transition-all duration-100 hover:bg-main"
+              >
+                응답하기
+              </button>
+            </div>
+          </div>
         ) : (
           <div className="mt-12 flex flex-col gap-5">
             <div
@@ -361,6 +419,19 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
         onCancel={() => setIsDeleteRequestModalOpen(false)}
         onCancelAction={handleDenyDeleteRequest}
         onConfirm={handleConfirmDeleteRequest}
+      />
+
+      <AlertModal
+        isOpen={isInvitationModalOpen}
+        title="초대를 수락할까요?"
+        description="초대를 수락하면 팀 구성원으로서 소속될 수 있어요"
+        cancelText="거절하기"
+        confirmText="수락하기"
+        cancelButtonStyle="bg-grey20 text-grey90 hover:bg-grey30"
+        confirmButtonStyle="bg-main text-white hover:bg-[#3774F4]"
+        onCancel={() => setIsInvitationModalOpen(false)}
+        onCancelAction={() => handleInvitationResponse(false)}
+        onConfirm={() => handleInvitationResponse(true)}
       />
     </>
   )

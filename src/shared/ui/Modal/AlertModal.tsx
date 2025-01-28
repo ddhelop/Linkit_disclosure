@@ -13,6 +13,8 @@ interface AlertModalProps {
   onCancel: () => void
   onConfirm: () => void
   onCancelAction?: () => void
+  cancelButtonStyle?: string
+  confirmButtonStyle?: string
 }
 
 export default function AlertModal({
@@ -24,6 +26,8 @@ export default function AlertModal({
   onCancel,
   onConfirm,
   onCancelAction,
+  cancelButtonStyle = 'bg-grey20 text-grey90 hover:bg-grey30',
+  confirmButtonStyle = 'bg-[#FFE1E1] text-[#FF4747] hover:bg-[#FFD1D1]',
 }: AlertModalProps) {
   const modalRef = useRef<HTMLDivElement>(null)
 
@@ -41,8 +45,8 @@ export default function AlertModal({
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div ref={modalRef} className="w-[22.5rem] rounded-xl bg-white p-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={onCancel}>
+      <div ref={modalRef} className="w-[22.5rem] rounded-xl bg-white p-6" onClick={(e) => e.stopPropagation()}>
         <div className="flex flex-col items-center">
           <Image src="/common/icons/warning.svg" alt="alert" width={44} height={44} />
           <h2 className="mt-4 text-center text-lg font-bold text-grey100">{title}</h2>
@@ -50,16 +54,10 @@ export default function AlertModal({
         </div>
 
         <div className="mt-6 flex gap-3">
-          <button
-            onClick={handleCancel}
-            className="flex-1 rounded-lg bg-grey20 py-3 text-sm text-grey90 hover:bg-grey30"
-          >
+          <button onClick={handleCancel} className={`flex-1 rounded-lg py-3 text-sm ${cancelButtonStyle}`}>
             {cancelText}
           </button>
-          <button
-            onClick={onConfirm}
-            className="flex-1 rounded-lg bg-[#FFE1E1] py-3 text-sm text-[#FF4747] hover:bg-[#FFD1D1]"
-          >
+          <button onClick={onConfirm} className={`flex-1 rounded-lg py-3 text-sm ${confirmButtonStyle}`}>
             {confirmText}
           </button>
         </div>
