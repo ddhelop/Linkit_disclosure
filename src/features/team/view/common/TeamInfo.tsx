@@ -16,11 +16,13 @@ import { motion } from 'framer-motion'
 
 interface TeamData {
   isMyTeam: boolean
+  isTeamManager: boolean
   isTeamDeleteInProgress: boolean
   isTeamInvitationInProgress: boolean
+
   teamInformMenu: {
     teamCode: string
-    isTeamManager: boolean
+
     isTeamScrap: boolean
     isTeamMatching: boolean
     teamCurrentStates: Array<{ teamStateName: string }>
@@ -287,34 +289,74 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
             </div>
           </div>
         </div>
-        {teamData.isMyTeam && teamData.teamInformMenu.isTeamManager ? (
-          <div className="mt-12">
-            {isTeamDeleteInProgress ? (
-              <div className="flex gap-3">
-                <Image src="/common/icons/delete_messgae.svg" alt="delete" width={206} height={20} />
+        {teamData.isMyTeam ? (
+          // 내 팀인 경우
+          teamData.isTeamManager ? (
+            // 관리자인 경우
+            <div className="mt-12">
+              {isTeamDeleteInProgress ? (
+                // 팀 삭제 진행중
+                <div className="flex gap-3">
+                  <Image src="/common/icons/delete_messgae.svg" alt="delete" width={206} height={20} />
+                  <Button
+                    animationMode="main"
+                    className="rounded-full bg-[#3774F4] px-6 py-3 text-sm font-semibold text-white"
+                    onClick={handleDeleteRequest}
+                  >
+                    팀 삭제 요청
+                  </Button>
+                </div>
+              ) : (
+                // 일반 관리자 상태
                 <Button
-                  animationMode="main"
-                  className="rounded-full bg-[#3774F4] px-6 py-3 text-sm font-semibold text-white"
-                  onClick={handleDeleteRequest}
+                  onClick={() => {
+                    router.push(`/team/${params.teamName}/edit/log`)
+                  }}
+                  animationMode="grey"
+                  className="flex gap-2 rounded-full border border-grey30 bg-white px-6 py-3 text-sm text-grey60"
+                  mode="custom"
                 >
-                  팀 삭제 요청
+                  <Image src="/common/icons/pencil.svg" alt="edit" width={16} height={16} />
+                  수정하기
                 </Button>
-              </div>
-            ) : (
-              <Button
-                onClick={() => {
-                  router.push(`/team/${params.teamName}/edit/log`)
-                }}
-                animationMode="grey"
-                className="flex gap-2 rounded-full border border-grey30 bg-white px-6 py-3 text-sm text-grey60"
-                mode="custom"
+              )}
+            </div>
+          ) : (
+            // 일반 멤버인 경우
+            <div className="mt-12 flex flex-col gap-5">
+              <div
+                onClick={onClickTeamScrap}
+                className="flex w-[19rem] cursor-pointer justify-center gap-3 rounded-full bg-[#D3E1FE] px-[1.38rem] py-3"
               >
-                <Image src="/common/icons/pencil.svg" alt="edit" width={16} height={16} />
-                수정하기
-              </Button>
-            )}
-          </div>
-        ) : teamData.isTeamInvitationInProgress ? (
+                <Image
+                  src={isTeamScrap ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
+                  alt="scrap"
+                  width={20}
+                  height={20}
+                />
+                <span className="text-sm font-semibold text-[#4D82F3]">
+                  {isTeamScrap ? '스크랩 취소' : '스크랩 하기'}
+                </span>
+              </div>
+              <div
+                onClick={onClickMatching}
+                className="flex w-[19rem] cursor-pointer justify-center gap-3 rounded-full bg-[#D3E1FE] px-[1.38rem] py-3"
+              >
+                <Image
+                  src={isTeamMatching ? '/common/icons/send.svg' : '/common/icons/not_send.svg'}
+                  alt="scrap"
+                  width={20}
+                  height={20}
+                />
+                <span className="text-sm font-semibold text-[#4D82F3]">
+                  {isTeamMatching ? '요청 전송완료' : '매칭 요청하기'}
+                </span>
+              </div>
+            </div>
+          )
+        ) : // 내 팀이 아닌 경우
+        teamData.isTeamInvitationInProgress ? (
+          // 초대 대기중
           <div className="mt-12 flex">
             <div className="relative w-full">
               <motion.div
@@ -346,6 +388,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
             </div>
           </div>
         ) : (
+          // 일반 외부인
           <div className="mt-12 flex flex-col gap-5">
             <div
               onClick={onClickTeamScrap}
