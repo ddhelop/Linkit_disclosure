@@ -92,7 +92,7 @@ export default function ProfileEditPortfolio() {
         </Button>
       </Link>
 
-      <div className="flex flex-col gap-4 pt-6">
+      <div className="flex flex-col gap-4">
         {portfolioItems.length === 0 ? (
           <div className="mt-6">
             <NotContentsUi />

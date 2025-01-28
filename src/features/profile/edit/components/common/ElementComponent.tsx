@@ -51,7 +51,8 @@ export default function ElementComponent({
     }
   }, [isMenuOpen])
 
-  const handleToggleMenu = () => {
+  const handleToggleMenu = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault()
     setIsMenuOpen((prev) => !prev)
   }
 
@@ -62,22 +63,24 @@ export default function ElementComponent({
   }
 
   return (
-    <div className="relative flex items-center justify-between gap-1 rounded-lg bg-white px-10 py-5 hover:bg-grey10">
+    <Link
+      href={{
+        pathname: editPath,
+        query: { id },
+      }}
+      className="relative flex cursor-pointer items-center justify-between gap-1 rounded-lg border border-transparent bg-white px-10 py-5 hover:border-main"
+    >
       <div className="gap-2">
-        <Link
-          href={{
-            pathname: editPath,
-            query: { id },
-          }}
-        >
+        <div>
           <span className="flex cursor-pointer gap-3 font-semibold text-grey80">
             {title}
             {isActivityVerified && <Image src="/common/cert_badge.svg" width={20} height={20} alt="cert_badge" />}
           </span>
-        </Link>
+        </div>
         {(subtitle || date) && (
-          <div className="flex gap-4 text-xs">
+          <div className="flex gap-2 text-xs">
             {subtitle && <span className="text-grey80">{subtitle}</span>}
+            <span className="text-xs text-grey60">|</span>
             {date && (
               <span className="text-grey60">
                 {date} {endDate && `~ ${endDate === 'null' ? '진행 중' : endDate}`}
@@ -120,6 +123,6 @@ export default function ElementComponent({
           </div>
         )}
       </div>
-    </div>
+    </Link>
   )
 }

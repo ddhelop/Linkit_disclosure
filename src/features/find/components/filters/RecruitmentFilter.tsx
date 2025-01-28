@@ -25,7 +25,7 @@ export default function RecruitmentFilter({
   onSelect,
   onRemove,
 }: RecruitmentFilterProps) {
-  const recruitmentList = ['모집 중', '모집 종료']
+  const recruitmentList = ['현재 모집 중', '현재 모집 없음']
   const filteredRecruitment = recruitmentList.filter((status) =>
     status.toLowerCase().includes(searchText.toLowerCase()),
   )
@@ -33,13 +33,13 @@ export default function RecruitmentFilter({
   return (
     <div className="relative">
       <div className={`rounded-xl border ${isFocused ? 'border-main' : 'border-grey30'} bg-white px-6 py-5`}>
-        <h3 className="mb-2 text-sm text-grey70">모집상태</h3>
+        <h3 className="mb-2 text-sm text-grey70">모집 상태</h3>
         <input
           value={searchText}
           onChange={onSearchChange}
           onFocus={onFocus}
           onBlur={onBlur}
-          placeholder="현재 모집 상태가 어떤가요?"
+          placeholder="현재 모집 중인 팀을 찾고 있나요?"
           className="w-full text-xs placeholder:text-grey50 focus:outline-none"
         />
       </div>

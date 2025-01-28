@@ -175,7 +175,7 @@ export default function NewEducation() {
         <div className="flex flex-col gap-3">
           <span className="flex text-grey80">설명</span>
           <Textarea
-            placeholder="설명을 입력해주세요."
+            placeholder="설명을 입력해 주세요 (300자 이내)"
             className="text-sm"
             value={description}
             onChange={(e) => setDescription(e.target.value)}

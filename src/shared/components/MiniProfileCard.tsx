@@ -14,7 +14,7 @@ export default function MiniProfileCard() {
   const memberName = profileData?.profileInformMenu?.memberName || '이름 없음'
   const majorPosition = profileData?.profileInformMenu?.majorPosition || '' // 없으면 빈 문자열
   const cityName = profileData?.profileInformMenu?.regionDetail?.cityName || '' // 없으면 빈 문자열
-  const divisionName = profileData?.profileInformMenu?.regionDetail?.divisionName || '구/군 없음'
+  const divisionName = profileData?.profileInformMenu?.regionDetail?.divisionName || '시/군/구 없음'
   const teamInfo = profileData?.profileInformMenu?.profileTeamInforms
   const isMyProfile = profileData?.isMyProfile
   // 블러 처리를 위한 조건

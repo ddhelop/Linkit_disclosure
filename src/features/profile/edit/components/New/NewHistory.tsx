@@ -165,7 +165,7 @@ export default function NewHistory() {
             </span>
           </div>
           <Input
-            placeholder="회사, 동아리, 학회 등 자유롭게 작성할 수 있어요"
+            placeholder="회사, 프로젝트, 동아리 등 자유롭게 작성할 수 있어요 (50자 이내)"
             value={activityName}
             onChange={(e) => setActivityName(e.target.value)}
           />
@@ -177,7 +177,7 @@ export default function NewHistory() {
             역할<span className="text-main">*</span>
           </span>
           <Input
-            placeholder="자신의 역할을 간단하게 작성해 주세요 (ex.기획, 디자이너 등 40자 이내)"
+            placeholder="자신의 역할을 작성해 주세요 (ex. 기획, 디자이너 등 50자 이내)"
             value={activityRole}
             onChange={(e) => setActivityRole(e.target.value)}
           />
@@ -197,7 +197,7 @@ export default function NewHistory() {
         <div className="flex flex-col gap-3">
           <span className="flex">설명</span>
           <Textarea
-            placeholder="회사, 동아리, 학회 등에 대한 자세한 정보와 자신의 역할을 작성해 보세요"
+            placeholder="회사, 프로젝트, 동아리 등에 대한 자세한 정보와 자신의 역할을 작성해 보세요 (300자 이내)"
             value={activityDescription}
             onChange={(e) => setActivityDescription(e.target.value)}
             className="min-h-[7.75rem]"

@@ -72,7 +72,7 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
     >
       <div className="flex items-center justify-between">
         <div className="flex rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">
-          {announcement.isAnnouncementInProgress ? '모집중' : '모집완료'}
+          {announcement.isAnnouncementInProgress ? '모집 중' : '모집 완료'}
         </div>
         <div className="relative">
           <div

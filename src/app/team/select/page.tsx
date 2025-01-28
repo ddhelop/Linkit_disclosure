@@ -7,15 +7,15 @@ export default function TeamSelectPage() {
     <div className={`flex h-[calc(100vh-4rem)] flex-col items-center `}>
       <div className="flex w-[55%] flex-col pt-[5rem]">
         <h1 className="text-2xl font-bold">나의 팀</h1>
-        <p className="pt-2 text-sm font-normal text-grey60">생성되어 있는 나의 팀을 선택해 팀 프로필을 관리해 보세요</p>
+        <p className="pt-2 text-sm font-normal text-grey60">나의 팀을 생성하고 관리해 보세요</p>
 
         {/*  */}
         <TeamSelect />
 
-        {/* 새 팀 만들기 버튼 */}
+        {/* 팀 생성하기 버튼 */}
         <Link href={'/team/new'} className="mt-9 flex w-full justify-center">
           <button className="flex items-center gap-2 rounded-full bg-grey20 px-6 py-3 text-sm text-grey70 hover:ring-2 hover:ring-grey30">
-            <Image src="/common/icons/plus_black.svg" alt="plus" width={16} height={16} />새 팀 만들기
+            <Image src="/common/icons/plus_black.svg" alt="plus" width={16} height={16} />팀 생성하기
           </button>
         </Link>
       </div>

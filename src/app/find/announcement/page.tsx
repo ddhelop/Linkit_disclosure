@@ -19,7 +19,9 @@ export default function FindAnnouncementPage() {
         <div className="flex w-[78%] flex-col pt-9">
           <div className="flex flex-col gap-2 px-16">
             <h1 className="text-grey30">모집 공고</h1>
-            <span className="text-2xl font-semibold text-white">각 팀에서 진행 중인 공고를 보고 지원 해보세요!</span>
+            <span className="text-2xl font-semibold text-white">
+              모집 중인 공고를 확인하고 원하는 팀에 지원해 보세요
+            </span>
           </div>
 
           {/* 필터 */}

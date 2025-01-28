@@ -129,7 +129,7 @@ export default function CertificationForm({
         <br />• 인증서 업로드 후 인증은 1~3일 정도 소요됩니다
         <br />
         <p className="flex">
-          • 인증서를 등록하고 인증을 마치면 이력 목록에서{' '}
+          • 인증서를 등록하고 인증을 마치면 목록에서{' '}
           <Image src={'/common/cert_badge.svg'} width={22} height={22} alt="cert_badge" className="px-1" /> 인증마크를
           확인할 수 있어요
         </p>

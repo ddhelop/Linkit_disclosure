@@ -90,7 +90,7 @@ export function ImageUploader({
         )}
 
         <div className="flex flex-col gap-2">
-          <span className="text-xs text-grey50">*10MB 하의 PNG, JPG 파일 업로드 해주세요</span>
+          <span className="text-xs text-grey50">10MB 이하 PNG, JPG 파일을 업로드해 주세요</span>
           <div className="flex items-center gap-4">
             <input
               type="file"

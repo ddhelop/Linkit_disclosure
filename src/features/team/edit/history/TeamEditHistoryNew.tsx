@@ -113,7 +113,7 @@ export default function TeamEditHistoryNew({ teamName }: { teamName: string }) {
             </span>
           </div>
           <Input
-            placeholder="연혁명을 입력해주세요"
+            placeholder="연혁명을 입력해 주세요 (50자 이내)"
             value={historyName}
             onChange={(e) => setHistoryName(e.target.value)}
           />
@@ -136,7 +136,7 @@ export default function TeamEditHistoryNew({ teamName }: { teamName: string }) {
           <span className="flex gap-1 text-grey80">설명</span>
 
           <Textarea
-            placeholder="연혁 설명을 입력해주세요"
+            placeholder="설명을 입력해 주세요 (300자 이내)"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />

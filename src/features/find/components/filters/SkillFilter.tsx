@@ -40,7 +40,7 @@ export default function SkillFilter({
           onChange={onSearchChange}
           onFocus={onFocus}
           onBlur={onBlur}
-          placeholder="필수적인 스킬은 무엇인가요?"
+          placeholder="어떤 보유 스킬이 필요한가요?"
           className="w-full text-xs placeholder:text-grey50 focus:outline-none"
         />
       </div>
@@ -54,7 +54,7 @@ export default function SkillFilter({
       >
         <div className="rounded-xl border border-grey30 bg-white p-4" onMouseDown={(e) => e.preventDefault()}>
           {searchText.length === 0 ? (
-            <p className="text-center text-grey50">스킬을 영어로 검색해보세요</p>
+            <p className="text-center text-grey50">스킬을 영어로 검색해 보세요</p>
           ) : (
             <div className="flex flex-wrap gap-2">
               {filteredSkills.map((skill) => (

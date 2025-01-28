@@ -37,7 +37,7 @@ export default function PositionFilter({
           onChange={onSearchChange}
           onFocus={onFocus}
           onBlur={onBlur}
-          placeholder="어떤 포지션의 팀원이 필요하가요?"
+          placeholder="어떤 포지션의 공고를 찾나요?"
           className="w-full text-xs placeholder:text-grey50 focus:outline-none"
         />
       </div>

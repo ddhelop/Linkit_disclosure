@@ -182,7 +182,7 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
             </span>
           </div>
           <Input
-            placeholder="프로젝트명을 입력해주세요"
+            placeholder="프로덕트명을 입력해 주세요"
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
           />
@@ -191,11 +191,11 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         {/* 한줄소개 */}
         <div className="flex w-full flex-col justify-between gap-3 ">
           <span className="flex gap-1 text-grey80">
-            한줄소개<p className="text-main">*</p>
+            한줄 소개<p className="text-main">*</p>
           </span>
 
           <Input
-            placeholder="프로젝트를 한 줄 소개해주세요 (60자 이내)"
+            placeholder="프로덕트를 한 줄로 소개해 주세요 (100자 이내)"
             value={productLineDescription}
             onChange={(e) => setProductLineDescription(e.target.value)}
           />
@@ -242,7 +242,7 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         <div className="flex w-full flex-col justify-between gap-3 ">
           <span className="flex gap-1 text-grey80">설명</span>
           <Textarea
-            placeholder="진행한 프로덕트에 대해 자세히 설명해 주세요"
+            placeholder="프로덕트에 대해 설명해 주세요 (500자 이내)"
             value={productDescription}
             onChange={(e) => setProductDescription(e.target.value)}
           />

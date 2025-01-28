@@ -4,11 +4,11 @@ import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import Radio from '@/shared/ui/Radio/Radio'
 import Select from '@/shared/ui/Select/Select'
-import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { getTeamBasicInfo, updateTeamBasicInfo } from '../../api/teamApi'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/shared/hooks/useToast'
+import Image from 'next/image'
 
 export default function TeamEditBasic({ params }: { params: { teamName: string } }) {
   const router = useRouter()
@@ -257,7 +257,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
                   mode="main"
                   onClick={() => document.getElementById('teamLogoInput')?.click()}
                 >
-                  로고 업로드
+                  사진 업로드
                 </Button>
                 <p className="cursor-pointer text-xs text-grey50 underline" onClick={handleImageDelete}>
                   삭제하기
@@ -272,24 +272,48 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
           <span className="flex text-grey80">
             팀명<p className="text-main">*</p>
           </span>
-          <Input placeholder="팀명을 입력해주세요" value={teamName} onChange={(e) => setTeamName(e.target.value)} />
+          <Input
+            placeholder="팀명을 입력해 주세요 (50자 이내)"
+            value={teamName}
+            onChange={(e) => setTeamName(e.target.value)}
+          />
         </div>
 
-        {/* 팀 코드 */}
-        <div className="flex flex-col gap-3">
-          <span className="flex text-grey80">
+        {/* 팀 아이디 */}
+        <div className="flex flex-col justify-center gap-3">
+          <span className="flex items-center text-grey80">
             팀 아이디<p className="text-main">*</p>
+            {/* 팀 아이디 설명 */}
+            <div className="group relative ml-2">
+              <Image
+                src="/common/icons/info.svg"
+                alt="info"
+                width={16}
+                height={16}
+                className="cursor-pointer text-grey80"
+              />
+              <div
+                className="absolute left-[7.4rem] top-[-12px]  hidden -translate-x-1/2 whitespace-nowrap rounded-lg border border-grey30 bg-white p-3 text-xs text-grey70 group-hover:block"
+                style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
+              >
+                다른 사용자에게는 보이지 않아요.
+              </div>
+            </div>
           </span>
-          <Input placeholder="팀명을 입력해주세요" value={teamCode} onChange={(e) => setTeamCode(e.target.value)} />
+          <Input
+            placeholder="팀명을 입력해 주세요 (50자 이내)"
+            value={teamCode}
+            onChange={(e) => setTeamCode(e.target.value)}
+          />
         </div>
 
         {/* 한줄 소개 */}
         <div className="flex flex-col gap-3">
           <span className="flex text-grey80">
-            한줄 소개<p className="text-main">*</p>
+            한 줄 소개<p className="text-main">*</p>
           </span>
           <Input
-            placeholder="한줄 소개를 입력해주세요"
+            placeholder="나의 팀을 한 줄로 소개해 주세요 (100자 이내)"
             value={teamIntro}
             onChange={(e) => setTeamIntro(e.target.value)}
           />
@@ -331,7 +355,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
               <Select
                 options={mainAreaOptions}
                 value={selectedCity}
-                placeholder="도/광역시 선택"
+                placeholder="시/도 선택"
                 onChange={(value) => setSelectedCity(value)}
               />
             </div>
@@ -341,7 +365,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
               <Select
                 options={selectedCity ? subAreaOptions : []}
                 value={selectedDistrict}
-                placeholder={selectedCity ? '구/군 선택' : '도/광역시를 먼저 선택해주세요'}
+                placeholder={selectedCity ? '시/군/구 선택' : '시/도를 먼저 선택해주세요'}
                 onChange={(value) => setSelectedDistrict(value)}
               />
             </div>
@@ -385,9 +409,12 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
         </div>
 
         {/* 팀 공개 여부 */}
-        <div className="flex flex-col gap-3">
-          <span className="flex text-grey80">
+        <div className="flex flex-col gap-3 ">
+          <span className="flex items-center text-grey80">
             팀 공개 여부 <p className="text-main">*</p>
+            <span className="ml-2 text-xs text-grey60">
+              비공개로 설정하면 다른 사용자들에게 프로필이 노출되지 않습니다
+            </span>
           </span>
 
           <Radio

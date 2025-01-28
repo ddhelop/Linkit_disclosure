@@ -145,10 +145,10 @@ export default function NewAwards() {
           {/* 훈격 */}
           <div className="flex w-[49%] flex-col gap-3">
             <span className="flex">
-              훈격<span className="text-main">*</span>
+              상격<span className="text-main">*</span>
             </span>
             <Input
-              placeholder="상격을 입력해 주세요"
+              placeholder="상격을 입력해 주세요 (ex. 대상, 장관상, 3위 등)"
               value={awardRank}
               onChange={(e) => setAwardRank(e.target.value)}
             />
@@ -160,15 +160,15 @@ export default function NewAwards() {
           </div>
         </div>
 
-        {/* 주최/주관 */}
+        {/* 주최 */}
         <div className="flex flex-col gap-3">
           <div className="flex justify-between">
             <span className="flex">
-              주최/주관<span className="text-main">*</span>
+              주최<span className="text-main">*</span>
             </span>
           </div>
           <Input
-            placeholder="주체기관을 입력해 주세요"
+            placeholder="주최 기관을 입력해 주세요"
             value={hostOrganization}
             onChange={(e) => setHostOrganization(e.target.value)}
           />
@@ -179,7 +179,7 @@ export default function NewAwards() {
           <span className="flex">설명</span>
 
           <Textarea
-            placeholder="설명을 입력해 주세요"
+            placeholder="설명을 입력해 주세요 (300자 이내)"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="min-h-[7.75rem]"

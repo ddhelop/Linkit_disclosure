@@ -71,7 +71,7 @@ export default function ProfileEditCertifications() {
       ) : (
         <div className="mt-4 flex flex-col gap-4">
           {licenses.length === 0 ? (
-            <div className="mt-6">
+            <div className="">
               <NotContentsUi />
             </div>
           ) : (
