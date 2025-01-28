@@ -58,6 +58,9 @@ export async function getTeamHistory(teamName: string) {
 export async function acceptTeamInvitation(teamCode: string, isTeamJoin: boolean) {
   const response = await fetchWithAuth(`/api/v1/team/${teamCode}/member/join`, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({
       isTeamJoin,
     }),
