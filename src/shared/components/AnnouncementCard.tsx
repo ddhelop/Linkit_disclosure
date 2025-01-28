@@ -76,15 +76,22 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
       </div>
 
       <div className="flex gap-2">
-        <div className="rounded-[0.38rem] bg-[#D3E1FE] px-3 py-1 text-sm text-main">
+        <div className="flex items-center rounded-[0.38rem] bg-[#D3E1FE] px-3 py-1 text-sm text-main">
           {announcement?.announcementPositionItem?.majorPosition}
         </div>
-        <div className="rounded-[0.38rem] bg-[#EDF3FF] px-3 py-1 text-sm text-main">
-          {announcement?.announcementSkillNames?.map((skill) => skill?.announcementSkillName).join(', ')}
-        </div>
-        <div className="rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-sm text-main">
-          +{announcement?.announcementSkillNames?.length}
-        </div>
+        {announcement?.announcementSkillNames?.slice(0, 2).map((skill, index) => (
+          <div
+            key={`skill-${index}`}
+            className="flex items-center rounded-[0.38rem] bg-[#EDF3FF] px-3 py-1 text-sm text-main"
+          >
+            {skill?.announcementSkillName}
+          </div>
+        ))}
+        {announcement?.announcementSkillNames?.length > 2 && (
+          <div className="flex items-center rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-sm text-main">
+            +{announcement?.announcementSkillNames.length - 2}
+          </div>
+        )}
       </div>
     </Link>
   )
