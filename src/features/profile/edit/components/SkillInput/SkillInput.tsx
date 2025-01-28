@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import Input from '@/shared/ui/Input/Input'
-import { toolsData } from '@/shared/data/tools'
+import { skillsData } from '@/shared/data/skillsData'
 import { SkillInputProps } from '../../model/types'
 import Image from 'next/image'
 
@@ -13,7 +13,7 @@ export const SkillInput = ({
 }: SkillInputProps) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [isDropdownVisible, setIsDropdownVisible] = useState(false)
-  const [filteredTools, setFilteredTools] = useState<string[]>([])
+  const [filteredSkills, setFilteredSkills] = useState<{ id: number; name: string }[]>([])
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -31,21 +31,21 @@ export const SkillInput = ({
 
   useEffect(() => {
     if (searchTerm) {
-      const filtered = toolsData.tools.filter(
-        (tool) => tool.toLowerCase().includes(searchTerm.toLowerCase()) && !selectedSkills.includes(tool),
+      const filtered = skillsData.filter(
+        (skill) => skill.name.toLowerCase().includes(searchTerm.toLowerCase()) && !selectedSkills.includes(skill.name),
       )
-      setFilteredTools(filtered)
+      setFilteredSkills(filtered)
       setIsDropdownVisible(true)
       setSelectedIndex(-1)
     } else {
-      setFilteredTools([])
+      setFilteredSkills([])
       setIsDropdownVisible(false)
     }
   }, [searchTerm, selectedSkills])
 
-  const handleSkillSelect = (skill: string) => {
+  const handleSkillSelect = (skill: { id: number; name: string }) => {
     if (onSkillAdd) {
-      onSkillAdd(skill)
+      onSkillAdd(skill.name)
     }
     setSearchTerm('')
     setIsDropdownVisible(false)
@@ -58,7 +58,7 @@ export const SkillInput = ({
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault()
-        setSelectedIndex((prev) => (prev < filteredTools.length - 1 ? prev + 1 : prev))
+        setSelectedIndex((prev) => (prev < filteredSkills.length - 1 ? prev + 1 : prev))
         break
       case 'ArrowUp':
         e.preventDefault()
@@ -67,7 +67,7 @@ export const SkillInput = ({
       case 'Enter':
         e.preventDefault()
         if (selectedIndex >= 0) {
-          handleSkillSelect(filteredTools[selectedIndex])
+          handleSkillSelect(filteredSkills[selectedIndex])
         }
         break
       case 'Escape':
@@ -113,15 +113,15 @@ export const SkillInput = ({
           />
         </div>
 
-        {isDropdownVisible && filteredTools.length > 0 && (
+        {isDropdownVisible && filteredSkills.length > 0 && (
           <div className="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-xl border border-grey30 bg-white shadow-md">
-            {filteredTools.map((tool, index) => (
+            {filteredSkills.map((skill, index) => (
               <div
-                key={tool}
+                key={skill.id}
                 className={`cursor-pointer px-4 py-2 ${index === selectedIndex ? 'bg-blue-50' : 'hover:bg-grey10'}`}
-                onClick={() => handleSkillSelect(tool)}
+                onClick={() => handleSkillSelect(skill)}
               >
-                {tool}
+                {skill.name}
               </div>
             ))}
           </div>

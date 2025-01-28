@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { toolsData } from '@/shared/data/tools'
+import { skillsData } from '@/shared/data/skillsData'
 import Image from 'next/image'
 
 interface SkillFilterProps {
@@ -28,7 +28,7 @@ export default function SkillFilter({
 }: SkillFilterProps) {
   const filteredSkills =
     searchText.length > 0
-      ? toolsData.tools.filter((skill) => skill.toLowerCase().includes(searchText.toLowerCase())).slice(0, 15)
+      ? skillsData.filter((skill) => skill.name.toLowerCase().includes(searchText.toLowerCase())).slice(0, 15)
       : []
 
   return (
@@ -59,15 +59,15 @@ export default function SkillFilter({
             <div className="flex flex-wrap gap-2">
               {filteredSkills.map((skill) => (
                 <div
-                  key={skill}
-                  onClick={() => onSelect(skill)}
+                  key={skill.id}
+                  onClick={() => onSelect(skill.name)}
                   className={`cursor-pointer rounded-full px-4 py-2 text-sm transition-colors ${
-                    selectedItems.includes(skill)
+                    selectedItems.includes(skill.name)
                       ? 'border border-main bg-[#D3E1FE] text-main '
                       : 'border border-grey40 bg-grey20 text-grey50'
                   }`}
                 >
-                  {skill}
+                  {skill.name}
                 </div>
               ))}
             </div>

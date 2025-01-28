@@ -7,7 +7,7 @@ import { usePositionSelect } from '@/shared/hooks/usePositionSelect'
 import Input from '@/shared/ui/Input/Input'
 import { SearchDropdown } from '@/shared/ui/SearchDropdown/SearchDropdown'
 import Select from '@/shared/ui/Select/Select'
-import { toolsData } from '@/shared/data/tools'
+import { skillsData } from '@/shared/data/skillsData'
 
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import { Button } from '@/shared/ui/Button/Button'
@@ -298,7 +298,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
               ))}
             </div>
             <SearchDropdown
-              items={toolsData.tools}
+              items={skillsData.map((skill) => skill.name)}
               filterFunction={(tool, searchTerm) => tool.toLowerCase().includes(searchTerm.toLowerCase())}
               onSelect={handleAddSkill}
               placeholder="스킬을 영어로 검색해 보세요"

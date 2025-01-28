@@ -3,9 +3,22 @@
 import Image from 'next/image'
 import { useRef, useState, useEffect } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
-import { deleteTeamAnnouncement, TeamAnnouncement, toggleTeamAnnouncementPublic } from '../../api/teamApi'
+import { deleteTeamAnnouncement, toggleTeamAnnouncementPublic } from '../../api/teamApi'
 import Link from 'next/link'
 import { useToast } from '@/shared/hooks/useToast'
+
+interface AnnouncementSkill {
+  announcementSkillName: string
+}
+
+interface TeamAnnouncement {
+  teamMemberAnnouncementId: number
+  announcementTitle: string
+  majorPosition: string
+  isAnnouncementPublic: boolean
+  isAnnouncementInProgress: boolean
+  announcementSkillNames: AnnouncementSkill[]
+}
 
 interface TeamEditRecruitComponentProps {
   announcement: TeamAnnouncement
@@ -116,7 +129,10 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
       <div className="mt-3 flex gap-4">
         <div className="rounded-[0.38rem] bg-[#D3E1FE] px-4 py-2 text-xs text-main">{announcement.majorPosition}</div>
         {announcement.announcementSkillNames.map((skill, index) => (
-          <div key={index} className="rounded-[0.38rem] bg-[#EDF3FF] px-4 py-2 text-xs text-main">
+          <div
+            key={`${skill.announcementSkillName}-${index}`}
+            className="rounded-[0.38rem] bg-[#EDF3FF] px-4 py-2 text-xs text-main"
+          >
             {skill.announcementSkillName}
           </div>
         ))}
