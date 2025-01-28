@@ -1,5 +1,6 @@
 // src/features/profile/api/authApi.ts
 
+import { useToast } from '@/shared/hooks/useToast'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
 
@@ -28,18 +29,23 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
     console.log('Request headers:', options.headers)
     const response = await fetch(apiUrl, options)
 
+    // 회원탈퇴 API 호출인 경우 모든 상태 코드를 정상 응답으로 처리
+    if (url.includes('/api/v1/withdraw')) {
+      return response
+    }
+
+    // 리프레시 토큰 만료 시 (403)
     if (response.status === 403) {
       useAuthStore.getState().setLoginState(false)
       if (typeof window !== 'undefined') {
         // 쿠키 삭제
         document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT'
-        alert('세션이 만료되었습니다. 다시 로그인해주세요.')
-        window.location.href = '/login'
       }
       return response.json()
     }
 
-    if ((response.status === 401 || response.status === 404) && retry) {
+    // 액세스 토큰 만료 시 (450)
+    if (response.status === 450 && retry) {
       try {
         const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/renew/token`, {
           credentials: 'include',
@@ -59,26 +65,25 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
         // 웹소켓 재연결 추가
         useWebSocketStore.getState().initializeClient(data.result.accessToken)
 
-        // 새 토큰으로 헤더 업데이트
+        // 새 토큰으로 재요청
         return fetch(apiUrl, {
           ...options,
           headers: {
-            'Content-Type': 'application/json',
             ...options.headers,
             Authorization: `Bearer ${data.result.accessToken}`,
           },
         })
       } catch (error) {
         console.error('Token refresh failed:', error)
-        if (typeof window !== 'undefined') {
-          window.location.href = '/login'
-        }
         return response
       }
     }
 
     return response
   } catch (error) {
+    if (url.includes('/api/v1/withdraw')) {
+      return null
+    }
     console.error('Fetch error:', error)
     return null
   }

@@ -166,7 +166,6 @@ export default function ProfileEditAccount() {
   const handleWithdraw = async () => {
     try {
       await fetchWithdraw()
-      toast.success('회원탈퇴가 성공적으로 완료되었습니다.')
     } catch (error) {
       console.error('Failed to withdraw:', error)
       toast.alert('회원탈퇴에 실패했습니다.')

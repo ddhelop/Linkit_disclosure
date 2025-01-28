@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
-import { useAuthStore } from '@/shared/store/useAuthStore'
+import { getAccessToken, useAuthStore } from '@/shared/store/useAuthStore'
 import { useEffect, useState } from 'react'
 import Logo from './components/Logo'
 import Navigation from './components/Navigation'
@@ -16,7 +16,7 @@ import useWebSocketStore from '@/shared/store/useWebSocketStore'
 
 export default function Header() {
   const pathname = usePathname()
-  const { isLogin, checkLogin, logout, emailId } = useAuthStore()
+  const { isLogin, checkLogin, logout, emailId, setLoginState } = useAuthStore()
   const { initializeClient } = useWebSocketStore()
   const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -27,18 +27,16 @@ export default function Header() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const accessToken = document.cookie
-        .split(';')
-        .find((cookie) => cookie.trim().startsWith('accessToken='))
-        ?.split('=')[1]
-
+      const accessToken = getAccessToken()
       if (accessToken) {
         checkLogin()
         initializeClient(accessToken)
+      } else {
+        setLoginState(false)
       }
       setLoading(false)
     }
-  }, [checkLogin, initializeClient])
+  }, [checkLogin, initializeClient, setLoginState])
 
   useNotificationSubscription(emailId || '')
 

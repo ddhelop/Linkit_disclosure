@@ -29,7 +29,7 @@ export const useAuthStore = create<AuthStore>()(
       },
 
       checkLogin: () => {
-        const token = document.cookie.split(';').find((cookie) => cookie.trim().startsWith('accessToken='))
+        const token = getAccessToken()
         set({ isLogin: !!token })
       },
 
