@@ -107,16 +107,20 @@ export default function NewEducation() {
       }
 
       if (educationId) {
-        await updateEducation(educationId, educationData)
+        const response = await updateEducation(educationId, educationData)
         toast.success('학력이 성공적으로 수정되었습니다.')
         // 학력 데이터가 있으면 profileBooleanMenu 업데이트
-        if (educationId) {
-          updateProfileMenu({ isProfileEducation: true })
-        }
+
+        updateProfileMenu({ isProfileEducation: true })
       } else {
         const reponse = await createEducation(educationData)
-        toast.success('학력이 성공적으로 저장되었습니다.')
-        router.push(`/profile/edit/education/new?id=${reponse.result.profileEducationId}`)
+        if (reponse.isSuccess) {
+          toast.success('학력이 성공적으로 저장되었습니다.')
+          updateProfileMenu({ isProfileEducation: true })
+          router.push(`/profile/edit/education/new?id=${reponse.result.profileEducationId}`)
+        } else {
+          toast.alert('학력 저장 중 오류가 발생했습니다.')
+        }
       }
     } catch (error) {
       console.error('Failed to save education:', error)
