@@ -12,6 +12,7 @@ export interface TeamProduct {
   productStartDate: string
   productEndDate: string
   isProductInProgress: boolean
+  productRepresentImagePath: string
   teamProductLinks: {
     productLinkId: number
     productLinkName: string

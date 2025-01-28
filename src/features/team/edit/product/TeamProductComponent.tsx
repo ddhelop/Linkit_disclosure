@@ -12,6 +12,7 @@ interface TeamProduct {
   productStartDate: string
   productEndDate: string
   isProductInProgress: boolean
+  productRepresentImagePath: string
   teamProductLinks: {
     productLinkId: number
     productLinkName: string
@@ -36,6 +37,11 @@ export default function TeamProductComponent({ product, teamName, onDelete }: Te
     handler: () => setIsMenuOpen(false),
   })
 
+  const handleClickMore = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    setIsMenuOpen(true)
+  }
+
   const handleDelete = async () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
       try {
@@ -51,20 +57,25 @@ export default function TeamProductComponent({ product, teamName, onDelete }: Te
   }
 
   return (
-    <div className="flex flex-col gap-5 rounded-lg border bg-white p-[1.76rem] hover:border-main">
+    <Link
+      href={`/team/${teamName}/edit/products/new?id=${product.teamProductId}`}
+      className="flex flex-col gap-5 rounded-lg border bg-white p-[1.76rem] hover:border-main"
+    >
       {/* 프로필 */}
       <div className="flex items-start justify-between">
         <div className="flex gap-[0.8rem]">
-          <Image src="/common/default_profile.svg" alt="default profile" width={48} height={48} />
+          <div className="relative h-[48px] w-[48px] rounded-lg">
+            <Image
+              src={product.productRepresentImagePath || '/common/default_profile.svg'}
+              alt="default profile"
+              fill
+              className="rounded-lg object-cover"
+            />
+          </div>
 
           <div className="flex flex-col justify-center gap-2">
             <div className="flex items-center gap-2">
-              <Link
-                href={`/team/${teamName}/edit/products/new?id=${product.teamProductId}`}
-                className="text-sm text-grey80"
-              >
-                {product.productName}
-              </Link>
+              <div className="text-sm text-grey80">{product.productName}</div>
               <span className="text-[0.5rem] text-grey60">|</span>
               <span className="text-xs font-normal text-grey60">
                 {product.productStartDate} ~ {product.isProductInProgress ? '진행 중' : product.productEndDate}
@@ -80,13 +91,13 @@ export default function TeamProductComponent({ product, teamName, onDelete }: Te
             width={24}
             height={24}
             className="cursor-pointer"
-            onClick={() => setIsMenuOpen(true)}
+            onClick={handleClickMore}
           />
 
           {isMenuOpen && (
             <div
               ref={menuRef}
-              className="absolute right-0 top-8 z-10 flex w-[100px] flex-col rounded-lg border border-grey20 bg-white py-2 shadow-md"
+              className="absolute left-0 top-8 z-10 flex w-[100px] flex-col rounded-lg border border-grey20 bg-white py-2 shadow-md"
             >
               <Link
                 href={`/team/${teamName}/edit/products/new?id=${product.teamProductId}`}
@@ -119,6 +130,6 @@ export default function TeamProductComponent({ product, teamName, onDelete }: Te
         ))}
       </div>
       <div className="rounded-lg bg-grey10 p-4 text-xs font-normal text-grey70">{product.productDescription}</div>
-    </div>
+    </Link>
   )
 }
