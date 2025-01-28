@@ -18,6 +18,9 @@ export interface NotificationItem {
     | 'REMOVE_TEAM_REQUESTED'
     | 'REMOVE_TEAM_REJECTED'
     | 'REMOVE_TEAM_COMPLETED'
+    | 'WELCOME_LINKIT'
+    | 'COMPLETE_PROFILE'
+    | 'ETC'
   notificationReadStatus: 'READ' | 'UNREAD'
   notificationOccurTime: string
   notificationDetails: NotificationDetails
