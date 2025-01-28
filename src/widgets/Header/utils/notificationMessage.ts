@@ -57,11 +57,11 @@ export const getNotificationMessage = (
     case 'TEAM':
       switch (subType) {
         case 'REMOVE_TEAM_REQUESTED':
-          return `${details.teamMemberName}님이 ${details.teamName} 팀 탈퇴를 요청했습니다.`
+          return `${details.teamMemberName}님이 ${details.teamName} 팀 삭제를 요청했습니다.`
         case 'REMOVE_TEAM_REJECTED':
-          return `${details.teamMemberName}님의 ${details.teamName} 팀 탈퇴가 거절되었습니다.`
+          return `${details.teamMemberName}님의 ${details.teamName} 팀 삭제가 거절되었습니다.`
         case 'REMOVE_TEAM_COMPLETED':
-          return `${details.teamName} 팀 탈퇴가 완료되었습니다.`
+          return `${details.teamName} 팀 삭제가 완료되었습니다.`
         default:
           return '알 수 없는 팀 알림입니다.'
       }
