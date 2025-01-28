@@ -10,6 +10,7 @@ type SubNotificationType =
   | 'REMOVE_TEAM_REJECTED'
   | 'REMOVE_TEAM_COMPLETED'
   | 'COMPLETE_PROFILE'
+  | 'WELCOME_LINKIT'
   | 'ETC'
 
 interface NotificationDetails {
@@ -67,6 +68,8 @@ export const getNotificationMessage = (
 
     case 'SYSTEM':
       switch (subType) {
+        case 'WELCOME_LINKIT':
+          return '프로필을 완성하러 가볼까요?'
         case 'COMPLETE_PROFILE':
           return '프로필을 완성하여 기능을 활성화하세요!'
         case 'ETC':
