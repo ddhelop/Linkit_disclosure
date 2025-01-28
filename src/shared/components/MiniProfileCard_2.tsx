@@ -101,17 +101,25 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
       <hr className="my-3 border-grey40" />
 
       {/* 팀 목록 */}
-      <div className="flex gap-4">
-        {profile?.profileTeamInforms?.map((team, index) => (
-          <Image
-            key={index}
-            src={team?.teamLogoImagePath || '/common/default_profile.svg'}
-            width={40}
-            height={40}
-            alt={team?.teamName}
-            className="h-10 w-10 rounded-lg object-cover"
-          />
-        ))}
+      {profile?.profileTeamInforms?.length === 0 && <div className="mt-5 text-sm text-grey50">팀이 없습니다.</div>}
+      <div className="flex items-center gap-4">
+        {profile?.profileTeamInforms
+          ?.slice(0, 4)
+          .map((team, index) => (
+            <Image
+              key={index}
+              src={team?.teamLogoImagePath || '/common/default_profile.svg'}
+              width={40}
+              height={40}
+              alt={team?.teamName}
+              className="h-10 w-10 rounded-lg object-cover"
+            />
+          ))}
+        {profile?.profileTeamInforms && profile?.profileTeamInforms?.length > 4 && (
+          <span className="rounded-full bg-[#D3E1FE] px-2 py-1 text-xs font-medium text-[#4D82F3]">
+            +{profile?.profileTeamInforms?.length - 4}
+          </span>
+        )}
       </div>
     </Link>
   )
