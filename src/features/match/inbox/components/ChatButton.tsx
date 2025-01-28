@@ -37,7 +37,7 @@ export default function ChatButton({
 
   const handleCreateChatRoom = async () => {
     if (isChatRoomCreated) {
-      router.push(`/chat/${chatRoomId}`)
+      router.push(`/chat?room=${chatRoomId}`)
       return
     }
 
