@@ -78,7 +78,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
           setIsTeamScrap(response.result.teamInformMenu.isTeamScrap)
           setIsTeamMatching(response.result.teamInformMenu.isTeamMatching)
           setIsTeamDeleteInProgress(response.result.isTeamDeleteInProgress)
-          setIsTeamManager(response.result.isTeamManager)
+          setIsTeamManager(response.result.teamInformMenu.isTeamManager)
         }
       } catch (error) {
         console.error('Failed to fetch team data:', error)
@@ -316,11 +316,11 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
             )}
           </div>
         ) : teamData.isTeamInvitationInProgress ? (
-          <div className="flex">
+          <div className="mt-12 flex">
             <div className="relative w-full">
               <motion.div
                 animate={{
-                  x: [0, 10, 0], // 0px -> 10px -> 0px로 이동
+                  x: [0, 10, 0],
                 }}
                 transition={{
                   duration: 1.5,
