@@ -16,11 +16,14 @@ export default function ProfileViewSkills() {
       <h1 className="font-semibold">보유스킬</h1>
       <div className="flex flex-wrap gap-2">
         {/* 데이터가 없을 시 */}
-        {skillItems.length === 0 && (
-          <div className="flex w-full items-center text-sm text-grey60">
-            수정 버튼을 눌러 내용을 작성하면 매칭 가능성이 높아져요
-          </div>
-        )}
+        {skillItems.length === 0 &&
+          (isMyProfile ? (
+            <div className="flex w-full items-center text-sm text-grey60">
+              수정 버튼을 눌러 내용을 작성하면 매칭 가능성이 높아져요
+            </div>
+          ) : (
+            <div className="flex w-full items-center text-sm text-grey60">아직 추가하지 않았어요</div>
+          ))}
         {skillItems.map((skill) => (
           <div key={skill.profileSkillId} className="group relative w-fit">
             <div className="min-w-[100px] rounded-[62.5rem] bg-[#D3E1FE] px-7 py-1 text-center text-sm font-semibold text-grey80 transition-opacity duration-300 group-hover:opacity-0">

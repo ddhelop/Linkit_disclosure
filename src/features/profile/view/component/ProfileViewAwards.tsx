@@ -28,11 +28,14 @@ export default function ProfileViewAwards() {
       {/* 수상 목록 */}
       <div className="flex flex-col gap-3">
         {/* 데이터가 없을 시 */}
-        {profileData?.profileAwardsItems.length === 0 && (
-          <div className="flex w-full items-center text-sm text-grey60">
-            수정 버튼을 눌러 내용을 작성하면 매칭 가능성이 높아져요
-          </div>
-        )}
+        {profileData?.profileAwardsItems.length === 0 &&
+          (isMyProfile ? (
+            <div className="flex w-full items-center text-sm text-grey60">
+              수정 버튼을 눌러 내용을 작성하면 매칭 가능성이 높아져요
+            </div>
+          ) : (
+            <div className="flex w-full items-center text-sm text-grey60">아직 추가하지 않았어요</div>
+          ))}
         {profileData?.profileAwardsItems.map((award) => (
           <div key={award.profileAwardsId} className="flex flex-col gap-2 rounded-lg bg-grey10 px-6 py-4">
             <div className="flex items-center gap-2">
