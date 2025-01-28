@@ -7,22 +7,22 @@ import Link from 'next/link'
 export default function Banner() {
   const slides = [
     {
-      image: '/common/images/banner1.png',
+      image: '/common/images/banner1.svg',
       link: '/find/private',
       alt: '팀 모집 배너',
     },
     {
-      image: '/common/images/banner2.png',
+      image: '/common/images/banner2.svg',
       link: '/find/announcement',
       alt: '프로필 배너',
     },
     {
-      image: '/common/images/banner3.png',
+      image: '/common/images/banner3.svg',
       link: 'https://knowhow-market.oopy.io/',
       alt: '채팅 배너',
     },
     {
-      image: '/common/images/banner4.png',
+      image: '/common/images/banner4.svg',
       link: 'https://open.kakao.com/o/gee0u5kg',
       alt: '커뮤니티 배너',
     },
