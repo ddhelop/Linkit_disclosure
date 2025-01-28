@@ -42,7 +42,7 @@ export default function FooterComponent() {
               onClick={() => {
                 router.push('https://bit.ly/4bspBdG')
               }}
-              src={'/common/icons/social/instagram_black.svg'}
+              src={'/common/icons/social/insta_black.svg'}
               width={30}
               height={30}
               alt="instagram"
