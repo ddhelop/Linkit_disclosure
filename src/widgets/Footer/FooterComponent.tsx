@@ -42,7 +42,7 @@ export default function FooterComponent() {
               onClick={() => {
                 router.push('https://bit.ly/4bspBdG')
               }}
-              src={'/assets/icons/instagram_dark.svg'}
+              src={'/common/icons/social/instagram_black.svg'}
               width={30}
               height={30}
               alt="instagram"
@@ -52,7 +52,7 @@ export default function FooterComponent() {
               onClick={() => {
                 router.push('https://bit.ly/4biOQ1Z')
               }}
-              src={'/assets/icons/kakao_dark.svg'}
+              src={'/common/icons/social/kakaotalk_black.svg'}
               width={30}
               height={30}
               alt="kakaoTalk"
