@@ -1,6 +1,4 @@
 import TeamEditMembersList from '@/features/team/edit/members/TeamEditMembersList'
-import { Button } from '@/shared/ui/Button/Button'
-import Link from 'next/link'
 
 export default function TeamEditMembersPage({ params }: { params: { teamName: string } }) {
   return (

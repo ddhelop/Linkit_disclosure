@@ -1,11 +1,8 @@
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { kakaoLogin } from '../api/authApi'
-import { LoginResponse } from './authType'
 
 import { useAuthStore } from '@/shared/store/useAuthStore'
-import { Client } from '@stomp/stompjs'
-import createStompClient from '@/shared/utils/stompClient'
 
 export const useKakaoAuth = (code: string | null) => {
   const router = useRouter()
