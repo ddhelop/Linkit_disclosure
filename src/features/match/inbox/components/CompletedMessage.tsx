@@ -49,12 +49,12 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
         <ChatButton
           chatRoomId={message.chatRoomId}
           matchingId={message.matchingId}
-          senderType={message.senderType}
+          senderType={message.senderType as 'TEAM' | 'PROFILE'}
           senderInfo={{
             emailId: message.senderProfileInformation?.emailId,
             teamCode: message.senderTeamInformation?.teamCode,
           }}
-          receiverType={message.receiverType}
+          receiverType={message.receiverType as 'TEAM' | 'PROFILE' | 'ANNOUNCEMENT'}
           receiverInfo={{
             emailId: message.receiverProfileInformation?.emailId,
             teamCode: message.receiverTeamInformation?.teamCode,
