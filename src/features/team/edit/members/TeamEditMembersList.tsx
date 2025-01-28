@@ -12,21 +12,25 @@ export default function TeamEditMembersList({ teamName }: { teamName: string }) 
   const [members, setMembers] = useState<{
     accepted: any[]
     pending: any[]
-  }>({ accepted: [], pending: [] })
+    isTeamOwner: boolean
+    isTeamManager: boolean
+  }>({ accepted: [], pending: [], isTeamOwner: false, isTeamManager: false })
+
+  const fetchMembers = async () => {
+    try {
+      const response = await getTeamMembers(teamName)
+      setMembers({
+        accepted: response.result.acceptedTeamMemberItems,
+        pending: response.result.pendingTeamMemberItems,
+        isTeamOwner: response.result.isTeamOwner,
+        isTeamManager: response.result.isTeamManager,
+      })
+    } catch (error) {
+      console.error('Failed to fetch team members:', error)
+    }
+  }
 
   useEffect(() => {
-    const fetchMembers = async () => {
-      try {
-        const response = await getTeamMembers(teamName)
-        setMembers({
-          accepted: response.result.acceptedTeamMemberItems,
-          pending: response.result.pendingTeamMemberItems,
-        })
-      } catch (error) {
-        console.error('Failed to fetch team members:', error)
-      }
-    }
-
     fetchMembers()
   }, [teamName])
 
@@ -41,7 +45,12 @@ export default function TeamEditMembersList({ teamName }: { teamName: string }) 
         + 추가하기
       </Button>
 
-      <AddMemberModal teamName={teamName} isOpen={showAddModal} onClose={() => setShowAddModal(false)} />
+      <AddMemberModal
+        teamName={teamName}
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onMemberUpdate={fetchMembers}
+      />
 
       {members.accepted.length > 0 ? (
         <>
@@ -52,6 +61,13 @@ export default function TeamEditMembersList({ teamName }: { teamName: string }) 
               name={member.memberName}
               position={member.majorPosition}
               memberType={member.teamMemberType}
+              teamCode={teamName}
+              emailId={member.emailId}
+              onMemberUpdate={fetchMembers}
+              myRole={{
+                isTeamOwner: members.isTeamOwner,
+                isTeamManager: members.isTeamManager,
+              }}
             />
           ))}
 
@@ -62,7 +78,13 @@ export default function TeamEditMembersList({ teamName }: { teamName: string }) 
               position=""
               memberType={member.teamMemberType}
               isPending={true}
-              email={member.teamMemberInvitationEmail}
+              emailId={member.teamMemberInvitationEmail}
+              teamCode={teamName}
+              onMemberUpdate={fetchMembers}
+              myRole={{
+                isTeamOwner: members.isTeamOwner,
+                isTeamManager: members.isTeamManager,
+              }}
             />
           ))}
         </>

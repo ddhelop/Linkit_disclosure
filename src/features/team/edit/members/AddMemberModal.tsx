@@ -14,9 +14,10 @@ interface AddMemberModalProps {
   isOpen: boolean
   onClose: () => void
   teamName: string
+  onMemberUpdate: () => void
 }
 
-export function AddMemberModal({ isOpen, onClose, teamName }: AddMemberModalProps) {
+export function AddMemberModal({ isOpen, onClose, teamName, onMemberUpdate }: AddMemberModalProps) {
   const modalRef = useRef<HTMLDivElement>(null)
   const { email, setEmail, isValid } = useEmailValidation()
   const [role, setRole] = useState('')
@@ -43,6 +44,7 @@ export function AddMemberModal({ isOpen, onClose, teamName }: AddMemberModalProp
         teamName,
       )
       toast.success('팀원 초대가 성공적으로 전송되었습니다.')
+      onMemberUpdate()
       handleClose()
     } catch (error) {
       const errorMessage = error instanceof Error && error.message ? error.message : '알 수 없는 오류가 발생했습니다.'

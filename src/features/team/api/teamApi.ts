@@ -512,6 +512,8 @@ interface TeamMembersResponse {
   code: string
   message: string
   result: {
+    isTeamOwner: boolean
+    isTeamManager: boolean
     acceptedTeamMemberItems: TeamMember[]
     pendingTeamMemberItems: PendingTeamMember[]
   }
@@ -658,6 +660,45 @@ export async function leaveTeam(teamCode: string) {
 
   if (!response.ok) {
     return response.json()
+  }
+
+  return response.json()
+}
+
+// 팀원 권한 변경
+export async function updateMemberType(teamCode: string, emailId: string, teamMemberType: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamCode}/member/type/${emailId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      teamMemberType,
+    }),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to update member type')
+  }
+
+  return response.json()
+}
+
+// 팀원 삭제
+export async function removeMember(teamCode: string, emailId: string, isPending: boolean) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamCode}/member/remove`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      teamMemberRegisterType: isPending ? 'PENDING' : 'ACCEPTED',
+      removeIdentifier: emailId, // isPending ? email : emailId
+    }),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to remove team member')
   }
 
   return response.json()
