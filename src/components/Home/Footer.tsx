@@ -68,7 +68,7 @@ export default function Footer() {
         <div className="mt-8 flex gap-4 text-grey80">
           <Link
             href={'https://paint-crowley-ff2.notion.site/187c158365ac81f98d69fd8fac385be7?pvs=4'}
-            className="cursor-pointer font-bold hover:underline"
+            className="cursor-pointer hover:underline"
             target="_blank"
           >
             개인정보처리 방침
