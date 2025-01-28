@@ -68,6 +68,11 @@ export default function NotificationMenu({ isOpen, onClose, emailId }: Notificat
             router.push(`/team/${notification.notificationDetails.teamCode}/log`)
           }
           break
+        case 'SYSTEM':
+          if (notification.subNotificationType === 'WELCOME_LINKIT') {
+            router.push('/profile/edit/basic')
+          }
+          break
         default:
           break
       }
