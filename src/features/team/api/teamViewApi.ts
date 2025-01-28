@@ -53,3 +53,17 @@ export async function getTeamHistory(teamName: string) {
   }
   return response.json()
 }
+
+// 팀원 초대 수락/거절
+export async function acceptTeamInvitation(teamCode: string, isTeamJoin: boolean) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamCode}/member/join`, {
+    method: 'POST',
+    body: JSON.stringify({
+      isTeamJoin,
+    }),
+  })
+  if (!response.ok) {
+    throw new Error('Failed to accept team invitation')
+  }
+  return response.json()
+}
