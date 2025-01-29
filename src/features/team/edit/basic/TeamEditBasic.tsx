@@ -375,7 +375,9 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
         {/* 팀 현재 상태 */}
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-3">
-            <span className="flex text-grey80">현재 상태</span>
+            <span className="flex items-center text-grey80">
+              현재 상태 <p className="text-main">*</p>
+            </span>
 
             <div className="flex flex-wrap gap-2">
               {recruitmentStatus.map((status) => (

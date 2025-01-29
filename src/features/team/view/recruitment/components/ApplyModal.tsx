@@ -102,9 +102,6 @@ export default function ApplyModal({ teamInfo, recruitmentDetail, onClose }: App
           />
         </div>
 
-        {/* 필요한 자료 안내 */}
-        <p className="mt-3 text-xs text-grey50">필요한 자료들은 내 프로필에 업로드 후 지원해 주세요</p>
-
         {/* 버튼 영역 */}
         <div className="mt-8 flex gap-3">
           <Button
