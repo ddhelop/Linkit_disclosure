@@ -3,6 +3,7 @@ export interface NotificationDetails {
   teamMemberName?: string
   chatSenderName?: string
   matchingTargetName?: string
+  matchingTargetLogoImagePath?: string
   teamCode: string
 }
 

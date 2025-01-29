@@ -14,7 +14,7 @@ interface NotificationMenuProps {
   emailId: string
 }
 
-export default function NotificationMenu({ isOpen, onClose, emailId }: NotificationMenuProps) {
+export default function NotificationMenu({ isOpen, onClose }: NotificationMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null)
   const [notifications, setNotifications] = useState<NotificationItem[]>([])
   const router = useRouter()
@@ -102,7 +102,7 @@ export default function NotificationMenu({ isOpen, onClose, emailId }: Notificat
               >
                 <div className="h-10 w-10 flex-shrink-0">
                   <Image
-                    src="/common/default_profile.svg"
+                    src={notification.notificationDetails.matchingTargetLogoImagePath || '/common/default_profile.svg'}
                     alt="profile"
                     width={40}
                     height={40}
