@@ -42,3 +42,20 @@ export const getChatMessages = async (chatRoomId: number, page = 0, size = 50) =
 
   return response.json()
 }
+
+export const leaveChatRoom = async (roomId: number) => {
+  try {
+    const response = await fetchWithAuth(`/api/v1/chat/room/${roomId}/leave`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    })
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error('Failed to leave chat room:', error)
+    throw error
+  }
+}

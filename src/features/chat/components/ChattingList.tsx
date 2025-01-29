@@ -21,34 +21,36 @@ export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoom
         const response = await getChattingList()
         updateChatList(response.result.chatRoomSummaries)
 
+        // 기존 구독 해제
         Object.values(subscriptionsRef.current).forEach((sub) => sub?.unsubscribe())
 
+        // 새로운 채팅방 목록에 대한 구독 설정
         response.result.chatRoomSummaries.forEach((chatRoom: any) => {
           const accessToken = getAccessToken()
-
-          subscriptionsRef.current[chatRoom.chatRoomId] = client.subscribe(
-            `/sub/chat/${chatRoom.chatRoomId}`,
-            (message) => {
-              const receivedMessage = JSON.parse(message.body)
-              // 새 메시지를 store에 추가
-              addMessage(chatRoom.chatRoomId, {
-                messageId: receivedMessage.messageId,
-                chatRoomId: receivedMessage.chatRoomId,
-                content: receivedMessage.content,
-                timestamp: receivedMessage.timestamp,
-                isMyMessage: receivedMessage.isMyMessage,
-                messageSenderType: receivedMessage.messageSenderParticipantType,
-                messageSenderId: '',
-                read: receivedMessage.read,
-                messageSenderLogoImagePath: receivedMessage.messageSenderLogoImagePath,
-              })
-              // 마지막 메시지 정보 업데이트
-              updateLastMessage(chatRoom.chatRoomId, receivedMessage.content, receivedMessage.timestamp)
-            },
-            {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          )
+          if (client.connected) {
+            // client 연결 상태 확인
+            subscriptionsRef.current[chatRoom.chatRoomId] = client.subscribe(
+              `/sub/chat/${chatRoom.chatRoomId}`,
+              (message) => {
+                const receivedMessage = JSON.parse(message.body)
+                addMessage(chatRoom.chatRoomId, {
+                  messageId: receivedMessage.messageId,
+                  chatRoomId: receivedMessage.chatRoomId,
+                  content: receivedMessage.content,
+                  timestamp: receivedMessage.timestamp,
+                  isMyMessage: receivedMessage.isMyMessage,
+                  messageSenderType: receivedMessage.messageSenderParticipantType,
+                  messageSenderId: '',
+                  read: receivedMessage.read,
+                  messageSenderLogoImagePath: receivedMessage.messageSenderLogoImagePath,
+                })
+                updateLastMessage(chatRoom.chatRoomId, receivedMessage.content, receivedMessage.timestamp)
+              },
+              {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            )
+          }
         })
       } catch (error) {
         console.error('Failed to initialize chats:', error)
@@ -65,8 +67,17 @@ export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoom
       initializeChats()
     }
 
+    // 채팅방 나가기 이벤트 구독
+    let leaveSubscription: any
+    if (client.connected) {
+      leaveSubscription = client.subscribe('/sub/chat/leave', () => {
+        initializeChats() // 채팅방 목록 새로고침
+      })
+    }
+
     return () => {
       Object.values(subscriptionsRef.current).forEach((sub) => sub?.unsubscribe())
+      leaveSubscription?.unsubscribe()
     }
   }, [getClient, updateChatList, addMessage, updateLastMessage])
 
