@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import { ChatMessage } from '../types/ChatTypes'
+import { ChatMessage, ChatBasicProfileProps } from '../types/ChatTypes'
 import { getChatMessages } from '../api/ChatApi'
 import ChattingBasicProfile from './ChattingBasicProfile'
 import ChattingInput from './ChattingInput'
@@ -15,6 +15,7 @@ interface ChattingRoomProps {
 
 export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
   const { messages, setMessages, addMessage } = useChatStore()
+  const [chatPartnerData, setChatPartnerData] = useState()
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
         setIsLoading(true)
         const response = await getChatMessages(chatRoomId)
         setMessages(chatRoomId, response.result.messages)
+        setChatPartnerData(response.result.chatPartnerInformation)
       } catch (error) {
         console.error('Failed to initialize chat:', error)
       } finally {
@@ -57,6 +59,15 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
     [chatRoomId, addMessage],
   )
 
+  const getProfileData = (data: any): ChatBasicProfileProps => ({
+    chatPartnerName: data.chatPartnerName,
+    chatPartnerImageUrl: data.chatPartnerImageUrl,
+    majorPosition: data.partnerProfileDetailInformation.profilePositionDetail.majorPosition,
+    cityName: data.partnerProfileDetailInformation.regionDetail.cityName,
+    divisionName: data.partnerProfileDetailInformation.regionDetail.divisionName,
+    chatPartnerOnline: data.chatPartnerOnline,
+  })
+
   if (isLoading) {
     return (
       <div className="flex min-h-[calc(100vh-10rem)] w-[48rem] items-center justify-center rounded-2xl border border-grey30 bg-white">
@@ -76,7 +87,7 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
   return (
     <div className="flex h-[calc(100vh-10rem)] w-[48rem] flex-col rounded-2xl border border-grey30 bg-grey10">
       <div className="flex-shrink-0 border-b border-grey30 px-5 py-6">
-        <ChattingBasicProfile />
+        {chatPartnerData && <ChattingBasicProfile {...getProfileData(chatPartnerData)} />}
       </div>
 
       <div className="flex flex-1 flex-col overflow-hidden px-5">

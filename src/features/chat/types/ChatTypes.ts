@@ -60,9 +60,33 @@ export interface ChatMessage {
   isMyMessage: boolean
 }
 
+export interface ChatBasicProfileProps {
+  chatPartnerName: string
+  chatPartnerImageUrl: string
+  majorPosition: string
+  cityName: string
+  divisionName: string
+  chatPartnerOnline: boolean
+}
+
 export interface ChatMessagesResponse {
   totalElements: number
   totalPages: number
   hasNext: boolean
+  chatPartnerInformation: {
+    chatPartnerName: string
+    chatPartnerImageUrl: string
+    chatPartnerOnline: boolean
+    partnerProfileDetailInformation: {
+      profilePositionDetail: {
+        majorPosition: string
+        subPosition: string
+      }
+      regionDetail: {
+        cityName: string
+        divisionName: string
+      }
+    }
+  }
   messages: ChatMessage[]
 }
