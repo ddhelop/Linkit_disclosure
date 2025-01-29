@@ -87,7 +87,7 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
   return (
     <div className="flex h-[calc(100vh-10rem)] w-[48rem] flex-col rounded-2xl border border-grey30 bg-grey10">
       <div className="flex-shrink-0 border-b border-grey30 px-5 py-6">
-        {chatPartnerData && <ChattingBasicProfile {...getProfileData(chatPartnerData)} />}
+        {chatPartnerData && <ChattingBasicProfile {...getProfileData(chatPartnerData)} chatRoomId={chatRoomId} />}
       </div>
 
       <div className="flex flex-1 flex-col overflow-hidden px-5">
