@@ -112,7 +112,12 @@ export interface AnnouncementSkill {
 }
 
 export interface AnnouncementInformation {
+  teamMemberAnnouncementId: number
+  teamName: string
+  teamLogoImagePath: string
+
   announcementTitle: string
+
   announcementPositionItem: PositionDetail
   announcementSkillNames: AnnouncementSkill[]
 }
@@ -181,7 +186,7 @@ export interface MatchingMenuResponse {
   }
 }
 
-export type ReceiverType = 'PROFILE' | 'TEAM' | undefined
+export type ReceiverType = 'PROFILE' | 'TEAM' | 'ANNOUNCEMENT' | undefined
 export type SenderType = 'PROFILE' | 'TEAM' | undefined
 
 export type FilterType = 'MEMBER' | 'TEAM' | 'ANNOUNCEMENT'
