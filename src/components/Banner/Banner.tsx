@@ -18,7 +18,7 @@ export default function Banner() {
     },
     {
       image: '/common/images/banner3.svg',
-      link: 'https://knowhow-market.oopy.io/',
+      link: 'https://bit.ly/42wFLAU',
       alt: '채팅 배너',
     },
     {

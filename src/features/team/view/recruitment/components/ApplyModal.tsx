@@ -35,7 +35,7 @@ export default function ApplyModal({ teamInfo, recruitmentDetail, onClose }: App
 
     try {
       setIsLoading(true)
-      const response = await sendMatchingRequest({
+      await sendMatchingRequest({
         senderType: 'PROFILE',
         receiverType: 'ANNOUNCEMENT',
         senderEmailId: emailId,
@@ -43,10 +43,9 @@ export default function ApplyModal({ teamInfo, recruitmentDetail, onClose }: App
         receiverAnnouncementId: recruitmentDetail.teamMemberAnnouncementId,
         requestMessage: applyMessage,
       })
-      if (response.isSuccess) {
-        toast.success('지원 요청이 완료되었습니다.')
-        onClose()
-      }
+
+      toast.success('지원 요청이 완료되었습니다.')
+      onClose()
     } catch (error) {
       console.error('Failed to send matching request:', error)
     } finally {
