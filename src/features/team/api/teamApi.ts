@@ -449,6 +449,7 @@ export interface TeamAnnouncementDetail {
     teamMemberAnnouncementId: number
     announcementTitle: string
     announcementScrapCount: number
+    isAnnouncementScrap: boolean
     announcementPositionItem: {
       majorPosition: string
       subPosition: string

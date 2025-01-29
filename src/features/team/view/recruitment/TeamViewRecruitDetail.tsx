@@ -1,7 +1,10 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import { TeamAnnouncementDetail } from '../../api/teamApi'
+import { announcementScrap } from '@/shared/api/commonApi'
+import { useToast } from '@/shared/hooks/useToast'
 
 function calculateDday(endDate: string): string {
   const today = new Date()
@@ -22,15 +25,50 @@ interface TeamViewRecruitDetailProps {
 }
 
 export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRecruitDetailProps) {
+  const [isScraped, setIsScraped] = useState(recruitmentDetail.isAnnouncementScrap)
+  const [scrapCount, setScrapCount] = useState(recruitmentDetail.announcementScrapCount)
+  const [isLoading, setIsLoading] = useState(false)
+  const toast = useToast()
+
+  const handleScrap = async () => {
+    if (isLoading) return
+
+    try {
+      setIsLoading(true)
+      const response = await announcementScrap(recruitmentDetail.teamMemberAnnouncementId, !isScraped)
+
+      if (response.ok) {
+        setIsScraped(!isScraped)
+        setScrapCount((prev) => (isScraped ? prev - 1 : prev + 1))
+        toast.success(isScraped ? '스크랩이 취소되었습니다.' : '스크랩 되었습니다.')
+      } else {
+        toast.alert('스크랩 처리에 실패했습니다.')
+      }
+    } catch (error) {
+      console.error('Scrap error:', error)
+      toast.alert('스크랩 처리 중 오류가 발생했습니다.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <div className="flex flex-col rounded-xl border border-grey30 bg-white px-[3.38rem] py-10">
       <div className="flex justify-between">
         <div className="rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">
           {calculateDday(recruitmentDetail.announcementEndDate)}
         </div>
+        {/* 스크랩 */}
         <div className="flex gap-2">
-          <Image src="/common/icons/save.svg" alt="save" width={20} height={20} className="cursor-pointer" />
-          <span className="text-main">{recruitmentDetail.announcementScrapCount}</span>
+          <Image
+            src={isScraped ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
+            alt="save"
+            width={20}
+            height={20}
+            className="cursor-pointer"
+            onClick={handleScrap}
+          />
+          <span className="text-main">{scrapCount}</span>
         </div>
       </div>
 
@@ -64,36 +102,36 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
 
         {recruitmentDetail.benefits && (
           <div className="flex flex-col">
-            <h3 className="text-lg font-bold text-grey90">혜택</h3>
-            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.benefits}</span>
+            <h3 className="text-lg font-bold text-grey90">요구 사항</h3>
+            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.idealCandidate}</span>
           </div>
         )}
 
         {recruitmentDetail.idealCandidate && (
           <div className="flex flex-col">
-            <h3 className="text-lg font-bold text-grey90">이런 분을 찾습니다</h3>
-            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.idealCandidate}</span>
+            <h3 className="text-lg font-bold text-grey90">업무 방식</h3>
+            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.workMethod}</span>
           </div>
         )}
 
         {recruitmentDetail.preferredQualifications && (
           <div className="flex flex-col">
-            <h3 className="text-lg font-bold text-grey90">우대사항</h3>
+            <h3 className="text-lg font-bold text-grey90">우대 사항</h3>
             <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.preferredQualifications}</span>
           </div>
         )}
 
         {recruitmentDetail.joiningProcess && (
           <div className="flex flex-col">
-            <h3 className="text-lg font-bold text-grey90">합류 과정</h3>
+            <h3 className="text-lg font-bold text-grey90">합류 절차</h3>
             <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.joiningProcess}</span>
           </div>
         )}
 
         {recruitmentDetail.workMethod && (
           <div className="flex flex-col">
-            <h3 className="text-lg font-bold text-grey90">근무 방식</h3>
-            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.workMethod}</span>
+            <h3 className="text-lg font-bold text-grey90">기타 사항</h3>
+            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.benefits}</span>
           </div>
         )}
       </div>
