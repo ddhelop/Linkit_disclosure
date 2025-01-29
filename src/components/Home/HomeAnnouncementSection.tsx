@@ -6,6 +6,8 @@ import { getAnnouncement } from './api/HomeApi'
 import { Announcement } from '@/features/find/types/FindTypes'
 import { IMyProfileBasicInform } from '@/shared/types/MyProfileBasicInformTypes'
 import { getMyProfileBasicInform } from '@/shared/api/profile/fetchProfileInform'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function HomeAnnouncementSection() {
   const [announcement, setAnnouncement] = useState<Announcement[]>([])
@@ -23,7 +25,13 @@ export default function HomeAnnouncementSection() {
 
   return (
     <div className="flex w-full flex-col gap-6">
-      <h1 className="text-xl font-semibold">{profile?.memberName}님을 찾고 있어요!</h1>
+      <div className="flex w-full justify-between">
+        <h1 className="text-xl font-semibold">{profile?.memberName}님을 찾고 있어요!</h1>
+        <Link href="/find/announcement" className="flex cursor-pointer items-center gap-1">
+          <span className="text-sm text-grey60 ">전체보기</span>
+          <Image src="/common/icons/arrow-right(greyblack).svg" alt="arrow_right" width={16} height={16} />
+        </Link>
+      </div>
 
       <div className="grid grid-cols-3 gap-6">
         {announcement.map((announcement) => (
