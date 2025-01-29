@@ -160,7 +160,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
       const response = await requestTeamDelete(teamInformMenu.teamCode, 'ALLOW_DELETE')
       if (response.isSuccess) {
         toast.success('팀 삭제요청이 수락되었습니다.')
-        // router.push('/')
+        router.push('/team/select')
       }
     } catch (error) {
       console.error('Failed to delete team:', error)
@@ -208,7 +208,6 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
       }
 
       toast.success(isAccept ? '팀 초대를 수락했습니다.' : '팀 초대를 거절했습니다.')
-      router.push('/team/select')
       setIsInvitationModalOpen(false)
 
       // router.refresh()
