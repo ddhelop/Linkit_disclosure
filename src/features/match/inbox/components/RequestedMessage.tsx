@@ -10,35 +10,25 @@ interface RequestedMessageProps {
 
 export default function RequestedMessage({ message, onClick }: RequestedMessageProps) {
   const isSenderTeam = message.senderType === 'TEAM'
-  const isReceiverTeam = message.receiverType === 'TEAM'
-
-  const senderInfo = isSenderTeam
-    ? {
-        name: `${message.senderTeamInformation.teamName}팀`,
-        image: message.senderTeamInformation.teamLogoImagePath,
-        scale: message.senderTeamInformation.teamScaleItem.teamScaleName,
-      }
-    : {
-        name: `${message.senderProfileInformation.memberName}님`,
-        image: message.senderProfileInformation.profileImagePath,
-        position: message.senderProfileInformation.profilePositionDetail.majorPosition,
-      }
-
-  const receiverInfo = isReceiverTeam
-    ? {
-        name: `${message.receiverTeamInformation.teamName}팀`,
-        scale: message.receiverTeamInformation.teamScaleItem.teamScaleName,
-      }
-    : {
-        name: `${message.receiverProfileInformation.memberName}님`,
-        position: message.receiverProfileInformation.profilePositionDetail.majorPosition,
-      }
+  const isAnnouncementReceiver = message.receiverType === 'ANNOUNCEMENT'
 
   const getMessageTitle = () => {
-    if (isReceiverTeam) {
-      return `${senderInfo.name}에서 ${receiverInfo.name}으로 매칭 요청`
+    if (isAnnouncementReceiver) {
+      return `${message.senderProfileInformation.memberName} 님이 ${message.receiverAnnouncementInformation.teamName} 팀 ${message.receiverAnnouncementInformation.announcementPositionItem.majorPosition} 공고에 지원!`
     }
-    return `${senderInfo.name}의 매칭 요청`
+
+    if (message.receiverType === 'TEAM') {
+      return `${
+        isSenderTeam
+          ? `${message.senderTeamInformation.teamName} 팀에서`
+          : `${message.senderProfileInformation.memberName} 님이`
+      } ${message.receiverTeamInformation.teamName} 팀으로 매칭 요청`
+    }
+    return `${
+      isSenderTeam
+        ? `${message.senderTeamInformation.teamName} 팀의`
+        : `${message.senderProfileInformation.memberName} 님의`
+    } 매칭 요청`
   }
 
   return (
@@ -52,7 +42,11 @@ export default function RequestedMessage({ message, onClick }: RequestedMessageP
       >
         <div className="relative h-[64px] w-[64px] rounded-[0.63rem]">
           <Image
-            src={senderInfo.image || '/common/default_profile.svg'}
+            src={
+              isSenderTeam
+                ? message.senderTeamInformation.teamLogoImagePath
+                : message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'
+            }
             alt={isSenderTeam ? 'team' : 'profile'}
             fill
             className="rounded-lg object-cover"

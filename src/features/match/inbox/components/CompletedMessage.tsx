@@ -9,6 +9,7 @@ interface CompletedMessageProps {
 export default function CompletedMessage({ message }: CompletedMessageProps) {
   const isSenderTeam = message.senderType === 'TEAM'
   const isReceiverTeam = message.receiverType === 'TEAM'
+  const isAnnouncementReceiver = message.receiverType === 'ANNOUNCEMENT'
 
   const senderInfo = isSenderTeam
     ? {
@@ -33,6 +34,9 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
       }
 
   const getMessageTitle = () => {
+    if (isAnnouncementReceiver) {
+      return `${message.senderProfileInformation.memberName}님의 ${message.receiverAnnouncementInformation.teamName}팀 ${message.receiverAnnouncementInformation.announcementPositionItem.majorPosition} 공고 지원 수락!`
+    }
     if (isSenderTeam && isReceiverTeam) {
       return `${senderInfo.name}과 ${receiverInfo.name} 매칭 성사!`
     }
@@ -71,7 +75,6 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
           <span className="line-clamp-1 text-sm font-normal text-grey70">{message.requestMessage}</span>
         </div>
         <div className="absolute right-6 flex flex-col items-end gap-2">
-          {isSenderTeam && <span className="text-xs font-normal text-grey80">{senderInfo.scale}</span>}
           <span className="text-xs font-normal text-grey80">{message.modifiedAt}</span>
         </div>
       </div>
