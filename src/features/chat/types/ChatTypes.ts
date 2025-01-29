@@ -1,8 +1,8 @@
 // 채팅방 생성
 
 type ChatLocationType = 'RECEIVED' | 'REQUESTED'
-type ReceiverType = 'PROFILE' | 'TEAM' | 'ANNOUNCEMENT'
-type SenderType = 'PROFILE' | 'TEAM'
+type ReceiverType = 'PROFILE' | 'TEAM' | 'ANNOUNCEMENT' | undefined
+type SenderType = 'PROFILE' | 'TEAM' | undefined
 
 export interface CreateChatRoomRequest {
   matchingId: number

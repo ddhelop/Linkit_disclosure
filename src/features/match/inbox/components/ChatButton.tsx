@@ -7,12 +7,12 @@ import { useToast } from '@/shared/hooks/useToast'
 
 interface ChatButtonProps {
   matchingId: number
-  senderType: 'PROFILE' | 'TEAM'
+  senderType: 'PROFILE' | 'TEAM' | undefined
   senderInfo: {
     emailId?: string
     teamCode?: string
   }
-  receiverType: 'PROFILE' | 'TEAM' | 'ANNOUNCEMENT'
+  receiverType: 'PROFILE' | 'TEAM' | 'ANNOUNCEMENT' | undefined
   receiverInfo: {
     emailId?: string
     teamCode?: string
