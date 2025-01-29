@@ -19,6 +19,7 @@ interface TeamData {
   isTeamManager: boolean
   isTeamDeleteInProgress: boolean
   isTeamInvitationInProgress: boolean
+  isTeamDeleteRequester: boolean
 
   teamInformMenu: {
     teamCode: string
@@ -207,6 +208,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
       }
 
       toast.success(isAccept ? '팀 초대를 수락했습니다.' : '팀 초대를 거절했습니다.')
+      router.push('/team/select')
       setIsInvitationModalOpen(false)
 
       // router.refresh()
@@ -294,8 +296,8 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
           teamData.isTeamManager ? (
             // 관리자인 경우
             <div className="mt-12">
-              {isTeamDeleteInProgress ? (
-                // 팀 삭제 진행중
+              {isTeamDeleteInProgress && !teamData.isTeamDeleteRequester ? (
+                // 팀 삭제 진행중이고 삭제 요청자가 아닌 경우
                 <div className="flex gap-3">
                   <Image src="/common/icons/delete_messgae.svg" alt="delete" width={206} height={20} />
                   <Button
@@ -303,11 +305,11 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
                     className="rounded-full bg-[#3774F4] px-6 py-3 text-sm font-semibold text-white"
                     onClick={handleDeleteRequest}
                   >
-                    팀 삭제 요청
+                    응답하기
                   </Button>
                 </div>
               ) : (
-                // 일반 관리자 상태
+                // 일반 관리자 상태 또는 삭제 요청자인 경우
                 <Button
                   onClick={() => {
                     router.push(`/team/${params.teamName}/edit/log`)
