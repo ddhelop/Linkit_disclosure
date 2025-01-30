@@ -160,10 +160,8 @@ export function TeamMemberItem({
             {isPending ? (
               '(대기중)'
             ) : memberType === 'TEAM_OWNER' ? (
-              <div className="rounded-lg bg-grey10 px-[0.62rem] py-1 text-main">오너/관리자</div>
-            ) : memberType === 'TEAM_MANAGER' ? (
               <div className="flex items-center gap-2">
-                <div className="rounded-lg bg-grey10 px-[0.62rem] py-1 text-main">관리자</div>
+                <div className="rounded-lg bg-grey10 px-[0.62rem] py-1 text-main">오너/관리자</div>
                 <Tooltip
                   text={[
                     '오너의 경우 팀 구성원의 권한 수정 및 삭제 기능과',
@@ -172,6 +170,8 @@ export function TeamMemberItem({
                   className="w-[18.4rem]"
                 />
               </div>
+            ) : memberType === 'TEAM_MANAGER' ? (
+              <div className="rounded-lg bg-grey10 px-[0.62rem] py-1 text-main">관리자</div>
             ) : (
               <div className="rounded-lg bg-grey10 px-[0.62rem] py-1 text-grey80">뷰어</div>
             )}

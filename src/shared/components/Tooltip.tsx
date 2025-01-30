@@ -19,7 +19,7 @@ export default function Tooltip({ text, className = '' }: TooltipProps) {
   }
 
   return (
-    <div className="group relative ml-2">
+    <div className="group relative z-10 ml-2">
       <Image src="/common/icons/info.svg" alt="info" width={16} height={16} className="cursor-pointer text-grey80" />
       <div
         className={`absolute left-44 top-[-12px] hidden -translate-x-1/2 rounded-lg border border-grey30 bg-white p-3 text-xs text-grey70 group-hover:block ${className}`}
