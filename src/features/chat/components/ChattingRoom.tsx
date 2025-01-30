@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { ChatMessage, ChatBasicProfileProps } from '../types/ChatTypes'
 import { getChatMessages } from '../api/ChatApi'
 import ChattingBasicProfile from './ChattingBasicProfile'
@@ -14,7 +14,7 @@ interface ChattingRoomProps {
 }
 
 export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
-  const { messages, setMessages, addMessage } = useChatStore()
+  const { messages, setMessages } = useChatStore()
   const [chatPartnerData, setChatPartnerData] = useState()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -37,27 +37,11 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
     initializeChat()
   }, [chatRoomId, setMessages])
 
-  // 메시지 전송 핸들러
-  const handleSendMessage = useCallback(
-    (content: string) => {
-      if (!chatRoomId) return
-
-      const timestamp = new Date().toISOString()
-      const myMessage: ChatMessage = {
-        messageId: Date.now().toString(),
-        chatRoomId: Number(chatRoomId),
-        content,
-        timestamp,
-        isMyMessage: true,
-        messageSenderType: 'PROFILE',
-        messageSenderId: '',
-        read: false,
-        messageSenderLogoImagePath: '',
-      }
-      addMessage(chatRoomId, myMessage)
-    },
-    [chatRoomId, addMessage],
-  )
+  const handleSendMessage = (content: string) => {
+    if (!chatRoomId) return
+    // 웹소켓을 통해 메시지를 전송만 하고,
+    // 실제 메시지는 웹소켓 응답으로 받아서 표시
+  }
 
   const getProfileData = (data: any): ChatBasicProfileProps => ({
     chatPartnerName: data.chatPartnerName,
