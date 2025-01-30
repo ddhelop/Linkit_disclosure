@@ -53,7 +53,7 @@ export function useOnBoarding() {
         )
 
         if (result) {
-          router.push('/login/onboarding-agree')
+          router.push(`/login/onboarding-agree?name=${name}`)
         }
       } catch (error: any) {
         if (error.response?.status === 409) {

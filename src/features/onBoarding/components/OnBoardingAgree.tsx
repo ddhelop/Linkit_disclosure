@@ -4,10 +4,14 @@ import { Button } from '@/shared/ui/Button/Button'
 import Image from 'next/image'
 import { useOnBoardingAgree } from '../hooks/useOnBoardingAgree'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
 export default function OnBoardingAgree() {
   const { allChecked, checkedItems, isNextEnabled, handleCheckClick, handleAllCheckClick, submitConsentInfoHandler } =
     useOnBoardingAgree()
+
+  const searchParams = useSearchParams()
+  const userName = searchParams.get('name') || '사용자'
 
   const agreeItems = [
     {
@@ -25,7 +29,7 @@ export default function OnBoardingAgree() {
   return (
     <div className="flex w-full flex-col items-center">
       <div className="mt-[4.19rem] flex w-[90%] flex-col lg:w-[35%]">
-        <h1 className="text-xl font-semibold text-grey90">뫄뫄님의 프로필을 만들기 위해 동의가 필요해요</h1>
+        <h1 className="text-xl font-semibold text-grey90">{userName}님의 프로필을 만들기 위해 동의가 필요해요</h1>
 
         {/* 전체 동의하기 버튼 */}
         <div
