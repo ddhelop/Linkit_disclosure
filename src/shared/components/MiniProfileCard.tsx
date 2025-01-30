@@ -44,7 +44,9 @@ export default function MiniProfileCard() {
 
         {/* 프로필(개인) */}
         <div className="mt-5 flex gap-3">
-          <Image src={profileImagePath} width={80} height={80} alt="profile" className="rounded-lg" />
+          <div className="relative h-[80px] w-[80px] rounded-lg">
+            <Image src={profileImagePath} fill alt="profile" className="rounded-lg object-cover" />
+          </div>
 
           <div className="flex flex-col">
             <p className="text-lg font-bold">{memberName}</p>
