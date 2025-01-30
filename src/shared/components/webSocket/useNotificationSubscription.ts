@@ -41,5 +41,5 @@ export default function useNotificationSubscription(emailId: string) {
         subscriptionRef.current.unsubscribe()
       }
     }
-  }, [emailId])
+  }, [emailId, isLogin, isConnected, setUnreadChatCount, setUnreadNotificationCount])
 }

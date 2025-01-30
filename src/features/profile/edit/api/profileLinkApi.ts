@@ -1,9 +1,9 @@
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 
 export interface LinkItem {
-  id: number
-  title: string
-  url: string
+  productLinkId: number
+  productLinkName: string
+  productLinkPath: string
 }
 
 interface ProfileLinkResponse {
@@ -16,8 +16,8 @@ interface ProfileLinkResponse {
 export const saveLinks = async (links: LinkItem[]) => {
   const formattedLinks = {
     profileLinkItems: links.map((link) => ({
-      linkName: link.title,
-      linkPath: link.url,
+      linkName: link.productLinkName,
+      linkPath: link.productLinkPath,
     })),
   }
 
