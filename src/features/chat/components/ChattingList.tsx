@@ -30,7 +30,7 @@ export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoom
           if (client.connected) {
             // client 연결 상태 확인
             subscriptionsRef.current[chatRoom.chatRoomId] = client.subscribe(
-              `/sub/chat/${chatRoom.chatRoomId}`,
+              `/user/sub/chat/${chatRoom.chatRoomId}`,
               (message) => {
                 const receivedMessage = JSON.parse(message.body)
                 addMessage(chatRoom.chatRoomId, {
