@@ -16,12 +16,14 @@ export default function LogCard({ log }: { log: ILogCard }) {
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
     >
       <div className="flex justify-between">
-        <div className="flex items-center gap-1">
-          <span className="text-lg font-semibold text-grey80">{log.logTitle}</span>
-          <span className="px-1 text-grey50">|</span>
-          <span className="text-xs font-normal text-grey60">{log.logInformDetails.teamName}</span>
+        <div className="flex items-start gap-1">
+          <span className="w-[70%] text-lg font-semibold text-grey80">{log.logTitle}</span>
+          <div className="flex items-center gap-1">
+            <span className="px-1 text-grey50">|</span>
+            <span className="text-xs font-normal text-grey60">{new Date(log.createdAt).toLocaleDateString()}</span>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-start gap-2">
           <div className="relative h-[28px] w-[28px] rounded-lg">
             {log.domainType === 'PROFILE' ? (
               <Image
