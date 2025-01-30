@@ -2,7 +2,7 @@
 
 import { usePhoneNumberFormatter } from '@/shared/hooks/usePhoneNumberFormatter'
 import Image from 'next/image'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { getMemberBasicInform } from '../api/memberApi'
 import NameChangeModal from './NameChangeModal'
 import { updateEmailId, updateMarketingConsent, updateMemberName, updatePhoneNumber } from '../../api/updateAccount'
@@ -14,6 +14,9 @@ import WithdrawModal from './WithdrawModal'
 import EmailIdChangeModal from './EmailIdChangeModal'
 import { useToast } from '@/shared/hooks/useToast'
 import { formatPhoneNumber } from '@/shared/utils/formatPhoneNumber'
+
+import { useAuthStore } from '@/shared/store/useAuthStore'
+import { useRouter } from 'next/navigation'
 
 export default function ProfileEditAccount() {
   const { phoneNumber, setPhoneNumber } = usePhoneNumberFormatter()
@@ -33,6 +36,8 @@ export default function ProfileEditAccount() {
   const [isLoading, setIsLoading] = useState(true)
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false)
   const toast = useToast()
+  const { setLoginState } = useAuthStore()
+  const router = useRouter()
 
   useEffect(() => {
     const fetchMemberData = async () => {
@@ -165,11 +170,16 @@ export default function ProfileEditAccount() {
 
   // 회원탈퇴
   const handleWithdraw = async () => {
-    try {
-      await fetchWithdraw()
-    } catch (error) {
-      console.error('Failed to withdraw:', error)
-      toast.alert('회원탈퇴에 실패했습니다.')
+    const response = await fetchWithdraw()
+    if (response.isSuccess) {
+      // 쿠키에서 액세스토큰 제거
+      document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT'
+      // 로그인 상태 false로 설정
+      setLoginState(false)
+      toast.success('회원탈퇴가 완료되었습니다.')
+      router.push('/')
+    } else {
+      toast.alert(response.message)
     }
   }
 

@@ -3,7 +3,6 @@ import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/shared/hooks/useToast'
-import { useAuthStore } from '@/shared/store/useAuthStore'
 
 interface WithdrawModalProps {
   isOpen: boolean
@@ -15,7 +14,6 @@ export default function WithdrawModal({ isOpen, onClose, onWithdraw }: WithdrawM
   const modalRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const toast = useToast()
-  const { setLoginState } = useAuthStore()
 
   useOnClickOutside({
     refs: [modalRef],
@@ -27,12 +25,6 @@ export default function WithdrawModal({ isOpen, onClose, onWithdraw }: WithdrawM
   const handleWithdraw = async () => {
     try {
       await onWithdraw()
-      // 쿠키에서 액세스토큰 제거
-      document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT'
-      // 로그인 상태 false로 설정
-      setLoginState(false)
-      toast.success('회원탈퇴가 완료되었습니다.')
-      router.push('/')
       onClose()
     } catch (error) {
       toast.alert('회원탈퇴에 실패했습니다.')

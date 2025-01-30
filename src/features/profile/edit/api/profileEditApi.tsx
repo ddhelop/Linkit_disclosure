@@ -29,6 +29,8 @@ export async function fetchWithdraw() {
   })
 
   if (!response.ok) {
-    throw new Error('회원탈퇴에 실패했습니다.')
+    return response.json()
   }
+
+  return response.json()
 }
