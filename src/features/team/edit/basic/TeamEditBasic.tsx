@@ -9,6 +9,7 @@ import { getTeamBasicInfo, updateTeamBasicInfo } from '../../api/teamApi'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/shared/hooks/useToast'
 import Image from 'next/image'
+import Tooltip from '@/shared/components/Tooltip'
 
 export default function TeamEditBasic({ params }: { params: { teamName: string } }) {
   const router = useRouter()
@@ -283,22 +284,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
         <div className="flex flex-col justify-center gap-3">
           <span className="flex items-center text-grey80">
             팀 아이디<p className="text-main">*</p>
-            {/* 팀 아이디 설명 */}
-            <div className="group relative ml-2">
-              <Image
-                src="/common/icons/info.svg"
-                alt="info"
-                width={16}
-                height={16}
-                className="cursor-pointer text-grey80"
-              />
-              <div
-                className="absolute left-[7.4rem] top-[-12px]  hidden -translate-x-1/2 whitespace-nowrap rounded-lg border border-grey30 bg-white p-3 text-xs text-grey70 group-hover:block"
-                style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
-              >
-                다른 사용자에게는 보이지 않아요.
-              </div>
-            </div>
+            <Tooltip text="다른 사용자에게는 보이지 않아요." />
           </span>
           <Input
             placeholder="팀명을 입력해 주세요 (50자 이내)"
