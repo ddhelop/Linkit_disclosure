@@ -45,6 +45,15 @@ export async function getTeamProducts(teamName: string) {
   return response.json()
 }
 
+// 팀 프로덕트 조회(뷰어)
+export async function getTeamProductsView(teamName: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/product/view`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team products viewer')
+  }
+  return response.json()
+}
+
 // 팀 연혁 조회
 export async function getTeamHistory(teamName: string) {
   const response = await fetchWithAuth(`/api/v1/team/${teamName}/history/view`)

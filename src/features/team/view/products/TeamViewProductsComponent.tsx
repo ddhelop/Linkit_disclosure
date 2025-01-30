@@ -2,9 +2,9 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { TeamProduct } from '../../types/teamView.types'
+import { TeamProductView } from '../../types/teamView.types'
 
-export default function TeamViewProductsComponent({ product }: { product: TeamProduct }) {
+export default function TeamViewProductsComponent({ product }: { product: TeamProductView }) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   // 각 섹션의 데이터 존재 여부 확인
@@ -74,14 +74,14 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
               )}
 
               {/* 이미지 섹션 */}
-              {product.productSubImages && (
+              {product.teamProductImages.productSubImages && (
                 <div className="flex flex-col gap-3">
                   <span className="text-sm text-grey90">이미지</span>
 
                   <div className="flex gap-5">
-                    {product.productSubImages?.map((image, index) => (
+                    {product.teamProductImages.productSubImages?.map((image, index) => (
                       <div key={index} className="relative h-[138px] w-[248px] rounded-lg">
-                        <Image src={image} alt="product" fill className="rounded-lg object-cover" />
+                        <Image src={image.productSubImagePath} alt="product" fill className="rounded-lg object-cover" />
                       </div>
                     ))}
                   </div>

@@ -3,19 +3,18 @@
 import { useEffect, useState } from 'react'
 import TeamViewNotView from '../common/TeamViewNotView'
 import TeamViewProductsComponent from './TeamViewProductsComponent'
-import { TeamProduct } from '../../types/teamView.types'
-import { getTeamProducts } from '../../api/teamViewApi'
+import { TeamProductView } from '../../types/teamView.types'
+import { getTeamProductsView } from '../../api/teamViewApi'
 import { useTeamStore } from '../../store/useTeamStore'
 
 export default function TeamViewProducts({ teamName }: { teamName: string }) {
-  const [products, setProducts] = useState<TeamProduct[]>([])
+  const [products, setProducts] = useState<TeamProductView[]>([])
   const { isTeamManager } = useTeamStore()
 
   useEffect(() => {
     const fetchTeamProducts = async () => {
-      const data = await getTeamProducts(teamName)
-      setProducts(data.result.teamProductItems)
-      console.log(data.result.teamProductItems)
+      const data = await getTeamProductsView(teamName)
+      setProducts(data.result.teamProductViewItems)
     }
     fetchTeamProducts()
   }, [teamName])
