@@ -19,7 +19,14 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
     <div className="flex">
       <div className="flex w-full flex-col rounded-xl bg-white px-10 py-10 ">
         <div className="flex gap-5">
-          <Image src="/common/default_profile.svg" alt="product" width={64} height={64} />
+          <div className="relative h-[64px] w-[64px] rounded-lg">
+            <Image
+              src={product.productRepresentImagePath || '/common/default_profile.svg'}
+              alt="product"
+              fill
+              className="rounded-lg object-cover"
+            />
+          </div>
           <div className="flex flex-col justify-center">
             <div className="flex items-center gap-2">
               <span className="text-xl font-semibold text-grey80">{product.productName} </span>
@@ -27,6 +34,9 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
               <span className="text-sm font-normal text-grey60">
                 {product.productStartDate} ~ {product.productEndDate}
               </span>
+              <div className="rounded-lg border border-grey30 px-2 py-1 text-sm font-normal text-grey60">
+                {product.productField}
+              </div>
             </div>
             <span className="text-grey70">{product.productLineDescription}</span>
           </div>
@@ -48,7 +58,7 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
                         className="flex w-[15rem] cursor-pointer items-center gap-2 rounded-xl bg-grey10 px-6 py-3 hover:bg-grey20"
                       >
                         <span className="text-sm text-grey80">{link.productLinkName}</span>
-                        <Image src="/common/icons/share.svg" alt="link" width={20} height={20} />
+                        <Image src={'/common/icons/share.svg'} alt="link" width={20} height={20} />
                       </div>
                     ))}
                   </div>
@@ -64,12 +74,16 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
               )}
 
               {/* 이미지 섹션 */}
-              {product.productRepresentImagePath && (
+              {product.productSubImages && (
                 <div className="flex flex-col gap-3">
                   <span className="text-sm text-grey90">이미지</span>
 
                   <div className="flex gap-5">
-                    <Image src={product.productRepresentImagePath} alt="product" width={248} height={138} />
+                    {product.productSubImages?.map((image, index) => (
+                      <div key={index} className="relative h-[138px] w-[248px] rounded-lg">
+                        <Image src={image} alt="product" fill className="rounded-lg object-cover" />
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
