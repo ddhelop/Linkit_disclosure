@@ -6,15 +6,12 @@ import useNotificationStore from '@/shared/store/useNotificationStore'
 export default function useNotificationSubscription(emailId: string) {
   const subscriptionRef = useRef<any>(null)
   const { getClient, isConnected } = useWebSocketStore()
-  // const { incrementUnreadCount } = useNotificationStore()
   const { isLogin } = useAuthStore()
-  const { incrementUnreadChat, incrementUnreadNotification } = useNotificationStore()
+  const { setUnreadChatCount, setUnreadNotificationCount } = useNotificationStore()
 
   useEffect(() => {
     const client = getClient()
     if (!client?.connected || !emailId || !isLogin) return
-
-    console.log('Subscribing to notifications for:', emailId)
 
     // 구독 전에 연결 상태 확인
     if (!client.active) {
@@ -33,9 +30,9 @@ export default function useNotificationSubscription(emailId: string) {
 
       // 알림 타입에 따라 카운트 증가
       if (notification.type === 'CHAT') {
-        incrementUnreadChat()
+        setUnreadChatCount(notification.unreadChatCount)
       } else {
-        incrementUnreadNotification()
+        setUnreadNotificationCount(notification.unreadNotificationCount)
       }
     })
 
@@ -44,5 +41,5 @@ export default function useNotificationSubscription(emailId: string) {
         subscriptionRef.current.unsubscribe()
       }
     }
-  }, [isConnected, emailId, isLogin, incrementUnreadChat, incrementUnreadNotification])
+  }, [emailId])
 }
