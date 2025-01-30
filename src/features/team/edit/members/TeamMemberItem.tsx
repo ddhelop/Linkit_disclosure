@@ -6,12 +6,14 @@ import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 import { useToast } from '@/shared/hooks/useToast'
 import { updateMemberType, removeMember } from '../../api/teamApi'
+import Tooltip from '@/shared/components/Tooltip'
 
 interface TeamMemberItemProps {
   profileImagePath?: string
   name: string
   position: string
   memberType: 'TEAM_OWNER' | 'TEAM_MANAGER' | 'TEAM_VIEWER'
+  majorPosition: string
   isPending?: boolean
   emailId?: string
   teamCode: string
@@ -27,6 +29,7 @@ export function TeamMemberItem({
   name,
   position,
   memberType,
+  majorPosition,
   isPending,
   emailId,
   teamCode,
@@ -141,22 +144,37 @@ export function TeamMemberItem({
             className="rounded-lg object-cover"
           />
         </div>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
           <span className="flex font-semibold text-grey80">{isPending ? emailId : name}</span>
           {!isPending && (
             <>
-              <span className="text-sm text-grey50">|</span>
-              <span className="flex text-sm text-grey80">{position}</span>
+              {majorPosition && (
+                <>
+                  <span className="text-xs text-grey50">|</span>
+                  <span className="text-sm text-grey80">{majorPosition}</span>
+                </>
+              )}
             </>
           )}
-          <span className="text-sm text-grey50">
-            {isPending
-              ? '(대기중)'
-              : memberType === 'TEAM_OWNER'
-                ? '(오너)'
-                : memberType === 'TEAM_MANAGER'
-                  ? '(관리자)'
-                  : '(멤버)'}
+          <span className="flex items-center gap-2 text-sm text-grey50">
+            {isPending ? (
+              '(대기중)'
+            ) : memberType === 'TEAM_OWNER' ? (
+              <div className="rounded-lg bg-grey10 px-[0.62rem] py-1 text-main">오너/관리자</div>
+            ) : memberType === 'TEAM_MANAGER' ? (
+              <div className="flex items-center gap-2">
+                <div className="rounded-lg bg-grey10 px-[0.62rem] py-1 text-main">관리자</div>
+                <Tooltip
+                  text={[
+                    '오너의 경우 팀 구성원의 권한 수정 및 삭제 기능과',
+                    '소속 팀 관련 매칭 관리 및 채팅 기능을 이용할 수 있어요.',
+                  ]}
+                  className="w-[18.4rem]"
+                />
+              </div>
+            ) : (
+              <div className="rounded-lg bg-grey10 px-[0.62rem] py-1 text-grey80">뷰어</div>
+            )}
           </span>
         </div>
       </div>
