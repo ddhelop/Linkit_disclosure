@@ -80,14 +80,14 @@ export default function MiniProfileCard() {
       {isIncomplete && (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-xl border bg-white bg-opacity-90">
           <p className="text-lg font-semibold text-gray-800">앗! 아직 미니프로필이 없어요</p>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          {/* <p className="mt-2 text-center text-sm text-gray-600">
             정보를 입력하고 나에게 맞는
             <br />
             팀과 팀원을 찾아보세요
-          </p>
-          <Link href={'/profile/edit/basic'} className="mt-4 rounded-lg bg-[#4D82F3] px-4 py-2 text-white">
+          </p> */}
+          {/* <Link href={'/profile/edit/basic'} className="mt-4 rounded-lg bg-[#4D82F3] px-4 py-2 text-white">
             정보 입력하러 가기
-          </Link>
+          </Link> */}
         </div>
       )}
     </EditableContainer>
