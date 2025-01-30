@@ -1,12 +1,12 @@
 import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export interface LinkItem {
-  id: number
-  title: string
-  url: string
+  productLinkId: number
+  productLinkName: string
+  productLinkPath: string
 }
 
 interface DynamicLinkListProps {
@@ -27,21 +27,28 @@ export function DynamicLinkList({
   const [links, setLinks] = useState<LinkItem[]>(initialLinks)
   const [showForm, setShowForm] = useState(initialLinks.length > 0)
 
+  useEffect(() => {
+    if (initialLinks.length > 0) {
+      setLinks(initialLinks)
+      setShowForm(true)
+    }
+  }, [initialLinks])
+
   const startAddingLinks = () => {
     setShowForm(true)
-    const newLinks = [{ id: Date.now(), title: '', url: '' }]
+    const newLinks = [{ productLinkId: Date.now(), productLinkName: '', productLinkPath: '' }]
     setLinks(newLinks)
     onChange?.(newLinks)
   }
 
   const addLink = () => {
-    const newLinks = [...links, { id: Date.now(), title: '', url: '' }]
+    const newLinks = [...links, { productLinkId: Date.now(), productLinkName: '', productLinkPath: '' }]
     setLinks(newLinks)
     onChange?.(newLinks)
   }
 
   const deleteLink = (id: number) => {
-    const updatedLinks = links.filter((link) => link.id !== id)
+    const updatedLinks = links.filter((link) => link.productLinkId !== id)
     setLinks(updatedLinks)
     onChange?.(updatedLinks)
 
@@ -50,8 +57,8 @@ export function DynamicLinkList({
     }
   }
 
-  const updateLink = (id: number, field: 'title' | 'url', value: string) => {
-    const updatedLinks = links.map((link) => (link.id === id ? { ...link, [field]: value } : link))
+  const updateLink = (id: number, field: 'productLinkName' | 'productLinkPath', value: string) => {
+    const updatedLinks = links.map((link) => (link.productLinkId === id ? { ...link, [field]: value } : link))
     setLinks(updatedLinks)
     onChange?.(updatedLinks)
   }
@@ -75,17 +82,17 @@ export function DynamicLinkList({
     <>
       <div className="flex flex-col gap-3 rounded-xl bg-grey10 p-6">
         {links.map((link) => (
-          <div key={link.id} className="mt-3 flex gap-2">
+          <div key={link.productLinkId} className="mt-3 flex gap-2">
             <Input
               placeholder="직접입력 (5자 내외)"
-              value={link.title}
-              onChange={(e) => updateLink(link.id, 'title', e.target.value)}
+              value={link.productLinkName}
+              onChange={(e) => updateLink(link.productLinkId, 'productLinkName', e.target.value)}
               maxLength={10}
             />
             <div className="relative w-full">
-              {getLinkIcon && getLinkIcon(link.url) && (
+              {getLinkIcon && getLinkIcon(link.productLinkPath) && (
                 <Image
-                  src={getLinkIcon(link.url)!}
+                  src={getLinkIcon(link.productLinkPath)!}
                   alt="social icon"
                   width={20}
                   height={20}
@@ -94,9 +101,9 @@ export function DynamicLinkList({
               )}
               <Input
                 placeholder="링크를 입력해주세요."
-                className={`w-full ${getLinkIcon && getLinkIcon(link.url) ? 'pl-10' : ''}`}
-                value={link.url}
-                onChange={(e) => updateLink(link.id, 'url', e.target.value)}
+                className={`w-full ${getLinkIcon && getLinkIcon(link.productLinkPath) ? 'pl-10' : ''}`}
+                value={link.productLinkPath}
+                onChange={(e) => updateLink(link.productLinkId, 'productLinkPath', e.target.value)}
               />
             </div>
             <Image
@@ -105,7 +112,7 @@ export function DynamicLinkList({
               width={24}
               height={24}
               className="ml-4 cursor-pointer"
-              onClick={() => deleteLink(link.id)}
+              onClick={() => deleteLink(link.productLinkId)}
             />
           </div>
         ))}

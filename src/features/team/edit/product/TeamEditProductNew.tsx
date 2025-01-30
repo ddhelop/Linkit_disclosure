@@ -18,6 +18,7 @@ import { useToast } from '@/shared/hooks/useToast'
 type ProjectSize = 'TEAM' | 'PERSONAL'
 
 interface TeamProductLink {
+  productLinkId: number
   productLinkName: string
   productLinkPath: string
 }
@@ -45,7 +46,7 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
   const [headCount, setHeadCount] = useState('')
 
   const [productDescription, setProductDescription] = useState('')
-  const [linkSync, setLinkSync] = useState<{ title: string; url: string }[]>([])
+  const [linkSync, setLinkSync] = useState<TeamProductLink[]>([])
   const [mainImageUrl, setMainImageUrl] = useState<string | null>(null)
   const [subImageUrls, setSubImageUrls] = useState<string[]>([])
 
@@ -70,8 +71,9 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         if (product.teamProductLinks?.length > 0) {
           setLinkSync(
             product.teamProductLinks.map((link: TeamProductLink) => ({
-              title: link.productLinkName,
-              url: link.productLinkPath,
+              productLinkId: link.productLinkId,
+              productLinkName: link.productLinkName,
+              productLinkPath: link.productLinkPath,
             })),
           )
         }
@@ -144,8 +146,8 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         productEndDate: isOngoing ? null : endDate,
         isProductInProgress: isOngoing,
         teamProductLinks: linkSync.map((link) => ({
-          productLinkName: link.title,
-          productLinkPath: link.url,
+          productLinkName: link.productLinkName,
+          productLinkPath: link.productLinkPath,
         })),
         productDescription,
         productField: selectedField,
@@ -231,7 +233,11 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
             링크<span className="text-xs text-grey50">최대 3개까지 입력 가능해요.</span>
           </span>
           <DynamicLinkList
-            initialLinks={[]}
+            initialLinks={linkSync.map((link) => ({
+              productLinkId: link.productLinkId,
+              productLinkName: link.productLinkName,
+              productLinkPath: link.productLinkPath,
+            }))}
             onChange={(links) => {
               setLinkSync(links)
             }}
