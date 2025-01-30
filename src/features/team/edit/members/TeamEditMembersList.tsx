@@ -63,6 +63,7 @@ export default function TeamEditMembersList({ teamName }: { teamName: string }) 
               memberType={member.teamMemberType}
               teamCode={teamName}
               emailId={member.emailId}
+              majorPosition={member.majorPosition}
               onMemberUpdate={fetchMembers}
               myRole={{
                 isTeamOwner: members.isTeamOwner,
@@ -79,6 +80,7 @@ export default function TeamEditMembersList({ teamName }: { teamName: string }) 
               memberType={member.teamMemberType}
               isPending={true}
               emailId={member.teamMemberInvitationEmail}
+              majorPosition={member.majorPosition}
               teamCode={teamName}
               onMemberUpdate={fetchMembers}
               myRole={{
