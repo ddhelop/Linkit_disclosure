@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import Input from '@/shared/ui/Input/Input'
-import { logoLists } from '@/shared/data/universityData'
+import { logoLists } from '@/shared/data/university_logo_lists_pretty'
 import Image from 'next/image'
 
 interface UniversityInputProps {
@@ -91,12 +91,6 @@ export const UniversityInput = ({
       <div className="relative">
         {selectedUniversityData ? (
           <div className="relative flex items-center gap-2 rounded-xl border border-grey30 px-6 py-3">
-            <Image
-              src={selectedUniversityData.downloadUrlSvg}
-              alt={selectedUniversityData.university}
-              width={24}
-              height={24}
-            />
             <span>{selectedUniversityData.university}</span>
             <button
               onClick={() => onUniversitySelect('')}
@@ -136,7 +130,6 @@ export const UniversityInput = ({
               }`}
               onClick={() => handleUniversitySelect(item.university)}
             >
-              <Image src={item.downloadUrlSvg} alt={item.university} width={24} height={24} />
               <span>{item.university}</span>
             </div>
           ))}
