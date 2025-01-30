@@ -31,7 +31,7 @@ export function ImageUploader({
   onSubImageUpload,
   onSubImageDelete,
   onSubImageUrlDelete,
-  mainImageTitle = '대표 이미지 1장',
+  mainImageTitle = '로고',
   subImageTitle = '프로젝트를 설명할 수 있는 보조 이미지가 있다면 추가해 주세요',
   maxSubImages = 4,
 }: ImageUploaderProps) {
@@ -62,30 +62,16 @@ export function ImageUploader({
       <div className="flex items-end gap-6">
         {/* 대표 이미지 */}
         {mainImage ? (
-          <Image
-            src={URL.createObjectURL(mainImage)}
-            width={204}
-            height={115}
-            alt="대표 이미지"
-            className="h-[115px] w-[204px] rounded-lg object-cover"
-          />
+          <div className="relative h-[120px] w-[120px] rounded-lg">
+            <Image src={URL.createObjectURL(mainImage)} fill alt="대표 이미지" className="rounded-lg object-cover" />
+          </div>
         ) : mainImageUrl ? (
-          <Image
-            src={mainImageUrl}
-            width={204}
-            height={115}
-            alt="대표 이미지"
-            className="h-[115px] w-[204px] rounded-lg object-cover"
-          />
+          <div className="relative h-[120px] w-[120px] rounded-lg">
+            <Image src={mainImageUrl} fill alt="대표 이미지" className="rounded-lg object-cover" />
+          </div>
         ) : (
-          <div className="flex h-[115px] w-[204px] items-center justify-center rounded-lg bg-grey10">
-            <Image
-              src="/common/images/no_thumbnail.svg"
-              width={204}
-              height={115}
-              alt="이미지 업로드"
-              className="h-[115px] w-[204px] object-contain"
-            />
+          <div className="relative flex h-[120px] w-[120px] items-center justify-center rounded-lg bg-grey10">
+            <Image src="/common/default_profile.svg" fill alt="이미지 업로드" className="object-contain" />
           </div>
         )}
 
