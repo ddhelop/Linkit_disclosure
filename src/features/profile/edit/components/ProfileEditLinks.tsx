@@ -42,13 +42,16 @@ export default function ProfileEditLinks() {
     // 각 링크의 title과 url을 비교
     return links.some((link, index) => {
       const initialLink = initialLinks[index]
-      return link.title.trim() !== initialLink?.title.trim() || link.url.trim() !== initialLink?.url.trim()
+      return (
+        link.productLinkName.trim() !== initialLink?.productLinkName.trim() ||
+        link.productLinkPath.trim() !== initialLink?.productLinkPath.trim()
+      )
     })
   }
 
   const handleSave = async () => {
     const validLinks = links.filter((link) => {
-      return link.title.trim() !== '' && link.url.trim() !== ''
+      return link.productLinkName.trim() !== '' && link.productLinkPath.trim() !== ''
     })
 
     setIsSubmitting(true)
