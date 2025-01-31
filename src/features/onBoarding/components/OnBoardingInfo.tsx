@@ -47,7 +47,8 @@ export default function OnBoardingInfo() {
             value={emailId}
             onChange={setEmailId}
             placeholder="'영문' 혹은 '영문+숫자 조합'만 가능합니다"
-            className={`mt-3 ${emailIdError ? 'border-red-500' : ''}`}
+            error={!!emailIdError}
+            className="mt-3"
             type="text"
           />
           {emailIdError && <p className="mt-1 text-sm text-red-500">{emailIdError}</p>}
