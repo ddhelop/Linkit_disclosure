@@ -96,42 +96,44 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
         {recruitmentDetail.mainTasks && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">주요업무</h3>
-            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.mainTasks}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail.mainTasks}</span>
           </div>
         )}
 
         {recruitmentDetail.benefits && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">요구 사항</h3>
-            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.idealCandidate}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail.idealCandidate}</span>
           </div>
         )}
 
         {recruitmentDetail.idealCandidate && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">업무 방식</h3>
-            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.workMethod}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail.workMethod}</span>
           </div>
         )}
 
         {recruitmentDetail.preferredQualifications && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">우대 사항</h3>
-            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.preferredQualifications}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
+              {recruitmentDetail.preferredQualifications}
+            </span>
           </div>
         )}
 
         {recruitmentDetail.joiningProcess && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">합류 절차</h3>
-            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.joiningProcess}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail.joiningProcess}</span>
           </div>
         )}
 
         {recruitmentDetail.workMethod && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">기타 사항</h3>
-            <span className="mt-3 pl-1 text-grey80">{recruitmentDetail.benefits}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail.benefits}</span>
           </div>
         )}
       </div>
