@@ -31,7 +31,7 @@ const Textarea: React.FC<TextareaProps> = ({ autoResize = true, className = '', 
     <textarea
       ref={textareaRef}
       onChange={handleChange}
-      className={`min-h-[8.5rem] resize-none rounded-xl border-[1.5px] border-grey30 px-6 py-3 placeholder:text-grey40 focus:border-main focus:outline-none ${className}`}
+      className={`min-h-[8.5rem] resize-none whitespace-pre-wrap rounded-xl border-[1.5px] border-grey30 px-6 py-3 placeholder:text-grey40 focus:border-main focus:outline-none ${className}`}
       {...props}
     />
   )
