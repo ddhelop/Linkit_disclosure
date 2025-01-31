@@ -1,9 +1,9 @@
 // src/shared/ui/Input/Input.tsx
 'use client'
 
-import { ChangeEvent, HTMLInputTypeAttribute, forwardRef } from 'react'
+import { ChangeEvent, HTMLInputTypeAttribute, forwardRef, InputHTMLAttributes } from 'react'
 
-interface InputProps {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   type?: HTMLInputTypeAttribute
   value?: string
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
@@ -13,40 +13,20 @@ interface InputProps {
   maxLength?: number
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
   onBlur?: () => void
+  error?: boolean
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      type = 'text',
-      value,
-      onChange,
-      placeholder = '',
-      className = '',
-      disabled = false,
-      maxLength,
-      onKeyDown,
-      onBlur,
-    },
-    ref,
-  ) => {
-    return (
-      <input
-        ref={ref}
-        type={type}
-        value={value !== undefined ? value : undefined}
-        defaultValue={value === undefined ? '' : undefined}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-        onBlur={onBlur}
-        placeholder={placeholder}
-        className={`rounded-xl border-[1.5px] border-grey30 px-4 py-3 placeholder:text-grey40 focus:border-[1.5px] focus:border-main focus:outline-none ${className}`}
-        disabled={disabled}
-        maxLength={maxLength}
-      />
-    )
-  },
-)
+const Input = forwardRef<HTMLInputElement, InputProps>(({ className = '', error, ...props }, ref) => {
+  return (
+    <input
+      ref={ref}
+      className={`rounded-xl border border-grey30 px-6 py-3 placeholder:text-grey40 
+          ${error ? 'border-red-500 focus:border-red-500' : 'focus:border-main'} 
+          focus:outline-none ${className}`}
+      {...props}
+    />
+  )
+})
 
 Input.displayName = 'Input'
 
