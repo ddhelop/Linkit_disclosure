@@ -46,7 +46,13 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
   const [headCount, setHeadCount] = useState('')
 
   const [productDescription, setProductDescription] = useState('')
-  const [linkSync, setLinkSync] = useState<TeamProductLink[]>([])
+  const [linkSync, setLinkSync] = useState<
+    {
+      productLinkId: number
+      productLinkName: string
+      productLinkPath: string
+    }[]
+  >([])
   const [mainImageUrl, setMainImageUrl] = useState<string | null>(null)
   const [subImageUrls, setSubImageUrls] = useState<string[]>([])
 
@@ -228,19 +234,16 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         />
 
         {/* 링크 */}
-        <div className="flex w-full flex-col justify-between gap-3 ">
+        <div className="flex w-full flex-col justify-between gap-3">
           <span className="flex items-center gap-2 text-grey80">
             링크<span className="text-xs text-grey50">최대 3개까지 입력 가능해요.</span>
           </span>
           <DynamicLinkList
-            initialLinks={linkSync.map((link) => ({
-              productLinkId: link.productLinkId,
-              productLinkName: link.productLinkName,
-              productLinkPath: link.productLinkPath,
-            }))}
+            initialLinks={linkSync}
             onChange={(links) => {
               setLinkSync(links)
             }}
+            type="product"
           />
         </div>
 

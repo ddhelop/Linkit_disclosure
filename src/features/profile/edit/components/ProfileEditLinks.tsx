@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { getLinkIcon } from '../lib/getLinkIcon'
-import { LinkItem, saveLinks, getLinks } from '../api/profileLinkApi'
+import { LinkItem, saveLinks, getLinks, ProfileLinkResponse } from '../api/profileLinkApi'
 import { LinkListSkeleton } from './skeletons/ListSkeletons'
 import { DynamicLinkList } from '@/shared/ui/DynamicLinkList/DynamicLinkList'
 import { Button } from '@/shared/ui/Button/Button'
@@ -9,10 +9,10 @@ import { useToast } from '@/shared/hooks/useToast'
 import { useProfileMenuStore } from '../../store/useProfileMenuStore'
 
 export default function ProfileEditLinks() {
-  const [initialLinks, setInitialLinks] = useState<LinkItem[]>([])
+  const [initialLinks, setInitialLinks] = useState<ProfileLinkResponse[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [links, setLinks] = useState<LinkItem[]>([])
+  const [links, setLinks] = useState<ProfileLinkResponse[]>([])
   const { updateProfileMenu } = useProfileMenuStore()
   const toast = useToast()
 
@@ -20,11 +20,18 @@ export default function ProfileEditLinks() {
     const fetchLinks = async () => {
       try {
         const data = await getLinks()
-        if (data.length > 0) {
+        // 받아온 데이터를 ProfileLinkResponse 형식으로 변환
+        const formattedLinks = data.map((item: any) => ({
+          profileLinkId: item.id,
+          linkName: item.title,
+          linkPath: item.url,
+          linkType: 'CUSTOM',
+        }))
+        if (formattedLinks.length > 0) {
           updateProfileMenu({ isProfileLink: true })
         }
-        setInitialLinks(data)
-        setLinks(data)
+        setInitialLinks(formattedLinks)
+        setLinks(formattedLinks)
       } catch (error) {
         console.error('Failed to fetch links:', error)
       } finally {
@@ -42,16 +49,18 @@ export default function ProfileEditLinks() {
     // 각 링크의 title과 url을 비교
     return links.some((link, index) => {
       const initialLink = initialLinks[index]
-      return (
-        link.productLinkName.trim() !== initialLink?.productLinkName.trim() ||
-        link.productLinkPath.trim() !== initialLink?.productLinkPath.trim()
-      )
+      const currentLinkName = link?.linkName?.trim() || ''
+      const currentLinkPath = link?.linkPath?.trim() || ''
+      const initialLinkName = initialLink?.linkName?.trim() || ''
+      const initialLinkPath = initialLink?.linkPath?.trim() || ''
+
+      return currentLinkName !== initialLinkName || currentLinkPath !== initialLinkPath
     })
   }
 
   const handleSave = async () => {
     const validLinks = links.filter((link) => {
-      return link.productLinkName.trim() !== '' && link.productLinkPath.trim() !== ''
+      return link.linkName.trim() !== '' && link.linkPath.trim() !== ''
     })
 
     setIsSubmitting(true)
@@ -82,7 +91,7 @@ export default function ProfileEditLinks() {
 
   return (
     <>
-      <DynamicLinkList initialLinks={initialLinks} getLinkIcon={getLinkIcon} onChange={setLinks} />
+      <DynamicLinkList initialLinks={links} getLinkIcon={getLinkIcon} onChange={setLinks} type="profile" />
       <div className="mt-4 flex justify-end">
         <Button
           mode="main"

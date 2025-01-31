@@ -6,18 +6,18 @@ export interface LinkItem {
   productLinkPath: string
 }
 
-interface ProfileLinkResponse {
+export interface ProfileLinkResponse {
   profileLinkId: number
   linkName: string
   linkPath: string
   linkType: string
 }
 
-export const saveLinks = async (links: LinkItem[]) => {
+export const saveLinks = async (links: ProfileLinkResponse[]) => {
   const formattedLinks = {
     profileLinkItems: links.map((link) => ({
-      linkName: link.productLinkName,
-      linkPath: link.productLinkPath,
+      linkName: link.linkName,
+      linkPath: link.linkPath,
     })),
   }
 
