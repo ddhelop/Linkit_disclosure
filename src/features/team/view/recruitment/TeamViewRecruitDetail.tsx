@@ -130,7 +130,7 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
           </div>
         )}
 
-        {recruitmentDetail.workMethod && (
+        {recruitmentDetail.benefits && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">기타 사항</h3>
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail.benefits}</span>
