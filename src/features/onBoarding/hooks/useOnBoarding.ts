@@ -4,14 +4,16 @@ import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { submitMemberInfo } from '../api/memberApi'
 import { usePhoneNumberFormatter } from '@/shared/hooks/usePhoneNumberFormatter'
+import { useAuthStore } from '@/shared/store/useAuthStore'
 
 export function useOnBoarding() {
   const [name, setName] = useState('')
+  const { setEmailId } = useAuthStore()
 
   const searchParams = useSearchParams()
   const email = searchParams.get('email')
 
-  const [emailId, setEmailId] = useState('')
+  const [emailId, setLocalEmailId] = useState('')
   const [emailIdError, setEmailIdError] = useState('')
 
   const router = useRouter()
@@ -25,6 +27,7 @@ export function useOnBoarding() {
 
   const handleEmailIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value
+    setLocalEmailId(newValue)
     setEmailId(newValue)
 
     if (newValue.trim() === '') {
