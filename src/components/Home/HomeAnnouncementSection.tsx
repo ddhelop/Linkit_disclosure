@@ -11,14 +11,14 @@ import Link from 'next/link'
 
 export default function HomeAnnouncementSection() {
   const [announcement, setAnnouncement] = useState<Announcement[]>([])
-  const [profile, setProfile] = useState<IMyProfileBasicInform>()
+  // const [profile, setProfile] = useState<IMyProfileBasicInform>()
 
   useEffect(() => {
     const fetchAnnouncement = async () => {
       const response = await getAnnouncement()
-      const profileResponse = await getMyProfileBasicInform()
+      // const profileResponse = await getMyProfileBasicInform()
       setAnnouncement(response.result.announcementInformMenus)
-      setProfile(profileResponse.result)
+      // setProfile(profileResponse.result)
     }
     fetchAnnouncement()
   }, [])
@@ -26,7 +26,11 @@ export default function HomeAnnouncementSection() {
   return (
     <div className="flex w-full flex-col gap-6">
       <div className="flex w-full justify-between">
-        <h1 className="text-xl font-semibold">{profile?.memberName}님을 찾고 있어요!</h1>
+        {/* {profile?.memberName ? (
+          // <h1 className="text-xl font-semibold">{profile?.memberName}님을 찾고 있어요!</h1>
+          <h1 className="text-xl font-semibold">팀원을 찾고 있어요</h1>
+        ) : ( */}
+        <h1 className="text-xl font-semibold">팀원을 찾고 있어요</h1>
         <Link href="/find/announcement" className="flex cursor-pointer items-center gap-1">
           <span className="text-sm text-grey60 ">전체보기</span>
           <Image src="/common/icons/arrow-right(greyblack).svg" alt="arrow_right" width={16} height={16} />
