@@ -31,9 +31,9 @@ export default function TeamViewRecruitDetailPage({ params }: { params: { teamNa
 
   return (
     <>
-      <div className="absolute left-0 flex h-[calc(100vh-4rem)] w-full justify-center bg-[#FCFCFD] pt-[3.63rem]">
-        <div className="flex w-[83%] justify-center gap-8">
-          <div className="w-[49rem]">
+      <div className="absolute left-0 flex min-h-[calc(100vh-4rem)] w-full justify-center bg-[#FCFCFD] py-[3.63rem]">
+        <div className="flex w-[83%] justify-center gap-8 ">
+          <div className="w-[49rem] ">
             {recruitmentDetail && <TeamViewRecruitDetail recruitmentDetail={recruitmentDetail} />}
           </div>
           <div>{teamInfo && <MiniTeamCard teamInfo={teamInfo} />}</div>
