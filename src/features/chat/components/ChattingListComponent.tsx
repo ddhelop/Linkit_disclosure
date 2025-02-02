@@ -27,7 +27,7 @@ export default function ChattingListComponent({
     <div
       onClick={onClick}
       className={`flex w-full cursor-pointer gap-3 rounded-xl border p-4 hover:bg-grey10
-        ${isSelected ? 'border-main bg-grey10' : 'border-grey20'}
+        ${isSelected ? 'bg-grey10' : 'border-grey20'}
         ${hasUnreadMessages ? 'bg-[#EDF3FF]' : ''}`}
     >
       <div className="h-[60px] w-[60px] flex-shrink-0">
