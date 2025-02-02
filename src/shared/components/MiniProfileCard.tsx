@@ -24,10 +24,10 @@ export default function MiniProfileCard() {
     <EditableContainer
       isEditable={isMyProfile}
       editPath="/profile/edit/basic"
-      className="group relative h-[14.5rem] w-[17.5rem] rounded-xl bg-[#EDF3FF] px-6 py-5"
+      className="group relative h-[15.2rem] w-[17.5rem] rounded-xl bg-[#EDF3FF] px-6 py-5"
     >
       {/* 카드의 내용이 블러 처리되도록 조건부 클래스 적용 */}
-      <div className={`relative z-0 ${isIncomplete ? 'blur-sm' : ''}`}>
+      <div className={`relative z-0  ${isIncomplete ? 'blur-sm' : ''}`}>
         {/* 뱃지 */}
         <div className="flex gap-2">
           {profileState?.slice(0, 2).map((state) => (
@@ -64,10 +64,15 @@ export default function MiniProfileCard() {
 
         {/* 팀이 없을때 */}
         {teamInfo?.length === 0 && <div className="mt-5 text-sm text-grey50">팀이 없습니다.</div>}
-        <div className="mt-5 flex items-center gap-4">
+        <div className="mt-5 flex items-center gap-4 ">
           {teamInfo?.slice(0, 4).map((team) => (
             <Link href={`/team/${team.teamCode}/log`} className="relative h-[40px] w-[40px]" key={team.teamCode}>
-              <Image src={team.teamLogoImagePath} layout="fill" alt="team" className="rounded-lg object-cover" />
+              <Image
+                src={team.teamLogoImagePath ? team.teamLogoImagePath : '/common/default_profile.svg'}
+                layout="fill"
+                alt="team"
+                className="rounded-lg object-cover"
+              />
             </Link>
           ))}
           {teamInfo && teamInfo.length > 4 && (
