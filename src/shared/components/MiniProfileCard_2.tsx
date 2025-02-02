@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { profileScrap } from '../api/commonApi'
 import { Profile, Team } from '@/features/find/types/FindTypes'
 import { useToast } from '../hooks/useToast'
+import { useRouter } from 'next/navigation'
+import { useAuthStore } from '../store/useAuthStore'
 
 interface MiniProfileCard2Props {
   profile: Profile
@@ -15,12 +17,19 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
   const [scrapCount, setScrapCount] = useState(profile?.profileScrapCount ?? 0)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
   const toast = useToast()
+  const router = useRouter()
+  const { isLogin } = useAuthStore()
 
   const handleScrap = async (e: React.MouseEvent) => {
     e.preventDefault()
     if (isScrapLoading) return
 
     try {
+      if (!isLogin) {
+        toast.alert('로그인이 필요한 기능입니다.')
+        router.push('/login')
+        return
+      }
       setIsScrapLoading(true)
       const response = await profileScrap(profile.emailId, !isScrap)
       if (response.ok) {

@@ -7,11 +7,17 @@ import TeamViewRecruitDetail from '@/features/team/view/recruitment/TeamViewRecr
 import { useEffect, useState } from 'react'
 import { TeamInfoResponse } from '@/features/team/types/team.types'
 import ApplyModal from '@/features/team/view/recruitment/components/ApplyModal'
+import { useAuthStore } from '@/shared/store/useAuthStore'
+import { useRouter } from 'next/navigation'
+import { useToast } from '@/shared/hooks/useToast'
 
 export default function TeamViewRecruitDetailPage({ params }: { params: { teamName: string; id: string } }) {
   const [teamInfo, setTeamInfo] = useState<TeamInfoResponse>()
   const [recruitmentDetail, setRecruitmentDetail] = useState<TeamAnnouncementDetail['result']>()
   const [showApplyModal, setShowApplyModal] = useState(false)
+  const { isLogin } = useAuthStore()
+  const router = useRouter()
+  const toast = useToast()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +34,15 @@ export default function TeamViewRecruitDetailPage({ params }: { params: { teamNa
     }
     fetchData()
   }, [params.teamName, params.id])
+
+  const handleApply = () => {
+    if (!isLogin) {
+      toast.alert('로그인이 필요한 기능입니다.')
+      router.push('/login')
+      return
+    }
+    setShowApplyModal(true)
+  }
 
   return (
     <>
@@ -47,7 +62,7 @@ export default function TeamViewRecruitDetailPage({ params }: { params: { teamNa
             mode="main"
             size="custom"
             className="w-[12.5rem] rounded-xl py-4 text-base font-semibold hover:bg-[#486FEE]"
-            onClick={() => setShowApplyModal(true)}
+            onClick={handleApply}
           >
             지원하기
           </Button>
