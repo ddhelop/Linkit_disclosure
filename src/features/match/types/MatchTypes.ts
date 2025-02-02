@@ -7,11 +7,6 @@ export interface RegionDetail {
   divisionName: string
 }
 
-export interface TeamInform {
-  teamName: string
-  teamLogoImagePath: string
-}
-
 export interface ProfileInform {
   profileCurrentStates: ProfileState[]
   isProfileScrap: boolean
@@ -21,7 +16,6 @@ export interface ProfileInform {
   isProfilePublic: boolean
   majorPosition: string
   regionDetail: RegionDetail
-  profileTeamInforms: TeamInform[]
   profileScrapCount: number
 }
 
