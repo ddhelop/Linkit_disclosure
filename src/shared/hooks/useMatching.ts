@@ -1,6 +1,9 @@
 import { useState, useCallback } from 'react'
 import { getMatchingProfileMenu, getTeamMatchingRequestMenu } from '@/features/match/api/MatchApi'
 import { MatchingProfileMenuResponse, TeamInformation, TeamMatchingResponse } from '@/features/match/types/MatchTypes'
+import { useAuthStore } from '../store/useAuthStore'
+import { useRouter } from 'next/navigation'
+import { useToast } from './useToast'
 
 interface MatchingType {
   type: 'PROFILE' | 'TEAM'
@@ -15,7 +18,17 @@ export const useMatching = ({ type, id }: MatchingType) => {
   )
   const [selectedProfile, setSelectedProfile] = useState<TeamInformation | null>(null)
 
+  const { isLogin } = useAuthStore()
+  const router = useRouter()
+  const toast = useToast()
+
   const onClickMatching = useCallback(async () => {
+    if (!isLogin) {
+      toast.alert('로그인이 필요한 기능입니다.')
+      router.push('/login')
+      return
+    }
+
     try {
       let data
       if (type === 'PROFILE') {

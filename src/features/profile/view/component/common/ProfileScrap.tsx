@@ -1,15 +1,27 @@
 'use client'
 import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 import { handleScrap } from '@/features/profile/api/profileViewApi'
+import { useToast } from '@/shared/hooks/useToast'
+import { useAuthStore } from '@/shared/store/useAuthStore'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export default function ProfileScrap() {
   const { profileData } = useProfileView()
   const [scrapCount, setScrapCount] = useState(profileData?.profileScrapCount)
   const [isScrap, setIsScrap] = useState(profileData?.profileInformMenu.isProfileScrap)
+  const { isLogin } = useAuthStore()
+  const router = useRouter()
+  const toast = useToast()
 
   const onClickScrap = async () => {
+    if (!isLogin) {
+      toast.alert('로그인이 필요한 기능입니다.')
+      router.push('/login')
+      return
+    }
+
     if (!profileData?.profileInformMenu.emailId || isScrap === undefined) return
     const response = await handleScrap(profileData.profileInformMenu.emailId, isScrap)
 

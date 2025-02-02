@@ -13,6 +13,7 @@ import AlertModal from '@/shared/ui/Modal/AlertModal'
 import { useTeamStore } from '../../store/useTeamStore'
 import { acceptTeamInvitation } from '../../api/teamViewApi'
 import { motion } from 'framer-motion'
+import { useAuthStore } from '@/shared/store/useAuthStore'
 
 interface TeamData {
   isMyTeam: boolean
@@ -56,6 +57,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
   const [isTeamDeleteInProgress, setIsTeamDeleteInProgress] = useState(false)
   const { setIsTeamManager } = useTeamStore()
   const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false)
+  const { isLogin } = useAuthStore()
 
   const {
     isProfileModalOpen,
@@ -106,6 +108,12 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
 
   // 팀 스크랩
   const onClickTeamScrap = async () => {
+    if (!isLogin) {
+      toast.alert('로그인이 필요한 기능입니다.')
+      router.push('/login')
+      return
+    }
+
     if (isScrapLoading) return
 
     const newScrapState = !isTeamScrap

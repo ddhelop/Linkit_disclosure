@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { teamScrap } from '../api/commonApi'
 import { useToast } from '../hooks/useToast'
+import { useRouter } from 'next/navigation'
+import { useAuthStore } from '../store/useAuthStore'
 
 interface MiniTeamCard_2Props {
   team: Team
@@ -17,12 +19,19 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
   const [scrapCount, setScrapCount] = useState(team?.teamScrapCount ?? 0)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
   const toast = useToast()
+  const router = useRouter()
+  const { isLogin } = useAuthStore()
 
   const handleScrap = async (e: React.MouseEvent) => {
     e.preventDefault()
     if (isScrapLoading) return
 
     try {
+      if (!isLogin) {
+        toast.alert('로그인이 필요한 기능입니다.')
+        router.push('/login')
+        return
+      }
       setIsScrapLoading(true)
       const response = await teamScrap(team.teamCode, !isScrap)
       if (response.ok) {

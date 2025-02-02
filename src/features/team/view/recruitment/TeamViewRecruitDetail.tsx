@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { TeamAnnouncementDetail } from '../../api/teamApi'
 import { announcementScrap } from '@/shared/api/commonApi'
 import { useToast } from '@/shared/hooks/useToast'
+import { useRouter } from 'next/navigation'
+import { useAuthStore } from '@/shared/store/useAuthStore'
 
 function calculateDday(endDate: string): string {
   const today = new Date()
@@ -29,8 +31,15 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
   const [scrapCount, setScrapCount] = useState(recruitmentDetail.announcementScrapCount)
   const [isLoading, setIsLoading] = useState(false)
   const toast = useToast()
-
+  const router = useRouter()
+  const { isLogin } = useAuthStore()
   const handleScrap = async () => {
+    if (!isLogin) {
+      toast.alert('로그인이 필요한 기능입니다.')
+      router.push('/login')
+      return
+    }
+
     if (isLoading) return
 
     try {

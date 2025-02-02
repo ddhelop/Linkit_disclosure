@@ -7,18 +7,27 @@ import { announcementScrap } from '../api/commonApi'
 import Link from 'next/link'
 import { useToast } from '../hooks/useToast'
 import { AnnouncementInformMenu } from '@/features/match/types/MatchTypes'
+import { useAuthStore } from '../store/useAuthStore'
+import { useRouter } from 'next/navigation'
 
 export default function AnnouncementCard({ announcement }: { announcement: AnnouncementInformMenu }) {
   const [isScrap, setIsScrap] = useState(announcement?.isAnnouncementScrap ?? false)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
   const [scrapCount, setScrapCount] = useState(announcement?.announcementScrapCount ?? 0)
+  const { isLogin } = useAuthStore()
   const toast = useToast()
+  const router = useRouter()
 
   const handleScrap = async (e: React.MouseEvent<HTMLImageElement>) => {
     e.preventDefault() // Link 컴포넌트의 기본 동작 방지
     if (isScrapLoading) return
 
     try {
+      if (!isLogin) {
+        toast.alert('로그인이 필요한 기능입니다.')
+        router.push('/login')
+        return
+      }
       setIsScrapLoading(true)
       const response = await announcementScrap(announcement?.teamMemberAnnouncementId, !isScrap)
       if (response.ok) {
