@@ -2,13 +2,32 @@
 import { useEffect, useState } from 'react'
 import { getTeamLogDetail } from '../../api/teamViewApi'
 import { TeamLogItem } from '../../types/team.types'
-import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
 
 export default function TeamViewDetail({ teamName, id }: { teamName: string; id: number }) {
   const [log, setLog] = useState<TeamLogItem | null>(null)
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await getTeamLogDetail(teamName, id)
+      // URL 처리를 위해 logContent의 a 태그 href 수정
+      if (response.result?.logContent) {
+        const parser = new DOMParser()
+        const doc = parser.parseFromString(response.result.logContent, 'text/html')
+        const links = doc.getElementsByTagName('a')
+
+        for (let link of links) {
+          const href = link.getAttribute('href')
+          if (href) {
+            // URL에 프로토콜이 없으면 추가
+            const hasProtocol = href.startsWith('http://') || href.startsWith('https://')
+            link.href = hasProtocol ? href : `https://${href}`
+            link.target = '_blank' // 새 탭에서 열기
+            link.rel = 'noopener noreferrer' // 보안을 위한 속성 추가
+          }
+        }
+
+        response.result.logContent = doc.body.innerHTML
+      }
       setLog(response.result)
     }
     fetchData()
@@ -22,7 +41,10 @@ export default function TeamViewDetail({ teamName, id }: { teamName: string; id:
         <span className="text-sm font-normal text-grey60">{new Date(log?.modifiedAt ?? '').toLocaleDateString()}</span>
       </div>
 
-      <div className="rounded-xl bg-grey10 p-6 text-sm text-grey70">{stripHtmlAndImages(log?.logContent ?? '')}</div>
+      <div
+        className="prose w-full max-w-none rounded-xl bg-grey10 p-6 text-sm text-grey70"
+        dangerouslySetInnerHTML={{ __html: log?.logContent ?? '' }}
+      />
     </div>
   )
 }
