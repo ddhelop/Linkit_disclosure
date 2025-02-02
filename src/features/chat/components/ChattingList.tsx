@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { useSearchParams } from 'next/navigation'
 import ChattingListComponent from './ChattingListComponent'
 import { getChattingList } from '../api/ChatApi'
 import { useChatStore } from '../store/useChatStore'
@@ -11,6 +12,8 @@ export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoom
   const { chatList, updateChatList, addMessage, updateLastMessage } = useChatStore()
   const { getClient } = useWebSocketStore()
   const subscriptionsRef = useRef<{ [key: number]: any }>({})
+  const searchParams = useSearchParams()
+  const currentRoomId = searchParams.get('room')
 
   useEffect(() => {
     const client = getClient()
@@ -88,6 +91,7 @@ export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoom
           chattingList={chatting}
           key={chatting.chatRoomId}
           onClick={() => onSelectChat(chatting.chatRoomId)}
+          isSelected={currentRoomId === chatting.chatRoomId.toString()}
         />
       ))}
     </div>
