@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/shared/hooks/useToast'
-import { leaveChatRoom } from '../api/ChatApi'
+import { getChattingList, leaveChatRoom } from '../api/ChatApi'
 import Image from 'next/image'
 import { ChatBasicProfileProps } from '../types/ChatTypes'
 import DropdownMenu from '@/shared/components/DropdownMenu'
 import AlertModal from '@/shared/ui/Modal/AlertModal'
+import { useChatStore } from '../store/useChatStore'
 
 interface ChattingBasicProfileProps extends ChatBasicProfileProps {
   chatRoomId: number
@@ -23,12 +24,15 @@ export default function ChattingBasicProfile({
   const [isAlertOpen, setIsAlertOpen] = useState(false)
   const router = useRouter()
   const toast = useToast()
+  const { updateChatList } = useChatStore()
 
   const handleLeaveChatRoom = async () => {
     try {
       const response = await leaveChatRoom(chatRoomId)
       if (response.isSuccess) {
         toast.success('채팅방을 나갔습니다.')
+        const updatedChatList = await getChattingList()
+        updateChatList(updatedChatList.result.chatRoomSummaries)
         router.push('/chat')
       } else {
         toast.alert(response.message || '채팅방 나가기에 실패했습니다.')
