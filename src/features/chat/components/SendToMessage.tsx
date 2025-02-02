@@ -13,7 +13,7 @@ export default function SendToMessage({ message }: SendToMessageProps) {
           {new Date(message.timestamp).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })}
         </span>
         <div className="max-w-[87%] rounded-2xl bg-grey30 p-5">
-          <p className="text-sm text-grey80">{message.content}</p>
+          <p className="whitespace-pre-wrap text-sm text-grey80">{message.content}</p>
         </div>
       </div>
 

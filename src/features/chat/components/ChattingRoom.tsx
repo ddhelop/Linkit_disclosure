@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { ChatMessage, ChatBasicProfileProps } from '../types/ChatTypes'
 import { getChatMessages } from '../api/ChatApi'
 import ChattingBasicProfile from './ChattingBasicProfile'
@@ -15,8 +15,10 @@ interface ChattingRoomProps {
 
 export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
   const { messages, setMessages } = useChatStore()
+  const currentMessages = chatRoomId ? messages[chatRoomId] : []
   const [chatPartnerData, setChatPartnerData] = useState()
   const [isLoading, setIsLoading] = useState(false)
+  const messageContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!chatRoomId) return
@@ -37,6 +39,13 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
     initializeChat()
   }, [chatRoomId, setMessages])
 
+  // 메시지가 변경될 때마다 스크롤을 가장 하단으로 이동
+  useEffect(() => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight
+    }
+  }, [currentMessages])
+
   const handleSendMessage = (content: string) => {
     if (!chatRoomId) return
     // 웹소켓을 통해 메시지를 전송만 하고,
@@ -51,6 +60,27 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
     divisionName: data.partnerProfileDetailInformation.regionDetail.divisionName,
     chatPartnerOnline: data.chatPartnerOnline,
   })
+
+  // 날짜 포맷팅 함수
+  const formatDate = (timestamp: string) => {
+    const date = new Date(timestamp)
+    return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`
+  }
+
+  // 메시지를 날짜별로 그룹화하는 함수
+  const groupMessagesByDate = (messages: ChatMessage[]) => {
+    const groups: { [key: string]: ChatMessage[] } = {}
+
+    messages.forEach((message) => {
+      const date = new Date(message.timestamp).toDateString()
+      if (!groups[date]) {
+        groups[date] = []
+      }
+      groups[date].push(message)
+    })
+
+    return groups
+  }
 
   if (isLoading) {
     return (
@@ -75,20 +105,32 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
       </div>
 
       <div className="flex flex-1 flex-col overflow-hidden px-5">
-        <div className="sticky top-0 z-10 my-6 flex items-center bg-grey10 py-2">
-          <div className="h-[1px] flex-1 bg-grey50"></div>
-          <span className="mx-4 text-sm text-grey60">2025년 01월 01일</span>
-          <div className="h-[1px] flex-1 bg-grey50"></div>
-        </div>
+        <div ref={messageContainerRef} className="flex flex-1 flex-col-reverse gap-6 overflow-y-auto">
+          {currentMessages?.reduce((acc: JSX.Element[], message: ChatMessage, index: number, array: ChatMessage[]) => {
+            const currentDate = new Date(message.timestamp).toDateString()
+            const nextMessage = array[index + 1]
+            const nextDate = nextMessage ? new Date(nextMessage.timestamp).toDateString() : null
 
-        <div className="flex flex-1 flex-col-reverse gap-6 overflow-y-auto">
-          {messages[chatRoomId]?.map((message) =>
-            message.isMyMessage ? (
-              <SendToMessage key={message.messageId} message={message} />
-            ) : (
-              <SendFromMessage key={message.messageId} message={message} />
-            ),
-          )}
+            if (currentDate !== nextDate) {
+              acc.push(
+                <div key={`date-${message.messageId}`} className="my-6 flex items-center bg-grey10 py-2">
+                  <div className="h-[1px] flex-1 bg-grey50"></div>
+                  <span className="mx-4 text-sm text-grey60">{formatDate(message.timestamp)}</span>
+                  <div className="h-[1px] flex-1 bg-grey50"></div>
+                </div>,
+              )
+            }
+
+            acc.push(
+              message.isMyMessage ? (
+                <SendToMessage key={message.messageId} message={message} />
+              ) : (
+                <SendFromMessage key={message.messageId} message={message} />
+              ),
+            )
+
+            return acc
+          }, []) || []}
         </div>
       </div>
 
