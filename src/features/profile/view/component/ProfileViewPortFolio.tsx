@@ -1,6 +1,7 @@
 import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 import { EditableContainer } from './common/EditableContainer'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function ProfileViewPortFolio() {
   const { profileData } = useProfileView()
@@ -25,8 +26,9 @@ export default function ProfileViewPortFolio() {
             <div className="flex w-full items-center text-sm text-grey60">아직 추가하지 않았어요</div>
           ))}
         {profileData?.profilePortfolioItems.map((portfolio) => (
-          <div
-            className="flex w-[49%] flex-col gap-3 rounded-xl border border-grey30 p-5"
+          <Link
+            href={`/${profileData?.profileInformMenu.emailId}/portfolio/${portfolio.profilePortfolioId}`}
+            className="flex w-[49%] flex-col gap-3 rounded-xl border border-grey30 p-5 hover:border-main"
             key={portfolio.profilePortfolioId}
           >
             <div className="relative h-[9.5rem] w-full  rounded-xl">
@@ -59,7 +61,7 @@ export default function ProfileViewPortFolio() {
 
             {/* 셋째줄 */}
             <div className="text-xs font-normal text-grey70">역할 | {portfolio.projectRoles.join(', ')}</div>
-          </div>
+          </Link>
         ))}
       </div>
     </EditableContainer>
