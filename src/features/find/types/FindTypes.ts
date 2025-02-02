@@ -17,11 +17,6 @@ export interface RegionDetail {
   divisionName: string
 }
 
-export interface TeamInform {
-  teamName: string
-  teamLogoImagePath: string
-}
-
 export interface Profile {
   profileCurrentStates: ProfileState[]
   isProfileScrap: boolean
@@ -32,7 +27,6 @@ export interface Profile {
   majorPosition: string
   regionDetail: RegionDetail
   profileScrapCount: number
-  profileTeamInforms: TeamInform[]
 }
 
 export interface Pageable {
