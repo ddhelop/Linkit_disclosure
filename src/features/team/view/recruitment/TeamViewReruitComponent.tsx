@@ -12,7 +12,7 @@ export default function TeamViewReruitComponent({
   return (
     <Link
       href={`/team/${teamName}/recruit/${announcement.teamMemberAnnouncementId}`}
-      className="flex flex-col rounded-xl bg-white px-10 py-5 hover:shadow-md"
+      className="flex flex-col rounded-xl border border-transparent bg-white px-10 py-5 hover:border-main"
     >
       <div className="flex justify-between">
         <div className="rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">
