@@ -55,7 +55,7 @@ export default function ChattingInput({ onMessageSent }: ChattingInputProps) {
     }
   }
 
-  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSubmit()
@@ -63,21 +63,22 @@ export default function ChattingInput({ onMessageSent }: ChattingInputProps) {
   }
 
   return (
-    <div className="flex items-center gap-2">
-      <input
-        type="text"
+    <div className="flex flex-col items-center gap-2">
+      <textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyPress}
         placeholder="메시지를 입력해 주세요"
-        className="flex-1 rounded-lg border border-grey30 bg-white px-4 py-3 text-sm outline-none focus:border-main"
+        className="min-h-[6rem] w-full resize-none rounded-lg border border-grey30 bg-white px-4 py-3 text-sm outline-none focus:border-main"
       />
-      <button
-        onClick={handleSubmit}
-        className="flex h-11 w-11 items-center justify-center rounded-lg bg-main hover:bg-blue-600"
-      >
-        <Image src="/common/icons/send.svg" width={24} height={24} alt="send" />
-      </button>
+      <div className="flex w-full justify-end">
+        <button
+          onClick={handleSubmit}
+          className="flex items-center justify-center rounded-lg bg-[#3774F4] px-6 py-2 font-semibold text-white hover:bg-main"
+        >
+          보내기
+        </button>
+      </div>
     </div>
   )
 }

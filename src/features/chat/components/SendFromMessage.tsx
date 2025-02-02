@@ -17,7 +17,7 @@ export default function SendFromMessage({ message }: SendFromMessageProps) {
       />
       <div className="flex items-end gap-1">
         <div className="max-w-[87%] rounded-2xl bg-[#fcfcfd] p-5">
-          <p className="text-sm text-grey80">{message.content}</p>
+          <p className="whitespace-pre-wrap text-sm text-grey80">{message.content}</p>
         </div>
         <span className="mt-1 text-xs font-normal text-grey60">
           {new Date(message.timestamp).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })}
