@@ -22,3 +22,10 @@ export async function getPortfolioItems() {
 
   return data.result.profilePortfolioItems as PortfolioItem[]
 }
+
+// 프로포트폴리오 상세 조회
+export async function getPortfolioDetail(id: number) {
+  const response = await fetchWithAuth(`/api/v1/profile/portfolio/${id}`)
+  const data = await response.json()
+  return data.result
+}
