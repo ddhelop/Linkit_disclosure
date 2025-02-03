@@ -31,7 +31,7 @@ export default function DeniedMessage({ message }: DeniedMessageProps) {
   }
 
   return (
-    <div className="w-full rounded-xl border border-grey30 bg-white px-10 py-7">
+    <div className="w-full rounded-xl border border-grey30 bg-white px-10 py-7 hover:border-main">
       <div className="flex gap-5">
         <div className="relative h-[64px] w-[64px] rounded-[0.63rem]">
           <Image

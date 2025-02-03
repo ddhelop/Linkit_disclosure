@@ -4,6 +4,7 @@ export interface NotificationDetails {
   chatSenderName?: string
   matchingTargetName?: string
   matchingTargetLogoImagePath?: string
+  teamLogoImagePath?: string
   teamCode: string
   isTeamDeleted?: boolean
 }

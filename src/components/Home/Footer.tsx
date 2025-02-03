@@ -17,7 +17,13 @@ export default function Footer() {
             >
               문의하기
             </Link>
-            <span className="ml-[1.5rem] cursor-pointer hover:underline">블로그</span>
+            <Link
+              href={'https://blog.naver.com/linkit_official'}
+              target="_blank"
+              className="ml-[1.5rem] cursor-pointer hover:underline"
+            >
+              블로그
+            </Link>
           </div>
           {/* 아이콘 라우팅 */}
           <div className="flex gap-3">

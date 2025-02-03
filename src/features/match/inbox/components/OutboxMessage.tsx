@@ -49,16 +49,16 @@ export default function OutboxMessage({ message }: OutboxMessageProps) {
     // 발신함 케이스별 메시지 처리
     if (isReceiverAnnouncement) {
       // 공고 지원의 경우
-      return `${receiverInfo.name} 의 ${receiverInfo.position} 공고에 지원 완료`
+      return `${receiverInfo.name}의 ${receiverInfo.position} 공고에 지원 완료`
     } else if (!isSenderTeam && !isReceiverTeam) {
       // 개인 -> 개인
-      return `${receiverInfo.name} 에게 매칭 요청 전송 완료`
+      return `${receiverInfo.name}에게 매칭 요청 전송 완료`
     } else if (!isSenderTeam && isReceiverTeam) {
       // 개인 -> 팀
-      return `${receiverInfo.name} 으로 매칭 요청 전송 완료`
+      return `${receiverInfo.name}으로 매칭 요청 전송 완료`
     } else {
       // 팀 -> 팀, 팀 -> 개인
-      return `${senderInfo.name} 에서 ${receiverInfo.name} 으로 매칭 요청 전송 완료`
+      return `${senderInfo.name}에서 ${receiverInfo.name}으로 매칭 요청 전송 완료`
     }
   }
 

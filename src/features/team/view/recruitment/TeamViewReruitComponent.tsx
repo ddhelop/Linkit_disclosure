@@ -1,6 +1,11 @@
 import Image from 'next/image'
 import { TeamAnnouncement } from '../../api/teamApi'
 import Link from 'next/link'
+import { useToast } from '@/shared/hooks/useToast'
+import { useAuthStore } from '@/shared/store/useAuthStore'
+import { useState } from 'react'
+import { announcementScrap } from '@/shared/api/commonApi'
+import { useRouter } from 'next/navigation'
 
 export default function TeamViewReruitComponent({
   announcement,
@@ -9,6 +14,38 @@ export default function TeamViewReruitComponent({
   announcement: TeamAnnouncement
   teamName: string
 }) {
+  const toast = useToast()
+  const { isLogin } = useAuthStore()
+  const [isScrap, setIsScrap] = useState(announcement?.isAnnouncementScrap ?? false)
+  const [isScrapLoading, setIsScrapLoading] = useState(false)
+  const [scrapCount, setScrapCount] = useState(announcement?.announcementScrapCount ?? 0)
+  const router = useRouter()
+
+  const handleScrap = async (e: React.MouseEvent<HTMLImageElement>) => {
+    e.preventDefault() // Link 컴포넌트의 기본 동작 방지
+    if (isScrapLoading) return
+
+    try {
+      if (!isLogin) {
+        toast.alert('로그인이 필요한 기능입니다.')
+        router.push('/login')
+        return
+      }
+      setIsScrapLoading(true)
+      const response = await announcementScrap(announcement?.teamMemberAnnouncementId, !isScrap)
+      if (response.ok) {
+        setIsScrap(!isScrap)
+        setScrapCount((prev) => (!isScrap ? prev + 1 : prev - 1))
+        toast.success('스크랩 상태가 변경되었습니다.')
+      }
+    } catch (error) {
+      console.error('Failed to update scrap:', error)
+      toast.alert('오류가 발생하였습니다.')
+    } finally {
+      setIsScrapLoading(false)
+    }
+  }
+
   return (
     <Link
       href={`/team/${teamName}/recruit/${announcement.teamMemberAnnouncementId}`}
@@ -19,7 +56,14 @@ export default function TeamViewReruitComponent({
           D-{announcement.announcementDDay}
         </div>
         <div className="flex gap-2 text-[#4D82F3]">
-          <Image src={'/common/icons/save.svg'} alt="save" width={22} height={22} />
+          <Image
+            src={isScrap ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
+            alt="announcement-icon"
+            width={20}
+            height={20}
+            onClick={handleScrap}
+            className="cursor-pointer"
+          />
           <span>{announcement.announcementScrapCount}</span>
         </div>
       </div>

@@ -49,7 +49,8 @@ export default function EducationElementComponent({
     }
   }, [isMenuOpen])
 
-  const handleToggleMenu = () => {
+  const handleToggleMenu = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault()
     setIsMenuOpen((prev) => !prev)
   }
 
@@ -60,7 +61,10 @@ export default function EducationElementComponent({
   }
 
   return (
-    <div className="flex items-center gap-5 rounded-lg bg-white px-10 py-5 hover:bg-grey10">
+    <Link
+      href={`${editPath}?id=${id}`}
+      className="flex cursor-pointer items-center gap-5 rounded-lg border border-transparent bg-white px-10 py-5 hover:border-main"
+    >
       <Image src={`/common/icons/universityLogo/${title}.svg`} alt="education" width={52} height={52} />
       <div className="relative flex w-full items-center justify-between gap-1 ">
         <div className="gap-2">
@@ -118,6 +122,6 @@ export default function EducationElementComponent({
           )}
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
