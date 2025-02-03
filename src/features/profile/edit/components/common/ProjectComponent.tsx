@@ -3,8 +3,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import { deletePortfolio } from '../../api/portfolio'
-import { useToast } from '@/shared/hooks/useToast'
 
 interface ProjectComponentProps {
   projectName: string
@@ -16,7 +14,9 @@ interface ProjectComponentProps {
   projectRoles: string[]
   projectRepresentImagePath: string
   profilePortfolioId: number
-  onDelete: (portfolioId: number) => Promise<void>
+  isEdit?: boolean
+  onDelete?: (portfolioId: number) => Promise<void>
+  emailId?: string
 }
 
 export default function ProjectComponent({
@@ -28,7 +28,9 @@ export default function ProjectComponent({
   projectRoles,
   projectRepresentImagePath,
   profilePortfolioId,
+  isEdit = false,
   onDelete,
+  emailId,
 }: ProjectComponentProps) {
   const [showMenu, setShowMenu] = useState(false)
 
@@ -37,46 +39,57 @@ export default function ProjectComponent({
       className="group relative flex gap-6 rounded-xl border border-transparent bg-white px-6 py-7 hover:border-main"
       onMouseLeave={() => setShowMenu(false)}
     >
-      {/* More Icon - Hidden by default, shown on hover */}
-      <div className="absolute right-5 top-5 hidden group-hover:block">
-        <div className="relative">
-          <Image
-            src="/common/icons/more_row.svg"
-            width={22}
-            height={22}
-            alt="more"
-            className="cursor-pointer"
-            onClick={(e) => {
-              e.preventDefault()
-              setShowMenu(!showMenu)
-            }}
-          />
+      {/* More Icon - Only shown when isEdit is true */}
+      {isEdit && (
+        <div className="absolute right-5 top-5 hidden group-hover:block">
+          <div className="relative">
+            <Image
+              src="/common/icons/more_row.svg"
+              width={22}
+              height={22}
+              alt="more"
+              className="cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault()
+                setShowMenu(!showMenu)
+              }}
+            />
 
-          {showMenu && (
-            <div className="absolute right-0 top-[calc(100%+0.5rem)] z-50 w-[5.5rem] rounded-lg border border-grey30 bg-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.10)]">
-              <Link
-                href={`/profile/edit/portfolio/new?id=${profilePortfolioId}`}
-                className="flex w-full items-center justify-center py-2 text-sm text-grey70 hover:bg-grey10"
-              >
-                수정하기
-              </Link>
-              <button
-                className="flex w-full items-center justify-center py-2 text-sm text-[#FF5B5B] hover:bg-grey10"
-                onClick={async (e) => {
-                  e.preventDefault()
-                  await onDelete(profilePortfolioId)
-                  setShowMenu(false)
-                }}
-              >
-                삭제하기
-              </button>
-            </div>
-          )}
+            {showMenu && (
+              <div className="absolute right-0 top-[calc(100%+0.5rem)] z-50 w-[5.5rem] rounded-lg border border-grey30 bg-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.10)]">
+                <Link
+                  href={`/profile/edit/portfolio/new?id=${profilePortfolioId}`}
+                  className="flex w-full items-center justify-center py-2 text-sm text-grey70 hover:bg-grey10"
+                >
+                  수정하기
+                </Link>
+                <button
+                  className="flex w-full items-center justify-center py-2 text-sm text-[#FF5B5B] hover:bg-grey10"
+                  onClick={async (e) => {
+                    e.preventDefault()
+                    if (onDelete) {
+                      await onDelete(profilePortfolioId)
+                      setShowMenu(false)
+                    }
+                  }}
+                >
+                  삭제하기
+                </button>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main Content */}
-      <Link href={`/profile/edit/portfolio/new?id=${profilePortfolioId}`} className="flex gap-6">
+      <Link
+        href={
+          isEdit
+            ? `/profile/edit/portfolio/new?id=${profilePortfolioId}`
+            : `/${emailId}/portfolio/${profilePortfolioId}`
+        }
+        className="flex gap-6"
+      >
         <div className="h-[144px] w-[256px] rounded-lg">
           <div className="relative h-[144px] w-[256px]">
             <Image
