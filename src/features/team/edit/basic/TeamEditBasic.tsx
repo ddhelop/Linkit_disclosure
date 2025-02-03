@@ -284,7 +284,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
         <div className="flex flex-col justify-center gap-3">
           <span className="flex items-center text-grey80">
             팀 아이디<p className="text-main">*</p>
-            <Tooltip text="다른 사용자에게는 보이지 않아요." />
+            <Tooltip text="다른 사용자에게는 보이지 않아요." className="left-[7.5rem] w-[11.6rem]" />
           </span>
           <Input
             placeholder="팀명을 입력해 주세요 (50자 이내)"

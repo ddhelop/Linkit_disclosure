@@ -167,7 +167,7 @@ export function TeamMemberItem({
                     '오너의 경우 팀 구성원의 권한 수정 및 삭제 기능과',
                     '소속 팀 관련 매칭 관리 및 채팅 기능을 이용할 수 있어요.',
                   ]}
-                  className="w-[18.4rem]"
+                  className="left-44 w-[18.4rem]"
                 />
               </div>
             ) : memberType === 'TEAM_MANAGER' ? (
