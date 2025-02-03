@@ -22,7 +22,7 @@ export default function OutBoxMatchFilter() {
     if (type === '전체') {
       params.delete('senderType')
     } else {
-      const senderType = type === '팀원' ? 'PROFILE' : 'TEAM'
+      const senderType = type === '내 프로필' ? 'PROFILE' : 'TEAM'
       params.set('senderType', senderType)
     }
 
@@ -34,8 +34,8 @@ export default function OutBoxMatchFilter() {
     const currentType = searchParams.get('senderType')
     const isActive =
       (type === '전체' && !currentType) ||
-      (type === '팀원' && currentType === 'PROFILE') ||
-      (type === '팀' && currentType === 'TEAM')
+      (type === '내 프로필' && currentType === 'PROFILE') ||
+      (type === '나의 팀' && currentType === 'TEAM')
 
     return isActive
       ? 'cursor-pointer rounded-full bg-[#4D82F3] text-white border border-primary px-6 py-2 text-sm font-normal text-primary'
@@ -44,7 +44,7 @@ export default function OutBoxMatchFilter() {
 
   return (
     <div className="flex gap-3">
-      {['전체', '팀원', '팀'].map((item) => (
+      {['전체', '내 프로필', '나의 팀'].map((item) => (
         <div key={item} className={getActiveClass(item)} onClick={() => handleFilterClick(item)}>
           {item}
         </div>
