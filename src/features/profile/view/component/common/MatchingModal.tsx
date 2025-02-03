@@ -80,7 +80,9 @@ export default function MatchingModal({
                 teamCode: 'personal',
                 teamName: teamData.senderProfileInformation.memberName,
                 teamLogoImagePath: teamData.senderProfileInformation.profileImagePath,
-                teamScaleItem: { teamScaleName: '개인' },
+                teamScaleItem: {
+                  teamScaleName: teamData.senderProfileInformation.profilePositionDetail.majorPosition,
+                },
                 emailId: teamData.senderProfileInformation.emailId,
               })
             }
@@ -142,7 +144,9 @@ export default function MatchingModal({
                   teamCode: 'personal',
                   teamName: profileData.senderProfileInformation.memberName,
                   teamLogoImagePath: profileData.senderProfileInformation.profileImagePath,
-                  teamScaleItem: { teamScaleName: '개인' },
+                  teamScaleItem: {
+                    teamScaleName: profileData.senderProfileInformation.profilePositionDetail.majorPosition,
+                  },
                   emailId: profileData.senderProfileInformation.emailId,
                 })
               }
