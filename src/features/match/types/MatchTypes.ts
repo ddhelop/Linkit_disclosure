@@ -33,7 +33,7 @@ export interface TeamState {
 }
 
 export interface TeamScaleItem {
-  teamScaleName: string
+  teamScaleName: string | string[]
 }
 
 export interface TeamInformMenu {
@@ -192,7 +192,7 @@ interface ProfilePositionDetail {
 }
 
 export interface TeamScaleItem {
-  teamScaleName: string
+  teamScaleName: string | string[]
 }
 
 export interface ProfileInformation {
