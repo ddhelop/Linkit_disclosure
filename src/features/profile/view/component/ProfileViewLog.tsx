@@ -2,6 +2,7 @@ import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
 import Image from 'next/image'
 import Link from 'next/link'
+import { EditableContainer } from './common/EditableContainer'
 
 export default function ProfileViewLog() {
   const { profileData } = useProfileView()
@@ -13,7 +14,11 @@ export default function ProfileViewLog() {
   if (!logItem?.profileLogId) return null
 
   return (
-    <div className="flex w-[95%] flex-col gap-4 rounded-xl bg-white px-[2.75rem] py-[1.88rem]">
+    <EditableContainer
+      editPath={`/profile/edit/log`}
+      isEditable={isMyProfile}
+      className="flex w-[95%] flex-col gap-4 rounded-xl bg-white px-[2.75rem] py-[1.88rem]"
+    >
       <div className="flex items-center gap-2">
         <span className="font-semibold text-grey80">{logItem?.logTitle}</span>
         <span className="text-xs text-grey50">|</span>
@@ -21,7 +26,10 @@ export default function ProfileViewLog() {
       </div>
 
       {/* 내용 */}
-      <div className="text-sm text-grey60">{stripHtmlAndImages(logItem?.logContent)}</div>
+      <div
+        className="text-sm leading-7 text-grey60 [&>h1]:text-2xl [&>h1]:font-semibold [&>h2]:text-xl [&>h2]:font-semibold"
+        dangerouslySetInnerHTML={{ __html: logItem?.logContent }}
+      />
 
       {/* 더보기 */}
       <div className="flex justify-end ">
@@ -33,6 +41,6 @@ export default function ProfileViewLog() {
           <Image src="/common/icons/right_arrow.svg" width={20} height={20} alt="arrow" />
         </Link>
       </div>
-    </div>
+    </EditableContainer>
   )
 }
