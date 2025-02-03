@@ -31,16 +31,15 @@ export default function MiniTeamCard({ teamInfo }: MiniTeamCardProps) {
     }
     if (isScrapLoading) return
 
-    try {
+    const response = await teamScrap(teamInfo?.result?.teamInformMenu.teamCode || '', !isTeamScrap)
+    if (response.isSuccess) {
       setIsScrapLoading(true)
-
-      await teamScrap(teamInfo?.result?.teamInformMenu.teamCode || '', !isTeamScrap)
       setIsTeamScrap(!isTeamScrap)
       setScrapCount((prev) => (isTeamScrap ? prev - 1 : prev + 1))
       toast.success('스크랩 상태가 변경되었습니다.')
-    } catch (error) {
-      toast.alert('스크랩 상태 변경에 실패했습니다.')
-    } finally {
+      setIsScrapLoading(false)
+    } else {
+      toast.alert(response.message || '스크랩 상태 변경에 실패했습니다.')
       setIsScrapLoading(false)
     }
   }
@@ -48,7 +47,7 @@ export default function MiniTeamCard({ teamInfo }: MiniTeamCardProps) {
   return (
     <Link
       href={`/team/${teamInfo?.result.teamInformMenu.teamCode}/log`}
-      className="flex w-[19.525rem] flex-col rounded-xl bg-white px-7 py-[1.12rem]"
+      className="flex w-[19.525rem] flex-col rounded-xl border border-transparent bg-white px-7 py-[1.12rem] hover:border-main"
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.1)' }}
     >
       <div className="flex justify-between">
