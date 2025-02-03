@@ -83,7 +83,7 @@ export interface TeamState {
 }
 
 export interface TeamScale {
-  teamScaleName: string
+  teamScaleName: string | string[]
 }
 
 export interface Team {
