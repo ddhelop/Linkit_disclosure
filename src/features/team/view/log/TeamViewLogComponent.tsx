@@ -7,7 +7,7 @@ export default function TeamViewLogComponent({ log, teamName }: { log: TeamLogIt
   return (
     <Link
       href={`/team/${teamName}/log/${log.teamLogId}`}
-      className="flex w-full cursor-pointer flex-col gap-5 rounded-xl border border-transparent bg-white p-5 transition-all hover:border-main"
+      className="flex w-full cursor-pointer flex-col gap-5 rounded-xl border border-grey30 bg-white p-5 transition-all hover:border-main"
     >
       <div className="flex items-center gap-2">
         {log.logType === 'REPRESENTATIVE_LOG' && <Image src="/common/icons/pin.svg" width={20} height={20} alt="pin" />}

@@ -617,7 +617,7 @@ export async function teamScrap(teamName: string, isScrap: boolean) {
   const data = await response.json()
 
   if (!response.ok) {
-    throw new Error(data.message || 'Failed to team scrap')
+    return data
   }
 
   return data

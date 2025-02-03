@@ -34,7 +34,7 @@ export default function TeamViewDetail({ teamName, id }: { teamName: string; id:
   }, [id, teamName])
 
   return (
-    <div className="flex w-full flex-col gap-6 rounded-xl bg-white px-5 py-7">
+    <div className="flex w-full flex-col gap-6 rounded-xl border border-grey30 bg-white px-5 py-7">
       <div className="flex items-center gap-2 pl-5">
         <span className="text-xl font-semibold text-grey80">{log?.logTitle}</span>
         <span className="text-sm font-normal text-grey60">|</span>
