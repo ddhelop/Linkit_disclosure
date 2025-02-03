@@ -5,6 +5,7 @@ export interface NotificationDetails {
   matchingTargetName?: string
   matchingTargetLogoImagePath?: string
   teamCode: string
+  isTeamDeleted?: boolean
 }
 
 export interface NotificationItem {

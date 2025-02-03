@@ -7,6 +7,7 @@ import { NotificationItem } from '../types/notificationsType'
 import { getNotificationList, readNotification } from '../api/NotificationApi'
 import { getNotificationMessage } from '../utils/notificationMessage'
 import { useRouter } from 'next/navigation'
+import { useToast } from '@/shared/hooks/useToast'
 
 interface NotificationMenuProps {
   isOpen: boolean
@@ -18,6 +19,7 @@ export default function NotificationMenu({ isOpen, onClose }: NotificationMenuPr
   const menuRef = useRef<HTMLDivElement>(null)
   const [notifications, setNotifications] = useState<NotificationItem[]>([])
   const router = useRouter()
+  const toast = useToast()
 
   useOnClickOutside({
     refs: [menuRef],
@@ -64,6 +66,10 @@ export default function NotificationMenu({ isOpen, onClose }: NotificationMenuPr
           break
         case 'TEAM':
         case 'TEAM_INVITATION':
+          if (notification.notificationDetails.isTeamDeleted) {
+            toast.alert('삭제된 팀입니다.')
+            break
+          }
           if (notification.notificationDetails.teamCode) {
             router.push(`/team/${notification.notificationDetails.teamCode}/log`)
           }
