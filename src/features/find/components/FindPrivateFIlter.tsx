@@ -41,27 +41,24 @@ export default function FindPrivateFilter() {
   const updateURL = () => {
     const params = new URLSearchParams()
 
-    // 선택된 값들을 URL 파라미터로 변환
     if (selectedPositions.length > 0) {
-      params.set('majorPosition', selectedPositions[0]) // API는 단일 포지션만 지원
+      params.set('majorPosition', selectedPositions[0])
     }
 
     selectedSkills.forEach((skill) => {
       params.append('skillName', skill)
     })
 
-    if (selectedLocations.length > 0) {
-      params.set('cityName', selectedLocations[0]) // API는 단일 지역만 지원
-    }
+    // 다중 선택된 지역과 상태를 URL에 추가
+    selectedLocations.forEach((location) => {
+      params.append('cityName', location)
+    })
 
-    if (selectedStatus.length > 0) {
-      params.set('profileStateName', selectedStatus[0]) // API는 단일 상태만 지원
-    }
+    selectedStatus.forEach((status) => {
+      params.append('profileStateName', status)
+    })
 
-    // 페이지 초기화
     params.set('page', '1')
-
-    // URL 업데이트
     router.push(`/find/private?${params.toString()}`)
   }
 
@@ -92,8 +89,12 @@ export default function FindPrivateFilter() {
   }
 
   const handleLocationSelect = (location: string) => {
-    // API는 단일 지역만 지원하므로 이전 선택을 대체
-    setSelectedLocations([location])
+    // 다중 선택 가능하도록 수정
+    if (selectedLocations.includes(location)) {
+      setSelectedLocations(selectedLocations.filter((l) => l !== location))
+    } else {
+      setSelectedLocations([...selectedLocations, location])
+    }
   }
 
   const removeLocation = (location: string) => {
@@ -101,8 +102,12 @@ export default function FindPrivateFilter() {
   }
 
   const handleStatusSelect = (status: string) => {
-    // API는 단일 상태만 지원하므로 이전 선택을 대체
-    setSelectedStatus([status])
+    // 다중 선택 가능하도록 수정
+    if (selectedStatus.includes(status)) {
+      setSelectedStatus(selectedStatus.filter((s) => s !== status))
+    } else {
+      setSelectedStatus([...selectedStatus, status])
+    }
   }
 
   const removeStatus = (status: string) => {
