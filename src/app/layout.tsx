@@ -11,7 +11,7 @@ import Toast from '@/shared/components/Toast/Toast'
 import CustomClient from '@/components/CustomClient'
 
 export const metadata: Metadata = {
-  title: '링킷(Linkit) | 일하는 사람들의 연결점',
+  title: '링킷ㅣ일하는 사람들의 연결점',
   description: '팀 빌딩 서비스, 링킷',
   icons: {
     icon: '/logo.png',

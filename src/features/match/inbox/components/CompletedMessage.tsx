@@ -61,7 +61,7 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
 
   return (
     <div className="relative w-full">
-      <div className="relative flex w-full gap-5 rounded-xl border border-grey30 bg-white px-10 py-7">
+      <div className="relative flex w-full gap-5 rounded-xl border border-grey30 bg-white px-10 py-7 hover:border-main">
         <div className="relative h-[64px] w-[64px] rounded-[0.63rem]">
           <Image
             src={senderInfo.image || '/common/default_profile.svg'}

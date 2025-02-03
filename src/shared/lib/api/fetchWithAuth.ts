@@ -26,7 +26,6 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
   options.credentials = 'include'
 
   try {
-    console.log('Request headers:', options.headers)
     const response = await fetch(apiUrl, options)
 
     // 회원탈퇴 API 호출인 경우 모든 상태 코드를 정상 응답으로 처리

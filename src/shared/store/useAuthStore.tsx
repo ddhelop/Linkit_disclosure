@@ -38,10 +38,12 @@ export const useAuthStore = create<AuthStore>()(
       },
 
       logout: async () => {
-        await logoutApi()
-        document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT'
-        set({ isLogin: false, emailId: null })
-        window.location.href = '/'
+        const response = await logoutApi()
+        if (response.isSuccess) {
+          document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT'
+          set({ isLogin: false, emailId: null })
+          window.location.href = '/'
+        }
       },
     }),
     {

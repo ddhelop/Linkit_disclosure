@@ -3,17 +3,20 @@
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useAuthStore } from '@/shared/store/useAuthStore'
 
 export default function Banner() {
+  const { emailId } = useAuthStore()
+
   const slides = [
     {
       image: '/common/images/banner1.svg',
-      link: '/find/private',
+      link: `/${emailId}`,
       alt: '팀 모집 배너',
     },
     {
       image: '/common/images/banner2.svg',
-      link: '/find/announcement',
+      link: '/team/select',
       alt: '프로필 배너',
     },
     {

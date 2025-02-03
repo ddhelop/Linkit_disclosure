@@ -48,11 +48,12 @@ export const logoutApi = async () => {
   const accessToken = getAccessToken()
   if (!accessToken) return
 
-  await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/logout`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/logout`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
     credentials: 'include',
   })
+  return response.json()
 }
