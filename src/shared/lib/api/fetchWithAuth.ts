@@ -26,64 +26,48 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
   options.credentials = 'include'
 
   try {
-    const response = await fetch(apiUrl, options)
+    let response = await fetch(apiUrl, options)
 
     // 회원탈퇴 API 호출인 경우 모든 상태 코드를 정상 응답으로 처리
     if (url.includes('/api/v1/withdraw')) {
       return response
     }
 
-    // 리프레시 토큰 만료 시 (403)
-    if (response.status === 403) {
-      useAuthStore.getState().setLoginState(false)
-      if (typeof window !== 'undefined') {
-        // 쿠키 삭제
-        document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT'
-      }
-      return response.json()
-    }
+    // 액세스 토큰 만료 시 (411)
+    if (response.status === 411 && retry) {
+      const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/renew/token`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken || ''}`,
+        },
+      })
 
-    // 액세스 토큰 만료 시 (450)
-    if (response.status === 450 && retry) {
-      try {
-        const refreshResponse = await fetch(`${process.env.NEXT_PUBLIC_LINKIT_SERVER_URL}/api/v1/renew/token`, {
-          credentials: 'include',
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${accessToken || ''}`,
-          },
-        })
-        if (!refreshResponse.ok) {
-          throw new Error('Token refresh failed')
-        }
+      if (refreshResponse.ok) {
         const data = await refreshResponse.json()
-
-        // 새 토큰으로 쿠키 업데이트
         document.cookie = `accessToken=${data.result.accessToken}; path=/; max-age=3600`
-
-        // 웹소켓 재연결 추가
         useWebSocketStore.getState().initializeClient(data.result.accessToken)
 
         // 새 토큰으로 재요청
-        return fetch(apiUrl, {
+        response = await fetch(apiUrl, {
           ...options,
           headers: {
             ...options.headers,
             Authorization: `Bearer ${data.result.accessToken}`,
           },
         })
-      } catch (error) {
-        console.error('Token refresh failed:', error)
-        return response
       }
+    }
+
+    // 리프레시 토큰 만료 시 (403)
+    if (response.status === 403) {
+      useAuthStore.getState().setLoginState(false)
+      document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT'
     }
 
     return response
   } catch (error) {
-    if (url.includes('/api/v1/withdraw')) {
-      return null
-    }
     console.error('Fetch error:', error)
-    return null
+    throw error
   }
 }

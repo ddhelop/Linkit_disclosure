@@ -34,33 +34,25 @@ const useWebSocketStore = create<WebSocketState>((set, get) => ({
       reconnectDelay: 5000,
       heartbeatIncoming: 10000,
       heartbeatOutgoing: 10000,
-      debug: (str) => {
-        console.debug('STOMP:', str)
-      },
     })
 
     stompClient.onConnect = () => {
-      console.log('WebSocket connected')
       set({ isConnected: true })
     }
 
     stompClient.onDisconnect = () => {
-      console.log('WebSocket disconnected')
       set({ isConnected: false })
     }
 
     stompClient.onStompError = (frame) => {
-      console.error('STOMP error:', frame)
       set({ isConnected: false })
     }
 
     stompClient.onWebSocketError = (event) => {
-      console.error('WebSocket error:', event)
       set({ isConnected: false })
     }
 
     stompClient.onWebSocketClose = () => {
-      console.log('WebSocket connection closed')
       set({ isConnected: false })
       // 자동 재연결 시도
       setTimeout(() => get().reconnect(), 5000)
@@ -69,7 +61,6 @@ const useWebSocketStore = create<WebSocketState>((set, get) => ({
     try {
       stompClient.activate()
     } catch (error) {
-      console.error('Failed to activate WebSocket:', error)
       set({ isConnected: false })
     }
   },
