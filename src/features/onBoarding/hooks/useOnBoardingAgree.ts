@@ -40,7 +40,7 @@ export function useOnBoardingAgree() {
     const result = await submitConsentInfo(data, accessToken)
 
     if (result) {
-      document.cookie = `accessToken=${accessToken}; path=/; max-age=3600`
+      document.cookie = `accessToken=${accessToken}; path=/;`
       checkLogin()
       router.push('/login/onboarding-complete') // 온보딩 완료 페이지로 이동
     }

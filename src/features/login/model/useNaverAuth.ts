@@ -22,7 +22,7 @@ export const useNaverAuth = (code: string | null) => {
         // 쿠키에 액세스 토큰 저장
 
         if (isMemberBasicInform) {
-          document.cookie = `accessToken=${accessToken}; path=/; max-age=3600`
+          document.cookie = `accessToken=${accessToken}; path=/;`
           setLoginState(true)
           setEmailId(emailId)
 
