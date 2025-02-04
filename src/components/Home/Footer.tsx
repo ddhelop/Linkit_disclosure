@@ -29,7 +29,7 @@ export default function Footer() {
           <div className="flex gap-3">
             <Link href={'https://blog.naver.com/linkit_official'} target="_blank">
               <Image
-                src={'/common/icons/social/naver_blog_black.svg'}
+                src={'/common/icons/naver_blog_black.svg'}
                 alt="naver_blog"
                 width={20}
                 height={20}
@@ -38,7 +38,7 @@ export default function Footer() {
             </Link>
             <Link href={'https://open.kakao.com/o/gee0u5kg'} target="_blank">
               <Image
-                src={'/common/icons/social/kakaotalk_black.svg'}
+                src={'/common/icons/kakaotalk_black.svg'}
                 alt="kakaotalk"
                 width={20}
                 height={20}
@@ -47,7 +47,7 @@ export default function Footer() {
             </Link>
             <Link href={'https://www.instagram.com/linkit_official'} target="_blank">
               <Image
-                src={'/common/icons/social/insta_black.svg'}
+                src={'/common/icons/instagram_black.svg'}
                 alt="instagram"
                 width={20}
                 height={20}
