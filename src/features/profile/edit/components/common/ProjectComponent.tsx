@@ -56,7 +56,7 @@ export default function ProjectComponent({
             />
 
             {showMenu && (
-              <div className="absolute right-0 top-[calc(100%+0.5rem)] z-50 w-[5.5rem] rounded-lg border border-grey30 bg-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.10)]">
+              <div className="absolute left-0 top-[calc(100%+0.5rem)] z-50 w-[5.5rem] rounded-lg border border-grey30 bg-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.10)]">
                 <Link
                   href={`/profile/edit/portfolio/new?id=${profilePortfolioId}`}
                   className="flex w-full items-center justify-center py-2 text-sm text-grey70 hover:bg-grey10"
@@ -88,7 +88,7 @@ export default function ProjectComponent({
             ? `/profile/edit/portfolio/new?id=${profilePortfolioId}`
             : `/${emailId}/portfolio/${profilePortfolioId}`
         }
-        className="flex gap-6"
+        className="flex w-full gap-6"
       >
         <div className="h-[144px] w-[256px] rounded-lg">
           <div className="relative h-[144px] w-[256px]">

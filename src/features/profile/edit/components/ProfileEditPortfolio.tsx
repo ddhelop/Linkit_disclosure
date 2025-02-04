@@ -92,14 +92,14 @@ export default function ProfileEditPortfolio() {
         </Button>
       </Link>
 
-      <div className="flex flex-col gap-4">
+      <div className="mt-6 flex flex-col gap-4">
         {portfolioItems.length === 0 ? (
-          <div className="mt-6">
+          <div className="">
             <NotContentsUi />
           </div>
         ) : (
           portfolioItems.map((item) => (
-            <ProjectComponent key={item.profilePortfolioId} {...item} onDelete={handleDelete} />
+            <ProjectComponent key={item.profilePortfolioId} {...item} onDelete={handleDelete} isEdit={true} />
           ))
         )}
       </div>
