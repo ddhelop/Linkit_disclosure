@@ -36,7 +36,7 @@ export default function ProfileViewPortFolio() {
                 src={
                   portfolio.projectRepresentImagePath && portfolio.projectRepresentImagePath !== ''
                     ? portfolio.projectRepresentImagePath
-                    : '/common/images/portfolio_default_img.svg'
+                    : '/common/default_image.svg'
                 }
                 alt="portfolio"
                 layout="fill"
