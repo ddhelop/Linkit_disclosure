@@ -1,7 +1,7 @@
 // src/features/profile/api/authApi.ts
 
 import { useToast } from '@/shared/hooks/useToast'
-import { useAuthStore } from '@/shared/store/useAuthStore'
+import { deleteCookie, useAuthStore } from '@/shared/store/useAuthStore'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
 
 function getAccessToken() {
@@ -45,7 +45,8 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
 
       if (refreshResponse.ok) {
         const data = await refreshResponse.json()
-        document.cookie = `accessToken=${data.result.accessToken}; path=/; max-age=3600`
+        document.cookie = `accessToken=${data.result.accessToken}; path=/`
+
         useWebSocketStore.getState().initializeClient(data.result.accessToken)
 
         // 새 토큰으로 재요청
@@ -62,7 +63,7 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}, retr
     // 리프레시 토큰 만료 시 (403)
     if (response.status === 403) {
       useAuthStore.getState().setLoginState(false)
-      document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT'
+      deleteCookie('accessToken')
     }
 
     return response
