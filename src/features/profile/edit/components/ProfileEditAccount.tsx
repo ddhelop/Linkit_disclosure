@@ -15,7 +15,7 @@ import EmailIdChangeModal from './EmailIdChangeModal'
 import { useToast } from '@/shared/hooks/useToast'
 import { formatPhoneNumber } from '@/shared/utils/formatPhoneNumber'
 
-import { useAuthStore } from '@/shared/store/useAuthStore'
+import { deleteCookie, useAuthStore } from '@/shared/store/useAuthStore'
 import { useRouter } from 'next/navigation'
 
 export default function ProfileEditAccount() {
@@ -173,7 +173,7 @@ export default function ProfileEditAccount() {
     const response = await fetchWithdraw()
     if (response.isSuccess) {
       // 쿠키에서 액세스토큰 제거
-      document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT'
+      deleteCookie('accessToken')
       // 로그인 상태 false로 설정
       setLoginState(false)
       toast.success('회원탈퇴가 완료되었습니다.')

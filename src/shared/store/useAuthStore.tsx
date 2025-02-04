@@ -18,6 +18,10 @@ interface AuthStore {
   setLoginState: (isLogin: boolean) => void
 }
 
+export function deleteCookie(name: string) {
+  document.cookie = `${name}=; path=/; max-age=0`
+}
+
 export const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
@@ -40,7 +44,7 @@ export const useAuthStore = create<AuthStore>()(
       logout: async () => {
         const response = await logoutApi()
         if (response.isSuccess) {
-          document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT'
+          deleteCookie('accessToken')
           set({ isLogin: false, emailId: null })
           window.location.href = '/'
         }
