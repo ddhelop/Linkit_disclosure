@@ -11,8 +11,8 @@ export default function MyTeamViewMemberComponent({ member }: { member: TeamMemb
       className="w-full cursor-pointer rounded-xl border border-transparent hover:border-main"
     >
       <div className="flex rounded-xl bg-white px-8 py-6" style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}>
-        <div className={`flex gap-5 ${!hasProfileInfo ? 'w-full items-center' : ''}`}>
-          <div className="relative h-[80px] w-[80px] rounded-lg">
+        <div className={`flex  gap-5 ${!hasProfileInfo ? 'w-full items-center' : ''}`}>
+          <div className="relative aspect-square h-[80px] w-[80px] rounded-lg">
             <Image
               src={hasProfileInfo ? member.profileImagePath : '/common/default_profile.svg'}
               alt="default-profile"
