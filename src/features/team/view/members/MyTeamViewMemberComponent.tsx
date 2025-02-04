@@ -14,7 +14,7 @@ export default function MyTeamViewMemberComponent({ member }: { member: TeamMemb
         <div className={`flex  gap-5 ${!hasProfileInfo ? 'w-full items-center' : ''}`}>
           <div className="relative aspect-square h-[80px] w-[80px] rounded-lg">
             <Image
-              src={hasProfileInfo ? member.profileImagePath : '/common/default_profile.svg'}
+              src={member.profileImagePath ? member.profileImagePath : '/common/default_profile.svg'}
               alt="default-profile"
               fill
               className="rounded-lg object-cover"
