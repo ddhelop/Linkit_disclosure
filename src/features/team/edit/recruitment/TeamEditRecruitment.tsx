@@ -200,7 +200,6 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
         title.trim() !== '' &&
         selectedCategory !== '' &&
         selectedSubCategory !== '' &&
-        selectedSkills.length > 0 &&
         endDate !== '' &&
         mainTasks.trim() !== '' &&
         workMethod.trim() !== '' &&
@@ -278,9 +277,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
         {/* 요구 스킬 */}
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
-            <span className="text-grey80">
-              요구 스킬<span className="placeholder:-1 text-main">*</span>
-            </span>
+            <span className="text-grey80">요구 스킬</span>
           </div>
           <div className="flex flex-col gap-5">
             {/* 선택된 스킬 표시 */}
