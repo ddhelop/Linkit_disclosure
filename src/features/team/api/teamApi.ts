@@ -226,6 +226,7 @@ interface CreateRecruitmentRequest {
   divisionName: string
   isRegionFlexible: boolean
   mainTasks: string
+  isPermanentRecruitment: boolean
   workMethod: string
   idealCandidate: string
   preferredQualifications?: string
@@ -450,6 +451,7 @@ export interface TeamAnnouncementDetail {
     teamMemberAnnouncementId: number
     announcementTitle: string
     announcementScrapCount: number
+    isPermanentRecruitment: boolean
     isAnnouncementScrap: boolean
     announcementPositionItem: {
       majorPosition: string
