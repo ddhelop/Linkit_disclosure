@@ -21,6 +21,7 @@ import {
 } from '../../api/teamApi'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/shared/hooks/useToast'
+import Checkbox from '@/shared/ui/Checkbox/Checkbox'
 
 export default function TeamEditRecruitment({ params }: { params: { teamName: string } }) {
   const router = useRouter()
@@ -50,6 +51,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
   const [preferredQualifications, setPreferredQualifications] = useState('')
   const [joiningProcess, setJoiningProcess] = useState('')
   const [benefits, setBenefits] = useState('')
+  const [isPermanentRecruitment, setIsPermanentRecruitment] = useState(false)
 
   const handleAddSkill = (skill: string) => {
     if (!selectedSkills.includes(skill)) {
@@ -96,9 +98,25 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
     setEndDate(formatted)
   }
 
+  const handlePermanentRecruitmentChange = () => {
+    setIsPermanentRecruitment(!isPermanentRecruitment)
+    if (!isPermanentRecruitment) {
+      setEndDate('') // 상시 모집 체크 시 날짜 초기화
+    }
+  }
+
+  const isFormValid = () => {
+    const requiredFields = [title, selectedCategory, selectedSubCategory, mainTasks, workMethod, idealCandidate]
+
+    const hasRequiredFields = requiredFields.every((field) => field.trim() !== '')
+    const isDateValid = isPermanentRecruitment || (endDate !== '' && validateDate(endDate))
+
+    return hasRequiredFields && isDateValid
+  }
+
   const handleSubmit = async () => {
     try {
-      const formattedEndDate = new Date(endDate.replace('.', '-')).toISOString().split('T')[0]
+      const formattedEndDate = endDate ? new Date(endDate.replace(/\./g, '-')).toISOString().split('T')[0] : undefined
 
       const recruitmentData = {
         announcementTitle: title,
@@ -107,10 +125,11 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
         announcementSkillNames: selectedSkills.map((skill) => ({
           announcementSkillName: skill,
         })),
-        announcementEndDate: formattedEndDate,
-        cityName: '', // 활동 지역 관련 state 추가 필요
-        divisionName: '', // 활동 지역 관련 state 추가 필요
-        isRegionFlexible: false, // 지역 유연성 관련 state 추가 필요
+        announcementEndDate: isPermanentRecruitment ? '' : formattedEndDate || '',
+        isPermanentRecruitment,
+        cityName: '',
+        divisionName: '',
+        isRegionFlexible: false,
         mainTasks: mainTasks,
         workMethod: workMethod,
         idealCandidate: idealCandidate,
@@ -120,11 +139,9 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
       }
 
       if (id) {
-        // 수정
         await updateTeamAnnouncement(params.teamName, Number(id), recruitmentData)
         toast.success('채용 공고가 성공적으로 수정되었습니다.')
       } else {
-        // 생성
         await createRecruitment(recruitmentData, params.teamName)
         toast.success('채용 공고가 성공적으로 등록되었습니다.')
       }
@@ -149,7 +166,8 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
           setSelectedCategory(data.result.announcementPositionItem.majorPosition)
           setSelectedSubCategory(data.result.announcementPositionItem.subPosition)
           setSelectedSkills(data.result.announcementSkillNames.map((skill) => skill.announcementSkillName))
-          setEndDate(data.result.announcementEndDate)
+          setIsPermanentRecruitment(data.result.isPermanentRecruitment)
+          setEndDate(data.result.isPermanentRecruitment ? '' : data.result.announcementEndDate)
           setMainTasks(data.result.mainTasks)
           setWorkMethod(data.result.workMethod)
           setIdealCandidate(data.result.idealCandidate)
@@ -196,15 +214,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
       setIsDataChanged(isChanged)
     } else {
       // 생성 모드: 필수 항목 검증
-      const isValid =
-        title.trim() !== '' &&
-        selectedCategory !== '' &&
-        selectedSubCategory !== '' &&
-        endDate !== '' &&
-        mainTasks.trim() !== '' &&
-        workMethod.trim() !== '' &&
-        idealCandidate.trim() !== ''
-
+      const isValid = isFormValid()
       setIsDataChanged(isValid)
     }
   }, [
@@ -221,6 +231,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
     preferredQualifications,
     joiningProcess,
     benefits,
+    isPermanentRecruitment,
   ])
 
   return (
@@ -309,7 +320,14 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
               모집 마감일<span className="pl-1 text-main">*</span>
             </span>
           </div>
-          <Input placeholder="YYYY.MM.DD" value={endDate} onChange={handleEndDateChange} maxLength={10} />
+          <Input
+            placeholder="YYYY.MM.DD"
+            value={endDate}
+            onChange={handleEndDateChange}
+            maxLength={10}
+            disabled={isPermanentRecruitment}
+          />
+          <Checkbox checked={isPermanentRecruitment} onChange={handlePermanentRecruitmentChange} label="상시 모집" />
         </div>
 
         <hr />
