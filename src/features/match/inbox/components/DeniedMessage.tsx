@@ -20,8 +20,8 @@ export default function DeniedMessage({ message }: DeniedMessageProps) {
       return `${
         isSenderTeam
           ? `${message.senderTeamInformation.teamName} 팀이`
-          : `${message.senderProfileInformation.memberName}님이`
-      } ${message.receiverTeamInformation.teamName}팀으로 매칭 거절`
+          : ` ${message.receiverTeamInformation.teamName} 팀이 ${message.senderProfileInformation.memberName} 님의`
+      } 매칭 거절`
     }
     return `${
       isSenderTeam

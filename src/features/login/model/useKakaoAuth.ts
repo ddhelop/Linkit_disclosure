@@ -17,7 +17,7 @@ export const useKakaoAuth = (code: string | null) => {
         const { accessToken, email, isMemberBasicInform, emailId } = response.result
 
         if (isMemberBasicInform) {
-          document.cookie = `accessToken=${accessToken}; path=/; max-age=3600`
+          document.cookie = `accessToken=${accessToken}; path=/;`
           setLoginState(true)
           setEmailId(emailId)
           router.push('/')
