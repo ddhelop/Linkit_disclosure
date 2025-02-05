@@ -3,7 +3,7 @@ import PrivateFilterResult from '@/features/find/components/resultFilter/Private
 
 export default function FindPrivatePage() {
   return (
-    <div className={`relative h-[calc(100vh-14.1rem)] w-full`}>
+    <div className={`relative h-[calc(100vh-14.1rem)] w-full pb-20`}>
       {/* 고정된 배경 이미지 */}
       <div
         className="absolute right-0 top-0 h-[14.1rem] w-full"
