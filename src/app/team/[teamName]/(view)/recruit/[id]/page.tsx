@@ -58,14 +58,13 @@ export default function TeamViewRecruitDetailPage({ params }: { params: { teamNa
       {/* 플로팅 버튼 */}
       {!teamInfo?.result.isMyTeam && (
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2">
-          <Button
-            mode="main"
-            size="custom"
-            className="w-[12.5rem] rounded-xl py-4 text-base font-semibold hover:bg-[#486FEE]"
+          <button
+            className="w-[12.5rem] rounded-full bg-[#3774F4] py-4 text-base font-semibold text-white hover:bg-[#486FEE]"
+            style={{ boxShadow: '0px 0px 6px 1px rgba(0, 0, 0, 0.20)' }}
             onClick={handleApply}
           >
             지원하기
-          </Button>
+          </button>
         </div>
       )}
 

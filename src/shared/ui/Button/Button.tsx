@@ -39,7 +39,7 @@ export function Button({
 
   return (
     <motion.button
-      className={`rounded-xl font-semibold ${className} ${baseStyles} ${sizeStyles}`}
+      className={`font-semibold ${className} ${baseStyles} ${sizeStyles}`}
       type={type}
       onClick={onClick}
       disabled={disabled}
@@ -52,11 +52,11 @@ export function Button({
 
 const buttonTheme = {
   mode: {
-    main: 'text-white bg-main',
-    main2: 'bg-main2 text-white',
-    sub: 'text-main border-main bg-white',
-    toggle: 'text-main border-main bg-[#D3E1FE66]',
-    black: 'bg-grey90 text-white',
+    main: 'text-white bg-main rounded-xl',
+    main2: 'bg-main2 text-white rounded-xl',
+    sub: 'text-main border-main bg-white rounded-xl',
+    toggle: 'text-main border-main bg-[#D3E1FE66] rounded-xl',
+    black: 'bg-grey90 text-white rounded-xl',
     custom: '',
   },
 
