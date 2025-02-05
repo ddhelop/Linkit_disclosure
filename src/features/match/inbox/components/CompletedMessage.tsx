@@ -13,29 +13,29 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
 
   const senderInfo = isSenderTeam
     ? {
-        name: `${message.senderTeamInformation.teamName}팀`,
+        name: `${message.senderTeamInformation.teamName} 팀`,
         image: message.senderTeamInformation.teamLogoImagePath,
         scale: message.senderTeamInformation.teamScaleItem.teamScaleName,
       }
     : {
-        name: `${message.senderProfileInformation.memberName}님`,
+        name: `${message.senderProfileInformation.memberName} 님`,
         image: message.senderProfileInformation.profileImagePath,
         position: message.senderProfileInformation.profilePositionDetail.majorPosition,
       }
 
   const receiverInfo = isReceiverTeam
     ? {
-        name: `${message.receiverTeamInformation.teamName}팀`,
+        name: `${message.receiverTeamInformation.teamName} 팀`,
         scale: message.receiverTeamInformation.teamScaleItem.teamScaleName,
       }
     : {
-        name: `${message.receiverProfileInformation.memberName}님`,
+        name: `${message.receiverProfileInformation.memberName} 님`,
         position: message.receiverProfileInformation.profilePositionDetail.majorPosition,
       }
 
   const getMessageTitle = () => {
     if (isAnnouncementReceiver) {
-      return `${message.senderProfileInformation.memberName}님의 ${message.receiverAnnouncementInformation.teamName}팀 ${message.receiverAnnouncementInformation.announcementPositionItem.majorPosition} 공고 지원 수락!`
+      return `${message.senderProfileInformation.memberName} 님의 ${message.receiverAnnouncementInformation.teamName}팀 ${message.receiverAnnouncementInformation.announcementPositionItem.majorPosition} 공고 지원 수락!`
     }
     if (isSenderTeam && isReceiverTeam) {
       return `${senderInfo.name}과 ${receiverInfo.name} 매칭 성사!`
