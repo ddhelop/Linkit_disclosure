@@ -20,7 +20,9 @@ export default function SendToMessage({ message }: SendToMessageProps) {
       <div className="flex items-start">
         <div className="relative h-[48px] w-[48px] rounded-lg">
           <Image
-            src={message.messageSenderLogoImagePath}
+            src={
+              message.messageSenderLogoImagePath ? message.messageSenderLogoImagePath : '/common/default_profile.svg'
+            }
             alt="프로필 이미지"
             fill
             className="rounded-lg object-cover"
