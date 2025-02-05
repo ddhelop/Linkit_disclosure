@@ -69,6 +69,7 @@ export interface AnnouncementInformMenu {
   isAnnouncementScrap: boolean
   announcementScrapCount: number
   announcementPositionItem: PositionDetail
+  isPermanentRecruitment: boolean
   announcementSkillNames: AnnouncementSkill[]
 }
 

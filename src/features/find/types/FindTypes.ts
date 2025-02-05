@@ -139,6 +139,7 @@ export interface Announcement {
   announcementTitle: string
   isAnnouncementScrap: boolean
   announcementScrapCount: number
+  isPermanentRecruitment: boolean
   announcementPositionItem: AnnouncementPositionItem
   announcementSkillNames: AnnouncementSkillName[]
 }
