@@ -20,6 +20,9 @@ export default function ChattingBasicProfile({
   cityName,
   divisionName,
   chatPartnerOnline,
+  teamScale,
+  teamCityName,
+  teamDivisionName,
 }: ChattingBasicProfileProps) {
   const [isAlertOpen, setIsAlertOpen] = useState(false)
   const router = useRouter()
@@ -74,14 +77,31 @@ export default function ChattingBasicProfile({
               )}
             </div>
             <div className="flex gap-2 text-xs text-grey60">
-              <span className="text-grey50">포지션 |</span>
-              <span className="text-grey70">{majorPosition}</span>
+              {majorPosition ? (
+                <>
+                  <span className="text-grey50">포지션 |</span>
+                  <span className="text-grey70">{majorPosition}</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-grey50">팀 규모 |</span>
+                  <span className="text-grey70">{teamScale}</span>
+                </>
+              )}
             </div>
             <div className="flex gap-2 text-xs text-grey60">
               <span className="text-grey50">지역 |</span>
-              <span className="text-grey70">
-                {cityName} {divisionName}
-              </span>
+              {cityName && divisionName ? (
+                <>
+                  <span className="text-grey70">
+                    {cityName} {divisionName}
+                  </span>
+                </>
+              ) : (
+                <span className="text-grey70">
+                  {teamCityName} {teamDivisionName}
+                </span>
+              )}
             </div>
           </div>
           <DropdownMenu items={menuItems} />
