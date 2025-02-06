@@ -64,15 +64,17 @@ export default function ProfileViewPortFolio() {
           </Link>
         ))}
 
-        <div className="mt-4 flex w-full justify-end">
-          <Link
-            href={`/${profileData?.profileInformMenu.emailId}/portfolio`}
-            className="flex gap-1 rounded-xl bg-grey10 py-2 pl-4 pr-2 text-sm text-grey60 hover:bg-grey20"
-          >
-            포트폴리오 더보기
-            <Image src="/common/icons/arrow-right(greyblack).svg" alt="arrow_right" width={16} height={16} />
-          </Link>
-        </div>
+        {portfolioItems.length > 2 && (
+          <div className="mt-4 flex w-full justify-end">
+            <Link
+              href={`/${profileData?.profileInformMenu.emailId}/portfolio`}
+              className="flex gap-1 rounded-xl bg-grey10 py-2 pl-4 pr-2 text-sm text-grey60 hover:bg-grey20"
+            >
+              포트폴리오 더보기
+              <Image src="/common/icons/arrow-right(greyblack).svg" alt="arrow_right" width={16} height={16} />
+            </Link>
+          </div>
+        )}
       </div>
     </EditableContainer>
   )
