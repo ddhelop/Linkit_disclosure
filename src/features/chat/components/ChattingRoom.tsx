@@ -59,6 +59,9 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
     cityName: data.partnerProfileDetailInformation.regionDetail.cityName,
     divisionName: data.partnerProfileDetailInformation.regionDetail.divisionName,
     chatPartnerOnline: data.chatPartnerOnline,
+    teamScale: data.partnerTeamDetailInformation.teamScaleItem.teamScaleName,
+    teamCityName: data.partnerTeamDetailInformation.regionDetail.cityName,
+    teamDivisionName: data.partnerTeamDetailInformation.regionDetail.divisionName,
   })
 
   // 날짜 포맷팅 함수
@@ -111,6 +114,16 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
             const nextMessage = array[index + 1]
             const nextDate = nextMessage ? new Date(nextMessage.timestamp).toDateString() : null
 
+            // 먼저 메시지를 추가
+            acc.push(
+              message.isMyMessage ? (
+                <SendToMessage key={message.messageId} message={message} />
+              ) : (
+                <SendFromMessage key={message.messageId} message={message} />
+              ),
+            )
+
+            // 날짜가 변경되는 경우에만 날짜 구분선 추가
             if (currentDate !== nextDate) {
               acc.push(
                 <div key={`date-${message.messageId}`} className="my-6 flex items-center bg-grey10 py-2">
@@ -120,14 +133,6 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
                 </div>,
               )
             }
-
-            acc.push(
-              message.isMyMessage ? (
-                <SendToMessage key={message.messageId} message={message} />
-              ) : (
-                <SendFromMessage key={message.messageId} message={message} />
-              ),
-            )
 
             return acc
           }, []) || []}
