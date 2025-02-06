@@ -290,15 +290,15 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
           <div className="flex items-center justify-between">
             <span className="text-grey80">요구 스킬</span>
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col">
             {/* 선택된 스킬 표시 */}
             <div className="flex flex-wrap gap-2">
               {selectedSkills.map((skill) => (
                 <div
                   key={skill}
-                  className="flex items-center gap-2 rounded-lg border border-[#7EA5F8] bg-[#EDF3FF] px-4 py-2 text-main"
+                  className="mb-2 flex items-center gap-2 rounded-lg border border-[#7EA5F8] bg-[#EDF3FF] px-4 py-2 text-main"
                 >
-                  <span>{skill}</span>
+                  <span className="">{skill}</span>
                   <button onClick={() => handleRemoveSkill(skill)} className="text-grey60 hover:text-grey80">
                     ×
                   </button>
