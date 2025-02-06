@@ -67,6 +67,9 @@ export interface ChatBasicProfileProps {
   cityName: string
   divisionName: string
   chatPartnerOnline: boolean
+  teamScale: string
+  teamCityName: string
+  teamDivisionName: string
 }
 
 export interface ChatMessagesResponse {
