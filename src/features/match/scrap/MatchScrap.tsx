@@ -46,23 +46,40 @@ export default function MatchScrap() {
   }, [selectedFilter])
 
   return (
-    <div className="flex flex-col">
+    <div className="flex w-full flex-col">
       <MatchScrapFilter selected={selectedFilter} onFilterChange={setSelectedFilter} />
 
-      <div className="mt-8 grid grid-cols-2 gap-4">
+      <div className="mt-8 grid  w-full grid-cols-2 gap-4">
         {isLoading ? (
           <div>로딩 중...</div>
         ) : selectedFilter === 'MEMBER' ? (
-          Array.isArray(scrapData) &&
-          (scrapData as ProfileInform[]).map((profile) => <MiniProfileCard_2 key={profile.emailId} profile={profile} />)
+          Array.isArray(scrapData) && scrapData.length === 0 ? (
+            <div className="col-span-2 mt-16 flex h-full w-full items-center justify-center">
+              <span className="text-grey50">아직 스크랩한 프로필이 없어요</span>
+            </div>
+          ) : (
+            (scrapData as ProfileInform[]).map((profile) => (
+              <MiniProfileCard_2 key={profile.emailId} profile={profile} />
+            ))
+          )
         ) : selectedFilter === 'TEAM' ? (
-          Array.isArray(scrapData) &&
-          (scrapData as TeamInformMenu[]).map((team) => <MiniTeamCard_2 key={team.teamName} team={team} />)
+          Array.isArray(scrapData) && scrapData.length === 0 ? (
+            <div className="col-span-2 mt-16 flex h-full items-center justify-center">
+              <span className="text-grey50">아직 스크랩한 팀이 없어요</span>
+            </div>
+          ) : (
+            (scrapData as TeamInformMenu[]).map((team) => <MiniTeamCard_2 key={team.teamName} team={team} />)
+          )
         ) : selectedFilter === 'ANNOUNCEMENT' ? (
-          Array.isArray(scrapData) &&
-          (scrapData as AnnouncementInformMenu[]).map((announcement) => (
-            <AnnouncementCard key={announcement.teamMemberAnnouncementId} announcement={announcement} />
-          ))
+          Array.isArray(scrapData) && scrapData.length === 0 ? (
+            <div className="col-span-2 mt-16 flex h-full w-full items-center justify-center">
+              <span className="text-grey50">아직 스크랩한 공고가 없어요</span>
+            </div>
+          ) : (
+            (scrapData as AnnouncementInformMenu[]).map((announcement) => (
+              <AnnouncementCard key={announcement.teamMemberAnnouncementId} announcement={announcement} />
+            ))
+          )
         ) : null}
       </div>
     </div>
