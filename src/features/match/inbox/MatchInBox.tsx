@@ -39,7 +39,19 @@ export default function MatchInBox() {
       <MatchFilter />
 
       <div className="mt-8 flex flex-col">
-        {isLoading ? <div>로딩 중...</div> : <InBoxRequestMessage messages={messages} onUpdate={fetchMessages} />}
+        {isLoading ? (
+          <div>로딩 중...</div>
+        ) : (
+          <>
+            {messages.length === 0 ? (
+              <div className="mt-16 flex h-full items-center justify-center">
+                <span className="text-grey50">아직 내역이 없어요</span>
+              </div>
+            ) : (
+              <InBoxRequestMessage messages={messages} onUpdate={fetchMessages} />
+            )}
+          </>
+        )}
       </div>
     </div>
   )
