@@ -31,7 +31,7 @@ export function ImageUploader({
   onSubImageUpload,
   onSubImageDelete,
   onSubImageUrlDelete,
-  mainImageTitle = '로고',
+  mainImageTitle = '대표 이미지 (최대 1장)',
   subImageTitle = '프로젝트를 설명할 수 있는 보조 이미지가 있다면 추가해 주세요',
   maxSubImages = 4,
 }: ImageUploaderProps) {
