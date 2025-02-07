@@ -64,8 +64,14 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
   return (
     <div className="flex flex-col rounded-xl border border-grey30 bg-white px-[3.38rem] py-10">
       <div className="flex justify-between">
-        <div className="rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">
-          {calculateDday(recruitmentDetail.announcementEndDate)}
+        <div
+          className={`rounded-full  px-3 py-1 text-xs  ${
+            recruitmentDetail.isPermanentRecruitment ? 'bg-[#D3E1FE] text-[#2563EB]' : 'bg-[#FFECF0] text-[#FF345F]'
+          }`}
+        >
+          {recruitmentDetail.isPermanentRecruitment
+            ? '상시 모집'
+            : calculateDday(recruitmentDetail.announcementEndDate)}
         </div>
         {/* 스크랩 */}
         <div className="flex gap-2">
@@ -109,14 +115,14 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
           </div>
         )}
 
-        {recruitmentDetail.benefits && (
+        {recruitmentDetail.idealCandidate && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">요구 사항</h3>
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail.idealCandidate}</span>
           </div>
         )}
 
-        {recruitmentDetail.idealCandidate && (
+        {recruitmentDetail.workMethod && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">업무 방식</h3>
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail.workMethod}</span>
