@@ -40,6 +40,13 @@ export default function NewPortFolio() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [representImageUrl, setRepresentImageUrl] = useState<string | null>(null)
   const [subImageUrls, setSubImageUrls] = useState<string[]>([])
+  const [portfolioImages, setPortfolioImages] = useState<{
+    projectRepresentImagePath: string | null
+    portfolioSubImages: { projectSubImagePath: string }[]
+  }>({
+    projectRepresentImagePath: null,
+    portfolioSubImages: [],
+  })
 
   useEffect(() => {
     const fetchPortfolioData = async () => {
@@ -201,12 +208,12 @@ export default function NewPortFolio() {
     try {
       const formData = new FormData()
 
-      // 대표 이미지 추가
+      // 대표 이미지 처리
       if (representImage) {
         formData.append('projectRepresentImage', representImage)
       }
 
-      // 서브 이미지들 추가
+      // 서브 이미지 처리
       subImages.forEach((image) => {
         formData.append('projectSubImages', image.file)
       })
@@ -230,11 +237,14 @@ export default function NewPortFolio() {
         })),
         projectLink,
         projectDescription,
+        portfolioImages: {
+          projectRepresentImagePath: representImage ? null : representImageUrl,
+          portfolioSubImages: subImageUrls.map((url) => ({ projectSubImagePath: url })),
+        },
       }
 
       // 수정 시에는 'updateProfilePortfolioRequest'로, 생성 시에는 'addProfilePortfolioRequest'로 전송
       const requestKey = portfolioId ? 'updateProfilePortfolioRequest' : 'addProfilePortfolioRequest'
-
       formData.append(requestKey, new Blob([JSON.stringify(portfolioData)], { type: 'application/json' }))
 
       if (portfolioId) {
@@ -272,7 +282,9 @@ export default function NewPortFolio() {
       return true
     })
 
-    if (subImages.length + validFiles.length > 4) {
+    // 기존 이미지 URL과 새로운 파일의 총 개수가 4를 초과하지 않도록 체크
+    const totalImages = subImages.length + subImageUrls.length + validFiles.length
+    if (totalImages > 4) {
       alert('최대 4개의 이미지만 업로드 가능합니다.')
       return
     }

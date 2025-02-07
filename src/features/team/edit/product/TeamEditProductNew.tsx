@@ -131,8 +131,10 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
       return true
     })
 
-    if (subImages.length + validFiles.length > 4) {
-      toast.alert('최대 4개의 이미지 업로드 가능합니다.')
+    // 기존 이미지 URL과 새로운 파일의 총 개수가 4를 초과하지 않도록 체크
+    const totalImages = subImages.length + subImageUrls.length + validFiles.length
+    if (totalImages > 4) {
+      toast.alert('최대 4개의 이미지만 업로드 가능합니다.')
       return
     }
 
@@ -142,7 +144,6 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
   const handleSubmit = async () => {
     try {
       setIsSubmitting(true)
-
       const productData = {
         productName,
         productLineDescription,
@@ -157,6 +158,10 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         })),
         productDescription,
         productField: selectedField,
+        teamProductImages: {
+          productRepresentImagePath: mainImage ? null : mainImageUrl,
+          productSubImages: subImageUrls.map((url) => ({ productSubImagePath: url })),
+        },
       }
 
       if (productId) {
