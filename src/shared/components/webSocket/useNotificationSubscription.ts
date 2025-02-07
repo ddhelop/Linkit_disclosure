@@ -26,14 +26,11 @@ export default function useNotificationSubscription(emailId: string) {
     // 새로운 구독 생성
     subscriptionRef.current = client.subscribe(`/sub/notification/header/${emailId}`, (message) => {
       const notification = JSON.parse(message.body)
-      console.log('New notification received:', notification)
 
       // 알림 타입에 따라 카운트 증가
-      if (notification.type === 'CHAT') {
-        setUnreadChatCount(notification.unreadChatCount)
-      } else {
-        setUnreadNotificationCount(notification.unreadNotificationCount)
-      }
+
+      setUnreadChatCount(notification.unreadChatCount)
+      setUnreadNotificationCount(notification.unreadNotificationCount)
     })
 
     return () => {
