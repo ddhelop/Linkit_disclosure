@@ -117,19 +117,25 @@ export default function TeamProductComponent({ product, teamName, onDelete }: Te
       <hr />
 
       {/* 링크 */}
-      <div className="flex gap-[0.8rem]">
-        {product.teamProductLinks.map((link) => (
-          <div
-            key={link.productLinkId}
-            className="flex cursor-pointer gap-1 rounded-lg bg-grey10 py-2 pl-4 pr-12 text-xs text-grey80 hover:bg-grey30"
-            onClick={() => window.open(link.productLinkPath, '_blank')}
-          >
-            <span>{link.productLinkName}</span>
-            <Image src="/common/icons/share.svg" alt="link" width={14} height={14} />
-          </div>
-        ))}
+      {product.teamProductLinks.length > 0 && (
+        <div className="flex gap-[0.8rem]">
+          {product.teamProductLinks.map((link) => (
+            <div
+              key={link.productLinkId}
+              className="flex cursor-pointer gap-1 rounded-lg bg-grey10 py-2 pl-4 pr-12 text-xs text-grey80 hover:bg-grey30"
+              onClick={() => window.open(link.productLinkPath, '_blank')}
+            >
+              <span>{link.productLinkName}</span>
+              <Image src="/common/icons/share.svg" alt="link" width={14} height={14} />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* 설명 */}
+      <div className="whitespace-pre-line rounded-lg bg-grey10 p-4 text-xs font-normal text-grey70">
+        {product.productDescription}
       </div>
-      <div className="rounded-lg bg-grey10 p-4 text-xs font-normal text-grey70">{product.productDescription}</div>
     </Link>
   )
 }

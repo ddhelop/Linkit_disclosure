@@ -69,7 +69,9 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
               {hasDescription && (
                 <div className="flex flex-col gap-3">
                   <span className="text-sm text-grey90">설명</span>
-                  <div className="rounded-xl bg-grey10 p-6 text-grey70">{product.productDescription}</div>
+                  <div className="whitespace-pre-line rounded-xl bg-grey10 p-6 text-grey70">
+                    {product.productDescription}
+                  </div>
                 </div>
               )}
 
