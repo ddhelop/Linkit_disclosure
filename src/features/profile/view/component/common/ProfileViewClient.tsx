@@ -9,6 +9,8 @@ import { ProfileDetailData } from '@/entities/profile/model/types'
 import MiniProfileCard from '@/shared/components/MiniProfileCard'
 import ProfileViewProgress from '@/features/profile/edit/components/common/ProfileViewProgress'
 import ProfileMatchButton from './ProfileMatchButton'
+import Image from 'next/image'
+import Tooltip from '@/shared/components/Tooltip'
 
 export default function ProfileViewClient({
   children,
@@ -46,9 +48,23 @@ export default function ProfileViewClient({
             <ProfileViewProgress />
             <MiniProfileCard />
 
-            {/* 내 프로필일 경우 스크랩 버튼 보이기 */}
-            {!profileData.isMyProfile && <ProfileScrap />}
-            {/* 내 프로필일 경우 매칭 버튼 보이기 */}
+            {/* 내 프로필이 아닐 경우 스크랩 버튼 보이기 */}
+            {!profileData.isMyProfile ? (
+              <ProfileScrap />
+            ) : (
+              <div className="mt-7 flex w-full items-center justify-between rounded-full bg-grey20 px-5 py-[0.88rem]">
+                <div className="flex items-center  gap-5 text-grey70">
+                  <span className="text-sm">스크랩 수</span>
+                  <span className="">{profileData.profileScrapCount}</span>
+                </div>
+                <Tooltip
+                  text="다른 사용자가 나의 프로필을
+                  스크랩한 횟수를 보여줍니다"
+                  className="left-20 top-[22px] w-[165px]"
+                ></Tooltip>
+              </div>
+            )}
+            {/* 내 프로필이 아닐 경우 매칭 버튼 보이기 */}
             {!profileData.isMyProfile && <ProfileMatchButton />}
           </div>
         </aside>
