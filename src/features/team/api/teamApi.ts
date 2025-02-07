@@ -440,6 +440,7 @@ export interface TeamAnnouncement {
     announcementSkillName: string
   }[]
   isAnnouncementPublic: boolean
+  isPermanentRecruitment: boolean
   isAnnouncementInProgress: boolean
   announcementEndDate: string
 }

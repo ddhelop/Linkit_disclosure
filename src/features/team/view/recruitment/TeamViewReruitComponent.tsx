@@ -52,8 +52,12 @@ export default function TeamViewReruitComponent({
       className="flex flex-col rounded-xl border border-transparent bg-white px-10 py-5 hover:border-main"
     >
       <div className="flex justify-between">
-        <div className="rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">
-          D-{announcement.announcementDDay}
+        <div
+          className={`rounded-full px-3 py-1 text-xs ${
+            announcement.isPermanentRecruitment ? 'bg-[#D3E1FE] text-main' : 'bg-[#FFECF0] text-[#FF345F]'
+          }`}
+        >
+          {announcement.isPermanentRecruitment ? '상시 모집' : `D-${announcement.announcementDDay}`}
         </div>
         <div className="flex gap-2 text-[#4D82F3]">
           <Image
