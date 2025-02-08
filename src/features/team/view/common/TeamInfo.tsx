@@ -167,8 +167,12 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
     try {
       const response = await requestTeamDelete(teamInformMenu.teamCode, 'ALLOW_DELETE')
       if (response.isSuccess) {
-        toast.success('팀 삭제요청이 수락되었습니다.')
-        router.push('/team/select')
+        if (response.result.isTeamLastDeleteRequester) {
+          toast.success('팀 삭제가 완료 되었습니다.')
+          router.push('/team/select')
+        } else {
+          toast.success('팀 삭제요청이 수락되었습니다.')
+        }
       }
     } catch (error) {
       console.error('Failed to delete team:', error)
