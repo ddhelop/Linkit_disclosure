@@ -47,7 +47,7 @@ export default function Footer() {
             </Link>
             <Link href={'https://www.instagram.com/linkit_official'} target="_blank">
               <Image
-                src={'/common/icons/instagram_black.svg'}
+                src={'/common/icons/insta_black.svg'}
                 alt="instagram"
                 width={20}
                 height={20}
