@@ -78,9 +78,11 @@ export default function TeamViewReruitComponent({
         <div className="mt-5 rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-main">
           {announcement.majorPosition}
         </div>
-        <div className="mt-5 rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-main">
-          {announcement.announcementSkillNames.map((skill) => skill.announcementSkillName).join(', ')}
-        </div>
+        {announcement.announcementSkillNames.map((skill, index) => (
+          <div key={index} className="mt-5 rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-main">
+            {skill.announcementSkillName}
+          </div>
+        ))}
       </div>
     </Link>
   )
