@@ -167,7 +167,7 @@ export default function PortfolioDetailPage({ params }: { params: { emailId: str
         {portfolioDetail?.portfolioImages.projectRepresentImagePath && (
           <>
             <h2 className="mt-8 text-sm text-grey90">이미지</h2>
-            <div className="mt-3 flex flex-col gap-3">
+            <div className="mt-3 flex flex-col gap-[1.38rem]">
               {/* 대표 이미지 */}
               <div className="relative h-[228px] w-[402px] rounded-lg">
                 <Image
@@ -178,12 +178,14 @@ export default function PortfolioDetailPage({ params }: { params: { emailId: str
                 />
               </div>
               {/* 서브 이미지 */}
-              <div className="grid grid-cols-2 gap-3">
-                {portfolioDetail?.portfolioImages.portfolioSubImages.map((image) => (
-                  <div key={image.projectSubImagePath} className="relative h-[140px] w-[252px] rounded-lg">
-                    <Image src={image.projectSubImagePath} alt="project" fill className="rounded-lg object-cover" />
-                  </div>
-                ))}
+              <div className="flex gap-[1.38rem]">
+                <div className="grid grid-cols-2 gap-[1.38rem]">
+                  {portfolioDetail?.portfolioImages.portfolioSubImages.map((image) => (
+                    <div key={image.projectSubImagePath} className="relative h-[140px] w-[252px] rounded-lg">
+                      <Image src={image.projectSubImagePath} alt="project" fill className="rounded-lg object-cover" />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </>
