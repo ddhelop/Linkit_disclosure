@@ -35,7 +35,7 @@ export default function FooterComponent() {
             </span>
           </div>
           <div className="flex gap-x-6 pt-[0.44rem]">
-            <span className="">ⓒ 2024. liaison All rights reserved.</span>
+            <span className="">ⓒ 2025. liaison All rights reserved.</span>
           </div>
           <div className="flex gap-x-4 pt-[0.94rem]">
             <Image
