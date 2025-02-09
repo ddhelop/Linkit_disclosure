@@ -165,6 +165,7 @@ interface TeamBasicInfo {
   message: string
   result: {
     isMyTeam: boolean
+    isTeamPublic: boolean
 
     teamInformMenu: {
       teamCurrentStates: Array<{ teamStateName: string }>

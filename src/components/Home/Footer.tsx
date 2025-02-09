@@ -33,7 +33,7 @@ export default function Footer() {
                 alt="naver_blog"
                 width={20}
                 height={20}
-                className="cursor-pointer transition-all duration-300 hover:scale-125"
+                className="cursor-pointer transition-all duration-300 "
               />
             </Link>
             <Link href={'https://open.kakao.com/o/gee0u5kg'} target="_blank">
@@ -42,7 +42,7 @@ export default function Footer() {
                 alt="kakaotalk"
                 width={20}
                 height={20}
-                className="cursor-pointer transition-all duration-300 hover:scale-125"
+                className="cursor-pointer transition-all duration-300"
               />
             </Link>
             <Link href={'https://www.instagram.com/linkit_official'} target="_blank">
@@ -51,7 +51,7 @@ export default function Footer() {
                 alt="instagram"
                 width={20}
                 height={20}
-                className="cursor-pointer transition-all duration-300 hover:scale-125"
+                className="cursor-pointer transition-all duration-300 "
               />
             </Link>
           </div>
