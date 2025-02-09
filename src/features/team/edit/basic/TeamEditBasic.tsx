@@ -131,6 +131,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
           logoPath: teamInformMenu.teamLogoImagePath,
           status: teamInformMenu.teamCurrentStates.map((state) => state.teamStateName),
           teamCode: teamInformMenu.teamCode,
+          isTeamPublic: data.result.isTeamPublic,
         })
 
         // 폼 데이터 설정
@@ -142,6 +143,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
         setTeamLogoPath(teamInformMenu.teamLogoImagePath)
         setRecruitmentStatus(teamInformMenu.teamCurrentStates.map((state) => state.teamStateName))
         setTeamCode(teamInformMenu.teamCode)
+        setIsTeamPublic(data.result.isTeamPublic)
       } catch (error) {
         console.error('Failed to fetch team info:', error)
       } finally {
@@ -164,6 +166,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
       selectedDistrict !== initialData.district ||
       teamLogo !== null || // 새로운 로고가 선택된 경우
       teamCode !== initialData.teamCode ||
+      isTeamPublic !== initialData.isTeamPublic ||
       JSON.stringify(recruitmentStatus) !== JSON.stringify(initialData.status)
     )
   }
@@ -183,7 +186,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
         cityName: selectedCity,
         divisionName: selectedDistrict,
         teamStateNames: recruitmentStatus,
-        isTeamPublic,
+        isTeamPublic: isTeamPublic,
         teamCode,
       }
 
@@ -211,6 +214,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
           logoPath: teamLogoPath,
           status: recruitmentStatus,
           teamCode,
+          isTeamPublic,
         })
       } else {
         throw new Error(response.message)
@@ -407,7 +411,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
 
           <Radio
             options={options}
-            selectedValue={isTeamPublic.toString()}
+            selectedValue={isTeamPublic?.toString()}
             onChange={handleTeamVisibilityChange}
             labelClassName=""
           />
