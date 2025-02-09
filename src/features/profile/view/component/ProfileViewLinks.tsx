@@ -58,7 +58,7 @@ export default function ProfileViewLinks() {
               {iconPath && <Image src={iconPath} alt={`${link.linkName} icon`} width={20} height={20} />}
               <p className="text-sm text-grey80">{link.linkName}</p>
               {hoveredLink === link.profileLinkId.toString() && (
-                <div className="absolute left-0 top-full mt-2 rounded-md bg-gray-800 px-2 py-1 text-sm text-white opacity-100 transition-all duration-200">
+                <div className="absolute left-0 top-full z-10 mt-2 rounded-md bg-gray-800 px-2 py-1 text-sm text-white opacity-100 transition-all duration-200">
                   {link.linkPath}
                 </div>
               )}
