@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { submitMemberInfo } from '../api/memberApi'
 import { usePhoneNumberFormatter } from '@/shared/hooks/usePhoneNumberFormatter'
 import { useAuthStore } from '@/shared/store/useAuthStore'
+import { validateName } from '@/shared/utils/validation'
 
 export function useOnBoarding() {
   const [name, setName] = useState('')
@@ -15,6 +16,7 @@ export function useOnBoarding() {
 
   const [emailId, setLocalEmailId] = useState('')
   const [emailIdError, setEmailIdError] = useState('')
+  const [nameError, setNameError] = useState('')
 
   const router = useRouter()
   const { phoneNumber, setPhoneNumber } = usePhoneNumberFormatter()
@@ -43,7 +45,10 @@ export function useOnBoarding() {
     name.trim() !== '' && phoneNumber.replace(/\D/g, '').length >= 10 && emailId.trim() !== '' && !emailIdError // 에러가 없을 때만 버튼 활성화
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value)
+    const newValue = event.target.value
+    const validation = validateName(newValue)
+    setName(newValue)
+    setNameError(validation.errorMessage)
   }
 
   const submitOnBoardingInfo = async () => {
@@ -81,5 +86,6 @@ export function useOnBoarding() {
     setEmailId: handleEmailIdChange,
     isButtonEnabled,
     submitOnBoardingInfo,
+    nameError,
   }
 }
