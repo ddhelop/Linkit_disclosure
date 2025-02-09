@@ -6,6 +6,7 @@ import { Button } from '@/shared/ui/Button/Button'
 import { useState, useEffect } from 'react'
 import { getTeamMembers } from '../../api/teamApi'
 import NotContentsUi from '@/features/profile/edit/components/common/NotContentsUi'
+import Image from 'next/image'
 
 export default function TeamEditMembersList({ teamName }: { teamName: string }) {
   const [showAddModal, setShowAddModal] = useState(false)
@@ -37,12 +38,14 @@ export default function TeamEditMembersList({ teamName }: { teamName: string }) 
   return (
     <div className="flex w-full flex-col gap-5">
       <Button
-        mode="main2"
         animationMode="main"
-        className="mt-5 w-full rounded-[0.69rem] py-2"
+        mode="main2"
+        size="custom"
         onClick={() => setShowAddModal(true)}
+        className="mt-5 flex w-full items-center justify-center gap-2 rounded-[0.63rem] py-2 text-sm"
       >
-        + 추가하기
+        <Image src="/common/icons/plus.svg" width={15} height={15} alt="plus-icon" />
+        추가하기
       </Button>
 
       <AddMemberModal

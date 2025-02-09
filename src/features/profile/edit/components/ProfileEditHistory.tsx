@@ -7,6 +7,7 @@ import ElementComponent from './common/ElementComponent'
 import { HistoryListSkeleton } from './skeletons/ListSkeletons'
 import { useProfileMenuStore } from '../../store/useProfileMenuStore'
 import NotContentsUi from './common/NotContentsUi'
+import Image from 'next/image'
 
 interface ActivityItem {
   profileActivityId: number
@@ -64,8 +65,14 @@ export default function ProfileEditHistory() {
     return (
       <div className="flex w-full flex-col">
         <Link href={'/profile/edit/history/new'} className="w-full">
-          <Button mode="main2" animationMode="main" size="custom" className="w-full rounded-[0.6rem] py-2 text-sm">
-            + 추가하기
+          <Button
+            animationMode="main"
+            mode="main2"
+            size="custom"
+            className="flex w-full items-center justify-center gap-2 rounded-[0.63rem] py-2 text-sm"
+          >
+            <Image src="/common/icons/plus.svg" width={15} height={15} alt="plus-icon" />
+            추가하기
           </Button>
         </Link>
         <HistoryListSkeleton />
@@ -77,8 +84,14 @@ export default function ProfileEditHistory() {
     return (
       <div className="flex flex-col">
         <Link href={'/profile/edit/history/new'} className="w-full">
-          <Button mode="main2" animationMode="main" size="custom" className="w-full rounded-[0.63rem] py-2 text-sm">
-            + 추가하기
+          <Button
+            animationMode="main"
+            mode="main2"
+            size="custom"
+            className="flex w-full items-center justify-center gap-2 rounded-[0.63rem] py-2 text-sm"
+          >
+            <Image src="/common/icons/plus.svg" width={15} height={15} alt="plus-icon" />
+            추가하기
           </Button>
         </Link>
         <div className="mt-6">
@@ -91,8 +104,14 @@ export default function ProfileEditHistory() {
   return (
     <div className="flex w-full flex-col">
       <Link href={'/profile/edit/history/new'} className="w-full">
-        <Button mode="main2" animationMode="main" size="custom" className="w-full rounded-[0.6rem] py-2 text-sm">
-          + 추가하기
+        <Button
+          animationMode="main"
+          mode="main2"
+          size="custom"
+          className="flex w-full items-center justify-center gap-2 rounded-[0.63rem] py-2 text-sm"
+        >
+          <Image src="/common/icons/plus.svg" width={15} height={15} alt="plus-icon" />
+          추가하기
         </Button>
       </Link>
 
