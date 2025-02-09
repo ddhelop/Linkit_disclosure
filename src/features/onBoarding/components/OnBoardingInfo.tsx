@@ -9,7 +9,7 @@ export default function OnBoardingInfo() {
     name,
     phoneNumber,
     email,
-
+    nameError,
     emailId,
     emailIdError,
     setName,
@@ -25,9 +25,16 @@ export default function OnBoardingInfo() {
         <h1 className="text-xl font-semibold text-grey90">기본 정보를 입력해 주세요.</h1>
         <p className="mt-3 text-sm text-grey50">입력한 정보는 마이페이지에서 확인하고 수정할 수 있어요</p>
 
-        <div className="mt-9 flex flex-col">
+        <div className=" mt-9 flex flex-col">
           <h2 className="text-grey60">이름</h2>
-          <Input value={name} onChange={setName} placeholder="이름을 입력해 주세요." className="mt-3" />
+          <Input
+            value={name}
+            onChange={setName}
+            placeholder="이름을 입력해 주세요."
+            className="mt-3"
+            error={!!nameError}
+          />
+          {nameError && <p className=" mt-1 text-sm text-red-500">{nameError}</p>}
         </div>
 
         <div className="mt-7 flex flex-col">

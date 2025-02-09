@@ -203,7 +203,7 @@ export default function ProfileEditAccount() {
 
           <div
             className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10"
-            onClick={() => memberData.name && setIsNameModalOpen(true)}
+            onClick={() => (memberData.name || memberData.name == '') && setIsNameModalOpen(true)}
           >
             <div className="flex items-center gap-3">
               <Image src="/common/icons/user_profile_light.svg" alt="edit" width={48} height={48} />
