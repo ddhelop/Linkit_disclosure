@@ -68,8 +68,14 @@ export default function ProfileEditEducation() {
     return (
       <div className="flex flex-col">
         <Link href={'/profile/edit/education/new'} className="w-full">
-          <Button mode="main2" animationMode="main" className="w-full rounded-[0.69rem] py-2 text-sm">
-            + 추가하기
+          <Button
+            animationMode="main"
+            mode="main2"
+            size="custom"
+            className="flex w-full items-center justify-center gap-2 rounded-[0.63rem] py-2 text-sm"
+          >
+            <Image src="/common/icons/plus.svg" width={15} height={15} alt="plus-icon" />
+            추가하기
           </Button>
         </Link>
         <EducationListSkeleton />
@@ -80,8 +86,14 @@ export default function ProfileEditEducation() {
   return (
     <div className="flex flex-col">
       <Link href={'/profile/edit/education/new'} className="w-full">
-        <Button mode="main2" animationMode="main" className="w-full rounded-[0.69rem] py-2 text-sm">
-          + 추가하기
+        <Button
+          animationMode="main"
+          mode="main2"
+          size="custom"
+          className="flex w-full items-center justify-center gap-2 rounded-[0.63rem] py-2 text-sm"
+        >
+          <Image src="/common/icons/plus.svg" width={15} height={15} alt="plus-icon" />
+          추가하기
         </Button>
       </Link>
 

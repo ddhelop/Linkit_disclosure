@@ -1,15 +1,22 @@
 import TeamEditHistoy from '@/features/team/edit/history/TeamEditHistoy'
 import { Button } from '@/shared/ui/Button/Button'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default function TeamEditHistoryPage({ params }: { params: { teamName: string } }) {
   return (
     <div className="flex flex-col">
-      <h1 className="text-xl font-bold">연혁</h1>
+      <h1 className="mb-5 text-xl font-bold">연혁</h1>
 
       <Link href={`/team/${params.teamName}/edit/history/new`}>
-        <Button mode="main2" animationMode="main" className="mt-5 w-full rounded-[0.69rem] py-2">
-          + 추가하기
+        <Button
+          animationMode="main"
+          mode="main2"
+          size="custom"
+          className="flex w-full items-center justify-center gap-2 rounded-[0.63rem] py-2 text-sm"
+        >
+          <Image src="/common/icons/plus.svg" width={15} height={15} alt="plus-icon" />
+          추가하기
         </Button>
       </Link>
 
