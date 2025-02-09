@@ -31,6 +31,10 @@ export default function ProfileViewLayout() {
     { id: 'links', label: '링크' },
   ]
 
+  const setRef = (id: string) => (el: HTMLDivElement | null) => {
+    sectionsRef.current[id] = el
+  }
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -46,7 +50,7 @@ export default function ProfileViewLayout() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200 // 약간의 오프셋
+      const scrollPosition = window.scrollY + 200
 
       for (const section of sections) {
         const element = sectionsRef.current[section.id]
@@ -77,28 +81,28 @@ export default function ProfileViewLayout() {
     <ProfileViewProvider profileData={profileData}>
       <div className="relative flex">
         <div className="flex flex-grow flex-col gap-6">
-          <div ref={(el) => (sectionsRef.current['log'] = el)}>
+          <div ref={setRef('log')}>
             <ProfileViewLog />
           </div>
-          <div ref={(el) => (sectionsRef.current['skills'] = el)}>
+          <div ref={setRef('skills')}>
             <ProfileViewSkills />
           </div>
-          <div ref={(el) => (sectionsRef.current['history'] = el)}>
+          <div ref={setRef('history')}>
             <ProfileViewHistory />
           </div>
-          <div ref={(el) => (sectionsRef.current['portfolio'] = el)}>
+          <div ref={setRef('portfolio')}>
             <ProfileViewPortFolio />
           </div>
-          <div ref={(el) => (sectionsRef.current['education'] = el)}>
+          <div ref={setRef('education')}>
             <ProfileViewEducation />
           </div>
-          <div ref={(el) => (sectionsRef.current['awards'] = el)}>
+          <div ref={setRef('awards')}>
             <ProfileViewAwards />
           </div>
-          <div ref={(el) => (sectionsRef.current['license'] = el)}>
+          <div ref={setRef('license')}>
             <ProfileViewLicense />
           </div>
-          <div ref={(el) => (sectionsRef.current['links'] = el)}>
+          <div ref={setRef('links')}>
             <ProfileViewLinks />
           </div>
         </div>
