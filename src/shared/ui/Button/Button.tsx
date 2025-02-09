@@ -33,7 +33,7 @@ export function Button({
   const animationEffect = disabled ? {} : animationModes[animationMode] || {}
 
   // className을 먼저 적용하고, 그 다음에 disabled 스타일을 적용
-  const baseStyles = disabled ? 'cursor-not-allowed bg-grey30 text-grey50' : buttonTheme.mode[mode]
+  const baseStyles = disabled ? 'cursor-not-allowed bg-grey50 text-white rounded-xl' : buttonTheme.mode[mode]
 
   const sizeStyles = buttonTheme.size[size]
 
