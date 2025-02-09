@@ -161,11 +161,11 @@ export function TeamMemberItem({
               '(대기중)'
             ) : memberType === 'TEAM_OWNER' ? (
               <div className="flex items-center gap-2">
-                <div className="rounded-lg bg-grey10 px-[0.62rem] py-1 text-main">오너/관리자</div>
+                <div className="rounded-lg bg-grey10 px-[0.62rem] py-1 text-main">대표/관리자</div>
                 <Tooltip
                   text={[
-                    '오너의 경우 팀 구성원의 권한 수정 및 삭제 기능과',
-                    '소속 팀 관련 매칭 관리 및 채팅 기능을 이용할 수 있어요.',
+                    '대표는 팀을 대표해 채팅하고 팀 구성원을 삭제할 수 있는 권한을 가져요',
+                    '관리자는 팀원을 초대할 수 있어요',
                   ]}
                   className="left-44 w-[18.4rem]"
                 />
