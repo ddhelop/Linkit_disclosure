@@ -93,9 +93,30 @@ export function TeamMemberItem({
     }
   }
 
+  const handleUpdateToOwner = async (emailId: string) => {
+    try {
+      await updateMemberType(teamCode, emailId, 'TEAM_OWNER')
+      toast.success('대표가 변경되었습니다.')
+      setShowMenu(false)
+      onMemberUpdate?.()
+    } catch (error) {
+      console.error('Error updating to owner:', error)
+      toast.alert('대표 변경에 실패했습니다.')
+    }
+  }
+
   const renderMenuItems = () => {
     return (
       <>
+        {myRole.isTeamOwner && (
+          <button
+            className={getButtonStyle('manager')}
+            onClick={() => !isPending && emailId && memberType !== 'TEAM_OWNER' && handleUpdateToOwner(emailId)}
+            disabled={isPending || memberType === 'TEAM_OWNER'}
+          >
+            대표로 설정
+          </button>
+        )}
         <button
           className={getButtonStyle('manager')}
           onClick={() =>
