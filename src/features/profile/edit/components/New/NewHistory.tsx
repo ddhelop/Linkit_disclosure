@@ -227,7 +227,16 @@ export default function NewHistory() {
       </div>
 
       {/* CertificationForm은 상태에 따라 렌더링 */}
-      {activityId && <CertificationForm {...certificationData} onCertificationUpdate={handleCertificationUpdate} />}
+      {activityId ? (
+        <CertificationForm {...certificationData} onCertificationUpdate={handleCertificationUpdate} />
+      ) : (
+        <div className="mt-10 flex w-full flex-col gap-3 rounded-xl bg-white px-[2.88rem] py-10">
+          <span className="text-grey80">인증</span>
+          <div className="flex justify-center rounded-xl border border-grey30 bg-grey20 py-5 text-sm font-normal text-grey80">
+            저장 후 인증서를 추가할 수 있어요
+          </div>
+        </div>
+      )}
     </>
   )
 }
