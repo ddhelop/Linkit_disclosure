@@ -210,7 +210,7 @@ export default function NewCertificate() {
         </Button>
       </div>
 
-      {id && (
+      {id ? (
         <div className="mt-5">
           <CertificationForm
             isActivityCertified={certificationData.isActivityCertified}
@@ -218,6 +218,13 @@ export default function NewCertificate() {
             activityCertificationAttachFilePath={certificationData.activityCertificationAttachFilePath}
             onCertificationUpdate={handleCertificationUpdate}
           />
+        </div>
+      ) : (
+        <div className="mt-10 flex w-full flex-col gap-3 rounded-xl bg-white px-[2.88rem] py-10">
+          <span className="text-grey80">인증</span>
+          <div className="flex justify-center rounded-xl border border-grey30 bg-grey20 py-5 text-sm font-normal text-grey80">
+            저장 후 인증서를 추가할 수 있어요
+          </div>
         </div>
       )}
       {/* 인증서 폼 - 버튼 아래에 배치 */}
