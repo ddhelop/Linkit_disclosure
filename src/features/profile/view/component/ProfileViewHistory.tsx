@@ -47,7 +47,7 @@ export default function ProfileViewHistory() {
                 {history.activityStartDate}~{history.activityEndDate}
               </p>
             </div>
-            <div className="text-xs text-grey70">
+            <div className="whitespace-pre-line text-xs text-grey70">
               {history.activityDescription ? (
                 history.activityDescription.length > 50 ? (
                   <>
