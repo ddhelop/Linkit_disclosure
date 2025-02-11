@@ -67,33 +67,29 @@ export default function CertificationUploadForm({
     }
   }
 
-  const handleSubmit = async () => {
-    if (!selectedFile || !activityId) {
-      toast.alert('파일을 업로드 해주세요.')
-      return
-    }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!selectedFile || !activityId) return
 
     setIsSubmitting(true)
     try {
+      const formData = new FormData()
+      formData.append('file', selectedFile)
+
       const endpointType = getApiEndpoint(activityId)
-      await requestCertification(activityId, selectedFile, endpointType)
-      toast.success('인증 요청이 성공적으로 완료되었습니다.')
+      const response = await requestCertification(activityId, selectedFile, endpointType)
 
       onCertificationUpdate({
-        isEducationCertified: true,
-        isEducationInProgress: true,
-        isEducationVerified: true,
-        educationCertificationAttachFilePath: null,
+        [`is${endpointType}Certified`]: true,
+        [`is${endpointType}Verified`]: false,
+        [`${endpointType.toLowerCase()}CertificationAttachFilePath`]: response.result.filePath,
       })
 
       onClose()
+      toast.success('인증서가 성공적으로 업로드되었습니다.')
     } catch (error) {
-      console.error('요청 중 에러 발생:', error)
-      if (error instanceof Error && error.message === '지원하지 않는 URL 경로입니다.') {
-        toast.alert('잘못된 접근입니다.')
-      } else {
-        toast.alert('인증 요청 중 오류가 발생했습니다. 다시 시도해주세요.')
-      }
+      console.error('Failed to upload certification:', error)
+      toast.alert('인증서 업로드에 실패했습니다.')
     } finally {
       setIsSubmitting(false)
     }

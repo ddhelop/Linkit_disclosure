@@ -71,7 +71,7 @@ export default function CertificationForm(props: CertificationFormProps) {
     if (!confirm('인증서를 삭제하시겠습니까?')) return
 
     try {
-      await deleteCertification(props.itemId, props.certificationType)
+      await deleteCertification(props.certificationType, props.itemId)
       toast.success('인증서가 성공적으로 삭제되었습니다.')
       props.onCertificationUpdate({
         [`is${props.certificationType.charAt(0).toUpperCase() + props.certificationType.slice(1)}Certified`]: false,
