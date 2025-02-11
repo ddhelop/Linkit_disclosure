@@ -1,4 +1,4 @@
-type NotificationType = 'MATCHING' | 'CHATTING' | 'TEAM_INVITATION' | 'TEAM' | 'SYSTEM'
+type NotificationType = 'MATCHING' | 'CHATTING' | 'TEAM_INVITATION' | 'TEAM' | 'SYSTEM' | 'ANNOUNCEMENT'
 type SubNotificationType =
   | 'MATCHING_REQUESTED'
   | 'MATCHING_ACCEPTED'
@@ -12,6 +12,9 @@ type SubNotificationType =
   | 'COMPLETE_PROFILE'
   | 'WELCOME_LINKIT'
   | 'ETC'
+  | 'ANNOUNCEMENT_REQUESTED'
+  | 'ANNOUNCEMENT_ACCEPTED'
+  | 'ANNOUNCEMENT_REJECTED'
 
 interface NotificationDetails {
   matchingTargetName?: string
@@ -31,7 +34,7 @@ export const getNotificationMessage = (
         case 'MATCHING_REQUESTED':
           return `${details.matchingTargetName}님이 매칭을 요청했습니다.`
         case 'MATCHING_ACCEPTED':
-          return `${details.matchingTargetName}님이 매칭을 수락했습니다.`
+          return `${details.matchingTargetName}님과 매칭 성사!`
         case 'MATCHING_REJECTED':
           return `${details.matchingTargetName}님이 매칭을 거절했습니다.`
         default:
@@ -52,6 +55,18 @@ export const getNotificationMessage = (
           return `${details.teamMemberName}님이 ${details.teamName} 팀에 합류했습니다.`
         default:
           return '알 수 없는 팀 초대 알림입니다.'
+      }
+
+    case 'ANNOUNCEMENT':
+      switch (subType) {
+        case 'ANNOUNCEMENT_REQUESTED':
+          return `${details.matchingTargetName}님의 공고 지원.`
+        case 'ANNOUNCEMENT_ACCEPTED':
+          return `${details.matchingTargetName}님의 공고 지원 수락!`
+        case 'ANNOUNCEMENT_REJECTED':
+          return `${details.matchingTargetName}님의 공고 지원 거절`
+        default:
+          return '알 수 없는 공고 알림입니다.'
       }
 
     case 'TEAM':
