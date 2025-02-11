@@ -15,10 +15,15 @@ export default function LogCard({ log }: { log: ILogCard }) {
       className="flex flex-col gap-3 rounded-xl border border-transparent px-8 py-6 hover:border-main"
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
     >
-      <div className="flex items-start gap-2">
+      <div className="flex items-center gap-2">
         <div className="relative h-[28px] w-[28px] rounded-lg">
           {log.domainType === 'PROFILE' ? (
-            <Image src={log.logInformDetails.profileImagePath} alt="팀 로고" fill className="rounded-lg object-cover" />
+            <Image
+              src={log.logInformDetails.profileImagePath || '/common/default_profile.svg'}
+              alt="팀 로고"
+              fill
+              className="rounded-lg object-cover"
+            />
           ) : (
             <Image
               src={log.logInformDetails.teamLogoImagePath}
