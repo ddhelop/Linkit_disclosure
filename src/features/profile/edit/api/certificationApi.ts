@@ -18,8 +18,8 @@ export const requestCertification = async (id: string, file: File, apiEndpoint: 
 }
 
 // 인증 삭제
-export async function deleteCertification(activityId: string): Promise<void> {
-  const response = await fetchWithAuth(`/api/v1/profile/activity/certification/${activityId}`, {
+export async function deleteCertification(certificationType: string, itemId: string): Promise<void> {
+  const response = await fetchWithAuth(`/api/v1/profile/${certificationType.toLowerCase()}/certification/${itemId}`, {
     method: 'DELETE',
   })
 

@@ -7,7 +7,14 @@ import { useToast } from '@/shared/hooks/useToast'
 
 interface CertificationUploadFormProps {
   onClose: () => void
-  onCertificationUpdate: (updatedData: { isActivityCertified: boolean; isActivityInProgress: boolean }) => void
+  onCertificationUpdate: (
+    updatedData: Partial<{
+      isEducationCertified: boolean
+      isEducationInProgress: boolean
+      isEducationVerified: boolean
+      educationCertificationAttachFilePath: string | null
+    }>,
+  ) => void
   pathname: string
 }
 
@@ -73,8 +80,10 @@ export default function CertificationUploadForm({
       toast.success('인증 요청이 성공적으로 완료되었습니다.')
 
       onCertificationUpdate({
-        isActivityCertified: true,
-        isActivityInProgress: true,
+        isEducationCertified: true,
+        isEducationInProgress: true,
+        isEducationVerified: true,
+        educationCertificationAttachFilePath: null,
       })
 
       onClose()

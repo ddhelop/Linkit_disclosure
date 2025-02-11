@@ -228,7 +228,14 @@ export default function NewHistory() {
 
       {/* CertificationForm은 상태에 따라 렌더링 */}
       {activityId ? (
-        <CertificationForm {...certificationData} onCertificationUpdate={handleCertificationUpdate} />
+        <CertificationForm
+          certificationType="activity"
+          itemId={activityId}
+          isActivityCertified={certificationData.isActivityCertified}
+          isActivityVerified={certificationData.isActivityVerified}
+          activityCertificationAttachFilePath={certificationData.activityCertificationAttachFilePath}
+          onCertificationUpdate={handleCertificationUpdate}
+        />
       ) : (
         <div className="mt-10 flex w-full flex-col gap-3 rounded-xl bg-white px-[2.88rem] py-10">
           <span className="text-grey80">인증</span>

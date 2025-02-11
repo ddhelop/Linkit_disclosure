@@ -5,17 +5,17 @@ import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
-import { getLicense, License } from '@/features/profile/api/getLicense'
+import { getLicense } from '@/features/profile/api/getLicense'
 import { createLicense, updateLicense } from '@/features/profile/api/licenseApi'
 import DatePicker from '@/shared/ui/Select/DatePicker'
-import CertificationForm, { CertificationFormProps } from './CertificationForm'
+import CertificationForm from './CertificationForm'
 import { useToast } from '@/shared/hooks/useToast'
 import { useProfileMenuStore } from '@/features/profile/store/useProfileMenuStore'
 
 type CertificationDataType = {
-  isActivityCertified: boolean
-  isActivityVerified: boolean
-  activityCertificationAttachFilePath: string | null
+  isLicenseCertified: boolean
+  isLicenseVerified: boolean
+  licenseCertificationAttachFilePath: string | null
 }
 
 // LicenseFormData 타입을 사용하도록 변경
@@ -43,9 +43,9 @@ export default function NewCertificate() {
   })
 
   const [certificationData, setCertificationData] = useState<CertificationDataType>({
-    isActivityCertified: false,
-    isActivityVerified: false,
-    activityCertificationAttachFilePath: null,
+    isLicenseCertified: false,
+    isLicenseVerified: false,
+    licenseCertificationAttachFilePath: null,
   })
 
   const [originalData, setOriginalData] = useState<LicenseFormData | null>(null)
@@ -65,9 +65,9 @@ export default function NewCertificate() {
         }
         setFormData(initialFormData)
         setCertificationData({
-          isActivityCertified: data.isLicenseCertified || false,
-          isActivityVerified: data.isLicenseVerified || false,
-          activityCertificationAttachFilePath: data.licenseCertificationAttachFilePath || null,
+          isLicenseCertified: data.isLicenseCertified || false,
+          isLicenseVerified: data.isLicenseVerified || false,
+          licenseCertificationAttachFilePath: data.licenseCertificationAttachFilePath || null,
         })
         setOriginalData(data)
       } catch (error) {
@@ -213,9 +213,11 @@ export default function NewCertificate() {
       {id ? (
         <div className="mt-5">
           <CertificationForm
-            isActivityCertified={certificationData.isActivityCertified}
-            isActivityVerified={certificationData.isActivityVerified}
-            activityCertificationAttachFilePath={certificationData.activityCertificationAttachFilePath}
+            certificationType="license"
+            itemId={id}
+            isLicenseCertified={certificationData.isLicenseCertified}
+            isLicenseVerified={certificationData.isLicenseVerified}
+            licenseCertificationAttachFilePath={certificationData.licenseCertificationAttachFilePath}
             onCertificationUpdate={handleCertificationUpdate}
           />
         </div>
