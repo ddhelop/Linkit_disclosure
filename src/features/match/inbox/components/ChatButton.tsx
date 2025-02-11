@@ -20,6 +20,7 @@ interface ChatButtonProps {
   }
   isChatRoomCreated?: boolean
   chatRoomId?: number
+  receiverAnnouncementId?: number
 }
 
 export default function ChatButton({
@@ -30,6 +31,7 @@ export default function ChatButton({
   receiverInfo,
   isChatRoomCreated,
   chatRoomId,
+  receiverAnnouncementId,
 }: ChatButtonProps) {
   const router = useRouter()
   const pathname = usePathname()

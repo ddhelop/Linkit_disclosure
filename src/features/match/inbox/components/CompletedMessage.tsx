@@ -55,6 +55,7 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
     receiverInfo: {
       emailId: message.receiverProfileInformation?.emailId,
       teamCode: message.receiverTeamInformation?.teamCode,
+      announcementId: message.receiverAnnouncementInformation?.teamMemberAnnouncementId,
     },
     isChatRoomCreated: message.isChatRoomCreated,
   }
