@@ -10,7 +10,6 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
 import CertificationForm from './CertificationForm'
 import { useToast } from '@/shared/hooks/useToast'
-import Image from 'next/image'
 import { useProfileMenuStore } from '@/features/profile/store/useProfileMenuStore'
 
 export default function NewEducation() {
@@ -26,10 +25,10 @@ export default function NewEducation() {
   const { updateProfileMenu } = useProfileMenuStore()
 
   const [certificationData, setCertificationData] = useState({
-    isActivityCertified: false,
-    isActivityInProgress: false,
-    isActivityVerified: false,
-    activityCertificationAttachFilePath: null as string | null,
+    isEducationCertified: false,
+    isEducationInProgress: false,
+    isEducationVerified: false,
+    educationCertificationAttachFilePath: null as string | null,
   })
 
   const router = useRouter()
@@ -55,10 +54,10 @@ export default function NewEducation() {
         setOriginalData(data)
 
         setCertificationData({
-          isActivityCertified: data.isActivityCertified || false,
-          isActivityInProgress: data.isActivityInProgress || false,
-          isActivityVerified: data.isActivityVerified || false,
-          activityCertificationAttachFilePath: data.activityCertificationAttachFilePath || null,
+          isEducationCertified: data.isEducationCertified || false,
+          isEducationInProgress: data.isEducationInProgress || false,
+          isEducationVerified: data.isEducationVerified || false,
+          educationCertificationAttachFilePath: data.educationCertificationAttachFilePath || null,
         })
       } catch (error) {
         console.error('Failed to fetch education:', error)
@@ -208,7 +207,15 @@ export default function NewEducation() {
 
       <div className="mt-5">
         {educationId ? (
-          <CertificationForm {...certificationData} onCertificationUpdate={handleCertificationUpdate} />
+          <CertificationForm
+            certificationType="education"
+            itemId={educationId}
+            isEducationCertified={certificationData.isEducationCertified}
+            isEducationInProgress={certificationData.isEducationInProgress}
+            isEducationVerified={certificationData.isEducationVerified}
+            educationCertificationAttachFilePath={certificationData.educationCertificationAttachFilePath}
+            onCertificationUpdate={handleCertificationUpdate}
+          />
         ) : (
           <div className="mt-10 flex w-full flex-col gap-3 rounded-xl bg-white px-[2.88rem] py-10">
             <span className="text-grey80">인증</span>

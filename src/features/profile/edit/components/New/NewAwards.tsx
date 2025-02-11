@@ -23,9 +23,9 @@ export default function NewAwards() {
   const router = useRouter()
   const { updateProfileMenu } = useProfileMenuStore()
   const [certificationData, setCertificationData] = useState({
-    isActivityCertified: false,
-    isActivityVerified: false,
-    activityCertificationAttachFilePath: null as string | null,
+    isAwardsCertified: false,
+    isAwardsVerified: false,
+    awardsCertificationAttachFilePath: null as string | null,
   })
   const [originalData, setOriginalData] = useState({
     awardsName: '',
@@ -58,9 +58,9 @@ export default function NewAwards() {
 
         // 증명서 상태 설정
         setCertificationData({
-          isActivityCertified: awardDetails.isAwardsCertified || false,
-          isActivityVerified: awardDetails.isAwardsVerified || false,
-          activityCertificationAttachFilePath: awardDetails.awardsCertificationAttachFilePath || null,
+          isAwardsCertified: awardDetails.isAwardsCertified || false,
+          isAwardsVerified: awardDetails.isAwardsVerified || false,
+          awardsCertificationAttachFilePath: awardDetails.awardsCertificationAttachFilePath || null,
         })
       } catch (error) {
         console.error('Failed to fetch award details:', error)
@@ -201,9 +201,11 @@ export default function NewAwards() {
 
       {awardId ? (
         <CertificationForm
-          isActivityCertified={certificationData.isActivityCertified}
-          isActivityVerified={certificationData.isActivityVerified}
-          activityCertificationAttachFilePath={certificationData.activityCertificationAttachFilePath}
+          certificationType="awards"
+          itemId={awardId}
+          isAwardsCertified={certificationData.isAwardsCertified}
+          isAwardsVerified={certificationData.isAwardsVerified}
+          awardsCertificationAttachFilePath={certificationData.awardsCertificationAttachFilePath}
           onCertificationUpdate={handleCertificationUpdate}
         />
       ) : (

@@ -8,19 +8,49 @@ import Link from 'next/link'
 import { deleteCertification } from '../../api/certificationApi'
 import { useToast } from '@/shared/hooks/useToast'
 
-export interface CertificationFormProps {
+interface BaseCertificationFormProps {
+  onCertificationUpdate: (updatedData: any) => void
+  certificationType: 'education' | 'awards' | 'license' | 'activity'
+  itemId?: string | null
+  onDelete?: () => void
+}
+
+interface EducationCertificationProps extends BaseCertificationFormProps {
+  certificationType: 'education'
+  isEducationCertified: boolean
+  isEducationInProgress: boolean
+  isEducationVerified: boolean
+  educationCertificationAttachFilePath: string | null
+}
+
+interface AwardsCertificationProps extends BaseCertificationFormProps {
+  certificationType: 'awards'
+  isAwardsCertified: boolean
+  isAwardsVerified: boolean
+  awardsCertificationAttachFilePath: string | null
+}
+
+interface LicenseCertificationProps extends BaseCertificationFormProps {
+  certificationType: 'license'
+  isLicenseCertified: boolean
+  isLicenseVerified: boolean
+  licenseCertificationAttachFilePath: string | null
+}
+
+interface ActivityCertificationProps extends BaseCertificationFormProps {
+  certificationType: 'activity'
   isActivityCertified: boolean
   isActivityVerified: boolean
   activityCertificationAttachFilePath: string | null
-  onCertificationUpdate: (updatedData: Partial<CertificationFormProps>) => void
 }
 
-export default function CertificationForm({
-  isActivityCertified,
-  isActivityVerified,
-  activityCertificationAttachFilePath,
-  onCertificationUpdate,
-}: CertificationFormProps) {
+type CertificationFormProps =
+  | EducationCertificationProps
+  | AwardsCertificationProps
+  | LicenseCertificationProps
+  | ActivityCertificationProps
+
+export default function CertificationForm(props: CertificationFormProps) {
   const toast = useToast()
   const searchParams = useSearchParams()
   const pathname = usePathname()
@@ -33,20 +63,21 @@ export default function CertificationForm({
   }
 
   const handleDelete = async () => {
-    if (!activityId) {
-      toast.alert('활동 ID가 유효하지 않습니다.')
+    if (!props.itemId) {
+      toast.alert('ID가 유효하지 않습니다.')
       return
     }
 
     if (!confirm('인증서를 삭제하시겠습니까?')) return
 
     try {
-      await deleteCertification(activityId)
+      await deleteCertification(props.itemId, props.certificationType)
       toast.success('인증서가 성공적으로 삭제되었습니다.')
-      onCertificationUpdate({
-        isActivityCertified: false,
-        activityCertificationAttachFilePath: null,
+      props.onCertificationUpdate({
+        [`is${props.certificationType.charAt(0).toUpperCase() + props.certificationType.slice(1)}Certified`]: false,
+        [`${props.certificationType}CertificationAttachFilePath`]: null,
       })
+      props.onDelete?.()
     } catch (error) {
       console.error('인증서 삭제 중 오류 발생:', error)
       toast.alert('인증서 삭제 중 오류가 발생했습니다. 다시 시도해주세요.')
@@ -54,18 +85,42 @@ export default function CertificationForm({
   }
 
   const renderCertificationUI = () => {
-    if (isActivityCertified) {
-      if (isActivityVerified) {
+    const isCertified =
+      (props.certificationType === 'education' && props.isEducationCertified) ||
+      (props.certificationType === 'awards' && props.isAwardsCertified) ||
+      (props.certificationType === 'license' && props.isLicenseCertified) ||
+      (props.certificationType === 'activity' && props.isActivityCertified)
+
+    const isVerified =
+      (props.certificationType === 'education' && props.isEducationVerified) ||
+      (props.certificationType === 'awards' && props.isAwardsVerified) ||
+      (props.certificationType === 'license' && props.isLicenseVerified) ||
+      (props.certificationType === 'activity' && props.isActivityVerified)
+
+    const certificationPath =
+      props.certificationType === 'education'
+        ? props.educationCertificationAttachFilePath
+        : props.certificationType === 'awards'
+          ? props.awardsCertificationAttachFilePath
+          : props.certificationType === 'license'
+            ? props.licenseCertificationAttachFilePath
+            : props.certificationType === 'activity'
+              ? props.activityCertificationAttachFilePath
+              : null
+
+    if (isCertified) {
+      if (isVerified) {
         return (
           <div className="mt-3 flex flex-col items-center justify-center gap-2 rounded-xl border border-grey30 bg-[#EDF3FF] py-5">
             <div className="flex items-center gap-2">
+              ㅇ
               <Image src="/common/cert_badge.svg" width={20} height={20} alt="success" />
               <span className="text-sm font-semibold text-grey70">인증 완료</span>
             </div>
             <div className="flex gap-2 text-xs">
-              {activityCertificationAttachFilePath && (
+              {certificationPath && (
                 <Link
-                  href={activityCertificationAttachFilePath}
+                  href={certificationPath}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="cursor-pointer text-grey50 underline"
@@ -87,9 +142,9 @@ export default function CertificationForm({
               <span className="text-sm font-semibold text-grey70">인증 대기중</span>
             </div>
             <div className="flex gap-2 text-xs">
-              {activityCertificationAttachFilePath && (
+              {certificationPath && (
                 <Link
-                  href={activityCertificationAttachFilePath}
+                  href={certificationPath}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="cursor-pointer text-grey50 underline"
@@ -140,7 +195,7 @@ export default function CertificationForm({
       <Modal isOpen={isModalOpen} onClose={handleModalToggle}>
         <CertificationUploadForm
           onClose={handleModalToggle}
-          onCertificationUpdate={onCertificationUpdate}
+          onCertificationUpdate={props.onCertificationUpdate}
           pathname={pathname}
         />
       </Modal>
