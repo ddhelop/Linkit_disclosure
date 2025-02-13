@@ -53,7 +53,7 @@ export default function MatchingModal({ message, onClose, onAccept, onReject, mo
             <Link
               href={
                 message.senderType === 'TEAM'
-                  ? `/team/${message.senderTeamInformation.teamCode}`
+                  ? `/team/${message.senderTeamInformation.teamCode}/log`
                   : `/${message.senderProfileInformation.emailId}`
               }
               className="rounded-full bg-[#D3E1FE] px-4 py-2 text-sm text-grey70"
