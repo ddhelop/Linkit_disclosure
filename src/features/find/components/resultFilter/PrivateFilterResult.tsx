@@ -74,7 +74,7 @@ export default function PrivateFilterResult() {
   }
 
   return (
-    <div className="px-12">
+    <div className="xl:px-12">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {profiles.map((profile, index) => (
           <MiniProfileCard_2 key={`${profile.emailId}-${index}`} profile={profile} />

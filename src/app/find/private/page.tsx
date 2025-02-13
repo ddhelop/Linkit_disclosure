@@ -16,8 +16,8 @@ export default function FindPrivatePage() {
       ></div>
       {/* 컨텐츠 컨테이너 */}
       <div className="relative flex w-full justify-center" style={{ zIndex: 1 }}>
-        <div className="flex w-[78%] flex-col pt-9">
-          <div className="flex flex-col gap-2 px-16">
+        <div className="flex w-[95%] flex-col pt-9 lg:w-[78%]">
+          <div className="flex flex-col gap-2 px-3 lg:px-16">
             <h1 className="text-grey60">팀원 찾기</h1>
             <span className="text-2xl font-semibold text-grey90">나와 함께 할 능력 있는 팀원들을 찾아보세요</span>
           </div>
