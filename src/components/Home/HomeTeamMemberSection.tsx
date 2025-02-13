@@ -26,7 +26,7 @@ export default function HomeTeamMemberSection() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="flex gap-6 overflow-x-auto md:grid md:grid-cols-3 [&::-webkit-scrollbar]:hidden">
         {teamMemberRecommend.map((profile) => (
           <MiniProfileCard_2 key={profile.emailId} profile={profile} />
         ))}

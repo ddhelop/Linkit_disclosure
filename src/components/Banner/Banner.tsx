@@ -228,7 +228,7 @@ export default function Banner() {
 
           {/* Mobile View */}
           <div className="block md:hidden">
-            <div className="relative mx-auto w-[95%]">
+            <div className="relative mx-auto w-[90%]">
               <div className="relative w-full">
                 <div
                   className="relative aspect-[750/300]"
