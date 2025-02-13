@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { TeamProductView } from '../../types/teamView.types'
 import ImageGalleryModal from '@/shared/ui/Modal/ImageGalleryModal'
+import Link from 'next/link'
 
 export default function TeamViewProductsComponent({ product }: { product: TeamProductView }) {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -66,13 +67,15 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
                   <span className="text-sm text-grey90">링크</span>
                   <div className="flex gap-5">
                     {product.teamProductLinks.map((link) => (
-                      <div
+                      <Link
+                        href={`http://${link.productLinkPath}`}
+                        target="_blank"
                         key={link.productLinkId}
                         className="flex w-[15rem] cursor-pointer items-center gap-2 rounded-xl bg-grey10 px-6 py-3 hover:bg-grey20"
                       >
                         <span className="text-sm text-grey80">{link.productLinkName}</span>
                         <Image src={'/common/icons/share.svg'} alt="link" width={20} height={20} />
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </div>
