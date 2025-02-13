@@ -19,13 +19,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Linkit',
     description: '팀 빌딩 서비스, 링킷',
+
     siteName: 'Linkit',
     locale: 'ko_KR',
     type: 'website',
     url: 'https://linkit.im',
-    images: {
-      url: '/logo.png',
-    },
+    images: [
+      {
+        url: '/common/share_image_logo.svg',
+        alt: '사이트 썸네일',
+      },
+    ],
   },
   verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_CONTENT },
 }
