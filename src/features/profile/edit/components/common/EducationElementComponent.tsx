@@ -10,6 +10,7 @@ interface ElementComponentProps {
   date?: string
   endDate?: string | null
   editPath: string
+  isEducationVerified?: boolean
   onDelete?: (id: number) => void
 }
 
@@ -20,6 +21,7 @@ export default function EducationElementComponent({
   date,
   endDate,
   editPath,
+  isEducationVerified,
   onDelete,
 }: ElementComponentProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -73,8 +75,10 @@ export default function EducationElementComponent({
               pathname: editPath,
               query: { id },
             }}
+            className="flex gap-2"
           >
             <span className="cursor-pointer font-semibold text-grey80">{title}</span>
+            {isEducationVerified && <Image src="/common/cert_badge.svg" alt="check" width={16} height={16} />}
           </Link>
           {(subtitle || date) && (
             <div className="flex gap-4 text-xs">

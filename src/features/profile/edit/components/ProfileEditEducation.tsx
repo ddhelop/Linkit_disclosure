@@ -111,6 +111,7 @@ export default function ProfileEditEducation() {
               subtitle={education.majorName}
               date={`${education.admissionYear} - ${education.graduationYear}`}
               editPath="/profile/edit/education/new"
+              isEducationVerified={education.isEducationVerified}
               onDelete={handleDelete}
             />
           ))}
