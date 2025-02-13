@@ -26,10 +26,6 @@ export default function HomeAnnouncementSection() {
   return (
     <div className="flex w-full flex-col gap-6">
       <div className="flex w-full justify-between">
-        {/* {profile?.memberName ? (
-          // <h1 className="text-xl font-semibold">{profile?.memberName}님을 찾고 있어요!</h1>
-          <h1 className="text-xl font-semibold">팀원을 찾고 있어요</h1>
-        ) : ( */}
         <h1 className="text-xl font-semibold">팀원을 찾고 있어요</h1>
         <Link href="/find/announcement" className="flex cursor-pointer items-center gap-1">
           <span className="text-sm text-grey60 ">전체보기</span>
@@ -37,7 +33,7 @@ export default function HomeAnnouncementSection() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="scrollbar-hidden flex gap-6 overflow-x-auto md:grid md:grid-cols-3 [&::-webkit-scrollbar]:hidden">
         {announcement.map((announcement) => (
           <AnnouncementCard key={announcement.teamMemberAnnouncementId} announcement={announcement} />
         ))}
