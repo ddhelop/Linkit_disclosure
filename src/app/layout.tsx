@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     url: 'https://linkit.im',
     images: [
       {
-        url: 'https://www.linkit.im/og:image.svg',
+        url: 'https://www.linkit.im/og:image.png',
         alt: '사이트 썸네일',
       },
     ],
