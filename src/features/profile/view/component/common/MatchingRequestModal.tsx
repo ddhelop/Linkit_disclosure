@@ -138,7 +138,7 @@ export default function MatchingRequestModal({
               <Image
                 src={
                   type === 'TEAM'
-                    ? (receiverProfile as TeamInformation)?.teamLogoImagePath
+                    ? (receiverProfile as TeamInformation)?.teamLogoImagePath || '/common/default_profile.svg'
                     : (receiverProfile as ProfileInformation)?.profileImagePath || '/common/default_profile.svg'
                 }
                 alt="receiver"
