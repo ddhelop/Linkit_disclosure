@@ -22,6 +22,7 @@ export default function TeamViewRecruitDetailPage({ params }: { params: { teamNa
   useEffect(() => {
     const fetchData = async () => {
       try {
+        window.scrollTo(0, 0)
         const [teamResponse, recruitmentResponse] = await Promise.all([
           getTeamInfo(params.teamName),
           getTeamAnnouncement(params.teamName, Number(params.id)),
@@ -46,7 +47,7 @@ export default function TeamViewRecruitDetailPage({ params }: { params: { teamNa
 
   return (
     <>
-      <div className="absolute left-0 flex min-h-[calc(100vh-4rem)] w-full justify-center bg-[#FCFCFD] py-[3.63rem]">
+      <div className="absolute left-0 flex w-full justify-center bg-[#FCFCFD] py-[3.63rem]">
         <div className="flex w-[83%] justify-center gap-8 ">
           <div className="w-[49rem] ">
             {recruitmentDetail && <TeamViewRecruitDetail recruitmentDetail={recruitmentDetail} />}
