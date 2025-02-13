@@ -64,7 +64,6 @@ export default function MatchingModal({
   if (!isOpen || !matchingData) return null
 
   const handleProfileSelect = (profile: TeamInformation) => {
-    console.log('Selecting profile in modal:', profile)
     onSelectProfile(profile)
   }
 
