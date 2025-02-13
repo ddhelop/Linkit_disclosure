@@ -4,6 +4,7 @@ import { getPortfolioDetail } from '@/features/profile/api/getPortfolioItems'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import ImageGalleryModal from '@/shared/ui/Modal/ImageGalleryModal'
 
 interface PortfolioDetail {
   profilePortfolioId: number
@@ -51,14 +52,30 @@ interface PortfolioDetail {
 export default function PortfolioDetailPage({ params }: { params: { emailId: string; id: string } }) {
   const { id } = params
   const [portfolioDetail, setPortfolioDetail] = useState<PortfolioDetail>()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
 
   useEffect(() => {
     const fetchPortfolioDetail = async () => {
+      window.scrollTo(0, 0)
       const response = await getPortfolioDetail(Number(id))
       setPortfolioDetail(response)
     }
     fetchPortfolioDetail()
   }, [id])
+
+  // 모든 이미지 경로를 하나의 배열로 모음
+  const allImages = portfolioDetail?.portfolioImages.projectRepresentImagePath
+    ? [
+        portfolioDetail.portfolioImages.projectRepresentImagePath,
+        ...portfolioDetail.portfolioImages.portfolioSubImages.map((image) => image.projectSubImagePath),
+      ]
+    : []
+
+  const handleImageClick = (index: number) => {
+    setSelectedImageIndex(index)
+    setIsModalOpen(true)
+  }
 
   return (
     <div className=" px-[4.25rem] py-[3.63rem]">
@@ -169,9 +186,12 @@ export default function PortfolioDetailPage({ params }: { params: { emailId: str
             <h2 className="mt-8 text-sm text-grey90">이미지</h2>
             <div className="mt-3 flex flex-col gap-[1.38rem]">
               {/* 대표 이미지 */}
-              <div className="relative h-[228px] w-[402px] rounded-lg">
+              <div
+                className="relative h-[228px] w-[402px] cursor-pointer rounded-lg"
+                onClick={() => handleImageClick(0)}
+              >
                 <Image
-                  src={portfolioDetail?.portfolioImages.projectRepresentImagePath}
+                  src={portfolioDetail.portfolioImages.projectRepresentImagePath}
                   alt="project"
                   fill
                   className="rounded-lg object-cover"
@@ -180,8 +200,12 @@ export default function PortfolioDetailPage({ params }: { params: { emailId: str
               {/* 서브 이미지 */}
               <div className="flex gap-[1.38rem]">
                 <div className="grid grid-cols-2 gap-[1.38rem]">
-                  {portfolioDetail?.portfolioImages.portfolioSubImages.map((image) => (
-                    <div key={image.projectSubImagePath} className="relative h-[140px] w-[252px] rounded-lg">
+                  {portfolioDetail.portfolioImages.portfolioSubImages.map((image, index) => (
+                    <div
+                      key={image.projectSubImagePath}
+                      className="relative h-[140px] w-[252px] cursor-pointer rounded-lg"
+                      onClick={() => handleImageClick(index + 1)}
+                    >
                       <Image src={image.projectSubImagePath} alt="project" fill className="rounded-lg object-cover" />
                     </div>
                   ))}
@@ -201,6 +225,14 @@ export default function PortfolioDetailPage({ params }: { params: { emailId: str
           목록으로
         </Link>
       </div>
+
+      {/* 이미지 갤러리 모달 */}
+      <ImageGalleryModal
+        images={allImages}
+        initialImageIndex={selectedImageIndex}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   )
 }

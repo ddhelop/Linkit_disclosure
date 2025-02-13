@@ -3,9 +3,22 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import { TeamProductView } from '../../types/teamView.types'
+import ImageGalleryModal from '@/shared/ui/Modal/ImageGalleryModal'
 
 export default function TeamViewProductsComponent({ product }: { product: TeamProductView }) {
   const [isExpanded, setIsExpanded] = useState(false)
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false)
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+
+  // 모든 이미지 경로를 하나의 배열로 모음
+  const allImages = product.productRepresentImagePath
+    ? [...product.teamProductImages.productSubImages.map((image) => image.productSubImagePath)]
+    : []
+
+  const handleImageClick = (index: number) => {
+    setSelectedImageIndex(index)
+    setIsImageModalOpen(true)
+  }
 
   // 각 섹션의 데이터 존재 여부 확인
   const hasLinks = product.teamProductLinks?.length > 0
@@ -82,8 +95,17 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
 
                   <div className="flex gap-5">
                     {product.teamProductImages.productSubImages?.map((image, index) => (
-                      <div key={index} className="relative h-[138px] w-[248px] rounded-lg">
-                        <Image src={image.productSubImagePath} alt="product" fill className="rounded-lg object-cover" />
+                      <div
+                        onClick={() => handleImageClick(index)}
+                        key={index}
+                        className="relative h-[138px] w-[248px] rounded-lg"
+                      >
+                        <Image
+                          src={image.productSubImagePath}
+                          alt="product"
+                          fill
+                          className="cursor-pointer rounded-lg object-cover"
+                        />
                       </div>
                     ))}
                   </div>
@@ -111,6 +133,13 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
           </div>
         )}
       </div>
+      {/* 이미지 갤러리 모달 */}
+      <ImageGalleryModal
+        images={allImages}
+        initialImageIndex={selectedImageIndex}
+        isOpen={isImageModalOpen}
+        onClose={() => setIsImageModalOpen(false)}
+      />
     </div>
   )
 }

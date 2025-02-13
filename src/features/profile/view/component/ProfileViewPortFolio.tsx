@@ -28,6 +28,7 @@ export default function ProfileViewPortFolio() {
         {profileData?.profilePortfolioItems.map((portfolio) => (
           <Link
             href={`/${profileData?.profileInformMenu.emailId}/portfolio/${portfolio.profilePortfolioId}`}
+            scroll={true}
             className="flex w-[49%] flex-col gap-3 rounded-xl border border-grey30 p-5 hover:border-main"
             key={portfolio.profilePortfolioId}
           >
