@@ -42,14 +42,16 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
             />
           </div>
           <div className="flex flex-col justify-center">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-2">
               <span className="text-xl font-semibold text-grey80">{product.productName} </span>
-              <span className="text-xs font-normal text-grey60">| </span>
-              <span className="text-sm font-normal text-grey60">
-                {product.productStartDate} ~ {product.productEndDate}
-              </span>
-              <div className="rounded-lg border border-grey30 px-2 py-1 text-sm font-normal text-grey60">
-                {product.productField}
+              <span className="hidden text-xs font-normal text-grey60 md:flex">| </span>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-normal text-grey60">
+                  {product.productStartDate} ~ {product.productEndDate}
+                </span>
+                <div className="rounded-lg border border-grey30 px-2 py-1 text-sm font-normal text-grey60">
+                  {product.productField}
+                </div>
               </div>
             </div>
             <span className="text-grey70">{product.productLineDescription}</span>
@@ -100,18 +102,19 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
                 <div className="flex flex-col gap-3">
                   <span className="text-sm text-grey90">이미지</span>
 
-                  <div className="flex gap-5">
+                  <div className="flex gap-5 overflow-x-auto pb-4">
                     {product.teamProductImages.productSubImages?.map((image, index) => (
                       <div
                         onClick={() => handleImageClick(index)}
                         key={index}
-                        className="relative h-[138px] w-[248px] rounded-lg"
+                        className="relative h-[138px] w-[248px] flex-none rounded-lg"
                       >
                         <Image
                           src={image.productSubImagePath}
                           alt="product"
                           fill
                           className="cursor-pointer rounded-lg object-cover"
+                          sizes="248px"
                         />
                       </div>
                     ))}
