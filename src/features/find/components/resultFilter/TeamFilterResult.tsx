@@ -73,7 +73,7 @@ export default function TeamFilterResult() {
   }
 
   return (
-    <div className="px-12">
+    <div className="sm:px-12">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {teams.map((team, index) => (
           <MiniTeamCard_2
