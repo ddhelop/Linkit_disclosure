@@ -23,7 +23,7 @@ export default function TeamViewClient({ params }: { params: { teamName: string 
     <div className="flex flex-col">
       {/* 그라데이션 영역 */}
       <div
-        className="flex flex-col px-8 py-8 md:px-[7.12rem]"
+        className="flex flex-col px-5 py-8 lg:px-[7.12rem]"
         style={{ background: 'linear-gradient(180deg, #D3E1FE -16.67%, #FFFFFF 100%)' }}
       >
         <TeamInfo params={{ teamName }} />
