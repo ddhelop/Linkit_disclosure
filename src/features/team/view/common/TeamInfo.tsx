@@ -254,36 +254,38 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
               <div className="flex flex-col justify-center">
                 <div className="flex flex-col gap-3 md:flex-row md:items-center">
                   <h1 className="text-2xl font-bold text-grey90">{teamInformMenu.teamName}</h1>
-                  <span className="text-xs text-grey70">스크랩 수 {teamInformMenu.teamScrapCount}</span>
-                  {teamData.isMyTeam && (
-                    <div className="relative" ref={dropdownRef}>
-                      <Image
-                        src="/common/icons/dropdown_icon.svg"
-                        alt="menu"
-                        width={16}
-                        height={16}
-                        className="cursor-pointer"
-                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      />
+                  <div className="flex gap-2">
+                    <span className="text-xs text-grey70">스크랩 수 {teamInformMenu.teamScrapCount}</span>
+                    {teamData.isMyTeam && (
+                      <div className="relative" ref={dropdownRef}>
+                        <Image
+                          src="/common/icons/dropdown_icon.svg"
+                          alt="menu"
+                          width={16}
+                          height={16}
+                          className="cursor-pointer"
+                          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        />
 
-                      {isDropdownOpen && (
-                        <div className="absolute left-0 top-6 z-10 w-[6rem] rounded-lg border border-grey30 bg-white py-2 shadow-lg">
-                          <div
-                            className="flex cursor-pointer items-center gap-2 px-3 py-1 text-xs text-[#FF345F] hover:bg-grey10"
-                            onClick={handleLeaveTeam}
-                          >
-                            팀 나가기
+                        {isDropdownOpen && (
+                          <div className="absolute left-0 top-6 z-10 w-[6rem] rounded-lg border border-grey30 bg-white py-2 shadow-lg">
+                            <div
+                              className="flex cursor-pointer items-center gap-2 px-3 py-1 text-xs text-[#FF345F] hover:bg-grey10"
+                              onClick={handleLeaveTeam}
+                            >
+                              팀 나가기
+                            </div>
+                            <div
+                              className="flex cursor-pointer items-center gap-2 px-3 py-1 text-xs text-grey80 hover:bg-grey10"
+                              onClick={handleDeleteTeam}
+                            >
+                              팀 삭제하기
+                            </div>
                           </div>
-                          <div
-                            className="flex cursor-pointer items-center gap-2 px-3 py-1 text-xs text-grey80 hover:bg-grey10"
-                            onClick={handleDeleteTeam}
-                          >
-                            팀 삭제하기
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <div className="mt-2 flex flex-col gap-1">

@@ -9,17 +9,23 @@ export default async function TeamViewLogDetailPage({ params }: { params: { id: 
   const teamInfo = await getTeamInfo(teamName)
   return (
     <>
-      <div className="flex h-[calc(100vh-4rem)] w-full justify-center ">
-        <div className="flex w-[83%] flex-col items-center  gap-8 py-[3.62rem]">
-          <div className="flex w-full gap-8">
+      <div className="flex w-full justify-center pb-10">
+        <div className="flex w-[95%] flex-col items-center gap-8  pt-5 lg:w-[83%] lg:py-[3.62rem]">
+          <div className="flex w-full flex-col gap-8 lg:flex-row">
             <TeamViewDetail teamName={teamName} id={id} />
-            <div>
-              <MiniTeamCard teamInfo={teamInfo} />
+            <div className="flex justify-center">
+              <div>
+                <MiniTeamCard teamInfo={teamInfo} />
+              </div>
             </div>
           </div>
 
           <Link href={`/team/${teamName}/log`} className="flex w-full ">
-            <Button className=" border border-grey40 bg-[#fcfcfd] text-grey70" animationMode="grey" mode="custom">
+            <Button
+              className=" rounded-lg border border-grey40 bg-[#fcfcfd] text-grey70"
+              animationMode="grey"
+              mode="custom"
+            >
               목록으로
             </Button>
           </Link>
