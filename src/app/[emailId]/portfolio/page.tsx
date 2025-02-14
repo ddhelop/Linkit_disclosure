@@ -19,7 +19,7 @@ export default function PortfolioPage({ params }: { params: { emailId: string } 
   }, [params.emailId])
 
   return (
-    <div className="flex flex-col px-[4.25rem] py-[3.75rem]">
+    <div className="flex flex-col p-8 md:px-[4.25rem] md:py-[3.75rem]">
       <Link href={`/${params.emailId}`} className="flex items-center gap-2 text-xl font-semibold">
         <Image src="/common/icons/arrow-left.svg" alt="arrow_left" width={24} height={24} />
         뒤로가기

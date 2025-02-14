@@ -78,7 +78,7 @@ export default function PortfolioDetailPage({ params }: { params: { emailId: str
   }
 
   return (
-    <div className=" px-[4.25rem] py-[3.63rem]">
+    <div className="p-8 md:px-[4.25rem] md:py-[3.63rem]">
       <div className="rounded-xl bg-white p-12">
         {/* 프로젝트 명 */}
         <div className="flex items-center gap-2">
