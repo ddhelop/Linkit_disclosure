@@ -13,7 +13,7 @@ export default function TeamLayout({
     flex flex-col bg-grey10`}
     >
       <TeamViewClient params={{ teamName: params.teamName }} />
-      <div className="min-h-[calc(100vh-26.5rem)] bg-grey10 px-[7.12rem]">{children}</div>
+      <div className="min-h-[calc(100vh-26.5rem)] bg-grey10 px-5 md:px-[7.12rem]">{children}</div>
     </div>
   )
 }
