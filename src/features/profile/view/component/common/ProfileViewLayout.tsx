@@ -79,34 +79,36 @@ export default function ProfileViewLayout() {
 
   return (
     <ProfileViewProvider profileData={profileData}>
-      <div className="relative flex">
-        <div className="flex flex-grow flex-col gap-6">
-          <div ref={setRef('log')}>
+      <div className="relative flex w-full justify-center">
+        <div className="flex w-full flex-grow flex-col gap-6">
+          <div ref={setRef('log')} className="flex justify-center">
             <ProfileViewLog />
           </div>
-          <div ref={setRef('skills')}>
+          <div ref={setRef('skills')} className="flex justify-center">
             <ProfileViewSkills />
           </div>
-          <div ref={setRef('history')}>
+          <div ref={setRef('history')} className="flex justify-center">
             <ProfileViewHistory />
           </div>
-          <div ref={setRef('portfolio')}>
+          <div ref={setRef('portfolio')} className="flex justify-center">
             <ProfileViewPortFolio />
           </div>
-          <div ref={setRef('education')}>
+          <div ref={setRef('education')} className="flex justify-center">
             <ProfileViewEducation />
           </div>
-          <div ref={setRef('awards')}>
+          <div ref={setRef('awards')} className="flex justify-center">
             <ProfileViewAwards />
           </div>
-          <div ref={setRef('license')}>
+          <div ref={setRef('license')} className="flex justify-center">
             <ProfileViewLicense />
           </div>
-          <div ref={setRef('links')}>
+          <div ref={setRef('links')} className="flex justify-center">
             <ProfileViewLinks />
           </div>
         </div>
-        <NavigationRemote sections={sections} activeSection={activeSection} onSectionClick={scrollToSection} />
+        <div className="hidden lg:block">
+          <NavigationRemote sections={sections} activeSection={activeSection} onSectionClick={scrollToSection} />
+        </div>
       </div>
     </ProfileViewProvider>
   )
