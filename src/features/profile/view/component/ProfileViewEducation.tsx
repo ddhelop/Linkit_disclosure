@@ -39,12 +39,12 @@ export default function ProfileViewEducation() {
         {profileData?.profileEducationItems.map((education) => (
           <div key={education.profileEducationId} className="flex gap-3 rounded-lg bg-grey10 px-6 py-4">
             {/* 이미지 */}
-            <Image
+            {/* <Image
               src={`/common/icons/universityLogo/${education.universityName}.svg`}
               alt="university"
               width={40}
               height={40}
-            />
+            /> */}
             {/* 학교 정보 */}
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
