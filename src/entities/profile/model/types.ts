@@ -73,6 +73,7 @@ export interface ProfileDetailData {
     memberName: string
     isProfilePublic: boolean
     majorPosition: string
+    subPosition: string
     regionDetail: {
       cityName: string
       divisionName: string
