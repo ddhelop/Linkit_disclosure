@@ -15,7 +15,13 @@ export default function FindTeamFilter() {
   const [isScaleOpen, setIsScaleOpen] = useState(false)
   const [isRecruitmentOpen, setIsRecruitmentOpen] = useState(false)
   const [selectedScales, setSelectedScales] = useState<string[]>(searchParams.getAll('scaleName'))
-  const [isAnnouncement, setIsAnnouncement] = useState<boolean>(searchParams.get('isAnnouncement') === 'true')
+  const [isAnnouncement, setIsAnnouncement] = useState<boolean | undefined>(
+    searchParams.get('isAnnouncement') === 'true'
+      ? true
+      : searchParams.get('isAnnouncement') === 'false'
+        ? false
+        : undefined,
+  )
   const [scaleSearchText, setScaleSearchText] = useState('')
   const [recruitmentSearchText, setRecruitmentSearchText] = useState('')
   const [isLocationOpen, setIsLocationOpen] = useState(false)
@@ -32,6 +38,7 @@ export default function FindTeamFilter() {
     location: false,
     status: false,
   })
+  const [selectedRecruitment, setSelectedRecruitment] = useState<string[]>([])
 
   // URL 업데이트 함수
   const updateURL = (page?: number) => {
@@ -42,8 +49,13 @@ export default function FindTeamFilter() {
       params.append('scaleName', scale)
     })
 
-    if (isAnnouncement) {
-      params.append('isAnnouncement', 'true')
+    // 모집 상태에 따른 isAnnouncement 파라미터 설정
+    if (selectedRecruitment.length > 0) {
+      if (selectedRecruitment.includes('현재 모집 중')) {
+        params.append('isAnnouncement', 'true')
+      } else if (selectedRecruitment.includes('현재 모집 없음')) {
+        params.append('isAnnouncement', 'false')
+      }
     }
 
     selectedLocations.forEach((location) => {
@@ -97,11 +109,21 @@ export default function FindTeamFilter() {
   }
 
   const handleRecruitmentSelect = (recruitment: string) => {
-    setIsAnnouncement(recruitment === '모집 중')
+    // 이미 선택된 상태라면 제거
+    if (selectedRecruitment.includes(recruitment)) {
+      setSelectedRecruitment([])
+      setIsAnnouncement(undefined)
+    } else {
+      // 새로운 상태 선택
+      setSelectedRecruitment([recruitment])
+      // 현재 모집 중이면 true, 현재 모집 없음이면 false로 설정
+      setIsAnnouncement(recruitment === '현재 모집 중' ? true : false)
+    }
   }
 
-  const removeRecruitment = () => {
-    setIsAnnouncement(false)
+  const removeRecruitment = (recruitment: string) => {
+    setSelectedRecruitment([])
+    setIsAnnouncement(undefined)
   }
 
   const handleLocationSelect = (location: string) => {
@@ -177,7 +199,7 @@ export default function FindTeamFilter() {
               searchText={recruitmentSearchText}
               isOpen={isRecruitmentOpen}
               isFocused={isFocused.recruitment}
-              selectedItems={isAnnouncement ? ['모집 중'] : []}
+              selectedItems={selectedRecruitment}
               onSearchChange={(e) => setRecruitmentSearchText(e.target.value)}
               onFocus={() => {
                 setIsRecruitmentOpen(true)
@@ -235,7 +257,7 @@ export default function FindTeamFilter() {
 
             {/* 선택된 필터들 표시 */}
             {(selectedScales.length > 0 ||
-              isAnnouncement ||
+              selectedRecruitment.length > 0 ||
               selectedLocations.length > 0 ||
               selectedStatus.length > 0) && (
               <div className="col-span-4 w-full">
@@ -250,15 +272,16 @@ export default function FindTeamFilter() {
                       <Image src="/common/icons/delete_icon.svg" alt="close" width={16} height={16} />
                     </div>
                   ))}
-                  {isAnnouncement && (
+                  {selectedRecruitment.map((recruitment) => (
                     <div
-                      onClick={removeRecruitment}
+                      key={recruitment}
+                      onClick={() => removeRecruitment(recruitment)}
                       className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
                     >
-                      <span className="text-sm text-main">모집 중</span>
+                      <span className="text-sm text-main">{recruitment}</span>
                       <Image src="/common/icons/delete_icon.svg" alt="close" width={16} height={16} />
                     </div>
-                  )}
+                  ))}
                   {selectedLocations.map((location) => (
                     <div
                       key={location}
