@@ -113,7 +113,6 @@ export default function CertificationForm(props: CertificationFormProps) {
         return (
           <div className="mt-3 flex flex-col items-center justify-center gap-2 rounded-xl border border-grey30 bg-[#EDF3FF] py-5">
             <div className="flex items-center gap-2">
-              ㅇ
               <Image src="/common/cert_badge.svg" width={20} height={20} alt="success" />
               <span className="text-sm font-semibold text-grey70">인증 완료</span>
             </div>
