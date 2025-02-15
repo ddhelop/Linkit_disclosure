@@ -140,10 +140,10 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
 
       if (id) {
         await updateTeamAnnouncement(params.teamName, Number(id), recruitmentData)
-        toast.success('채용 공고가 성공적으로 수정되었습니다.')
+        toast.success('모집 공고가 성공적으로 수정되었습니다.')
       } else {
         await createRecruitment(recruitmentData, params.teamName)
-        toast.success('채용 공고가 성공적으로 등록되었습니다.')
+        toast.success('모집 공고가 성공적으로 등록되었습니다.')
       }
 
       router.push(`/team/${params.teamName}/edit/recruit`)
