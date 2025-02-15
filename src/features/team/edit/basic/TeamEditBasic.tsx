@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import { useToast } from '@/shared/hooks/useToast'
 import Image from 'next/image'
 import Tooltip from '@/shared/components/Tooltip'
+import { validateTeamName } from '@/shared/utils/validation'
 
 export default function TeamEditBasic({ params }: { params: { teamName: string } }) {
   const router = useRouter()
@@ -28,6 +29,8 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
   const [teamLogoPreview, setTeamLogoPreview] = useState<string>('')
   const [teamLogoPath, setTeamLogoPath] = useState('/common/default_profile.svg')
   const [recruitmentStatus, setRecruitmentStatus] = useState<string[]>([])
+
+  const [teamNameError, setTeamNameError] = useState('')
 
   // 팀 공개 여부 옵션
   const options = [
@@ -108,7 +111,8 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
       teamIntro.trim() !== '' &&
       selectedTeamSize !== '' &&
       selectedCity !== '' &&
-      selectedDistrict !== ''
+      selectedDistrict !== '' &&
+      teamNameError === ''
     )
   }
 
@@ -280,8 +284,13 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
           <Input
             placeholder="팀명을 입력해 주세요 (50자 이내)"
             value={teamName}
-            onChange={(e) => setTeamName(e.target.value)}
+            onChange={(e) => {
+              setTeamName(e.target.value)
+              setTeamNameError(validateTeamName(e.target.value).errorMessage)
+            }}
+            error={!!teamNameError}
           />
+          {teamNameError && <span className="text-sm text-[#FF345F]">{teamNameError}</span>}
         </div>
 
         {/* 팀 아이디 */}

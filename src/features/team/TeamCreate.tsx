@@ -10,12 +10,13 @@ import { useState } from 'react'
 import { createTeam } from './api/teamApi'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/shared/hooks/useToast'
-
+import { validateTeamName } from '@/shared/utils/validation'
 export default function TeamCreate() {
   const router = useRouter()
   const toast = useToast()
   // 필수 입력 항목
   const [teamName, setTeamName] = useState('')
+  const [teamNameError, setTeamNameError] = useState('')
   const [teamIntro, setTeamIntro] = useState('')
   const [selectedTeamSize, setSelectedTeamSize] = useState<string>('')
   const [selectedCity, setSelectedCity] = useState('')
@@ -119,7 +120,8 @@ export default function TeamCreate() {
       selectedCity !== '' &&
       selectedDistrict !== '' &&
       teamCode !== '' &&
-      isTeamCodeValid
+      isTeamCodeValid &&
+      teamNameError === ''
     )
   }
 
@@ -212,10 +214,15 @@ export default function TeamCreate() {
             팀명<p className="text-main">*</p>
           </span>
           <Input
-            placeholder="팀명을 입력해 주세요 (50자 이내)"
+            placeholder="팀 이름을 입력해 주세요"
             value={teamName}
-            onChange={(e) => setTeamName(e.target.value)}
+            onChange={(e) => {
+              setTeamName(e.target.value)
+              setTeamNameError(validateTeamName(e.target.value).errorMessage)
+            }}
+            error={!!teamNameError}
           />
+          {teamNameError && <span className="text-sm text-[#FF345F]">{teamNameError}</span>}
         </div>
 
         {/* 팀 아이디 */}
