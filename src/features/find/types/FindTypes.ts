@@ -1,5 +1,5 @@
 export interface SearchParams {
-  majorPosition?: string
+  subPosition?: string[]
   skillName?: string[]
   cityName?: string
   profileStateName?: string

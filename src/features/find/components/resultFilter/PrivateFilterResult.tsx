@@ -22,7 +22,7 @@ export default function PrivateFilterResult() {
       try {
         // URL 파라미터에서 검색 조건 추출
         const params: SearchParams = {
-          majorPosition: searchParams.get('majorPosition') || undefined,
+          subPosition: searchParams.getAll('subPosition'),
           skillName: searchParams.getAll('skillName'),
           cityName: searchParams.get('cityName') || undefined,
           profileStateName: searchParams.get('profileStateName') || undefined,
