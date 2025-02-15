@@ -14,9 +14,7 @@ export default function FindPrivateFilter() {
   // 초기 상태를 URL 파라미터에서 가져오기
   const [isPositionOpen, setIsPositionOpen] = useState(false)
   const [isSkillOpen, setIsSkillOpen] = useState(false)
-  const [selectedPositions, setSelectedPositions] = useState<string[]>(
-    [searchParams.get('majorPosition')].filter(Boolean) as string[],
-  )
+  const [selectedPositions, setSelectedPositions] = useState<string[]>(searchParams.getAll('subPosition'))
   const [selectedSkills, setSelectedSkills] = useState<string[]>(searchParams.getAll('skillName'))
   const [positionSearchText, setPositionSearchText] = useState('')
   const [skillSearchText, setSkillSearchText] = useState('')
@@ -41,15 +39,15 @@ export default function FindPrivateFilter() {
   const updateURL = () => {
     const params = new URLSearchParams()
 
-    if (selectedPositions.length > 0) {
-      params.set('majorPosition', selectedPositions[0])
-    }
+    // 포지션 처리 - 중복 제거
+    selectedPositions.forEach((position) => {
+      params.append('subPosition', position)
+    })
 
     selectedSkills.forEach((skill) => {
       params.append('skillName', skill)
     })
 
-    // 다중 선택된 지역과 상태를 URL에 추가
     selectedLocations.forEach((location) => {
       params.append('cityName', location)
     })
@@ -68,8 +66,12 @@ export default function FindPrivateFilter() {
   }, [selectedPositions, selectedSkills, selectedLocations, selectedStatus])
 
   const handlePositionSelect = (position: string) => {
-    // API는 단일 포지션만 지원하므로 이전 선택을 대체
-    setSelectedPositions([position])
+    // 다중 선택 가능하도록 수정
+    if (selectedPositions.includes(position)) {
+      setSelectedPositions(selectedPositions.filter((p) => p !== position))
+    } else {
+      setSelectedPositions([...selectedPositions, position])
+    }
   }
 
   const removePosition = (position: string) => {
