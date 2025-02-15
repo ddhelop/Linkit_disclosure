@@ -68,7 +68,11 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
                   <div className="flex gap-5">
                     {product.teamProductLinks.map((link) => (
                       <Link
-                        href={`http://${link.productLinkPath}`}
+                        href={
+                          link.productLinkPath.startsWith('http')
+                            ? link.productLinkPath
+                            : `https://${link.productLinkPath}`
+                        }
                         target="_blank"
                         key={link.productLinkId}
                         className="flex w-[15rem] cursor-pointer items-center gap-2 rounded-xl bg-grey10 px-6 py-3 hover:bg-grey20"
