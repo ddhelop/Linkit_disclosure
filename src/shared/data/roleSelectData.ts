@@ -1,6 +1,6 @@
 export const jobCategoriesData = [
   {
-    name: '창업·비즈니스',
+    name: '창업',
     subCategory: ['창업가', '공동 창업가', 'CEO', 'COO', 'CTO', 'CMO', 'CFO', 'CBO', 'CPO', 'CRO', 'CHO', 'CIO', 'CSO'],
   },
   {
@@ -59,7 +59,7 @@ export const jobCategoriesData = [
     ],
   },
   {
-    name: '마케팅·광고',
+    name: '마케팅',
     subCategory: [
       '콘텐츠 마케터',
       '디지털 마케터',
