@@ -48,7 +48,7 @@ export default function ProfileViewLinks() {
           const iconPath = getSocialIcon(link.linkPath)
           return (
             <Link
-              href={link.linkPath}
+              href={link.linkPath.startsWith('http') ? link.linkPath : `https://${link.linkPath}`}
               target="_blank"
               key={link.profileLinkId}
               className="relative flex cursor-pointer items-center gap-2 rounded-xl bg-grey10 px-6 py-3 hover:ring-4 hover:ring-grey40"
