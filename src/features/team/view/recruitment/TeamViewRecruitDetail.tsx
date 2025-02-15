@@ -89,11 +89,18 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
 
       <span className="mt-3 text-2xl font-semibold text-grey90">{recruitmentDetail.announcementTitle}</span>
 
-      <div className="mt-3 flex gap-3">
+      {/* 포지션 */}
+      <div className="mt-3 flex gap-2">
         <div className="rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-[#2563EB]">
           {recruitmentDetail.announcementPositionItem.majorPosition}
         </div>
-        {/*  */}
+        <div className="rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-[#2563EB]">
+          {recruitmentDetail.announcementPositionItem.subPosition}
+        </div>
+      </div>
+
+      {/* 기술 스택 */}
+      <div className="mt-2 flex gap-2">
         {recruitmentDetail.announcementSkillNames.map((skill) => (
           <div
             key={skill.announcementSkillName}
@@ -102,8 +109,6 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
             {skill.announcementSkillName}
           </div>
         ))}
-
-        {/*  */}
       </div>
 
       {/* 내용 */}

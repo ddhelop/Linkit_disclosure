@@ -90,7 +90,7 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
 
       <div className="flex gap-2">
         <div className="flex items-center rounded-[0.38rem] bg-[#D3E1FE] px-3 py-1 text-sm text-main">
-          {announcement?.announcementPositionItem?.majorPosition}
+          {announcement?.announcementPositionItem?.subPosition}
         </div>
         {announcement?.announcementSkillNames?.slice(0, 1).map((skill, index) => (
           <div
