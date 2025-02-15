@@ -35,10 +35,10 @@ export default function ProfileViewClient({
   if (!profileData) return <div>Loading...</div>
 
   return (
-    <div className="flex bg-white">
+    <div className="flex flex-col items-center bg-[#EDF3FF] pt-10 lg:flex-row lg:bg-white">
       <ProfileViewProvider profileData={profileData}>
         {/* 왼쪽 사이드바 영역 */}
-        <aside className=" fixed top-16 hidden h-[calc(100vh-4rem)] w-[28%] flex-col items-end pr-[4.5rem] pt-[3.75rem] lg:flex">
+        <aside className=" top-16 w-[20rem] flex-col items-center rounded-xl bg-white lg:fixed lg:flex lg:h-[calc(100vh-4rem)] lg:w-[28%] lg:items-end lg:pr-[4.5rem] lg:pt-[3.75rem]">
           <div
             className="rounded-xl border border-grey30 p-4"
             style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
