@@ -84,7 +84,6 @@ export default function MiniTeamCard({ teamInfo }: MiniTeamCardProps) {
         <div className="flex flex-col justify-center">
           <div className="flex items-center gap-3">
             <span className="text-lg font-semibold text-grey90">{teamInfo?.result.teamInformMenu.teamName}</span>
-            <span className="text-xs text-grey70">스크랩 수 {teamInfo?.result.teamInformMenu.teamScrapCount}</span>
           </div>
 
           <div className="mt-1 flex flex-col ">
