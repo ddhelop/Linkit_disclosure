@@ -21,14 +21,13 @@ export default function ChattingListComponent({
   const lastMessageTime = chattingList.chatPartnerInformation.lastMessageTime || lastMessages[chatRoomId]?.timestamp
 
   const formattedDate = formatDate(lastMessageTime)
-  const hasUnreadMessages = chattingList.unreadChatMessageCount && chattingList.unreadChatMessageCount > 0
 
   return (
     <div
       onClick={onClick}
       className={`flex w-full cursor-pointer gap-3 rounded-xl border p-4 hover:bg-grey10
         ${isSelected ? 'bg-grey10' : 'border-grey20'}
-        ${hasUnreadMessages ? 'bg-[#EDF3FF]' : ''}`}
+        ${chattingList.unreadChatMessageCount > 0 ? 'bg-[#EDF3FF]' : ''}`}
     >
       <div className="h-[60px] w-[60px] flex-shrink-0">
         {chattingList.chatPartnerInformation.chatPartnerImageUrl ? (
@@ -62,8 +61,8 @@ export default function ChattingListComponent({
         </div>
         <div className="relative w-[90%] text-xs text-grey60">
           <span>{lastMessage}</span>
-          {hasUnreadMessages && (
-            <div className="bg-red absolute -right-6 -top-1 flex h-5 w-5 items-center justify-center rounded-full text-xs text-white">
+          {chattingList.unreadChatMessageCount > 0 && (
+            <div className="absolute -right-6 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#FF345F] text-xs text-white">
               {chattingList.unreadChatMessageCount}
             </div>
           )}
