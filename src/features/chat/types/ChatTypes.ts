@@ -44,7 +44,7 @@ export interface ChattingListType {
     lastMessage: string
     lastMessageTime: string
   }
-  unreadChatMessageCount: number | null
+  unreadChatMessageCount: number
   chatPartnerOnline: boolean
 }
 
