@@ -17,6 +17,7 @@ export default function MiniProfileCard() {
   const divisionName = profileData?.profileInformMenu?.regionDetail?.divisionName || '시/군/구 없음'
   const teamInfo = profileData?.profileInformMenu?.profileTeamInforms
   const isMyProfile = profileData?.isMyProfile
+  const subPosition = profileData?.profileInformMenu?.subPosition || ''
   // 블러 처리를 위한 조건
   const isIncomplete = !majorPosition || !cityName
 
@@ -51,10 +52,10 @@ export default function MiniProfileCard() {
           <div className="flex flex-col">
             <p className="text-lg font-bold">{memberName}</p>
             <div className="mt-2 flex gap-1 text-xs text-grey70">
-              <p className="text-grey50">포지션 | </p> <p>{majorPosition || '직무 없음'}</p>
+              <p>{majorPosition ? `${majorPosition} · ${subPosition}` : '직무 없음'}</p>
             </div>
             <div className="mt-1 flex gap-1 text-xs text-grey70">
-              <p className="text-grey50">지역 | </p> <p>{cityName ? `${cityName} ${divisionName}` : '지역 없음'}</p>
+              <p>{cityName ? `${cityName} ${divisionName}` : '지역 없음'}</p>
             </div>
           </div>
         </div>
