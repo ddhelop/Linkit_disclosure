@@ -15,7 +15,7 @@ export default function FindAnnouncementFilter() {
   const [isPositionOpen, setIsPositionOpen] = useState(false)
   const [isSkillOpen, setIsSkillOpen] = useState(false)
   const [selectedPositions, setSelectedPositions] = useState<string[]>(
-    [searchParams.get('majorPosition')].filter(Boolean) as string[],
+    [searchParams.get('subPosition')].filter(Boolean) as string[],
   )
   const [selectedSkills, setSelectedSkills] = useState<string[]>(searchParams.getAll('skillName'))
   const [positionSearchText, setPositionSearchText] = useState('')
@@ -42,7 +42,7 @@ export default function FindAnnouncementFilter() {
     const params = new URLSearchParams()
 
     selectedPositions.forEach((position) => {
-      params.append('majorPosition', position)
+      params.append('subPosition', position)
     })
 
     selectedSkills.forEach((skill) => {

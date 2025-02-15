@@ -13,8 +13,10 @@ export const getFindPrivateProfile = async (params: SearchParams): Promise<ApiRe
   const searchParams = new URLSearchParams()
 
   // 파라미터 추가
-  if (params.majorPosition) {
-    searchParams.append('majorPosition', params.majorPosition)
+  if (params.subPosition) {
+    params.subPosition.forEach((position) => {
+      searchParams.append('subPosition', position)
+    })
   }
 
   if (params.skillName && params.skillName.length > 0) {
@@ -89,8 +91,10 @@ export const getFindAnnouncement = async (params: SearchParams): Promise<Announc
   const searchParams = new URLSearchParams()
 
   // 파라미터 추가
-  if (params.majorPosition) {
-    searchParams.append('majorPosition', params.majorPosition)
+  if (params.subPosition) {
+    params.subPosition.forEach((position) => {
+      searchParams.append('subPosition', position)
+    })
   }
 
   if (params.skillName && params.skillName.length > 0) {
