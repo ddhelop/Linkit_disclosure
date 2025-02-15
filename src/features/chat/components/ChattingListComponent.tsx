@@ -60,7 +60,7 @@ export default function ChattingListComponent({
           <span className="text-xs font-normal text-grey70">{formattedDate}</span>
         </div>
         <div className="relative w-[90%] text-xs text-grey60">
-          <span>{lastMessage}</span>
+          <span>{lastMessage.length > 21 ? `${lastMessage.slice(0, 21)}...` : lastMessage}</span>
           {chattingList.unreadChatMessageCount > 0 && (
             <div className="absolute -right-6 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#FF345F] text-xs text-white">
               {chattingList.unreadChatMessageCount}
