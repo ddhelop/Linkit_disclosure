@@ -152,17 +152,20 @@ export interface Announcement {
 }
 
 export interface AnnouncementPageData {
-  content: Announcement[]
-  pageable: Pageable
-  last: boolean
-  totalElements: number
-  totalPages: number
-  first: boolean
-  size: number
-  number: number
-  sort: Sort
-  numberOfElements: number
-  empty: boolean
+  hotAnnouncements: Announcement[]
+  defaultAnnouncements: {
+    content: Announcement[]
+    pageable: Pageable
+    last: boolean
+    totalElements: number
+    totalPages: number
+    first: boolean
+    size: number
+    number: number
+    sort: Sort
+    numberOfElements: number
+    empty: boolean
+  }
 }
 
 export interface AnnouncementApiResponse {
