@@ -85,7 +85,7 @@ export default function PrivateFilterResult() {
   }
 
   return (
-    <div className="px-12">
+    <div className="flex flex-col gap-12 px-12">
       {hotAnnouncements.length > 0 && (
         <div>
           <div className="text-lg font-semibold text-black">🔥 지금 핫한 공고에요!</div>
