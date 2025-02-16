@@ -10,7 +10,6 @@ export default function PrivateFilterResult() {
   const searchParams = useSearchParams()
   const [announcements, setAnnouncements] = useState<Announcement[]>([])
   const [hotAnnouncements, setHotAnnouncements] = useState<Announcement[]>([])
-
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [totalElements, setTotalElements] = useState(0)
@@ -36,9 +35,6 @@ export default function PrivateFilterResult() {
         const response = await getFindAnnouncement(params)
 
         if (response.isSuccess && response.code === '1000') {
-          setAnnouncements(response.result.defaultAnnouncements.content)
-          setHotAnnouncements(response.result.hotAnnouncements)
-          setTotalElements(response.result.defaultAnnouncements.totalElements)
           setAnnouncements(response.result.defaultAnnouncements.content)
           setHotAnnouncements(response.result.hotAnnouncements)
           setTotalElements(response.result.defaultAnnouncements.totalElements)
@@ -81,42 +77,40 @@ export default function PrivateFilterResult() {
   }
 
   if (announcements.length === 0 && hotAnnouncements.length === 0) {
-    if (announcements.length === 0 && hotAnnouncements.length === 0) {
-      return (
-        <div className="flex h-96 items-center justify-center">
-          <p>검색 결과가 없습니다.</p>
-        </div>
-      )
-    }
-
     return (
-      <div className="px-12">
-        {hotAnnouncements.length > 0 && (
-          <div>
-            <div className="text-lg font-semibold text-black">🔥 지금 핫한 공고에요!</div>
-            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3 xl:grid-cols-3">
-              {hotAnnouncements.map((announcement, index) => (
-                <AnnouncementCard key={`announcement-${index}`} announcement={announcement} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* 공고 리스트 */}
-        {announcements.length > 0 && (
-          <div>
-            <div className="text-lg font-semibold text-black">
-              {isFilterApplied() ? '검색 결과' : '🔍 나에게 맞는 모집 공고를 더 찾아 보세요!'}
-            </div>
-            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3 xl:grid-cols-3">
-              {announcements.map((announcement, index) => (
-                <AnnouncementCard key={`announcement-${index}`} announcement={announcement} />
-              ))}
-            </div>
-          </div>
-        )}
-        {/* 필요한 경우 페이지네이션 컴포넌트 추가 */}
+      <div className="flex h-96 items-center justify-center">
+        <p>검색 결과가 없습니다.</p>
       </div>
     )
   }
+
+  return (
+    <div className="px-12">
+      {hotAnnouncements.length > 0 && (
+        <div>
+          <div className="text-lg font-semibold text-black">🔥 지금 핫한 공고에요!</div>
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3 xl:grid-cols-3">
+            {hotAnnouncements.map((announcement, index) => (
+              <AnnouncementCard key={`announcement-${index}`} announcement={announcement} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 공고 리스트 */}
+      {announcements.length > 0 && (
+        <div>
+          <div className="text-lg font-semibold text-black">
+            {isFilterApplied() ? '검색 결과' : '🔍 나에게 맞는 모집 공고를 더 찾아 보세요!'}
+          </div>
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3 xl:grid-cols-3">
+            {announcements.map((announcement, index) => (
+              <AnnouncementCard key={`announcement-${index}`} announcement={announcement} />
+            ))}
+          </div>
+        </div>
+      )}
+      {/* 필요한 경우 페이지네이션 컴포넌트 추가 */}
+    </div>
+  )
 }
