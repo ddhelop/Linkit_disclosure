@@ -10,6 +10,7 @@ export default function PrivateFilterResult() {
   const searchParams = useSearchParams()
   const [announcements, setAnnouncements] = useState<Announcement[]>([])
   const [hotAnnouncements, setHotAnnouncements] = useState<Announcement[]>([])
+  const [hotAnnouncements, setHotAnnouncements] = useState<Announcement[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [totalElements, setTotalElements] = useState(0)
@@ -38,6 +39,9 @@ export default function PrivateFilterResult() {
           setAnnouncements(response.result.defaultAnnouncements.content)
           setHotAnnouncements(response.result.hotAnnouncements)
           setTotalElements(response.result.defaultAnnouncements.totalElements)
+          setAnnouncements(response.result.defaultAnnouncements.content)
+          setHotAnnouncements(response.result.hotAnnouncements)
+          setTotalElements(response.result.defaultAnnouncements.totalElements)
         } else {
           setError(response.message)
         }
@@ -50,6 +54,15 @@ export default function PrivateFilterResult() {
 
     fetchProfiles()
   }, [searchParams, currentPage]) // searchParams나 currentPage가 변경될 때마다 API 호출
+
+  const isFilterApplied = () => {
+    return (
+      searchParams.getAll('subPosition').length > 0 ||
+      searchParams.getAll('skillName').length > 0 ||
+      searchParams.has('cityName') ||
+      searchParams.has('scale')
+    )
+  }
 
   const isFilterApplied = () => {
     return (
@@ -77,6 +90,7 @@ export default function PrivateFilterResult() {
   }
 
   if (announcements.length === 0 && hotAnnouncements.length === 0) {
+  if (announcements.length === 0 && hotAnnouncements.length === 0) {
     return (
       <div className="flex h-96 items-center justify-center">
         <p>검색 결과가 없습니다.</p>
@@ -85,7 +99,7 @@ export default function PrivateFilterResult() {
   }
 
   return (
-    <div className="flex flex-col gap-12 px-12">
+    <div className="px-12">
       {hotAnnouncements.length > 0 && (
         <div>
           <div className="text-lg font-semibold text-black">🔥 지금 핫한 공고에요!</div>
