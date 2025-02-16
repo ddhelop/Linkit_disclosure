@@ -91,7 +91,7 @@ export default function TeamFilterResult() {
       {ventureTeams?.length > 0 && (
         <div>
           <div className="text-lg font-semibold text-black">🔥 창업을 위한 팀원을 찾고 있어요!</div>
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 ">
             {ventureTeams?.map((team, index) => <MiniTeamCard_2 key={`${team.teamName}-${index}`} team={team} />)}
           </div>
         </div>
@@ -101,7 +101,7 @@ export default function TeamFilterResult() {
       {supportProjectTeams?.length > 0 && (
         <div>
           <div className="text-lg font-semibold text-black">🔥 지원 사업을 위한 팀원을 찾고 있어요!</div>
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
             {supportProjectTeams?.map((team, index) => (
               <MiniTeamCard_2 key={`${team.teamName}-${index}`} team={team} />
             ))}
