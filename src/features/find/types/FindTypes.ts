@@ -49,17 +49,20 @@ export interface Sort {
 }
 
 export interface PageData {
-  content: Profile[]
-  pageable: Pageable
-  last: boolean
-  totalElements: number
-  totalPages: number
-  first: boolean
-  size: number
-  number: number
-  sort: Sort
-  numberOfElements: number
-  empty: boolean
+  topCompletionProfiles: Profile[]
+  defaultProfiles: {
+    content: Profile[]
+    pageable: Pageable
+    last: boolean
+    totalElements: number
+    totalPages: number
+    first: boolean
+    size: number
+    number: number
+    sort: Sort
+    numberOfElements: number
+    empty: boolean
+  }
 }
 
 export interface ApiResponse<T = Profile> {

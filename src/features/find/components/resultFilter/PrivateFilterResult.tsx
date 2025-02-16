@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import MiniProfileCard_2 from '@/shared/components/MiniProfileCard_2'
 import { getFindPrivateProfile } from '../../api/FindApi'
-import { ProfileInform } from '@/features/match/types/MatchTypes'
 import { Profile, SearchParams } from '../../types/FindTypes'
 
 export default function PrivateFilterResult() {
   const searchParams = useSearchParams()
   const [profiles, setProfiles] = useState<Profile[]>([])
+  const [topCompletionProfiles, setTopCompletionProfiles] = useState<Profile[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [totalElements, setTotalElements] = useState(0)
@@ -34,8 +34,9 @@ export default function PrivateFilterResult() {
         const response = await getFindPrivateProfile(params)
 
         if (response.isSuccess && response.code === '1000') {
-          setProfiles(response.result.content)
-          setTotalElements(response.result.totalElements)
+          setProfiles(response.result.defaultProfiles.content)
+          setTopCompletionProfiles(response.result.topCompletionProfiles)
+          setTotalElements(response.result.defaultProfiles.totalElements)
         } else {
           setError(response.message)
         }
@@ -48,6 +49,16 @@ export default function PrivateFilterResult() {
 
     fetchProfiles()
   }, [searchParams, currentPage]) // searchParams나 currentPage가 변경될 때마다 API 호출
+
+  // 필터 적용 여부를 확인하는 함수 추가
+  const isFilterApplied = () => {
+    return (
+      searchParams.getAll('subPosition').length > 0 ||
+      searchParams.getAll('skillName').length > 0 ||
+      searchParams.has('cityName') ||
+      searchParams.has('profileStateName')
+    )
+  }
 
   if (isLoading) {
     return (
@@ -65,7 +76,7 @@ export default function PrivateFilterResult() {
     )
   }
 
-  if (profiles.length === 0) {
+  if (profiles?.length === 0 && topCompletionProfiles?.length === 0) {
     return (
       <div className="flex h-96 items-center justify-center">
         <p>검색 결과가 없습니다.</p>
@@ -74,12 +85,32 @@ export default function PrivateFilterResult() {
   }
 
   return (
-    <div className="px-12">
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-        {profiles.map((profile, index) => (
-          <MiniProfileCard_2 key={`${profile.emailId}-${index}`} profile={profile} />
-        ))}
-      </div>
+    <div className="flex flex-col gap-16 px-12">
+      {/* 완성도 높은 팀원 */}
+      {topCompletionProfiles?.length > 0 && (
+        <div>
+          <div className="text-lg font-semibold text-black">🔥 프로필 완성도가 가장 높은 팀원이에요!</div>
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            {topCompletionProfiles?.map((profile, index) => (
+              <MiniProfileCard_2 key={`${profile.emailId}-${index}`} profile={profile} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 프로필 리스트 */}
+      {profiles?.length > 0 && (
+        <div>
+          <div className="text-lg font-semibold text-black">
+            {isFilterApplied() ? '검색 결과' : '🔍 나에게 필요한 팀원을 더 찾아보세요!'}
+          </div>
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            {profiles?.map((profile, index) => (
+              <MiniProfileCard_2 key={`${profile.emailId}-${index}`} profile={profile} />
+            ))}
+          </div>
+        </div>
+      )}
       {/* 필요한 경우 페이지네이션 컴포넌트 추가 */}
     </div>
   )
