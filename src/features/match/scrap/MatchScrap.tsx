@@ -49,7 +49,9 @@ export default function MatchScrap() {
     <div className="flex w-full flex-col">
       <MatchScrapFilter selected={selectedFilter} onFilterChange={setSelectedFilter} />
 
+
       <div className="mt-8 grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+
         {isLoading ? (
           <div>로딩 중...</div>
         ) : selectedFilter === 'MEMBER' ? (
