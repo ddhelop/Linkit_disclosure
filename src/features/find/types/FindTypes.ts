@@ -102,17 +102,21 @@ export interface Team {
 }
 
 export interface TeamPageData {
-  content: Team[]
-  pageable: Pageable
-  last: boolean
-  totalElements: number
-  totalPages: number
-  first: boolean
-  size: number
-  number: number
-  sort: Sort
-  numberOfElements: number
-  empty: boolean
+  ventureTeams: Team[]
+  supportProjectTeams: Team[]
+  defaultTeams: {
+    content: Team[]
+    pageable: Pageable
+    last: boolean
+    totalElements: number
+    totalPages: number
+    first: boolean
+    size: number
+    number: number
+    sort: Sort
+    numberOfElements: number
+    empty: boolean
+  }
 }
 
 export interface TeamApiResponse {
