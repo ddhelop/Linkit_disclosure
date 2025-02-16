@@ -16,9 +16,9 @@ export default function ProfileViewLinks() {
     'linkedin',
     'notion',
     'tiktok',
-    'x',
     'twitter',
     'youtube',
+    'x.com',
   ]
 
   const getSocialIcon = (linkPath: string) => {
