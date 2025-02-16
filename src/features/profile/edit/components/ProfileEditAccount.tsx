@@ -185,7 +185,7 @@ export default function ProfileEditAccount() {
 
   return (
     <>
-      <div className="flex flex-col gap-10 rounded-xl border border-grey20 bg-white px-[1.62rem] py-[1.88rem]">
+      <div className="flex flex-col gap-10 rounded-xl border-grey20 px-[1.62rem] py-[1.88rem] md:border md:bg-white">
         <div className="flex flex-col items-center gap-2">
           <div
             className="flex w-full items-center justify-between rounded-xl px-3 py-[1.06rem] hover:cursor-pointer hover:bg-grey10"

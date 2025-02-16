@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
 import { requestEmailAuthentication, verifyEmailAndChange } from '../../api/emailAuthentication'
+import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 
 interface EmailChangeModalProps {
   isOpen: boolean
@@ -56,15 +57,12 @@ export default function EmailChangeModal({ isOpen, onClose, initialEmail, onSubm
     }
   }, [isOpen, initialEmail])
 
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose()
-      }
-    }
-    window.addEventListener('keydown', handleEsc)
-    return () => window.removeEventListener('keydown', handleEsc)
-  }, [onClose])
+  // useOnClickOutside 훅 추가
+  useOnClickOutside({
+    refs: [modalRef],
+    handler: onClose,
+    isEnabled: isOpen,
+  })
 
   const handleSendVerificationCode = async () => {
     try {
@@ -109,7 +107,7 @@ export default function EmailChangeModal({ isOpen, onClose, initialEmail, onSubm
 
         <div className="mb-6">
           <span className="text-sm font-normal text-grey80">새로운 이메일</span>
-          <div className="mt-3 flex gap-2">
+          <div className="mt-3 flex flex-col gap-2 sm:flex-row">
             <Input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -122,7 +120,7 @@ export default function EmailChangeModal({ isOpen, onClose, initialEmail, onSubm
               disabled={!isChanged || isTimerRunning || isLoading}
               mode="custom"
               animationMode="main"
-              className="min-w-[120px] whitespace-nowrap bg-[#D3E1FE] px-2 text-sm font-semibold text-main"
+              className="min-w-[120px] whitespace-nowrap rounded-lg bg-[#D3E1FE] px-2 text-sm font-semibold text-main"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
