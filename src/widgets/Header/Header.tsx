@@ -3,7 +3,8 @@
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { getAccessToken, useAuthStore } from '@/shared/store/useAuthStore'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import Logo from './components/Logo'
 import Navigation from './components/Navigation'
 import UserMenu from './components/UserMenu'
@@ -19,6 +20,8 @@ export default function Header() {
   const [loading, setLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
 
   const hideHeaderOnPaths = ['/login/onboarding-info', '/login/onboarding-agree', '/login/onboarding-complete']
   const basePath = pathname.split('?')[0]
@@ -38,6 +41,16 @@ export default function Header() {
 
   useNotificationSubscription(emailId || '')
 
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false)
+  }
+
+  useOnClickOutside({
+    refs: [mobileMenuRef, menuButtonRef],
+    handler: closeMobileMenu,
+    isEnabled: isMobileMenuOpen,
+  })
+
   if (hideHeaderOnPaths.includes(basePath)) {
     return null
   }
@@ -48,10 +61,6 @@ export default function Header() {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
-  }
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false)
   }
 
   return (
@@ -65,7 +74,7 @@ export default function Header() {
         <div className="flex items-center font-normal text-grey90">
           <div className="hidden md:flex">{isLogin ? <UserMenu /> : <GuestMenu />}</div>
 
-          <button onClick={toggleMobileMenu} className="menu-toggle-button flex md:hidden">
+          <button ref={menuButtonRef} onClick={toggleMobileMenu} className="menu-toggle-button flex md:hidden">
             <Image
               src={isMobileMenuOpen ? '/common/icons/delete_icon.svg' : '/common/icons/mobile_menu_icon.svg'}
               width={26}
@@ -76,7 +85,11 @@ export default function Header() {
         </div>
       </header>
 
-      {isMobileMenuOpen && <MobileMenu isLogin={isLogin} onClose={closeMobileMenu} onLogout={logout} />}
+      {isMobileMenuOpen && (
+        <div ref={mobileMenuRef}>
+          <MobileMenu isLogin={isLogin} onClose={closeMobileMenu} onLogout={logout} />
+        </div>
+      )}
     </>
   )
 }
