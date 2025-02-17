@@ -86,7 +86,7 @@ export default function TeamFilterResult() {
   }
 
   return (
-    <div className="flex flex-col gap-16 px-12">
+    <div className="flex flex-col gap-16 lg:px-12">
       {/* 벤처 팀 */}
       {ventureTeams?.length > 0 && (
         <div>

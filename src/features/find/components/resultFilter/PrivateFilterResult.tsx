@@ -85,7 +85,7 @@ export default function PrivateFilterResult() {
   }
 
   return (
-    <div className="flex flex-col gap-16 px-12">
+    <div className="flex flex-col gap-16 lg:px-12">
       {/* 완성도 높은 팀원 */}
       {topCompletionProfiles?.length > 0 && (
         <div>

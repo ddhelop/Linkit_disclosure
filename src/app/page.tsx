@@ -27,7 +27,7 @@ export default function Intropage() {
       <Banner />
 
       {/*  */}
-      <div className="flex w-[90%] flex-col items-center gap-16 md:mt-[3.77rem] xl:w-[65%] ">
+      <div className="flex w-[93%] flex-col items-center gap-16 md:mt-[3.77rem] xl:w-[65%] ">
         {/* 모집 공고 섹션 */}
         <HomeAnnouncementSection />
 

@@ -49,7 +49,7 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
   return (
     <Link
       href={`/team/${team.teamCode}/log`}
-      className="flex cursor-pointer flex-col rounded-xl border border-transparent px-7 py-[1.12rem] hover:border-[#7EA5F8] sm:min-w-[28rem] md:min-w-[unset]"
+      className="flex min-w-[16rem] cursor-pointer flex-col rounded-xl border border-transparent px-7 py-[1.12rem] hover:border-[#7EA5F8] md:min-w-[unset]"
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
     >
       <div className="flex justify-between">
