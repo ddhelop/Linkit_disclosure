@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useAuthStore } from '@/shared/store/useAuthStore'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export default function Banner() {
   const { emailId } = useAuthStore()
@@ -31,6 +31,38 @@ export default function Banner() {
       alt: '커뮤니티 배너',
     },
   ]
+
+  // 모바일 뷰를 위한 상태
+  const [mobileCurrentIndex, setMobileCurrentIndex] = useState(0)
+  const [mobileTouchStart, setMobileTouchStart] = useState(false)
+  const [mobileTouchEnd, setMobileTouchEnd] = useState(false)
+  const [mobileTouchStartX, setMobileTouchStartX] = useState(0)
+  const [mobileTouchEndX, setMobileTouchEndX] = useState(0)
+  const [mobileTouchStartY, setMobileTouchStartY] = useState(0)
+  const [mobileTouchEndY, setMobileTouchEndY] = useState(0)
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setMobileTouchStart(true)
+    setMobileTouchStartX(e.touches[0].clientX)
+    setMobileTouchStartY(e.touches[0].clientY)
+  }
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    setMobileTouchEnd(true)
+    setMobileTouchEndX(e.touches[0].clientX)
+    setMobileTouchEndY(e.touches[0].clientY)
+  }
+  const handleTouchEnd = () => {
+    setMobileTouchStart(false)
+    setMobileTouchEnd(false)
+    const deltaX = mobileTouchEndX - mobileTouchStartX
+    const deltaY = mobileTouchEndY - mobileTouchStartY
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX > 0) {
+        setMobileCurrentIndex((prev) => (prev + 1) % originalSlides.length)
+      } else {
+        setMobileCurrentIndex((prev) => (prev - 1 < 0 ? originalSlides.length - 1 : prev - 1))
+      }
+    }
+  }
 
   // 원본 슬라이드를 3회 복제하여 총 12개 인덱스
   const [slideIndices, setSlideIndices] = useState(() => Array.from({ length: 12 }, (_, i) => i + 1))
@@ -117,8 +149,8 @@ export default function Banner() {
 
   return (
     <div className="relative w-full overflow-hidden py-8">
-      <div className="relative mx-auto h-[18.75rem] w-full">
-        <div className="relative h-full w-full">
+      <div className="relative mx-auto w-full md:h-[18.75rem]">
+        <div className="relative w-full">
           {/* Desktop View */}
           <div className="hidden md:block">
             <div className="absolute left-1/2 -translate-x-1/2">
@@ -195,7 +227,58 @@ export default function Banner() {
           </div>
 
           {/* Mobile View */}
-          <div className="md:hidden">{/* ... 기존 모바일 뷰 코드 ... */}</div>
+          <div className="block md:hidden">
+            <div className="relative mx-auto w-[90%]">
+              <div className="relative w-full">
+                <div
+                  className="relative aspect-[750/300]"
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                >
+                  <AnimatePresence initial={false} mode="wait">
+                    <motion.div
+                      key={mobileCurrentIndex}
+                      initial={{ opacity: 0, x: 100 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -100 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute inset-0"
+                    >
+                      <Link
+                        href={originalSlides[mobileCurrentIndex].link}
+                        target={originalSlides[mobileCurrentIndex].link.startsWith('http') ? '_blank' : undefined}
+                        className="block h-full w-full"
+                      >
+                        <Image
+                          src={originalSlides[mobileCurrentIndex].image}
+                          alt={originalSlides[mobileCurrentIndex].alt}
+                          fill
+                          className="rounded-[20px] object-contain"
+                          priority
+                          sizes="95vw"
+                        />
+                      </Link>
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* 페이지네이션 닷 */}
+                  <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+                    {originalSlides.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setMobileCurrentIndex(index)}
+                        className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                          index === mobileCurrentIndex ? 'w-4 bg-white' : 'bg-white/50'
+                        }`}
+                        aria-label={`Go to slide ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

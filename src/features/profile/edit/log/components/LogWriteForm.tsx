@@ -183,7 +183,7 @@ export default function LogWriteForm() {
   return (
     <>
       <div className="rounded-xl bg-white">
-        <div className="px-[2.87rem] pb-10 pt-8">
+        <div className="p-5 md:px-[2.87rem] md:py-8">
           {/* 제목 입력 */}
           <div className="flex flex-col gap-3">
             <span className="font-semibold text-grey80">제목</span>
@@ -217,7 +217,7 @@ export default function LogWriteForm() {
         </div>
 
         {/* 공개 설정 */}
-        <div className="mt-5 rounded-xl bg-white px-[2.88rem] pb-8 pt-7">
+        <div className="mt-5 rounded-xl bg-white p-5 md:px-[2.88rem] md:py-7">
           <div className="flex flex-col gap-5">
             <span className="text-lg font-semibold text-grey80">설정</span>
             <div className="flex items-center gap-5">

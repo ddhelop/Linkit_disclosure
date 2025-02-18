@@ -45,7 +45,7 @@ export default function DropdownMenu({ items, triggerIcon = '/common/icons/more_
       {isOpen && (
         <div
           ref={menuRef}
-          className="absolute left-0 top-8 z-50 min-w-[120px] rounded-lg border border-grey30 bg-white py-2 shadow-lg"
+          className="right-3-0 absolute top-8 z-50 min-w-[120px] rounded-lg border border-grey30 bg-white py-2 shadow-lg"
           onClick={(e) => e.stopPropagation()}
         >
           {items.map((item, index) => (

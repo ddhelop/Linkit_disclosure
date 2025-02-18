@@ -90,16 +90,15 @@ export default function ProjectComponent({
         }
         className="flex w-full gap-6"
       >
-        <div className="h-[144px] w-[256px] rounded-lg">
-          <div className="relative h-[144px] w-[256px]">
-            <Image
-              src={projectRepresentImagePath || '/common/images/no_thumbnail.svg'}
-              alt="thumbnail"
-              fill
-              className="h-full w-full rounded-lg object-cover"
-            />
-          </div>
+        <div className="relative aspect-[16/9] w-[120px] max-w-[256px] rounded-lg md:w-[256px]">
+          <Image
+            src={projectRepresentImagePath || '/common/images/no_thumbnail.svg'}
+            alt="thumbnail"
+            fill
+            className="rounded-lg object-cover"
+          />
         </div>
+
         <div className="flex flex-col justify-center">
           <div className="flex items-center gap-3">
             <span className="max-w-[75%] text-lg font-semibold">{projectName}</span>

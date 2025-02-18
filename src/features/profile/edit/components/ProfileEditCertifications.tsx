@@ -69,7 +69,7 @@ export default function ProfileEditCertifications() {
       {isLoading ? (
         <CertificationListSkeleton />
       ) : (
-        <div className="mt-4 flex flex-col gap-4">
+        <div className="mt-4 flex flex-col gap-3">
           {licenses.length === 0 ? (
             <div className="">
               <NotContentsUi />

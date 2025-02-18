@@ -231,7 +231,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
 
   return (
     <>
-      <div className="flex w-full justify-between">
+      <div className="flex w-full flex-col lg:flex-row lg:justify-between lg:gap-8">
         <div className="flex flex-col">
           <div className="flex gap-2">
             {teamInformMenu.teamCurrentStates.map((state, index) => (
@@ -243,46 +243,49 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
 
           <div className="mt-5 flex justify-between">
             <div className="flex gap-8">
-              <Image
-                src={teamInformMenu.teamLogoImagePath || '/common/default_profile.svg'}
-                alt="team-profile"
-                className="rounded-xl"
-                width={132}
-                height={132}
-              />
+              <div className="relative aspect-square h-[8rem] w-[8rem] rounded-xl">
+                <Image
+                  src={teamInformMenu.teamLogoImagePath || '/common/default_profile.svg'}
+                  alt="team-profile"
+                  className="rounded-xl object-cover"
+                  fill
+                />
+              </div>
               <div className="flex flex-col justify-center">
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col gap-3 md:flex-row md:items-center">
                   <h1 className="text-2xl font-bold text-grey90">{teamInformMenu.teamName}</h1>
-                  <span className="text-xs text-grey70">스크랩 수 {teamInformMenu.teamScrapCount}</span>
-                  {teamData.isMyTeam && (
-                    <div className="relative" ref={dropdownRef}>
-                      <Image
-                        src="/common/icons/dropdown_icon.svg"
-                        alt="menu"
-                        width={16}
-                        height={16}
-                        className="cursor-pointer"
-                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      />
+                  <div className="flex gap-2">
+                    <span className="text-xs text-grey70">스크랩 수 {teamInformMenu.teamScrapCount}</span>
+                    {teamData.isMyTeam && (
+                      <div className="relative" ref={dropdownRef}>
+                        <Image
+                          src="/common/icons/dropdown_icon.svg"
+                          alt="menu"
+                          width={16}
+                          height={16}
+                          className="cursor-pointer"
+                          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        />
 
-                      {isDropdownOpen && (
-                        <div className="absolute left-0 top-6 z-10 w-[6rem] rounded-lg border border-grey30 bg-white py-2 shadow-lg">
-                          <div
-                            className="flex cursor-pointer items-center gap-2 px-3 py-1 text-xs text-[#FF345F] hover:bg-grey10"
-                            onClick={handleLeaveTeam}
-                          >
-                            팀 나가기
+                        {isDropdownOpen && (
+                          <div className="absolute left-0 top-6 z-10 w-[6rem] rounded-lg border border-grey30 bg-white py-2 shadow-lg">
+                            <div
+                              className="flex cursor-pointer items-center gap-2 px-3 py-1 text-xs text-[#FF345F] hover:bg-grey10"
+                              onClick={handleLeaveTeam}
+                            >
+                              팀 나가기
+                            </div>
+                            <div
+                              className="flex cursor-pointer items-center gap-2 px-3 py-1 text-xs text-grey80 hover:bg-grey10"
+                              onClick={handleDeleteTeam}
+                            >
+                              팀 삭제하기
+                            </div>
                           </div>
-                          <div
-                            className="flex cursor-pointer items-center gap-2 px-3 py-1 text-xs text-grey80 hover:bg-grey10"
-                            onClick={handleDeleteTeam}
-                          >
-                            팀 삭제하기
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <div className="mt-2 flex flex-col gap-1">
@@ -306,7 +309,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
           // 내 팀인 경우
           teamData.isTeamManager ? (
             // 관리자인 경우
-            <div className="mt-12">
+            <div className="mt-5 lg:mt-12">
               {isTeamDeleteInProgress && !teamData.isTeamDeleteRequester ? (
                 // 팀 삭제 진행중이고 삭제 요청자가 아닌 경우
                 <div className="flex gap-3">
@@ -402,7 +405,7 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
           </div>
         ) : (
           // 일반 외부인
-          <div className="mt-12 flex flex-col gap-5">
+          <div className="mt-6 flex flex-row gap-5 lg:mt-12 lg:flex-col">
             <div
               onClick={onClickTeamScrap}
               className="flex w-[19rem] cursor-pointer justify-center gap-3 rounded-full bg-[#D3E1FE] px-[1.38rem] py-3"

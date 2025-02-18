@@ -1,3 +1,4 @@
+import ProfileEditBottomNav from '@/features/profile/edit/components/common/ProfileEditBottomNav'
 import ProfileEditAwards from '@/features/profile/edit/components/ProfileEditAwards'
 
 export default function ProfileEditAwardsPage() {
@@ -8,6 +9,8 @@ export default function ProfileEditAwardsPage() {
       <div className="mt-5 rounded-xl">
         <ProfileEditAwards />
       </div>
+
+      <ProfileEditBottomNav prevPath="/profile/edit/education" nextPath="/profile/edit/certifications" />
     </>
   )
 }

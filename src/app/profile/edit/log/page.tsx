@@ -1,13 +1,16 @@
+import ProfileEditBottomNav from '@/features/profile/edit/components/common/ProfileEditBottomNav'
 import ProfileEditLog from '@/features/profile/edit/components/ProfileEditLog'
 
 export default function ProfileEditLogPage() {
   return (
-    <>
+    <div className="flex h-full flex-col gap-10 bg-[#EDF3FF] px-4  md:px-0">
       <label className="text-xl font-bold">나의 로그</label>
 
       <div className="mt-5">
         <ProfileEditLog />
       </div>
-    </>
+
+      <ProfileEditBottomNav nextPath="/profile/edit/basic" isFirstPage={true} />
+    </div>
   )
 }

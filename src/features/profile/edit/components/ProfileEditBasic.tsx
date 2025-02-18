@@ -228,7 +228,7 @@ export default function ProfileEditBasic() {
 
   return (
     <>
-      <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] py-10">
+      <div className="flex flex-col gap-10 rounded-xl bg-white p-5 md:p-8">
         {/* 프로필 사진 */}
         <div className="flex flex-col">
           <div className="flex w-full justify-between">
@@ -238,7 +238,7 @@ export default function ProfileEditBasic() {
             </span>
           </div>
 
-          <div className="mt-3 flex gap-8">
+          <div className="mt-3 flex flex-col gap-3 md:flex-row md:gap-8">
             <Image
               src={profileImagePreview || profileImagePath || '/common/default_profile.svg'}
               width={150}
@@ -288,8 +288,8 @@ export default function ProfileEditBasic() {
             포지션 <p className="text-main">*</p>
           </span>
 
-          <div className="flex w-full gap-[1.38rem]">
-            <div className="flex w-[48%] flex-col gap-2">
+          <div className="flex w-full flex-col gap-3 md:flex-row md:gap-[1.38rem]">
+            <div className="flex w-full flex-col gap-2 md:w-[48%]">
               <span className="text-sm text-grey70">대분류</span>
               <Select
                 options={mainPositionOptions}
@@ -299,7 +299,7 @@ export default function ProfileEditBasic() {
               />
             </div>
 
-            <div className="flex w-[48%] flex-col gap-2">
+            <div className="flex w-full flex-col gap-2 md:w-[48%]">
               <span className="text-sm text-grey70">소분류</span>
               <Select
                 options={subPositionOptions}
@@ -318,8 +318,8 @@ export default function ProfileEditBasic() {
             활동 지역 <p className="text-main">*</p>
           </span>
 
-          <div className="flex w-full gap-[1.38rem]">
-            <div className="flex w-[48%] flex-col gap-2">
+          <div className="flex w-full flex-col gap-3 md:flex-row md:gap-[1.38rem]">
+            <div className="flex w-full flex-col gap-2 md:w-[48%]">
               <span className="text-sm text-grey70">시/도</span>
               <Select
                 options={mainAreaOptions}
@@ -329,7 +329,7 @@ export default function ProfileEditBasic() {
               />
             </div>
 
-            <div className="flex w-[48%] flex-col gap-2">
+            <div className="flex w-full flex-col gap-2 md:w-[48%]">
               <span className="text-sm text-grey70">시/군/구</span>
               <Select
                 options={selectedCity ? subAreaOptions : []}
@@ -363,7 +363,7 @@ export default function ProfileEditBasic() {
           </div>
 
           {/* 현재 상태 - 옵션 선택 */}
-          <div className="flex w-full flex-wrap gap-3 rounded-xl bg-grey10 px-6 py-7">
+          <div className="flex w-full flex-wrap gap-3 rounded-xl bg-grey10 px-2 py-2 md:px-6 md:py-7">
             {statusOptions.map((status) => (
               <span
                 key={status}
@@ -382,9 +382,11 @@ export default function ProfileEditBasic() {
 
         {/* 프로필 공개 여부 */}
         <div className="flex flex-col gap-3">
-          <span className="flex items-center text-grey80">
-            프로필 공개 여부 <p className="text-main">*</p>{' '}
-            <span className="ml-4 text-xs font-normal text-grey60">
+          <span className="flex flex-col text-grey80 sm:flex-row sm:items-center">
+            <div className="flex gap-1">
+              프로필 공개 여부 <p className="text-main">*</p>{' '}
+            </div>
+            <span className="pt-2 text-xs font-normal text-grey60 md:ml-4 md:pt-0">
               비공개로 설정하면 다른 사용자들에게 프로필이 노출되지 않습니다
             </span>
           </span>

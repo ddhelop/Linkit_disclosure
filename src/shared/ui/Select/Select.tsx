@@ -68,7 +68,7 @@ const Select: React.FC<SelectProps> = ({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between rounded-xl border-[1.5px] border-grey30 px-6 py-3 text-left focus:border-main focus:outline-none"
+        className="flex w-full items-center justify-between rounded-xl border-[1.5px] border-grey30 p-3 py-3 text-left focus:border-main focus:outline-none md:px-6"
       >
         <span className={`${selectedValue ? 'text-black' : 'text-gray-400'}`}>
           {selectedValue ? options.find((option) => option.value === selectedValue)?.label : placeholder}
@@ -90,7 +90,7 @@ const Select: React.FC<SelectProps> = ({
             <li
               key={option.value}
               onClick={() => handleSelect(option.value)}
-              className="cursor-pointer px-6 py-3 hover:bg-grey10 "
+              className="cursor-pointer p-3 py-3 hover:bg-grey10 md:px-6 "
             >
               {option.label}
             </li>

@@ -155,7 +155,7 @@ export function TeamMemberItem({
   }
 
   return (
-    <div className="flex items-center justify-between rounded-xl bg-white px-9 py-5">
+    <div className="flex items-center justify-between rounded-xl bg-white p-5 md:px-9 md:py-5">
       <div className="flex items-center gap-5">
         <div className="relative h-[52px] w-[52px] rounded-lg">
           <Image
@@ -165,18 +165,20 @@ export function TeamMemberItem({
             className="rounded-lg object-cover"
           />
         </div>
-        <div className="flex items-center gap-2">
-          <span className="flex font-semibold text-grey80">{isPending ? emailId : name}</span>
-          {!isPending && (
-            <>
-              {majorPosition && (
-                <>
-                  <span className="text-xs text-grey50">|</span>
-                  <span className="text-sm text-grey80">{majorPosition}</span>
-                </>
-              )}
-            </>
-          )}
+        <div className="flex flex-col gap-2 md:flex-row md:items-center">
+          <div className="flex items-center gap-2">
+            <span className="flex justify-start font-semibold text-grey80">{isPending ? emailId : name}</span>
+            {!isPending && (
+              <>
+                {majorPosition && (
+                  <>
+                    <span className="text-xs text-grey50">|</span>
+                    <span className="text-sm text-grey80">{majorPosition}</span>
+                  </>
+                )}
+              </>
+            )}
+          </div>
           <span className="flex items-center gap-2 text-sm text-grey50">
             {isPending ? (
               '(대기중)'
@@ -206,7 +208,7 @@ export function TeamMemberItem({
           </div>
 
           {showMenu && (
-            <div ref={menuRef} className="absolute left-0 top-8 z-10 min-w-[120px] rounded-lg bg-white py-2 shadow-lg">
+            <div ref={menuRef} className="absolute right-0 top-8 z-10 min-w-[120px] rounded-lg bg-white py-2 shadow-lg">
               {renderMenuItems()}
             </div>
           )}

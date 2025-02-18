@@ -138,7 +138,7 @@ export default function NewEducation() {
 
   return (
     <>
-      <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] py-10">
+      <div className="flex flex-col gap-10 rounded-xl bg-white p-5 md:px-[2.88rem] md:py-10">
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <span className="flex text-grey80">

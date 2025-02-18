@@ -102,6 +102,7 @@ export default function TeamFilterResult() {
         <div>
           <div className="text-lg font-semibold text-black">💰 지원사업을 준비 중인 팀이에요!</div>
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+
             {supportProjectTeams?.map((team, index) => (
               <MiniTeamCard_2 key={`${team.teamName}-${index}`} team={team} />
             ))}

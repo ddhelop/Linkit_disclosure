@@ -47,7 +47,7 @@ export default function SkillFilter({
 
       {/* 스킬 옵션 드롭다운 */}
       <div
-        className={`absolute left-0 z-10 w-[42rem] transform overflow-hidden transition-all duration-200 ease-in-out ${
+        className={`absolute  left-[-7.5rem] z-10 w-[30rem] transform overflow-hidden transition-all duration-200 ease-in-out md:left-0 lg:w-[42rem] ${
           isOpen ? 'opacity-100' : 'h-0 opacity-0'
         }`}
         style={{ top: 'calc(100% + 10px)' }}

@@ -133,7 +133,7 @@ export default function ProfileEditLog() {
       ) : (
         <div className="mt-5 flex flex-col gap-4 pt-1">
           {logs.map((log) => (
-            <div key={log.profileLogId} className="group relative flex flex-col rounded-xl bg-white p-5">
+            <div key={log.profileLogId} className=" group relative flex flex-col rounded-xl bg-white p-5">
               <div className="flex cursor-pointer flex-col gap-3" onClick={() => handleLogClick(log.profileLogId)}>
                 <div className="flex gap-2">
                   {log.logType === 'REPRESENTATIVE_LOG' && (

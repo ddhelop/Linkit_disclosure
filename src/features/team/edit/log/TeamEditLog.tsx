@@ -34,7 +34,7 @@ export default function TeamEditLog({ teamName }: { teamName: string }) {
   if (isLoading) return <div>Loading...</div>
 
   return (
-    <div className="mt-6 flex flex-col gap-6">
+    <div className="mt-6 flex flex-col gap-3">
       {logs.length > 0 ? (
         logs.map((log) => (
           <TeamLogComponent key={log.teamLogId} log={log} onDelete={() => handleLogDelete(log.teamLogId)} />

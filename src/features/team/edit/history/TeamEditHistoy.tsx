@@ -53,13 +53,13 @@ export default function TeamEditHistoy({ teamName }: { teamName: string }) {
   ]
 
   return (
-    <div className="mt-5 flex flex-col gap-5">
+    <div className="mt-5 flex flex-col gap-3">
       {history.length > 0 ? (
         history.map((item) => (
           <Link
             href={`/team/${teamName}/edit/history/new?id=${item.teamHistoryId}`}
             key={item.teamHistoryId}
-            className="rounded-xl border border-transparent bg-white px-10 py-5 hover:border-main"
+            className="rounded-xl border border-transparent bg-white p-5 hover:border-main md:px-10 md:py-5"
           >
             <div className="flex justify-between">
               <div className="flex flex-col gap-2">

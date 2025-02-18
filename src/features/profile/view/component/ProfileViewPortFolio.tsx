@@ -12,10 +12,10 @@ export default function ProfileViewPortFolio() {
     <EditableContainer
       isEditable={isMyProfile}
       editPath="/profile/edit/portfolio"
-      className="flex w-[95%] flex-col gap-5 rounded-xl bg-white px-[2.75rem] py-[1.88rem]"
+      className="flex w-[95%] flex-col gap-5 rounded-xl bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
     >
       <h1 className="font-semibold">포트폴리오</h1>
-      <div className="flex flex-row flex-wrap gap-2">
+      <div className="flex flex-col gap-2 md:flex-row md:flex-wrap">
         {/* 데이터가 없을 시 */}
         {portfolioItems.length === 0 &&
           (isMyProfile ? (
@@ -29,7 +29,7 @@ export default function ProfileViewPortFolio() {
           <Link
             href={`/${profileData?.profileInformMenu.emailId}/portfolio/${portfolio.profilePortfolioId}`}
             scroll={true}
-            className="flex w-[49%] flex-col gap-3 rounded-xl border border-grey30 p-5 hover:border-main"
+            className="flex flex-col gap-3 rounded-xl border border-grey30 p-5 hover:border-main md:w-[49%]"
             key={portfolio.profilePortfolioId}
           >
             <div className="relative h-[9.5rem] w-full  rounded-xl">

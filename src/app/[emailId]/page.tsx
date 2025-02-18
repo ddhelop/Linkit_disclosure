@@ -2,7 +2,7 @@ import ProfileViewLayout from '@/features/profile/view/component/common/ProfileV
 
 export default async function UserProfilePage({ params }: { params: { emailId: string } }) {
   return (
-    <div className="pl-[4.25rem] pt-[3.63rem]">
+    <div className="flex w-full justify-center pt-5 lg:pl-[4.25rem] lg:pt-[3.63rem]">
       <ProfileViewLayout />
     </div>
   )

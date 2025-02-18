@@ -64,13 +64,13 @@ export function AddMemberModal({ isOpen, onClose, teamName, onMemberUpdate }: Ad
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 px-3">
       <div ref={modalRef} className="flex w-[40.25rem] flex-col gap-5 rounded-2xl bg-white p-6">
         <h3 className="text-center font-semibold text-grey90">추가할 팀원의 이메일을 입력해 주세요</h3>
         <div className="flex gap-3">
           <Input
             placeholder="추가할 팀원의 이메일을 입력해 주세요"
-            className="w-[80%]"
+            className="w-[70%]"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={isSubmitting}
@@ -82,7 +82,7 @@ export function AddMemberModal({ isOpen, onClose, teamName, onMemberUpdate }: Ad
             ]}
             value={role}
             onChange={setRole}
-            className="w-[20%]"
+            className="w-[30%]"
             disabled={isSubmitting}
           />
         </div>

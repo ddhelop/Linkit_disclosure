@@ -231,7 +231,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
 
   return (
     <>
-      <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] py-10">
+      <div className="flex flex-col gap-10 rounded-xl bg-white p-5 md:px-[2.88rem] md:py-10">
         {/* 팀 로고 */}
         <div className="flex flex-col">
           <div className="flex w-full justify-between">
@@ -241,7 +241,7 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
             </span>
           </div>
 
-          <div className="mt-3 flex gap-8">
+          <div className="mt-3 flex flex-col gap-3 md:flex-row md:gap-8">
             <Image
               src={teamLogoPreview || teamLogoPath || '/common/default_profile.svg'}
               width={150}
@@ -411,9 +411,11 @@ export default function TeamEditBasic({ params }: { params: { teamName: string }
 
         {/* 팀 공개 여부 */}
         <div className="flex flex-col gap-3 ">
-          <span className="flex items-center text-grey80">
-            팀 공개 여부 <p className="text-main">*</p>
-            <span className="ml-2 text-xs text-grey60">
+          <span className="flex flex-col items-start text-grey80 md:flex-row md:items-center">
+            <span className="flex ">
+              팀 공개 여부 <p className="text-main">*</p>
+            </span>
+            <span className="text-xs text-grey60 md:ml-2">
               비공개로 설정하면 다른 사용자들에게 프로필이 노출되지 않습니다
             </span>
           </span>

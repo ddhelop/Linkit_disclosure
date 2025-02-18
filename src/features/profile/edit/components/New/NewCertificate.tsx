@@ -138,7 +138,7 @@ export default function NewCertificate() {
 
   return (
     <>
-      <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] pb-7 pt-[1.88rem]">
+      <div className="flex flex-col gap-10 rounded-xl bg-white p-5 md:px-[2.88rem] md:py-7">
         {/* 자격증명 */}
         <div className="flex flex-col gap-3">
           <div className="flex justify-between">
@@ -156,9 +156,9 @@ export default function NewCertificate() {
           />
         </div>
 
-        <div className="flex w-full gap-10">
+        <div className="flex w-full flex-col gap-3 md:flex-row md:gap-10">
           {/* 발급 기관 */}
-          <div className="flex w-[49%] flex-col gap-3">
+          <div className="flex w-full flex-col gap-3 md:w-[49%]">
             <div className="flex justify-between">
               <span className="flex">
                 발급 기관<span className="text-main">*</span>
@@ -172,7 +172,7 @@ export default function NewCertificate() {
           </div>
 
           {/* 취득 날짜 */}
-          <div className="flex w-[49%] flex-col gap-3">
+          <div className="flex w-full flex-col gap-3 md:w-[49%]">
             <DatePicker
               date={formData.licenseAcquisitionDate}
               onDateChange={(date) => setFormData({ ...formData, licenseAcquisitionDate: date })}

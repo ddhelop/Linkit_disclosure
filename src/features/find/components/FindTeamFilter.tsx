@@ -165,16 +165,15 @@ export default function FindTeamFilter() {
     <div className="space-y-4">
       <div>
         <div className="rounded-xl bg-white px-6 py-5" style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}>
-          {/* Reset button */}
-          <button
-            onClick={resetFilters}
-            className="absolute right-44 top-24 flex items-center gap-1 px-3 py-2 text-sm text-grey70"
-          >
-            <Image src="/common/icons/reset_grey30.svg" alt="reset" width={16} height={16} />
-            <span className="text-grey30">필터 초기화</span>
-          </button>
-
-          <div className="grid grid-cols-4 gap-4">
+          <div className="relative grid grid-cols-4 gap-4">
+            {/* Reset button */}
+            <button
+              onClick={resetFilters}
+              className="absolute right-0 top-[-3.5rem] flex items-center gap-1 px-3 py-2 text-sm text-grey70"
+            >
+              <Image src="/common/icons/reset_grey30.svg" alt="reset" width={16} height={16} />
+              <span className="text-grey30">필터 초기화</span>
+            </button>
             <ScaleFilter
               searchText={scaleSearchText}
               isOpen={isScaleOpen}

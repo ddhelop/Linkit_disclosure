@@ -123,7 +123,7 @@ export default function NewAwards() {
 
   return (
     <>
-      <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] pb-7 pt-[1.88rem]">
+      <div className="flex flex-col gap-10 rounded-xl bg-white p-5 md:px-[2.88rem] md:py-7">
         {/* 대회명 */}
         <div className="flex flex-col gap-3">
           <div className="flex justify-between">
@@ -141,9 +141,9 @@ export default function NewAwards() {
           />
         </div>
 
-        <div className="flex w-full gap-[1.62rem]">
+        <div className="flex w-full flex-col gap-3 md:flex-row md:gap-[1.62rem]">
           {/* 훈격 */}
-          <div className="flex w-[49%] flex-col gap-3">
+          <div className="flex w-full flex-col gap-3 md:w-[49%]">
             <span className="flex">
               상격<span className="text-main">*</span>
             </span>
@@ -155,7 +155,7 @@ export default function NewAwards() {
           </div>
 
           {/* 수상시기 */}
-          <div className="flex w-[49%] flex-col gap-3">
+          <div className="flex w-full flex-col gap-3 md:w-[49%]">
             <DatePicker date={awardDate} onDateChange={setAwardDate} label="수상시기" required={true} />
           </div>
         </div>

@@ -1,3 +1,4 @@
+import ProfileEditBottomNav from '@/features/profile/edit/components/common/ProfileEditBottomNav'
 import ProfileEditSkills from '@/features/profile/edit/components/ProfileEditSkills'
 
 export default function ProfileEditSkillsPage() {
@@ -8,6 +9,8 @@ export default function ProfileEditSkillsPage() {
       <div className="mt-5 rounded-xl">
         <ProfileEditSkills />
       </div>
+
+      <ProfileEditBottomNav nextPath="/profile/edit/history" prevPath="/profile/edit/basic" />
     </>
   )
 }

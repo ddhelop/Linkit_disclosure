@@ -127,7 +127,7 @@ export function ImageUploader({
           {/* 기존 서브 이미지 */}
           {subImageUrls.map((url, index) => (
             <div key={`url-${index}`} className="relative">
-              <Image src={url} width={156} height={86} alt="보조 이미지" className="h-[86px] w-[156px] object-cover" />
+              <Image src={url} width={156} height={86} alt="보조 이미지" className="h-[86px] w-[146px] object-cover" />
               <button
                 onClick={() => onSubImageUrlDelete(index)}
                 className="absolute -right-2 -top-2 rounded-full bg-grey50 p-1 hover:scale-110"

@@ -34,7 +34,7 @@ export default function ProfileEditClient({ children }: ProfileEditClientProps) 
   return (
     <ProfileEditProvider profileData={profileData}>
       <div className="flex bg-white">
-        <aside className="fixed top-16 flex h-[calc(100vh-4rem)] w-[28%] flex-col items-end pr-[4.5rem] pt-[3.75rem]">
+        <aside className="fixed top-16 hidden h-[calc(100vh-4rem)] w-[28%] flex-col items-end pr-[4.5rem] pt-[3.75rem] md:flex">
           <div
             className="rounded-xl border border-grey30 p-4"
             style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
@@ -43,7 +43,7 @@ export default function ProfileEditClient({ children }: ProfileEditClientProps) 
             <LeftMenu />
           </div>
         </aside>
-        <main className="ml-[28%] min-h-[calc(100vh-4rem)] w-full bg-[#EDF3FF] px-[4.25rem] pb-32 pt-[3.75rem] lg:pr-[13.69rem]">
+        <main className="min-h-[calc(100vh-4rem)] w-full bg-[#EDF3FF] px-2 pb-32 pt-8 md:ml-[28%] md:px-[4.25rem] md:pr-[13.69rem] md:pt-[3.75rem]">
           {children}
         </main>
       </div>

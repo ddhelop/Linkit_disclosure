@@ -46,7 +46,7 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
   return (
     <Link
       href={`/team/${announcement?.teamCode}/recruit/${announcement?.teamMemberAnnouncementId}`}
-      className="flex cursor-pointer flex-col gap-3 rounded-lg border bg-grey10 px-[1.62rem] py-[1.38rem] hover:border-[#7EA5F8]"
+      className="flex min-w-[16rem] cursor-pointer flex-col gap-3 rounded-lg border bg-grey10 px-[1.62rem] py-[1.38rem] hover:border-[#7EA5F8] md:min-w-[unset]"
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
     >
       <div className="flex justify-between">

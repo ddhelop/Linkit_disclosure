@@ -4,7 +4,7 @@ import Link from 'next/link'
 export default function Footer() {
   return (
     <div className="mt-[10rem] flex w-full justify-center bg-grey10 py-[2.62rem] text-xs">
-      <div className="flex w-[65%] flex-col">
+      <div className="flex w-[93%] flex-col xl:w-[65%]">
         {/* 첫 줄 */}
         <div className="flex justify-between">
           <div className="flex items-center text-grey80">

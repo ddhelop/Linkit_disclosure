@@ -18,7 +18,7 @@ export default function ProfileLogDetailPage({ params }: { params: { emailId: st
   }, [params.profileLogId])
   return (
     <>
-      <div className="flex flex-col px-[4.62rem] py-[3.62rem]">
+      <div className="flex flex-col p-8 md:px-[4.62rem] md:py-[3.62rem]">
         <div className="flex w-full flex-col gap-4 rounded-xl border border-transparent bg-white px-[2.75rem] py-[1.88rem]">
           <div className="flex items-center gap-2">
             <span className="font-semibold text-grey80">{profileLog?.logTitle}</span>
