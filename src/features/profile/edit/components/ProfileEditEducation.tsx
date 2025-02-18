@@ -102,7 +102,7 @@ export default function ProfileEditEducation() {
           <NotContentsUi />
         </div>
       ) : (
-        <div className="mt-5 flex flex-col gap-5">
+        <div className="mt-5 flex flex-col gap-3">
           {educations.map((education) => (
             <EducationElementComponent
               key={education.profileEducationId}

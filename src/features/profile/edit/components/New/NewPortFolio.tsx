@@ -300,7 +300,7 @@ export default function NewPortFolio() {
 
   return (
     <>
-      <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] pb-7 pt-[1.88rem]">
+      <div className="flex flex-col gap-10 rounded-xl bg-white p-5 md:px-[2.88rem] md:py-7 ">
         {/* 프로젝트 이름 */}
         <div className="flex flex-col gap-3">
           <div className="flex justify-between">
@@ -336,43 +336,45 @@ export default function NewPortFolio() {
         </div>
 
         {/* 규모, 인원, 팀 구성 */}
-        <div className="flex h-full gap-8">
+        <div className="flex h-full flex-col gap-8 md:flex-row">
           {/* 규모 */}
-          <div className="flex h-full flex-col gap-3">
-            <span className="flex w-[10.6rem]">
-              규모<span className="text-main">*</span>
-            </span>
-            <div className="flex">
-              <button
-                onClick={handleToggle}
-                className={`w-[5.3rem] rounded-l-[0.625rem] py-[0.8rem] ${
-                  !isTeam ? 'bg-main2 text-white' : 'border border-grey40 bg-grey10 text-grey40'
-                }`}
-              >
-                개인
-              </button>
-              <button
-                onClick={handleToggle}
-                className={`w-[5.3rem] rounded-r-[0.625rem] py-[0.8rem] ${
-                  isTeam ? 'bg-main2 text-white' : 'border border-grey40 bg-grey10 text-grey40'
-                }`}
-              >
-                팀
-              </button>
+          <div className="flex gap-8">
+            <div className="flex h-full flex-col gap-3">
+              <span className="flex w-[10.6rem]">
+                규모<span className="text-main">*</span>
+              </span>
+              <div className="flex">
+                <button
+                  onClick={handleToggle}
+                  className={`w-[5.3rem] rounded-l-[0.625rem] py-[0.8rem] ${
+                    !isTeam ? 'bg-main2 text-white' : 'border border-grey40 bg-grey10 text-grey40'
+                  }`}
+                >
+                  개인
+                </button>
+                <button
+                  onClick={handleToggle}
+                  className={`w-[5.3rem] rounded-r-[0.625rem] py-[0.8rem] ${
+                    isTeam ? 'bg-main2 text-white' : 'border border-grey40 bg-grey10 text-grey40'
+                  }`}
+                >
+                  팀
+                </button>
+              </div>
             </div>
-          </div>
 
-          {/* 인원 */}
-          <div className="flex w-[4rem] flex-col gap-3">
-            <span>인원</span>
-            <Input
-              placeholder="2"
-              disabled={!isTeam}
-              className="px-0 text-center"
-              type="number"
-              value={headCount}
-              onChange={(e) => setHeadCount(e.target.value)}
-            />
+            {/* 인원 */}
+            <div className="flex w-[4rem] flex-col gap-3">
+              <span>인원</span>
+              <Input
+                placeholder="2"
+                disabled={!isTeam}
+                className="px-0 text-center"
+                type="number"
+                value={headCount}
+                onChange={(e) => setHeadCount(e.target.value)}
+              />
+            </div>
           </div>
 
           {/* 팀 구성 */}

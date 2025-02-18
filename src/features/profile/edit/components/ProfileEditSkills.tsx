@@ -119,7 +119,7 @@ export default function ProfileEditSkills() {
   return (
     <>
       <div className="flex flex-col gap-10">
-        <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] py-10">
+        <div className="flex flex-col gap-10 rounded-xl bg-white p-5 md:px-[2.88rem] md:py-10">
           <SearchDropdown
             items={skillsData.map((skill) => skill.name)}
             filterFunction={(tool, searchTerm) => tool.toLowerCase().includes(searchTerm.toLowerCase())}
@@ -129,7 +129,7 @@ export default function ProfileEditSkills() {
         </div>
 
         {/* 스킬 목록 */}
-        <div className="flex flex-col gap-5 rounded-xl bg-white px-[2.88rem] py-10">
+        <div className="flex flex-col gap-5 rounded-xl bg-white p-5 md:px-[2.88rem] md:py-10">
           <div className="flex w-full gap-5">
             <div className="flex-1">
               <span className="mb-2 block text-grey80">스킬</span>
@@ -146,7 +146,7 @@ export default function ProfileEditSkills() {
                 <div key={index} className="flex w-full gap-5">
                   <div className="flex-1 rounded-xl bg-grey20 py-3 pl-6 text-lg text-grey80">{skill.name}</div>
                   <Select
-                    className="w-32"
+                    className="md:w-32"
                     value={skill.proficiency}
                     onChange={(value) => handleProficiencyChange(skill.name, value)}
                     options={[

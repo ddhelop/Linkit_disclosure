@@ -38,7 +38,7 @@ export const RoleContributionInput = ({
 
       <div className="rounded-xl bg-grey10 px-5 py-4">
         {roles.map((role, index) => (
-          <div key={index} className="mb-3 flex gap-5">
+          <div key={index} className="mb-3 flex gap-2 md:gap-5">
             <Input
               value={role.role}
               onChange={(e) => onRoleChange(index, e.target.value)}
@@ -70,7 +70,7 @@ export const RoleContributionInput = ({
             <Button
               mode="custom"
               onClick={onRoleAdd}
-              className="flex items-center gap-2 rounded-full border border-grey40 bg-white px-6 text-black hover:bg-grey10"
+              className="flex items-center gap-2 rounded-full border border-grey40 bg-white p-3 text-black hover:bg-grey10 md:px-6"
             >
               <Image src="/common/icons/black_plus.svg" width={15} height={15} alt="plus-icon" />
               추가하기

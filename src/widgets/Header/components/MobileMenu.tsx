@@ -15,7 +15,7 @@ export default function MobileMenu({ isLogin, onClose, onLogout }: MobileMenuPro
   const { emailId } = useAuthStore()
 
   return (
-    <div className="mobile-menu absolute left-1 top-[3.8rem] z-50 flex w-[99%] rounded-lg bg-white px-6 py-4 shadow-sm md:hidden">
+    <div className="mobile-menu fixed left-1 right-1 top-[4rem] z-50 flex w-[99%] rounded-lg bg-white px-6 py-4 shadow-sm md:hidden">
       {isLogin ? (
         <div className="w-full space-y-4">
           <Link href="/find/private" className="flex gap-3 text-sm text-gray-700" onClick={onClose}>

@@ -1,3 +1,4 @@
+import ProfileEditBottomNav from '@/features/profile/edit/components/common/ProfileEditBottomNav'
 import ProfileEditPortfolio from '@/features/profile/edit/components/ProfileEditPortfolio'
 
 export default function ProfileEditPortFolio() {
@@ -8,6 +9,8 @@ export default function ProfileEditPortFolio() {
       <div className="mt-5 rounded-xl">
         <ProfileEditPortfolio />
       </div>
+
+      <ProfileEditBottomNav nextPath="/profile/edit/education" prevPath="/profile/edit/history" />
     </>
   )
 }

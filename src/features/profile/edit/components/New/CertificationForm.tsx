@@ -162,7 +162,7 @@ export default function CertificationForm(props: CertificationFormProps) {
 
     return (
       <div
-        className="mt-3 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-grey30 bg-grey20 py-5"
+        className="mt-3 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-grey30 bg-grey20 p-5"
         onClick={handleModalToggle}
       >
         <div className="flex gap-2">
@@ -175,20 +175,20 @@ export default function CertificationForm(props: CertificationFormProps) {
   }
 
   return (
-    <div className="flex flex-col rounded-xl bg-white p-10">
+    <div className="flex flex-col rounded-xl bg-white p-5 md:p-10">
       <span>인증</span>
       {renderCertificationUI()}
       <div className="mt-3 rounded-xl bg-[#EDF3FF] px-6 py-[1.12rem] text-xs leading-5">
         • 자신의 활동을 증명할 수 있는 인증서, 사진 등을 첨부해 주세요
         <br />• 인증서 업로드 후 인증은 1~3일 정도 소요됩니다
         <br />
-        <p className="flex">
+        <p className="flex flex-wrap whitespace-nowrap">
           • 인증서를 등록하고 인증을 마치면 목록에서{' '}
           <Image src={'/common/cert_badge.svg'} width={22} height={22} alt="cert_badge" className="px-1" /> 인증마크를
           확인할 수 있어요
         </p>
-        <p className="flex">
-          • 문제가 발생하면 <p className="pl-1 text-main">채널톡</p>으로 문의해 주세요
+        <p className="flex flex-wrap whitespace-nowrap">
+          • 문제가 발생하면 <span className="pl-1 text-main">채널톡</span>으로 문의해 주세요
         </p>
       </div>
       <Modal isOpen={isModalOpen} onClose={handleModalToggle}>

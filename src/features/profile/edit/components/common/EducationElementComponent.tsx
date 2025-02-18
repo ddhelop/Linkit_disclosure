@@ -65,7 +65,7 @@ export default function EducationElementComponent({
   return (
     <Link
       href={`${editPath}?id=${id}`}
-      className="flex cursor-pointer items-center gap-5 rounded-lg border border-transparent bg-white px-10 py-5 hover:border-main"
+      className="flex cursor-pointer items-center gap-5 rounded-lg border border-transparent bg-white p-5 hover:border-main md:px-10"
     >
       {/* <Image src={`/common/icons/universityLogo/${title}.svg`} alt="education" width={52} height={52} /> */}
       <div className="relative flex w-full items-center justify-between gap-1 ">
