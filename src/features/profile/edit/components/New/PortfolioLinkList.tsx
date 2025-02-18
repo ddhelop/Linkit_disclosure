@@ -56,15 +56,15 @@ export function PortfolioLinkList({
       {links.map((link) => (
         <div key={link.id} className="mt-3 flex flex-col gap-2 md:flex-row">
           <Input
-            placeholder="링크 이름"
+            placeholder="직접입력 (5자 내외)"
             value={link.projectLinkName}
             onChange={(e) => updateLink(link.id, 'projectLinkName', e.target.value)}
-            maxLength={30}
+            maxLength={5}
             className="w-full border-grey40 md:w-[200px]"
           />
           <div className="flex flex-1 gap-2">
             <Input
-              placeholder="링크 URL"
+              placeholder="링크를 입력해 주세요"
               className="w-full border-grey40"
               value={link.projectLinkUrl}
               onChange={(e) => updateLink(link.id, 'projectLinkUrl', e.target.value)}
