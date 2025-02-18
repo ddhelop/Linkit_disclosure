@@ -34,7 +34,12 @@ interface PortfolioDetail {
       projectSkillName: string
     },
   ]
-  projectLink: string
+  projectLinkNameAndUrls: [
+    {
+      projectLinkName: string
+      projectLinkUrl: string
+    },
+  ]
   projectDescription: string
   portfolioImages: {
     projectRepresentImagePath: string
@@ -140,34 +145,35 @@ export default function PortfolioDetailPage({ params }: { params: { emailId: str
         </div>
 
         {/* 사용 스킬 */}
-        <h2 className="mt-8 text-sm text-grey90">사용 스킬</h2>
-        <div className="mt-3 flex gap-4">
-          {portfolioDetail?.projectSkillNames.map((skill) => (
-            <span key={skill.projectSkillName} className="rounded-xl bg-grey30 px-5 py-2 text-sm text-grey80">
-              {skill.projectSkillName}
-            </span>
-          ))}
-        </div>
+        {portfolioDetail?.projectSkillNames && portfolioDetail.projectSkillNames.length > 0 && (
+          <>
+            <h2 className="mt-8 text-sm text-grey90">사용 스킬</h2>
+            <div className="mt-3 flex gap-4">
+              {portfolioDetail.projectSkillNames.map((skill) => (
+                <span key={skill.projectSkillName} className="rounded-xl bg-grey30 px-5 py-2 text-sm text-grey80">
+                  {skill.projectSkillName}
+                </span>
+              ))}
+            </div>
+          </>
+        )}
 
         {/* 링크 */}
-        {portfolioDetail?.projectLink && (
+        {portfolioDetail?.projectLinkNameAndUrls && (
           <>
             <h2 className="mt-8 text-sm text-grey90">링크</h2>
-            <div className="mt-3 flex">
-              <Link
-                href={
-                  portfolioDetail?.projectLink
-                    ? portfolioDetail.projectLink.startsWith('http')
-                      ? portfolioDetail.projectLink
-                      : `https://${portfolioDetail.projectLink}`
-                    : '#'
-                }
-                target="_blank"
-                className="flex gap-3 rounded-xl bg-grey10 px-7 py-3 text-sm text-grey80 hover:bg-grey20"
-              >
-                {portfolioDetail?.projectLink}
-                <Image src="/common/icons/share.svg" alt="link" width={16} height={16} />
-              </Link>
+            <div className="mt-3 flex gap-5">
+              {portfolioDetail?.projectLinkNameAndUrls.map((link) => (
+                <Link
+                  key={link.projectLinkName}
+                  href={link.projectLinkUrl}
+                  target="_blank"
+                  className="flex gap-3 rounded-xl bg-grey10 px-7 py-3 text-sm text-grey80 hover:bg-grey20"
+                >
+                  {link.projectLinkName}
+                  <Image src="/common/icons/share.svg" alt="link" width={16} height={16} />
+                </Link>
+              ))}
             </div>
           </>
         )}
