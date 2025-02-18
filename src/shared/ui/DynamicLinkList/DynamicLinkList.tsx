@@ -118,37 +118,27 @@ export function DynamicLinkList({
     <>
       <div className="flex flex-col gap-3 rounded-xl bg-grey10 p-6">
         {links.map((link) => (
-          <div key={link.id} className="mt-3 flex flex-col gap-2 md:flex-row">
+          <div key={link.id} className="mt-3 flex w-full flex-col gap-2 md:flex-row md:items-center">
             <Input
               placeholder="직접입력 (5자 내외)"
               value={link.name}
               onChange={(e) => updateLink(link.id, 'name', e.target.value)}
               maxLength={10}
+              className="w-full md:w-[30%]" // PC에서 30% 너비 차지
             />
-            <div className="flex gap-2">
-              <div className="relative w-full">
-                {getLinkIcon && getLinkIcon(link.path) && (
-                  <Image
-                    src={getLinkIcon(link.path)!}
-                    alt="social icon"
-                    width={20}
-                    height={20}
-                    className="absolute left-3 top-1/2 -translate-y-1/2"
-                  />
-                )}
-                <Input
-                  placeholder="링크를 입력해주세요."
-                  className={`w-full ${getLinkIcon && getLinkIcon(link.path) ? 'pl-10' : ''}`}
-                  value={link.path}
-                  onChange={(e) => updateLink(link.id, 'path', e.target.value)}
-                />
-              </div>
+            <div className="flex w-full flex-1 items-center gap-2">
+              <Input
+                placeholder="링크를 입력해주세요."
+                className="w-full"
+                value={link.path}
+                onChange={(e) => updateLink(link.id, 'path', e.target.value)}
+              />
               <Image
                 src="/common/icons/delete_x.svg"
                 alt="close"
                 width={24}
                 height={24}
-                className="ml-4 cursor-pointer"
+                className="flex-shrink-0 cursor-pointer"
                 onClick={() => deleteLink(link.id)}
               />
             </div>
