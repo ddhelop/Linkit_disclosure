@@ -14,6 +14,26 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Spinner } from '@/shared/ui/Spinner/Spinner'
 import { ImageUploader } from '@/shared/ui/ImageUploader/ImageUploader'
 import { useToast } from '@/shared/hooks/useToast'
+import { PortfolioLink, PortfolioLinkList } from './PortfolioLinkList'
+
+interface PortfolioData {
+  projectName: string
+  projectLineDescription: string
+  projectSize: string
+  projectHeadCount: number
+  projectTeamComposition: string
+  projectStartDate: string
+  projectEndDate: string | null
+  isProjectInProgress: boolean
+  projectRoleAndContributions: Array<{ projectRole: string; projectContribution: string }>
+  projectSkillNames: Array<{ projectSkillName: string }>
+  projectLinkNameAndUrls: Array<{ projectLinkName: string; projectLinkUrl: string }>
+  projectDescription: string
+  portfolioImages?: {
+    projectRepresentImagePath: string | null
+    portfolioSubImages: Array<{ projectSubImagePath: string }>
+  }
+}
 
 export default function NewPortFolio() {
   const toast = useToast()
@@ -47,6 +67,7 @@ export default function NewPortFolio() {
     projectRepresentImagePath: null,
     portfolioSubImages: [],
   })
+  const [projectLinks, setProjectLinks] = useState<PortfolioLink[]>([])
 
   useEffect(() => {
     const fetchPortfolioData = async () => {
@@ -96,6 +117,17 @@ export default function NewPortFolio() {
           if (data.portfolioImages.portfolioSubImages?.length > 0) {
             setSubImageUrls(data.portfolioImages.portfolioSubImages.map((img: any) => img.projectSubImagePath))
           }
+        }
+
+        // 링크 데이터 설정
+        if (data.projectLinkNameAndUrls?.length > 0) {
+          setProjectLinks(
+            data.projectLinkNameAndUrls.map((link: any, index: number) => ({
+              id: index,
+              projectLinkName: link.projectLinkName,
+              projectLinkUrl: link.projectLinkUrl,
+            })),
+          )
         }
 
         setOriginalData(data)
@@ -148,6 +180,10 @@ export default function NewPortFolio() {
 
   const handleSkillRemove = (skill: string) => {
     setSelectedSkills(selectedSkills.filter((s) => s !== skill))
+  }
+
+  const handleLinksChange = (links: PortfolioLink[]) => {
+    setProjectLinks(links)
   }
 
   const isFormValid = () => {
@@ -208,18 +244,13 @@ export default function NewPortFolio() {
     try {
       const formData = new FormData()
 
-      // 대표 이미지 처리
-      if (representImage) {
-        formData.append('projectRepresentImage', representImage)
-      }
+      // 링크 데이터에서 id를 제외하고 변환
+      const sanitizedLinks = projectLinks.map(({ projectLinkName, projectLinkUrl }) => ({
+        projectLinkName,
+        projectLinkUrl,
+      }))
 
-      // 서브 이미지 처리
-      subImages.forEach((image) => {
-        formData.append('projectSubImages', image.file)
-      })
-
-      // JSON 데이터 생성
-      const portfolioData = {
+      const portfolioData: PortfolioData = {
         projectName,
         projectLineDescription,
         projectSize: isTeam ? 'TEAM' : 'PERSONAL',
@@ -235,25 +266,51 @@ export default function NewPortFolio() {
         projectSkillNames: selectedSkills.map((skill) => ({
           projectSkillName: skill,
         })),
-        projectLink,
+        projectLinkNameAndUrls: sanitizedLinks,
         projectDescription,
-        portfolioImages: {
-          projectRepresentImagePath: representImage ? null : representImageUrl,
-          portfolioSubImages: subImageUrls.map((url) => ({ projectSubImagePath: url })),
-        },
       }
 
-      // 수정 시에는 'updateProfilePortfolioRequest'로, 생성 시에는 'addProfilePortfolioRequest'로 전송
-      const requestKey = portfolioId ? 'updateProfilePortfolioRequest' : 'addProfilePortfolioRequest'
-      formData.append(requestKey, new Blob([JSON.stringify(portfolioData)], { type: 'application/json' }))
+      // 수정 시에만 이미지 정보 추가
+      if (portfolioId) {
+        portfolioData.portfolioImages = {
+          projectRepresentImagePath: representImageUrl,
+          portfolioSubImages: subImageUrls.map((url) => ({
+            projectSubImagePath: url,
+          })),
+        }
+      }
 
+      // JSON 데이터를 Blob으로 변환
+      const jsonBlob = new Blob([JSON.stringify(portfolioData)], {
+        type: 'application/json',
+      })
+
+      // 수정 또는 생성에 따라 다른 key로 JSON 데이터 추가
+      if (portfolioId) {
+        formData.append('updateProfilePortfolioRequest', jsonBlob, 'blob')
+      } else {
+        formData.append('addProfilePortfolioRequest', jsonBlob, 'blob')
+      }
+
+      // 대표 이미지 추가
+      if (representImage) {
+        formData.append('projectRepresentImage', representImage)
+      }
+
+      // 보조 이미지들 추가
+      subImages.forEach(({ file }) => {
+        formData.append('projectSubImages', file)
+      })
+
+      // portfolioId 유무에 따라 적절한 API 호출
       if (portfolioId) {
         await updatePortfolio(portfolioId, formData)
+        toast.success('포트폴리오가 성공적으로 수정되었습니다.')
       } else {
         await addPortfolio(formData, accessToken)
+        toast.success('포트폴리오가 성공적으로 생성되었습니다.')
       }
 
-      toast.success('포트폴리오가 성공적으로 저장되었습니다.')
       router.back()
     } catch (error) {
       console.error('Error:', error)
@@ -417,11 +474,7 @@ export default function NewPortFolio() {
         {/* 링크 */}
         <div className="flex flex-col gap-3">
           <span className="flex w-[10.6rem]">링크</span>
-          <Input
-            value={projectLink}
-            onChange={(e) => setProjectLink(e.target.value)}
-            placeholder="링크를 입력해 주세요"
-          />
+          <PortfolioLinkList initialLinks={projectLinks} onChange={handleLinksChange} addButtonText="+ 추가하기" />
         </div>
 
         {/* 설명 */}
