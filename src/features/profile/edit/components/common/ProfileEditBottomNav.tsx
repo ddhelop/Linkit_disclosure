@@ -16,7 +16,7 @@ export default function ProfileEditBottomNav({
   isFirstPage = false,
 }: ProfileEditBottomNavProps) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 flex h-16 w-full items-center justify-end gap-3 border-t bg-white px-4 lg:hidden">
+    <div className="fixed bottom-0 left-0 right-0 z-50 flex h-16 w-full items-center justify-end gap-3 border-t bg-white px-4 md:hidden">
       <Link
         href={prevPath || '/profile/edit/basic'}
         className={`flex h-10 items-center justify-center rounded-lg border border-grey30 px-6 text-sm font-medium text-grey90 ${
@@ -28,7 +28,7 @@ export default function ProfileEditBottomNav({
 
       <Link
         href={nextPath || '#'}
-        className={`i flex h-10 items-center justify-center rounded-lg px-6 text-sm font-medium ${isLastPage ? 'hidden' : ''}`}
+        className={`flex h-10 items-center justify-center rounded-lg border border-grey30 px-6 text-sm font-medium ${isLastPage ? 'hidden' : ''}`}
       >
         다음
       </Link>

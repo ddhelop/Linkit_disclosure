@@ -236,7 +236,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
 
   return (
     <>
-      <div className="mt-5 flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] py-10">
+      <div className="mt-5 flex flex-col gap-10 rounded-xl bg-white p-5 md:px-[2.88rem] md:py-10">
         {/* 공고 제목 */}
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
@@ -261,8 +261,8 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
               찾는 포지션<span className="pl-1 text-main">*</span>
             </span>
           </div>
-          <div className="flex w-full gap-[1.38rem]">
-            <div className="flex w-[48%] flex-col gap-2">
+          <div className="flex w-full flex-col gap-[1.38rem] md:flex-row md:gap-[1.38rem]">
+            <div className="flex w-full flex-col gap-2 md:w-[48%]">
               <span className="text-sm text-grey70">대분류</span>
               <Select
                 options={mainPositionOptions}
@@ -272,7 +272,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
               />
             </div>
 
-            <div className="flex w-[48%] flex-col gap-2">
+            <div className="flex w-full flex-col gap-2 md:w-[48%]">
               <span className="text-sm text-grey70">소분류</span>
               <Select
                 options={subPositionOptions}

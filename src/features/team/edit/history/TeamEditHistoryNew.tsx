@@ -101,7 +101,7 @@ export default function TeamEditHistoryNew({ teamName }: { teamName: string }) {
 
   return (
     <>
-      <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.87rem] py-10">
+      <div className="flex flex-col gap-10 rounded-xl bg-white p-5 md:px-[2.87rem] md:py-10">
         {/* 연혁명 */}
         <div className="flex w-full flex-col justify-between gap-3 ">
           <div className="flex justify-between ">

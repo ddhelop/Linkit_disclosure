@@ -75,28 +75,32 @@ export default function TeamLogComponent({ log, onDelete }: TeamLogComponentProp
 
   return (
     <div>
-      <div className="flex w-full flex-col rounded-xl border bg-white p-5 hover:border-main">
+      <Link
+        href={`/team/${teamName}/edit/log/new?id=${log.teamLogId}`}
+        className="flex w-full flex-col rounded-xl border bg-white p-5 hover:border-main"
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             {logType === 'REPRESENTATIVE_LOG' && <Image src="/common/icons/pin.svg" width={20} height={20} alt="pin" />}
             {!isPublic && <Image src="/common/icons/lock.svg" width={14} height={14} alt="lock" />}
-            <Link
-              href={`/team/${teamName}/edit/log/new?id=${log.teamLogId}`}
-              className="cursor-pointer font-semibold text-grey80"
-            >
-              {log.logTitle}
-            </Link>
+            <div className="cursor-pointer font-semibold text-grey80">{log.logTitle}</div>
 
             <span className="gap-2 text-grey50">|</span>
             <span className="text-xs text-grey60">{new Date(log.modifiedAt).toLocaleDateString()}</span>
           </div>
           <div className="relative">
-            <div ref={buttonRef} onClick={() => setIsMenuOpen(!isMenuOpen)} className="cursor-pointer">
+            <div
+              ref={buttonRef}
+              onClick={(e) => {
+                e.preventDefault()
+                setIsMenuOpen(!isMenuOpen)
+              }}
+              className="cursor-pointer"
+            >
               <Image src="/common/icons/more_row.svg" width={20} height={20} alt="more" />
             </div>
-
             {isMenuOpen && (
-              <div ref={menuRef} className="absolute left-0 mt-2 w-28 rounded-lg bg-white shadow-lg">
+              <div ref={menuRef} className="absolute right-0 z-30 mt-2 w-28 rounded-lg bg-white shadow-lg">
                 <div className="flex flex-col py-2 ">
                   <Link
                     href={`/team/${teamName}/edit/log/new?id=${log.teamLogId}`}
@@ -131,7 +135,7 @@ export default function TeamLogComponent({ log, onDelete }: TeamLogComponentProp
         <div className="mt-5 rounded-xl bg-grey10 p-5">
           <p className="text-sm text-grey70">{stripHtmlAndImages(log.logContent)}</p>
         </div>
-      </div>
+      </Link>
     </div>
   )
 }

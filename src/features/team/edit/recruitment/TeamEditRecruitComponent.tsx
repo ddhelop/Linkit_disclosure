@@ -81,7 +81,7 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
   return (
     <Link
       href={`/team/${teamName}/edit/recruit/new?id=${announcement.teamMemberAnnouncementId}`}
-      className="flex w-full flex-col rounded-xl border border-transparent bg-white px-10 py-5 hover:border-main"
+      className="flex w-full flex-col rounded-xl border border-transparent bg-white p-5 hover:border-main md:px-10 md:py-5"
     >
       <div className="flex items-center justify-between">
         <div className="flex rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]">
@@ -99,7 +99,7 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
             <Image src="/common/icons/more_row.svg" alt="edit" width={20} height={20} className="cursor-pointer" />
           </div>
           {isMenuOpen && (
-            <div ref={menuRef} className="absolute left-0 mt-2 w-32 rounded-lg bg-white py-2 shadow-lg">
+            <div ref={menuRef} className="absolute right-0 mt-2 w-32 rounded-lg bg-white py-2 shadow-lg">
               <Link
                 href={`/team/${teamName}/edit/recruit/new?id=${announcement.teamMemberAnnouncementId}`}
                 className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
@@ -126,7 +126,7 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
         {!isPublic && <Image src="/common/icons/lock.svg" alt="edit" width={10} height={10} />}
         <h1 className="text-grey90">{announcement.announcementTitle}</h1>
       </div>
-      <div className="mt-3 flex gap-4">
+      <div className="mt-3 flex gap-2">
         <div className="rounded-[0.38rem] bg-[#D3E1FE] px-4 py-2 text-xs text-main">{announcement.majorPosition}</div>
         {announcement.announcementSkillNames.map((skill, index) => (
           <div

@@ -59,7 +59,7 @@ export default function TeamProductComponent({ product, teamName, onDelete }: Te
   return (
     <Link
       href={`/team/${teamName}/edit/products/new?id=${product.teamProductId}`}
-      className="flex flex-col gap-5 rounded-lg border bg-white p-[1.76rem] hover:border-main"
+      className="flex flex-col gap-5 rounded-lg border bg-white p-4 hover:border-main md:p-[1.76rem]"
     >
       {/* 프로필 */}
       <div className="flex items-start justify-between">
@@ -97,7 +97,7 @@ export default function TeamProductComponent({ product, teamName, onDelete }: Te
           {isMenuOpen && (
             <div
               ref={menuRef}
-              className="absolute left-0 top-8 z-10 flex w-[100px] flex-col rounded-lg border border-grey20 bg-white py-2 shadow-md"
+              className="absolute right-0 top-8 z-10 flex w-[100px] flex-col rounded-lg border border-grey20 bg-white py-2 shadow-md"
             >
               <Link
                 href={`/team/${teamName}/edit/products/new?id=${product.teamProductId}`}
@@ -118,7 +118,7 @@ export default function TeamProductComponent({ product, teamName, onDelete }: Te
 
       {/* 링크 */}
       {product.teamProductLinks.length > 0 && (
-        <div className="flex gap-[0.8rem]">
+        <div className="flex flex-col gap-[0.8rem] md:flex-col">
           {product.teamProductLinks.map((link) => (
             <div
               key={link.productLinkId}
