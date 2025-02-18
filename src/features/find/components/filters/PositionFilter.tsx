@@ -111,9 +111,7 @@ export default function PositionFilter({
 
       {/* 포지션 옵션 드롭다운 */}
       <div
-
         className={`absolute left-0 top-[calc(100%+10px)] z-10 w-[60rem] transform overflow-hidden transition-all duration-200 ease-in-out ${
-
           isOpen ? 'opacity-100' : 'h-0 opacity-0'
         }`}
       >
