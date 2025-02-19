@@ -8,19 +8,27 @@ import Image from 'next/image'
 export default function PrivateFilterModal({
   isFilterOpen,
   setIsFilterOpen,
+  onApplyFilters,
+  initialFilters,
 }: {
   isFilterOpen: boolean
   setIsFilterOpen: (isFilterOpen: boolean) => void
+  onApplyFilters: (filters: { subPositions: string[]; cityNames: string[]; profileStateNames: string[] }) => void
+  initialFilters: {
+    subPositions: string[]
+    cityNames: string[]
+    profileStateNames: string[]
+  }
 }) {
   // 포지션 관련 상태
-  const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>([])
+  const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(initialFilters.subPositions)
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
 
   // 활동 지역 관련 상태
-  const [selectedAddresses, setSelectedAddresses] = useState<string[]>([])
+  const [selectedAddresses, setSelectedAddresses] = useState<string[]>(initialFilters.cityNames)
 
   // 현재 상태 관련 상태
-  const [selectedStatus, setSelectedStatus] = useState<string[]>([])
+  const [selectedStatus, setSelectedStatus] = useState<string[]>(initialFilters.profileStateNames)
 
   // 선택된 소분류들의 부모 카테고리들을 계산
   const selectedCategories = Array.from(
@@ -79,6 +87,24 @@ export default function PrivateFilterModal({
       return
     }
     setSelectedStatus((prev) => (prev.includes(status) ? prev.filter((s) => s !== status) : [...prev, status]))
+  }
+
+  // 필터 적용 핸들러
+  const handleApplyFilters = () => {
+    onApplyFilters({
+      subPositions: selectedSubCategories,
+      cityNames: selectedAddresses,
+      profileStateNames: selectedStatus,
+    })
+    setIsFilterOpen(false)
+  }
+
+  // 초기화 핸들러
+  const handleReset = () => {
+    setSelectedSubCategories(initialFilters.subPositions)
+    setSelectedAddresses(initialFilters.cityNames)
+    setSelectedStatus(initialFilters.profileStateNames)
+    setActiveCategory(null)
   }
 
   return (
@@ -221,12 +247,18 @@ export default function PrivateFilterModal({
         {/* 적용 & 초기화 버튼 */}
         <hr className="mt-4 border-grey40" />
         <div className="mt-4 flex w-full items-center gap-3">
-          <button className="flex gap-1 rounded-lg border border-grey40 px-[1.84rem] py-[0.81rem] hover:bg-grey10">
-            <Image src="/common/icons/reset.svg" alt="적용" width={16} height={16} />
+          <button
+            onClick={handleReset}
+            className="flex gap-1 rounded-lg border border-grey40 px-[1.84rem] py-[0.81rem] hover:bg-grey10"
+          >
+            <Image src="/common/icons/reset.svg" alt="초기화" width={16} height={16} />
             <p className="text-sm font-normal text-grey80">초기화</p>
           </button>
-          <button className="flex w-[78%] items-center justify-center gap-1 rounded-lg bg-main py-[0.81rem] font-semibold  text-white hover:brightness-95">
-            <p className=" ">적용하기</p>
+          <button
+            onClick={handleApplyFilters}
+            className="flex w-[78%] items-center justify-center gap-1 rounded-lg bg-main py-[0.81rem] font-semibold text-white hover:brightness-95"
+          >
+            <p>적용하기</p>
           </button>
         </div>
       </div>
