@@ -15,7 +15,7 @@ export default function FindAnnouncementPage() {
         }}
       ></div>
       {/* 컨텐츠 컨테이너 */}
-      <div className="relative flex w-full justify-center" style={{ zIndex: 1 }}>
+      <div className="relative flex w-full justify-center">
         <div className="flex w-[95%] flex-col pt-9 lg:w-[78%]">
           <div className="flex flex-col gap-2 lg:px-16">
             <h1 className="text-grey30">모집 공고</h1>
