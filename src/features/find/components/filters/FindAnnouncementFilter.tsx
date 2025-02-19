@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
-import PositionFilter from './filters/PositionFilter'
-import SkillFilter from './filters/SkillFilter'
-import LocationFilter from './filters/LocationFilter'
-import ScaleFilter from './filters/ScaleFilter'
+import PositionFilter from './PositionFilter'
+import SkillFilter from './SkillFilter'
+import LocationFilter from './LocationFilter'
+import ScaleFilter from './ScaleFilter'
 
 export default function FindAnnouncementFilter() {
   const router = useRouter()

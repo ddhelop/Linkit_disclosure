@@ -1,4 +1,4 @@
-import FindTeamFilter from '@/features/find/components/FindTeamFilter'
+import FindTeamFilter from '@/features/find/components/filters/FindTeamFilter'
 import TeamFilterResult from '@/features/find/components/resultFilter/TeamFilterResult'
 
 export default function FindTeamPage() {
