@@ -6,7 +6,7 @@ import { getFindAnnouncement } from '../../api/FindApi'
 import { Announcement, SearchParams } from '../../types/FindTypes'
 import AnnouncementCard from '@/shared/components/AnnouncementCard'
 
-export default function PrivateFilterResult() {
+export default function AnnouncementFilterResult() {
   const searchParams = useSearchParams()
   const [announcements, setAnnouncements] = useState<Announcement[]>([])
   const [hotAnnouncements, setHotAnnouncements] = useState<Announcement[]>([])
@@ -85,7 +85,6 @@ export default function PrivateFilterResult() {
   }
 
   return (
-
     <div className="flex flex-col gap-12 px-12">
       {hotAnnouncements.length > 0 && (
         <div>
@@ -103,9 +102,7 @@ export default function PrivateFilterResult() {
       {announcements.length > 0 && (
         <div>
           <div className="text-lg font-semibold text-black">
-
             {isFilterApplied() ? '검색 결과' : '🔍 나에게 맞는 모집 공고를 더 찾아보세요!'}
-
           </div>
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3 xl:grid-cols-3">
             {announcements.map((announcement, index) => (
