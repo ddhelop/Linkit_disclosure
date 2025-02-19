@@ -81,38 +81,37 @@ export default function FindPrivateFilter() {
 
   return (
     <>
-      <div className="space-y-4">
+      <div className=" relative space-y-4">
+        {/* Reset button */}
+        <button
+          onClick={resetFilters}
+          className="absolute right-0 top-[-2.3rem] flex items-center gap-1 px-3 py-2 text-sm text-grey70"
+        >
+          <Image src="/common/icons/reset.svg" alt="reset" width={16} height={16} />
+          <span>필터 초기화</span>
+        </button>
         <div className="rounded-xl bg-white px-6 py-5" style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}>
-          {/* Reset button */}
-          <button
-            onClick={resetFilters}
-            className="absolute right-44 top-24 flex items-center gap-1 px-3 py-2 text-sm text-grey70"
-          >
-            <Image src="/common/icons/reset.svg" alt="reset" width={16} height={16} />
-            <span>필터 초기화</span>
-          </button>
-
           <div className="grid grid-cols-3 gap-4">
             <div
               onClick={() => setIsFilterOpen(true)}
-              className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 px-5 py-4 text-sm hover:bg-[#EDF3FF]"
+              className="flex cursor-pointer flex-col  gap-2 rounded-xl border border-grey30 px-5 py-4 text-sm hover:bg-[#EDF3FF]"
             >
-              <p className="text-grey70">포지션</p>
-              <p className="text-grey50">포지션을 선택해 주세요</p>
+              <p className="flex justify-center text-grey70 md:justify-start">포지션</p>
+              <p className="hidden text-grey50 md:flex">포지션을 선택해 주세요</p>
             </div>
             <div
               onClick={() => setIsFilterOpen(true)}
               className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 px-5 py-4 text-sm hover:bg-[#EDF3FF]"
             >
-              <p className="text-grey70">활동 지역</p>
-              <p className="text-grey50">선호하는 지역을 선택해 주세요</p>
+              <p className="flex justify-center text-grey70 md:justify-start">활동 지역</p>
+              <p className="hidden text-grey50 md:flex">선호하는 지역을 선택해 주세요</p>
             </div>
             <div
               onClick={() => setIsFilterOpen(true)}
               className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 px-5 py-4 text-sm hover:bg-[#EDF3FF]"
             >
-              <p className="text-grey70">현재 상태</p>
-              <p className="text-grey50">어떤 팀원을 찾고 있는지 선택해 주세요</p>
+              <p className="flex justify-center text-grey70 md:justify-start">현재 상태</p>
+              <p className="hidden text-grey50 md:flex">어떤 팀원을 찾고 있는지 선택해 주세요</p>
             </div>
           </div>
 
