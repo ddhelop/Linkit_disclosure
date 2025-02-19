@@ -9,3 +9,6 @@ export const PrivateStatusData = [
   '아이디어 찾는 중',
   '투자 유치 중',
 ]
+
+// 팀 규모
+export const TeamSizeData = ['1인', '2 ~ 5인', '6 ~ 9인', '10인 이상']
