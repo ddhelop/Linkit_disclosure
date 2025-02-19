@@ -2,10 +2,10 @@ import { useState } from 'react'
 import Modal from '@/shared/ui/Modal/Modal'
 import { jobCategoriesData } from '@/shared/data/roleSelectData'
 import { addressData } from '@/shared/data/addressSelectData'
-import { PrivateStatusData } from '@/shared/data/PrivateStatusData'
+import { PrivateStatusData, TeamSizeData } from '@/shared/data/FilterData'
 import Image from 'next/image'
 
-export default function PrivateFilterModal({
+export default function TeamFilterModal({
   isFilterOpen,
   setIsFilterOpen,
   onApplyFilters,
@@ -13,56 +13,31 @@ export default function PrivateFilterModal({
 }: {
   isFilterOpen: boolean
   setIsFilterOpen: (isFilterOpen: boolean) => void
-  onApplyFilters: (filters: { subPositions: string[]; cityNames: string[]; profileStateNames: string[] }) => void
+  onApplyFilters: (filters: { scaleNames: string[]; cityNames: string[]; teamStateNames: string[] }) => void
   initialFilters: {
-    subPositions: string[]
+    scaleNames: string[]
     cityNames: string[]
-    profileStateNames: string[]
+    teamStateNames: string[]
   }
 }) {
-  // 포지션 관련 상태
-  const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(initialFilters.subPositions)
-  const [activeCategory, setActiveCategory] = useState<string | null>(null)
+  // 팀 규모 관련 상태
+  const [selectedSize, setSelectedSize] = useState<string[]>(initialFilters.scaleNames)
 
   // 활동 지역 관련 상태
   const [selectedAddresses, setSelectedAddresses] = useState<string[]>(initialFilters.cityNames)
 
   // 현재 상태 관련 상태
-  const [selectedStatus, setSelectedStatus] = useState<string[]>(initialFilters.profileStateNames)
+  const [selectedStatus, setSelectedStatus] = useState<string[]>(initialFilters.teamStateNames)
 
-  // 선택된 소분류들의 부모 카테고리들을 계산
-  const selectedCategories = Array.from(
-    new Set(
-      selectedSubCategories
-        .map((sub) => jobCategoriesData.find((cat) => cat.subCategory.includes(sub))?.name)
-        .filter(Boolean) as string[],
-    ),
-  )
-
-  // 포지션 관련 핸들러
-  const handlePositionCategoryClick = (categoryName: string | 'all') => {
-    if (categoryName === 'all') {
-      const allSubCategories = jobCategoriesData.flatMap((cat) => cat.subCategory)
-      setSelectedSubCategories(allSubCategories)
-      setActiveCategory(null)
-      return
-    }
-    setActiveCategory(activeCategory === categoryName ? null : categoryName)
-  }
-
-  const handlePositionSubCategoryClick = (subCategory: string | 'all') => {
-    if (subCategory === 'all' && activeCategory) {
-      const currentCategorySubItems = jobCategoriesData.find((cat) => cat.name === activeCategory)?.subCategory || []
-      setSelectedSubCategories((prev) => {
-        const otherCategories = prev.filter((sub) => !currentCategorySubItems.includes(sub))
-        const isAllSelected = currentCategorySubItems.every((sub) => prev.includes(sub))
-        return isAllSelected ? otherCategories : [...otherCategories, ...currentCategorySubItems]
-      })
+  // 팀 규모 관련 핸들러
+  const handleTeamSizeClick = (teamSize: string | 'all') => {
+    if (teamSize === 'all') {
+      setSelectedSize((prev) => (prev.length === TeamSizeData.length ? [] : TeamSizeData.map((size) => size)))
       return
     }
 
-    setSelectedSubCategories((prev) =>
-      prev.includes(subCategory) ? prev.filter((sub) => sub !== subCategory) : [...prev, subCategory],
+    setSelectedSize((prev) =>
+      prev.includes(teamSize) ? prev.filter((size) => size !== teamSize) : [...prev, teamSize],
     )
   }
 
@@ -92,19 +67,18 @@ export default function PrivateFilterModal({
   // 필터 적용 핸들러
   const handleApplyFilters = () => {
     onApplyFilters({
-      subPositions: selectedSubCategories,
+      scaleNames: selectedSize,
       cityNames: selectedAddresses,
-      profileStateNames: selectedStatus,
+      teamStateNames: selectedStatus,
     })
     setIsFilterOpen(false)
   }
 
   // 초기화 핸들러
   const handleReset = () => {
-    setSelectedSubCategories(initialFilters.subPositions)
+    setSelectedSize(initialFilters.scaleNames)
     setSelectedAddresses(initialFilters.cityNames)
-    setSelectedStatus(initialFilters.profileStateNames)
-    setActiveCategory(null)
+    setSelectedStatus(initialFilters.teamStateNames)
   }
 
   return (
@@ -122,68 +96,37 @@ export default function PrivateFilterModal({
             {/* 포지션 섹션 */}
             <div className="mt-4 flex flex-col gap-5">
               <div className="flex items-center gap-2">
-                <h3 className="font-semibold text-grey80">포지션</h3>
-                <p className="text-xs font-normal text-grey50">대분류를 먼저 선택해주세요</p>
+                <h3 className="font-semibold text-grey80">규모</h3>
               </div>
 
               {/* 대분류 리스트 */}
               <div className="flex flex-col gap-3">
-                <h3 className="text-xs font-normal text-grey60">대분류</h3>
                 <ul className="flex flex-wrap gap-2">
-                  {jobCategoriesData.map((category) => (
+                  <button
+                    onClick={() => handleTeamSizeClick('all')}
+                    className={`cursor-pointer rounded-full border px-5 py-2 text-sm ${
+                      selectedSize.length === TeamSizeData.length
+                        ? 'border-[#B5CDFF] bg-[#EDF3FF] text-main'
+                        : 'border-grey40 bg-grey20 text-grey50'
+                    }`}
+                  >
+                    전체
+                  </button>
+                  {TeamSizeData.map((size) => (
                     <li
-                      key={category.name}
-                      onClick={() => handlePositionCategoryClick(category.name)}
-                      className={`cursor-pointer rounded-md px-5 py-2 text-sm ${
-                        selectedCategories.includes(category.name)
-                          ? ' bg-[#EDF3FF] text-main'
-                          : activeCategory === category.name
-                            ? 'bg-grey20 text-grey70'
-                            : 'bg-grey10 text-grey50'
+                      key={size}
+                      onClick={() => handleTeamSizeClick(size)}
+                      className={`cursor-pointer rounded-full border px-5 py-2 text-sm ${
+                        selectedSize.includes(size)
+                          ? 'border-[#B5CDFF] bg-[#EDF3FF] text-main'
+                          : 'border-grey40 bg-grey20 text-grey50'
                       }`}
                     >
-                      {category.name}
+                      {size}
                     </li>
                   ))}
                 </ul>
               </div>
-
-              {/* 소분류 리스트 */}
-              {activeCategory && (
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-xs font-normal text-grey60">소분류</h3>
-                  <ul className="flex flex-wrap gap-3 ">
-                    {/* 전체 */}
-                    <li
-                      onClick={() => handlePositionSubCategoryClick('all')}
-                      className={`cursor-pointer rounded-full border px-5 py-2 text-sm ${
-                        jobCategoriesData
-                          .find((cat) => cat.name === activeCategory)
-                          ?.subCategory.every((sub) => selectedSubCategories.includes(sub))
-                          ? 'border-[#B5CDFF] bg-[#EDF3FF] text-main'
-                          : 'bg-grey10 text-grey50'
-                      }`}
-                    >
-                      전체
-                    </li>
-                    {jobCategoriesData
-                      .find((category) => category.name === activeCategory)
-                      ?.subCategory.map((sub) => (
-                        <li
-                          key={sub}
-                          onClick={() => handlePositionSubCategoryClick(sub)}
-                          className={`cursor-pointer rounded-full border px-5 py-2 text-sm ${
-                            selectedSubCategories.includes(sub)
-                              ? 'border-[#B5CDFF] bg-[#EDF3FF] text-main'
-                              : 'bg-grey10 text-grey50'
-                          }`}
-                        >
-                          {sub}
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-              )}
             </div>
 
             {/* 활동 지역 섹션 */}
