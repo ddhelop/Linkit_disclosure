@@ -1,5 +1,6 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 
 export default function Modal({
   isOpen,
@@ -10,6 +11,8 @@ export default function Modal({
   onClose: () => void
   children: React.ReactNode
 }) {
+  const modalRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -18,14 +21,17 @@ export default function Modal({
     }
   }, [isOpen])
 
+  useOnClickOutside({
+    refs: [modalRef],
+    handler: onClose,
+    isEnabled: isOpen,
+  })
+
   if (!isOpen) return null
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-50">
-      <div className="relative w-[400px] rounded-xl bg-white p-6">
-        <button onClick={onClose} className="absolute right-4 top-4 text-gray-400 hover:text-gray-700">
-          ✕
-        </button>
+      <div ref={modalRef} className="relative rounded-xl bg-white">
         {children}
       </div>
     </div>
