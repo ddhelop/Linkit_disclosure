@@ -24,7 +24,7 @@ export default function TeamFilterResult() {
         // URL 파라미터에서 검색 조건 추출
         const params: TeamSearchParams = {
           scaleName: searchParams.getAll('scaleName'),
-          isAnnouncement: searchParams.get('isAnnouncement') === 'true',
+          // isAnnouncement: searchParams.get('isAnnouncement') === 'true',
           cityName: searchParams.getAll('cityName'),
           teamStateName: searchParams.getAll('teamStateName'),
           page: Number(searchParams.get('page')) || 0,
@@ -55,7 +55,7 @@ export default function TeamFilterResult() {
   const isFilterApplied = () => {
     return (
       searchParams.getAll('scaleName').length > 0 ||
-      searchParams.get('isAnnouncement') !== null ||
+      // searchParams.get('isAnnouncement') !== null ||
       searchParams.getAll('cityName').length > 0 ||
       searchParams.getAll('teamStateName').length > 0
     )
@@ -102,7 +102,6 @@ export default function TeamFilterResult() {
         <div>
           <div className="text-lg font-semibold text-black">💰 지원사업을 준비 중인 팀이에요!</div>
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
-
             {supportProjectTeams?.map((team, index) => (
               <MiniTeamCard_2 key={`${team.teamName}-${index}`} team={team} />
             ))}

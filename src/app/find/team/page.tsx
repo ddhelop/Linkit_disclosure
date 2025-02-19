@@ -1,4 +1,4 @@
-import FindTeamFilter from '@/features/find/components/FindTeamFilter'
+import FindTeamFilter from '@/features/find/components/filters/FindTeamFilter'
 import TeamFilterResult from '@/features/find/components/resultFilter/TeamFilterResult'
 
 export default function FindTeamPage() {
@@ -15,7 +15,7 @@ export default function FindTeamPage() {
         }}
       ></div>
       {/* 컨텐츠 컨테이너 */}
-      <div className="relative flex w-full justify-center" style={{ zIndex: 1 }}>
+      <div className="relative flex w-full justify-center">
         <div className="flex w-[95%] flex-col pt-9 lg:w-[78%]">
           <div className="flex flex-col sm:gap-2 lg:px-16">
             <h1 className="text-grey30">팀 찾기</h1>

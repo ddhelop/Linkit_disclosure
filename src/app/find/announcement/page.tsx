@@ -1,4 +1,4 @@
-import FindAnnouncementFilter from '@/features/find/components/FindAnnouncementFilter'
+import FindAnnouncementFilter from '@/features/find/components/filters/FindAnnouncementFilter'
 import AnnouncementFilterResult from '@/features/find/components/resultFilter/AnnouncementFilterResult'
 
 export default function FindAnnouncementPage() {

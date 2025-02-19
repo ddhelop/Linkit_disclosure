@@ -1,4 +1,4 @@
-import FindPrivateFilter from '@/features/find/components/FindPrivateFilter'
+import FindPrivateFilter from '@/features/find/components/filters/FindPrivateFilter'
 import PrivateFilterResult from '@/features/find/components/resultFilter/PrivateFilterResult'
 
 export default function FindPrivatePage() {
