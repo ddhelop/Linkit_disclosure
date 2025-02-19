@@ -86,7 +86,7 @@ export default function Header() {
       </header>
 
       {isMobileMenuOpen && (
-        <div ref={mobileMenuRef}>
+        <div ref={mobileMenuRef} className="">
           <MobileMenu isLogin={isLogin} onClose={closeMobileMenu} onLogout={logout} />
         </div>
       )}
