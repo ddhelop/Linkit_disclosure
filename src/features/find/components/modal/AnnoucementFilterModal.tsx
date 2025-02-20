@@ -2,10 +2,10 @@ import { useState, useRef, useEffect } from 'react'
 import Modal from '@/shared/ui/Modal/Modal'
 import { jobCategoriesData } from '@/shared/data/roleSelectData'
 import { addressData } from '@/shared/data/addressSelectData'
-import { PrivateStatusData } from '@/shared/data/FilterData'
+import { PrivateStatusData, TeamSizeData } from '@/shared/data/FilterData'
 import Image from 'next/image'
 
-export default function PrivateFilterModal({
+export default function AnnouncementFilterModal({
   isFilterOpen,
   setIsFilterOpen,
   onApplyFilters,
@@ -14,13 +14,13 @@ export default function PrivateFilterModal({
 }: {
   isFilterOpen: boolean
   setIsFilterOpen: (isFilterOpen: boolean) => void
-  onApplyFilters: (filters: { subPositions: string[]; cityNames: string[]; profileStateNames: string[] }) => void
+  onApplyFilters: (filters: { subPositions: string[]; cityNames: string[]; scaleName: string[] }) => void
   initialFilters: {
     subPositions: string[]
     cityNames: string[]
-    profileStateNames: string[]
+    scaleName: string[]
   }
-  activeSection: 'position' | 'location' | 'status' | null
+  activeSection: 'position' | 'location' | 'size' | null
 }) {
   // 포지션 관련 상태
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(initialFilters.subPositions)
@@ -29,8 +29,8 @@ export default function PrivateFilterModal({
   // 활동 지역 관련 상태
   const [selectedAddresses, setSelectedAddresses] = useState<string[]>(initialFilters.cityNames)
 
-  // 현재 상태 관련 상태
-  const [selectedStatus, setSelectedStatus] = useState<string[]>(initialFilters.profileStateNames)
+  // 팀 규모 관련 상태
+  const [selectedSize, setSelectedSize] = useState<string[]>(initialFilters.scaleName)
 
   // 선택된 소분류들의 부모 카테고리들을 계산
   const selectedCategories = Array.from(
@@ -41,9 +41,10 @@ export default function PrivateFilterModal({
     ),
   )
 
+  // 스크롤 처리를 위한 ref 추가
   const positionRef = useRef<HTMLDivElement>(null)
   const locationRef = useRef<HTMLDivElement>(null)
-  const statusRef = useRef<HTMLDivElement>(null)
+  const sizeRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -51,13 +52,13 @@ export default function PrivateFilterModal({
       const refs = {
         position: positionRef,
         location: locationRef,
-        status: statusRef,
+        size: sizeRef,
       }
 
       const targetRef = refs[activeSection]
       if (targetRef.current && contentRef.current) {
         const targetOffset = targetRef.current.offsetTop
-        contentRef.current.scrollTop = targetOffset - 70
+        contentRef.current.scrollTop = targetOffset - 70 // 20px의 여백을 둠
       }
     }
   }, [isFilterOpen, activeSection])
@@ -102,14 +103,12 @@ export default function PrivateFilterModal({
   }
 
   // 현재 상태 관련 핸들러
-  const handleStatusClick = (status: string) => {
-    if (status === 'all') {
-      setSelectedStatus((prev) =>
-        prev.length === PrivateStatusData.length ? [] : PrivateStatusData.map((status) => status),
-      )
+  const handleSizeClick = (size: string) => {
+    if (size === 'all') {
+      setSelectedSize((prev) => (prev.length === TeamSizeData.length ? [] : TeamSizeData.map((size) => size)))
       return
     }
-    setSelectedStatus((prev) => (prev.includes(status) ? prev.filter((s) => s !== status) : [...prev, status]))
+    setSelectedSize((prev) => (prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]))
   }
 
   // 필터 적용 핸들러
@@ -117,7 +116,7 @@ export default function PrivateFilterModal({
     onApplyFilters({
       subPositions: selectedSubCategories,
       cityNames: selectedAddresses,
-      profileStateNames: selectedStatus,
+      scaleName: selectedSize,
     })
     setIsFilterOpen(false)
   }
@@ -126,7 +125,7 @@ export default function PrivateFilterModal({
   const handleReset = () => {
     setSelectedSubCategories(initialFilters.subPositions)
     setSelectedAddresses(initialFilters.cityNames)
-    setSelectedStatus(initialFilters.profileStateNames)
+    setSelectedSize(initialFilters.scaleName)
     setActiveCategory(null)
   }
 
@@ -239,14 +238,14 @@ export default function PrivateFilterModal({
               </div>
             </div>
 
-            {/* 현재 상태 섹션 */}
-            <div ref={statusRef} className="flex flex-col gap-3">
-              <h3 className="font-semibold text-grey80">현재 상태</h3>
+            {/* 팀 규모 섹션 */}
+            <div ref={sizeRef} className="flex flex-col gap-3">
+              <h3 className="font-semibold text-grey80">팀 규모</h3>
               <div className="flex flex-wrap gap-2">
                 <button
-                  onClick={() => handleStatusClick('all')}
+                  onClick={() => handleSizeClick('all')}
                   className={`cursor-pointer rounded-full border px-5 py-2 text-sm ${
-                    selectedStatus.length === PrivateStatusData.length
+                    selectedSize.length === TeamSizeData.length
                       ? 'border-[#B5CDFF] bg-[#EDF3FF] text-main'
                       : 'border-grey40 bg-grey20 text-grey50'
                   }`}
@@ -254,17 +253,17 @@ export default function PrivateFilterModal({
                   전체
                 </button>
 
-                {PrivateStatusData.map((status) => (
+                {TeamSizeData.map((size) => (
                   <button
-                    key={status}
-                    onClick={() => handleStatusClick(status)}
+                    key={size}
+                    onClick={() => handleSizeClick(size)}
                     className={`cursor-pointer rounded-full border px-5 py-2 text-sm ${
-                      selectedStatus.includes(status)
+                      selectedSize.includes(size)
                         ? 'border-[#B5CDFF] bg-[#EDF3FF] text-main'
                         : 'border-grey40 bg-grey20 text-grey50'
                     }`}
                   >
-                    {status}
+                    {size}
                   </button>
                 ))}
               </div>

@@ -9,6 +9,7 @@ export default function FindPrivateFilter() {
   const searchParams = useSearchParams()
 
   const [isFilterOpen, setIsFilterOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState<'position' | 'location' | 'status' | null>(null)
 
   // URL에서 필터 상태 가져오기 - 여러 값을 배열로 가져오도록 수정
   const selectedPositions = searchParams.getAll('subPosition')
@@ -79,6 +80,11 @@ export default function FindPrivateFilter() {
     })
   }
 
+  const handleSectionClick = (section: 'position' | 'location' | 'status') => {
+    setActiveSection(section)
+    setIsFilterOpen(true)
+  }
+
   return (
     <>
       <div className=" relative space-y-4">
@@ -93,21 +99,21 @@ export default function FindPrivateFilter() {
         <div className="rounded-xl bg-white px-6 py-5" style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}>
           <div className="grid grid-cols-3 gap-4">
             <div
-              onClick={() => setIsFilterOpen(true)}
+              onClick={() => handleSectionClick('position')}
               className="flex cursor-pointer flex-col  gap-2 rounded-xl border border-grey30 px-5 py-4 text-sm hover:bg-[#EDF3FF]"
             >
               <p className="flex justify-center text-grey70 md:justify-start">포지션</p>
               <p className="hidden text-grey50 md:flex">포지션을 선택해 주세요</p>
             </div>
             <div
-              onClick={() => setIsFilterOpen(true)}
+              onClick={() => handleSectionClick('location')}
               className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 px-5 py-4 text-sm hover:bg-[#EDF3FF]"
             >
               <p className="flex justify-center text-grey70 md:justify-start">활동 지역</p>
               <p className="hidden text-grey50 md:flex">선호하는 지역을 선택해 주세요</p>
             </div>
             <div
-              onClick={() => setIsFilterOpen(true)}
+              onClick={() => handleSectionClick('status')}
               className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 px-5 py-4 text-sm hover:bg-[#EDF3FF]"
             >
               <p className="flex justify-center text-grey70 md:justify-start">현재 상태</p>
@@ -163,6 +169,7 @@ export default function FindPrivateFilter() {
             cityNames: selectedLocations,
             profileStateNames: selectedStatus,
           }}
+          activeSection={activeSection}
         />
       )}
     </>

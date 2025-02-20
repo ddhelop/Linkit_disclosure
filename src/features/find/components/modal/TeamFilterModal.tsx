@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Modal from '@/shared/ui/Modal/Modal'
 import { jobCategoriesData } from '@/shared/data/roleSelectData'
 import { addressData } from '@/shared/data/addressSelectData'
@@ -10,6 +10,7 @@ export default function TeamFilterModal({
   setIsFilterOpen,
   onApplyFilters,
   initialFilters,
+  activeSection,
 }: {
   isFilterOpen: boolean
   setIsFilterOpen: (isFilterOpen: boolean) => void
@@ -19,6 +20,7 @@ export default function TeamFilterModal({
     cityNames: string[]
     teamStateNames: string[]
   }
+  activeSection: 'size' | 'location' | 'status' | null
 }) {
   // 팀 규모 관련 상태
   const [selectedSize, setSelectedSize] = useState<string[]>(initialFilters.scaleNames)
@@ -28,6 +30,27 @@ export default function TeamFilterModal({
 
   // 현재 상태 관련 상태
   const [selectedStatus, setSelectedStatus] = useState<string[]>(initialFilters.teamStateNames)
+
+  const sizeRef = useRef<HTMLDivElement>(null)
+  const locationRef = useRef<HTMLDivElement>(null)
+  const statusRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (isFilterOpen && activeSection) {
+      const refs = {
+        size: sizeRef,
+        location: locationRef,
+        status: statusRef,
+      }
+
+      const targetRef = refs[activeSection]
+      if (targetRef.current && contentRef.current) {
+        const targetOffset = targetRef.current.offsetTop
+        contentRef.current.scrollTop = targetOffset - 70
+      }
+    }
+  }, [isFilterOpen, activeSection])
 
   // 팀 규모 관련 핸들러
   const handleTeamSizeClick = (teamSize: string | 'all') => {
@@ -91,10 +114,9 @@ export default function TeamFilterModal({
         </div>
 
         {/* 스크롤 가능한 컨텐츠 영역 */}
-        <div className="flex-1 overflow-y-auto px-6 pb-10">
+        <div ref={contentRef} className="flex-1 overflow-y-auto px-6 pb-10">
           <div className="flex flex-col gap-8">
-            {/* 포지션 섹션 */}
-            <div className="mt-4 flex flex-col gap-5">
+            <div ref={sizeRef} className="mt-4 flex flex-col gap-5">
               <div className="flex items-center gap-2">
                 <h3 className="font-semibold text-grey80">규모</h3>
               </div>
@@ -129,8 +151,7 @@ export default function TeamFilterModal({
               </div>
             </div>
 
-            {/* 활동 지역 섹션 */}
-            <div className="flex flex-col gap-5">
+            <div ref={locationRef} className="flex flex-col gap-5">
               <h3 className="font-semibold text-grey80">활동 지역</h3>
               <div className="flex flex-wrap gap-3">
                 <button
@@ -159,8 +180,7 @@ export default function TeamFilterModal({
               </div>
             </div>
 
-            {/* 현재 상태 섹션 */}
-            <div className="flex flex-col gap-3">
+            <div ref={statusRef} className="flex flex-col gap-3">
               <h3 className="font-semibold text-grey80">현재 상태</h3>
               <div className="flex flex-wrap gap-2">
                 <button
