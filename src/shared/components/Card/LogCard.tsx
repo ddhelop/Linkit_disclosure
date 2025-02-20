@@ -46,7 +46,18 @@ export default function LogCard({ log }: { log: ILogCard }) {
       </div>
 
       {/* 내용 */}
-      <div className="text-sm text-grey60">{truncateText(stripHtmlAndImages(log.logContent), 250)}</div>
+      <div
+        className="overflow-hidden text-sm text-grey60"
+        style={{
+          display: '-webkit-box',
+          WebkitLineClamp: '4',
+          WebkitBoxOrient: 'vertical',
+          maxHeight: '5.6em', // line-height: 1.4 * 4줄
+        }}
+        dangerouslySetInnerHTML={{
+          __html: log.logContent,
+        }}
+      />
     </Link>
   )
 }
