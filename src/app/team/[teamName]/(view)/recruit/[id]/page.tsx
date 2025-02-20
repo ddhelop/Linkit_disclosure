@@ -1,7 +1,6 @@
 'use client'
 
 import MiniTeamCard from '@/shared/components/MiniTeamCard'
-import { Button } from '@/shared/ui/Button/Button'
 import { getTeamInfo, getTeamAnnouncement, TeamAnnouncementDetail } from '@/features/team/api/teamApi'
 import TeamViewRecruitDetail from '@/features/team/view/recruitment/TeamViewRecruitDetail'
 import { useEffect, useState } from 'react'
@@ -48,11 +47,14 @@ export default function TeamViewRecruitDetailPage({ params }: { params: { teamNa
   return (
     <>
       <div className="absolute left-0 flex w-full justify-center bg-[#FCFCFD] py-[3.63rem]">
-        <div className="flex w-[83%] justify-center gap-8 ">
-          <div className="w-[49rem] ">
+        <div className="flex w-full flex-col items-center justify-center gap-8 lg:w-[83%] lg:flex-row lg:items-start ">
+          <div className="w-full px-3 lg:w-[49rem] lg:px-0">
             {recruitmentDetail && <TeamViewRecruitDetail recruitmentDetail={recruitmentDetail} />}
           </div>
-          <div>{teamInfo && <MiniTeamCard teamInfo={teamInfo} />}</div>
+
+          <div className="">
+            <div>{teamInfo && <MiniTeamCard teamInfo={teamInfo} />}</div>
+          </div>
         </div>
       </div>
 
