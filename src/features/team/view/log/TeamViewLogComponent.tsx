@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { TeamLogItem } from '../../types/team.types'
-import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
+
 import Link from 'next/link'
 
 export default function TeamViewLogComponent({ log, teamName }: { log: TeamLogItem; teamName: string }) {
@@ -16,7 +16,22 @@ export default function TeamViewLogComponent({ log, teamName }: { log: TeamLogIt
         <span className="text-xs font-normal text-grey60">{new Date(log.modifiedAt).toLocaleDateString()}</span>
       </div>
 
-      <div className="rounded-xl bg-grey10 p-6 text-sm text-grey70">{stripHtmlAndImages(log.logContent)}</div>
+      <div className="rounded-xl bg-grey10 p-6">
+        <div
+          className="overflow-hidden text-sm text-grey70"
+          style={{
+            display: '-webkit-box',
+            WebkitLineClamp: '6',
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            lineHeight: '1.5',
+            height: 'auto',
+          }}
+          dangerouslySetInnerHTML={{
+            __html: log.logContent,
+          }}
+        />
+      </div>
     </Link>
   )
 }
