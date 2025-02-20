@@ -27,7 +27,7 @@ export default function HomeTeamSection() {
           <Image src="/common/icons/arrow-right(greyblack).svg" alt="arrow_right" width={16} height={16} />
         </Link>
       </div>
-      <div className=" flex gap-6 overflow-x-auto md:grid md:grid-cols-2 [&::-webkit-scrollbar]:hidden">
+      <div className="flex gap-6 overflow-x-auto p-1 md:grid md:grid-cols-2 [&::-webkit-scrollbar]:hidden">
         {teamRecommend.map((team) => (
           <MiniTeamCard_2 key={team.teamCode} team={team} />
         ))}
