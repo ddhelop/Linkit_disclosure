@@ -15,10 +15,10 @@ export default function Modal({
   const modalRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'auto'
+    document.body.style.overflow = isOpen ? 'hidden' : ''
+
+    return () => {
+      document.body.style.overflow = ''
     }
   }, [isOpen])
 
