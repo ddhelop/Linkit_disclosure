@@ -21,6 +21,8 @@ export const jobCategoriesData = [
       'CRM 개발자',
       '임베디드 소프트웨어 개발자',
       '게임 개발자',
+      '설계 엔지니어',
+      'H/W 엔지니어',
     ],
   },
   {
@@ -71,6 +73,7 @@ export const jobCategoriesData = [
       '바이럴 마케터',
       '프로모션 마케터',
       '광고 기획',
+      'CX 매니저',
     ],
   },
   {
