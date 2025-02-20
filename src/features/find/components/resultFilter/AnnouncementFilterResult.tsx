@@ -88,7 +88,7 @@ export default function AnnouncementFilterResult() {
     <div className="flex flex-col gap-12 px-12">
       {hotAnnouncements.length > 0 && (
         <div>
-          <div className="text-lg font-semibold text-black">🔥 지급 핫한 공고예요!</div>
+          <div className="text-lg font-semibold text-black">🔥 지금 핫한 공고예요!</div>
 
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3 xl:grid-cols-3">
             {hotAnnouncements.map((announcement, index) => (
