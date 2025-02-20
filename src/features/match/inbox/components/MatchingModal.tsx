@@ -15,7 +15,7 @@ interface MatchingModalProps {
 export default function MatchingModal({ message, onClose, onAccept, onReject, modalRef }: MatchingModalProps) {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-50">
-      <div ref={modalRef} className="w-[42rem] rounded-xl bg-white p-8 px-[2.75rem] py-6">
+      <div ref={modalRef} className="max-h-[45rem] w-[42rem]  rounded-xl bg-white p-8 px-[2.75rem] py-6">
         <div className="flex justify-center">
           <h2 className="text-sm font-semibold text-grey90">상대방의 매칭 요청</h2>
         </div>
@@ -26,8 +26,8 @@ export default function MatchingModal({ message, onClose, onAccept, onReject, mo
               <Image
                 src={
                   message.senderType === 'TEAM'
-                    ? message.senderTeamInformation.teamLogoImagePath || '/common/default_profile.svg'
-                    : message.senderProfileInformation.profileImagePath || '/common/default_profile.svg'
+                    ? message.senderTeamInformation?.teamLogoImagePath || '/common/default_profile.svg'
+                    : message.senderProfileInformation?.profileImagePath || '/common/default_profile.svg'
                 }
                 alt="profile"
                 fill
@@ -37,14 +37,14 @@ export default function MatchingModal({ message, onClose, onAccept, onReject, mo
             <div className="flex flex-col justify-center gap-1">
               <p className="text-sm font-semibold text-grey90">
                 {message.senderType === 'TEAM'
-                  ? message.senderTeamInformation.teamName
-                  : message.senderProfileInformation.memberName}
+                  ? message.senderTeamInformation?.teamName
+                  : message.senderProfileInformation?.memberName}
               </p>
               <div className="flex gap-1">
                 <p className="text-xs text-grey60">
                   {message.senderType === 'TEAM'
-                    ? message.senderTeamInformation.teamScaleItem.teamScaleName
-                    : `${message.senderProfileInformation.profilePositionDetail.majorPosition} · ${message.senderProfileInformation.profilePositionDetail.subPosition}`}
+                    ? message.senderTeamInformation?.teamScaleItem?.teamScaleName
+                    : `${message.senderProfileInformation?.profilePositionDetail.majorPosition} · ${message.senderProfileInformation?.profilePositionDetail.subPosition}`}
                 </p>
               </div>
             </div>
@@ -53,8 +53,8 @@ export default function MatchingModal({ message, onClose, onAccept, onReject, mo
             <Link
               href={
                 message.senderType === 'TEAM'
-                  ? `/team/${message.senderTeamInformation.teamCode}/log`
-                  : `/${message.senderProfileInformation.emailId}`
+                  ? `/team/${message.senderTeamInformation?.teamCode}/log`
+                  : `/${message.senderProfileInformation?.emailId}`
               }
               className="rounded-full bg-[#D3E1FE] px-4 py-2 text-sm text-grey70"
             >
@@ -63,8 +63,10 @@ export default function MatchingModal({ message, onClose, onAccept, onReject, mo
           </div>
         </div>
 
-        <div className="mt-4 rounded-xl bg-grey20 px-7 py-5">
-          <p className="whitespace-pre-wrap text-sm text-grey90">{message.requestMessage}</p>
+        <div className="mt-4 max-h-[35rem] rounded-xl bg-grey20 px-5 py-5">
+          <p className="max-h-[28rem] overflow-y-auto whitespace-pre-wrap text-sm text-grey90 [&::-webkit-scrollbar]:hidden">
+            {message.requestMessage}
+          </p>
         </div>
 
         <div className="mt-5 flex gap-4">
