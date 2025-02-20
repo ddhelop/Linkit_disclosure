@@ -123,9 +123,9 @@ export default function AnnouncementFilterModal({
 
   // 초기화 핸들러
   const handleReset = () => {
-    setSelectedSubCategories(initialFilters.subPositions)
-    setSelectedAddresses(initialFilters.cityNames)
-    setSelectedSize(initialFilters.scaleName)
+    setSelectedSubCategories([])
+    setSelectedAddresses([])
+    setSelectedSize([])
     setActiveCategory(null)
   }
 

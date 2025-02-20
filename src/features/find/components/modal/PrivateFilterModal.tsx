@@ -124,9 +124,9 @@ export default function PrivateFilterModal({
 
   // 초기화 핸들러
   const handleReset = () => {
-    setSelectedSubCategories(initialFilters.subPositions)
-    setSelectedAddresses(initialFilters.cityNames)
-    setSelectedStatus(initialFilters.profileStateNames)
+    setSelectedSubCategories([])
+    setSelectedAddresses([])
+    setSelectedStatus([])
     setActiveCategory(null)
   }
 

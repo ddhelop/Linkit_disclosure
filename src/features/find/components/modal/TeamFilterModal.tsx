@@ -99,9 +99,9 @@ export default function TeamFilterModal({
 
   // 초기화 핸들러
   const handleReset = () => {
-    setSelectedSize(initialFilters.scaleNames)
-    setSelectedAddresses(initialFilters.cityNames)
-    setSelectedStatus(initialFilters.teamStateNames)
+    setSelectedSize([])
+    setSelectedAddresses([])
+    setSelectedStatus([])
   }
 
   return (
