@@ -53,7 +53,7 @@ export default function ProfileViewClient({
               <div className="mt-7 flex w-full items-center justify-between rounded-full bg-grey20 px-5 py-[0.88rem]">
                 <div className="flex items-center  gap-5 text-grey70">
                   <span className="text-sm">스크랩 수</span>
-                  <span className="">{profileData.profileScrapCount}</span>
+                  <span className="">{profileData.profileInformMenu.profileScrapCount}</span>
                 </div>
                 <Tooltip
                   text="다른 사용자가 나의 프로필을
