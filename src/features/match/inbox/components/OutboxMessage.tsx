@@ -25,19 +25,19 @@ export default function OutboxMessage({ message }: OutboxMessageProps) {
   const receiverInfo = isReceiverAnnouncement
     ? {
         name: `${message.receiverAnnouncementInformation.teamName} 팀`,
-        image: message.receiverAnnouncementInformation.teamLogoImagePath,
+        image: message.receiverAnnouncementInformation.teamLogoImagePath || '/common/default_profile.svg',
 
         position: message.receiverAnnouncementInformation.announcementPositionItem.majorPosition,
       }
     : isReceiverTeam
       ? {
           name: `${message.receiverTeamInformation.teamName} 팀`,
-          image: message.receiverTeamInformation.teamLogoImagePath,
+          image: message.receiverTeamInformation.teamLogoImagePath || '/common/default_profile.svg',
           scale: message.receiverTeamInformation.teamScaleItem.teamScaleName,
         }
       : {
           name: `${message.receiverProfileInformation.memberName} 님`,
-          image: message.receiverProfileInformation.profileImagePath,
+          image: message.receiverProfileInformation.profileImagePath || '/common/default_profile.svg',
           position: message.receiverProfileInformation.profilePositionDetail.majorPosition,
         }
 
