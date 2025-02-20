@@ -198,20 +198,36 @@ export default function LogWriteForm() {
           {/* 에디터 */}
           <div className="mt-6 flex flex-col gap-3">
             <span className="font-semibold text-grey80">내용</span>
-            <div className="relative overflow-hidden rounded-xl border border-grey30">
-              <div className="sticky top-0 z-50 bg-white">
+            <div className="relative rounded-xl border border-grey30">
+              <div className="sticky top-0 z-[100] bg-white">
                 <EditorToolbar />
               </div>
-              <ReactQuill
-                ref={QuillRef}
-                value={contents}
-                onChange={setContents}
-                modules={modules}
-                formats={formats}
-                theme="snow"
-                placeholder="내용을 입력해 주세요 (5,000자 이내)"
-                className="min-h-[600px] w-full bg-white"
-              />
+              <div className="relative">
+                <ReactQuill
+                  ref={QuillRef}
+                  value={contents}
+                  onChange={setContents}
+                  modules={modules}
+                  formats={formats}
+                  theme="snow"
+                  placeholder="내용을 입력해 주세요 (5,000자 이내)"
+                  className="h-[600px] w-full bg-white"
+                />
+              </div>
+              <style jsx global>{`
+                .ql-container {
+                  height: calc(600px - 42px) !important;
+                }
+                .ql-container .ql-editor {
+                  height: 100%;
+                  max-height: none;
+                  overflow-y: auto;
+                }
+                .ql-tooltip {
+                  z-index: 200 !important;
+                  position: absolute !important;
+                }
+              `}</style>
             </div>
           </div>
         </div>
