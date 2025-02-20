@@ -22,7 +22,12 @@ const Size = Quill.import('formats/size')
 Size.whitelist = ['16px', '18px', '24px']
 Quill.register(Size, true)
 
-export default function LogWriteForm() {
+type LogWriteFormProps = {
+  domainType?: 'TEAM' | 'PROFILE'
+  teamCode?: string
+}
+
+export default function LogWriteForm({ domainType = 'PROFILE', teamCode }: LogWriteFormProps) {
   const toast = useToast()
   const router = useRouter()
   const pathname = usePathname()
@@ -78,9 +83,17 @@ export default function LogWriteForm() {
       const file = input.files?.[0]
       if (file) {
         const formData = new FormData()
-        formData.append('profileLogBodyImage', file)
+
+        // domainType에 따라 formData key 설정
+        const imageKey = domainType === 'TEAM' ? 'teamLogBodyImage' : 'profileLogBodyImage'
+        formData.append(imageKey, file)
+
         try {
-          const response = await fetchWithAuth('/api/v1/profile/log/body/image', {
+          // domainType에 따라 API 엔드포인트 설정
+          const endpoint =
+            domainType === 'TEAM' ? `/api/v1/team/${teamCode}/log/body/image` : '/api/v1/profile/log/body/image'
+
+          const response = await fetchWithAuth(endpoint, {
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -94,7 +107,8 @@ export default function LogWriteForm() {
           }
 
           const data = await response.json()
-          const url = data.result.profileLogBodyImagePath
+          // response 데이터 구조에 따라 이미지 경로 추출
+          const url = domainType === 'TEAM' ? data.result.teamLogBodyImagePath : data.result.profileLogBodyImagePath
 
           const quill = QuillRef.current?.getEditor()
           if (quill) {
@@ -104,6 +118,7 @@ export default function LogWriteForm() {
           }
         } catch (err) {
           console.log(err)
+          toast.alert('이미지 업로드에 실패했습니다.')
         }
       }
     }

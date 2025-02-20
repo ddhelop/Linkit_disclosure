@@ -17,7 +17,7 @@ export default function TeamEditLogNewPage({ params }: { params: { teamName: str
           <Image src="/common/icons/arrow-left.svg" width={24} height={24} alt="back" />
           <label className="text-xl font-bold">로그 작성</label>
         </Link>
-        <LogWriteForm />
+        <LogWriteForm domainType="TEAM" teamCode={teamName} />
       </div>
     </>
   )

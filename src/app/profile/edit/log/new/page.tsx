@@ -15,7 +15,7 @@ export default function LogWritePage() {
         <label className="text-xl font-bold">로그 작성</label>
       </Link>
       <div className="mt-5 rounded-xl">
-        <LogWriteForm />
+        <LogWriteForm domainType="PROFILE" />
       </div>
     </>
   )
