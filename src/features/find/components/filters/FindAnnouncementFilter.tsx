@@ -8,6 +8,7 @@ import AnnouncementFilterModal from '../modal/AnnoucementFilterModal'
 export default function FindAnnouncementFilter() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const [activeSection, setActiveSection] = useState<'position' | 'location' | 'size' | null>(null)
 
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
@@ -15,6 +16,11 @@ export default function FindAnnouncementFilter() {
   const selectedPositions = searchParams.getAll('subPosition')
   const selectedLocations = searchParams.getAll('cityName')
   const selectedSize = searchParams.getAll('scaleName')
+
+  const handleSectionClick = (section: 'position' | 'location' | 'size') => {
+    setActiveSection(section)
+    setIsFilterOpen(true)
+  }
 
   // 필터 적용 핸들러
   const handleApplyFilters = (filters: { subPositions: string[]; cityNames: string[]; scaleName: string[] }) => {
@@ -90,21 +96,21 @@ export default function FindAnnouncementFilter() {
         <div className="rounded-xl bg-white px-6 py-5" style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}>
           <div className="grid grid-cols-3 gap-4">
             <div
-              onClick={() => setIsFilterOpen(true)}
+              onClick={() => handleSectionClick('position')}
               className="flex cursor-pointer flex-col  gap-2 rounded-xl border border-grey30 px-5 py-4 text-sm hover:bg-[#EDF3FF]"
             >
               <p className="flex justify-center text-grey70 md:justify-start">포지션</p>
               <p className="hidden text-grey50 md:flex">포지션을 선택해 주세요</p>
             </div>
             <div
-              onClick={() => setIsFilterOpen(true)}
+              onClick={() => handleSectionClick('location')}
               className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 px-5 py-4 text-sm hover:bg-[#EDF3FF]"
             >
               <p className="flex justify-center text-grey70 md:justify-start">활동 지역</p>
               <p className="hidden text-grey50 md:flex">선호하는 지역을 선택해 주세요</p>
             </div>
             <div
-              onClick={() => setIsFilterOpen(true)}
+              onClick={() => handleSectionClick('size')}
               className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 px-5 py-4 text-sm hover:bg-[#EDF3FF]"
             >
               <p className="flex justify-center text-grey70 md:justify-start">규모</p>
@@ -160,6 +166,7 @@ export default function FindAnnouncementFilter() {
             cityNames: selectedLocations,
             scaleName: selectedSize,
           }}
+          activeSection={activeSection}
         />
       )}
     </>
