@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Modal from '@/shared/ui/Modal/Modal'
 import { jobCategoriesData } from '@/shared/data/roleSelectData'
 import { addressData } from '@/shared/data/addressSelectData'
@@ -10,6 +10,7 @@ export default function PrivateFilterModal({
   setIsFilterOpen,
   onApplyFilters,
   initialFilters,
+  activeSection,
 }: {
   isFilterOpen: boolean
   setIsFilterOpen: (isFilterOpen: boolean) => void
@@ -19,6 +20,7 @@ export default function PrivateFilterModal({
     cityNames: string[]
     profileStateNames: string[]
   }
+  activeSection: 'position' | 'location' | 'status' | null
 }) {
   // 포지션 관련 상태
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(initialFilters.subPositions)
@@ -38,6 +40,27 @@ export default function PrivateFilterModal({
         .filter(Boolean) as string[],
     ),
   )
+
+  const positionRef = useRef<HTMLDivElement>(null)
+  const locationRef = useRef<HTMLDivElement>(null)
+  const statusRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (isFilterOpen && activeSection) {
+      const refs = {
+        position: positionRef,
+        location: locationRef,
+        status: statusRef,
+      }
+
+      const targetRef = refs[activeSection]
+      if (targetRef.current && contentRef.current) {
+        const targetOffset = targetRef.current.offsetTop
+        contentRef.current.scrollTop = targetOffset - 70
+      }
+    }
+  }, [isFilterOpen, activeSection])
 
   // 포지션 관련 핸들러
   const handlePositionCategoryClick = (categoryName: string | 'all') => {
@@ -117,10 +140,10 @@ export default function PrivateFilterModal({
         </div>
 
         {/* 스크롤 가능한 컨텐츠 영역 */}
-        <div className="flex-1 overflow-y-auto px-6 pb-10">
+        <div ref={contentRef} className="flex-1 overflow-y-auto px-6 pb-10">
           <div className="flex flex-col gap-8">
             {/* 포지션 섹션 */}
-            <div className="mt-4 flex flex-col gap-5">
+            <div ref={positionRef} className="mt-4 flex flex-col gap-5">
               <div className="flex items-center gap-2">
                 <h3 className="font-semibold text-grey80">포지션</h3>
                 <p className="text-xs font-normal text-grey50">대분류를 먼저 선택해주세요</p>
@@ -187,7 +210,7 @@ export default function PrivateFilterModal({
             </div>
 
             {/* 활동 지역 섹션 */}
-            <div className="flex flex-col gap-5">
+            <div ref={locationRef} className="flex flex-col gap-5">
               <h3 className="font-semibold text-grey80">활동 지역</h3>
               <div className="flex flex-wrap gap-3">
                 <button
@@ -217,7 +240,7 @@ export default function PrivateFilterModal({
             </div>
 
             {/* 현재 상태 섹션 */}
-            <div className="flex flex-col gap-3">
+            <div ref={statusRef} className="flex flex-col gap-3">
               <h3 className="font-semibold text-grey80">현재 상태</h3>
               <div className="flex flex-wrap gap-2">
                 <button
