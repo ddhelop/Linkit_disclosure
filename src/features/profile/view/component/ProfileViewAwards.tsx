@@ -21,7 +21,7 @@ export default function ProfileViewAwards() {
     <EditableContainer
       isEditable={isMyProfile}
       editPath="/profile/edit/awards"
-      className="flex w-[95%] flex-col gap-5 rounded-xl bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
+      className="flex w-full flex-col gap-5 rounded-xl bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
     >
       <h1 className="font-semibold">수상</h1>
 

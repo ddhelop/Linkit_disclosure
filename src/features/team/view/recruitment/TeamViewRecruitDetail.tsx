@@ -62,7 +62,7 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
   }
 
   return (
-    <div className="flex flex-col rounded-xl border border-grey30 bg-white px-[3.38rem] py-10">
+    <div className="flex flex-col rounded-xl border-grey30 bg-white px-4 py-10 lg:border lg:px-[3.38rem]">
       <div className="flex justify-between">
         <div
           className={`rounded-full  px-3 py-1 text-xs  ${

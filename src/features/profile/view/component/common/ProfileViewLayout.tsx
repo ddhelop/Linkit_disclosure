@@ -80,7 +80,7 @@ export default function ProfileViewLayout() {
   return (
     <ProfileViewProvider profileData={profileData}>
       <div className="relative flex w-full justify-center">
-        <div className="flex w-full flex-grow flex-col gap-6">
+        <div className="flex w-full flex-grow flex-col gap-2 px-2 lg:gap-6">
           <div ref={setRef('log')} className="flex justify-center">
             <ProfileViewLog />
           </div>

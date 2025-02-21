@@ -1,8 +1,6 @@
 import Image from 'next/image'
 import { ILogCard } from '@/shared/types/Card/LogCardTypes'
 import Link from 'next/link'
-import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
-import { truncateText } from '@/shared/utils/stringUtils'
 
 export default function LogCard({ log }: { log: ILogCard }) {
   return (

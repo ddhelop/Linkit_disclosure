@@ -5,33 +5,23 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 interface ProjectComponentProps {
-  projectName: string
-  projectSize: 'PERSONAL' | 'TEAM'
-  projectLineDescription: string
-  projectStartDate: string
-  projectEndDate: string
-  isProjectInProgress: boolean
-  projectRoles: string[]
-  projectRepresentImagePath: string
-  profilePortfolioId: number
+  item: {
+    projectName: string
+    projectSize: 'PERSONAL' | 'TEAM'
+    projectLineDescription: string
+    projectStartDate: string
+    projectEndDate: string
+    isProjectInProgress: boolean
+    projectRoles: string[]
+    projectRepresentImagePath: string
+    profilePortfolioId: number
+    emailId?: string
+  }
   isEdit?: boolean
   onDelete?: (portfolioId: number) => Promise<void>
-  emailId?: string
 }
 
-export default function ProjectComponent({
-  projectName,
-  projectSize,
-  projectLineDescription,
-  projectStartDate,
-  projectEndDate,
-  projectRoles,
-  projectRepresentImagePath,
-  profilePortfolioId,
-  isEdit = false,
-  onDelete,
-  emailId,
-}: ProjectComponentProps) {
+export default function ProjectComponent({ item, onDelete, isEdit }: ProjectComponentProps) {
   const [showMenu, setShowMenu] = useState(false)
 
   return (
@@ -58,7 +48,7 @@ export default function ProjectComponent({
             {showMenu && (
               <div className="absolute left-0 top-[calc(100%+0.5rem)] z-50 w-[5.5rem] rounded-lg border border-grey30 bg-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.10)]">
                 <Link
-                  href={`/profile/edit/portfolio/new?id=${profilePortfolioId}`}
+                  href={`/profile/edit/portfolio/new?id=${item.profilePortfolioId}`}
                   className="flex w-full items-center justify-center py-2 text-sm text-grey70 hover:bg-grey10"
                 >
                   수정하기
@@ -68,7 +58,7 @@ export default function ProjectComponent({
                   onClick={async (e) => {
                     e.preventDefault()
                     if (onDelete) {
-                      await onDelete(profilePortfolioId)
+                      await onDelete(item.profilePortfolioId)
                       setShowMenu(false)
                     }
                   }}
@@ -85,14 +75,14 @@ export default function ProjectComponent({
       <Link
         href={
           isEdit
-            ? `/profile/edit/portfolio/new?id=${profilePortfolioId}`
-            : `/${emailId}/portfolio/${profilePortfolioId}`
+            ? `/profile/edit/portfolio/new?id=${item.profilePortfolioId}`
+            : `/${item.emailId}/portfolio/${item.profilePortfolioId}`
         }
         className="flex w-full gap-6"
       >
         <div className="relative aspect-[16/9] w-[120px] max-w-[256px] rounded-lg md:w-[256px]">
           <Image
-            src={projectRepresentImagePath || '/common/images/no_thumbnail.svg'}
+            src={item.projectRepresentImagePath || '/common/images/no_thumbnail.svg'}
             alt="thumbnail"
             fill
             className="rounded-lg object-cover"
@@ -101,20 +91,20 @@ export default function ProjectComponent({
 
         <div className="flex flex-col justify-center">
           <div className="flex items-center gap-3">
-            <span className="max-w-[75%] text-lg font-semibold">{projectName}</span>
+            <span className="max-w-[75%] text-lg font-semibold">{item.projectName}</span>
             <span className="flex items-center rounded-[62.5rem] bg-[#D3E1FE] px-[0.88rem] text-xs">
-              {projectSize === 'TEAM' ? '팀' : '개인'}
+              {item.projectSize === 'TEAM' ? '팀' : '개인'}
             </span>
           </div>
 
-          <div className="mt-3 text-xs font-normal text-grey60">{projectLineDescription}</div>
+          <div className="mt-3 text-xs font-normal text-grey60">{item.projectLineDescription}</div>
 
           <div className="mt-[1.12rem] flex gap-1 text-xs text-grey70">
             <span className="text-grey60">기간 | </span>
-            {projectStartDate} ~ {projectEndDate}
+            {item.projectStartDate} ~ {item.projectEndDate}
           </div>
           <div className="mt-2 flex gap-1 text-xs text-grey70">
-            <span className="text-grey60">역할 |</span> {projectRoles.join(', ')}
+            <span className="text-grey60">역할 |</span> {item.projectRoles.join(', ')}
           </div>
         </div>
       </Link>

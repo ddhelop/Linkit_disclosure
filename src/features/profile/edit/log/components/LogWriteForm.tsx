@@ -117,7 +117,6 @@ export default function LogWriteForm({ domainType = 'PROFILE', teamCode }: LogWr
             quill.setSelection(range.index + 1, 0)
           }
         } catch (err) {
-          console.log(err)
           toast.alert('이미지 업로드에 실패했습니다.')
         }
       }

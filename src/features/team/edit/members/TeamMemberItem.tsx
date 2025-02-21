@@ -40,7 +40,6 @@ export function TeamMemberItem({
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLDivElement>(null)
   const toast = useToast()
-  console.log(emailId)
 
   const canManageRole = myRole.isTeamOwner || (myRole.isTeamManager && memberType === 'TEAM_VIEWER')
   const canDelete = myRole.isTeamOwner || (myRole.isTeamManager && memberType === 'TEAM_VIEWER')

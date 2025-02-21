@@ -8,7 +8,6 @@ export default function ProfileViewLog() {
   const { profileData } = useProfileView()
   const logItem = profileData?.profileLogItem
   const isMyProfile = profileData?.isMyProfile
-  console.log(logItem)
 
   // 로그가 없으면 렌더링 하지 않음
   if (!logItem?.profileLogId) return null
@@ -17,7 +16,7 @@ export default function ProfileViewLog() {
     <EditableContainer
       editPath={`/profile/edit/log`}
       isEditable={isMyProfile}
-      className="flex w-[95%] flex-col gap-4 rounded-xl bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
+      className="flex w-full flex-col gap-4 rounded-xl bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
     >
       <div className="flex items-center gap-2">
         <span className="font-semibold text-grey80">{logItem?.logTitle}</span>

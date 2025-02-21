@@ -99,7 +99,7 @@ export default function ProfileEditPortfolio() {
           </div>
         ) : (
           portfolioItems.map((item) => (
-            <ProjectComponent key={item.profilePortfolioId} {...item} onDelete={handleDelete} isEdit={true} />
+            <ProjectComponent key={item.profilePortfolioId} item={item} onDelete={handleDelete} isEdit={true} />
           ))
         )}
       </div>

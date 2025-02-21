@@ -6,16 +6,25 @@ export default function ProfileLogCard({ logItem, emailId }: { logItem: ProfileL
   return (
     <Link
       href={`/${emailId}/logs/${logItem?.profileLogId}`}
-      className="flex w-full flex-col gap-4 rounded-xl border border-transparent bg-white px-[2.75rem] py-[1.88rem] hover:border-main"
+      className="flex w-full flex-col gap-4 rounded-xl border border-transparent bg-white p-4 hover:border-main lg:px-[2.75rem] lg:py-[1.88rem]"
     >
       <div className="flex items-center gap-2">
         <span className="font-semibold text-grey80">{logItem?.logTitle}</span>
         <span className="text-xs text-grey50">|</span>
         <span className="text-xs font-normal text-grey60">{new Date(logItem?.modifiedAt).toLocaleDateString()}</span>
       </div>
-
-      <div className="rounded-xl bg-grey10 px-6 py-[1.31rem] text-sm text-grey70">
-        {stripHtmlAndImages(logItem?.logContent)}
+      <div className="overflow-hidden rounded-xl bg-grey10 px-6 py-[1.31rem] text-sm text-grey70">
+        <div
+          className="overflow-hidden"
+          style={{
+            display: '-webkit-box',
+            WebkitLineClamp: '6',
+            WebkitBoxOrient: 'vertical',
+          }}
+          dangerouslySetInnerHTML={{
+            __html: logItem?.logContent,
+          }}
+        />
       </div>
     </Link>
   )

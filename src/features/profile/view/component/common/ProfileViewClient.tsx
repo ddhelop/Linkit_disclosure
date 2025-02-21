@@ -23,7 +23,7 @@ export default function ProfileViewClient({
     const getData = async () => {
       try {
         const data = await fetchProfileDetailData(params.emailId)
-        console.log(data.result)
+
         setProfileData(data.result) // 데이터 구조에 맞춰 설정
       } catch (error) {
         console.error('Error fetching profile data:', error)

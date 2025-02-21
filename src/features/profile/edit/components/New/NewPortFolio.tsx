@@ -77,8 +77,6 @@ export default function NewPortFolio() {
         const response = await getPortfolioById(portfolioId)
         const data = response.result
 
-        console.log('Fetched portfolio data:', data)
-
         // 기본 정보 설정
         setProjectName(data.projectName || '')
         setProjectLineDescription(data.projectLineDescription || '')

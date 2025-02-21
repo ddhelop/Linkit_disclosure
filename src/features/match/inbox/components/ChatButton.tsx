@@ -44,14 +44,6 @@ export default function ChatButton({
     }
 
     try {
-      console.log('Creating chat room with data:', {
-        matchingId,
-        senderType,
-        senderInfo,
-        receiverType,
-        receiverInfo,
-      })
-
       const requestData = {
         matchingId,
         createChatLocation: pathname.includes('/match/inbox') ? ('RECEIVED' as const) : ('REQUESTED' as const),

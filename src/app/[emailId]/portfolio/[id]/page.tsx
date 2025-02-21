@@ -83,8 +83,8 @@ export default function PortfolioDetailPage({ params }: { params: { emailId: str
   }
 
   return (
-    <div className="p-8 md:px-[4.25rem] md:py-[3.63rem]">
-      <div className="rounded-xl bg-white p-12">
+    <div className="pt-3 lg:px-[4.25rem] lg:py-[3.63rem]">
+      <div className="bg-white p-4 lg:rounded-xl lg:p-12">
         {/* 프로젝트 명 */}
         <div className="flex items-center gap-2">
           <h1 className="text-xl font-semibold text-grey80">{portfolioDetail?.projectName}</h1>
@@ -190,10 +190,10 @@ export default function PortfolioDetailPage({ params }: { params: { emailId: str
         {portfolioDetail?.portfolioImages.projectRepresentImagePath && (
           <>
             <h2 className="mt-8 text-sm text-grey90">이미지</h2>
-            <div className="mt-3 flex flex-col gap-[1.38rem]">
+            <div className="mt-3 flex flex-col gap-5">
               {/* 대표 이미지 */}
               <div
-                className="relative h-[228px] w-[402px] cursor-pointer rounded-lg"
+                className="relative aspect-[402/228] w-full max-w-[402px] cursor-pointer rounded-lg"
                 onClick={() => handleImageClick(0)}
               >
                 <Image
@@ -204,12 +204,12 @@ export default function PortfolioDetailPage({ params }: { params: { emailId: str
                 />
               </div>
               {/* 서브 이미지 */}
-              <div className="flex gap-[1.38rem]">
-                <div className="grid grid-cols-2 gap-[1.38rem]">
+              <div className="w-full max-w-[515px]">
+                <div className="grid grid-cols-2 gap-5">
                   {portfolioDetail.portfolioImages.portfolioSubImages.map((image, index) => (
                     <div
                       key={image.projectSubImagePath}
-                      className="relative h-[140px] w-[252px] cursor-pointer rounded-lg"
+                      className="relative aspect-[252/140] w-full cursor-pointer rounded-lg"
                       onClick={() => handleImageClick(index + 1)}
                     >
                       <Image src={image.projectSubImagePath} alt="project" fill className="rounded-lg object-cover" />
@@ -223,7 +223,7 @@ export default function PortfolioDetailPage({ params }: { params: { emailId: str
       </div>
 
       {/* 목록으로 */}
-      <div className="mt-5 flex w-full justify-start">
+      <div className="ml-3 mt-5 flex w-full justify-start lg:ml-0">
         <Link
           href={`/${params.emailId}/portfolio`}
           className="rounded-lg border border-grey40 bg-[#FCFCFD] px-5 py-2 text-grey80 hover:bg-grey10"

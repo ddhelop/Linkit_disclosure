@@ -40,7 +40,6 @@ export const useMatching = ({ type, id }: MatchingType) => {
       }
 
       if (data) {
-        console.log('Matching data:', data)
         setIsProfileModalOpen(true)
       }
     } catch (error) {
@@ -49,14 +48,12 @@ export const useMatching = ({ type, id }: MatchingType) => {
   }, [type, id])
 
   const handleSelectProfile = useCallback((profile: TeamInformation) => {
-    console.log('Handling profile selection:', profile)
     setSelectedProfile(profile)
     setIsProfileModalOpen(false)
     setIsRequestModalOpen(true)
   }, [])
 
   const handleCloseModals = useCallback(() => {
-    console.log('Closing modals')
     setIsProfileModalOpen(false)
     setIsRequestModalOpen(false)
     setSelectedProfile(null)
