@@ -24,6 +24,7 @@
     "react-dom": "^18",
     "react-lottie-player": "^2.0.0",
     "react-quill": "^2.0.0",
+    "swiper": "^11.2.4",
     "yup": "^1.4.0",
     "zustand": "^5.0.0"
   },

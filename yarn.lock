@@ -4512,6 +4512,7 @@ __metadata:
     react-dom: "npm:^18"
     react-lottie-player: "npm:^2.0.0"
     react-quill: "npm:^2.0.0"
+    swiper: "npm:^11.2.4"
     tailwindcss: "npm:^3.4.7"
     typescript: "npm:^5"
     yup: "npm:^1.4.0"
@@ -6240,6 +6241,13 @@ __metadata:
   bin:
     svgo: ./bin/svgo
   checksum: 10/82fdea9b938884d808506104228e4d3af0050d643d5b46ff7abc903ff47a91bbf6561373394868aaf07a28f006c4057b8fbf14bbd666298abdd7cc590d4f7700
+  languageName: node
+  linkType: hard
+
+"swiper@npm:^11.2.4":
+  version: 11.2.4
+  resolution: "swiper@npm:11.2.4"
+  checksum: 10/cc2f9926de3e2510d4ff28a800ff9e63e5d228f8825acff3bd4245171efb1322e27c0b51681b66023477d9a50544e09fc29575de8f31df2b3d1283e273570b19
   languageName: node
   linkType: hard
 
