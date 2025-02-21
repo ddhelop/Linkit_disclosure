@@ -256,7 +256,7 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
         <div className="flex w-full flex-col justify-between gap-3 ">
           <span className="flex gap-1 text-grey80">설명</span>
           <Textarea
-            placeholder="프로덕트에 대해 설명해 주세요 (500자 이내)"
+            placeholder="프로덕트에 대해 설명해 주세요 (1,000자 이내)"
             value={productDescription}
             onChange={(e) => setProductDescription(e.target.value)}
           />

@@ -61,10 +61,6 @@ export default function ProfileEditLog() {
     setShowMenu(showMenu === logId ? null : logId)
   }
 
-  const handleLogClick = (logId: number) => {
-    router.push(`/profile/edit/log/new?id=${logId}`)
-  }
-
   const handleDeleteLog = async (logId: number) => {
     setShowMenu(null)
     const isConfirmed = confirm('정말 삭제하시겠습니까?')
@@ -133,8 +129,12 @@ export default function ProfileEditLog() {
       ) : (
         <div className="mt-5 flex flex-col gap-4 pt-1">
           {logs.map((log) => (
-            <div key={log.profileLogId} className=" group relative flex flex-col rounded-xl bg-white p-5">
-              <div className="flex cursor-pointer flex-col gap-3" onClick={() => handleLogClick(log.profileLogId)}>
+            <Link
+              href={`/profile/edit/log/new?id=${log.profileLogId}`}
+              key={log.profileLogId}
+              className=" group relative flex flex-col rounded-xl border bg-white p-5 hover:border-main"
+            >
+              <div className="flex cursor-pointer flex-col gap-3 md:flex-row md:items-center">
                 <div className="flex gap-2">
                   {log.logType === 'REPRESENTATIVE_LOG' && (
                     <Image src="/common/icons/pin.svg" width={18} height={18} alt="arrow" />
@@ -150,15 +150,15 @@ export default function ProfileEditLog() {
               </div>
 
               {/* 수정, 삭제, 더보기 버튼 */}
-              <div className="absolute right-0 top-7 flex -translate-y-1/2 gap-2 pr-6 duration-100">
-                <Image
-                  src="/common/icons/more_row.svg"
-                  width={22}
-                  height={22}
-                  alt="more"
-                  className="cursor-pointer"
-                  onClick={() => toggleMenu(log.profileLogId)}
-                />
+              <div
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  toggleMenu(log.profileLogId)
+                }}
+                className="absolute right-0 top-7 flex -translate-y-1/2 gap-2 pr-6 duration-100"
+              >
+                <Image src="/common/icons/more_row.svg" width={22} height={22} alt="more" className="cursor-pointer" />
               </div>
 
               {/* 메뉴창 */}
@@ -167,7 +167,12 @@ export default function ProfileEditLog() {
                   id="menu"
                   className="absolute right-[-80px] top-9 mt-2 flex w-32 flex-col rounded-lg border border-grey40 bg-white p-2 shadow-lg"
                 >
-                  <div className="cursor-pointer px-3 py-1 text-sm text-grey70 hover:bg-grey10">수정하기</div>
+                  <Link
+                    href={`/profile/edit/log/new?id=${log.profileLogId}`}
+                    className="cursor-pointer px-3 py-1 text-sm text-grey70 hover:bg-grey10"
+                  >
+                    수정하기
+                  </Link>
                   <div
                     onClick={() => handleUpdateLogPublic(log.profileLogId)}
                     className="cursor-pointer px-3 py-1 text-sm text-grey70 hover:bg-grey10"
@@ -195,7 +200,7 @@ export default function ProfileEditLog() {
                   </div>
                 </div>
               )}
-            </div>
+            </Link>
           ))}
         </div>
       )}
