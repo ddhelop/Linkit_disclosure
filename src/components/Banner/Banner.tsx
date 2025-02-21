@@ -30,6 +30,11 @@ export default function Banner() {
       link: 'https://open.kakao.com/o/gee0u5kg',
       alt: '커뮤니티 배너',
     },
+    {
+      image: '/common/images/banner5.svg',
+      link: 'https://bit.ly/413oTPX',
+      alt: '',
+    },
   ]
 
   // 모바일 뷰를 위한 상태

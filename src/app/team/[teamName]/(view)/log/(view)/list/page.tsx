@@ -16,7 +16,7 @@ export default async function TeamViewLogListPage({ params }: { params: { teamNa
             <Link href={`/team/${params.teamName}/log`}>
               <Image src={'/common/icons/arrow-left.svg'} alt="arrow-left" width={24} height={24} />
             </Link>
-            <h1 className="text-xl font-semibold">{params.teamName}의 로그</h1>
+            <h1 className="text-xl font-semibold">{teamInfo.result.teamInformMenu.teamName}의 로그</h1>
           </div>
 
           <div className="flex w-full gap-8">
