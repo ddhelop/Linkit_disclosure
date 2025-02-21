@@ -272,7 +272,7 @@ export default function AnnouncementFilterModal({
         </div>
 
         {/* 하단 고정 버튼 영역 */}
-        <div className="sticky bottom-0 mt-auto border-t border-grey40 bg-white px-6 py-4">
+        <div className="sticky bottom-0 mt-auto rounded-b-xl border-t border-grey40 bg-white px-6 py-4">
           <div className="flex w-full items-center gap-3">
             <button
               onClick={handleReset}
