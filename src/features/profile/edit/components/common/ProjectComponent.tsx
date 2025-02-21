@@ -15,13 +15,13 @@ interface ProjectComponentProps {
     projectRoles: string[]
     projectRepresentImagePath: string
     profilePortfolioId: number
-    isEdit?: boolean
-    onDelete?: (portfolioId: number) => Promise<void>
     emailId?: string
   }
+  isEdit?: boolean
+  onDelete?: (portfolioId: number) => Promise<void>
 }
 
-export default function ProjectComponent({ item }: ProjectComponentProps) {
+export default function ProjectComponent({ item, onDelete, isEdit }: ProjectComponentProps) {
   const [showMenu, setShowMenu] = useState(false)
 
   return (
@@ -30,7 +30,7 @@ export default function ProjectComponent({ item }: ProjectComponentProps) {
       onMouseLeave={() => setShowMenu(false)}
     >
       {/* More Icon - Only shown when isEdit is true */}
-      {item.isEdit && (
+      {isEdit && (
         <div className="absolute right-5 top-5 hidden group-hover:block">
           <div className="relative">
             <Image
@@ -57,8 +57,8 @@ export default function ProjectComponent({ item }: ProjectComponentProps) {
                   className="flex w-full items-center justify-center py-2 text-sm text-[#FF5B5B] hover:bg-grey10"
                   onClick={async (e) => {
                     e.preventDefault()
-                    if (item.onDelete) {
-                      await item.onDelete(item.profilePortfolioId)
+                    if (onDelete) {
+                      await onDelete(item.profilePortfolioId)
                       setShowMenu(false)
                     }
                   }}
@@ -74,7 +74,7 @@ export default function ProjectComponent({ item }: ProjectComponentProps) {
       {/* Main Content */}
       <Link
         href={
-          item.isEdit
+          isEdit
             ? `/profile/edit/portfolio/new?id=${item.profilePortfolioId}`
             : `/${item.emailId}/portfolio/${item.profilePortfolioId}`
         }
