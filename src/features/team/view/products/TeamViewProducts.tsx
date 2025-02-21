@@ -34,7 +34,7 @@ export default function TeamViewProducts({ teamName }: { teamName: string }) {
       )}
 
       {products.length > 0 && (
-        <div className="mt-12 flex flex-col gap-5">
+        <div className="mt-12 flex flex-col gap-3 pb-5 lg:gap-5">
           {products.map((product) => (
             <TeamViewProductsComponent key={product.teamProductId} product={product} />
           ))}

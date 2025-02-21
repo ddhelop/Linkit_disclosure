@@ -13,13 +13,12 @@ export default function ProfileViewLogsPage({ params }: { params: { emailId: str
     const fetchProfileLogs = async () => {
       const response = await getProfileLogs(params.emailId)
       setProfileLogs(response.result.profileLogItems)
-      console.log(response.result.profileLogItems)
     }
     fetchProfileLogs()
   }, [params.emailId])
 
   return (
-    <div className="flex flex-col p-8 md:px-[4.25rem] md:py-[3.62rem]">
+    <div className="flex flex-col px-2 py-10 lg:px-[4.25rem] lg:py-[3.62rem]">
       <Link href={`/${params.emailId}`} className="flex items-center gap-2">
         <Image src="/common/icons/arrow-left.svg" width={24} height={24} alt="arrow" />
         <span className="text-xl font-semibold text-black">뒤로가기</span>

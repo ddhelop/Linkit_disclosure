@@ -11,7 +11,7 @@ export default function TeamViewMembers({ params }: { params: { teamName: string
   useEffect(() => {
     const fetchData = async () => {
       const data = await getTeamMembers(params.teamName)
-      console.log(data)
+
       setMembers(data.result.acceptedTeamMemberItems)
     }
     fetchData()
@@ -19,7 +19,7 @@ export default function TeamViewMembers({ params }: { params: { teamName: string
 
   return (
     <>
-      <div className="mt-[3rem] grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-[3rem] grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
         {members.map((member, index) => (
           <MyTeamViewMemberComponent key={index} member={member} />
         ))}

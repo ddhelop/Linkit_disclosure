@@ -62,7 +62,6 @@ export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoom
 
     if (!client.connected) {
       client.onConnect = () => {
-        console.log('Reconnected to WebSocket')
         initializeChats()
       }
       client.activate()

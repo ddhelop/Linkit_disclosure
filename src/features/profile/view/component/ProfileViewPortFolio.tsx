@@ -12,7 +12,7 @@ export default function ProfileViewPortFolio() {
     <EditableContainer
       isEditable={isMyProfile}
       editPath="/profile/edit/portfolio"
-      className="flex w-[95%] flex-col gap-5 rounded-xl bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
+      className="flex w-full flex-col gap-5 rounded-xl bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
     >
       <h1 className="font-semibold">포트폴리오</h1>
       <div className="flex flex-col gap-2 md:flex-row md:flex-wrap">

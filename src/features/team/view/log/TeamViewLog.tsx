@@ -25,7 +25,6 @@ export default function TeamViewLog({ params }: { params: { teamName: string } }
     const fetchData = async () => {
       const response = await getTeamLogs(params.teamName)
       setLogs(response)
-      console.log(response)
     }
     fetchData()
   }, [params.teamName])
@@ -43,7 +42,7 @@ export default function TeamViewLog({ params }: { params: { teamName: string } }
         )
       ) : (
         <>
-          <div className="mt-10 flex flex-col gap-6">
+          <div className="mt-10 flex flex-col gap-3 lg:gap-6">
             {logs.result.teamLogItems.map((log) => (
               <TeamViewLogComponent key={log.teamLogId} log={log} teamName={params.teamName} />
             ))}

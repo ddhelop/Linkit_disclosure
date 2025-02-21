@@ -17,7 +17,7 @@ const useWebSocketStore = create<WebSocketState>((set, get) => ({
 
   initializeClient: (token: string) => {
     if (stompClient?.connected) {
-      console.log('WebSocket already connected')
+      ;('WebSocket already connected')
       return
     }
 

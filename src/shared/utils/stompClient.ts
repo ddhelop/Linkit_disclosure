@@ -12,9 +12,7 @@ const createStompClient = (accessToken: string) => {
     },
     debug: (str) => {
       if (str === 'connected to server undefined') {
-        console.log('Successfully connected to STOMP server')
       } else {
-        console.log(str)
       }
     },
     reconnectDelay: 10000,
@@ -23,8 +21,6 @@ const createStompClient = (accessToken: string) => {
   })
 
   stompClient.activate()
-  console.log('WebSocket URL:', process.env.NEXT_PUBLIC_SOCKET_URL)
-  console.log('stompClient', stompClient)
 
   return stompClient
 }

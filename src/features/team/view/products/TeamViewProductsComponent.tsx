@@ -31,7 +31,7 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
 
   return (
     <div className="flex">
-      <div className="flex w-full flex-col rounded-xl bg-white px-10 py-10 ">
+      <div className="flex w-full flex-col rounded-xl bg-white p-4 lg:px-10 lg:py-10 ">
         <div className="flex gap-5">
           <div className="relative h-[64px] w-[64px] rounded-lg">
             <Image
@@ -67,7 +67,7 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
               {hasLinks && (
                 <div className="flex flex-col gap-3">
                   <span className="text-sm text-grey90">링크</span>
-                  <div className="flex gap-5">
+                  <div className="flex flex-col gap-3 lg:flex-row lg:gap-5">
                     {product.teamProductLinks.map((link) => (
                       <Link
                         href={
@@ -91,7 +91,7 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
               {hasDescription && (
                 <div className="flex flex-col gap-3">
                   <span className="text-sm text-grey90">설명</span>
-                  <div className="whitespace-pre-line rounded-xl bg-grey10 p-6 text-grey70">
+                  <div className="whitespace-pre-line rounded-xl bg-grey10 p-4 text-grey70">
                     {product.productDescription}
                   </div>
                 </div>

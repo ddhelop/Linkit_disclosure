@@ -9,8 +9,8 @@ export default async function TeamViewLogDetailPage({ params }: { params: { id: 
   const teamInfo = await getTeamInfo(teamName)
   return (
     <>
-      <div className="flex w-full justify-center pb-10">
-        <div className="flex w-[95%] flex-col items-center gap-8  pt-5 lg:w-[83%] lg:py-[3.62rem]">
+      <div className="flex w-full justify-center px-4 pb-10">
+        <div className="flex w-full flex-col items-center gap-8  pt-5 lg:w-[83%] lg:py-[3.62rem]">
           <div className="flex w-full flex-col gap-8 lg:flex-row">
             <TeamViewDetail teamName={teamName} id={id} />
             <div className="flex justify-center">

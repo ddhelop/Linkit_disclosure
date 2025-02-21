@@ -62,7 +62,6 @@ export const getRequestedMatchingMessages = async (
       page: page.toString(),
       size: size.toString(),
     })
-    console.log('1', receiverType, '2', senderType)
     if (receiverType) {
       queryParams.append('receiverType', receiverType)
     }

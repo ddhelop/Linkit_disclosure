@@ -17,7 +17,7 @@ export default function TeamViewLogList({ params }: { params: { teamName: string
   }, [params.teamName])
 
   return (
-    <div className="flex w-full flex-col gap-6">
+    <div className="flex w-full flex-col gap-3 lg:gap-6">
       {logs.map((log) => (
         <TeamViewLogComponent key={log.teamLogId} log={log} teamName={params.teamName} />
       ))}

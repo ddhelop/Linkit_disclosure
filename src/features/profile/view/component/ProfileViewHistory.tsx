@@ -20,7 +20,7 @@ export default function ProfileViewHistory() {
     <EditableContainer
       isEditable={isMyProfile}
       editPath="/profile/edit/history"
-      className="flex w-[95%] flex-col gap-5 rounded-xl bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
+      className="flex w-full flex-col gap-5 rounded-xl bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
     >
       <h1 className="font-semibold">이력</h1>
 
