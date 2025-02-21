@@ -5,33 +5,50 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 import { AnimatePresence, motion } from 'framer-motion'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
+import type { SwiperEvents } from 'swiper/types'
+import { Swiper as SwiperType } from 'swiper'
+
+// Swiper styles
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/effect-fade'
 
 export default function Banner() {
   const { emailId } = useAuthStore()
+  const swiperRef = useRef<SwiperType>()
+  const [isAutoplayPaused, setIsAutoplayPaused] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
 
   const originalSlides = [
     {
       image: '/common/images/banner1.svg',
+      mobileImage: '/common/images/mobile_banner1.svg',
       link: `/${emailId}`,
       alt: '팀 모집 배너',
     },
     {
       image: '/common/images/banner2.svg',
+      mobileImage: '/common/images/mobile_banner2.svg',
       link: '/team/select',
       alt: '프로필 배너',
     },
     {
       image: '/common/images/banner3.svg',
+      mobileImage: '/common/images/mobile_banner3.svg',
       link: 'https://bit.ly/42wFLAU',
       alt: '채팅 배너',
     },
     {
       image: '/common/images/banner4.svg',
+      mobileImage: '/common/images/mobile_banner4.svg',
       link: 'https://open.kakao.com/o/gee0u5kg',
       alt: '커뮤니티 배너',
     },
     {
       image: '/common/images/banner5.svg',
+      mobileImage: '/common/images/mobile_banner5.svg',
       link: 'https://bit.ly/413oTPX',
       alt: '',
     },
@@ -45,27 +62,16 @@ export default function Banner() {
   const [mobileTouchEndX, setMobileTouchEndX] = useState(0)
   const [mobileTouchStartY, setMobileTouchStartY] = useState(0)
   const [mobileTouchEndY, setMobileTouchEndY] = useState(0)
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setMobileTouchStart(true)
-    setMobileTouchStartX(e.touches[0].clientX)
-    setMobileTouchStartY(e.touches[0].clientY)
-  }
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    setMobileTouchEnd(true)
-    setMobileTouchEndX(e.touches[0].clientX)
-    setMobileTouchEndY(e.touches[0].clientY)
+  const handleTouchStart = () => {
+    setIsAutoplayPaused(true)
+    if (swiperRef.current?.autoplay) {
+      swiperRef.current.autoplay.stop()
+    }
   }
   const handleTouchEnd = () => {
-    setMobileTouchStart(false)
-    setMobileTouchEnd(false)
-    const deltaX = mobileTouchEndX - mobileTouchStartX
-    const deltaY = mobileTouchEndY - mobileTouchStartY
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (deltaX > 0) {
-        setMobileCurrentIndex((prev) => (prev + 1) % originalSlides.length)
-      } else {
-        setMobileCurrentIndex((prev) => (prev - 1 < 0 ? originalSlides.length - 1 : prev - 1))
-      }
+    setIsAutoplayPaused(false)
+    if (swiperRef.current?.autoplay) {
+      swiperRef.current.autoplay.start()
     }
   }
 
@@ -152,8 +158,76 @@ export default function Banner() {
     animatingRef.current = false
   }, [offset])
 
+  // 모바일 슬라이드 자동 전환을 위한 useEffect 추가
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setMobileCurrentIndex((prev) => (prev + 1) % originalSlides.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [originalSlides.length])
+
+  const [isDragging, setIsDragging] = useState(false)
+  const [dragX, setDragX] = useState(0)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const handleDrag = (event: any, info: any) => {
+    const currentX = -mobileCurrentIndex * 100 + (info.offset.x / (containerRef.current?.offsetWidth || 1)) * 100
+    setDragX(currentX)
+  }
+
+  const handleDragStart = () => {
+    setIsDragging(true)
+    if (timerRef.current) {
+      clearInterval(timerRef.current)
+    }
+  }
+
+  const handleDragEnd = (event: any, info: any) => {
+    setIsDragging(false)
+
+    const currentPosition = -mobileCurrentIndex * 100
+    const dragPercentage = (info.offset.x / (containerRef.current?.offsetWidth || 1)) * 100
+    const targetPosition = currentPosition + dragPercentage
+
+    // 40% 이상 드래그 됐을 때의 위치 계산
+    const nextIndex = Math.round(-targetPosition / 100)
+
+    if (nextIndex >= 0 && nextIndex < originalSlides.length) {
+      setMobileCurrentIndex(nextIndex)
+    }
+
+    resetAutoSlideTimer()
+  }
+
+  const resetAutoSlideTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current)
+    const timer = setInterval(() => {
+      if (!animatingRef.current) {
+        // 자동 이동 시, 페이지네이션은 즉시 증가
+        setCurrentPage((prev) => (prev % originalSlides.length) + 1)
+        setOffset(-slideWidth)
+        setIsAnimating(true)
+        animatingRef.current = true
+      }
+    }, 5000)
+    return timer
+  }, [slideWidth, originalSlides.length])
+
+  useEffect(() => {
+    timerRef.current = resetAutoSlideTimer()
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current)
+    }
+  }, [resetAutoSlideTimer])
+
+  const handleSlideChange = () => {
+    if (swiperRef.current) {
+      setActiveIndex(swiperRef.current.realIndex)
+    }
+  }
+
   return (
-    <div className="relative w-full overflow-hidden py-8">
+    <div className="relative w-full overflow-hidden pb-8 md:py-8">
       <div className="relative mx-auto w-full md:h-[18.75rem]">
         <div className="relative w-full">
           {/* Desktop View */}
@@ -231,57 +305,62 @@ export default function Banner() {
             </div>
           </div>
 
-          {/* Mobile View */}
-          <div className="block md:hidden">
-            <div className="relative mx-auto w-[90%]">
-              <div className="relative w-full">
-                <div
-                  className="relative aspect-[750/300]"
-                  onTouchStart={handleTouchStart}
-                  onTouchMove={handleTouchMove}
-                  onTouchEnd={handleTouchEnd}
-                >
-                  <AnimatePresence initial={false} mode="wait">
-                    <motion.div
-                      key={mobileCurrentIndex}
-                      initial={{ opacity: 0, x: 100 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -100 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute inset-0"
+          {/* Mobile View with Swiper */}
+          <div className="block w-full md:hidden">
+            <div className="relative w-full px-4">
+              <Swiper
+                onSwiper={(swiper: SwiperType) => {
+                  swiperRef.current = swiper
+                }}
+                modules={[Autoplay, Pagination]}
+                slidesPerView={1}
+                spaceBetween={0}
+                centeredSlides
+                loop
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                onSlideChange={handleSlideChange}
+                className="aspect-[360/180] w-full"
+              >
+                {originalSlides.map((slide, index) => (
+                  <SwiperSlide key={index} className="relative h-full w-full">
+                    <Link
+                      href={slide.link}
+                      target={slide.link.startsWith('http') ? '_blank' : undefined}
+                      className="block h-full w-full"
                     >
-                      <Link
-                        href={originalSlides[mobileCurrentIndex].link}
-                        target={originalSlides[mobileCurrentIndex].link.startsWith('http') ? '_blank' : undefined}
-                        className="block h-full w-full"
-                      >
-                        <Image
-                          src={originalSlides[mobileCurrentIndex].image}
-                          alt={originalSlides[mobileCurrentIndex].alt}
-                          fill
-                          className="rounded-[20px] object-contain"
-                          priority
-                          sizes="95vw"
-                        />
-                      </Link>
-                    </motion.div>
-                  </AnimatePresence>
-
-                  {/* 페이지네이션 닷 */}
-                  <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
-                    {originalSlides.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setMobileCurrentIndex(index)}
-                        className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                          index === mobileCurrentIndex ? 'w-4 bg-white' : 'bg-white/50'
-                        }`}
-                        aria-label={`Go to slide ${index + 1}`}
+                      <Image
+                        src={slide.mobileImage}
+                        alt={slide.alt}
+                        fill
+                        className="select-none rounded-2xl object-cover"
+                        priority={index === 0}
+                        sizes="100vw"
+                        draggable={false}
                       />
-                    ))}
-                  </div>
+                    </Link>
+                  </SwiperSlide>
+                ))}
+
+                {/* Custom Pagination Dots */}
+                <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+                  {originalSlides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => swiperRef.current?.slideTo(index)}
+                      className={`h-1 w-8 cursor-pointer rounded-full transition-all duration-300 ${
+                        index === activeIndex ? 'bg-white' : 'bg-white/30'
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
                 </div>
-              </div>
+              </Swiper>
             </div>
           </div>
         </div>
