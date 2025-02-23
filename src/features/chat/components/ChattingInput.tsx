@@ -1,9 +1,8 @@
 'use client'
 
 import { useState, KeyboardEvent } from 'react'
-import Image from 'next/image'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
-import { useSearchParams } from 'next/navigation'
+import { useParams } from 'next/navigation'
 
 function getAccessToken() {
   if (typeof document === 'undefined') return null
@@ -19,11 +18,10 @@ interface ChattingInputProps {
 export default function ChattingInput({ onMessageSent }: ChattingInputProps) {
   const [message, setMessage] = useState('')
   const { getClient } = useWebSocketStore()
-  const searchParams = useSearchParams()
-  const chatRoomId = searchParams.get('room')
+  const params = useParams()
 
   const handleSubmit = () => {
-    if (!message.trim() || !chatRoomId) return
+    if (!message.trim() || !params.id) return
 
     const client = getClient()
     if (!client?.connected) {
@@ -39,7 +37,7 @@ export default function ChattingInput({ onMessageSent }: ChattingInputProps) {
 
     try {
       client.publish({
-        destination: `/pub/chat/send/${chatRoomId}`,
+        destination: `/pub/chat/send/${params.id}`,
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

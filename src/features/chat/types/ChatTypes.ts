@@ -70,6 +70,8 @@ export interface ChatBasicProfileProps {
   teamScale: string
   teamCityName: string
   teamDivisionName: string
+  emailId: string
+  teamCode: string
 }
 
 export interface ChatMessagesResponse {

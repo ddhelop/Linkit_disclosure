@@ -1,19 +1,18 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { useSearchParams } from 'next/navigation'
 import ChattingListComponent from './ChattingListComponent'
 import { getChattingList } from '../api/ChatApi'
 import { useChatStore } from '../store/useChatStore'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
 import { getAccessToken } from '@/shared/store/useAuthStore'
+import { useParams } from 'next/navigation'
 
 export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoomId: number) => void }) {
   const { chatList, updateChatList, addMessage, updateLastMessage } = useChatStore()
   const { getClient } = useWebSocketStore()
   const subscriptionsRef = useRef<{ [key: number]: any }>({})
-  const searchParams = useSearchParams()
-  const currentRoomId = searchParams.get('room')
+  const params = useParams()
 
   useEffect(() => {
     const client = getClient()
@@ -84,13 +83,13 @@ export default function ChattingList({ onSelectChat }: { onSelectChat: (chatRoom
   }, [getClient, updateChatList, addMessage, updateLastMessage])
 
   return (
-    <div className="flex min-h-[calc(100vh-10rem)] w-[22.5rem] flex-col gap-3 rounded-2xl border border-grey30 bg-white p-4">
+    <div className="flex min-h-[calc(100vh-10rem)] flex-col gap-3 border-grey30 bg-white p-4 lg:w-[22.5rem] lg:rounded-2xl lg:border">
       {chatList.map((chatting) => (
         <ChattingListComponent
           chattingList={chatting}
           key={chatting.chatRoomId}
           onClick={() => onSelectChat(chatting.chatRoomId)}
-          isSelected={currentRoomId === chatting.chatRoomId.toString()}
+          isSelected={params.id === chatting.chatRoomId.toString()}
         />
       ))}
     </div>

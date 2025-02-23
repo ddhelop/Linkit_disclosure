@@ -7,6 +7,7 @@ import { ChatBasicProfileProps } from '../types/ChatTypes'
 import DropdownMenu from '@/shared/components/DropdownMenu'
 import AlertModal from '@/shared/ui/Modal/AlertModal'
 import { useChatStore } from '../store/useChatStore'
+import Link from 'next/link'
 
 interface ChattingBasicProfileProps extends ChatBasicProfileProps {
   chatRoomId: number
@@ -23,6 +24,8 @@ export default function ChattingBasicProfile({
   teamScale,
   teamCityName,
   teamDivisionName,
+  emailId,
+  teamCode,
 }: ChattingBasicProfileProps) {
   const [isAlertOpen, setIsAlertOpen] = useState(false)
   const router = useRouter()
@@ -56,7 +59,10 @@ export default function ChattingBasicProfile({
 
   return (
     <>
-      <div className="flex w-full gap-4 rounded-xl bg-white px-[1.88rem] py-3">
+      <Link
+        href={emailId ? `/${emailId}` : `/team/${teamCode}/log`}
+        className="flex w-full gap-4 border border-transparent bg-white py-3 hover:border-main lg:rounded-xl lg:px-[1.88rem]"
+      >
         <div className="relative h-[70px] w-[80px] rounded-lg">
           <Image
             src={chatPartnerImageUrl || '/common/default_profile.svg'}
@@ -106,7 +112,7 @@ export default function ChattingBasicProfile({
           </div>
           <DropdownMenu items={menuItems} />
         </div>
-      </div>
+      </Link>
 
       <AlertModal
         isOpen={isAlertOpen}
