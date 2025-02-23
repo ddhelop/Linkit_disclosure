@@ -33,7 +33,7 @@ export default function TeamViewProductsComponent({ product }: { product: TeamPr
     <div className="flex">
       <div className="flex w-full flex-col rounded-xl bg-white p-4 lg:px-10 lg:py-10 ">
         <div className="flex gap-5">
-          <div className="relative h-[64px] w-[64px] rounded-lg">
+          <div className="relative h-[64px] w-[64px] flex-shrink-0 rounded-lg">
             <Image
               src={product.productRepresentImagePath || '/common/default_profile.svg'}
               alt="product"

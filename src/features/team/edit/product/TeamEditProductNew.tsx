@@ -183,7 +183,7 @@ export default function TeamEditProductNew({ teamName }: { teamName: string }) {
 
   return (
     <>
-      <div className="mt-5 flex flex-col gap-10 rounded-xl bg-white p-5 md:px-[2.8rem] md:py-[2.4rem]">
+      <div className=" flex flex-col gap-10 rounded-xl bg-white p-5 md:px-[2.8rem] md:py-[2.4rem]">
         {/* 프로덕트명 */}
         <div className="flex w-full flex-col justify-between gap-3 ">
           <div className="flex justify-between ">
