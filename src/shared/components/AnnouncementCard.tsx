@@ -46,7 +46,7 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
   return (
     <Link
       href={`/team/${announcement?.teamCode}/recruit/${announcement?.teamMemberAnnouncementId}`}
-      className="flex min-w-[23rem] cursor-pointer flex-col gap-3 rounded-lg border bg-grey10 px-[1.62rem] py-[1.38rem] hover:border-[#7EA5F8] md:min-w-[unset]"
+      className="flex min-w-[17rem] cursor-pointer flex-col gap-3 rounded-lg border bg-grey10 px-[1.62rem] py-[1.38rem] hover:border-[#7EA5F8] md:min-w-[unset]"
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
     >
       <div className="flex justify-between">
@@ -55,7 +55,11 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
             announcement?.isPermanentRecruitment ? 'bg-[#D3E1FE] text-[#4D82F3]' : 'bg-[#FFECF0] text-[#FF345F]'
           }`}
         >
-          {announcement?.isPermanentRecruitment ? '상시 모집' : `D-${announcement?.announcementDDay}`}
+          {announcement?.isPermanentRecruitment
+            ? '상시 모집'
+            : announcement?.isClosed
+              ? '마감'
+              : `D-${announcement?.announcementDDay}`}
         </span>
         <Image
           src={isScrap ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
@@ -92,19 +96,6 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
         <div className="flex items-center rounded-[0.38rem] bg-[#D3E1FE] px-3 py-1 text-sm text-main">
           {announcement?.announcementPositionItem?.subPosition}
         </div>
-        {announcement?.announcementSkillNames?.slice(0, 1).map((skill, index) => (
-          <div
-            key={`skill-${index}`}
-            className="flex items-center rounded-[0.38rem] bg-[#EDF3FF] px-3 py-1 text-sm text-main"
-          >
-            {skill?.announcementSkillName}
-          </div>
-        ))}
-        {announcement?.announcementSkillNames?.length > 1 && (
-          <div className="flex items-center rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-sm text-main">
-            +{announcement?.announcementSkillNames.length - 1}
-          </div>
-        )}
       </div>
     </Link>
   )
