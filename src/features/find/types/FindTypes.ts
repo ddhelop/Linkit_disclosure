@@ -142,6 +142,7 @@ export interface Announcement {
   teamCode: string
   teamScaleItem: TeamScale
   regionDetail: RegionDetail
+  isClosed: boolean
   announcementDDay: number
   announcementTitle: string
   isAnnouncementScrap: boolean
