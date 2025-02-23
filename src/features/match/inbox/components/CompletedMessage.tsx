@@ -1,12 +1,16 @@
 import Image from 'next/image'
 import { MatchingMessage } from '../../types/MatchTypes'
 import ChatButton from './ChatButton'
+import { useState } from 'react'
+import MatchDetailModal from '../../common/MatchDetailModal'
 
 interface CompletedMessageProps {
   message: MatchingMessage
 }
 
 export default function CompletedMessage({ message }: CompletedMessageProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const isSenderTeam = message.senderType === 'TEAM'
   const isReceiverTeam = message.receiverType === 'TEAM'
   const isAnnouncementReceiver = message.receiverType === 'ANNOUNCEMENT'
@@ -62,7 +66,10 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
 
   return (
     <div className="relative w-full">
-      <div className="relative flex w-full gap-5 rounded-xl border border-grey30 bg-white px-10 py-7 hover:border-main">
+      <div
+        className="relative flex w-full cursor-pointer gap-5 rounded-xl border border-grey30 bg-white px-10 py-7 hover:border-main"
+        onClick={() => setIsModalOpen(true)}
+      >
         <div className="relative h-[64px] w-[64px] flex-shrink-0 rounded-[0.63rem]">
           <Image
             src={senderInfo.image || '/common/default_profile.svg'}
@@ -80,6 +87,7 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
         </div>
       </div>
       <ChatButton {...chatButtonProps} />
+      <MatchDetailModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} message={message} />
     </div>
   )
 }
