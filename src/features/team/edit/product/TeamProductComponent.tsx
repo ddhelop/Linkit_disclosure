@@ -64,7 +64,7 @@ export default function TeamProductComponent({ product, teamName, onDelete }: Te
       {/* 프로필 */}
       <div className="flex items-start justify-between">
         <div className="flex gap-[0.8rem]">
-          <div className="relative h-[48px] w-[48px] rounded-lg">
+          <div className="relative h-[48px] w-[48px] flex-shrink-0 rounded-lg">
             <Image
               src={product.productRepresentImagePath || '/common/default_profile.svg'}
               alt="default profile"
