@@ -59,6 +59,7 @@ export interface AnnouncementScrapResponse {
 
 export interface AnnouncementInformMenu {
   teamMemberAnnouncementId: number
+  isClosed: boolean
   teamLogoImagePath: string
   teamName: string
   teamCode: string
