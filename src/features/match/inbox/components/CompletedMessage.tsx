@@ -67,10 +67,10 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
   return (
     <div className="relative w-full">
       <div
-        className="relative flex w-full cursor-pointer gap-5 rounded-xl border border-grey30 bg-white px-10 py-7 hover:border-main"
+        className="relative flex w-full cursor-pointer items-center gap-5 rounded-xl border border-grey30 bg-white p-3 px-5 py-5 hover:border-main"
         onClick={() => setIsModalOpen(true)}
       >
-        <div className="relative h-[64px] w-[64px] flex-shrink-0 rounded-[0.63rem]">
+        <div className="relative h-[64px] w-[64px] flex-shrink-0  rounded-[0.63rem]">
           <Image
             src={senderInfo.image || '/common/default_profile.svg'}
             alt={isSenderTeam ? 'team' : 'profile'}
@@ -82,7 +82,7 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
           <span className="text-lg font-semibold text-main">{getMessageTitle()}</span>
           <span className="line-clamp-1 text-sm font-normal text-grey70">{message.requestMessage}</span>
         </div>
-        <div className="absolute right-6 flex flex-shrink-0 flex-col items-end gap-2">
+        <div className="absolute right-6 hidden flex-shrink-0 flex-col items-end gap-2 sm:flex">
           <span className="whitespace-pre-line text-xs font-normal text-grey80">{message.modifiedAt}</span>
         </div>
       </div>

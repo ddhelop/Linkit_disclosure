@@ -36,10 +36,10 @@ export default function DeniedMessage({ message }: DeniedMessageProps) {
   return (
     <>
       <div
-        className="w-full cursor-pointer rounded-xl border border-grey30 bg-white px-10 py-7 hover:border-main"
+        className="w-full cursor-pointer rounded-xl border border-grey30 bg-white  px-5 py-5 hover:border-main"
         onClick={() => setIsModalOpen(true)}
       >
-        <div className="flex gap-5">
+        <div className="flex items-center gap-5">
           <div className="relative h-[64px] w-[64px] flex-shrink-0 rounded-[0.63rem]">
             <Image
               src={
@@ -58,7 +58,7 @@ export default function DeniedMessage({ message }: DeniedMessageProps) {
               {message?.requestMessage}
             </span>
           </div>
-          <div className="absolute right-6 top-6 flex flex-col items-end gap-2">
+          <div className="absolute right-6 top-6 hidden flex-col items-end gap-2 sm:flex">
             <span className="text-xs font-normal text-grey80">{message?.modifiedAt}</span>
           </div>
         </div>

@@ -44,12 +44,18 @@ export default function MatchFilter() {
   }
 
   return (
-    <div className="flex gap-3">
-      {['전체', '내 프로필', '나의 팀', '모집 공고'].map((item) => (
-        <div key={item} className={getActiveClass(item)} onClick={() => handleFilterClick(item)}>
-          {item}
-        </div>
-      ))}
+    <div className="overflow-x-auto [&::-webkit-scrollbar]:hidden">
+      <div className="flex min-w-max gap-3 pb-2 ">
+        {['전체', '내 프로필', '나의 팀', '모집 공고'].map((item) => (
+          <div
+            key={item}
+            className={`${getActiveClass(item)} whitespace-nowrap`}
+            onClick={() => handleFilterClick(item)}
+          >
+            {item}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
