@@ -29,7 +29,7 @@ export default function TeamViewClient({ params }: { params: { teamName: string 
         <TeamInfo params={{ teamName }} />
         {/* 팀 정보 영역 - 가로 스크롤을 위한 컨테이너 */}
         <div className="webkit-scrollbar-hide w-full overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          <div className="flex min-w-max gap-6 pt-10 lg:pt-[4.69rem]">
+          <div className="flex min-w-max pt-10 text-sm md:gap-6 md:text-base lg:pt-[4.69rem]">
             <Link href={`/team/${teamName}/log`} className={pathname.includes('/log') ? selectedStyle : defaultStyle}>
               팀 로그
             </Link>
