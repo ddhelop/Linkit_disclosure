@@ -1,5 +1,5 @@
 export const PrivateStatusData = [
-  '팀원 찾는중',
+  '팀원 찾는 중',
   '팀 찾는 중',
   '대회 준비 중',
   '공모전 준비 중',
