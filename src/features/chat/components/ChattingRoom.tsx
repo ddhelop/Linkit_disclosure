@@ -62,6 +62,8 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
     teamScale: data.partnerTeamDetailInformation.teamScaleItem.teamScaleName,
     teamCityName: data.partnerTeamDetailInformation.regionDetail.cityName,
     teamDivisionName: data.partnerTeamDetailInformation.regionDetail.divisionName,
+    emailId: data.partnerProfileDetailInformation.emailId,
+    teamCode: data.partnerTeamDetailInformation.teamCode,
   })
 
   // 날짜 포맷팅 함수
@@ -102,8 +104,8 @@ export default function ChattingRoom({ chatRoomId }: ChattingRoomProps) {
   }
 
   return (
-    <div className="flex h-[calc(100vh-10rem)] w-[48rem] flex-col rounded-2xl border border-grey30 bg-grey10">
-      <div className="flex-shrink-0 border-b border-grey30 px-5 py-6">
+    <div className="flex h-[calc(100vh-4rem)] w-full flex-col border-grey30 bg-grey10 lg:h-[calc(100vh-10rem)] lg:w-[48rem] lg:rounded-2xl lg:border">
+      <div className="flex-shrink-0 border-grey30 bg-white p-3 lg:border-b lg:bg-grey10 lg:px-5 lg:py-6">
         {chatPartnerData && <ChattingBasicProfile {...getProfileData(chatPartnerData)} chatRoomId={chatRoomId} />}
       </div>
 
