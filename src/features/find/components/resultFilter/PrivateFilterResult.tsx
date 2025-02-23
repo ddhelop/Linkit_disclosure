@@ -23,9 +23,8 @@ export default function PrivateFilterResult() {
         // URL 파라미터에서 검색 조건 추출
         const params: SearchParams = {
           subPosition: searchParams.getAll('subPosition'),
-          skillName: searchParams.getAll('skillName'),
-          cityName: searchParams.get('cityName') || undefined,
-          profileStateName: searchParams.get('profileStateName') || undefined,
+          cityName: searchParams.getAll('cityName'),
+          profileStateName: searchParams.getAll('profileStateName'),
           page: currentPage,
           size: 20,
         }

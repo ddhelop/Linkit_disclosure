@@ -19,18 +19,16 @@ export const getFindPrivateProfile = async (params: SearchParams): Promise<ApiRe
     })
   }
 
-  if (params.skillName && params.skillName.length > 0) {
-    params.skillName.forEach((skill) => {
-      searchParams.append('skillName', skill)
+  if (params.cityName) {
+    params.cityName.forEach((city) => {
+      searchParams.append('cityName', city)
     })
   }
 
-  if (params.cityName) {
-    searchParams.append('cityName', params.cityName)
-  }
-
   if (params.profileStateName) {
-    searchParams.append('profileStateName', params.profileStateName)
+    params.profileStateName.forEach((state) => {
+      searchParams.append('profileStateName', state)
+    })
   }
 
   // 페이지네이션 파라미터
@@ -97,18 +95,16 @@ export const getFindAnnouncement = async (params: SearchParams): Promise<Announc
     })
   }
 
-  if (params.skillName && params.skillName.length > 0) {
-    params.skillName.forEach((skill) => {
-      searchParams.append('skillName', skill)
+  if (params.cityName) {
+    params.cityName.forEach((city) => {
+      searchParams.append('cityName', city)
     })
   }
 
-  if (params.cityName) {
-    searchParams.append('cityName', params.cityName)
-  }
-
-  if (params.scale) {
-    searchParams.append('scale', params.scale)
+  if (params.scaleName) {
+    params.scaleName.forEach((scale) => {
+      searchParams.append('scaleName', scale)
+    })
   }
 
   // 페이지네이션 파라미터
