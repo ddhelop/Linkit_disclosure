@@ -36,11 +36,11 @@ export default function RequestedMessage({ message, onClick }: RequestedMessageP
       <div
         role="button"
         onClick={onClick}
-        className={`relative flex w-full cursor-pointer gap-5 rounded-xl border border-grey30 px-10 py-7 hover:border-main ${
+        className={`relative flex w-full cursor-pointer gap-5 rounded-xl border border-grey30 px-5 py-5 hover:border-main ${
           message.receiverReadStatus === 'UNREAD_REQUESTED_MATCHING' ? 'bg-[#EDF3FF]' : 'bg-white'
         }`}
       >
-        <div className="relative flex h-[64px] w-[64px] shrink-0 rounded-[0.63rem]">
+        <div className="relative flex h-[64px] w-[64px] shrink-0 items-center rounded-[0.63rem]">
           <Image
             src={
               isSenderTeam
@@ -58,7 +58,7 @@ export default function RequestedMessage({ message, onClick }: RequestedMessageP
             {message.requestMessage}
           </span>
         </div>
-        <div className="absolute right-6 top-6 flex flex-col items-end gap-2">
+        <div className="absolute right-6 top-6 hidden flex-col items-end gap-2 sm:flex">
           <span className="text-xs font-normal text-grey80">{message.modifiedAt}</span>
         </div>
       </div>
