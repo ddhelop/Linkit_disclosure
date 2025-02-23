@@ -9,6 +9,8 @@ import useNotificationStore from '@/shared/store/useNotificationStore'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 import useNotificationSubscription from '@/shared/components/webSocket/useNotificationSubscription'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
+import ChatButton from './IconButtons/ChatButton'
+import NotificationButton from './IconButtons/NotificationButton'
 
 export default function UserMenu() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -38,25 +40,8 @@ export default function UserMenu() {
   return (
     <div className="flex items-center gap-[2rem]">
       <div className="flex gap-5">
-        <Link href="/chat">
-          <div className="relative flex cursor-pointer items-center">
-            <Image src={'/common/icons/chat_circle.svg'} width={32} height={32} alt="chat" />
-            {unreadChatCount > 0 && <div className="absolute right-0 top-0 h-2 w-2 rounded-full bg-red-500"></div>}
-          </div>
-        </Link>
-        <div className="relative">
-          <div className="flex cursor-pointer items-center" onClick={toggleNotification}>
-            <Image src={'/common/icons/alarm_circle.svg'} width={32} height={32} alt="notification" />
-            {unreadNotificationCount > 0 && (
-              <div className="absolute right-0 top-0 h-2 w-2 rounded-full bg-red-500"></div>
-            )}
-          </div>
-          <NotificationMenu
-            isOpen={isNotificationOpen}
-            onClose={() => setIsNotificationOpen(false)}
-            emailId={emailId || ''}
-          />
-        </div>
+        <ChatButton />
+        <NotificationButton emailId={emailId || ''} />
       </div>
 
       <div className="relative w-[6.5rem]">

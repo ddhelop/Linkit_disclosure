@@ -1,9 +1,9 @@
 export interface SearchParams {
   subPosition?: string[]
-  skillName?: string[]
-  cityName?: string
-  profileStateName?: string
-  scale?: string
+  cityName?: string[]
+  scaleName?: string[]
+  profileStateName?: string[]
+
   page?: number
   size?: number
 }

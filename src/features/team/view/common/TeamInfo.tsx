@@ -242,8 +242,8 @@ export default function TeamInfo({ params }: { params: { teamName: string } }) {
           </div>
 
           <div className="mt-5 flex justify-between">
-            <div className="flex gap-8">
-              <div className="relative aspect-square h-[8rem] w-[8rem] rounded-xl">
+            <div className="flex items-center gap-8">
+              <div className="relative aspect-square h-[90px] w-[90px] rounded-xl md:h-[8rem] md:w-[8rem]">
                 <Image
                   src={teamInformMenu.teamLogoImagePath || '/common/default_profile.svg'}
                   alt="team-profile"

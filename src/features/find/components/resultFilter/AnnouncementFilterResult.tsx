@@ -24,9 +24,8 @@ export default function AnnouncementFilterResult() {
         // URL 파라미터에서 검색 조건 추출
         const params: SearchParams = {
           subPosition: searchParams.getAll('subPosition'),
-          skillName: searchParams.getAll('skillName'),
-          cityName: searchParams.get('cityName') || undefined,
-          scale: searchParams.get('scale') || undefined,
+          cityName: searchParams.getAll('cityName'),
+          scaleName: searchParams.getAll('scaleName'),
           page: currentPage,
           size: 20,
         }
@@ -53,10 +52,7 @@ export default function AnnouncementFilterResult() {
 
   const isFilterApplied = () => {
     return (
-      searchParams.getAll('subPosition').length > 0 ||
-      searchParams.getAll('skillName').length > 0 ||
-      searchParams.has('cityName') ||
-      searchParams.has('scale')
+      searchParams.getAll('subPosition').length > 0 || searchParams.has('cityName') || searchParams.has('scaleName')
     )
   }
 

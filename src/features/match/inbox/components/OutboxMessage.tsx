@@ -1,12 +1,16 @@
+'use client'
 import Image from 'next/image'
 import { MatchingMessage } from '../../types/MatchTypes'
 import ChatButton from './ChatButton'
+import { useState } from 'react'
+import MatchDetailModal from '../../common/MatchDetailModal'
 
 interface OutboxMessageProps {
   message: MatchingMessage
 }
 
 export default function OutboxMessage({ message }: OutboxMessageProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const isCompleted = message.matchingStatusType === 'COMPLETED'
   const isSenderTeam = message.senderType === 'TEAM'
   const isReceiverTeam = message.receiverType === 'TEAM'
@@ -74,39 +78,38 @@ export default function OutboxMessage({ message }: OutboxMessageProps) {
   }
 
   return (
-    <div className="relative w-full">
-      <div className="relative flex w-full gap-5 rounded-xl border border-grey30 bg-white px-10 py-7">
-        <div className="relative h-[64px] w-[64px] rounded-[0.63rem]">
-          <Image
-            src={receiverInfo.image || '/common/default_profile.svg'}
-            alt={isReceiverTeam || isReceiverAnnouncement ? 'team' : 'profile'}
-            fill
-            className="rounded-lg object-cover"
-          />
+    <>
+      <div className="relative w-full">
+        <div
+          className="relative flex w-full cursor-pointer items-center gap-5 rounded-xl border border-grey30 bg-white px-5 py-5"
+          onClick={() => setIsModalOpen(true)}
+        >
+          <div className="relative h-[64px] w-[64px] flex-shrink-0 rounded-[0.63rem]">
+            <Image
+              src={receiverInfo.image || '/common/default_profile.svg'}
+              alt={isReceiverTeam || isReceiverAnnouncement ? 'team' : 'profile'}
+              fill
+              className="rounded-lg object-cover"
+            />
+          </div>
+          <div className="flex flex-col">
+            <span className={`text-lg font-semibold ${isCompleted ? 'text-main' : 'text-grey80'}`}>
+              {getMessageTitle()}
+            </span>
+            <span className="line-clamp-1 text-sm font-normal text-grey70">{message.requestMessage}</span>
+          </div>
+          <div className="absolute right-6 top-6 hidden flex-col items-end gap-2 sm:flex">
+            <span className="text-xs font-normal text-grey80">{message.modifiedAt}</span>
+          </div>
         </div>
-        <div className="flex flex-col">
-          <span className={`text-lg font-semibold ${isCompleted ? 'text-main' : 'text-grey80'}`}>
-            {getMessageTitle()}
-          </span>
-          <span className="line-clamp-1 text-sm font-normal text-grey70">{message.requestMessage}</span>
-        </div>
-        <div className="absolute right-6 top-6 flex flex-col items-end gap-2">
-          <span className="text-xs font-normal text-grey80">{message.modifiedAt}</span>
-        </div>
+        {isCompleted && (
+          <div className="">
+            <ChatButton isChatRoomCreated={message.isChatRoomCreated} chatRoomId={message.chatRoomId} />
+          </div>
+        )}
       </div>
-      {isCompleted && (
-        <div className="absolute right-[-10px] top-0">
-          <ChatButton
-            matchingId={message.matchingId}
-            senderType={message.senderType}
-            receiverType={message.receiverType}
-            isChatRoomCreated={message.isChatRoomCreated}
-            chatRoomId={message.chatRoomId}
-            senderInfo={chatButtonInfo.senderInfo}
-            receiverInfo={chatButtonInfo.receiverInfo}
-          />
-        </div>
-      )}
-    </div>
+
+      <MatchDetailModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} message={message} />
+    </>
   )
 }

@@ -55,7 +55,6 @@ export default function TeamFilterResult() {
   const isFilterApplied = () => {
     return (
       searchParams.getAll('scaleName').length > 0 ||
-      // searchParams.get('isAnnouncement') !== null ||
       searchParams.getAll('cityName').length > 0 ||
       searchParams.getAll('teamStateName').length > 0
     )

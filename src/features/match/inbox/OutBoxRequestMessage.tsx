@@ -27,7 +27,7 @@ function BulkActionBar({
   if (selectedCount === 0) return null
 
   return (
-    <div className="mb-4 flex items-center justify-between rounded-lg p-4">
+    <div className="mb-4 hidden items-center justify-between rounded-lg p-4 md:flex">
       <div className="flex items-center gap-3">
         <MessageCheckbox isChecked={isAllSelected} onChange={onToggleAll} />
         <span className="text-sm text-grey80">{selectedCount}개 선택됨</span>
@@ -98,10 +98,12 @@ export default function OutBoxRequestMessage({ messages, onUpdate }: OutBoxMessa
       <div className="flex flex-col gap-4">
         {localMessages.map((message) => (
           <div key={message.matchingId} className="flex items-center gap-3">
-            <MessageCheckbox
-              isChecked={selectedIds.includes(message.matchingId)}
-              onChange={() => handleCheckboxChange(message.matchingId)}
-            />
+            <div className="hidden md:block">
+              <MessageCheckbox
+                isChecked={selectedIds.includes(message.matchingId)}
+                onChange={() => handleCheckboxChange(message.matchingId)}
+              />
+            </div>
             <OutboxMessage message={message} />
           </div>
         ))}

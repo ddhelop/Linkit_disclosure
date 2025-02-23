@@ -10,6 +10,8 @@ import Navigation from './components/Navigation'
 import UserMenu from './components/UserMenu'
 import GuestMenu from './components/GuestMenu'
 import MobileMenu from './components/MobileMenu'
+import ChatButton from './components/IconButtons/ChatButton'
+import NotificationButton from './components/IconButtons/NotificationButton'
 import useNotificationSubscription from '@/shared/components/webSocket/useNotificationSubscription'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
 
@@ -71,7 +73,13 @@ export default function Header() {
           <Navigation />
         </div>
 
-        <div className="flex items-center font-normal text-grey90">
+        <div className="flex items-center gap-4 font-normal text-grey90">
+          {isLogin && (
+            <div className="flex gap-3 md:hidden">
+              <ChatButton />
+              <NotificationButton emailId={emailId || ''} />
+            </div>
+          )}
           <div className="hidden md:flex">{isLogin ? <UserMenu /> : <GuestMenu />}</div>
 
           <button ref={menuButtonRef} onClick={toggleMobileMenu} className="menu-toggle-button flex md:hidden">

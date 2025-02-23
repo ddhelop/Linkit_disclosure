@@ -32,7 +32,7 @@ function BulkActionBar({
   if (selectedCount === 0) return null
 
   return (
-    <div className="mb-4 flex items-center justify-between rounded-lg p-4">
+    <div className="mb-4 hidden items-center justify-between rounded-lg p-4 md:flex">
       <div className="flex items-center gap-3">
         <MessageCheckbox isChecked={isAllSelected} onChange={onToggleAll} />
         <span className="text-sm text-grey80">{selectedCount}개 선택됨</span>
@@ -40,7 +40,7 @@ function BulkActionBar({
       <div className="flex gap-4">
         <button
           onClick={onMarkRead}
-          className="p flex items-center gap-2 rounded-[0.38rem] border border-grey40 px-3 text-sm text-grey70"
+          className="flex items-center gap-2 rounded-[0.38rem] border border-grey40 px-3 text-sm text-grey70"
         >
           읽음 처리
         </button>
@@ -186,7 +186,9 @@ export default function InBoxRequestMessage({ messages, onUpdate }: InBoxMessage
 
     return (
       <div className="flex items-center gap-3">
-        <MessageCheckbox isChecked={isChecked} onChange={() => handleCheckboxChange(message.matchingId)} />
+        <div className="hidden md:block">
+          <MessageCheckbox isChecked={isChecked} onChange={() => handleCheckboxChange(message.matchingId)} />
+        </div>
         <MessageComponent
           message={
             {
