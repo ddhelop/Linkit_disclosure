@@ -2,12 +2,15 @@
 
 import Image from 'next/image'
 import { MatchingMessage } from '../../types/MatchTypes'
+import { useState } from 'react'
+import MatchDetailModal from '../../common/MatchDetailModal'
 
 interface DeniedMessageProps {
   message: MatchingMessage
 }
 
 export default function DeniedMessage({ message }: DeniedMessageProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const isSenderTeam = message.senderType === 'TEAM'
   const isAnnouncementReceiver = message.receiverType === 'ANNOUNCEMENT'
 
@@ -31,30 +34,36 @@ export default function DeniedMessage({ message }: DeniedMessageProps) {
   }
 
   return (
-    <div className="w-full rounded-xl border border-grey30 bg-white px-10 py-7 hover:border-main">
-      <div className="flex gap-5">
-        <div className="relative h-[64px] w-[64px] flex-shrink-0 rounded-[0.63rem]">
-          <Image
-            src={
-              isSenderTeam
-                ? message.senderTeamInformation?.teamLogoImagePath || '/common/default_profile.svg'
-                : message.senderProfileInformation?.profileImagePath || '/common/default_profile.svg'
-            }
-            alt={isSenderTeam ? 'team' : 'profile'}
-            fill
-            className="rounded-lg object-cover"
-          />
-        </div>
-        <div className="flex flex-col justify-center">
-          <span className="text-lg font-semibold text-grey80">{getMessageTitle()}</span>
-          <span className="line-clamp-1 whitespace-pre-line text-sm font-normal text-grey70">
-            {message?.requestMessage}
-          </span>
-        </div>
-        <div className="absolute right-6 top-6 flex flex-col items-end gap-2">
-          <span className="text-xs font-normal text-grey80">{message?.modifiedAt}</span>
+    <>
+      <div
+        className="w-full cursor-pointer rounded-xl border border-grey30 bg-white px-10 py-7 hover:border-main"
+        onClick={() => setIsModalOpen(true)}
+      >
+        <div className="flex gap-5">
+          <div className="relative h-[64px] w-[64px] flex-shrink-0 rounded-[0.63rem]">
+            <Image
+              src={
+                isSenderTeam
+                  ? message.senderTeamInformation?.teamLogoImagePath || '/common/default_profile.svg'
+                  : message.senderProfileInformation?.profileImagePath || '/common/default_profile.svg'
+              }
+              alt={isSenderTeam ? 'team' : 'profile'}
+              fill
+              className="rounded-lg object-cover"
+            />
+          </div>
+          <div className="flex flex-col justify-center">
+            <span className="text-lg font-semibold text-grey80">{getMessageTitle()}</span>
+            <span className="line-clamp-1 whitespace-pre-line text-sm font-normal text-grey70">
+              {message?.requestMessage}
+            </span>
+          </div>
+          <div className="absolute right-6 top-6 flex flex-col items-end gap-2">
+            <span className="text-xs font-normal text-grey80">{message?.modifiedAt}</span>
+          </div>
         </div>
       </div>
-    </div>
+      <MatchDetailModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} message={message} />
+    </>
   )
 }
