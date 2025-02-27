@@ -63,7 +63,7 @@ export default function MobileMenu({ isLogin, onClose, onLogout }: MobileMenuPro
             <Image src={'/common/icons/member_icon.svg'} width={14} height={14} alt="profile" />
             팀원
           </Link>
-          <Link href="/profile" className="flex gap-3  text-sm  text-gray-700" onClick={onClose}>
+          <Link href="/find/team" className="flex gap-3  text-sm  text-gray-700" onClick={onClose}>
             <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="team" />팀
           </Link>
           <Link href="/find/announcement" className="flex gap-3  text-sm  text-gray-700" onClick={onClose}>

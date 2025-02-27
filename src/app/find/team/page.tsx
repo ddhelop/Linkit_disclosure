@@ -17,9 +17,9 @@ export default function FindTeamPage() {
       {/* 컨텐츠 컨테이너 */}
       <div className="relative flex w-full justify-center">
         <div className="flex w-[95%] flex-col pt-9 lg:w-[78%]">
-          <div className="flex flex-col sm:gap-2 lg:px-16">
-            <h1 className="text-grey30">팀 찾기</h1>
-            <span className="text-2xl font-semibold text-white">
+          <div className="flex flex-col gap-2 px-3 lg:px-16">
+            <h1 className="text-xs text-grey30 sm:text-base">팀 찾기</h1>
+            <span className="whitespace-pre-line text-sm font-semibold text-white sm:text-xl">
               사이드 프로젝트부터 창업까지, 합류하고 싶은 팀을 찾아보세요
             </span>
           </div>

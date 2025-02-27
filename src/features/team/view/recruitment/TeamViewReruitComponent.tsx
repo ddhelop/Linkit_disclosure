@@ -57,7 +57,11 @@ export default function TeamViewReruitComponent({
             announcement.isPermanentRecruitment ? 'bg-[#D3E1FE] text-main' : 'bg-[#FFECF0] text-[#FF345F]'
           }`}
         >
-          {announcement.isPermanentRecruitment ? '상시 모집' : `D-${announcement.announcementDDay}`}
+          {announcement.isPermanentRecruitment
+            ? '상시 모집'
+            : announcement.isClosed
+              ? '마감'
+              : `D-${announcement.announcementDDay}`}
         </div>
         <div className="flex gap-2 text-[#4D82F3]">
           <Image

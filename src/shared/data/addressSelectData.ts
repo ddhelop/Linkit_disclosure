@@ -2,6 +2,7 @@ export const addressData = [
   {
     name: '강원특별자치도',
     subArea: [
+      '전체',
       '강릉시',
       '고성군',
       '동해시',
@@ -25,6 +26,7 @@ export const addressData = [
   {
     name: '경기도',
     subArea: [
+      '전체',
       '가평군',
       '고양시',
       '과천시',
@@ -61,6 +63,7 @@ export const addressData = [
   {
     name: '경상남도',
     subArea: [
+      '전체',
       '거제시',
       '거창군',
       '고성군',
@@ -85,6 +88,7 @@ export const addressData = [
   {
     name: '경상북도',
     subArea: [
+      '전체',
       '경산시',
       '경주시',
       '고령군',
@@ -111,19 +115,20 @@ export const addressData = [
   },
   {
     name: '광주광역시',
-    subArea: ['광산구', '남구', '동구', '북구', '서구'],
+    subArea: ['전체', '광산구', '남구', '동구', '북구', '서구'],
   },
   {
     name: '대구광역시',
-    subArea: ['군위군', '남구', '달서구', '달성군', '동구', '북구', '서구', '수성구', '중구'],
+    subArea: ['전체', '군위군', '남구', '달서구', '달성군', '동구', '북구', '서구', '수성구', '중구'],
   },
   {
     name: '대전광역시',
-    subArea: ['대덕구', '동구', '서구', '유성구', '중구'],
+    subArea: ['전체', '대덕구', '동구', '서구', '유성구', '중구'],
   },
   {
     name: '부산광역시',
     subArea: [
+      '전체',
       '강서구',
       '금정구',
       '기장군',
@@ -145,6 +150,7 @@ export const addressData = [
   {
     name: '서울특별시',
     subArea: [
+      '전체',
       '강남구',
       '강동구',
       '강북구',
@@ -174,15 +180,16 @@ export const addressData = [
   },
   {
     name: '세종특별자치시',
-    subArea: [],
+    subArea: ['전체'],
   },
   {
     name: '울산광역시',
-    subArea: ['남구', '동구', '북구', '울주군', '중구'],
+    subArea: ['전체', '남구', '동구', '북구', '울주군', '중구'],
   },
   {
     name: '인천광역시',
     subArea: [
+      '전체',
       '강화군',
       '계양구',
       '남동구',
@@ -201,6 +208,7 @@ export const addressData = [
   {
     name: '전라남도',
     subArea: [
+      '전체',
       '강진군',
       '고흥군',
       '곡성군',
@@ -228,6 +236,7 @@ export const addressData = [
   {
     name: '전북특별자치도',
     subArea: [
+      '전체',
       '고창군',
       '군산시',
       '김제시',
@@ -246,11 +255,12 @@ export const addressData = [
   },
   {
     name: '제주특별자치도',
-    subArea: ['서귀포시', '제주시'],
+    subArea: ['전체', '서귀포시', '제주시'],
   },
   {
     name: '충청남도',
     subArea: [
+      '전체',
       '계룡시',
       '공주시',
       '금산군',
@@ -270,6 +280,7 @@ export const addressData = [
   {
     name: '충청북도',
     subArea: [
+      '전체',
       '괴산군',
       '단양군',
       '보은군',
