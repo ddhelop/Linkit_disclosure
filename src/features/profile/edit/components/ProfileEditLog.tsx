@@ -165,7 +165,7 @@ export default function ProfileEditLog() {
               {showMenu === log.profileLogId && (
                 <div
                   id="menu"
-                  className="absolute right-[-80px] top-9 mt-2 flex w-32 flex-col rounded-lg border border-grey40 bg-white p-2 shadow-lg"
+                  className="absolute right-0 top-9 mt-2 flex w-32 flex-col rounded-lg border border-grey40 bg-white p-2 shadow-lg sm:right-[-80px]"
                 >
                   <Link
                     href={`/profile/edit/log/new?id=${log.profileLogId}`}
