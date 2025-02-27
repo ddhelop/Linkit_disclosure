@@ -15,23 +15,6 @@ export default function TeamViewLogComponent({ log, teamName }: { log: TeamLogIt
         <span className="text-xs font-normal text-grey60">|</span>
         <span className="text-xs font-normal text-grey60">{new Date(log.modifiedAt).toLocaleDateString()}</span>
       </div>
-
-      <div className="rounded-xl bg-grey10 p-6">
-        <div
-          className="overflow-hidden text-sm text-grey70"
-          style={{
-            display: '-webkit-box',
-            WebkitLineClamp: '6',
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            lineHeight: '1.5',
-            height: 'auto',
-          }}
-          dangerouslySetInnerHTML={{
-            __html: log.logContent,
-          }}
-        />
-      </div>
     </Link>
   )
 }

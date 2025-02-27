@@ -105,7 +105,7 @@ export default function EducationElementComponent({
           {isMenuOpen && (
             <div
               ref={menuRef}
-              className="absolute left-0 z-50 mt-2 w-[7rem] rounded-lg border border-grey30 bg-white shadow-lg"
+              className="absolute right-0 z-50 mt-2 w-[7rem] rounded-lg border border-grey30 bg-white shadow-lg"
             >
               <ul className="py-2 text-sm">
                 <li className="cursor-pointer px-4 py-2 text-grey70 hover:bg-grey10">

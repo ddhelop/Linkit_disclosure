@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import Image from 'next/image'
+import { createPortal } from 'react-dom'
 
 export default function Modal({
   isOpen,
@@ -30,7 +31,10 @@ export default function Modal({
 
   if (!isOpen) return null
 
-  return (
+  // 클라이언트 사이드에서만 포털 사용
+  if (typeof document === 'undefined') return null
+
+  return createPortal(
     <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black bg-opacity-50">
       <div ref={modalRef} className="relative h-full w-full bg-white md:h-auto md:w-auto md:rounded-xl">
         <button onClick={onClose} className="absolute right-6 top-6 cursor-pointer" aria-label="Close modal">
@@ -38,6 +42,7 @@ export default function Modal({
         </button>
         {children}
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

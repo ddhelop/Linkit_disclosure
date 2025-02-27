@@ -2,29 +2,22 @@
 
 import { useEffect, useState } from 'react'
 import TeamViewNotView from '../common/TeamViewNotView'
-import TeamViewLogComponent from './TeamViewLogComponent'
-import { getTeamLogs } from '../../api/teamApi'
-import { TeamLogsResponse } from '../../types/team.types'
+import { getTeamRepresentativeLog } from '../../api/teamApi'
+import { TeamLogItem } from '../../types/team.types'
 import Link from 'next/link'
 import { Button } from '@/shared/ui/Button/Button'
 import Image from 'next/image'
 import { useTeamStore } from '../../store/useTeamStore'
+import TeamViewRepresentLog from './TeamViewRepresentLog'
 
 export default function TeamViewLog({ params }: { params: { teamName: string } }) {
-  const [logs, setLogs] = useState<TeamLogsResponse>({
-    isSuccess: false,
-    code: '',
-    message: '',
-    result: {
-      teamLogItems: [],
-    },
-  })
+  const [logs, setLogs] = useState<TeamLogItem>()
   const { isTeamManager } = useTeamStore()
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getTeamLogs(params.teamName)
-      setLogs(response)
+      const response = await getTeamRepresentativeLog(params.teamName)
+      setLogs(response.result)
     }
     fetchData()
   }, [params.teamName])
@@ -32,7 +25,7 @@ export default function TeamViewLog({ params }: { params: { teamName: string } }
   return (
     // 데이터가 없을 때
     <div className="">
-      {logs.result.teamLogItems.length === 0 ? (
+      {logs === undefined ? (
         isTeamManager ? (
           <TeamViewNotView />
         ) : (
@@ -43,9 +36,8 @@ export default function TeamViewLog({ params }: { params: { teamName: string } }
       ) : (
         <>
           <div className="mt-10 flex flex-col gap-3 lg:gap-6">
-            {logs.result.teamLogItems.map((log) => (
-              <TeamViewLogComponent key={log.teamLogId} log={log} teamName={params.teamName} />
-            ))}
+            <TeamViewRepresentLog log={logs} teamName={params.teamName} />
+            {/* <TeamViewLogComponent key={logs.teamLogId} log={logs} teamName={params.teamName} /> */}
           </div>
           <div className="mt-10 flex justify-center">
             <Link href={`/team/${params.teamName}/log/list`}>

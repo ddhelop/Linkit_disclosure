@@ -56,6 +56,12 @@ export default function ChattingInput({ onMessageSent }: ChattingInputProps) {
   const handleKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
+
+      // 한글 입력 중인지 확인
+      if (e.nativeEvent.isComposing) {
+        return
+      }
+
       handleSubmit()
     }
   }
