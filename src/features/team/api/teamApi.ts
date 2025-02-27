@@ -446,6 +446,7 @@ export interface TeamAnnouncement {
   announcementTitle: string
   majorPosition: string
   isAnnouncementScrap: boolean
+  isClosed: boolean
   announcementSkillNames: {
     announcementSkillName: string
   }[]
