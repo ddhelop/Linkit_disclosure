@@ -66,6 +66,15 @@ export async function getTeamLogs(teamName: string): Promise<TeamLogsResponse> {
   return response.json()
 }
 
+// 팀 대표 로그 단일 조회
+export async function getTeamRepresentativeLog(teamName: string) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/log/represent`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team representative log')
+  }
+  return response.json()
+}
+
 export async function getTeamLog(teamName: string, logId: number) {
   const response = await fetchWithAuth(`/api/v1/team/${teamName}/log/${logId}`)
   if (!response.ok) {
