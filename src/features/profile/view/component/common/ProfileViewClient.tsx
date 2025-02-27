@@ -58,7 +58,7 @@ export default function ProfileViewClient({
                 <Tooltip
                   text="다른 사용자가 나의 프로필을
                   스크랩한 횟수를 보여줍니다"
-                  className="left-20 top-[22px] w-[165px]"
+                  className="left-[-58px] top-[22px] w-[165px] sm:left-20"
                 ></Tooltip>
               </div>
             )}
