@@ -97,12 +97,12 @@ export default function NewAwards() {
       if (awardId) {
         await updateAwards(awardId, awardsData)
         setOriginalData(awardsData) // 저장 성공 후 현재 데이터를 원본 데이터로 설정
-        toast.success('수상 이력이 성공적으로 저장되었습니다.')
+        toast.success('수상이 저장되었습니다. ')
       } else {
         const response = await createAwards(awardsData)
         if (response.isSuccess) {
           updateProfileMenu({ isProfileAwards: true })
-          toast.success('수상 이력이 성공적으로 저장되었습니다.')
+          toast.success('수상이 저장되었습니다. ')
           router.push(`/profile/edit/awards/new?id=${response.result.profileAwardsId}`)
         }
       }

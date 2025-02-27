@@ -57,24 +57,17 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
     >
       <div className="flex justify-between">
         <div className="flex gap-2">
-          {team.teamCurrentStates?.map((state, index) => {
-            if (index < 2) {
-              return (
-                <div key={index} className="rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-xs text-[#3774F4]">
-                  {state.teamStateName}
-                </div>
-              )
-            }
-            if (index === 2) {
-              return (
-                <div key={index} className="rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-xs text-[#3774F4]">
-                  +{team.teamCurrentStates.length - 2}
-                </div>
-              )
-            }
-            return null
-          })}
+          <div className="rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-xs text-[#3774F4]">
+            {team.teamCurrentStates[0].teamStateName}
+          </div>
+
+          {team.teamCurrentStates.length > 1 && (
+            <div className="rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-xs text-[#3774F4]">
+              +{team.teamCurrentStates.length - 1}
+            </div>
+          )}
         </div>
+
         {/* 스크랩 버튼 */}
         <div
           onClick={handleScrap}
