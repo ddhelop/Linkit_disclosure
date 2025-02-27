@@ -49,7 +49,7 @@ export default function TeamViewReruitComponent({
   return (
     <Link
       href={`/team/${teamName}/recruit/${announcement.teamMemberAnnouncementId}`}
-      className="flex flex-col rounded-xl border border-transparent bg-white px-10 py-5 hover:border-main"
+      className="flex flex-col rounded-xl border border-transparent bg-white px-5 py-5 hover:border-main md:px-10"
     >
       <div className="flex justify-between">
         <div
@@ -74,15 +74,20 @@ export default function TeamViewReruitComponent({
 
       <span className="mt-3 text-xl font-semibold text-grey90">{announcement.announcementTitle}</span>
 
-      <div className="flex gap-4">
+      <div className="flex gap-2">
         <div className="mt-5 rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-main">
           {announcement.majorPosition}
         </div>
-        {announcement.announcementSkillNames.map((skill, index) => (
-          <div key={index} className="mt-5 rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-main">
-            {skill.announcementSkillName}
+
+        <div className="mt-5 rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-main">
+          {announcement.announcementSkillNames[0].announcementSkillName}
+        </div>
+
+        {announcement.announcementSkillNames.length > 1 && (
+          <div className="mt-5 rounded-full bg-[#D3E1FE] px-4 py-1 text-sm text-main">
+            +{announcement.announcementSkillNames.length - 1}
           </div>
-        ))}
+        )}
       </div>
     </Link>
   )
