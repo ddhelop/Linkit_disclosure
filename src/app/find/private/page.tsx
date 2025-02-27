@@ -18,8 +18,8 @@ export default function FindPrivatePage() {
       <div className="relative flex w-full justify-center">
         <div className="flex w-[95%] flex-col pt-9 lg:w-[78%]">
           <div className="flex flex-col gap-2 px-3 lg:px-16">
-            <h1 className="text-grey60">팀원 찾기</h1>
-            <span className="text-2xl font-semibold text-grey90">나와 함께 할 능력 있는 팀원들을 찾아보세요</span>
+            <h1 className="text-xs text-grey60 sm:text-base">팀원 찾기</h1>
+            <span className="font-semibold text-grey90 sm:text-2xl">나와 함께 할 능력 있는 팀원들을 찾아보세요</span>
           </div>
 
           {/* 필터 */}
