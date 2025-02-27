@@ -225,12 +225,17 @@ export default function LogWriteForm({ domainType = 'PROFILE', teamCode }: LogWr
                   formats={formats}
                   theme="snow"
                   placeholder="내용을 입력해 주세요 (5,000자 이내)"
-                  className="h-[600px] w-full bg-white"
+                  className="h-[400px] w-full bg-white md:h-[600px]"
                 />
               </div>
               <style jsx global>{`
                 .ql-container {
-                  height: calc(600px - 42px) !important;
+                  height: calc(400px - 42px) !important;
+                }
+                @media (min-width: 768px) {
+                  .ql-container {
+                    height: calc(600px - 42px) !important;
+                  }
                 }
                 .ql-container .ql-editor {
                   height: 100%;
