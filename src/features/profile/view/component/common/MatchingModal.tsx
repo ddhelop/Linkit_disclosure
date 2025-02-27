@@ -1,10 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { useRef, useEffect } from 'react'
-import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
-import { createPortal } from 'react-dom'
 import { MatchingProfileMenuResponse, TeamInformation } from '@/features/match/types/MatchTypes'
+import Modal from '@/shared/ui/Modal/Modal'
 
 interface TeamMatchingResponse {
   isSuccess: boolean
@@ -41,26 +39,6 @@ export default function MatchingModal({
   onSelectProfile,
   type = 'PROFILE',
 }: MatchingModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null)
-
-  useOnClickOutside({
-    refs: [modalRef],
-    handler: onClose,
-    isEnabled: isOpen,
-  })
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [isOpen])
-
   if (!isOpen || !matchingData) return null
 
   const handleProfileSelect = (profile: TeamInformation) => {
@@ -149,7 +127,7 @@ export default function MatchingModal({
                   emailId: profileData.senderProfileInformation.emailId,
                 })
               }
-              className="flex w-full cursor-pointer items-center gap-4 rounded-xl border border-grey30 px-[1.88rem] py-4 hover:bg-grey20"
+              className="flex w-full  cursor-pointer items-center gap-4 rounded-xl border border-grey30 px-[1.88rem] py-4 hover:bg-grey20"
             >
               <div className="h-[50px] w-[50px] flex-shrink-0">
                 <Image
@@ -192,15 +170,14 @@ export default function MatchingModal({
     }
   }
 
-  return createPortal(
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50">
-      <div ref={modalRef} className="relative flex w-[18.375rem] flex-col items-center rounded-xl bg-white p-8">
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <div className="z-[110] flex w-full flex-col items-center rounded-xl bg-white p-8 md:w-[18.375rem]">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-sm font-semibold text-grey90">어떤 프로필로 매칭 요청을 보낼까요?</h2>
         </div>
         {renderContent()}
       </div>
-    </div>,
-    document.body,
+    </Modal>
   )
 }
