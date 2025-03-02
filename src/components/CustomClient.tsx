@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
+import { useEffect } from 'react'
 import ChannelService from './third-party/ChannelTalk'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export default function CustomClient({ children }: { children: React.ReactNode }) {
-  const [isLoading, setIsLoading] = useState(true)
+  const queryClient = new QueryClient()
 
   useEffect(() => {
     const CT = new ChannelService()
@@ -17,5 +17,5 @@ export default function CustomClient({ children }: { children: React.ReactNode }
     }
   }, [])
 
-  return <>{children}</>
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 }

@@ -1,17 +1,18 @@
+'use client'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { profileScrap } from '../api/commonApi'
-import { Profile, Team } from '@/features/find/types/FindTypes'
 import { useToast } from '../hooks/useToast'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '../store/useAuthStore'
+import { Profile } from '../types/ProfileCardTypes'
 
-interface MiniProfileCard2Props {
+interface MiniProfileCardProps {
   profile: Profile
 }
 
-export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
+export default function MiniProfileCard_2({ profile }: MiniProfileCardProps) {
   const [isHovered, setIsHovered] = useState(false)
   const [isScrap, setIsScrap] = useState(profile?.isProfileScrap ?? false)
   const [scrapCount, setScrapCount] = useState(profile?.profileScrapCount ?? 0)
@@ -47,9 +48,7 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCard2Props) {
   return (
     <Link
       href={`/${profile.emailId}`}
-
       className=" flex min-w-[20rem] cursor-pointer flex-col rounded-xl border border-transparent bg-[#EDF3FF] p-[1.37rem] pb-7 hover:border-main lg:min-w-[16rem] "
-
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
     >
       {/* 첫째줄 */}

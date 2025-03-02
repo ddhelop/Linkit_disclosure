@@ -1,22 +1,17 @@
 'use client'
-
 import MiniTeamCard_2 from '@/shared/components/MiniTeamCard_2'
-import { useEffect, useState } from 'react'
-import { getTeamRecommend } from './api/HomeApi'
-import { Team } from '@/features/find/types/FindTypes'
+
 import Link from 'next/link'
 import Image from 'next/image'
+import { useQuery } from '@tanstack/react-query'
+import { getRecommendedTeams } from '../api/homeApi'
 
 export default function HomeTeamSection() {
-  const [teamRecommend, setTeamRecommend] = useState<Team[]>([])
-
-  useEffect(() => {
-    const fetchTeamRecommend = async () => {
-      const response = await getTeamRecommend()
-      setTeamRecommend(response.result.teamInformMenus)
-    }
-    fetchTeamRecommend()
-  }, [])
+  const { data } = useQuery({
+    queryKey: ['teamRecommend'],
+    queryFn: getRecommendedTeams,
+    // suspense: true,
+  })
 
   return (
     <div className="flex w-full flex-col gap-6">
@@ -28,9 +23,7 @@ export default function HomeTeamSection() {
         </Link>
       </div>
       <div className="flex gap-6 overflow-x-auto p-1 md:grid md:grid-cols-2 [&::-webkit-scrollbar]:hidden">
-        {teamRecommend.map((team) => (
-          <MiniTeamCard_2 key={team.teamCode} team={team} />
-        ))}
+        {data?.result.teamInformMenus.map((team) => <MiniTeamCard_2 key={team.teamCode} team={team} />)}
       </div>
     </div>
   )

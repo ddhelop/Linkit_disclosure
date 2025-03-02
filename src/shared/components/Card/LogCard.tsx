@@ -1,8 +1,9 @@
+import { LogCardType } from '@/shared/types/LogCardTypes'
 import Image from 'next/image'
-import { ILogCard } from '@/shared/types/Card/LogCardTypes'
+
 import Link from 'next/link'
 
-export default function LogCard({ log }: { log: ILogCard }) {
+export default function LogCard({ log }: { log: LogCardType }) {
   return (
     <Link
       href={
@@ -24,7 +25,7 @@ export default function LogCard({ log }: { log: ILogCard }) {
             />
           ) : (
             <Image
-              src={log.logInformDetails.teamLogoImagePath}
+              src={log.logInformDetails.teamLogoImagePath || '/common/default_team.svg'}
               alt="팀 로고"
               fill
               className="rounded-lg object-cover"

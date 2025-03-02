@@ -1,16 +1,16 @@
 'use client'
-import { Announcement } from '@/features/find/types/FindTypes'
 
 import Image from 'next/image'
 import { useState } from 'react'
 import { announcementScrap } from '../api/commonApi'
 import Link from 'next/link'
 import { useToast } from '../hooks/useToast'
-import { AnnouncementInformMenu } from '@/features/match/types/MatchTypes'
+
 import { useAuthStore } from '../store/useAuthStore'
 import { useRouter } from 'next/navigation'
+import { Announcement } from '../types/AnnouncementTypes'
 
-export default function AnnouncementCard({ announcement }: { announcement: AnnouncementInformMenu }) {
+export default function AnnouncementCard({ announcement }: { announcement: Announcement }) {
   const [isScrap, setIsScrap] = useState(announcement?.isAnnouncementScrap ?? false)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
   const [scrapCount, setScrapCount] = useState(announcement?.announcementScrapCount ?? 0)
