@@ -36,7 +36,6 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
         toast.success('스크랩 상태가 변경되었습니다.')
       }
     } catch (error) {
-      console.error('Failed to update scrap:', error)
       toast.alert('오류가 발생하였습니다.')
     } finally {
       setIsScrapLoading(false)
