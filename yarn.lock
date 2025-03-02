@@ -1909,6 +1909,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.66.11":
+  version: 5.66.11
+  resolution: "@tanstack/query-core@npm:5.66.11"
+  checksum: 10/5ee032f203ae5775bb7490b6a2689d1afe970c9c7c5ce27f30cfc0d8ab69de59b34d7d61155e4d036fa62091a1afed58862121ef4da737b0e23e3007ec9a7866
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.66.11":
+  version: 5.66.11
+  resolution: "@tanstack/react-query@npm:5.66.11"
+  dependencies:
+    "@tanstack/query-core": "npm:5.66.11"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10/22f3b8e8daf481adb9d9ce2f13464587d1a58ece9045d7379cc78f84e55e0cd4867e94e1206c9251d5e9a1d481849defb84b48c4bb9094759b9e640b5938a11a
+  languageName: node
+  linkType: hard
+
 "@trysound/sax@npm:0.2.0":
   version: 0.2.0
   resolution: "@trysound/sax@npm:0.2.0"
@@ -4494,6 +4512,7 @@ __metadata:
     "@stomp/stompjs": "npm:^7.0.0"
     "@svgr/webpack": "npm:^8.1.0"
     "@tailwindcss/typography": "npm:^0.5.16"
+    "@tanstack/react-query": "npm:^5.66.11"
     "@types/node": "npm:^20"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
