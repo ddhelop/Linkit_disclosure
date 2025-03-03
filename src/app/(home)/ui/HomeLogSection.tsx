@@ -10,12 +10,18 @@ export default function HomeLogSection() {
   })
 
   return (
-    <div className="flex w-full flex-col gap-6">
-      <h1 className="text-xl font-semibold">오늘의 인기 로그</h1>
+    <section className="flex w-full flex-col gap-6" aria-labelledby="log-heading">
+      <h2 id="log-heading" className="text-xl font-semibold">
+        오늘의 인기 로그
+      </h2>
 
-      <div className="grid grid-cols-1 gap-6">
-        {data?.result.logInformMenus.map((log) => <LogCard key={log.id} log={log} />)}
+      <div className="grid grid-cols-1 gap-6" role="feed" aria-busy={!data}>
+        {data?.result?.logInformMenus?.map((log) => (
+          <article key={log.id}>
+            <LogCard log={log} />
+          </article>
+        )) || <p>인기 로그가 없습니다.</p>}
       </div>
-    </div>
+    </section>
   )
 }
