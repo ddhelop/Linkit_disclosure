@@ -11,4 +11,4 @@ export const PrivateStatusData = [
 ]
 
 // 팀 규모
-export const TeamSizeData = ['1인', '2 ~ 5인', '6 ~ 9인', '10인 이상']
+export const TeamSizeData = ['1인', '2~5인', '6~9인', '10인 이상']
