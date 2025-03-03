@@ -82,21 +82,27 @@ export default function Header() {
           )}
           <div className="hidden md:flex">{isLogin ? <UserMenu /> : <GuestMenu />}</div>
 
-          <button ref={menuButtonRef} onClick={toggleMobileMenu} className="menu-toggle-button flex md:hidden">
+          <button
+            ref={menuButtonRef}
+            onClick={toggleMobileMenu}
+            className="menu-toggle-button flex md:hidden"
+            aria-label="모바일 메뉴 열기"
+            aria-expanded={isMobileMenuOpen}
+          >
             <Image
               src={isMobileMenuOpen ? '/common/icons/delete_icon.svg' : '/common/icons/mobile_menu_icon.svg'}
               width={26}
               height={26}
-              alt="menu"
+              alt="메뉴 아이콘"
             />
           </button>
         </div>
       </header>
 
       {isMobileMenuOpen && (
-        <div ref={mobileMenuRef} className="">
+        <nav ref={mobileMenuRef} aria-label="모바일 메뉴">
           <MobileMenu isLogin={isLogin} onClose={closeMobileMenu} onLogout={logout} />
-        </div>
+        </nav>
       )}
     </>
   )
