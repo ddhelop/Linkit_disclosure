@@ -2,8 +2,23 @@
 import { fetchWithISR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'
 import { Profile } from '@/shared/types/ProfileCardTypes'
+import { SearchParams } from '../FindPrivateType'
 
 // ✅ 고정 프로필 데이터 가져오기
 export async function getStaticFindPrivateData(): Promise<ApiResponse<{ topCompletionProfiles: Profile[] }>> {
   return fetchWithISR('/profile/search/featured', 1)
+}
+
+// 검색 파라미터로 프로필 데이터 가져오기
+export async function getFindPrivateProfile(params: SearchParams): Promise<ApiResponse<{ content: Profile[] }>> {
+  // URL 파라미터 구성
+  const queryParams = new URLSearchParams()
+
+  params.subPosition.forEach((pos) => queryParams.append('subPosition', pos))
+  params.cityName.forEach((city) => queryParams.append('cityName', city))
+  params.profileStateName.forEach((state) => queryParams.append('profileStateName', state))
+  params.skillName.forEach((skill) => queryParams.append('skillName', skill))
+  queryParams.append('size', params.size.toString())
+
+  return fetchWithISR(`/profile/search?${queryParams.toString()}`, 5)
 }

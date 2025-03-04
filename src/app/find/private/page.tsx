@@ -1,10 +1,14 @@
-import { loadFindPrivateData } from '@/features/find-private/loader'
+import { loadFindPrivateData } from '@/features/find-private/FindPrivateLoader'
 import FindPrivateFilter from '@/features/find-private/ui/FindPrivateFilter'
 import PrivateFilterResult from '@/features/find-private/ui/FindPrivateResult'
 import { HydrationBoundary } from '@tanstack/react-query'
 
-export default async function FindPrivatePage() {
-  const dehydratedState = await loadFindPrivateData()
+export default async function FindPrivatePage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] }
+}) {
+  const dehydratedState = await loadFindPrivateData(searchParams)
 
   return (
     <HydrationBoundary state={dehydratedState}>
