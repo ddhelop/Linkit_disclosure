@@ -37,10 +37,14 @@ export default function FindPrivateResult() {
       {
         queryKey: ['staticFindPrivateData'],
         queryFn: getStaticFindPrivateData,
+        // 초기 데이터가 이미 서버에서 로드되었으므로 staleTime 설정
+        staleTime: 1000 * 60 * 5, // 5분
       },
       {
         queryKey: ['filteredProfiles', params],
         queryFn: () => getFindPrivateProfile(params),
+        // 초기 데이터가 이미 서버에서 로드되었으므로 staleTime 설정
+        staleTime: 1000 * 60 * 5, // 5분
       },
     ],
   })
@@ -62,7 +66,7 @@ export default function FindPrivateResult() {
       {/* 필터링된 프로필 리스트 */}
       {filteredProfiles && filteredProfiles?.result?.content?.length > 0 && (
         <div>
-          <div className="text-lg font-semibold text-black">검색 결과</div>
+          <div className="text-lg font-semibold text-black">🔍 나에게 필요한 팀원을 더 찾아보세요!</div>
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {filteredProfiles?.result?.content?.map((profile, index) => (
               <MiniProfileCard_2 key={`${profile.emailId}-${index}`} profile={profile} />

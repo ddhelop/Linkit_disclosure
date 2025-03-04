@@ -20,5 +20,5 @@ export async function getFindPrivateProfile(params: SearchParams): Promise<ApiRe
   params.skillName.forEach((skill) => queryParams.append('skillName', skill))
   queryParams.append('size', params.size.toString())
 
-  return fetchWithISR(`/profile/search?${queryParams.toString()}`, 5)
+  return fetchWithISR(`/profile/search?${queryParams.toString()}`, 1)
 }

@@ -36,18 +36,11 @@ export async function loadFindPrivateData(searchParams: { [key: string]: string 
     size: 20,
   }
 
-  // 필터링된 프로필 데이터 미리 가져오기 (URL 파라미터가 있는 경우)
-  if (
-    params.subPosition.length > 0 ||
-    params.cityName.length > 0 ||
-    params.profileStateName.length > 0 ||
-    params.skillName.length > 0
-  ) {
-    await queryClient.prefetchQuery({
-      queryKey: ['filteredProfiles', params],
-      queryFn: () => getFindPrivateProfile(params),
-    })
-  }
+  // 필터링된 프로필 데이터 항상 미리 가져오기 (필터 유무와 상관없이)
+  await queryClient.prefetchQuery({
+    queryKey: ['filteredProfiles', params],
+    queryFn: () => getFindPrivateProfile(params),
+  })
 
   return dehydrate(queryClient)
 }
