@@ -1,5 +1,5 @@
-import FindPrivateFilter from '@/features/find/components/filters/FindPrivateFilter'
-import PrivateFilterResult from '@/features/find/components/resultFilter/PrivateFilterResult'
+import FindPrivateFilter from '@/features/find-private/ui/FindPrivateFilter'
+import PrivateFilterResult from '@/features/find-private/ui/FindPrivateResult'
 
 export default function FindPrivatePage() {
   return (

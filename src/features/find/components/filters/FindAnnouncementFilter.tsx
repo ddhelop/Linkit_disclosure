@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
-import PrivateFilterModal from '../modal/PrivateFilterModal'
+import PrivateFilterModal from '../../../find-private/ui/FindPrivateFilterModal'
 import AnnouncementFilterModal from '../modal/AnnoucementFilterModal'
 
 export default function FindAnnouncementFilter() {
