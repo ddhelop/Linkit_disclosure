@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react'
 import { naverLogin } from '../api/authApi'
 
 import { useAuthStore } from '@/shared/store/useAuthStore'
+import { useLastLoggedInStore } from '@/shared/store/useLastLoggedInStore'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
 
 export const useNaverAuth = (code: string | null) => {
   const router = useRouter()
   const { setLoginState, setEmailId } = useAuthStore()
+  const { setPlatform } = useLastLoggedInStore()
   const [loading, setLoading] = useState(true)
   const { initializeClient } = useWebSocketStore()
 
@@ -25,6 +27,7 @@ export const useNaverAuth = (code: string | null) => {
           document.cookie = `accessToken=${accessToken}; path=/;`
           setLoginState(true)
           setEmailId(emailId)
+          setPlatform('naver')
 
           // 로그인 성공 후 한 번만 웹소켓 연결
           initializeClient(accessToken)

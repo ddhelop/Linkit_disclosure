@@ -2,15 +2,14 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { googleLogin } from '../api/authApi'
-import { LoginResponse } from './authType'
 
 import { useAuthStore } from '@/shared/store/useAuthStore'
-import { Client } from '@stomp/stompjs'
-import createStompClient from '@/shared/utils/stompClient'
+import { useLastLoggedInStore } from '@/shared/store/useLastLoggedInStore'
 
 export const useGoogleAuth = (code: string | null) => {
   const router = useRouter()
   const { setLoginState, setEmailId } = useAuthStore()
+  const { setPlatform } = useLastLoggedInStore()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -24,6 +23,7 @@ export const useGoogleAuth = (code: string | null) => {
           document.cookie = `accessToken=${accessToken}; path=/;`
           setLoginState(true)
           setEmailId(emailId)
+          setPlatform('google')
           router.push('/')
         } else {
           // 세션스토리지에 액세스토큰 저장
