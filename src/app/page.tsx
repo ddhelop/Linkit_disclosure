@@ -1,12 +1,12 @@
-import Banner from '@/app/(home)/ui/Banner'
-import HomeAnnouncementSection from '@/app/(home)/ui/HomeAnnouncementSection'
-import HomeTeamSection from './ui/HomeTeamSection'
-import HomeTeamMemberSection from './ui/HomeTeamMemberSection'
-import Footer from './ui/Footer'
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
-import { getAnnouncements, getPopularLog, getRecommendedTeamMembers, getRecommendedTeams } from './api/homeApi'
-import HomeLogSection from './ui/HomeLogSection'
+import Banner from '@/features/home/ui/Banner'
+import HomeAnnouncementSection from '@/features/home/ui/HomeAnnouncementSection'
+import HomeTeamSection from '../features/home/ui/HomeTeamSection'
+import HomeTeamMemberSection from '../features/home/ui/HomeTeamMemberSection'
+import Footer from '../features/home/ui/Footer'
+import { HydrationBoundary } from '@tanstack/react-query'
+import HomeLogSection from '../features/home/ui/HomeLogSection'
 import { Metadata } from 'next'
+import { loadHomeData } from '@/features/home/loader'
 
 export const metadata: Metadata = {
   title: '링킷ㅣ일하는 사람들의 연결점',
@@ -15,17 +15,8 @@ export const metadata: Metadata = {
     '팀빌딩, 팀 매칭, 팀 구성, 팀원 모집, 창업, 스타트업, 사이드프로젝트, 스타트업 팀빌딩, 창업 팀원 모집, 해커톤 팀원 모집, 대학생 팀원 모집',
 }
 
-async function getData() {
-  const queryClient = new QueryClient()
-  await queryClient.prefetchQuery({ queryKey: ['popularLog'], queryFn: getPopularLog })
-  await queryClient.prefetchQuery({ queryKey: ['announcements'], queryFn: getAnnouncements })
-  await queryClient.prefetchQuery({ queryKey: ['recommendedTeams'], queryFn: getRecommendedTeams })
-  await queryClient.prefetchQuery({ queryKey: ['recommendedTeamMembers'], queryFn: getRecommendedTeamMembers })
-  return dehydrate(queryClient)
-}
-
 export default async function HomePage() {
-  const dehydratedState = await getData()
+  const dehydratedState = await loadHomeData()
 
   return (
     <HydrationBoundary state={dehydratedState}>
