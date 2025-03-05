@@ -95,7 +95,7 @@ export default function AnnouncementFilterResult() {
   }
 
   return (
-    <div className="flex flex-col gap-12  md:px-12">
+    <div className="flex flex-col gap-6  md:px-12">
       {!isFilterApplied() && (
         <div>
           <div className="text-lg font-semibold text-black">🔥 지금 핫한 공고예요!</div>

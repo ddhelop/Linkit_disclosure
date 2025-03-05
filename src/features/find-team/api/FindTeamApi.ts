@@ -2,7 +2,6 @@
 import { fetchWithISR, fetchWithCSR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'
 import { Profile } from '@/shared/types/ProfileCardTypes'
-import { SearchParams } from '../FindPrivateType'
 import { Team } from '@/shared/types/TeamCardTypes'
 import { FindTeamSearchParams } from '../FindTeamType'
 
