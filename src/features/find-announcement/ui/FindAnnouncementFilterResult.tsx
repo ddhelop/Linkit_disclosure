@@ -95,53 +95,59 @@ export default function AnnouncementFilterResult() {
   }
 
   return (
-    <div className="flex flex-col gap-6  md:px-12">
+    <main className="flex flex-col gap-6 md:px-12">
       {!isFilterApplied() && (
-        <div>
-          <div className="text-lg font-semibold text-black">🔥 지금 핫한 공고예요!</div>
+        <section aria-labelledby="hot-announcements-heading">
+          <h2 id="hot-announcements-heading" className="text-lg font-semibold text-black">
+            🔥 지금 핫한 공고예요!
+          </h2>
 
           <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3 xl:grid-cols-3">
-            {staticAnnouncements?.result?.hotAnnouncements?.map((announcement, index) => (
-              <AnnouncementCard key={`announcement-${index}`} announcement={announcement} />
-            ))}
+            {isStaticLoading
+              ? renderSkeletons(6)
+              : staticAnnouncements?.result?.hotAnnouncements?.map((announcement, index) => (
+                  <article key={`announcement-${index}`}>
+                    <AnnouncementCard announcement={announcement} />
+                  </article>
+                ))}
           </div>
-        </div>
+        </section>
       )}
 
       {/* 공고 리스트 */}
-
-      <div>
-        <div className="text-lg font-semibold text-black">
+      <section aria-labelledby="announcement-list-heading">
+        <h2 id="announcement-list-heading" className="text-lg font-semibold text-black">
           {isFilterApplied() ? '검색 결과' : '🔍 나에게 맞는 모집 공고를 더 찾아보세요!'}
-        </div>
+        </h2>
         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3 xl:grid-cols-3">
           {isInfiniteLoading
             ? renderSkeletons(12)
             : allAnnouncements.map((announcement, index) => (
-                <AnnouncementCard key={`announcement-${index}`} announcement={announcement} />
+                <article key={`announcement-${index}`}>
+                  <AnnouncementCard announcement={announcement} />
+                </article>
               ))}
         </div>
-      </div>
+      </section>
 
       {/* 추가 데이터 로딩 중 스켈레톤 UI */}
       {isFetchingNextPage && (
-        <div>
-          <div className="grid grid-cols-1 gap-6  md:grid-cols-3">
+        <section aria-label="추가 데이터 로딩 중">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {renderSkeletons(6)} {/* 추가 로딩 시 스켈레톤 6개 표시 */}
           </div>
-        </div>
+        </section>
       )}
 
       {/* 무한 스크롤을 위한 관찰 요소 */}
-      <div ref={loadMoreRef} className="h-10" />
+      <div ref={loadMoreRef} className="h-10" aria-hidden="true" />
 
       {/* 필터링된 결과가 없을 때 */}
       {isFilterApplied() && allAnnouncements.length === 0 && !isInfiniteLoading && (
-        <div className="py-10 text-center">
+        <section aria-label="검색 결과 없음" className="py-10 text-center">
           <p className="text-lg text-gray-500">검색 결과가 없습니다.</p>
-        </div>
+        </section>
       )}
-      {/* 필요한 경우 페이지네이션 컴포넌트 추가 */}
-    </div>
+    </main>
   )
 }

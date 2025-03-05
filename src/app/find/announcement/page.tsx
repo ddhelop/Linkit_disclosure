@@ -11,7 +11,7 @@ export default async function FindAnnouncementPage({
   const dehydratedState = await loadFindAnnouncementData(searchParams)
   return (
     <HydrationBoundary state={dehydratedState}>
-      <div className={`relative w-full pb-20`}>
+      <article className="relative w-full pb-20">
         {/* 고정된 배경 이미지 */}
         <div
           className="absolute right-0 top-0 h-[14.1rem] w-full"
@@ -21,29 +21,30 @@ export default async function FindAnnouncementPage({
             backgroundPosition: 'center',
             zIndex: 0,
           }}
+          aria-hidden="true"
         ></div>
         {/* 컨텐츠 컨테이너 */}
         <div className="relative flex w-full justify-center">
-          <div className="flex w-[95%] flex-col pt-9 lg:w-[78%]">
-            <div className="flex flex-col gap-2 px-3 lg:px-16">
+          <main className="flex w-[95%] flex-col pt-9 lg:w-[78%]">
+            <header className="flex flex-col gap-2 px-3 lg:px-16">
               <h1 className="text-xs text-grey30 sm:text-base">모집 공고</h1>
-              <span className="whitespace-pre-wrap text-sm font-semibold text-white sm:text-2xl">
+              <p className="whitespace-pre-wrap text-sm font-semibold text-white sm:text-2xl">
                 모집 중인 공고를 확인하고 원하는 팀에 지원해 보세요
-              </span>
-            </div>
+              </p>
+            </header>
 
             {/* 필터 */}
-            <div className="mt-[2.19rem]">
+            <section className="mt-[2.19rem]" aria-label="공고 검색 필터">
               <FindAnnouncementFilter />
-            </div>
+            </section>
 
             {/* 필터링 결과 */}
-            <div className="mt-12">
+            <section className="mt-12" aria-label="공고 검색 결과">
               <AnnouncementFilterResult />
-            </div>
-          </div>
+            </section>
+          </main>
         </div>
-      </div>
+      </article>
     </HydrationBoundary>
   )
 }
