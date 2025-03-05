@@ -73,3 +73,24 @@ export async function fetchWithISR<T>(endpoint: string, revalidate: number = 60)
 export async function fetchWithSSR<T>(endpoint: string): Promise<T> {
   return fetchApi(endpoint, { revalidate: false })
 }
+
+/**
+ * CSR 방식으로 데이터를 가져오는 함수 (클라이언트 측에서 호출)
+ * @param endpoint API 엔드포인트
+ * @returns JSON 데이터
+ */
+export async function fetchWithCSR<T>(endpoint: string): Promise<T> {
+  try {
+    const res = await fetch(`${BASE_URL}/api/v1${endpoint}`)
+
+    if (!res.ok) {
+      throw new Error(`API 요청 실패: ${res.status} ${res.statusText}`)
+    }
+
+    const apiResponse = await res.json()
+    return apiResponse
+  } catch (error) {
+    console.error(`❌ API 호출 오류 (${endpoint}):`, error)
+    throw error
+  }
+}

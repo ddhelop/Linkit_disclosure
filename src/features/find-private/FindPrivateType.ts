@@ -5,4 +5,12 @@ export type SearchParams = {
   profileStateName: string[]
   skillName: string[]
   size: number
+  cursor?: string
+}
+
+// 무한 스크롤 응답 타입
+export type InfiniteProfileResponse = {
+  content: Profile[]
+  hasNext: boolean
+  nextCursor?: string
 }
