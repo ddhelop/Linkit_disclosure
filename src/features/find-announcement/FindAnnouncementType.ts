@@ -6,7 +6,7 @@ export type FindAnnouncementSearchParams = {
   cityName: string[]
   scaleName: string[]
   size: number
-  cursor?: string
+  cursor?: number
 }
 
 // 무한 스크롤 응답 타입

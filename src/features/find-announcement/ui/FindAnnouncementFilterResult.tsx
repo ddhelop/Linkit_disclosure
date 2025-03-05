@@ -1,13 +1,11 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { getFindAnnouncement } from '../../find/api/FindApi'
 
 import AnnouncementCard from '@/shared/components/AnnouncementCard'
 import { FindAnnouncementSearchParams } from '../FindAnnouncementType'
 import { getFindAnnouncementProfile, getStaticFindAnnouncementData } from '../api/FindAnnouncementApi'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
-import MiniTeamCardSkeleton from '@/shared/components/MiniTeamCardSkeleton'
 import AnnouncementCardSkeleton from '@/shared/components/AnnouncementCardSkeleton'
 
 export default function AnnouncementFilterResult() {
@@ -45,14 +43,14 @@ export default function AnnouncementFilterResult() {
     isLoading: isInfiniteLoading,
   } = useInfiniteQuery({
     queryKey: ['infiniteAnnouncements', params],
-    queryFn: ({ pageParam }: { pageParam: string | undefined }) =>
+    queryFn: ({ pageParam }: { pageParam: number | undefined }) =>
       getFindAnnouncementProfile({ ...params, cursor: pageParam }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
       // 다음 페이지가 있는지 확인하고, 있다면 마지막 프로필의 emailId를 cursor로 사용
-      const profiles = lastPage.result.content
-      if (profiles.length > 0 && lastPage.result.hasNext) {
-        return profiles[profiles.length - 1].teamCode
+      const announcements = lastPage.result.content
+      if (announcements.length > 0 && lastPage.result.hasNext) {
+        return announcements[announcements.length - 1].teamMemberAnnouncementId
       }
       return undefined
     },
@@ -128,7 +126,7 @@ export default function AnnouncementFilterResult() {
       {/* 추가 데이터 로딩 중 스켈레톤 UI */}
       {isFetchingNextPage && (
         <div>
-          <div className="grid grid-cols-1 gap-6  md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6  md:grid-cols-3">
             {renderSkeletons(6)} {/* 추가 로딩 시 스켈레톤 6개 표시 */}
           </div>
         </div>

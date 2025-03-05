@@ -1,8 +1,6 @@
 // src/app/(home)/api/homeApi.ts
 import { fetchWithISR, fetchWithCSR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'
-
-import { Team } from '@/shared/types/TeamCardTypes'
 import { FindAnnouncementSearchParams } from '../FindAnnouncementType'
 import { Announcement } from '@/shared/types/AnnouncementTypes'
 
@@ -23,7 +21,7 @@ export async function getFindAnnouncementProfile(
   params.scaleName.forEach((state) => queryParams.append('scaleName', state))
 
   if (params.cursor) {
-    queryParams.append('cursor', params.cursor)
+    queryParams.append('cursor', params.cursor.toString())
   }
 
   queryParams.append('size', params.size.toString())
