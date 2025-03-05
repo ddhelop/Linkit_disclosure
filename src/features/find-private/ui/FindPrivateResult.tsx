@@ -48,7 +48,8 @@ export default function FindPrivateResult() {
     isLoading: isInfiniteLoading,
   } = useInfiniteQuery({
     queryKey: ['infiniteProfiles', params],
-    queryFn: ({ pageParam }) => getFindPrivateProfile({ ...params, cursor: pageParam }),
+    queryFn: ({ pageParam }: { pageParam: string | undefined }) =>
+      getFindPrivateProfile({ ...params, cursor: pageParam }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
       // 다음 페이지가 있는지 확인하고, 있다면 마지막 프로필의 emailId를 cursor로 사용
