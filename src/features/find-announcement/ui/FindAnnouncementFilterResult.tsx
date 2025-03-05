@@ -1,52 +1,52 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import MiniTeamCard_2 from '@/shared/components/MiniTeamCard_2'
-import { FindTeamSearchParams } from '../FindTeamType'
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
-import { getStaticFindTeamData } from '../api/FindTeamApi'
-import { getFindTeamProfile } from '@/features/find-private/api/FindTeamApi'
-import MiniTeamCardSkeleton from '@/shared/components/MiniTeamCardSkeleton'
+import { getFindAnnouncement } from '../../find/api/FindApi'
 
-export default function TeamFilterResult() {
+import AnnouncementCard from '@/shared/components/AnnouncementCard'
+import { FindAnnouncementSearchParams } from '../FindAnnouncementType'
+import { getFindAnnouncementProfile, getStaticFindAnnouncementData } from '../api/FindAnnouncementApi'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import MiniTeamCardSkeleton from '@/shared/components/MiniTeamCardSkeleton'
+import AnnouncementCardSkeleton from '@/shared/components/AnnouncementCardSkeleton'
+
+export default function AnnouncementFilterResult() {
   const searchParams = useSearchParams()
   const observerRef = useRef<IntersectionObserver | null>(null)
   const loadMoreRef = useRef<HTMLDivElement>(null)
 
   // URL 파라미터에서 검색 조건 추출
-  const params: FindTeamSearchParams = {
-    scaleName: searchParams.getAll('scaleName'),
+  const params: FindAnnouncementSearchParams = {
+    subPosition: searchParams.getAll('subPosition'),
     cityName: searchParams.getAll('cityName'),
-    teamStateName: searchParams.getAll('teamStateName'),
+    scaleName: searchParams.getAll('scaleName'),
     size: 20,
   }
 
-  // 필터 적용 여부 확인
   const isFilterApplied = () => {
     return (
-      searchParams.getAll('scaleName').length > 0 ||
-      searchParams.getAll('cityName').length > 0 ||
-      searchParams.getAll('teamStateName').length > 0
+      searchParams.getAll('subPosition').length > 0 || searchParams.has('cityName') || searchParams.has('scaleName')
     )
   }
 
   // 정적 프로필 데이터 가져오기
-  const { data: staticTeams, isLoading: isStaticLoading } = useQuery({
-    queryKey: ['staticFindTeamData'],
-    queryFn: getStaticFindTeamData,
+  const { data: staticAnnouncements, isLoading: isStaticLoading } = useQuery({
+    queryKey: ['staticFindAnnouncementData'],
+    queryFn: getStaticFindAnnouncementData,
     staleTime: 1000 * 60 * 5, // 5분
   })
 
   // 무한 스크롤을 위한 프로필 데이터 가져오기
   const {
-    data: infiniteTeams,
+    data: infiniteAnnouncements,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
     isLoading: isInfiniteLoading,
   } = useInfiniteQuery({
-    queryKey: ['infiniteTeams', params],
-    queryFn: ({ pageParam }: { pageParam: string | undefined }) => getFindTeamProfile({ ...params, cursor: pageParam }),
+    queryKey: ['infiniteAnnouncements', params],
+    queryFn: ({ pageParam }: { pageParam: string | undefined }) =>
+      getFindAnnouncementProfile({ ...params, cursor: pageParam }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
       // 다음 페이지가 있는지 확인하고, 있다면 마지막 프로필의 emailId를 cursor로 사용
@@ -87,50 +87,41 @@ export default function TeamFilterResult() {
   }, [fetchNextPage, hasNextPage, isFetchingNextPage])
 
   // 모든 프로필 데이터 합치기
-  const allTeams = infiniteTeams?.pages.flatMap((page) => page.result.content) || []
+  const allAnnouncements = infiniteAnnouncements?.pages.flatMap((page) => page.result.content) || []
 
   // 스켈레톤 UI 렌더링 함수
   const renderSkeletons = (count: number) => {
     return Array(count)
       .fill(0)
-      .map((_, index) => <MiniTeamCardSkeleton key={`skeleton-${index}`} />)
+      .map((_, index) => <AnnouncementCardSkeleton key={`skeleton-${index}`} />)
   }
 
   return (
-    <div className="flex flex-col gap-16 md:px-12">
-      {/* 벤처 팀 */}
+    <div className="flex flex-col gap-12  md:px-12">
       {!isFilterApplied() && (
         <div>
-          <div className="text-lg font-semibold text-black">🔥 창업을 위한 팀원을 찾고 있어요!</div>
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 ">
-            {staticTeams?.result?.ventureTeams?.map((team, index) => (
-              <MiniTeamCard_2 key={`${team.teamName}-${index}`} team={team} />
+          <div className="text-lg font-semibold text-black">🔥 지금 핫한 공고예요!</div>
+
+          <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3 xl:grid-cols-3">
+            {staticAnnouncements?.result?.hotAnnouncements?.map((announcement, index) => (
+              <AnnouncementCard key={`announcement-${index}`} announcement={announcement} />
             ))}
           </div>
         </div>
       )}
 
-      {/* 지원 사업 팀 */}
-      {/* {supportProjectTeams?.length > 0 && (
-        <div>
-          <div className="text-lg font-semibold text-black">💰 지원사업을 준비 중인 팀이에요!</div>
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {supportProjectTeams?.map((team, index) => (
-              <MiniTeamCard_2 key={`${team.teamName}-${index}`} team={team} />
-            ))}
-          </div>
-        </div>
-      )} */}
+      {/* 공고 리스트 */}
 
-      {/* 팀 리스트 */}
       <div>
         <div className="text-lg font-semibold text-black">
-          {isFilterApplied() ? '검색 결과' : '🔍 나에게 필요한 팀을 더 찾아보세요!'}
+          {isFilterApplied() ? '검색 결과' : '🔍 나에게 맞는 모집 공고를 더 찾아보세요!'}
         </div>
-        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3 xl:grid-cols-3">
           {isInfiniteLoading
             ? renderSkeletons(12)
-            : allTeams.map((team, index) => <MiniTeamCard_2 key={`${team.teamName}-${index}`} team={team} />)}
+            : allAnnouncements.map((announcement, index) => (
+                <AnnouncementCard key={`announcement-${index}`} announcement={announcement} />
+              ))}
         </div>
       </div>
 
@@ -147,7 +138,7 @@ export default function TeamFilterResult() {
       <div ref={loadMoreRef} className="h-10" />
 
       {/* 필터링된 결과가 없을 때 */}
-      {isFilterApplied() && allTeams.length === 0 && !isInfiniteLoading && (
+      {isFilterApplied() && allAnnouncements.length === 0 && !isInfiniteLoading && (
         <div className="py-10 text-center">
           <p className="text-lg text-gray-500">검색 결과가 없습니다.</p>
         </div>
