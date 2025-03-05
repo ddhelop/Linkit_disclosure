@@ -1,12 +1,12 @@
 'use client'
-import { useLastLoggedInStore } from '@/shared/store/useLastLoggedInStore'
+import { useRecentLoginStore } from '@/shared/store/useRecentLoginStore'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import LastLoggedInAccount from './LastLoggedInAccount'
+import RecentLogin from './RecentLogin'
 
 export default function Login() {
-  const { platform } = useLastLoggedInStore()
+  const { platform } = useRecentLoginStore()
 
   // kakao_login
   const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID
@@ -55,7 +55,7 @@ export default function Login() {
         <div className="mt-[1.62rem] flex w-full flex-col items-center gap-3">
           {/* naver */}
           <div className="relative w-[90%] sm:w-[23.11rem]">
-            {platform == 'naver' && <LastLoggedInAccount />}
+            {platform == 'naver' && <RecentLogin />}
             <Link
               href={NAVER_AUTH_URL}
               className="flex w-full items-center justify-center gap-3 rounded-[0.39rem] bg-[#00C73C] py-3 hover:opacity-80"
@@ -67,7 +67,7 @@ export default function Login() {
 
           {/* kakao */}
           <div className="relative w-[90%] sm:w-[23.11rem]">
-            {platform == 'kakao' && <LastLoggedInAccount />}
+            {platform == 'kakao' && <RecentLogin />}
             <Link
               href={KAKAO_AUTH_URL}
               className="flex w-full items-center justify-center gap-3 rounded-[0.39rem] bg-[#FFE500] py-3 hover:opacity-80"
@@ -79,7 +79,7 @@ export default function Login() {
 
           {/* google */}
           <div className="relative w-[90%] sm:w-[23.11rem]">
-            {platform == 'google' && <LastLoggedInAccount />}
+            {platform == 'google' && <RecentLogin />}
             <Link
               href={GOOGLE_AUTH_URL}
               className="flex w-full items-center justify-center gap-3 rounded-[0.39rem] border border-grey30 py-3 pr-2 hover:bg-grey10"
