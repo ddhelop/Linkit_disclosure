@@ -1,9 +1,13 @@
 'use client'
+import { useRecentLoginStore } from '@/shared/store/useRecentLoginStore'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import RecentLogin from './RecentLogin'
 
 export default function Login() {
+  const { platform } = useRecentLoginStore()
+
   // kakao_login
   const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID
   const KAKAO_REDIRECT_URI = `${process.env.NEXT_PUBLIC_LINKIT_REDIRECT_URL}/login/oauth2/callback/kakao`
@@ -50,31 +54,40 @@ export default function Login() {
 
         <div className="mt-[1.62rem] flex w-full flex-col items-center gap-3">
           {/* naver */}
-          <Link
-            href={NAVER_AUTH_URL}
-            className="flex w-[90%] items-center justify-center gap-3 rounded-[0.39rem] bg-[#00C73C] py-3 hover:opacity-80 sm:w-[23.11rem]"
-          >
-            <Image src="/features/auth/naver_logo.svg" width={16} height={16} alt="kakao" />
-            <p className="text-sm text-white">네이버로 시작하기</p>
-          </Link>
+          <div className="relative w-[90%] sm:w-[23.11rem]">
+            {platform == 'naver' && <RecentLogin />}
+            <Link
+              href={NAVER_AUTH_URL}
+              className="flex w-full items-center justify-center gap-3 rounded-[0.39rem] bg-[#00C73C] py-3 hover:opacity-80"
+            >
+              <Image src="/features/auth/naver_logo.svg" width={16} height={16} alt="kakao" />
+              <p className="text-sm text-white">네이버로 시작하기</p>
+            </Link>
+          </div>
 
           {/* kakao */}
-          <Link
-            href={KAKAO_AUTH_URL}
-            className="flex w-[90%] items-center justify-center gap-3 rounded-[0.39rem] bg-[#FFE500] py-3 hover:opacity-80 sm:w-[23.11rem]"
-          >
-            <Image src="/features/auth/kakao_logo.svg" width={20} height={20} alt="kakao" />
-            <p className="text-sm text-grey100">카카오로 시작하기</p>
-          </Link>
+          <div className="relative w-[90%] sm:w-[23.11rem]">
+            {platform == 'kakao' && <RecentLogin />}
+            <Link
+              href={KAKAO_AUTH_URL}
+              className="flex w-full items-center justify-center gap-3 rounded-[0.39rem] bg-[#FFE500] py-3 hover:opacity-80"
+            >
+              <Image src="/features/auth/kakao_logo.svg" width={20} height={20} alt="kakao" />
+              <p className="text-sm text-grey100">카카오로 시작하기</p>
+            </Link>
+          </div>
 
           {/* google */}
-          <Link
-            href={GOOGLE_AUTH_URL}
-            className="flex w-[90%] items-center justify-center gap-3 rounded-[0.39rem] border border-grey30 py-3 pr-2 hover:bg-grey10 sm:w-[23.11rem]"
-          >
-            <Image src="/features/auth/google_logo.svg" width={20} height={20} alt="kakao" />
-            <p className="text-sm text-grey100">구글로 시작하기</p>
-          </Link>
+          <div className="relative w-[90%] sm:w-[23.11rem]">
+            {platform == 'google' && <RecentLogin />}
+            <Link
+              href={GOOGLE_AUTH_URL}
+              className="flex w-full items-center justify-center gap-3 rounded-[0.39rem] border border-grey30 py-3 pr-2 hover:bg-grey10"
+            >
+              <Image src="/features/auth/google_logo.svg" width={20} height={20} alt="kakao" />
+              <p className="text-sm text-grey100">구글로 시작하기</p>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
