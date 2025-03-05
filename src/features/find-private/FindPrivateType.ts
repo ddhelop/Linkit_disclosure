@@ -1,3 +1,5 @@
+import { Profile } from '@/shared/types/ProfileCardTypes'
+
 // 검색 파라미터 타입 정의
 export type SearchParams = {
   subPosition: string[]
