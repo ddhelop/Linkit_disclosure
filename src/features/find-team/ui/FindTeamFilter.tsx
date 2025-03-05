@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
-import TeamFilterModal from '../modal/TeamFilterModal'
+import TeamFilterModal from './TeamFilterModal'
 
 export default function FindTeamFilter() {
   const router = useRouter()
