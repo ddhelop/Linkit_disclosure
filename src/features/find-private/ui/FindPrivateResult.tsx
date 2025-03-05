@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 import MiniProfileCard_2 from '@/shared/components/MiniProfileCard_2'
+import MiniProfileCardSkeleton from '@/shared/components/MiniProfileCardSkeleton'
 import { getStaticFindPrivateData, getFindPrivateProfile } from '../api/FindPrivateApi'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { SearchParams } from '../FindPrivateType'
@@ -90,36 +91,47 @@ export default function FindPrivateResult() {
   // 모든 프로필 데이터 합치기
   const allProfiles = infiniteProfiles?.pages.flatMap((page) => page.result.content) || []
 
+  // 스켈레톤 UI 렌더링 함수
+  const renderSkeletons = (count: number) => {
+    return Array(count)
+      .fill(0)
+      .map((_, index) => <MiniProfileCardSkeleton key={`skeleton-${index}`} />)
+  }
+
   return (
-    <div className="flex flex-col gap-16 md:px-12">
+    <div className="flex flex-col gap-6 md:px-12">
       {/* 완성도 높은 팀원 (필터가 없을 때만 표시) */}
-      {!isFilterApplied() && staticProfiles && staticProfiles?.result?.topCompletionProfiles?.length > 0 && (
+      {!isFilterApplied() && (
         <div>
           <div className="text-lg font-semibold text-black">🔥 프로필 완성도가 가장 높은 팀원이에요!</div>
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {staticProfiles.result.topCompletionProfiles.map((profile, index) => (
-              <MiniProfileCard_2 key={`${profile.emailId}-${index}`} profile={profile} />
-            ))}
+            {isStaticLoading
+              ? renderSkeletons(6) // 상위 프로필 로딩 중 스켈레톤 6개 표시
+              : staticProfiles?.result?.topCompletionProfiles?.map((profile, index) => (
+                  <MiniProfileCard_2 key={`${profile.emailId}-${index}`} profile={profile} />
+                ))}
           </div>
         </div>
       )}
 
       {/* 필터링된 프로필 리스트 */}
-      {allProfiles.length > 0 && (
-        <div>
-          <div className="text-lg font-semibold text-black">🔍 나에게 필요한 팀원을 더 찾아보세요!</div>
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {allProfiles.map((profile, index) => (
-              <MiniProfileCard_2 key={`${profile.emailId}-${index}`} profile={profile} />
-            ))}
-          </div>
+      <div>
+        <div className="text-lg font-semibold text-black">🔍 나에게 필요한 팀원을 더 찾아보세요!</div>
+        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          {isInfiniteLoading
+            ? renderSkeletons(12) // 무한 스크롤 데이터 로딩 중 스켈레톤 12개 표시
+            : allProfiles.map((profile, index) => (
+                <MiniProfileCard_2 key={`${profile.emailId}-${index}`} profile={profile} />
+              ))}
         </div>
-      )}
+      </div>
 
-      {/* 로딩 중 표시 */}
+      {/* 추가 데이터 로딩 중 스켈레톤 UI */}
       {isFetchingNextPage && (
-        <div className="py-4 text-center">
-          <p className="text-gray-500">더 많은 프로필을 불러오는 중...</p>
+        <div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            {renderSkeletons(6)} {/* 추가 로딩 시 스켈레톤 6개 표시 */}
+          </div>
         </div>
       )}
 
