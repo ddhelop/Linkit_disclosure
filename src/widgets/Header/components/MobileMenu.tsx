@@ -20,6 +20,7 @@ export default function MobileMenu({ isLogin, onClose, onLogout }: MobileMenuPro
       role="menu"
     >
       {isLogin ? (
+
         <ul className="w-full space-y-4" role="menubar">
           <li role="none">
             <Link href="/find/private" className="flex gap-3 text-sm text-gray-700" onClick={onClose} role="menuitem">
@@ -90,6 +91,7 @@ export default function MobileMenu({ isLogin, onClose, onLogout }: MobileMenuPro
             </button>
           </li>
         </ul>
+
       ) : (
         <ul className="w-full space-y-4" role="menubar">
           <li role="none">
