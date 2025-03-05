@@ -69,7 +69,12 @@ export default function FindPrivateResult() {
             fetchNextPage()
           }
         },
-        { threshold: 0.1 },
+        {
+          threshold: 0.1,
+          // rootMargin을 사용하여 요소가 화면에 보이기 전에 미리 감지
+          // 아래쪽으로 20% 더 확장된 영역을 관찰 영역으로 설정
+          rootMargin: '0px 0px 20% 0px',
+        },
       )
 
       observerRef.current.observe(loadMoreRef.current)
