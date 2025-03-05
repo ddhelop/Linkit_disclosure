@@ -100,51 +100,59 @@ export default function FindPrivateResult() {
   }
 
   return (
-    <div className="flex flex-col gap-6 md:px-12">
+    <main className="flex flex-col gap-6 md:px-12">
       {/* 완성도 높은 팀원 (필터가 없을 때만 표시) */}
       {!isFilterApplied() && (
-        <div>
-          <div className="text-lg font-semibold text-black">🔥 프로필 완성도가 가장 높은 팀원이에요!</div>
+        <section aria-labelledby="top-profiles-heading">
+          <h2 id="top-profiles-heading" className="text-lg font-semibold text-black">
+            🔥 프로필 완성도가 가장 높은 팀원이에요!
+          </h2>
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {isStaticLoading
               ? renderSkeletons(6) // 상위 프로필 로딩 중 스켈레톤 6개 표시
               : staticProfiles?.result?.topCompletionProfiles?.map((profile, index) => (
-                  <MiniProfileCard_2 key={`${profile.emailId}-${index}`} profile={profile} />
+                  <article key={`${profile.emailId}-${index}`}>
+                    <MiniProfileCard_2 profile={profile} />
+                  </article>
                 ))}
           </div>
-        </div>
+        </section>
       )}
 
       {/* 필터링된 프로필 리스트 */}
-      <div>
-        <div className="text-lg font-semibold text-black">🔍 나에게 필요한 팀원을 더 찾아보세요!</div>
+      <section aria-labelledby="profile-list-heading">
+        <h2 id="profile-list-heading" className="text-lg font-semibold text-black">
+          {isFilterApplied() ? '검색 결과' : '🔍 나에게 필요한 팀원을 더 찾아보세요!'}
+        </h2>
         <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {isInfiniteLoading
             ? renderSkeletons(12) // 무한 스크롤 데이터 로딩 중 스켈레톤 12개 표시
             : allProfiles.map((profile, index) => (
-                <MiniProfileCard_2 key={`${profile.emailId}-${index}`} profile={profile} />
+                <article key={`${profile.emailId}-${index}`}>
+                  <MiniProfileCard_2 profile={profile} />
+                </article>
               ))}
         </div>
-      </div>
+      </section>
 
       {/* 추가 데이터 로딩 중 스켈레톤 UI */}
       {isFetchingNextPage && (
-        <div>
+        <section aria-label="추가 데이터 로딩 중">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {renderSkeletons(6)} {/* 추가 로딩 시 스켈레톤 6개 표시 */}
           </div>
-        </div>
+        </section>
       )}
 
       {/* 무한 스크롤을 위한 관찰 요소 */}
-      <div ref={loadMoreRef} className="h-10" />
+      <div ref={loadMoreRef} className="h-10" aria-hidden="true" />
 
       {/* 필터링된 결과가 없을 때 */}
       {isFilterApplied() && allProfiles.length === 0 && !isInfiniteLoading && (
-        <div className="py-10 text-center">
+        <section aria-label="검색 결과 없음" className="py-10 text-center">
           <p className="text-lg text-gray-500">검색 결과가 없습니다.</p>
-        </div>
+        </section>
       )}
-    </div>
+    </main>
   )
 }
