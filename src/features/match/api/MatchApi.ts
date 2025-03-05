@@ -11,29 +11,31 @@ import {
   AnnouncementInformMenu,
   SenderType,
 } from '../types/MatchTypes'
+import { Profile } from '@/shared/types/ProfileCardTypes'
+import { Team } from '@/shared/types/TeamCardTypes'
+import { Announcement } from '@/shared/types/AnnouncementTypes'
+import { ApiResponse } from '@/shared/types/ApiResponse'
 
-export const getProfileScraps = async (): Promise<ProfileInform[]> => {
+export const getProfileScraps = async (): Promise<ApiResponse<{ profileInformMenus: Profile[] }>> => {
   try {
     const response = await fetchWithAuth('/api/v1/profile/scrap')
     if (!response.ok) {
       throw new Error('Failed to fetch profile scraps')
     }
-    const data: ScrapResponse = await response.json()
-    return data.result.profileInformMenus
+    return response.json()
   } catch (error) {
     console.error('Error fetching profile scraps:', error)
     throw error
   }
 }
 
-export const getTeamScraps = async (): Promise<TeamInformMenu[]> => {
+export const getTeamScraps = async (): Promise<ApiResponse<{ teamInformMenus: Team[] }>> => {
   try {
     const response = await fetchWithAuth('/api/v1/team/scrap')
     if (!response.ok) {
       throw new Error('Failed to fetch team scraps')
     }
-    const data: TeamScrapResponse = await response.json()
-    return data.result.teamInformMenus
+    return response.json()
   } catch (error) {
     console.error('Error fetching team scraps:', error)
     throw error

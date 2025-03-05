@@ -1,6 +1,5 @@
 'use client'
 
-import { Team } from '@/features/find/types/FindTypes'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -8,6 +7,7 @@ import { teamScrap } from '../api/commonApi'
 import { useToast } from '../hooks/useToast'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '../store/useAuthStore'
+import { Team } from '../types/TeamCardTypes'
 
 interface MiniTeamCard_2Props {
   team: Team

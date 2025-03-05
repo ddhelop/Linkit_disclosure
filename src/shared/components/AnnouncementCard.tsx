@@ -1,16 +1,16 @@
 'use client'
-import { Announcement } from '@/features/find/types/FindTypes'
 
 import Image from 'next/image'
 import { useState } from 'react'
 import { announcementScrap } from '../api/commonApi'
 import Link from 'next/link'
 import { useToast } from '../hooks/useToast'
-import { AnnouncementInformMenu } from '@/features/match/types/MatchTypes'
+
 import { useAuthStore } from '../store/useAuthStore'
 import { useRouter } from 'next/navigation'
+import { Announcement } from '../types/AnnouncementTypes'
 
-export default function AnnouncementCard({ announcement }: { announcement: AnnouncementInformMenu }) {
+export default function AnnouncementCard({ announcement }: { announcement: Announcement }) {
   const [isScrap, setIsScrap] = useState(announcement?.isAnnouncementScrap ?? false)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
   const [scrapCount, setScrapCount] = useState(announcement?.announcementScrapCount ?? 0)
@@ -36,7 +36,6 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
         toast.success('스크랩 상태가 변경되었습니다.')
       }
     } catch (error) {
-      console.error('Failed to update scrap:', error)
       toast.alert('오류가 발생하였습니다.')
     } finally {
       setIsScrapLoading(false)

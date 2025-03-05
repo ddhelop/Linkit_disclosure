@@ -1,14 +1,27 @@
+'use client'
+import type { LogCardType } from '@/shared/types/LogCardTypes'
 import Image from 'next/image'
-import { ILogCard } from '@/shared/types/Card/LogCardTypes'
 import Link from 'next/link'
+import parse from 'html-react-parser'
+import { useEffect, useState } from 'react'
 
-export default function LogCard({ log }: { log: ILogCard }) {
+export default function LogCard({ log }: { log: LogCardType }) {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted || !log || !log.logInformDetails) {
+    return <div>Loading...</div> // 데이터가 없을 경우 대비
+  }
+
   return (
     <Link
       href={
         log.domainType === 'PROFILE'
-          ? `/${log.logInformDetails.emailId}/logs/${log.id}`
-          : `/team/${log.logInformDetails.teamCode}/log/${log.id}`
+          ? `/${log.logInformDetails?.emailId}/logs/${log.id}`
+          : `/team/${log.logInformDetails?.teamCode}/log/${log.id}`
       }
       className="flex flex-col gap-3 rounded-xl border border-transparent px-8 py-6 hover:border-main"
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
@@ -17,14 +30,14 @@ export default function LogCard({ log }: { log: ILogCard }) {
         <div className="relative h-[28px] w-[28px] rounded-lg">
           {log.domainType === 'PROFILE' ? (
             <Image
-              src={log.logInformDetails.profileImagePath || '/common/default_profile.svg'}
+              src={log.logInformDetails?.profileImagePath || '/common/default_profile.svg'}
               alt="팀 로고"
               fill
               className="rounded-lg object-cover"
             />
           ) : (
             <Image
-              src={log.logInformDetails.teamLogoImagePath}
+              src={log.logInformDetails?.teamLogoImagePath || '/common/default_team.svg'}
               alt="팀 로고"
               fill
               className="rounded-lg object-cover"
@@ -32,9 +45,9 @@ export default function LogCard({ log }: { log: ILogCard }) {
           )}
         </div>
         {log.domainType === 'PROFILE' ? (
-          <span className="text-sm font-semibold text-grey90">{log.logInformDetails.memberName}</span>
+          <span className="text-sm font-semibold text-grey90">{log.logInformDetails?.memberName || '이름 없음'}</span>
         ) : (
-          <span className="text-sm font-semibold text-grey90">{log.logInformDetails.teamName}</span>
+          <span className="text-sm font-semibold text-grey90">{log.logInformDetails?.teamName || '팀 없음'}</span>
         )}
       </div>
       <div className="flex justify-between">
@@ -52,10 +65,9 @@ export default function LogCard({ log }: { log: ILogCard }) {
           WebkitBoxOrient: 'vertical',
           maxHeight: '5.6em', // line-height: 1.4 * 4줄
         }}
-        dangerouslySetInnerHTML={{
-          __html: log.logContent,
-        }}
-      />
+      >
+        {log.logContent ? parse(log.logContent) : '내용 없음'}
+      </div>
     </Link>
   )
 }
