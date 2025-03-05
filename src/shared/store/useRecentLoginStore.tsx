@@ -3,12 +3,12 @@ import { persist } from 'zustand/middleware'
 
 export type Platform = 'naver' | 'kakao' | 'google'
 
-interface LastLoggedInStore {
+interface RecentLoginStore {
   platform: Platform | null
   setPlatform: (platform: Platform) => void
 }
 
-export const useLastLoggedInStore = create<LastLoggedInStore>()(
+export const useRecentLoginStore = create<RecentLoginStore>()(
   persist(
     (set) => ({
       platform: null,
@@ -18,7 +18,7 @@ export const useLastLoggedInStore = create<LastLoggedInStore>()(
       },
     }),
     {
-      name: 'last-logged-in-storage',
+      name: 'recent-login-storage',
       partialize: (state) => ({
         platform: state.platform,
       }),

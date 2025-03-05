@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react'
 import { kakaoLogin } from '../api/authApi'
 
 import { useAuthStore } from '@/shared/store/useAuthStore'
-import { useLastLoggedInStore } from '@/shared/store/useLastLoggedInStore'
+import { useRecentLoginStore } from '@/shared/store/useRecentLoginStore'
 
 export const useKakaoAuth = (code: string | null) => {
   const router = useRouter()
   const { setLoginState, setEmailId } = useAuthStore()
-  const { setPlatform } = useLastLoggedInStore()
+  const { setPlatform } = useRecentLoginStore()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {

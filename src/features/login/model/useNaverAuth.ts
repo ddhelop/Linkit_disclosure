@@ -4,13 +4,13 @@ import { useEffect, useState } from 'react'
 import { naverLogin } from '../api/authApi'
 
 import { useAuthStore } from '@/shared/store/useAuthStore'
-import { useLastLoggedInStore } from '@/shared/store/useLastLoggedInStore'
+import { useRecentLoginStore } from '@/shared/store/useRecentLoginStore'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
 
 export const useNaverAuth = (code: string | null) => {
   const router = useRouter()
   const { setLoginState, setEmailId } = useAuthStore()
-  const { setPlatform } = useLastLoggedInStore()
+  const { setPlatform } = useRecentLoginStore()
   const [loading, setLoading] = useState(true)
   const { initializeClient } = useWebSocketStore()
 
