@@ -97,7 +97,7 @@ export default function TeamFilterResult() {
   }
 
   return (
-    <div className="flex flex-col gap-16 md:px-12">
+    <div className="flex flex-col gap-6 md:px-12">
       {/* 벤처 팀 */}
       {!isFilterApplied() && (
         <div>
@@ -111,16 +111,15 @@ export default function TeamFilterResult() {
       )}
 
       {/* 지원 사업 팀 */}
-      {/* {supportProjectTeams?.length > 0 && (
-        <div>
-          <div className="text-lg font-semibold text-black">💰 지원사업을 준비 중인 팀이에요!</div>
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {supportProjectTeams?.map((team, index) => (
-              <MiniTeamCard_2 key={`${team.teamName}-${index}`} team={team} />
-            ))}
-          </div>
+
+      <div>
+        <div className="text-lg font-semibold text-black">💰 지원사업을 준비 중인 팀이에요!</div>
+        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {staticTeams?.result?.supportProjectTeams?.map((team, index) => (
+            <MiniTeamCard_2 key={`${team.teamName}-${index}`} team={team} />
+          ))}
         </div>
-      )} */}
+      </div>
 
       {/* 팀 리스트 */}
       <div>

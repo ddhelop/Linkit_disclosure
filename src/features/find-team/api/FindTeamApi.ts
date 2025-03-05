@@ -7,7 +7,9 @@ import { Team } from '@/shared/types/TeamCardTypes'
 import { FindTeamSearchParams } from '../FindTeamType'
 
 // ✅ 고정 프로필 데이터 가져오기
-export async function getStaticFindTeamData(): Promise<ApiResponse<{ ventureTeams: Team[] }>> {
+export async function getStaticFindTeamData(): Promise<
+  ApiResponse<{ ventureTeams: Team[]; supportProjectTeams: Team[] }>
+> {
   return fetchWithISR('/team/search/featured', 1)
 }
 
