@@ -1,10 +1,11 @@
+'use client'
 import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
-import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { EditableContainer } from './common/EditableContainer'
 
-export default function ProfileViewLog() {
+export default function ProfileViewLog({ id }: { id?: string }) {
   const { profileData } = useProfileView()
   const logItem = profileData?.profileLogItem
   const isMyProfile = profileData?.isMyProfile

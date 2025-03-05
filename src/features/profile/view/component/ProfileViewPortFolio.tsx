@@ -1,9 +1,10 @@
+'use client'
 import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 import { EditableContainer } from './common/EditableContainer'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function ProfileViewPortFolio() {
+export default function ProfileViewPortFolio({ id }: { id?: string }) {
   const { profileData } = useProfileView()
   const isMyProfile = profileData?.isMyProfile
   const portfolioItems = profileData?.profilePortfolioItems || []

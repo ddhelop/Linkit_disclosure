@@ -2,7 +2,7 @@
 import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 import { EditableContainer } from './common/EditableContainer'
 
-export default function ProfileViewSkills() {
+export default function ProfileViewSkills({ id }: { id?: string }) {
   const { profileData } = useProfileView()
   const skillItems = profileData?.profileSkillItems || []
   const isMyProfile = profileData?.isMyProfile

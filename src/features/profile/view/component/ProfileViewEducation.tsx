@@ -4,7 +4,7 @@ import { EditableContainer } from './common/EditableContainer'
 import Image from 'next/image'
 import { useState } from 'react'
 
-export default function ProfileViewEducation() {
+export default function ProfileViewEducation({ id }: { id?: string }) {
   const { profileData } = useProfileView()
   const isMyProfile = profileData?.isMyProfile
 

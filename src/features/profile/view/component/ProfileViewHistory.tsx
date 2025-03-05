@@ -1,9 +1,10 @@
+'use client'
 import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 import { EditableContainer } from './common/EditableContainer'
 import Image from 'next/image'
 import { useState } from 'react'
 
-export default function ProfileViewHistory() {
+export default function ProfileViewHistory({ id }: { id?: string }) {
   const { profileData } = useProfileView()
   const historyItems = profileData?.profileActivityItems || []
   const isMyProfile = profileData?.isMyProfile

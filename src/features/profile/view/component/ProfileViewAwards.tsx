@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 
-export default function ProfileViewAwards() {
+export default function ProfileViewAwards({ id }: { id?: string }) {
   const { profileData } = useProfileView()
   const isMyProfile = profileData?.isMyProfile
 
