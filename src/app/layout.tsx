@@ -9,6 +9,7 @@ import Header from '@/widgets/Header/Header'
 import WebSocketInitializer from '@/shared/components/webSocket/WebSocketInitializer'
 import Toast from '@/shared/components/Toast/Toast'
 import CustomClient from '@/components/CustomClient'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export const metadata: Metadata = {
   title: '링킷ㅣ일하는 사람들의 연결점',
@@ -46,6 +47,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const queryClient = new QueryClient()
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <head>

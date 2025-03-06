@@ -1,21 +1,17 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { getTeamMemberRecommend } from './api/HomeApi'
-import { ProfileInform } from '@/features/match/types/MatchTypes'
 import MiniProfileCard_2 from '@/shared/components/MiniProfileCard_2'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useQuery } from '@tanstack/react-query'
+import { getRecommendedTeamMembers } from '../api/homeApi'
 
 export default function HomeTeamMemberSection() {
-  const [teamMemberRecommend, setTeamMemberRecommend] = useState<ProfileInform[]>([])
+  const { data } = useQuery({
+    queryKey: ['teamMemberRecommend'],
+    queryFn: getRecommendedTeamMembers,
+    // suspense: true,
+  })
 
-  useEffect(() => {
-    const fetchTeamRecommend = async () => {
-      const response = await getTeamMemberRecommend()
-      setTeamMemberRecommend(response.result.profileInformMenus)
-    }
-    fetchTeamRecommend()
-  }, [])
   return (
     <div className="flex w-full flex-col gap-6">
       <div className="flex w-full items-center justify-between">
@@ -27,7 +23,7 @@ export default function HomeTeamMemberSection() {
       </div>
 
       <div className="flex gap-6 overflow-x-auto md:grid md:grid-cols-2  lg:grid-cols-3 [&::-webkit-scrollbar]:hidden">
-        {teamMemberRecommend.map((profile) => (
+        {data?.result.profileInformMenus.map((profile) => (
           <MiniProfileCard_2 key={profile.emailId} profile={profile} />
         ))}
       </div>

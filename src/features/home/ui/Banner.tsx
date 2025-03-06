@@ -227,7 +227,7 @@ export default function Banner() {
   }
 
   return (
-    <div className="relative w-full overflow-hidden pb-8 md:py-8">
+    <section className="relative w-full overflow-hidden pb-8 md:py-8" aria-label="메인 배너">
       <div className="relative mx-auto w-full md:h-[18.75rem]">
         <div className="relative w-full">
           {/* Desktop View */}
@@ -244,7 +244,7 @@ export default function Banner() {
                     const actualIndex = (slideIndex - 1) % originalSlides.length
                     const slide = originalSlides[actualIndex]
                     return (
-                      <div
+                      <article
                         key={`${slideIndex}-${arrayIndex}`}
                         className="relative h-[18.75rem] w-[46.9rem] flex-shrink-0"
                       >
@@ -252,17 +252,18 @@ export default function Banner() {
                           href={slide.link}
                           target={slide.link.startsWith('http') ? '_blank' : undefined}
                           className="block h-full w-full"
+                          aria-label={slide.alt}
                         >
                           <Image
                             src={slide.image}
-                            alt={slide.alt}
+                            alt={slide.alt || '배너 이미지'}
                             fill
                             className="rounded-[28px] object-cover"
                             priority={arrayIndex >= 4 && arrayIndex < 7}
                             sizes="750px"
                           />
                         </Link>
-                      </div>
+                      </article>
                     )
                   })}
                 </motion.div>
@@ -282,20 +283,24 @@ export default function Banner() {
                     <button
                       className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-full bg-white/30 text-lg text-white backdrop-blur-sm transition-colors hover:bg-white/40"
                       onClick={handlePrev}
-                      aria-label="Previous slide"
+                      aria-label="이전 슬라이드"
                     >
                       ‹
                     </button>
                     <button
                       className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-full bg-white/30 text-lg text-white backdrop-blur-sm transition-colors hover:bg-white/40"
                       onClick={handleNext}
-                      aria-label="Next slide"
+                      aria-label="다음 슬라이드"
                     >
                       ›
                     </button>
                   </div>
                   {/* Pagination */}
-                  <div className="absolute bottom-4 right-8 flex items-center gap-1 rounded-full bg-black/30 px-3 py-1 backdrop-blur-sm">
+                  <div
+                    className="absolute bottom-4 right-8 flex items-center gap-1 rounded-full bg-black/30 px-3 py-1 backdrop-blur-sm"
+                    aria-live="polite"
+                    aria-atomic="true"
+                  >
                     <div className="text-sm font-medium text-white">
                       {String(currentPage).padStart(2, '0')}/{String(originalSlides.length).padStart(2, '0')}
                     </div>
@@ -326,6 +331,7 @@ export default function Banner() {
                 onTouchEnd={handleTouchEnd}
                 onSlideChange={handleSlideChange}
                 className="aspect-[360/180] w-full"
+                aria-label="모바일 배너 슬라이더"
               >
                 {originalSlides.map((slide, index) => (
                   <SwiperSlide key={index} className="relative h-full w-full">
@@ -333,10 +339,11 @@ export default function Banner() {
                       href={slide.link}
                       target={slide.link.startsWith('http') ? '_blank' : undefined}
                       className="block h-full w-full"
+                      aria-label={slide.alt}
                     >
                       <Image
                         src={slide.mobileImage}
-                        alt={slide.alt}
+                        alt={slide.alt || '배너 이미지'}
                         fill
                         className="select-none rounded-2xl object-cover"
                         priority={index === 0}
@@ -348,7 +355,7 @@ export default function Banner() {
                 ))}
 
                 {/* Custom Pagination Dots */}
-                <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+                <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2" role="tablist">
                   {originalSlides.map((_, index) => (
                     <button
                       key={index}
@@ -356,7 +363,9 @@ export default function Banner() {
                       className={`h-1 w-8 cursor-pointer rounded-full transition-all duration-300 ${
                         index === activeIndex ? 'bg-white' : 'bg-white/30'
                       }`}
-                      aria-label={`Go to slide ${index + 1}`}
+                      aria-label={`${index + 1}번 슬라이드로 이동`}
+                      role="tab"
+                      aria-selected={index === activeIndex}
                     />
                   ))}
                 </div>
@@ -365,6 +374,6 @@ export default function Banner() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
