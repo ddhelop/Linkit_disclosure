@@ -1,33 +1,39 @@
-import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
-import { EditableContainer } from './common/EditableContainer'
+'use client'
+import { useQuery } from '@tanstack/react-query'
+import { EditableContainer } from '../component/EditableContainer'
 import Image from 'next/image'
 import Link from 'next/link'
+import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
 
-export default function ProfileViewPortFolio() {
-  const { profileData } = useProfileView()
-  const isMyProfile = profileData?.isMyProfile
-  const portfolioItems = profileData?.profilePortfolioItems || []
+export default function ProfileViewPortFolio({ emailId }: { emailId: string }) {
+  const { data, isLoading } = useQuery({
+    queryKey: ['profile', emailId],
+    queryFn: () => getProfileDetail(emailId),
+    staleTime: 60000, // 1분 동안 캐싱 유지
+  })
+
+  const portfolioItems = data?.result?.profilePortfolioItems || []
 
   return (
     <EditableContainer
-      isEditable={isMyProfile}
+      isEditable={data?.result?.isMyProfile}
       editPath="/profile/edit/portfolio"
-      className="flex w-full flex-col gap-5 rounded-xl bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
+      className="flex w-full flex-col gap-5 border-y border-grey40 bg-white p-5 md:px-[2.75rem] md:py-[1.88rem] lg:rounded-xl lg:border"
     >
       <h1 className="font-semibold">포트폴리오</h1>
       <div className="flex flex-col gap-2 md:flex-row md:flex-wrap">
         {/* 데이터가 없을 시 */}
         {portfolioItems.length === 0 &&
-          (isMyProfile ? (
+          (data?.result?.isMyProfile ? (
             <div className="flex w-full items-center text-sm text-grey60">
               수정 버튼을 눌러 내용을 작성하면 매칭 가능성이 높아져요
             </div>
           ) : (
             <div className="flex w-full items-center text-sm text-grey60">아직 추가하지 않았어요</div>
           ))}
-        {profileData?.profilePortfolioItems.map((portfolio) => (
+        {portfolioItems.map((portfolio) => (
           <Link
-            href={`/${profileData?.profileInformMenu.emailId}/portfolio/${portfolio.profilePortfolioId}`}
+            href={`/${data?.result?.profileInformMenu.emailId}/portfolio/${portfolio.profilePortfolioId}`}
             scroll={true}
             className="flex flex-col gap-3 rounded-xl border border-grey30 p-5 hover:border-main md:w-[49%]"
             key={portfolio.profilePortfolioId}
@@ -68,7 +74,7 @@ export default function ProfileViewPortFolio() {
         {portfolioItems.length > 2 && (
           <div className="mt-4 flex w-full justify-end">
             <Link
-              href={`/${profileData?.profileInformMenu.emailId}/portfolio`}
+              href={`/${data?.result?.profileInformMenu.emailId}/portfolio`}
               className="flex gap-1 rounded-xl bg-grey10 py-2 pl-4 pr-2 text-sm text-grey60 hover:bg-grey20"
             >
               포트폴리오 더보기

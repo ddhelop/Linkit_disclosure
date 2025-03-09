@@ -1,14 +1,23 @@
-import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
-import { EditableContainer } from './common/EditableContainer'
+'use client'
+
+import { useQuery } from '@tanstack/react-query'
+import { EditableContainer } from '../component/EditableContainer'
 import Image from 'next/image'
 import { useState } from 'react'
+import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
 
-export default function ProfileViewHistory() {
-  const { profileData } = useProfileView()
-  const historyItems = profileData?.profileActivityItems || []
-  const isMyProfile = profileData?.isMyProfile
+export default function ProfileViewHistory({ emailId }: { emailId: string }) {
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({})
 
+  const { data, isLoading } = useQuery({
+    queryKey: ['profile', emailId],
+    queryFn: () => getProfileDetail(emailId),
+    staleTime: 60000, // 1분 동안 캐싱 유지
+  })
+
+  const historyItems = data?.result?.profileActivityItems || []
+
+  // 확장 아이템 토글
   const toggleExpand = (id: string) => {
     setExpandedItems((prev) => ({
       ...prev,
@@ -18,16 +27,16 @@ export default function ProfileViewHistory() {
 
   return (
     <EditableContainer
-      isEditable={isMyProfile}
+      isEditable={data?.result?.isMyProfile}
       editPath="/profile/edit/history"
-      className="flex w-full flex-col gap-5 rounded-xl bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
+      className="flex w-full flex-col gap-5 border-y border-grey40 bg-white p-5 md:px-[2.75rem] md:py-[1.88rem] lg:rounded-xl lg:border"
     >
       <h1 className="font-semibold">이력</h1>
 
       <div className="flex flex-col gap-3">
         {/* 데이터가 없을 시 */}
         {historyItems.length === 0 &&
-          (isMyProfile ? (
+          (data?.result?.isMyProfile ? (
             <div className="flex w-full items-center text-sm text-grey60">
               수정 버튼을 눌러 내용을 작성하면 매칭 가능성이 높아져요
             </div>
