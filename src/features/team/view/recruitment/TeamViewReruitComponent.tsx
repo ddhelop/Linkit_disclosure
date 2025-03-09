@@ -48,20 +48,20 @@ export default function TeamViewReruitComponent({
 
   return (
     <Link
-      href={`/team/${teamName}/recruit/${announcement.teamMemberAnnouncementId}`}
+      href={`/team/${teamName}/recruit/${announcement?.teamMemberAnnouncementId}`}
       className="flex flex-col rounded-xl border border-transparent bg-white px-5 py-5 hover:border-main md:px-10"
     >
       <div className="flex justify-between">
         <div
           className={`rounded-full px-3 py-1 text-xs ${
-            announcement.isPermanentRecruitment ? 'bg-[#D3E1FE] text-main' : 'bg-[#FFECF0] text-[#FF345F]'
+            announcement?.isPermanentRecruitment ? 'bg-[#D3E1FE] text-main' : 'bg-[#FFECF0] text-[#FF345F]'
           }`}
         >
-          {announcement.isPermanentRecruitment
+          {announcement?.isPermanentRecruitment
             ? '상시 모집'
-            : announcement.isClosed
+            : announcement?.isClosed
               ? '마감'
-              : `D-${announcement.announcementDDay}`}
+              : `D-${announcement?.announcementDDay}`}
         </div>
         <div className="flex gap-2 text-[#4D82F3]">
           <Image
@@ -72,24 +72,24 @@ export default function TeamViewReruitComponent({
             onClick={handleScrap}
             className="cursor-pointer"
           />
-          <span>{announcement.announcementScrapCount}</span>
+          <span>{announcement?.announcementScrapCount}</span>
         </div>
       </div>
 
-      <span className="mt-3 text-xl font-semibold text-grey90">{announcement.announcementTitle}</span>
+      <span className="mt-3 text-xl font-semibold text-grey90">{announcement?.announcementTitle}</span>
 
       <div className="flex gap-2">
         <div className="mt-5 rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-main">
-          {announcement.majorPosition}
+          {announcement?.majorPosition}
         </div>
 
         <div className="mt-5 rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-main">
-          {announcement.announcementSkillNames[0].announcementSkillName}
+          {announcement?.announcementSkillNames?.[0]?.announcementSkillName}
         </div>
 
-        {announcement.announcementSkillNames.length > 1 && (
+        {announcement?.announcementSkillNames?.length > 1 && (
           <div className="mt-5 rounded-full bg-[#D3E1FE] px-4 py-1 text-sm text-main">
-            +{announcement.announcementSkillNames.length - 1}
+            +{announcement?.announcementSkillNames?.length - 1}
           </div>
         )}
       </div>

@@ -28,8 +28,8 @@ interface TeamViewRecruitDetailProps {
 }
 
 export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRecruitDetailProps) {
-  const [isScraped, setIsScraped] = useState(recruitmentDetail.isAnnouncementScrap)
-  const [scrapCount, setScrapCount] = useState(recruitmentDetail.announcementScrapCount)
+  const [isScraped, setIsScraped] = useState(recruitmentDetail?.isAnnouncementScrap)
+  const [scrapCount, setScrapCount] = useState(recruitmentDetail?.announcementScrapCount)
   const [isLoading, setIsLoading] = useState(false)
   const toast = useToast()
   const router = useRouter()
@@ -45,7 +45,7 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
 
     try {
       setIsLoading(true)
-      const response = await announcementScrap(recruitmentDetail.teamMemberAnnouncementId, !isScraped)
+      const response = await announcementScrap(recruitmentDetail?.teamMemberAnnouncementId, !isScraped)
 
       if (response.ok) {
         setIsScraped(!isScraped)
@@ -67,12 +67,12 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
       <div className="flex justify-between">
         <div
           className={`rounded-full  px-3 py-1 text-xs  ${
-            recruitmentDetail.isPermanentRecruitment ? 'bg-[#D3E1FE] text-[#2563EB]' : 'bg-[#FFECF0] text-[#FF345F]'
+            recruitmentDetail?.isPermanentRecruitment ? 'bg-[#D3E1FE] text-[#2563EB]' : 'bg-[#FFECF0] text-[#FF345F]'
           }`}
         >
-          {recruitmentDetail.isPermanentRecruitment
+          {recruitmentDetail?.isPermanentRecruitment
             ? '상시 모집'
-            : calculateDday(recruitmentDetail.announcementEndDate)}
+            : calculateDday(recruitmentDetail?.announcementEndDate)}
         </div>
         {/* 스크랩 */}
         <div className="flex gap-2">
@@ -88,90 +88,92 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
         </div>
       </div>
 
-      <span className="mt-3 text-2xl font-semibold text-grey90">{recruitmentDetail.announcementTitle}</span>
+      <span className="mt-3 text-2xl font-semibold text-grey90">{recruitmentDetail?.announcementTitle}</span>
 
       {/* 포지션 */}
       <div className="mt-3 flex gap-2">
         <div className="rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-[#2563EB]">
-          {recruitmentDetail.announcementPositionItem.majorPosition}
+          {recruitmentDetail?.announcementPositionItem?.majorPosition}
         </div>
         <div className="rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-[#2563EB]">
-          {recruitmentDetail.announcementPositionItem.subPosition}
+          {recruitmentDetail?.announcementPositionItem?.subPosition}
         </div>
       </div>
 
       {/* 기술 스택 */}
       <div className="mt-2 flex gap-2">
-        {recruitmentDetail.announcementSkillNames.map((skill) => (
+        {recruitmentDetail?.announcementSkillNames?.map((skill) => (
           <div
-            key={skill.announcementSkillName}
+            key={skill?.announcementSkillName}
             className="rounded-[0.38rem] bg-[#EDF3FF] px-4 py-1 text-sm text-[#2563EB]"
           >
-            {skill.announcementSkillName}
+            {skill?.announcementSkillName}
           </div>
         ))}
       </div>
 
       {/* 내용 */}
       <div className="mt-[3.62rem] flex flex-col gap-12">
-        {recruitmentDetail.mainTasks && (
+        {recruitmentDetail?.mainTasks && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">주요업무</h3>
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
-              <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>{recruitmentDetail.mainTasks}</Linkify>
+              <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>
+                {recruitmentDetail?.mainTasks}
+              </Linkify>
             </span>
           </div>
         )}
 
-        {recruitmentDetail.idealCandidate && (
+        {recruitmentDetail?.idealCandidate && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">요구 사항</h3>
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
               <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>
-                {recruitmentDetail.idealCandidate}
+                {recruitmentDetail?.idealCandidate}
               </Linkify>
             </span>
           </div>
         )}
 
-        {recruitmentDetail.workMethod && (
+        {recruitmentDetail?.workMethod && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">업무 방식</h3>
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
               <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>
-                {recruitmentDetail.workMethod}
+                {recruitmentDetail?.workMethod}
               </Linkify>
             </span>
           </div>
         )}
 
-        {recruitmentDetail.preferredQualifications && (
+        {recruitmentDetail?.preferredQualifications && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">우대 사항</h3>
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
               <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>
-                {recruitmentDetail.preferredQualifications}
+                {recruitmentDetail?.preferredQualifications}
               </Linkify>
             </span>
           </div>
         )}
 
-        {recruitmentDetail.joiningProcess && (
+        {recruitmentDetail?.joiningProcess && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">합류 절차</h3>
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
               <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>
-                {recruitmentDetail.joiningProcess}
+                {recruitmentDetail?.joiningProcess}
               </Linkify>
             </span>
           </div>
         )}
 
-        {recruitmentDetail.benefits && (
+        {recruitmentDetail?.benefits && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">기타 사항</h3>
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
-              <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>{recruitmentDetail.benefits}</Linkify>
+              <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>{recruitmentDetail?.benefits}</Linkify>
             </span>
           </div>
         )}
