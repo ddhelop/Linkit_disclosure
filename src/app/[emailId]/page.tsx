@@ -6,20 +6,27 @@ import ProfileViewEducation from '@/features/profile-view/ui/ProfileViewEducatio
 import ProfileViewAwards from '@/features/profile-view/ui/ProfileViewAwards'
 import ProfileViewLicense from '@/features/profile-view/ui/ProfileViewLicense'
 import ProfileViewLinks from '@/features/profile-view/ui/ProfileViewLinks'
+import ProfileProgress from '@/features/profile/edit/components/common/ProfileProgress'
 
 export default function UserProfilePage({ params }: { params: { emailId: string } }) {
   const emailId = params.emailId
 
   return (
-    <div className="flex flex-grow flex-col justify-center gap-2 pt-5 lg:gap-6 lg:px-[4.25rem] lg:pt-[3.63rem]">
-      <ProfileViewLog emailId={emailId} />
-      <ProfileViewSkills emailId={emailId} />
-      <ProfileViewHistory emailId={emailId} />
-      <ProfileViewPortFolio emailId={emailId} />
-      <ProfileViewEducation emailId={emailId} />
-      <ProfileViewAwards emailId={emailId} />
-      <ProfileViewLicense emailId={emailId} />
-      <ProfileViewLinks emailId={emailId} />
+    <div className="flex gap-[3rem] pt-5 lg:px-[4.25rem] lg:pt-[3.63rem]">
+      <div className="flex flex-grow flex-col justify-center gap-2 lg:gap-6 ">
+        <ProfileViewLog emailId={emailId} />
+        <ProfileViewSkills emailId={emailId} />
+        <ProfileViewHistory emailId={emailId} />
+        <ProfileViewPortFolio emailId={emailId} />
+        <ProfileViewEducation emailId={emailId} />
+        <ProfileViewAwards emailId={emailId} />
+        <ProfileViewLicense emailId={emailId} />
+        <ProfileViewLinks emailId={emailId} />
+      </div>
+
+      <div className=" hidden flex-col gap-2 lg:flex">
+        <ProfileProgress emailId={emailId} />
+      </div>
     </div>
   )
 }
