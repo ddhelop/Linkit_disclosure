@@ -29,7 +29,7 @@ export default function ProfileViewHistory({ emailId }: { emailId: string }) {
     <EditableContainer
       isEditable={data?.result?.isMyProfile}
       editPath="/profile/edit/history"
-      className="flex w-full flex-col gap-5 rounded-xl border border-grey40 bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
+      className="flex w-full flex-col gap-5 border-y border-grey40 bg-white p-5 md:px-[2.75rem] md:py-[1.88rem] lg:rounded-xl lg:border"
     >
       <h1 className="font-semibold">이력</h1>
 

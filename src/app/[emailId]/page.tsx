@@ -18,7 +18,7 @@ export default async function UserProfilePage({ params }: { params: { emailId: s
   const dehydratedState = await loadProfileDetailData(emailId)
 
   return (
-    <div className="flex w-full  flex-col  ">
+    <div className="flex w-full flex-col pb-20">
       <HydrationBoundary state={dehydratedState}>
         {/* 프로필 */}
         <ProfileViewBasic emailId={emailId} />
