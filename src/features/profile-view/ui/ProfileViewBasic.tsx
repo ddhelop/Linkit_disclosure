@@ -15,7 +15,7 @@ export default function ProfileViewBasic({ emailId }: { emailId: string }) {
   const profileData = data?.result?.profileInformMenu
 
   return (
-    <div className="flex justify-between bg-[#EDF3FF] px-[4.25rem] py-[4.62rem]">
+    <div className="flex flex-col justify-between gap-3 bg-[#EDF3FF] px-6 py-8 md:flex-row  md:px-[4.25rem] md:py-[4.62rem]">
       {/* 왼쪽 */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-2">
@@ -85,7 +85,7 @@ export default function ProfileViewBasic({ emailId }: { emailId: string }) {
         {data?.result?.isMyProfile ? (
           <div className="flex gap-2">내 프로필</div>
         ) : (
-          <div className="flex flex-col gap-2">
+          <div className="flex gap-2  md:flex-col">
             <ProfileScrap isProfileScrap={profileData?.isProfileScrap ?? false} emailId={emailId} />
             <ProfileMatchButton />
           </div>
