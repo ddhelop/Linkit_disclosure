@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import ProfileProgress from '../common/ProfileProgress'
 import MiniProfileCard from '@/shared/components/MiniProfileCard'
 
 interface ProfileEditLayoutProps {
@@ -14,8 +13,8 @@ export default function ProfileEditLayout({ children }: ProfileEditLayoutProps) 
       <div className="flex gap-8">
         {/* 왼쪽 사이드바 영역 */}
         <aside className="w-[280px] flex-shrink-0 space-y-6">
-          <ProfileProgress />
-          <MiniProfileCard />
+          {/* <ProfileProgress /> */}
+          {/* <MiniProfileCard /> */}
         </aside>
 
         {/* 오른쪽 메인 컨텐츠 영역 */}

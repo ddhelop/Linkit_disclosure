@@ -4,7 +4,6 @@
 import { useEffect, useState } from 'react'
 import LeftMenu from '@/features/profile/edit/components/common/LeftMenu'
 
-import ProfileProgress from '@/features/profile/edit/components/common/ProfileProgress'
 import { fetchProfileData } from '@/features/profile/edit/api/profileEditApi'
 import { ResultType } from '../../types/ProfileLayoutType'
 
@@ -39,7 +38,7 @@ export default function ProfileEditClient({ children }: ProfileEditClientProps) 
             className="rounded-xl border border-grey30 p-4"
             style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
           >
-            <ProfileProgress />
+            {/* <ProfileProgress /> */}
             <LeftMenu />
           </div>
         </aside>
