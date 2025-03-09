@@ -8,7 +8,7 @@ import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
 
 export default function ProfileViewLinks({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
-    queryKey: ['profile', emailId],
+    queryKey: ['profileDetail', emailId],
     queryFn: () => getProfileDetail(emailId),
     staleTime: 60000, // 1분 동안 캐싱 유지
   })

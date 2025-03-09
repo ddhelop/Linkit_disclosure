@@ -5,7 +5,10 @@ import { getProfileDetail } from './api/ProfileViewApi'
 export async function loadProfileDetailData(emailId: string) {
   const queryClient = new QueryClient()
 
-  await queryClient.prefetchQuery({ queryKey: ['profileDetail'], queryFn: () => getProfileDetail(emailId) })
+  await queryClient.prefetchQuery({
+    queryKey: ['profileDetail', emailId],
+    queryFn: () => getProfileDetail(emailId),
+  })
 
   return dehydrate(queryClient)
 }

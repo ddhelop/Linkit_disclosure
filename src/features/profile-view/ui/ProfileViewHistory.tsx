@@ -10,7 +10,7 @@ export default function ProfileViewHistory({ emailId }: { emailId: string }) {
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({})
 
   const { data, isLoading } = useQuery({
-    queryKey: ['profile', emailId],
+    queryKey: ['profileDetail', emailId],
     queryFn: () => getProfileDetail(emailId),
     staleTime: 60000, // 1분 동안 캐싱 유지
   })
