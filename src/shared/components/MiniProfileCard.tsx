@@ -1,6 +1,6 @@
 'use client'
 import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
-import { EditableContainer } from '@/features/profile/view/component/common/EditableContainer'
+import { EditableContainer } from '@/features/profile-view/component/EditableContainer'
 import Image from 'next/image'
 import Link from 'next/link'
 

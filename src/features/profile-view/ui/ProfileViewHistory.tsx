@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { EditableContainer } from '../../profile/view/component/common/EditableContainer'
+import { EditableContainer } from '../component/EditableContainer'
 import Image from 'next/image'
 import { useState } from 'react'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'

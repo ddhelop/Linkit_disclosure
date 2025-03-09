@@ -3,8 +3,8 @@
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useMatching } from '@/shared/hooks/useMatching'
-import MatchingModal from './MatchingModal'
-import MatchingRequestModal from './MatchingRequestModal'
+import MatchingModal from '../component/MatchingModal'
+import MatchingRequestModal from '../component/MatchingRequestModal'
 
 export default function ProfileMatchButton() {
   const params = useParams()

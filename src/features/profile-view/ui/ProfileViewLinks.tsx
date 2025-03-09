@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { EditableContainer } from '../../profile/view/component/common/EditableContainer'
+import { EditableContainer } from '../component/EditableContainer'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'

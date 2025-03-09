@@ -2,8 +2,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { getProfileDetail } from '../api/ProfileViewApi'
 import Image from 'next/image'
-import ProfileScrap from '@/features/profile/view/component/common/ProfileScrap'
-import ProfileMatchButton from '@/features/profile/view/component/common/ProfileMatchButton'
+import ProfileScrap from '@/features/profile-view/ui/ProfileScrapButton'
+import ProfileMatchButton from '@/features/profile-view/ui/ProfileMatchButton'
 
 export default function ProfileViewBasic({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
