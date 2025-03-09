@@ -87,73 +87,73 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
         </div>
       </div>
 
-      <span className="mt-3 text-2xl font-semibold text-grey90">{recruitmentDetail.announcementTitle}</span>
+      <span className="mt-3 text-2xl font-semibold text-grey90">{recruitmentDetail?.announcementTitle}</span>
 
       {/* 포지션 */}
       <div className="mt-3 flex gap-2">
         <div className="rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-[#2563EB]">
-          {recruitmentDetail.announcementPositionItem.majorPosition}
+          {recruitmentDetail?.announcementPositionItem?.majorPosition}
         </div>
         <div className="rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-[#2563EB]">
-          {recruitmentDetail.announcementPositionItem.subPosition}
+          {recruitmentDetail?.announcementPositionItem?.subPosition}
         </div>
       </div>
 
       {/* 기술 스택 */}
       <div className="mt-2 flex gap-2">
-        {recruitmentDetail.announcementSkillNames.map((skill) => (
+        {recruitmentDetail?.announcementSkillNames?.map((skill) => (
           <div
-            key={skill.announcementSkillName}
+            key={skill?.announcementSkillName}
             className="rounded-[0.38rem] bg-[#EDF3FF] px-4 py-1 text-sm text-[#2563EB]"
           >
-            {skill.announcementSkillName}
+            {skill?.announcementSkillName}
           </div>
         ))}
       </div>
 
       {/* 내용 */}
       <div className="mt-[3.62rem] flex flex-col gap-12">
-        {recruitmentDetail.mainTasks && (
+        {recruitmentDetail?.mainTasks && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">주요업무</h3>
-            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail.mainTasks}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail?.mainTasks}</span>
           </div>
         )}
 
-        {recruitmentDetail.idealCandidate && (
+        {recruitmentDetail?.idealCandidate && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">요구 사항</h3>
-            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail.idealCandidate}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail?.idealCandidate}</span>
           </div>
         )}
 
-        {recruitmentDetail.workMethod && (
+        {recruitmentDetail?.workMethod && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">업무 방식</h3>
-            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail.workMethod}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail?.workMethod}</span>
           </div>
         )}
 
-        {recruitmentDetail.preferredQualifications && (
+        {recruitmentDetail?.preferredQualifications && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">우대 사항</h3>
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
-              {recruitmentDetail.preferredQualifications}
+              {recruitmentDetail?.preferredQualifications}
             </span>
           </div>
         )}
 
-        {recruitmentDetail.joiningProcess && (
+        {recruitmentDetail?.joiningProcess && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">합류 절차</h3>
-            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail.joiningProcess}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail?.joiningProcess}</span>
           </div>
         )}
 
-        {recruitmentDetail.benefits && (
+        {recruitmentDetail?.benefits && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">기타 사항</h3>
-            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail.benefits}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail?.benefits}</span>
           </div>
         )}
       </div>
