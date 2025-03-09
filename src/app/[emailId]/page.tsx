@@ -9,7 +9,6 @@ import ProfileViewEducation from '@/features/profile/view/component/ProfileViewE
 import ProfileViewAwards from '@/features/profile/view/component/ProfileViewAwards'
 import ProfileViewLicense from '@/features/profile/view/component/ProfileViewLicense'
 import ProfileViewLinks from '@/features/profile/view/component/ProfileViewLinks'
-import ClientProfileWrapper from './ClientProfileWrapper'
 
 export default async function UserProfilePage({ params }: { params: { emailId: string } }) {
   const emailId = params.emailId as string
