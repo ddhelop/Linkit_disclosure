@@ -1,13 +1,19 @@
 'use client'
-import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 import { EditableContainer } from './common/EditableContainer'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
 
-export default function ProfileViewEducation({ id }: { id?: string }) {
-  const { profileData } = useProfileView()
-  const isMyProfile = profileData?.isMyProfile
+export default function ProfileViewEducation({ emailId }: { emailId: string }) {
+  const { data, isLoading } = useQuery({
+    queryKey: ['profile', emailId],
+    queryFn: () => getProfileDetail(emailId),
+    staleTime: 60000, // 1분 동안 캐싱 유지
+  })
 
+  const isMyProfile = data?.result?.isMyProfile
+  const educationItems = data?.result?.profileEducationItems || []
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({})
 
   const toggleExpand = (id: string) => {
@@ -21,14 +27,14 @@ export default function ProfileViewEducation({ id }: { id?: string }) {
     <EditableContainer
       isEditable={isMyProfile}
       editPath="/profile/edit/education"
-      className="flex w-full flex-col gap-5 rounded-xl bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
+      className="flex w-full flex-col gap-5 rounded-xl border border-grey40 bg-white p-5 md:px-[2.75rem] md:py-[1.88rem]"
     >
       <h1 className="font-semibold">학력</h1>
 
       {/* 학력 항목 */}
       <div className="flex flex-col gap-5">
         {/* 데이터가 없을 시 */}
-        {profileData?.profileEducationItems.length === 0 &&
+        {educationItems.length === 0 &&
           (isMyProfile ? (
             <div className="flex w-full items-center text-sm text-grey60">
               수정 버튼을 눌러 내용을 작성하면 매칭 가능성이 높아져요
@@ -36,7 +42,7 @@ export default function ProfileViewEducation({ id }: { id?: string }) {
           ) : (
             <div className="flex w-full items-center text-sm text-grey60">아직 추가하지 않았어요</div>
           ))}
-        {profileData?.profileEducationItems.map((education) => (
+        {educationItems.map((education) => (
           <div key={education.profileEducationId} className="flex gap-3 rounded-lg bg-grey10 px-6 py-4">
             {/* 이미지 */}
             {/* <Image

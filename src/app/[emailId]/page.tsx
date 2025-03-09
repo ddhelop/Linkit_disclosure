@@ -19,14 +19,14 @@ export default async function UserProfilePage({ params }: { params: { emailId: s
   return (
     <div className="flex w-full flex-grow flex-col justify-center gap-2 pt-5 lg:gap-6 lg:px-[4.25rem] lg:pt-[3.63rem]">
       <HydrationBoundary state={dehydratedState}>
-        {/* <ProfileViewLog /> */}
+        <ProfileViewLog emailId={emailId} />
         <ProfileViewSkills emailId={emailId} />
         <ProfileViewHistory emailId={emailId} />
-        {/* <ProfileViewPortFolio /> */}
-        {/* <ProfileViewEducation /> */}
-        {/* <ProfileViewAwards /> */}
-        {/* <ProfileViewLicense /> */}
-        {/* <ProfileViewLinks /> */}
+        <ProfileViewPortFolio emailId={emailId} />
+        <ProfileViewEducation emailId={emailId} />
+        <ProfileViewAwards emailId={emailId} />
+        <ProfileViewLicense emailId={emailId} />
+        <ProfileViewLinks emailId={emailId} />
       </HydrationBoundary>
     </div>
   )
