@@ -6,7 +6,7 @@ import ProfileViewEducation from '@/features/profile-view/ui/ProfileViewEducatio
 import ProfileViewAwards from '@/features/profile-view/ui/ProfileViewAwards'
 import ProfileViewLicense from '@/features/profile-view/ui/ProfileViewLicense'
 import ProfileViewLinks from '@/features/profile-view/ui/ProfileViewLinks'
-import ProfileProgress from '@/features/profile/edit/components/common/ProfileProgress'
+import ProfileProgress from '@/features/profile-view/ui/ProfileViewProgress'
 
 export default function UserProfilePage({ params }: { params: { emailId: string } }) {
   const emailId = params.emailId
