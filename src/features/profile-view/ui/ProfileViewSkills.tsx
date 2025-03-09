@@ -1,6 +1,6 @@
 'use client'
 import { useQuery } from '@tanstack/react-query'
-import { EditableContainer } from './common/EditableContainer'
+import { EditableContainer } from '../../profile/view/component/common/EditableContainer'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
 
 export default function ProfileViewSkills({ emailId }: { emailId: string }) {

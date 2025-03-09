@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { EditableContainer } from './common/EditableContainer'
+import { EditableContainer } from '../../profile/view/component/common/EditableContainer'
 import { useQuery } from '@tanstack/react-query'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
 
