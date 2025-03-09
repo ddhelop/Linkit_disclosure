@@ -27,8 +27,8 @@ interface TeamViewRecruitDetailProps {
 }
 
 export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRecruitDetailProps) {
-  const [isScraped, setIsScraped] = useState(recruitmentDetail.isAnnouncementScrap)
-  const [scrapCount, setScrapCount] = useState(recruitmentDetail.announcementScrapCount)
+  const [isScraped, setIsScraped] = useState(recruitmentDetail?.isAnnouncementScrap)
+  const [scrapCount, setScrapCount] = useState(recruitmentDetail?.announcementScrapCount)
   const [isLoading, setIsLoading] = useState(false)
   const toast = useToast()
   const router = useRouter()
@@ -44,7 +44,7 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
 
     try {
       setIsLoading(true)
-      const response = await announcementScrap(recruitmentDetail.teamMemberAnnouncementId, !isScraped)
+      const response = await announcementScrap(recruitmentDetail?.teamMemberAnnouncementId, !isScraped)
 
       if (response.ok) {
         setIsScraped(!isScraped)
@@ -66,12 +66,12 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
       <div className="flex justify-between">
         <div
           className={`rounded-full  px-3 py-1 text-xs  ${
-            recruitmentDetail.isPermanentRecruitment ? 'bg-[#D3E1FE] text-[#2563EB]' : 'bg-[#FFECF0] text-[#FF345F]'
+            recruitmentDetail?.isPermanentRecruitment ? 'bg-[#D3E1FE] text-[#2563EB]' : 'bg-[#FFECF0] text-[#FF345F]'
           }`}
         >
-          {recruitmentDetail.isPermanentRecruitment
+          {recruitmentDetail?.isPermanentRecruitment
             ? '상시 모집'
-            : calculateDday(recruitmentDetail.announcementEndDate)}
+            : calculateDday(recruitmentDetail?.announcementEndDate)}
         </div>
         {/* 스크랩 */}
         <div className="flex gap-2">
