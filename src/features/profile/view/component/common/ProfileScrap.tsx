@@ -1,5 +1,4 @@
 'use client'
-import { useProfileView } from '@/entities/profile/model/ProfileViewContext'
 import { handleScrap } from '@/features/profile/api/profileViewApi'
 import { useToast } from '@/shared/hooks/useToast'
 import { useAuthStore } from '@/shared/store/useAuthStore'
@@ -7,10 +6,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-export default function ProfileScrap() {
-  const { profileData } = useProfileView()
-  const [scrapCount, setScrapCount] = useState(profileData?.profileScrapCount)
-  const [isScrap, setIsScrap] = useState(profileData?.profileInformMenu.isProfileScrap)
+export default function ProfileScrap({ isProfileScrap, emailId }: { isProfileScrap: boolean; emailId: string }) {
+  const [isScrap, setIsScrap] = useState(isProfileScrap)
   const { isLogin } = useAuthStore()
   const router = useRouter()
   const toast = useToast()
@@ -22,31 +19,25 @@ export default function ProfileScrap() {
       return
     }
 
-    if (!profileData?.profileInformMenu.emailId || isScrap === undefined) return
-    const response = await handleScrap(profileData.profileInformMenu.emailId, isScrap)
+    const response = await handleScrap(emailId, isScrap)
 
     if (response.isSuccess) {
       setIsScrap(!isScrap)
-      setScrapCount((prev) => (prev ?? 0) + (isScrap ? -1 : 1))
+      toast.success('스크랩 처리가 완료되었어요.')
     }
   }
 
   return (
-    <div className="mt-7 flex w-full items-center justify-between rounded-full bg-grey20 py-[0.38rem] pl-4 pr-[0.39rem] text-sm text-grey70">
-      <div className="flex gap-5">
-        <span className="">스크랩 수</span>
-        <span className="">{scrapCount}</span>
-      </div>
-      <button
-        onClick={onClickScrap}
-        className="flex items-center gap-2 rounded-full bg-[#D3E1FE] px-[1.38rem] py-[0.56rem] text-[#4D82F3] hover:brightness-95"
-      >
-        {isScrap ? (
-          <Image src="/common/icons/save.svg" alt="scrap" width={20} height={20} />
-        ) : (
-          <Image src="/common/icons/not_save.svg" alt="scrap" width={20} height={20} />
-        )}
-      </button>
-    </div>
+    <button
+      onClick={onClickScrap}
+      className="flex w-[12.5rem] justify-center gap-2 rounded-full bg-white py-4 hover:border hover:border-[#4D82F3]"
+    >
+      {isScrap ? (
+        <Image src="/common/icons/save.svg" alt="scrap" width={20} height={20} />
+      ) : (
+        <Image src="/common/icons/not_save.svg" alt="scrap" width={20} height={20} />
+      )}
+      <span className="text-sm text-[#4D82F3]">스크랩 하기</span>
+    </button>
   )
 }

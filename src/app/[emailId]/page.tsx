@@ -10,6 +10,7 @@ import ProfileViewLicense from '@/features/profile-view/ui/ProfileViewLicense'
 import ProfileViewLinks from '@/features/profile-view/ui/ProfileViewLinks'
 import { loadProfileDetailData } from '@/features/profile-view/loader'
 import { HydrationBoundary } from '@tanstack/react-query'
+import ProfileViewBasic from '@/features/profile-view/ui/ProfileViewBasic'
 
 export default async function UserProfilePage({ params }: { params: { emailId: string } }) {
   const emailId = params.emailId as string
@@ -17,16 +18,22 @@ export default async function UserProfilePage({ params }: { params: { emailId: s
   const dehydratedState = await loadProfileDetailData(emailId)
 
   return (
-    <div className="flex w-full flex-grow flex-col justify-center gap-2 pt-5 lg:gap-6 lg:px-[4.25rem] lg:pt-[3.63rem]">
+    <div className="flex w-full  flex-col  ">
       <HydrationBoundary state={dehydratedState}>
-        <ProfileViewLog emailId={emailId} />
-        <ProfileViewSkills emailId={emailId} />
-        <ProfileViewHistory emailId={emailId} />
-        <ProfileViewPortFolio emailId={emailId} />
-        <ProfileViewEducation emailId={emailId} />
-        <ProfileViewAwards emailId={emailId} />
-        <ProfileViewLicense emailId={emailId} />
-        <ProfileViewLinks emailId={emailId} />
+        {/* 프로필 */}
+        <ProfileViewBasic emailId={emailId} />
+
+        {/* 프로필 뷰 컴포넌트 */}
+        <div className="flex flex-grow flex-col justify-center gap-2 pt-5 lg:gap-6 lg:px-[4.25rem] lg:pt-[3.63rem]">
+          <ProfileViewLog emailId={emailId} />
+          <ProfileViewSkills emailId={emailId} />
+          <ProfileViewHistory emailId={emailId} />
+          <ProfileViewPortFolio emailId={emailId} />
+          <ProfileViewEducation emailId={emailId} />
+          <ProfileViewAwards emailId={emailId} />
+          <ProfileViewLicense emailId={emailId} />
+          <ProfileViewLinks emailId={emailId} />
+        </div>
       </HydrationBoundary>
     </div>
   )

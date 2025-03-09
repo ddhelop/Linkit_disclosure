@@ -24,17 +24,13 @@ export default function ProfileMatchButton() {
 
   return (
     <>
-      <div className="mt-3 flex w-full items-center justify-between rounded-full bg-grey20 py-[0.38rem] pl-4 pr-[0.39rem] text-sm text-grey70">
-        <div className="flex gap-5">
-          <span className="">매칭 요청</span>
-        </div>
-        <button
-          onClick={onClickMatching}
-          className="flex items-center gap-2 rounded-full bg-[#D3E1FE] px-[1.38rem] py-[0.56rem] text-[#4D82F3] hover:brightness-95"
-        >
-          <Image src="/common/icons/send.svg" alt="scrap" width={20} height={20} />
-        </button>
-      </div>
+      <button
+        onClick={onClickMatching}
+        className="flex w-[12.5rem] justify-center gap-2 rounded-full bg-white py-4 hover:border hover:border-[#4D82F3]"
+      >
+        <Image src="/common/icons/not_send.svg" alt="scrap" width={20} height={20} />
+        <span className="text-sm text-[#4D82F3]">요청 보내기</span>
+      </button>
 
       <MatchingModal
         isOpen={isProfileModalOpen}
