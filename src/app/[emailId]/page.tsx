@@ -1,5 +1,5 @@
 import { getProfileDetail } from '@/entities/profile/api/profileApi'
-import { ProfileDetailData } from '@/entities/profile/model/types'
+
 import { ProfileViewProvider } from '@/entities/profile/model/ProfileViewContext'
 import ProfileViewLog from '@/features/profile/view/component/ProfileViewLog'
 import ProfileViewSkills from '@/features/profile/view/component/ProfileViewSkills'
@@ -15,32 +15,17 @@ export default async function UserProfilePage({ params }: { params: { emailId: s
   const emailId = params.emailId as string
   const profileData = await getProfileDetail(emailId)
 
-  const sections = [
-    { id: 'log', label: '활동 로그' },
-    { id: 'skills', label: '보유 스킬' },
-    { id: 'history', label: '이력' },
-    { id: 'portfolio', label: '포트폴리오' },
-    { id: 'education', label: '학력' },
-    { id: 'awards', label: '수상 내역' },
-    { id: 'license', label: '자격증' },
-    { id: 'links', label: '링크' },
-  ]
-
-  if (!profileData) return <div>Loading...</div>
-
   return (
-    <div className="flex w-full justify-center pt-5 lg:pl-[4.25rem] lg:pt-[3.63rem]">
+    <div className="flex w-full flex-grow flex-col justify-center gap-2 pt-5 lg:gap-6 lg:pl-[4.25rem] lg:pt-[3.63rem]">
       <ProfileViewProvider profileData={profileData}>
-        <ClientProfileWrapper sections={sections}>
-          <ProfileViewLog id="log" />
-          <ProfileViewSkills id="skills" />
-          <ProfileViewHistory id="history" />
-          <ProfileViewPortFolio id="portfolio" />
-          <ProfileViewEducation id="education" />
-          <ProfileViewAwards id="awards" />
-          <ProfileViewLicense id="license" />
-          <ProfileViewLinks id="links" />
-        </ClientProfileWrapper>
+        <ProfileViewLog />
+        <ProfileViewSkills />
+        <ProfileViewHistory />
+        <ProfileViewPortFolio />
+        <ProfileViewEducation />
+        <ProfileViewAwards />
+        <ProfileViewLicense />
+        <ProfileViewLinks />
       </ProfileViewProvider>
     </div>
   )
