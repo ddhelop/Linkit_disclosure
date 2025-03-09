@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from 'react'
-import Image from 'next/image'
-import { TeamAnnouncementDetail } from '../../api/teamApi'
 import { announcementScrap } from '@/shared/api/commonApi'
 import { useToast } from '@/shared/hooks/useToast'
-import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/shared/store/useAuthStore'
+import Linkify from 'linkify-react'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { TeamAnnouncementDetail } from '../../api/teamApi'
 
 function calculateDday(endDate: string): string {
   const today = new Date()
@@ -116,21 +117,33 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
         {recruitmentDetail?.mainTasks && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">주요업무</h3>
-            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail?.mainTasks}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
+              <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>
+                {recruitmentDetail?.mainTasks}
+              </Linkify>
+            </span>
           </div>
         )}
 
         {recruitmentDetail?.idealCandidate && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">요구 사항</h3>
-            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail?.idealCandidate}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
+              <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>
+                {recruitmentDetail?.idealCandidate}
+              </Linkify>
+            </span>
           </div>
         )}
 
         {recruitmentDetail?.workMethod && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">업무 방식</h3>
-            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail?.workMethod}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
+              <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>
+                {recruitmentDetail?.workMethod}
+              </Linkify>
+            </span>
           </div>
         )}
 
@@ -138,7 +151,9 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">우대 사항</h3>
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
-              {recruitmentDetail?.preferredQualifications}
+              <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>
+                {recruitmentDetail?.preferredQualifications}
+              </Linkify>
             </span>
           </div>
         )}
@@ -146,14 +161,20 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
         {recruitmentDetail?.joiningProcess && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">합류 절차</h3>
-            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail?.joiningProcess}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
+              <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>
+                {recruitmentDetail?.joiningProcess}
+              </Linkify>
+            </span>
           </div>
         )}
 
         {recruitmentDetail?.benefits && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">기타 사항</h3>
-            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">{recruitmentDetail?.benefits}</span>
+            <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
+              <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>{recruitmentDetail?.benefits}</Linkify>
+            </span>
           </div>
         )}
       </div>
