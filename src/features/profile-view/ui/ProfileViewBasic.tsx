@@ -4,6 +4,7 @@ import { getProfileDetail } from '../api/ProfileViewApi'
 import Image from 'next/image'
 import ProfileScrap from '@/features/profile-view/ui/ProfileScrapButton'
 import ProfileMatchButton from '@/features/profile-view/ui/ProfileMatchButton'
+import ProfileSkeleton from './skeleton/ProfileSkeleton'
 
 export default function ProfileViewBasic({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
@@ -12,10 +13,14 @@ export default function ProfileViewBasic({ emailId }: { emailId: string }) {
     staleTime: 60000,
   })
 
+  if (isLoading) {
+    return <ProfileSkeleton />
+  }
+
   const profileData = data?.result?.profileInformMenu
 
   return (
-    <div className="flex flex-col justify-between gap-3 bg-[#EDF3FF] px-6 py-8 md:flex-row  md:px-[4.25rem] md:py-[4.62rem]">
+    <div className="flex flex-col justify-between gap-3 bg-[#EDF3FF] px-6 py-8 md:flex-row md:px-[4.25rem] md:py-[4.62rem]">
       {/* 왼쪽 */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-2">
