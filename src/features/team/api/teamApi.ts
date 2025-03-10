@@ -1,6 +1,6 @@
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
-import { TeamInfoResponse, TeamResponse, TeamLogsResponse } from '../types/team.types'
 import { TeamProduct } from '../edit/product/TeamEditProduct'
+import { TeamLogsResponse, TeamResponse } from '../types/team.types'
 
 interface CreateTeamRequest {
   teamName: string
@@ -558,6 +558,19 @@ export async function toggleTeamAnnouncementPublic(teamName: string, announcemen
 
   if (!response.ok) {
     throw new Error('Failed to toggle team announcement public')
+  }
+
+  return response.json()
+}
+
+// 팀원 공고 모집 마감 여부 수정
+export async function toggleTeamAnnouncementClose(teamName: string, announcementId: number) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement/close/${announcementId}`, {
+    method: 'POST',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to toggle team announcement close')
   }
 
   return response.json()
