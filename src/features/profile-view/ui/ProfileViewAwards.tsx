@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useQuery } from '@tanstack/react-query'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
+import ProfileViewAwardsSkeleton from './skeleton/ProfileViewAwardsSkeleton'
 
 export default function ProfileViewAwards({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
@@ -17,6 +18,10 @@ export default function ProfileViewAwards({ emailId }: { emailId: string }) {
 
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({})
 
+  // 로딩 중일 때 스켈레톤 UI 표시
+  if (isLoading) {
+    return <ProfileViewAwardsSkeleton />
+  }
   const toggleExpand = (id: string) => {
     setExpandedItems((prev) => ({
       ...prev,

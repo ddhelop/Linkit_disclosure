@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { EditableContainer } from '../component/EditableContainer'
 import Image from 'next/image'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
+import ProfileViewLicenseSkeleton from './skeleton/ProfileViewLicenseSkeleton'
 
 export default function ProfileViewLicense({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
@@ -10,6 +11,11 @@ export default function ProfileViewLicense({ emailId }: { emailId: string }) {
     queryFn: () => getProfileDetail(emailId),
     staleTime: 60000, // 1분 동안 캐싱 유지
   })
+
+  // 로딩 중일 때 스켈레톤 UI 표시
+  if (isLoading) {
+    return <ProfileViewLicenseSkeleton />
+  }
 
   const isMyProfile = data?.result?.isMyProfile
   const licenseItems = data?.result?.profileLicenseItems || []

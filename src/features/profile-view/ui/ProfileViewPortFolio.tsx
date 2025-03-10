@@ -4,6 +4,7 @@ import { EditableContainer } from '../component/EditableContainer'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
+import ProfileViewPortFolioSkeleton from './skeleton/ProfileViewPortFolioSkeleton'
 
 export default function ProfileViewPortFolio({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
@@ -11,6 +12,11 @@ export default function ProfileViewPortFolio({ emailId }: { emailId: string }) {
     queryFn: () => getProfileDetail(emailId),
     staleTime: 60000, // 1분 동안 캐싱 유지
   })
+
+  // 로딩 중일 때 스켈레톤 UI 표시
+  if (isLoading) {
+    return <ProfileViewPortFolioSkeleton />
+  }
 
   const portfolioItems = data?.result?.profilePortfolioItems || []
 

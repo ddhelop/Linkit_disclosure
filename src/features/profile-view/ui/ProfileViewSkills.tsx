@@ -2,6 +2,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { EditableContainer } from '../component/EditableContainer'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
+import ProfileViewSkillsSkeleton from './skeleton/ProfileViewSkillsSkeleton'
 
 export default function ProfileViewSkills({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
@@ -9,6 +10,11 @@ export default function ProfileViewSkills({ emailId }: { emailId: string }) {
     queryFn: () => getProfileDetail(emailId),
     staleTime: 60000, // 1분 동안 캐싱 유지
   })
+
+  // 로딩 중일 때 스켈레톤 UI 표시
+  if (isLoading) {
+    return <ProfileViewSkillsSkeleton />
+  }
 
   const skillItems = data?.result?.profileSkillItems || []
 

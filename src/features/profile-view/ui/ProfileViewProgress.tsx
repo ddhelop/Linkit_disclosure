@@ -1,13 +1,19 @@
 'use client'
 import { useQuery } from '@tanstack/react-query'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
+import ProfileViewProgressSkeleton from './skeleton/ProfileViewProgressSkeleton'
 
 export default function ProfileProgress({ emailId }: { emailId: string }) {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['profileDetail', emailId],
     queryFn: () => getProfileDetail(emailId),
     staleTime: 60000, // 1분 동안 캐싱 유지
   })
+
+  // 로딩 중일 때 스켈레톤 UI 표시
+  if (isLoading) {
+    return <ProfileViewProgressSkeleton />
+  }
 
   // 프로필 완성도 (progress)를 가져옵니다.
   const progress = data?.result?.profileCompletionMenu?.profileCompletion || 0

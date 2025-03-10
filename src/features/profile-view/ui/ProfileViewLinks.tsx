@@ -5,18 +5,24 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
+import ProfileViewLinksSkeleton from './skeleton/ProfileViewLinksSkeleton'
 
 export default function ProfileViewLinks({ emailId }: { emailId: string }) {
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null)
+
   const { data, isLoading } = useQuery({
     queryKey: ['profileDetail', emailId],
     queryFn: () => getProfileDetail(emailId),
     staleTime: 60000, // 1분 동안 캐싱 유지
   })
 
+  // 로딩 중일 때 스켈레톤 UI 표시
+  if (isLoading) {
+    return <ProfileViewLinksSkeleton />
+  }
+
   const isMyProfile = data?.result?.isMyProfile
   const linkItems = data?.result?.profileLinkItems || []
-
-  const [hoveredLink, setHoveredLink] = useState<string | null>(null)
 
   const socialMediaPlatforms = [
     'facebook',

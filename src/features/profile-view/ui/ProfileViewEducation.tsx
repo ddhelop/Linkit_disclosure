@@ -4,17 +4,16 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
+import ProfileViewEducationSkeleton from './skeleton/ProfileViewEducationSkeleton'
 
 export default function ProfileViewEducation({ emailId }: { emailId: string }) {
+  // 모든 훅은 여기에 선언해야 합니다 - 조건문 이전에
+  const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({})
   const { data, isLoading } = useQuery({
     queryKey: ['profileDetail', emailId],
     queryFn: () => getProfileDetail(emailId),
     staleTime: 60000, // 1분 동안 캐싱 유지
   })
-
-  const isMyProfile = data?.result?.isMyProfile
-  const educationItems = data?.result?.profileEducationItems || []
-  const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({})
 
   const toggleExpand = (id: string) => {
     setExpandedItems((prev) => ({
@@ -22,6 +21,14 @@ export default function ProfileViewEducation({ emailId }: { emailId: string }) {
       [id]: !prev[id],
     }))
   }
+
+  // 로딩 중일 때 스켈레톤 UI 표시
+  if (isLoading) {
+    return <ProfileViewEducationSkeleton />
+  }
+
+  const isMyProfile = data?.result?.isMyProfile
+  const educationItems = data?.result?.profileEducationItems || []
 
   return (
     <EditableContainer
