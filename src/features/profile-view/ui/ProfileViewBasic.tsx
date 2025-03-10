@@ -9,7 +9,7 @@ export default function ProfileViewBasic({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
     queryKey: ['profileDetail', emailId],
     queryFn: () => getProfileDetail(emailId),
-    staleTime: 60000, // 1분 동안 캐싱 유지
+    staleTime: 60000,
   })
 
   const profileData = data?.result?.profileInformMenu
@@ -83,7 +83,10 @@ export default function ProfileViewBasic({ emailId }: { emailId: string }) {
       {/* 오른쪽 */}
       <div className="flex flex-col gap-3">
         {data?.result?.isMyProfile ? (
-          <div className="flex gap-2">내 프로필</div>
+          <button className="flex items-center gap-2 rounded-full border border-grey50 bg-white px-5 py-4 text-sm text-grey60 hover:bg-grey10">
+            프로필 방문자
+            <Image src="/common/icons/right_arrow_grey60.svg" alt="profile_visitor" width={24} height={24} />
+          </button>
         ) : (
           <div className="flex gap-2  md:flex-col">
             <ProfileScrap isProfileScrap={profileData?.isProfileScrap ?? false} emailId={emailId} />
