@@ -5,6 +5,7 @@ import { EditableContainer } from '../component/EditableContainer'
 import Image from 'next/image'
 import { useState } from 'react'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
+import ProfileViewHistorySkeleton from './skeleton/ProfileViewHistorySkeleton'
 
 export default function ProfileViewHistory({ emailId }: { emailId: string }) {
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({})
@@ -14,6 +15,11 @@ export default function ProfileViewHistory({ emailId }: { emailId: string }) {
     queryFn: () => getProfileDetail(emailId),
     staleTime: 60000, // 1분 동안 캐싱 유지
   })
+
+  // 로딩 중일 때 스켈레톤 UI 표시
+  if (isLoading) {
+    return <ProfileViewHistorySkeleton />
+  }
 
   const historyItems = data?.result?.profileActivityItems || []
 

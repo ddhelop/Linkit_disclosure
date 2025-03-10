@@ -5,6 +5,7 @@ import Image from 'next/image'
 import ProfileScrap from '@/features/profile-view/ui/ProfileScrapButton'
 import ProfileMatchButton from '@/features/profile-view/ui/ProfileMatchButton'
 import ProfileSkeleton from './skeleton/ProfileSkeleton'
+import Link from 'next/link'
 
 export default function ProfileViewBasic({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
@@ -54,9 +55,21 @@ export default function ProfileViewBasic({ emailId }: { emailId: string }) {
           </div>
 
           <div className="flex flex-col justify-center gap-2">
-            <div className="flex gap-3">
+            <div className="flex items-center gap-4">
               <span className="text-xl font-semibold text-grey90">{profileData?.memberName}</span>
               <span className="text-sm text-grey70">스크랩 수 {profileData?.profileScrapCount}</span>
+              <Link href={`/profile/edit/basic`}>
+                <Image
+                  src="/common/icons/editable.svg"
+                  alt="editable"
+                  width={24}
+                  height={24}
+                  style={{
+                    filter: 'drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.20))',
+                  }}
+                  className="cursor-pointer"
+                />
+              </Link>
             </div>
             <div className="flex gap-2 text-xs text-grey70">
               {profileData?.majorPosition} | {profileData?.regionDetail?.cityName}{' '}
@@ -69,14 +82,18 @@ export default function ProfileViewBasic({ emailId }: { emailId: string }) {
           {profileData?.profileTeamInforms && profileData?.profileTeamInforms.length > 0 ? (
             <>
               {profileData?.profileTeamInforms.map((team) => (
-                <div key={team.teamName} className="relative h-[2.5rem] w-[2.5rem] rounded-lg">
+                <Link
+                  key={team.teamName}
+                  href={`/team/${team.teamCode}/log`}
+                  className="relative h-[2.5rem] w-[2.5rem] rounded-lg"
+                >
                   <Image
                     src={team.teamLogoImagePath || '/common/default_profile.svg'}
                     alt="team"
                     fill
                     className="rounded-lg"
                   />
-                </div>
+                </Link>
               ))}
             </>
           ) : (

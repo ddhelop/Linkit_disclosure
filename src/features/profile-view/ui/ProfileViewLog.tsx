@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { EditableContainer } from '../component/EditableContainer'
 import { useQuery } from '@tanstack/react-query'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
+import ProfileViewLogSkeleton from './skeleton/ProfileViewLogSkeleton'
 
 export default function ProfileViewLog({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
@@ -12,6 +13,11 @@ export default function ProfileViewLog({ emailId }: { emailId: string }) {
     queryFn: () => getProfileDetail(emailId),
     staleTime: 60000, // 1분 동안 캐싱 유지
   })
+
+  // 로딩 중일 때 스켈레톤 UI 표시
+  if (isLoading) {
+    return <ProfileViewLogSkeleton />
+  }
 
   const logItem = data?.result?.profileLogItem
   const isMyProfile = data?.result?.isMyProfile
