@@ -6,10 +6,8 @@
 /* 툴바 스타일링 */
 .ql-toolbar.ql-snow {
   border: none !important;
-  overflow-x: auto !important;
   white-space: nowrap !important;
   scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
 }
 
 .ql-toolbar.ql-snow::-webkit-scrollbar {

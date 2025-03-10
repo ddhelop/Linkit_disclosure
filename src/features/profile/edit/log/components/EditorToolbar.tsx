@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import dynamic from 'next/dynamic'
 import '../../style/editorToolbar.css'
 
@@ -36,7 +35,7 @@ export const formats = ['header', 'bold', 'italic', 'underline', 'list', 'bullet
 
 export const QuillToolbar = () => (
   <div id="toolbar" className="flex items-center border-b border-grey30 bg-white px-4 py-2">
-    <div className="flex items-center gap-4">
+    <div className="flex flex-wrap items-center gap-4">
       <span className="ql-formats">
         <select className="ql-header">
           <option value="">본문</option>
