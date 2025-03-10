@@ -102,13 +102,15 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
       className="flex w-full flex-col rounded-xl border border-transparent bg-white p-5 hover:border-main md:px-10 md:py-5"
     >
       <div className="flex items-center justify-between">
+
         <div
           className={twMerge(
             'flex rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]',
             isClosed && 'bg-grey30 text-grey60',
           )}
         >
-          {announcement.isAnnouncementInProgress ? '모집 중' : '모집 완료'}
+          {announcement.isAnnouncementInProgress ? '모집 중' : '마감'}
+
         </div>
         <div className="relative">
           <div

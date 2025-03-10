@@ -22,9 +22,9 @@ export default function TeamViewRecruitment({ teamName }: { teamName: string }) 
   const filteredAnnouncements = data?.filter((announcement) => {
     switch (filter) {
       case 'IN_PROGRESS':
-        return announcement.isAnnouncementInProgress
+        return !announcement.isClosed
       case 'CLOSED':
-        return !announcement.isAnnouncementInProgress
+        return announcement.isClosed
       default:
         return true
     }

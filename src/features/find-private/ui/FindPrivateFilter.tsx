@@ -105,7 +105,7 @@ export default function FindPrivateFilter() {
           <div className="grid grid-cols-3 gap-4">
             <button
               onClick={() => handleSectionClick('position')}
-              className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 py-2 text-xs hover:bg-[#EDF3FF] sm:px-5 sm:py-4 sm:text-sm"
+              className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 p-3 text-xs hover:bg-[#EDF3FF] sm:px-5 sm:py-4 sm:text-sm"
               aria-label="포지션 필터"
             >
               <h3 className="flex justify-center text-grey70 md:justify-start">포지션</h3>
@@ -113,7 +113,7 @@ export default function FindPrivateFilter() {
             </button>
             <button
               onClick={() => handleSectionClick('location')}
-              className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 py-2 text-xs hover:bg-[#EDF3FF] sm:px-5 sm:py-4 sm:text-sm"
+              className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 p-3 text-xs hover:bg-[#EDF3FF] sm:px-5 sm:py-4 sm:text-sm"
               aria-label="활동 지역 필터"
             >
               <h3 className="flex justify-center text-grey70 md:justify-start">활동 지역</h3>
@@ -121,7 +121,7 @@ export default function FindPrivateFilter() {
             </button>
             <button
               onClick={() => handleSectionClick('status')}
-              className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 py-2 text-xs hover:bg-[#EDF3FF] sm:px-5 sm:py-4 sm:text-sm"
+              className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 p-3 text-xs hover:bg-[#EDF3FF] sm:px-5 sm:py-4 sm:text-sm"
               aria-label="현재 상태 필터"
             >
               <h3 className="flex justify-center text-grey70 md:justify-start">현재 상태</h3>

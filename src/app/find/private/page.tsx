@@ -29,8 +29,8 @@ export default async function FindPrivatePage({
         <div className="relative flex w-full justify-center">
           <main className="flex w-[95%] flex-col pt-9 lg:w-[78%]">
             <header className="flex flex-col gap-2 px-3 lg:px-16">
-              <h1 className="text-xs text-grey30 sm:text-base">팀원 찾기</h1>
-              <p className="whitespace-pre-line text-sm font-semibold text-white sm:text-xl">
+              <h1 className="text-xs text-black sm:text-base">팀원 찾기</h1>
+              <p className="whitespace-pre-line text-sm font-semibold text-black sm:text-xl">
                 사이드 프로젝트부터 창업까지, 함께할 팀원을 찾아보세요
               </p>
             </header>

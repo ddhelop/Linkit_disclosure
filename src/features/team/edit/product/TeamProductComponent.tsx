@@ -81,6 +81,7 @@ export default function TeamProductComponent({ product, teamName, onDelete }: Te
                 {product.productStartDate} ~ {product.isProductInProgress ? '진행 중' : product.productEndDate}
               </span>
             </div>
+
             <span className="text-xs text-grey70">{product.productLineDescription}</span>
           </div>
         </div>
@@ -133,9 +134,11 @@ export default function TeamProductComponent({ product, teamName, onDelete }: Te
       )}
 
       {/* 설명 */}
-      <div className="whitespace-pre-line rounded-lg bg-grey10 p-4 text-xs font-normal text-grey70">
-        {product.productDescription}
-      </div>
+      {product.productDescription && (
+        <div className="whitespace-pre-line rounded-lg bg-grey10 p-4 text-xs font-normal text-grey70">
+          {product.productDescription}
+        </div>
+      )}
     </Link>
   )
 }

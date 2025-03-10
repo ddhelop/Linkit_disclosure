@@ -137,7 +137,7 @@ export default function MatchingRequestModal({
           <textarea
             value={requestMessage}
             onChange={(e) => setRequestMessage(e.target.value)}
-            className="h-[calc(100vh-300px)] w-full resize-none rounded-xl bg-grey20 px-7 py-5 text-sm text-grey90 placeholder:whitespace-pre-line placeholder:text-grey50 focus:outline-none md:h-[200px]"
+            className="h-[calc(100vh-300px)] w-full resize-none rounded-xl border border-grey40 bg-grey20 px-7 py-5 text-sm text-grey90 placeholder:whitespace-pre-line placeholder:text-grey50 focus:outline-none md:h-[200px]"
             placeholder={`나를 어필할 수 있는 내용을 입력해 주세요\n페이지를 떠나면 내용이 저장되지 않으니 미리 복사해 두었다가 붙여넣어 사용할 수 있어요`}
           />
           <p className="mt-1 text-xs text-grey50">필요한 자료들은 내 프로필에 업로드 해주세요</p>

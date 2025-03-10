@@ -4,18 +4,23 @@ import { getProfileDetail } from '../api/ProfileViewApi'
 import Image from 'next/image'
 import ProfileScrap from '@/features/profile-view/ui/ProfileScrapButton'
 import ProfileMatchButton from '@/features/profile-view/ui/ProfileMatchButton'
+import ProfileSkeleton from './skeleton/ProfileSkeleton'
 
 export default function ProfileViewBasic({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
     queryKey: ['profileDetail', emailId],
     queryFn: () => getProfileDetail(emailId),
-    staleTime: 60000, // 1분 동안 캐싱 유지
+    staleTime: 60000,
   })
+
+  if (isLoading) {
+    return <ProfileSkeleton />
+  }
 
   const profileData = data?.result?.profileInformMenu
 
   return (
-    <div className="flex flex-col justify-between gap-3 bg-[#EDF3FF] px-6 py-8 md:flex-row  md:px-[4.25rem] md:py-[4.62rem]">
+    <div className="flex flex-col justify-between gap-3 bg-[#EDF3FF] px-6 py-8 md:flex-row md:px-[4.25rem] md:py-[4.62rem]">
       {/* 왼쪽 */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-2">
@@ -83,7 +88,10 @@ export default function ProfileViewBasic({ emailId }: { emailId: string }) {
       {/* 오른쪽 */}
       <div className="flex flex-col gap-3">
         {data?.result?.isMyProfile ? (
-          <div className="flex gap-2">내 프로필</div>
+          <button className="flex items-center gap-2 rounded-full border border-grey50 bg-white px-5 py-4 text-sm text-grey60 hover:bg-grey10">
+            프로필 방문자
+            <Image src="/common/icons/right_arrow_grey60.svg" alt="profile_visitor" width={24} height={24} />
+          </button>
         ) : (
           <div className="flex gap-2  md:flex-col">
             <ProfileScrap isProfileScrap={profileData?.isProfileScrap ?? false} emailId={emailId} />
