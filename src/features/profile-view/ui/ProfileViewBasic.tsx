@@ -55,9 +55,21 @@ export default function ProfileViewBasic({ emailId }: { emailId: string }) {
           </div>
 
           <div className="flex flex-col justify-center gap-2">
-            <div className="flex gap-3">
+            <div className="flex items-center gap-4">
               <span className="text-xl font-semibold text-grey90">{profileData?.memberName}</span>
               <span className="text-sm text-grey70">스크랩 수 {profileData?.profileScrapCount}</span>
+              <Link href={`/profile/edit/basic`}>
+                <Image
+                  src="/common/icons/editable.svg"
+                  alt="editable"
+                  width={24}
+                  height={24}
+                  style={{
+                    filter: 'drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.20))',
+                  }}
+                  className="cursor-pointer"
+                />
+              </Link>
             </div>
             <div className="flex gap-2 text-xs text-grey70">
               {profileData?.majorPosition} | {profileData?.regionDetail?.cityName}{' '}
