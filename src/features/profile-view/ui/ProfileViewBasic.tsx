@@ -5,6 +5,7 @@ import Image from 'next/image'
 import ProfileScrap from '@/features/profile-view/ui/ProfileScrapButton'
 import ProfileMatchButton from '@/features/profile-view/ui/ProfileMatchButton'
 import ProfileSkeleton from './skeleton/ProfileSkeleton'
+import Link from 'next/link'
 
 export default function ProfileViewBasic({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
@@ -69,14 +70,18 @@ export default function ProfileViewBasic({ emailId }: { emailId: string }) {
           {profileData?.profileTeamInforms && profileData?.profileTeamInforms.length > 0 ? (
             <>
               {profileData?.profileTeamInforms.map((team) => (
-                <div key={team.teamName} className="relative h-[2.5rem] w-[2.5rem] rounded-lg">
+                <Link
+                  key={team.teamName}
+                  href={`/team/${team.teamCode}/log`}
+                  className="relative h-[2.5rem] w-[2.5rem] rounded-lg"
+                >
                   <Image
                     src={team.teamLogoImagePath || '/common/default_profile.svg'}
                     alt="team"
                     fill
                     className="rounded-lg"
                   />
-                </div>
+                </Link>
               ))}
             </>
           ) : (
