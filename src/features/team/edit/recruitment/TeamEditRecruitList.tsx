@@ -52,7 +52,7 @@ export default function TeamEditRecruitList({ params }: { params: { teamName: st
           className={`cursor-pointer rounded-[62.5rem] border border-[#B5CDFF] px-6 py-2 text-grey60
             ${filter === 'completed' ? 'bg-[#D3E1FE]' : 'bg-white'}`}
         >
-          모집 완료
+          마감
         </div>
       </div>
 
