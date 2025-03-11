@@ -1,6 +1,6 @@
 // features/home/loader.ts
 import { QueryClient, dehydrate } from '@tanstack/react-query'
-import { getTeamDetail, getTeamMembers, getTeamRecruitmentList } from './api/TeamDataViewApi'
+import { getTeamDetail, getTeamMembers, getTeamProducts, getTeamRecruitmentList } from './api/TeamDataViewApi'
 import { getTeamRepresentLog } from './api/TeamDataItemsApi'
 
 // 팀 정보 조회
@@ -46,6 +46,18 @@ export async function loadTeamMembers(teamName: string) {
   await queryClient.prefetchQuery({
     queryKey: ['teamMembers', teamName],
     queryFn: () => getTeamMembers(teamName),
+  })
+
+  return dehydrate(queryClient)
+}
+
+// 팀 프로덕트 조회
+export async function loadTeamProducts(teamName: string) {
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: ['teamProducts', teamName],
+    queryFn: () => getTeamProducts(teamName),
   })
 
   return dehydrate(queryClient)
