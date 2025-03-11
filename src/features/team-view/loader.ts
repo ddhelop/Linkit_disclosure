@@ -7,7 +7,7 @@ export async function loadTeamData(teamName: string) {
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery({
-    queryKey: ['teamData', teamName],
+    queryKey: ['teamInfo', teamName],
     queryFn: () => getTeamDetail(teamName),
   })
 

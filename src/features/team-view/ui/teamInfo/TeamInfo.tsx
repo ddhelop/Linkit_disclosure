@@ -12,8 +12,8 @@ import { useQuery } from '@tanstack/react-query'
 export default function TeamInfo({ teamName }: { teamName: string }) {
   const router = useRouter()
 
-  const { data } = useQuery({
-    queryKey: ['team', teamName],
+  const { data, isLoading } = useQuery({
+    queryKey: ['teamInfo', teamName],
     queryFn: () => getTeamDetail(teamName),
   })
   const teamData = data?.result
