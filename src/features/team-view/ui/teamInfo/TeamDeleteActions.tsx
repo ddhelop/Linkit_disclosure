@@ -88,17 +88,18 @@ export const TeamDeleteActions = ({
         </div>
       ) : (
         // 일반 관리자 상태 또는 삭제 요청자인 경우
-        <Button
-          onClick={() => {
-            router.push(`/team/${teamCode}/edit/log`)
-          }}
-          animationMode="grey"
-          className="flex gap-2 rounded-full border border-grey30 bg-white px-6 py-3 text-sm text-grey60"
-          mode="custom"
-        >
-          <Image src="/common/icons/pencil.svg" alt="edit" width={16} height={16} />
-          수정하기
-        </Button>
+        <></>
+        // <Button
+        //   onClick={() => {
+        //     router.push(`/team/${teamCode}/edit/log`)
+        //   }}
+        //   animationMode="grey"
+        //   className="flex gap-2 rounded-full border border-grey30 bg-white px-6 py-3 text-sm text-grey60"
+        //   mode="custom"
+        // >
+        //   <Image src="/common/icons/pencil.svg" alt="edit" width={16} height={16} />
+        //   수정하기
+        // </Button>
       )}
 
       <AlertModal

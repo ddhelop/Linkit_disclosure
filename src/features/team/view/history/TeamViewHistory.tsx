@@ -5,6 +5,8 @@ import { getTeamHistory } from '../../api/teamViewApi'
 import TeamViewNotView from '../../../team-view/ui/teamInfo/TeamViewNotView'
 import { useTeamStore } from '../../store/useTeamStore'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import Image from 'next/image'
 
 interface HistoryItem {
   teamHistoryId: number
@@ -44,18 +46,14 @@ export default function TeamViewHistory({ teamName }: { teamName: string }) {
     fetchHistory()
   }, [teamName])
 
-  if (isLoading) {
-    return <div className="ml-8 text-grey60">로딩중...</div>
-  }
-
   if (!historyData || historyData.length === 0) {
     return (
       <div className="">
         {isTeamManager ? (
           <TeamViewNotView />
         ) : (
-          <div className="mt-[3rem] flex w-full justify-center font-semibold text-grey60">
-            아직 작성한 내용이 없어요
+          <div className="mt-[5rem] flex w-full flex-col items-center gap-9  ">
+            <span className="text-sm text-grey60">아직 작성한 내용이 없어요</span>
           </div>
         )}
       </div>
@@ -64,7 +62,20 @@ export default function TeamViewHistory({ teamName }: { teamName: string }) {
 
   return (
     <>
-      <div className="relative mx-auto max-w-[960px] px-4 lg:px-32">
+      {/* 팀 로그 제목 및 수정하기 */}
+      {isTeamManager && (
+        <div className="mt-7 flex w-full items-center justify-between">
+          <h3 className="text-xl text-grey80">팀 연혁</h3>
+          <Link
+            href={`/team/${teamName}/edit/history`}
+            className="flex items-center gap-2 rounded-full bg-grey80 px-6 py-3 text-sm text-white hover:brightness-125"
+          >
+            <Image src={'/common/icons/white_pencil.svg'} alt="pencil" width={16} height={16} />
+            <span>수정하기</span>
+          </Link>
+        </div>
+      )}
+      <div className="relative mx-auto mt-6 max-w-[960px] px-4 lg:px-32">
         {/* 타임라인 세로선 - 모바일에서 더 정확한 위치로 조정 */}
         <div className="absolute left-[34.5px] top-0 h-full w-[2px] bg-grey40 lg:left-[219px]" />
 

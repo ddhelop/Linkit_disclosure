@@ -31,7 +31,20 @@ export default function TeamViewLog({ teamName }: { teamName: string }) {
         )
       ) : (
         <>
-          <div className="mt-10 flex flex-col gap-3 lg:gap-6">
+          <div className="mt-7 flex flex-col gap-3 lg:gap-6">
+            {/* 팀 로그 제목 및 수정하기 */}
+            {isTeamManager && (
+              <div className="flex w-full items-center justify-between">
+                <h3 className="text-xl text-grey80">팀 로그</h3>
+                <Link
+                  href={`/team/${teamName}/edit/log`}
+                  className="flex items-center gap-2 rounded-full bg-grey80 px-6 py-3 text-sm text-white hover:brightness-125"
+                >
+                  <Image src={'/common/icons/white_pencil.svg'} alt="pencil" width={16} height={16} />
+                  <span>수정하기</span>
+                </Link>
+              </div>
+            )}
             <TeamViewRepresentLog log={log} teamName={teamName} />
           </div>
           <div className="mt-10 flex justify-center">

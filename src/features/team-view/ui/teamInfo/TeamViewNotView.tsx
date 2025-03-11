@@ -11,18 +11,16 @@ export default function TeamViewNotView() {
   const currentSection = pathname.split('/').pop()
 
   return (
-    <div className="mt-[6.25rem] flex h-full w-full flex-col items-center">
-      <p className="text-sm text-grey60">팀 프로필을 완성해 보세요</p>
-      <Link href={`/team/${teamName}/edit/${currentSection}`}>
-        <Button
-          animationMode="black"
-          mode="black"
-          size="custom"
-          className="mt-8 rounded-full px-10 py-3 text-base font-semibold"
+    <div className="mt-[5rem] flex w-full flex-col items-center gap-9  ">
+      <span className="text-sm text-grey60">팀 프로필을 완성해 보세요</span>
+      <div className="">
+        <Link
+          href={`/team/${teamName}/edit/history`}
+          className="white flex items-center gap-2 rounded-full bg-grey80 px-10 py-4 font-semibold text-white hover:brightness-125"
         >
-          추가하기
-        </Button>
-      </Link>
+          <span>추가하기</span>
+        </Link>
+      </div>
     </div>
   )
 }

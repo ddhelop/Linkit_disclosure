@@ -14,10 +14,7 @@ export default async function TeamLayout({
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <div
-        className={`h-[calc(100v h-4rem)]
-    flex flex-col bg-grey10`}
-      >
+      <div className={`h-[calc(100v h-4rem)] flex flex-col bg-grey10`}>
         <TeamViewClient teamName={teamName} />
         <div className="min-h-[calc(100vh-26.5rem)] bg-grey10 px-4 lg:px-[7.12rem]">{children}</div>
       </div>
