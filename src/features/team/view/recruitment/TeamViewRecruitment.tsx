@@ -1,25 +1,23 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { getTeamAnnouncements, TeamAnnouncement } from '../../api/teamApi'
 import TeamViewReruitComponent from './TeamViewReruitComponent'
 import TeamViewNotView from '../../../team-view/ui/teamInfo/TeamViewNotView'
 import { useTeamStore } from '../../store/useTeamStore'
+import { useQuery } from '@tanstack/react-query'
+import { getTeamRecruitmentList } from '@/features/team-view/api/TeamDataViewApi'
 
 export default function TeamViewRecruitment({ teamName }: { teamName: string }) {
-  const [data, setData] = useState<TeamAnnouncement[] | null>(null)
   const [filter, setFilter] = useState<'ALL' | 'IN_PROGRESS' | 'CLOSED'>('ALL')
   const { isTeamManager } = useTeamStore()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getTeamAnnouncements(teamName)
-      setData(response.result.teamMemberAnnouncementItems)
-    }
-    fetchData()
-  }, [teamName])
+  const { data } = useQuery({
+    queryKey: ['teamRecruitment', teamName],
+    queryFn: () => getTeamRecruitmentList(teamName),
+  })
+  const announcements = data?.result.teamMemberAnnouncementItems
 
-  const filteredAnnouncements = data?.filter((announcement) => {
+  const filteredAnnouncements = announcements?.filter((announcement) => {
     switch (filter) {
       case 'IN_PROGRESS':
         return !announcement.isClosed
@@ -30,7 +28,7 @@ export default function TeamViewRecruitment({ teamName }: { teamName: string }) 
     }
   })
 
-  if (!data || data.length === 0) {
+  if (!announcements || announcements.length === 0) {
     return isTeamManager ? (
       <TeamViewNotView />
     ) : (

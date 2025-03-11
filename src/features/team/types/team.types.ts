@@ -1,3 +1,35 @@
+// 모집공고
+export interface Announcement {
+  teamMemberAnnouncementId: number
+  isAnnouncementScrap: boolean
+  majorPosition: string
+  subPosition: string
+  announcementScrapCount: number
+  announcementDDay: number
+  isPermanentRecruitment: boolean
+  announcementTitle: string
+  announcementPositionItem: {
+    majorPosition: string
+    subPosition: string
+  }
+  announcementSkillNames: {
+    announcementSkillName: string
+  }[]
+  announcementEndDate?: string
+  isRegionFlexible?: boolean
+  mainTasks?: string
+  workMethod?: string
+  idealCandidate?: string
+  preferredQualifications?: string
+  joiningProcess?: string
+  benefits?: string
+
+  teamName?: string
+  teamLogoImagePath?: string
+  teamCode?: string
+  isClosed?: boolean
+}
+
 export interface TeamState {
   teamStateName: string
 }

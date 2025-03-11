@@ -420,22 +420,6 @@ export async function updateTeamHistory(teamName: string, historyId: number, dat
   })
 }
 
-export interface TeamAnnouncement {
-  announcementScrapCount: number
-  announcementDDay: number
-  teamMemberAnnouncementId: number
-  announcementTitle: string
-  majorPosition: string
-  isAnnouncementScrap: boolean
-  isClosed: boolean
-  announcementSkillNames: {
-    announcementSkillName: string
-  }[]
-  isAnnouncementPublic: boolean
-  isPermanentRecruitment: boolean
-  isAnnouncementInProgress: boolean
-  announcementEndDate: string
-}
 export interface TeamAnnouncementDetail {
   isSuccess: boolean
   code: string
