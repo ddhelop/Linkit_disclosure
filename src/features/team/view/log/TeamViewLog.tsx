@@ -1,31 +1,26 @@
 'use client'
-
-import { useEffect, useState } from 'react'
 import TeamViewNotView from '../../../team-view/ui/teamInfo/TeamViewNotView'
-import { getTeamRepresentativeLog } from '../../api/teamApi'
-import { TeamLogItem } from '../../types/team.types'
 import Link from 'next/link'
 import { Button } from '@/shared/ui/Button/Button'
 import Image from 'next/image'
 import { useTeamStore } from '../../store/useTeamStore'
 import TeamViewRepresentLog from './TeamViewRepresentLog'
+import { useQuery } from '@tanstack/react-query'
+import { getTeamRepresentLog } from '@/features/team-view/api/TeamDataItemsApi'
 
-export default function TeamViewLog({ params }: { params: { teamName: string } }) {
-  const [logs, setLogs] = useState<TeamLogItem>()
+export default function TeamViewLog({ teamName }: { teamName: string }) {
   const { isTeamManager } = useTeamStore()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getTeamRepresentativeLog(params.teamName)
-      setLogs(response.result)
-    }
-    fetchData()
-  }, [params.teamName])
+  const { data } = useQuery({
+    queryKey: ['teamRepresentLog', teamName],
+    queryFn: () => getTeamRepresentLog(teamName),
+  })
+  const log = data?.result
 
   return (
     // 데이터가 없을 때
     <div className="">
-      {logs === undefined ? (
+      {log === undefined ? (
         isTeamManager ? (
           <TeamViewNotView />
         ) : (
@@ -36,11 +31,10 @@ export default function TeamViewLog({ params }: { params: { teamName: string } }
       ) : (
         <>
           <div className="mt-10 flex flex-col gap-3 lg:gap-6">
-            <TeamViewRepresentLog log={logs} teamName={params.teamName} />
-            {/* <TeamViewLogComponent key={logs.teamLogId} log={logs} teamName={params.teamName} /> */}
+            <TeamViewRepresentLog log={log} teamName={teamName} />
           </div>
           <div className="mt-10 flex justify-center">
-            <Link href={`/team/${params.teamName}/log/list`}>
+            <Link href={`/team/${teamName}/log/list`}>
               <Button
                 mode="custom"
                 animationMode="grey"
