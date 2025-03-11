@@ -1,16 +1,3 @@
-export interface TeamMember {
-  emailId: string
-  profileImagePath: string
-  memberName: string
-  majorPosition: string
-  regionDetail: {
-    cityName: string | null
-    divisionName: string | null
-  }
-  teamMemberType: string
-  teamMemberInviteState: string
-}
-
 export interface TeamProduct {
   teamProductId: number
   productName: string

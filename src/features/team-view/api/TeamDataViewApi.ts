@@ -1,8 +1,7 @@
-import { Announcement } from '@/features/team/types/team.types'
+import { Announcement, TeamData, TeamLog, TeamMember } from '@/features/team/types/team.types'
+
 import { fetchWithCSR, fetchWithSSR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'
-
-import { TeamData, TeamLog } from '@/shared/types/TeamType'
 
 // ✅ 팀 Info 조회
 export async function getTeamDetail(teamName: string): Promise<ApiResponse<TeamData>> {
@@ -24,4 +23,9 @@ export async function getTeamRecruitmentList(
   teamName: string,
 ): Promise<ApiResponse<{ teamMemberAnnouncementItems: Announcement[] }>> {
   return fetchWithCSR(`/team/${teamName}/announcement`)
+}
+
+// ✅ 팀 멤버 목록 조회
+export async function getTeamMembers(teamName: string): Promise<ApiResponse<{ teamMemberItems: TeamMember[] }>> {
+  return fetchWithCSR(`/team/${teamName}/members/edit`)
 }
