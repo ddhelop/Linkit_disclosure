@@ -16,11 +16,12 @@ export default function TeamViewLog({ teamName }: { teamName: string }) {
     queryFn: () => getTeamRepresentLog(teamName),
   })
   const log = data?.result
+  const isEmpty = !log || Object.keys(log).length === 0
 
   return (
-    // 데이터가 없을 때
+    // 데이터가 {}일때
     <div className="">
-      {log === undefined ? (
+      {isEmpty ? (
         isTeamManager ? (
           <TeamViewNotView />
         ) : (
