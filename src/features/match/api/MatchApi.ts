@@ -12,7 +12,7 @@ import {
   SenderType,
 } from '../types/MatchTypes'
 import { Profile } from '@/shared/types/ProfileCardTypes'
-import { Team } from '@/shared/types/TeamCardTypes'
+import { Team } from '@/shared/types/TeamType'
 import { Announcement } from '@/shared/types/AnnouncementTypes'
 import { ApiResponse } from '@/shared/types/ApiResponse'
 

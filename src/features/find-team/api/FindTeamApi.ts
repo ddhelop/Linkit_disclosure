@@ -2,7 +2,7 @@
 import { fetchWithISR, fetchWithCSR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'
 import { Profile } from '@/shared/types/ProfileCardTypes'
-import { Team } from '@/shared/types/TeamCardTypes'
+import { Team } from '@/shared/types/TeamType'
 import { FindTeamSearchParams } from '../FindTeamType'
 
 // ✅ 고정 프로필 데이터 가져오기

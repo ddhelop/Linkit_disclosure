@@ -3,7 +3,7 @@ import { fetchWithISR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'
 import { LogCardType } from '@/shared/types/LogCardTypes'
 import { Announcement } from '@/shared/types/AnnouncementTypes'
-import { Team } from '@/shared/types/TeamCardTypes'
+import { Team } from '@/shared/types/TeamType'
 import { Profile } from '@/shared/types/ProfileCardTypes'
 
 // ✅ 인기 로그 가져오기

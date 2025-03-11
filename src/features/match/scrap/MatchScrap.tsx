@@ -14,7 +14,7 @@ import {
 import MiniTeamCard_2 from '@/shared/components/MiniTeamCard_2'
 import AnnouncementCard from '@/shared/components/AnnouncementCard'
 import { Profile } from '@/shared/types/ProfileCardTypes'
-import { Team } from '@/shared/types/TeamCardTypes'
+import { Team } from '@/shared/types/TeamType'
 import { Announcement } from '@/shared/types/AnnouncementTypes'
 
 export default function MatchScrap() {

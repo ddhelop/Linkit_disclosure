@@ -1,4 +1,4 @@
-import { Team } from '@/shared/types/TeamCardTypes'
+import { Team } from '@/shared/types/TeamType'
 
 // 검색 파라미터 타입 정의
 export type FindTeamSearchParams = {

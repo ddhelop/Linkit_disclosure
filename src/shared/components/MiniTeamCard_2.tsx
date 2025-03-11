@@ -7,7 +7,7 @@ import { teamScrap } from '../api/commonApi'
 import { useToast } from '../hooks/useToast'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '../store/useAuthStore'
-import { Team } from '../types/TeamCardTypes'
+import { Team } from '../types/TeamType'
 
 interface MiniTeamCard_2Props {
   team: Team
