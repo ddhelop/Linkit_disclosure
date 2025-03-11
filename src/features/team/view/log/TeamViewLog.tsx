@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import TeamViewNotView from '../common/TeamViewNotView'
+import TeamViewNotView from '../../../team-view/ui/teamInfo/TeamViewNotView'
 import { getTeamRepresentativeLog } from '../../api/teamApi'
 import { TeamLogItem } from '../../types/team.types'
 import Link from 'next/link'

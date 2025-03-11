@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { getTeamHistory } from '../../api/teamViewApi'
-import TeamViewNotView from '../common/TeamViewNotView'
+import TeamViewNotView from '../../../team-view/ui/teamInfo/TeamViewNotView'
 import { useTeamStore } from '../../store/useTeamStore'
 import { useRouter } from 'next/navigation'
 

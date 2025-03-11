@@ -1,17 +1,18 @@
 'use client'
 
 import MiniTeamCard from '@/shared/components/MiniTeamCard'
-import { getTeamInfo, getTeamAnnouncement, TeamAnnouncementDetail } from '@/features/team/api/teamApi'
+import { getTeamAnnouncement, TeamAnnouncementDetail } from '@/features/team/api/teamApi'
 import TeamViewRecruitDetail from '@/features/team/view/recruitment/TeamViewRecruitDetail'
 import { useEffect, useState } from 'react'
-import { TeamInfoResponse } from '@/features/team/types/team.types'
+import { TeamData } from '@/shared/types/TeamType'
 import ApplyModal from '@/features/team/view/recruitment/components/ApplyModal'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/shared/hooks/useToast'
+import { getTeamDetail } from '@/features/team-view/api/TeamDataViewApi'
 
 export default function TeamViewRecruitDetailPage({ params }: { params: { teamName: string; id: string } }) {
-  const [teamInfo, setTeamInfo] = useState<TeamInfoResponse>()
+  const [teamInfo, setTeamInfo] = useState<TeamData>()
   const [recruitmentDetail, setRecruitmentDetail] = useState<TeamAnnouncementDetail['result']>()
   const [showApplyModal, setShowApplyModal] = useState(false)
   const { isLogin } = useAuthStore()
@@ -23,10 +24,10 @@ export default function TeamViewRecruitDetailPage({ params }: { params: { teamNa
       try {
         window.scrollTo(0, 0)
         const [teamResponse, recruitmentResponse] = await Promise.all([
-          getTeamInfo(params.teamName),
+          getTeamDetail(params.teamName),
           getTeamAnnouncement(params.teamName, Number(params.id)),
         ])
-        setTeamInfo(teamResponse)
+        setTeamInfo(teamResponse.result)
         setRecruitmentDetail(recruitmentResponse.result)
       } catch (error) {
         console.error('Failed to fetch data:', error)
@@ -59,7 +60,7 @@ export default function TeamViewRecruitDetailPage({ params }: { params: { teamNa
       </div>
 
       {/* 플로팅 버튼 */}
-      {!teamInfo?.result.isMyTeam && (
+      {!teamInfo?.isMyTeam && (
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2">
           <button
             className="w-[12.5rem] rounded-full bg-[#3774F4] py-4 text-base font-semibold text-white hover:bg-[#486FEE]"
@@ -74,7 +75,7 @@ export default function TeamViewRecruitDetailPage({ params }: { params: { teamNa
       {/* 지원하기 모달 */}
       {showApplyModal && teamInfo && recruitmentDetail && (
         <ApplyModal
-          teamInfo={teamInfo.result.teamInformMenu}
+          teamInfo={teamInfo.teamInformMenu}
           recruitmentDetail={recruitmentDetail}
           onClose={() => setShowApplyModal(false)}
         />

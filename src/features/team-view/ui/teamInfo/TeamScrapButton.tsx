@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { teamScrap } from '../../api/teamApi'
+import { teamScrap } from '../../../team/api/teamApi'
 import { useToast } from '@/shared/hooks/useToast'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 

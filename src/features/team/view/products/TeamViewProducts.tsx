@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import TeamViewNotView from '../common/TeamViewNotView'
+import TeamViewNotView from '../../../team-view/ui/teamInfo/TeamViewNotView'
 import TeamViewProductsComponent from './TeamViewProductsComponent'
 import { TeamProductView } from '../../types/teamView.types'
 import { getTeamProductsView } from '../../api/teamViewApi'

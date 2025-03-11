@@ -1,7 +1,7 @@
 'use client'
 import { useState, useRef } from 'react'
 import Image from 'next/image'
-import { leaveTeam } from '../../api/teamApi'
+import { leaveTeam } from '../../../team/api/teamApi'
 import { useToast } from '@/shared/hooks/useToast'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 

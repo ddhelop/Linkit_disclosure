@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { deleteTeam, requestTeamDelete } from '../../api/teamApi'
+import { deleteTeam, requestTeamDelete } from '../../../team/api/teamApi'
 import { Button } from '@/shared/ui/Button/Button'
 import { useToast } from '@/shared/hooks/useToast'
 import AlertModal from '@/shared/ui/Modal/AlertModal'

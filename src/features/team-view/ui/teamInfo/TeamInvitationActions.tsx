@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { acceptTeamInvitation } from '../../api/teamViewApi'
+import { acceptTeamInvitation } from '../../../team/api/teamViewApi'
 import { useToast } from '@/shared/hooks/useToast'
 import AlertModal from '@/shared/ui/Modal/AlertModal'
 

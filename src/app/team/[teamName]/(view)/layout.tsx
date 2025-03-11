@@ -1,5 +1,5 @@
 import { loadTeamData } from '@/features/team-view/loader'
-import TeamViewClient from '@/features/team/view/common/TeamViewClient'
+import TeamViewClient from '@/features/team-view/ui/teamInfo/TeamViewClient'
 import { HydrationBoundary } from '@tanstack/react-query'
 
 export default async function TeamLayout({

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 import { getTeamAnnouncements, TeamAnnouncement } from '../../api/teamApi'
 import TeamViewReruitComponent from './TeamViewReruitComponent'
-import TeamViewNotView from '../common/TeamViewNotView'
+import TeamViewNotView from '../../../team-view/ui/teamInfo/TeamViewNotView'
 import { useTeamStore } from '../../store/useTeamStore'
 
 export default function TeamViewRecruitment({ teamName }: { teamName: string }) {
