@@ -1,65 +1,26 @@
 'use client'
 
-import { teamScrap } from '@/features/team/api/teamApi'
-import { TeamInfoResponse } from '@/features/team/types/team.types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
-import { useToast } from '../hooks/useToast'
-import { useRouter } from 'next/navigation'
-import { useAuthStore } from '../store/useAuthStore'
+import { TeamData } from '../types/TeamType'
 
-interface MiniTeamCardProps {
-  teamInfo: TeamInfoResponse
-}
-
-export default function MiniTeamCard({ teamInfo }: MiniTeamCardProps) {
-  // const [isTeamScrap, setIsTeamScrap] = useState(teamInfo?.result?.teamInformMenu.isTeamScrap ?? false)
-  // const [isScrapLoading, setIsScrapLoading] = useState(false)
-  // const [scrapCount, setScrapCount] = useState(teamInfo?.result?.teamInformMenu.teamScrapCount ?? 0)
-  // const toast = useToast()
-  // const router = useRouter()
-  // const { isLogin } = useAuthStore()
-
-  // const handleScrapClick = async (e: React.MouseEvent) => {
-  //   e.preventDefault()
-
-  //   if (!isLogin) {
-  //     toast.alert('로그인이 필요한 기능입니다.')
-  //     router.push('/login')
-  //     return
-  //   }
-  //   if (isScrapLoading) return
-
-  //   const response = await teamScrap(teamInfo?.result?.teamInformMenu.teamCode || '', !isTeamScrap)
-  //   if (response.isSuccess) {
-  //     setIsScrapLoading(true)
-  //     setIsTeamScrap(!isTeamScrap)
-  //     setScrapCount((prev) => (isTeamScrap ? prev - 1 : prev + 1))
-  //     toast.success('스크랩 상태가 변경되었습니다.')
-  //     setIsScrapLoading(false)
-  //   } else {
-  //     toast.alert(response.message || '스크랩 상태 변경에 실패했습니다.')
-  //     setIsScrapLoading(false)
-  //   }
-  // }
-
+export default function MiniTeamCard({ teamInfo }: { teamInfo: TeamData }) {
   return (
     <Link
-      href={`/team/${teamInfo?.result.teamInformMenu.teamCode}/log`}
+      href={`/team/${teamInfo?.teamInformMenu.teamCode}/log`}
       className="flex w-[19.525rem] flex-col rounded-xl border border-transparent bg-white px-7 py-[1.12rem] hover:border-main"
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.1)' }}
     >
       <div className="flex justify-between">
         <div className="flex gap-2">
-          {teamInfo?.result.teamInformMenu.teamCurrentStates.slice(0, 2).map((state, index) => (
+          {teamInfo?.teamInformMenu.teamCurrentStates.slice(0, 2).map((state, index) => (
             <div key={index} className="rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-xs text-[#3774F4]">
               {state.teamStateName}
             </div>
           ))}
-          {teamInfo?.result.teamInformMenu.teamCurrentStates.length > 2 && (
+          {teamInfo?.teamInformMenu.teamCurrentStates.length > 2 && (
             <div className="rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-xs text-[#3774F4]">
-              +{teamInfo.result.teamInformMenu.teamCurrentStates.length - 2}
+              +{teamInfo.teamInformMenu.teamCurrentStates.length - 2}
             </div>
           )}
         </div>
@@ -75,7 +36,7 @@ export default function MiniTeamCard({ teamInfo }: MiniTeamCardProps) {
 
       <div className="mt-5 flex gap-4">
         <Image
-          src={teamInfo?.result.teamInformMenu.teamLogoImagePath || `/common/default_profile.svg`}
+          src={teamInfo?.teamInformMenu.teamLogoImagePath || `/common/default_profile.svg`}
           alt="folder"
           width={70}
           height={70}
@@ -83,29 +44,28 @@ export default function MiniTeamCard({ teamInfo }: MiniTeamCardProps) {
         />
         <div className="flex flex-col justify-center">
           <div className="flex items-center gap-3">
-            <span className="text-lg font-semibold text-grey90">{teamInfo?.result.teamInformMenu.teamName}</span>
+            <span className="text-lg font-semibold text-grey90">{teamInfo?.teamInformMenu.teamName}</span>
           </div>
 
           <div className="mt-1 flex flex-col ">
             <div className="flex items-center gap-2">
               <span className="text-xs text-grey50">규모</span>
               <span className="text-xs text-grey50">|</span>
-              <span className="text-xs text-grey70">{teamInfo?.result.teamInformMenu.teamScaleItem.teamScaleName}</span>
+              <span className="text-xs text-grey70">{teamInfo?.teamInformMenu.teamScaleItem.teamScaleName}</span>
             </div>
 
             <div className="flex items-center gap-2">
               <span className="text-xs text-grey50">지역</span>
               <span className="text-xs text-grey50">|</span>
               <span className="text-xs text-grey70">
-                {teamInfo?.result.teamInformMenu.regionDetail.cityName}{' '}
-                {teamInfo?.result.teamInformMenu.regionDetail.divisionName}
+                {teamInfo?.teamInformMenu.regionDetail.cityName} {teamInfo?.teamInformMenu.regionDetail.divisionName}
               </span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="mt-3 text-xs text-grey90">{teamInfo?.result.teamInformMenu.teamShortDescription}</div>
+      <div className="mt-3 text-xs text-grey90">{teamInfo?.teamInformMenu.teamShortDescription}</div>
     </Link>
   )
 }
