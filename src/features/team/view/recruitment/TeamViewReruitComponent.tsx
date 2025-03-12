@@ -1,17 +1,18 @@
 import Image from 'next/image'
-import { TeamAnnouncement } from '../../api/teamApi'
+
 import Link from 'next/link'
 import { useToast } from '@/shared/hooks/useToast'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 import { useState } from 'react'
 import { announcementScrap } from '@/shared/api/commonApi'
 import { useRouter } from 'next/navigation'
+import { Announcement } from '../../types/team.types'
 
 export default function TeamViewReruitComponent({
   announcement,
   teamName,
 }: {
-  announcement: TeamAnnouncement
+  announcement: Announcement
   teamName: string
 }) {
   const toast = useToast()
@@ -35,7 +36,7 @@ export default function TeamViewReruitComponent({
       const response = await announcementScrap(announcement?.teamMemberAnnouncementId, !isScrap)
       if (response.ok) {
         setIsScrap(!isScrap)
-        setScrapCount((prev) => (!isScrap ? prev + 1 : prev - 1))
+        setScrapCount((prev: number) => (!isScrap ? prev + 1 : prev - 1))
         toast.success('스크랩 상태가 변경되었습니다.')
       }
     } catch (error) {
@@ -83,9 +84,11 @@ export default function TeamViewReruitComponent({
           {announcement?.majorPosition}
         </div>
 
-        <div className="mt-5 rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-main">
-          {announcement?.announcementSkillNames?.[0]?.announcementSkillName}
-        </div>
+        {announcement?.announcementSkillNames?.[0]?.announcementSkillName && (
+          <div className="mt-5 rounded-[0.38rem] bg-[#EDF3FF] px-4 py-1 text-sm text-main">
+            {announcement?.announcementSkillNames?.[0]?.announcementSkillName}
+          </div>
+        )}
 
         {announcement?.announcementSkillNames?.length > 1 && (
           <div className="mt-5 rounded-full bg-[#D3E1FE] px-4 py-1 text-sm text-main">

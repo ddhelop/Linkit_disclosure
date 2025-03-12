@@ -1,26 +1,35 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
-import { getTeamMembers } from '../../api/teamViewApi'
-import { TeamMember } from '../../types/teamView.types'
+import { useQuery } from '@tanstack/react-query'
 import MyTeamViewMemberComponent from './MyTeamViewMemberComponent'
+import Link from 'next/link'
+import Image from 'next/image'
+import { getTeamMembers } from '@/features/team-view/api/TeamDataViewApi'
 
 export default function TeamViewMembers({ params }: { params: { teamName: string } }) {
-  const [members, setMembers] = useState<TeamMember[]>([])
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getTeamMembers(params.teamName)
-
-      setMembers(data.result.acceptedTeamMemberItems)
-    }
-    fetchData()
-  }, [params.teamName])
+  const { data } = useQuery({
+    queryKey: ['teamMembers', params.teamName],
+    queryFn: () => getTeamMembers(params.teamName),
+  })
+  const members = data?.result
 
   return (
     <>
-      <div className="mt-[3rem] grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-        {members.map((member, index) => (
+      {/* 팀 로그 제목 및 수정하기 */}
+      {members?.isTeamManager && (
+        <div className="mt-7 flex w-full items-center justify-between">
+          <h3 className="text-xl text-grey80">팀 구성원</h3>
+          <Link
+            href={`/team/${params.teamName}/edit/members`}
+            className="flex items-center gap-2 rounded-full bg-grey80 px-6 py-3 text-sm text-white hover:brightness-125"
+          >
+            <Image src={'/common/icons/white_pencil.svg'} alt="pencil" width={16} height={16} />
+            <span>수정하기</span>
+          </Link>
+        </div>
+      )}
+      <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 ">
+        {members?.acceptedTeamMemberItems.map((member, index) => (
           <MyTeamViewMemberComponent key={index} member={member} />
         ))}
       </div>

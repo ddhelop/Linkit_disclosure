@@ -1,25 +1,25 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { getTeamAnnouncements, TeamAnnouncement } from '../../api/teamApi'
 import TeamViewReruitComponent from './TeamViewReruitComponent'
-import TeamViewNotView from '../common/TeamViewNotView'
+import TeamViewNotView from '../../../team-view/ui/teamInfo/TeamViewNotView'
 import { useTeamStore } from '../../store/useTeamStore'
+import { useQuery } from '@tanstack/react-query'
+import { getTeamRecruitmentList } from '@/features/team-view/api/TeamDataViewApi'
+import Link from 'next/link'
+import Image from 'next/image'
 
 export default function TeamViewRecruitment({ teamName }: { teamName: string }) {
-  const [data, setData] = useState<TeamAnnouncement[] | null>(null)
   const [filter, setFilter] = useState<'ALL' | 'IN_PROGRESS' | 'CLOSED'>('ALL')
   const { isTeamManager } = useTeamStore()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getTeamAnnouncements(teamName)
-      setData(response.result.teamMemberAnnouncementItems)
-    }
-    fetchData()
-  }, [teamName])
+  const { data } = useQuery({
+    queryKey: ['teamRecruitment', teamName],
+    queryFn: () => getTeamRecruitmentList(teamName),
+  })
+  const announcements = data?.result.teamMemberAnnouncementItems
 
-  const filteredAnnouncements = data?.filter((announcement) => {
+  const filteredAnnouncements = announcements?.filter((announcement) => {
     switch (filter) {
       case 'IN_PROGRESS':
         return !announcement.isClosed
@@ -30,7 +30,7 @@ export default function TeamViewRecruitment({ teamName }: { teamName: string }) 
     }
   })
 
-  if (!data || data.length === 0) {
+  if (!announcements || announcements.length === 0) {
     return isTeamManager ? (
       <TeamViewNotView />
     ) : (
@@ -40,7 +40,20 @@ export default function TeamViewRecruitment({ teamName }: { teamName: string }) 
 
   return (
     <>
-      <div className="mt-12 flex gap-3">
+      {/* 팀 로그 제목 및 수정하기 */}
+      {isTeamManager && (
+        <div className="mt-7 flex w-full items-center justify-between">
+          <h3 className="text-xl text-grey80">모집 공고</h3>
+          <Link
+            href={`/team/${teamName}/edit/recruit`}
+            className="flex items-center gap-2 rounded-full bg-grey80 px-6 py-3 text-sm text-white hover:brightness-125"
+          >
+            <Image src={'/common/icons/white_pencil.svg'} alt="pencil" width={16} height={16} />
+            <span>수정하기</span>
+          </Link>
+        </div>
+      )}
+      <div className=" mt-6 flex gap-3">
         <div
           className={`cursor-pointer rounded-full px-6 py-2 ${
             filter === 'ALL' ? 'bg-[#4871E6] text-white' : 'bg-[#D3E1FE] text-grey60'

@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import TeamItem from './TeamItem'
 import { getMyTeams } from './api/teamApi'
-import { TeamInformation } from './types/team.types'
+import { TeamData } from './types/team.types'
 
 export default function TeamSelect() {
   const router = useRouter()
-  const [teams, setTeams] = useState<TeamInformation[]>([])
+  const [teams, setTeams] = useState<TeamData[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -16,7 +16,7 @@ export default function TeamSelect() {
     const fetchTeams = async () => {
       try {
         const response = await getMyTeams()
-        setTeams(response.result.teamInformMenus)
+        setTeams(response.result)
       } catch (err) {
         setError('팀 정보를 불러오는데 실패했습니다.')
         console.error(err)
@@ -47,7 +47,7 @@ export default function TeamSelect() {
               key={index}
               team={team}
               onClick={() => {
-                router.push(`/team/${encodeURIComponent(team.teamCode)}/log`)
+                router.push(`/team/${encodeURIComponent(team.teamInformMenu.teamCode)}/log`)
               }}
             />
           ))}

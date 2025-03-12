@@ -3,16 +3,17 @@
 import { useRef, useState } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import Image from 'next/image'
-import { TeamInfoResponse } from '@/features/team/types/team.types'
+
 import { Button } from '@/shared/ui/Button/Button'
 import Textarea from '@/shared/ui/TextArea/TextArea'
 import { TeamAnnouncementDetail } from '@/features/team/api/teamApi'
 import { sendMatchingRequest } from '@/features/match/api/MatchApi'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 import { useToast } from '@/shared/hooks/useToast'
+import { TeamData } from '@/features/team/types/team.types'
 
 interface ApplyModalProps {
-  teamInfo: TeamInfoResponse['result']['teamInformMenu']
+  teamInfo: TeamData['teamInformMenu']
   recruitmentDetail: TeamAnnouncementDetail['result']
   onClose: () => void
 }

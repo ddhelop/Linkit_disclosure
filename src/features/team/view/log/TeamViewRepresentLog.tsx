@@ -1,9 +1,8 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { TeamLogItem } from '../../types/team.types'
 import Link from 'next/link'
+import { TeamLog } from '../../types/team.types'
 
-export default function TeamViewRepresentLog({ log, teamName }: { log: TeamLogItem; teamName: string }) {
+export default function TeamViewRepresentLog({ log, teamName }: { log: TeamLog; teamName: string }) {
   return (
     <Link
       href={`/team/${teamName}/log/${log.teamLogId}`}

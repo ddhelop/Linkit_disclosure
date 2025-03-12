@@ -3,19 +3,19 @@
 import { useEffect, useState } from 'react'
 import { getTeamLogs } from '../../api/teamApi'
 import TeamLogComponent from './TeamLogComponent'
-import { TeamLogItem } from '../../types/team.types'
-import Image from 'next/image'
+
 import NotContentsUi from '@/features/profile/edit/components/common/NotContentsUi'
+import { TeamLog } from '../../types/team.types'
 
 export default function TeamEditLog({ teamName }: { teamName: string }) {
-  const [logs, setLogs] = useState<TeamLogItem[]>([])
+  const [logs, setLogs] = useState<TeamLog[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchLogs = async () => {
       try {
         const data = await getTeamLogs(teamName)
-        setLogs(data.result.teamLogItems)
+        setLogs(data.result)
       } catch (error) {
         console.error('Failed to fetch logs:', error)
       } finally {

@@ -3,11 +3,12 @@
 import { useEffect, useState } from 'react'
 import TeamEditRecruitComponent from './TeamEditRecruitComponent'
 import { getTeamAnnouncements } from '../../api/teamApi'
-import type { TeamAnnouncement } from '../../api/teamApi'
+
 import NotContentsUi from '@/features/profile/edit/components/common/NotContentsUi'
+import { Announcement } from '../../types/team.types'
 
 export default function TeamEditRecruitList({ params }: { params: { teamName: string } }) {
-  const [announcements, setAnnouncements] = useState<TeamAnnouncement[]>([])
+  const [announcements, setAnnouncements] = useState<Announcement[]>([])
   const [filter, setFilter] = useState<'all' | 'ongoing' | 'completed'>('all')
 
   useEffect(() => {

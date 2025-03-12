@@ -1,11 +1,10 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import TeamInfo from './TeamInfo'
+import TeamInfo from './teamInfo/TeamInfo'
 
-export default function TeamViewClient({ params }: { params: { teamName: string } }) {
+export default function TeamViewClient({ teamName }: { teamName: string }) {
   const pathname = usePathname()
-  const teamName = params.teamName
 
   // 선택된 메뉴의 스타일
   const selectedStyle = 'flex cursor-pointer rounded-xl px-6 py-4 text-sm text-grey90 bg-grey20 font-semibold '
@@ -26,7 +25,7 @@ export default function TeamViewClient({ params }: { params: { teamName: string 
         className="flex flex-col px-5 py-8 lg:px-[7.12rem]"
         style={{ background: 'linear-gradient(180deg, #D3E1FE -16.67%, #FFFFFF 100%)' }}
       >
-        <TeamInfo params={{ teamName }} />
+        <TeamInfo teamName={teamName} />
         {/* 팀 정보 영역 - 가로 스크롤을 위한 컨테이너 */}
         <div className="webkit-scrollbar-hide w-full overflow-x-auto [&::-webkit-scrollbar]:hidden">
           <div className="flex min-w-max pt-10 text-sm md:gap-6 md:text-base lg:pt-[4.69rem]">

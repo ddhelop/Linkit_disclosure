@@ -1,4 +1,4 @@
-import { Announcement } from '@/shared/types/AnnouncementTypes'
+import { Announcement } from '../team/types/team.types'
 
 // 검색 파라미터 타입 정의
 export type FindAnnouncementSearchParams = {

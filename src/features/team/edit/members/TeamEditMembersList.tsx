@@ -4,9 +4,10 @@ import { TeamMemberItem } from './TeamMemberItem'
 import { AddMemberModal } from './AddMemberModal'
 import { Button } from '@/shared/ui/Button/Button'
 import { useState, useEffect } from 'react'
-import { getTeamMembers } from '../../api/teamApi'
+
 import NotContentsUi from '@/features/profile/edit/components/common/NotContentsUi'
 import Image from 'next/image'
+import { getTeamMembers } from '../../api/teamViewApi'
 
 export default function TeamEditMembersList({ teamName }: { teamName: string }) {
   const [showAddModal, setShowAddModal] = useState(false)

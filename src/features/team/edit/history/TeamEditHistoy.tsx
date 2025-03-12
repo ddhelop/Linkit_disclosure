@@ -1,14 +1,14 @@
 'use client'
 
-import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { deleteTeamHistory, getTeamHistory } from '../../api/teamApi'
-import { TeamHistory } from '../../types/team.types'
+
 import Link from 'next/link'
 import { useToast } from '@/shared/hooks/useToast'
 import NotContentsUi from '@/features/profile/edit/components/common/NotContentsUi'
 import DropdownMenu from '@/shared/components/DropdownMenu'
 import { useRouter } from 'next/navigation'
+import { TeamHistory } from '../../types/team.types'
 
 export default function TeamEditHistoy({ teamName }: { teamName: string }) {
   const [history, setHistory] = useState<TeamHistory[]>([])

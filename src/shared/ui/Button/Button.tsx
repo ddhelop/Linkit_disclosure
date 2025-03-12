@@ -108,11 +108,11 @@ export const greyHoverEffect = {
   whileHover: {
     scale: 1.0,
     transition: {
-      duration: 0.1, // 애니메이션이 0.1초 동안 진행
       ease: 'easeInOut', // 애니메이션을 부드럽게
     },
 
-    backgroundColor: 'rgba(69, 69, 69, 0.9)',
+    // 호버시 배경색 연한 회색
+    backgroundColor: 'rgba(69, 69, 69, 0.1)',
 
     // outline: '4px solid rgba(69, 69, 69, 0.2)',
     // outlineOffset: '0.5px',
