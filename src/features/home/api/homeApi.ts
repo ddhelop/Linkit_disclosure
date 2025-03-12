@@ -1,9 +1,9 @@
 // src/app/(home)/api/homeApi.ts
+import { Announcement, TeamData } from '@/features/team/types/team.types'
 import { fetchWithISR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'
 import { LogCardType } from '@/shared/types/LogCardTypes'
-import { Announcement } from '@/shared/types/AnnouncementTypes'
-import { Team } from '@/shared/types/TeamType'
+
 import { Profile } from '@/shared/types/ProfileCardTypes'
 
 // ✅ 인기 로그 가져오기
@@ -17,7 +17,7 @@ export async function getAnnouncements(): Promise<ApiResponse<{ announcementInfo
 }
 
 // ✅ 추천 팀 가져오기
-export async function getRecommendedTeams(): Promise<ApiResponse<{ teamInformMenus: Team[] }>> {
+export async function getRecommendedTeams(): Promise<ApiResponse<{ teamInformMenus: TeamData[] }>> {
   return fetchWithISR('/home/team', 1)
 }
 

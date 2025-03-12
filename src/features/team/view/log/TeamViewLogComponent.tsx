@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import { TeamLogItem } from '../../types/team.types'
 
 import Link from 'next/link'
+import { TeamLog } from '../../types/team.types'
 
-export default function TeamViewLogComponent({ log, teamName }: { log: TeamLogItem; teamName: string }) {
+export default function TeamViewLogComponent({ log, teamName }: { log: TeamLog; teamName: string }) {
   return (
     <Link
       href={`/team/${teamName}/log/${log.teamLogId}`}

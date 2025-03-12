@@ -8,7 +8,7 @@ import { useToast } from '../hooks/useToast'
 
 import { useAuthStore } from '../store/useAuthStore'
 import { useRouter } from 'next/navigation'
-import { Announcement } from '../types/AnnouncementTypes'
+import { Announcement } from '@/features/team/types/team.types'
 
 export default function AnnouncementCard({ announcement }: { announcement: Announcement }) {
   const [isScrap, setIsScrap] = useState(announcement?.isAnnouncementScrap ?? false)

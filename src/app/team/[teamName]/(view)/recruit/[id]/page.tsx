@@ -4,12 +4,13 @@ import MiniTeamCard from '@/shared/components/MiniTeamCard'
 import { getTeamAnnouncement, TeamAnnouncementDetail } from '@/features/team/api/teamApi'
 import TeamViewRecruitDetail from '@/features/team/view/recruitment/TeamViewRecruitDetail'
 import { useEffect, useState } from 'react'
-import { TeamData } from '@/shared/types/TeamType'
+
 import ApplyModal from '@/features/team/view/recruitment/components/ApplyModal'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/shared/hooks/useToast'
 import { getTeamDetail } from '@/features/team-view/api/TeamDataViewApi'
+import { TeamData } from '@/features/team/types/team.types'
 
 export default function TeamViewRecruitDetailPage({ params }: { params: { teamName: string; id: string } }) {
   const [teamInfo, setTeamInfo] = useState<TeamData>()

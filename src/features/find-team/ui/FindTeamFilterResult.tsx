@@ -2,11 +2,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import MiniTeamCard_2 from '@/shared/components/MiniTeamCard_2'
-import { FindTeamSearchParams } from '../FindTeamType'
+
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { getStaticFindTeamData } from '../api/FindTeamApi'
 import { getFindTeamProfile } from '@/features/find-private/api/FindTeamApi'
 import MiniTeamCardSkeleton from '@/shared/components/MiniTeamCardSkeleton'
+import { FindTeamSearchParams } from '../FindTeamType'
 
 export default function TeamFilterResult() {
   const searchParams = useSearchParams()
@@ -52,7 +53,7 @@ export default function TeamFilterResult() {
       // 다음 페이지가 있는지 확인하고, 있다면 마지막 프로필의 emailId를 cursor로 사용
       const profiles = lastPage.result.content
       if (profiles.length > 0 && lastPage.result.hasNext) {
-        return profiles[profiles.length - 1].teamCode
+        return profiles[profiles.length - 1].teamInformMenu.teamCode
       }
       return undefined
     },
@@ -108,7 +109,7 @@ export default function TeamFilterResult() {
             {isStaticLoading
               ? renderSkeletons(4)
               : staticTeams?.result?.ventureTeams?.map((team, index) => (
-                  <article key={`${team.teamName}-${index}`}>
+                  <article key={`${team.teamInformMenu.teamName}-${index}`}>
                     <MiniTeamCard_2 team={team} />
                   </article>
                 ))}
@@ -126,7 +127,7 @@ export default function TeamFilterResult() {
             {isStaticLoading
               ? renderSkeletons(4)
               : staticTeams?.result?.supportProjectTeams?.map((team, index) => (
-                  <article key={`${team.teamName}-${index}`}>
+                  <article key={`${team.teamInformMenu.teamName}-${index}`}>
                     <MiniTeamCard_2 team={team} />
                   </article>
                 ))}
@@ -143,7 +144,7 @@ export default function TeamFilterResult() {
           {isInfiniteLoading
             ? renderSkeletons(12)
             : allTeams.map((team, index) => (
-                <article key={`${team.teamName}-${index}`}>
+                <article key={`${team.teamInformMenu.teamName}-${index}`}>
                   <MiniTeamCard_2 team={team} />
                 </article>
               ))}

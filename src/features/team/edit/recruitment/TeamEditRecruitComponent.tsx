@@ -7,23 +7,10 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { deleteTeamAnnouncement, toggleTeamAnnouncementClose, toggleTeamAnnouncementPublic } from '../../api/teamApi'
-
-interface AnnouncementSkill {
-  announcementSkillName: string
-}
-
-interface TeamAnnouncement {
-  teamMemberAnnouncementId: number
-  announcementTitle: string
-  majorPosition: string
-  isAnnouncementPublic: boolean
-  isAnnouncementInProgress: boolean
-  announcementSkillNames: AnnouncementSkill[]
-  isClosed: boolean
-}
+import { Announcement } from '../../types/team.types'
 
 interface TeamEditRecruitComponentProps {
-  announcement: TeamAnnouncement
+  announcement: Announcement
   teamName: string
   onDelete?: () => void
 }
@@ -102,7 +89,6 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
       className="flex w-full flex-col rounded-xl border border-transparent bg-white p-5 hover:border-main md:px-10 md:py-5"
     >
       <div className="flex items-center justify-between">
-
         <div
           className={twMerge(
             'flex rounded-full bg-[#FFECF0] px-3 py-1 text-xs text-[#FF345F]',
@@ -110,7 +96,6 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
           )}
         >
           {announcement.isAnnouncementInProgress ? '모집 중' : '마감'}
-
         </div>
         <div className="relative">
           <div

@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 import { useEffect, useState } from 'react'
 import { getTeamDetail } from '@/features/team-view/api/TeamDataViewApi'
-import { TeamData } from '@/shared/types/TeamType'
+import { TeamData } from '../../types/team.types'
 
 export default function TeamEditProfileCard({ params }: { params: { teamName: string } }) {
   const [teamInfo, setTeamInfo] = useState<TeamData | null>(null)

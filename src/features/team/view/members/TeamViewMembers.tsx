@@ -2,21 +2,21 @@
 
 import { useQuery } from '@tanstack/react-query'
 import MyTeamViewMemberComponent from './MyTeamViewMemberComponent'
-import { getTeamMembers } from '../../api/teamApi'
 import Link from 'next/link'
 import Image from 'next/image'
+import { getTeamMembers } from '@/features/team-view/api/TeamDataViewApi'
 
 export default function TeamViewMembers({ params }: { params: { teamName: string } }) {
   const { data } = useQuery({
     queryKey: ['teamMembers', params.teamName],
     queryFn: () => getTeamMembers(params.teamName),
   })
-  const members = data?.result.acceptedTeamMemberItems
+  const members = data?.result
 
   return (
     <>
       {/* 팀 로그 제목 및 수정하기 */}
-      {data?.result.isTeamManager && (
+      {members?.isTeamManager && (
         <div className="mt-7 flex w-full items-center justify-between">
           <h3 className="text-xl text-grey80">팀 구성원</h3>
           <Link
@@ -29,7 +29,9 @@ export default function TeamViewMembers({ params }: { params: { teamName: string
         </div>
       )}
       <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 ">
-        {members?.map((member, index) => <MyTeamViewMemberComponent key={index} member={member} />)}
+        {members?.acceptedTeamMemberItems.map((member, index) => (
+          <MyTeamViewMemberComponent key={index} member={member} />
+        ))}
       </div>
     </>
   )

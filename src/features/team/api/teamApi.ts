@@ -1,16 +1,7 @@
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
-import { TeamProduct } from '../edit/product/TeamEditProduct'
-import { TeamLogsResponse, TeamResponse } from '../types/team.types'
 
-interface CreateTeamRequest {
-  teamName: string
-  teamShortDescription: string
-  scaleName: string
-  cityName: string
-  divisionName: string
-  teamStateNames: string[]
-  isTeamPublic: boolean
-}
+import { Announcement, TeamData, TeamLog, TeamProductView } from '../types/team.types'
+import { ApiResponse } from '@/shared/types/ApiResponse'
 
 export const createTeam = async (formData: FormData) => {
   try {
@@ -31,7 +22,7 @@ export const createTeam = async (formData: FormData) => {
   }
 }
 
-export const getMyTeams = async (): Promise<TeamResponse> => {
+export const getMyTeams = async (): Promise<ApiResponse<TeamData[]>> => {
   const response = await fetchWithAuth('/api/v1/my/teams')
   if (!response.ok) {
     throw new Error('Failed to fetch teams')
@@ -39,7 +30,7 @@ export const getMyTeams = async (): Promise<TeamResponse> => {
   return response.json()
 }
 
-export async function getTeamLogs(teamName: string): Promise<TeamLogsResponse> {
+export async function getTeamLogs(teamName: string): Promise<ApiResponse<TeamLog[]>> {
   const response = await fetchWithAuth(`/api/v1/team/${teamName}/log`)
   if (!response.ok) {
     throw new Error('Failed to fetch team logs')
@@ -317,7 +308,7 @@ interface TeamProductResponse {
   code: string
   message: string
   result: {
-    teamProductItems: TeamProduct[]
+    teamProductItems: TeamProductView[]
   }
 }
 
@@ -454,7 +445,7 @@ interface TeamAnnouncementResponse {
   code: string
   message: string
   result: {
-    teamMemberAnnouncementItems: TeamAnnouncement[]
+    teamMemberAnnouncementItems: Announcement[]
   }
 }
 
@@ -498,14 +489,6 @@ interface TeamMembersResponse {
     acceptedTeamMemberItems: TeamMember[]
     pendingTeamMemberItems: PendingTeamMember[]
   }
-}
-
-export async function getTeamMembers(teamName: string): Promise<TeamMembersResponse> {
-  const response = await fetchWithAuth(`/api/v1/team/${teamName}/members/edit`)
-  if (!response.ok) {
-    throw new Error('Failed to fetch team members')
-  }
-  return response.json()
 }
 
 // 팀원 공고 삭제

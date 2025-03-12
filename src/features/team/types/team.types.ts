@@ -66,6 +66,8 @@ export interface Announcement {
   announcementScrapCount: number
   announcementDDay: number
   isPermanentRecruitment: boolean
+  isAnnouncementPublic: boolean
+  isAnnouncementInProgress: boolean
   announcementTitle: string
   announcementPositionItem: {
     majorPosition: string
@@ -96,8 +98,8 @@ export interface TeamMember {
   memberName: string
   majorPosition: string
   regionDetail: {
-    cityName: string | null
-    divisionName: string | null
+    cityName: string
+    divisionName: string
   }
   teamMemberType: string
   teamMemberInviteState: string
@@ -110,23 +112,31 @@ export interface TeamProductView {
   productLineDescription: string
   productField: string
   productStartDate: string
-  productEndDate: string | null
+  productEndDate: string
   isProductInProgress: boolean
-  productRepresentImagePath: string
-  teamProductLinks: [
-    {
-      productLinkId: number
-      productLinkName: string
-      productLinkPath: string
-    },
-  ]
+  teamProductLinks: {
+    productLinkId: number
+    productLinkName: string
+    productLinkPath: string
+  }[]
   productDescription: string
+  productRepresentImagePath: string
+  productSubImages: {
+    productSubImagePath: string
+  }[]
   teamProductImages: {
     productRepresentImagePath: string
-    productSubImages: [
-      {
-        productSubImagePath: string
-      },
-    ]
+    productSubImages: {
+      productSubImagePath: string
+    }[]
   }
+}
+
+// 팀 연혁
+export interface TeamHistory {
+  teamHistoryId: number
+  historyName: string
+  historyStartDate: string
+  historyEndDate: string | null
+  isHistoryInProgress: boolean
 }

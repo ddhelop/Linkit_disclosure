@@ -25,9 +25,11 @@ export async function getTeamRecruitmentList(
   return fetchWithCSR(`/team/${teamName}/announcement`)
 }
 
-// ✅ 팀 멤버 목록 조회
-export async function getTeamMembers(teamName: string): Promise<ApiResponse<{ teamMemberItems: TeamMember[] }>> {
-  return fetchWithCSR(`/team/${teamName}/members/edit`)
+// ✅ 승인된 팀 멤버 목록 조회
+export async function getTeamMembers(
+  teamName: string,
+): Promise<ApiResponse<{ isTeamManager: boolean; acceptedTeamMemberItems: TeamMember[] }>> {
+  return fetchWithCSR(`/team/${teamName}/members/view`)
 }
 
 // ✅ 팀 프로덕트 목록 조회

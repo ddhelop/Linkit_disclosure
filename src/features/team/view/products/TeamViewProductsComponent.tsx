@@ -2,9 +2,10 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { TeamProductView } from '../../types/teamView.types'
+
 import ImageGalleryModal from '@/shared/ui/Modal/ImageGalleryModal'
 import Link from 'next/link'
+import { TeamProductView } from '../../types/team.types'
 
 export default function TeamViewProductsComponent({ product }: { product: TeamProductView }) {
   const [isExpanded, setIsExpanded] = useState(false)

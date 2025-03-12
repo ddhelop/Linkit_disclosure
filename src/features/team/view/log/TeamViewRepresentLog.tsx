@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { TeamLog } from '@/shared/types/TeamType'
+import { TeamLog } from '../../types/team.types'
 
 export default function TeamViewRepresentLog({ log, teamName }: { log: TeamLog; teamName: string }) {
   return (

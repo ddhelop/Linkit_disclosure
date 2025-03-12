@@ -3,15 +3,16 @@
 import Image from 'next/image'
 import { useState, useRef } from 'react'
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
-import { TeamLogItem } from '../../types/team.types'
+
 import { deleteTeamLog, setTeamLogAsRepresentative, toggleTeamLogVisibility } from '../../api/teamApi'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
 import { useToast } from '@/shared/hooks/useToast'
+import { TeamLog } from '../../types/team.types'
 
 interface TeamLogComponentProps {
-  log: TeamLogItem & {
+  log: TeamLog & {
     isLogPublic: boolean
     logType: 'REPRESENTATIVE_LOG' | 'GENERAL_LOG'
   }

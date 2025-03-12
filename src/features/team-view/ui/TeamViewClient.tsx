@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import TeamInfo from './TeamInfo'
+import TeamInfo from './teamInfo/TeamInfo'
 
 export default function TeamViewClient({ teamName }: { teamName: string }) {
   const pathname = usePathname()

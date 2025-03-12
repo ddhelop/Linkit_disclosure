@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { TeamData } from '../types/TeamType'
+import { TeamData } from '@/features/team/types/team.types'
 
 export default function MiniTeamCard({ teamInfo }: { teamInfo: TeamData }) {
   return (

@@ -1,13 +1,13 @@
 import Image from 'next/image'
-import { TeamInformation } from './types/team.types'
+import { TeamData } from './types/team.types'
 
 interface TeamItemProps {
-  team: TeamInformation
+  team: TeamData
   onClick?: () => void
 }
 
 export default function TeamItem({ team, onClick }: TeamItemProps) {
-  const { teamName, teamLogoImagePath, teamScaleItem, regionDetail } = team
+  const { teamName, teamLogoImagePath, teamScaleItem, regionDetail } = team.teamInformMenu
   const location = `${regionDetail.cityName} ${regionDetail.divisionName}`
 
   return (

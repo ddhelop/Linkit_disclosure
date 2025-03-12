@@ -1,10 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { getTeamLogDetail } from '../../api/teamViewApi'
-import { TeamLogItem } from '../../types/team.types'
+import { TeamLog } from '../../types/team.types'
 
 export default function TeamViewDetail({ teamName, id }: { teamName: string; id: number }) {
-  const [log, setLog] = useState<TeamLogItem | null>(null)
+  const [log, setLog] = useState<TeamLog | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {

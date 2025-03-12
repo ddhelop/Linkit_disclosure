@@ -14,12 +14,11 @@ import {
 import MiniTeamCard_2 from '@/shared/components/MiniTeamCard_2'
 import AnnouncementCard from '@/shared/components/AnnouncementCard'
 import { Profile } from '@/shared/types/ProfileCardTypes'
-import { Team } from '@/shared/types/TeamType'
-import { Announcement } from '@/shared/types/AnnouncementTypes'
+import { Announcement, TeamData } from '@/features/team/types/team.types'
 
 export default function MatchScrap() {
   const [selectedFilter, setSelectedFilter] = useState<FilterType>('MEMBER')
-  const [scrapData, setScrapData] = useState<Profile[] | Team[] | Announcement[]>([])
+  const [scrapData, setScrapData] = useState<Profile[] | TeamData[] | Announcement[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   const fetchScrapData = async (filterType: FilterType) => {
@@ -69,7 +68,7 @@ export default function MatchScrap() {
               <span className="text-grey50">아직 스크랩한 팀이 없어요</span>
             </div>
           ) : (
-            (scrapData as Team[]).map((team) => <MiniTeamCard_2 key={team.teamName} team={team} />)
+            (scrapData as TeamData[]).map((team) => <MiniTeamCard_2 key={team.teamInformMenu.teamName} team={team} />)
           )
         ) : selectedFilter === 'ANNOUNCEMENT' ? (
           Array.isArray(scrapData) && scrapData.length === 0 ? (
@@ -77,7 +76,7 @@ export default function MatchScrap() {
               <span className="text-grey50">아직 스크랩한 공고가 없어요</span>
             </div>
           ) : (
-            (scrapData as AnnouncementInformMenu[]).map((announcement) => (
+            (scrapData as Announcement[]).map((announcement) => (
               <AnnouncementCard key={announcement.teamMemberAnnouncementId} announcement={announcement} />
             ))
           )
