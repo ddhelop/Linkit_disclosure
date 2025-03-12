@@ -23,6 +23,9 @@ export async function fetchApi<T>(endpoint: string, options: FetchOptions = {}):
   try {
     const fetchOptions: RequestInit & { next?: any } = {}
 
+    // credentials 설정
+    fetchOptions.credentials = 'include'
+
     // 데이터 가져오기 전략 설정
     if (revalidate !== false) {
       // ISR 모드: 지정된 시간(초)마다 재검증

@@ -1,4 +1,11 @@
-import { Announcement, TeamData, TeamLog, TeamMember, TeamProductView } from '@/features/team/types/team.types'
+import {
+  Announcement,
+  TeamCard,
+  TeamData,
+  TeamLog,
+  TeamMember,
+  TeamProductView,
+} from '@/features/team/types/team.types'
 
 import { fetchWithCSR, fetchWithSSR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'
@@ -35,4 +42,9 @@ export async function getTeamMembers(
 // ✅ 팀 프로덕트 목록 조회
 export async function getTeamProducts(teamName: string): Promise<ApiResponse<{ teamProductItems: TeamProductView[] }>> {
   return fetchWithCSR(`/team/${teamName}/product/view`)
+}
+
+// 팀 목록 조회
+export async function getTeamList(): Promise<ApiResponse<{ teamInformMenus: TeamCard[] }>> {
+  return fetchWithCSR(`/my/teams`)
 }

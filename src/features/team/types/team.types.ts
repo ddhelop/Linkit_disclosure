@@ -24,25 +24,7 @@ export interface TeamData {
   isTeamDeleteInProgress: boolean
   isTeamInvitationInProgress: boolean
   isTeamDeleteRequester: boolean
-
-  teamInformMenu: {
-    teamCode: string
-
-    isTeamScrap: boolean
-    isTeamMatching: boolean
-    teamCurrentStates: Array<{ teamStateName: string }>
-    teamName: string
-    teamShortDescription: string
-    teamLogoImagePath: string
-    teamScaleItem: {
-      teamScaleName: string
-    }
-    teamScrapCount: number
-    regionDetail: {
-      cityName: string
-      divisionName: string
-    }
-  }
+  teamInformMenu: TeamCard[]
 }
 
 // 팀 로그
