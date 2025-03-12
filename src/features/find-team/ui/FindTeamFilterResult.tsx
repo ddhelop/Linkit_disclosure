@@ -53,7 +53,7 @@ export default function TeamFilterResult() {
       // 다음 페이지가 있는지 확인하고, 있다면 마지막 프로필의 emailId를 cursor로 사용
       const profiles = lastPage.result.content
       if (profiles.length > 0 && lastPage.result.hasNext) {
-        return profiles[profiles.length - 1].teamInformMenu.teamCode
+        return profiles[profiles.length - 1].teamCode
       }
       return undefined
     },
@@ -109,7 +109,7 @@ export default function TeamFilterResult() {
             {isStaticLoading
               ? renderSkeletons(4)
               : staticTeams?.result?.ventureTeams?.map((team, index) => (
-                  <article key={`${team.teamInformMenu.teamName}-${index}`}>
+                  <article key={`${team?.teamName}-${index}`}>
                     <MiniTeamCard_2 team={team} />
                   </article>
                 ))}
@@ -127,7 +127,7 @@ export default function TeamFilterResult() {
             {isStaticLoading
               ? renderSkeletons(4)
               : staticTeams?.result?.supportProjectTeams?.map((team, index) => (
-                  <article key={`${team.teamInformMenu.teamName}-${index}`}>
+                  <article key={`${team?.teamName}-${index}`}>
                     <MiniTeamCard_2 team={team} />
                   </article>
                 ))}
@@ -144,7 +144,7 @@ export default function TeamFilterResult() {
           {isInfiniteLoading
             ? renderSkeletons(12)
             : allTeams.map((team, index) => (
-                <article key={`${team.teamInformMenu.teamName}-${index}`}>
+                <article key={`${team?.teamName}-${index}`}>
                   <MiniTeamCard_2 team={team} />
                 </article>
               ))}
@@ -164,7 +164,7 @@ export default function TeamFilterResult() {
       <div ref={loadMoreRef} className="h-10" aria-hidden="true" />
 
       {/* 필터링된 결과가 없을 때 */}
-      {isFilterApplied() && allTeams.length === 0 && !isInfiniteLoading && (
+      {isFilterApplied() && allTeams?.length === 0 && !isInfiniteLoading && (
         <section aria-label="검색 결과 없음" className="py-10 text-center">
           <p className="text-lg text-gray-500">검색 결과가 없습니다.</p>
         </section>
