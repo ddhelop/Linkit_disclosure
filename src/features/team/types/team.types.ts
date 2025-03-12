@@ -1,8 +1,6 @@
 // 팀 카드 정보
 export interface TeamCard {
-  teamCurrentStates: {
-    teamStateName: string
-  }
+  teamCurrentStates: Array<{ teamStateName: string }>
   isTeamScrap?: boolean
   teamScrapCount?: number
   teamName: string
