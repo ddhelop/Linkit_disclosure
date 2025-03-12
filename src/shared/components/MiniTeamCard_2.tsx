@@ -15,8 +15,8 @@ interface MiniTeamCard_2Props {
 
 export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
   const [isHovered, setIsHovered] = useState(false)
-  const [isScrap, setIsScrap] = useState(team?.teamInformMenu.isTeamScrap ?? false)
-  const [scrapCount, setScrapCount] = useState(team?.teamInformMenu.teamScrapCount ?? 0)
+  const [isScrap, setIsScrap] = useState(team?.teamInformMenu?.isTeamScrap ?? false)
+  const [scrapCount, setScrapCount] = useState(team?.teamInformMenu?.teamScrapCount ?? 0)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
   const toast = useToast()
   const router = useRouter()
@@ -48,7 +48,7 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
 
   return (
     <Link
-      href={`/team/${team.teamInformMenu.teamCode}/log`}
+      href={`/team/${team?.teamInformMenu?.teamCode}/log`}
       className="flex min-w-[16rem] cursor-pointer flex-col rounded-xl border border-transparent bg-white p-[1.12rem] px-7 hover:border-[#7EA5F8] md:min-w-[unset]"
       style={{
         boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)',
@@ -58,12 +58,12 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
       <div className="flex justify-between">
         <div className="flex gap-2">
           <div className="rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-xs text-[#3774F4]">
-            {team.teamInformMenu.teamCurrentStates[0].teamStateName}
+            {team?.teamInformMenu?.teamCurrentStates[0]?.teamStateName}
           </div>
 
-          {team.teamInformMenu.teamCurrentStates.length > 1 && (
+          {team?.teamInformMenu?.teamCurrentStates?.length > 1 && (
             <div className="rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-xs text-[#3774F4]">
-              +{team.teamInformMenu.teamCurrentStates.length - 1}
+              +{team?.teamInformMenu?.teamCurrentStates?.length - 1}
             </div>
           )}
         </div>
@@ -88,7 +88,7 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
       <div className="mt-5 flex gap-4">
         <div className="relative h-[70px] w-[70px]">
           <Image
-            src={team.teamInformMenu.teamLogoImagePath || '/common/default_profile.svg'}
+            src={team?.teamInformMenu?.teamLogoImagePath || '/common/default_profile.svg'}
             alt="profile"
             fill
             className="rounded-lg object-cover"
@@ -96,18 +96,18 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
         </div>
         <div className="flex flex-col justify-center gap-1">
           <div className="flex items-center gap-3">
-            <span className="text-lg font-bold text-grey90">{team.teamInformMenu.teamName}</span>
+            <span className="text-lg font-bold text-grey90">{team?.teamInformMenu?.teamName}</span>
             <span className="text-xs text-grey70">스크랩 수 {scrapCount}</span>
           </div>
           <span className="flex gap-1 text-xs text-grey50">
             <span>팀원 </span>
             <span>|</span>
-            <span className="text-grey70">{team.teamInformMenu.teamScaleItem.teamScaleName}</span>
+            <span className="text-grey70">{team?.teamInformMenu?.teamScaleItem?.teamScaleName}</span>
           </span>
           <span className="flex gap-1 text-xs text-grey50">
             <span>지역 </span>
             <span>|</span>
-            <span className="text-grey70">{`${team.teamInformMenu.regionDetail?.cityName} ${team.teamInformMenu.regionDetail?.divisionName}`}</span>
+            <span className="text-grey70">{`${team?.teamInformMenu?.regionDetail?.cityName} ${team?.teamInformMenu?.regionDetail?.divisionName}`}</span>
           </span>
         </div>
       </div>

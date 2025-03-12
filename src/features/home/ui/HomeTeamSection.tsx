@@ -26,7 +26,7 @@ export default function HomeTeamSection() {
       </div>
       <div className="flex gap-6 overflow-x-auto p-1 md:grid md:grid-cols-2 [&::-webkit-scrollbar]:hidden" role="list">
         {data?.result?.teamInformMenus?.map((team) => (
-          <MiniTeamCard_2 key={team.teamInformMenu.teamCode} team={team} />
+          <MiniTeamCard_2 key={team?.teamInformMenu?.teamCode} team={team} />
         )) || <p>추천 팀이 없습니다.</p>}
       </div>
     </section>
