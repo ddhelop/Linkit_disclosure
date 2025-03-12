@@ -4,11 +4,11 @@ import { ApiResponse } from '@/shared/types/ApiResponse'
 import { Profile } from '@/shared/types/ProfileCardTypes'
 
 import { FindTeamSearchParams } from '../FindTeamType'
-import { TeamData } from '@/features/team/types/team.types'
+import { TeamCard, TeamData } from '@/features/team/types/team.types'
 
 // ✅ 고정 프로필 데이터 가져오기
 export async function getStaticFindTeamData(): Promise<
-  ApiResponse<{ ventureTeams: TeamData[]; supportProjectTeams: TeamData[] }>
+  ApiResponse<{ ventureTeams: TeamCard[]; supportProjectTeams: TeamCard[] }>
 > {
   return fetchWithISR('/team/search/featured', 1)
 }

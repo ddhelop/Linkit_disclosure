@@ -7,7 +7,7 @@ import { getRecommendedTeamMembers } from '../api/homeApi'
 
 export default function HomeTeamMemberSection() {
   const { data } = useQuery({
-    queryKey: ['teamMemberRecommend'],
+    queryKey: ['recommendedTeamMembers'],
     queryFn: getRecommendedTeamMembers,
     // suspense: true,
   })

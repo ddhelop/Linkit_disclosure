@@ -3,7 +3,7 @@ import { fetchWithISR, fetchWithCSR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'
 
 import { FindTeamSearchParams } from '../../find-team/FindTeamType'
-import { TeamData } from '@/features/team/types/team.types'
+import { TeamCard, TeamData } from '@/features/team/types/team.types'
 
 // ✅ 고정 프로필 데이터 가져오기
 export async function getStaticFindTeamData(): Promise<ApiResponse<{ ventureTeams: TeamData[] }>> {
@@ -13,7 +13,7 @@ export async function getStaticFindTeamData(): Promise<ApiResponse<{ ventureTeam
 // 검색 파라미터로 프로필 데이터 가져오기 (무한 스크롤용)
 export async function getFindTeamProfile(
   params: FindTeamSearchParams,
-): Promise<ApiResponse<{ content: TeamData[]; hasNext: boolean; nextCursor?: string }>> {
+): Promise<ApiResponse<{ content: TeamCard[]; hasNext: boolean; nextCursor?: string }>> {
   // URL 파라미터 구성
   const queryParams = new URLSearchParams()
 

@@ -14,7 +14,7 @@ import {
 import { Profile } from '@/shared/types/ProfileCardTypes'
 
 import { ApiResponse } from '@/shared/types/ApiResponse'
-import { TeamData } from '@/features/team/types/team.types'
+import { TeamCard, TeamData } from '@/features/team/types/team.types'
 
 export const getProfileScraps = async (): Promise<ApiResponse<{ profileInformMenus: Profile[] }>> => {
   try {
@@ -29,7 +29,7 @@ export const getProfileScraps = async (): Promise<ApiResponse<{ profileInformMen
   }
 }
 
-export const getTeamScraps = async (): Promise<ApiResponse<{ teamInformMenus: TeamData[] }>> => {
+export const getTeamScraps = async (): Promise<ApiResponse<{ teamInformMenus: TeamCard[] }>> => {
   try {
     const response = await fetchWithAuth('/api/v1/team/scrap')
     if (!response.ok) {

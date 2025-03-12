@@ -1,5 +1,5 @@
 // src/app/(home)/api/homeApi.ts
-import { Announcement, TeamData } from '@/features/team/types/team.types'
+import { Announcement, TeamCard, TeamData } from '@/features/team/types/team.types'
 import { fetchWithISR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'
 import { LogCardType } from '@/shared/types/LogCardTypes'
@@ -17,7 +17,7 @@ export async function getAnnouncements(): Promise<ApiResponse<{ announcementInfo
 }
 
 // ✅ 추천 팀 가져오기
-export async function getRecommendedTeams(): Promise<ApiResponse<{ teamInformMenus: TeamData[] }>> {
+export async function getRecommendedTeams(): Promise<ApiResponse<{ teamInformMenus: TeamCard[] }>> {
   return fetchWithISR('/home/team', 1)
 }
 

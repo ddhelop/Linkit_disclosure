@@ -1,6 +1,6 @@
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 
-import { Announcement, TeamData, TeamLog, TeamProductView } from '../types/team.types'
+import { Announcement, TeamCard, TeamData, TeamLog, TeamProductView } from '../types/team.types'
 import { ApiResponse } from '@/shared/types/ApiResponse'
 
 export const createTeam = async (formData: FormData) => {
