@@ -14,11 +14,11 @@ import {
 import MiniTeamCard_2 from '@/shared/components/MiniTeamCard_2'
 import AnnouncementCard from '@/shared/components/AnnouncementCard'
 import { Profile } from '@/shared/types/ProfileCardTypes'
-import { Announcement, TeamData } from '@/features/team/types/team.types'
+import { Announcement, TeamCard, TeamData } from '@/features/team/types/team.types'
 
 export default function MatchScrap() {
   const [selectedFilter, setSelectedFilter] = useState<FilterType>('MEMBER')
-  const [scrapData, setScrapData] = useState<Profile[] | TeamData[] | Announcement[]>([])
+  const [scrapData, setScrapData] = useState<Profile[] | TeamCard[] | Announcement[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   const fetchScrapData = async (filterType: FilterType) => {
@@ -68,7 +68,7 @@ export default function MatchScrap() {
               <span className="text-grey50">아직 스크랩한 팀이 없어요</span>
             </div>
           ) : (
-            (scrapData as TeamData[]).map((team) => <MiniTeamCard_2 key={team.teamInformMenu.teamName} team={team} />)
+            (scrapData as TeamCard[]).map((team) => <MiniTeamCard_2 key={team.teamName} team={team} />)
           )
         ) : selectedFilter === 'ANNOUNCEMENT' ? (
           Array.isArray(scrapData) && scrapData.length === 0 ? (

@@ -24,7 +24,7 @@ export interface TeamData {
   isTeamDeleteInProgress: boolean
   isTeamInvitationInProgress: boolean
   isTeamDeleteRequester: boolean
-  teamInformMenu: TeamCard[]
+  teamInformMenu: TeamCard
 }
 
 // 팀 로그
