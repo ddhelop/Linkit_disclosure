@@ -10,7 +10,6 @@ export default function HomeTeamSection() {
   const { data } = useQuery({
     queryKey: ['recommendedTeams'],
     queryFn: getRecommendedTeams,
-    // suspense: true,
   })
 
   return (

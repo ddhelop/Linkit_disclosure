@@ -31,7 +31,6 @@ export default function AnnouncementFilterResult() {
   const { data: staticAnnouncements, isLoading: isStaticLoading } = useQuery({
     queryKey: ['staticFindAnnouncementData'],
     queryFn: getStaticFindAnnouncementData,
-    staleTime: 1000 * 60 * 5, // 5분
   })
 
   // 무한 스크롤을 위한 프로필 데이터 가져오기

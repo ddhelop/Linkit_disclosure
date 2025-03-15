@@ -15,7 +15,7 @@ interface MiniTeamCard_2Props {
 
 export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
   const [isHovered, setIsHovered] = useState(false)
-  const [isScrap, setIsScrap] = useState(team?.isTeamScrap ?? false)
+
   const [scrapCount, setScrapCount] = useState(team?.teamScrapCount ?? 0)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
   const toast = useToast()
@@ -33,10 +33,10 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
         return
       }
       setIsScrapLoading(true)
-      const response = await teamScrap(team.teamCode, !isScrap)
+      const response = await teamScrap(team.teamCode, !team.isTeamScrap)
       if (response.ok) {
-        setIsScrap(!isScrap)
-        setScrapCount((prev) => (isScrap ? prev - 1 : prev + 1))
+        team.isTeamScrap = !team.isTeamScrap
+        setScrapCount((prev) => (team.isTeamScrap ? prev - 1 : prev + 1))
         toast.success('스크랩 상태가 변경되었습니다.')
       }
     } catch (error) {
@@ -76,7 +76,7 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
           className="cursor-pointer p-1" // 클릭 영역 확장
         >
           <Image
-            src={isScrap || isHovered ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
+            src={team.isTeamScrap || isHovered ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
             width={18}
             height={18}
             alt="save"

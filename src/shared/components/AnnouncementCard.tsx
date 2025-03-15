@@ -5,21 +5,20 @@ import { useState } from 'react'
 import { announcementScrap } from '../api/commonApi'
 import Link from 'next/link'
 import { useToast } from '../hooks/useToast'
-
 import { useAuthStore } from '../store/useAuthStore'
 import { useRouter } from 'next/navigation'
 import { Announcement } from '@/features/team/types/team.types'
 
 export default function AnnouncementCard({ announcement }: { announcement: Announcement }) {
-  const [isScrap, setIsScrap] = useState(announcement?.isAnnouncementScrap ?? false)
+  const [scrapCount, setScrapCount] = useState(announcement.announcementScrapCount ?? 0)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
-  const [scrapCount, setScrapCount] = useState(announcement?.announcementScrapCount ?? 0)
+
   const { isLogin } = useAuthStore()
   const toast = useToast()
   const router = useRouter()
 
   const handleScrap = async (e: React.MouseEvent<HTMLImageElement>) => {
-    e.preventDefault() // Link 컴포넌트의 기본 동작 방지
+    e.preventDefault()
     if (isScrapLoading) return
 
     try {
@@ -29,10 +28,13 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
         return
       }
       setIsScrapLoading(true)
-      const response = await announcementScrap(announcement?.teamMemberAnnouncementId, !isScrap)
+      const response = await announcementScrap(
+        announcement?.teamMemberAnnouncementId,
+        !announcement.isAnnouncementScrap,
+      )
       if (response.ok) {
-        setIsScrap(!isScrap)
-        setScrapCount((prev) => (!isScrap ? prev + 1 : prev - 1))
+        announcement.isAnnouncementScrap = !announcement.isAnnouncementScrap
+        setScrapCount((prev) => (!announcement.isAnnouncementScrap ? prev + 1 : prev - 1))
         toast.success('스크랩 상태가 변경되었습니다.')
       }
     } catch (error) {
@@ -61,7 +63,7 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
               : `D-${announcement?.announcementDDay}`}
         </span>
         <Image
-          src={isScrap ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
+          src={announcement.isAnnouncementScrap ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
           alt="announcement-icon"
           width={20}
           height={20}
