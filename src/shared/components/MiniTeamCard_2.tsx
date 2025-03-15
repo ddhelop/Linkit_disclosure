@@ -49,7 +49,7 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
   return (
     <Link
       href={`/team/${team?.teamCode}/log`}
-      className="flex min-w-[16rem] cursor-pointer flex-col rounded-xl border border-transparent bg-white p-[1.12rem] px-7 hover:border-[#7EA5F8] md:min-w-[unset]"
+      className="flex min-w-[16rem] cursor-pointer flex-col rounded-xl border border-transparent bg-white p-[1.12rem] hover:border-[#7EA5F8] md:min-w-[unset]"
       style={{
         boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)',
         margin: '1px', // 그림자가 잘리지 않도록 최소 마진 추가
