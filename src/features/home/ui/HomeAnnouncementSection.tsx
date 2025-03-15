@@ -10,7 +10,6 @@ export default function HomeAnnouncementSection() {
   const { data } = useQuery({
     queryKey: ['announcements'],
     queryFn: getAnnouncements,
-    // suspense: true,
   })
 
   return (

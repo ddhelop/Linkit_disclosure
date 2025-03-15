@@ -6,7 +6,7 @@ import { Announcement } from '@/features/team/types/team.types'
 
 // ✅ 고정 프로필 데이터 가져오기
 export async function getStaticFindAnnouncementData(): Promise<ApiResponse<{ hotAnnouncements: Announcement[] }>> {
-  return fetchWithISR('/announcement/search/featured', 1)
+  return fetchWithCSR('/announcement/search/featured')
 }
 
 // 검색 파라미터로 프로필 데이터 가져오기 (무한 스크롤용)

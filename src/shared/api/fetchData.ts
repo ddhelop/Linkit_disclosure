@@ -3,6 +3,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_LINKIT_SERVER_URL || ''
 
 import { deleteCookie, useAuthStore } from '@/shared/store/useAuthStore'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
+import { useToast } from '../hooks/useToast'
 
 type FetchOptions = {
   revalidate?: number | false // ISR: 숫자(초), SSR: false, 기본값은 false(SSR)
@@ -96,6 +97,13 @@ export async function fetchWithCSR<T>(endpoint: string, options: RequestInit = {
           Authorization: `Bearer ${accessToken || ''}`,
         },
       })
+
+      if (refreshResponse.status === 411) {
+        useAuthStore.getState().setLoginState(false)
+        deleteCookie('accessToken')
+
+        throw new Error('인증이 만료되었습니다. 다시 로그인해주세요.')
+      }
 
       if (refreshResponse.ok) {
         const data = await refreshResponse.json()

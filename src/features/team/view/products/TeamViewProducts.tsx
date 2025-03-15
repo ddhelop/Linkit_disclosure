@@ -28,8 +28,11 @@ export default function TeamViewProducts({ teamName }: { teamName: string }) {
           {isTeamManager ? (
             <TeamViewNotView />
           ) : (
-            <div className="mt-[3rem] flex w-full justify-center font-semibold text-grey60">
+            <div className="mt-[3rem] flex w-full flex-col items-center font-semibold text-grey60">
               아직 작성한 내용이 없어요
+              <button className="mt-5 rounded-full bg-grey80 px-10 py-4 text-white hover:brightness-125">
+                추가하기
+              </button>
             </div>
           )}
         </div>

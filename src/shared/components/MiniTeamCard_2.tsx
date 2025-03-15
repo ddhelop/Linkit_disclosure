@@ -15,7 +15,7 @@ interface MiniTeamCard_2Props {
 
 export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
   const [isHovered, setIsHovered] = useState(false)
-  const [isScrap, setIsScrap] = useState(team?.isTeamScrap ?? false)
+
   const [scrapCount, setScrapCount] = useState(team?.teamScrapCount ?? 0)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
   const toast = useToast()
@@ -33,10 +33,10 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
         return
       }
       setIsScrapLoading(true)
-      const response = await teamScrap(team.teamCode, !isScrap)
+      const response = await teamScrap(team.teamCode, !team.isTeamScrap)
       if (response.ok) {
-        setIsScrap(!isScrap)
-        setScrapCount((prev) => (isScrap ? prev - 1 : prev + 1))
+        team.isTeamScrap = !team.isTeamScrap
+        setScrapCount((prev) => (team.isTeamScrap ? prev - 1 : prev + 1))
         toast.success('스크랩 상태가 변경되었습니다.')
       }
     } catch (error) {
@@ -49,7 +49,7 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
   return (
     <Link
       href={`/team/${team?.teamCode}/log`}
-      className="flex min-w-[16rem] cursor-pointer flex-col rounded-xl border border-transparent bg-white p-[1.12rem] px-7 hover:border-[#7EA5F8] md:min-w-[unset]"
+      className="flex min-w-[16rem] cursor-pointer flex-col rounded-xl border border-transparent bg-white p-[1.12rem] hover:border-[#7EA5F8] md:min-w-[unset]"
       style={{
         boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)',
         margin: '1px', // 그림자가 잘리지 않도록 최소 마진 추가
@@ -76,7 +76,7 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
           className="cursor-pointer p-1" // 클릭 영역 확장
         >
           <Image
-            src={isScrap || isHovered ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
+            src={team.isTeamScrap || isHovered ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
             width={18}
             height={18}
             alt="save"

@@ -45,7 +45,7 @@ export default function ProfileViewLinks({ emailId }: { emailId: string }) {
     <EditableContainer
       isEditable={isMyProfile}
       editPath="/profile/edit/links"
-      className="flex w-full flex-col gap-5 border-y border-grey40 bg-white p-5 md:px-[2.75rem] md:py-[1.88rem] lg:rounded-xl lg:border"
+      className="flex w-full flex-col gap-5 border-y border-grey20 bg-white p-5 md:px-[2.75rem] md:py-[1.88rem] lg:rounded-xl lg:border"
     >
       <h1 className="font-semibold">링크</h1>
 
