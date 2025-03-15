@@ -11,7 +11,6 @@ export default function ProfileViewBasic({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
     queryKey: ['profileDetail', emailId],
     queryFn: () => getProfileDetail(emailId),
-    staleTime: 60000,
   })
 
   if (isLoading) {

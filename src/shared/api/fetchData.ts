@@ -70,7 +70,6 @@ export async function fetchWithSSR<T>(endpoint: string): Promise<T> {
 
 export async function fetchWithCSR<T>(endpoint: string, options: RequestInit = {}, retry = true): Promise<T> {
   const accessToken = getAccessToken()
-  const toast = useToast()
 
   options.headers = {
     ...options.headers,
@@ -102,7 +101,7 @@ export async function fetchWithCSR<T>(endpoint: string, options: RequestInit = {
       if (refreshResponse.status === 411) {
         useAuthStore.getState().setLoginState(false)
         deleteCookie('accessToken')
-        toast.alert('인증이 만료되었습니다. 다시 로그인해주세요.')
+
         throw new Error('인증이 만료되었습니다. 다시 로그인해주세요.')
       }
 
