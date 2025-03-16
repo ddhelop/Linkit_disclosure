@@ -44,7 +44,12 @@ export default function TeamViewRecruitmentProvider() {
     <>
       <div className="flex w-full flex-col items-center justify-center gap-8 lg:w-[83%] lg:flex-row lg:items-start ">
         <div className="lg:w-[49rem]0 w-full">
-          {recruitmentDetail && <TeamViewRecruitDetail recruitmentDetail={recruitmentDetail} />}
+          {recruitmentDetail && (
+            <TeamViewRecruitDetail
+              recruitmentDetail={recruitmentDetail}
+              isTeamManager={teamInfo?.isTeamManager ?? false}
+            />
+          )}
         </div>
 
         <div className="">

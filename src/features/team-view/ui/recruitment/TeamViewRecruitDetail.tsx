@@ -6,7 +6,8 @@ import { useToast } from '@/shared/hooks/useToast'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 import Linkify from 'linkify-react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 function calculateDday(endDate: string): string {
@@ -23,13 +24,30 @@ function calculateDday(endDate: string): string {
   return `D-${diffDays}`
 }
 
-export default function TeamViewRecruitDetail({ recruitmentDetail }: { recruitmentDetail: Announcement }) {
+function formatDate(dateString: string) {
+  const date = new Date(dateString)
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+
+  return `${year}년 ${month}월 ${day}일`
+}
+
+export default function TeamViewRecruitDetail({
+  recruitmentDetail,
+  isTeamManager,
+}: {
+  recruitmentDetail: Announcement
+  isTeamManager: boolean
+}) {
   const [isScraped, setIsScraped] = useState(recruitmentDetail?.isAnnouncementScrap)
   const [scrapCount, setScrapCount] = useState(recruitmentDetail?.announcementScrapCount)
   const [isLoading, setIsLoading] = useState(false)
   const toast = useToast()
   const router = useRouter()
   const { isLogin } = useAuthStore()
+  const { teamName, id } = useParams()
+
   const handleScrap = async () => {
     if (!isLogin) {
       toast.alert('로그인이 필요한 기능입니다.')
@@ -59,7 +77,7 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: { recruitme
   }
 
   return (
-    <div className="flex flex-col rounded-xl border-grey30 bg-white px-4 py-10 lg:border lg:px-[3.38rem]">
+    <div className="group flex flex-col rounded-xl border-grey30 bg-white px-6 py-8 lg:border lg:px-8">
       <div className="flex justify-between">
         <div
           className={`rounded-full  px-3 py-1 text-xs  ${
@@ -71,7 +89,8 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: { recruitme
             : calculateDday(recruitmentDetail?.announcementEndDate ?? '')}
         </div>
         {/* 스크랩 */}
-        <div className="flex gap-2">
+        <div className="flex items-center gap-4">
+          <span className="text-xs text-grey70">스크랩 수 {scrapCount}</span>
           <Image
             src={isScraped ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
             alt="save"
@@ -80,11 +99,25 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: { recruitme
             className="cursor-pointer"
             onClick={handleScrap}
           />
-          <span className="text-main">{scrapCount}</span>
         </div>
       </div>
 
-      <span className="mt-3 text-2xl font-semibold text-grey90">{recruitmentDetail?.announcementTitle}</span>
+      <span className="mt-3 text-xs text-grey70">{formatDate(recruitmentDetail?.createdAt)} 업로드</span>
+      <div className="flex items-start justify-between">
+        <div className="flex items-start gap-3">
+          <span className="max-w-[80%] text-2xl font-semibold text-grey90">{recruitmentDetail?.announcementTitle}</span>
+          <span className="mt-2 text-xs text-grey70">조회수 {recruitmentDetail?.viewCount}</span>
+        </div>
+
+        {isTeamManager && (
+          <Link
+            href={`/team/${teamName}/edit/recruit/new?id=${id}`}
+            className="opacity-0 duration-150 lg:group-hover:opacity-100"
+          >
+            <Image src="/common/icons/editable.svg" alt="edit" width={26} height={26} />
+          </Link>
+        )}
+      </div>
 
       {/* 포지션 */}
       <div className="mt-3 flex gap-2">
