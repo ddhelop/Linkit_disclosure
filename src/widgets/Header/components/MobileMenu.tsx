@@ -20,7 +20,6 @@ export default function MobileMenu({ isLogin, onClose, onLogout }: MobileMenuPro
       role="menu"
     >
       {isLogin ? (
-
         <ul className="w-full space-y-4" role="menubar">
           <li role="none">
             <Link href="/find/private" className="flex gap-3 text-sm text-gray-700" onClick={onClose} role="menuitem">
@@ -41,7 +40,7 @@ export default function MobileMenu({ isLogin, onClose, onLogout }: MobileMenuPro
               onClick={onClose}
               role="menuitem"
             >
-              <Image src={'/common/icons/team_icon.svg'} width={14} height={14} alt="" aria-hidden="true" />
+              <Image src={'/common/icons/announcement.svg'} width={14} height={14} alt="" aria-hidden="true" />
               <span>모집 공고</span>
             </Link>
           </li>
@@ -91,7 +90,6 @@ export default function MobileMenu({ isLogin, onClose, onLogout }: MobileMenuPro
             </button>
           </li>
         </ul>
-
       ) : (
         <ul className="w-full space-y-4" role="menubar">
           <li role="none">

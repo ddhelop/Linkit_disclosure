@@ -87,6 +87,7 @@ export default function TeamInfo({ teamName }: { teamName: string }) {
             // 관리자인 경우
             <div className="mt-5 lg:mt-12">
               <TeamDeleteActions
+                teamName={teamData?.teamName ?? ''}
                 teamCode={teamData?.teamCode ?? ''}
                 isTeamDeleteInProgress={data?.result.isTeamDeleteInProgress ?? false}
                 isTeamDeleteRequester={data?.result.isTeamDeleteRequester ?? false}

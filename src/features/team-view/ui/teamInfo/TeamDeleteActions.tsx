@@ -6,20 +6,24 @@ import { deleteTeam, requestTeamDelete } from '../../../team/api/teamApi'
 import { Button } from '@/shared/ui/Button/Button'
 import { useToast } from '@/shared/hooks/useToast'
 import AlertModal from '@/shared/ui/Modal/AlertModal'
+import { TeamVisitorModal } from './modal/TeamVisitorModal'
 
 interface TeamDeleteActionsProps {
   teamCode: string
   isTeamDeleteInProgress: boolean
   isTeamDeleteRequester: boolean
+  teamName: string
 }
 
 export const TeamDeleteActions = ({
   teamCode,
+  teamName,
   isTeamDeleteInProgress,
   isTeamDeleteRequester,
 }: TeamDeleteActionsProps) => {
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false)
   const [isDeleteRequestModalOpen, setIsDeleteRequestModalOpen] = useState(false)
+  const [isVisitorModalOpen, setIsVisitorModalOpen] = useState(false)
   const router = useRouter()
   const toast = useToast()
 
@@ -87,19 +91,13 @@ export const TeamDeleteActions = ({
           </Button>
         </div>
       ) : (
-        // 일반 관리자 상태 또는 삭제 요청자인 경우
-        <></>
-        // <Button
-        //   onClick={() => {
-        //     router.push(`/team/${teamCode}/edit/log`)
-        //   }}
-        //   animationMode="grey"
-        //   className="flex gap-2 rounded-full border border-grey30 bg-white px-6 py-3 text-sm text-grey60"
-        //   mode="custom"
-        // >
-        //   <Image src="/common/icons/pencil.svg" alt="edit" width={16} height={16} />
-        //   수정하기
-        // </Button>
+        <button
+          onClick={() => setIsVisitorModalOpen(true)}
+          className="flex items-center gap-2 rounded-full border border-grey50 bg-white px-5 py-4 text-sm text-grey60 hover:bg-grey10"
+        >
+          프로필 방문자
+          <Image src="/common/icons/right_arrow_grey60.svg" alt="profile_visitor" width={24} height={24} />
+        </button>
       )}
 
       <AlertModal
@@ -122,6 +120,8 @@ export const TeamDeleteActions = ({
         onCancelAction={handleDenyDeleteRequest}
         onConfirm={handleConfirmDeleteRequest}
       />
+
+      <TeamVisitorModal isOpen={isVisitorModalOpen} onClose={() => setIsVisitorModalOpen(false)} teamName={teamName} />
     </>
   )
 }

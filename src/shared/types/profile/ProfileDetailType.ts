@@ -19,6 +19,20 @@ export type ProfileInformMenu = {
     teamLogoImagePath: string
   }[]
 }
+// 방문자 프로필 정보
+export type ProfileVisitor = {
+  emailId: string
+  memberName: string
+  profileImagePath: string
+  profilePositionDetail: {
+    majorPosition: string
+    subPosition: string
+  }
+  regionDetail: {
+    cityName: string
+    divisionName: string
+  }
+}
 
 // 프로필 완성도 정보
 export type ProfileCompletionMenu = {
