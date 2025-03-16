@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import { getTeamHistory } from '../../api/teamViewApi'
 import TeamViewNotView from '../../../team-view/ui/teamInfo/TeamViewNotView'
-import { useTeamStore } from '../../store/useTeamStore'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -26,9 +25,9 @@ interface YearData {
 }
 
 export default function TeamViewHistory({ teamName }: { teamName: string }) {
-  const { isTeamManager } = useTeamStore()
   const router = useRouter()
   const [historyData, setHistoryData] = useState<YearData[]>([])
+  const [isTeamManager, setIsTeamManager] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -37,6 +36,8 @@ export default function TeamViewHistory({ teamName }: { teamName: string }) {
         setIsLoading(true)
         const response = await getTeamHistory(teamName)
         setHistoryData(response.result.teamHistoryCalendar || [])
+        setIsTeamManager(response.result.isTeamManager)
+        console.log(response.result)
       } catch (error) {
         console.error('연혁 데이터 로딩 실패:', error)
       } finally {
@@ -50,11 +51,10 @@ export default function TeamViewHistory({ teamName }: { teamName: string }) {
     return (
       <div className="">
         {isTeamManager ? (
-          <TeamViewNotView />
+          <TeamViewNotView url="history" />
         ) : (
           <div className="mt-[3rem] flex w-full flex-col items-center font-semibold text-grey60">
             아직 작성한 내용이 없어요
-            <button className="mt-5 rounded-full bg-grey80 px-10 py-4 text-white hover:brightness-125">추가하기</button>
           </div>
         )}
       </div>

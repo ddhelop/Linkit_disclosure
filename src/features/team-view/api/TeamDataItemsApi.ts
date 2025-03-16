@@ -3,6 +3,8 @@ import { fetchWithCSR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'
 
 // ✅ 팀 상세조회
-export async function getTeamRepresentLog(teamName: string): Promise<ApiResponse<TeamLog>> {
+export async function getTeamRepresentLog(
+  teamName: string,
+): Promise<ApiResponse<{ isTeamManager: boolean; teamLogItems: TeamLog[] }>> {
   return fetchWithCSR(`/team/${teamName}/log/represent`)
 }

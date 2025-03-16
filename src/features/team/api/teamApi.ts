@@ -312,8 +312,10 @@ interface TeamProductResponse {
   }
 }
 
-export async function getTeamProducts(teamName: string): Promise<TeamProductResponse> {
-  const response = await fetchWithAuth(`/api/v1/team/${teamName}/product`)
+export async function getTeamProducts(
+  teamName: string,
+): Promise<ApiResponse<{ isTeamManager: boolean; teamProductViewItems: TeamProductView[] }>> {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/product/view`)
   if (!response.ok) {
     throw new Error('Failed to fetch team products')
   }
