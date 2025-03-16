@@ -29,7 +29,7 @@ export default async function TeamViewLogListPage({ params }: { params: { teamNa
             </div>
 
             <div className="hidden lg:block">
-              <MiniTeamCard teamInfo={teamInfo.result} />
+              <MiniTeamCard teamInfo={teamInfo.result.teamInformMenu} />
             </div>
           </div>
         </div>

@@ -1,13 +1,13 @@
 'use client'
 import { useState } from 'react'
 
-import TeamViewReruitComponent from './TeamViewReruitComponent'
-import TeamViewNotView from '../../../team-view/ui/teamInfo/TeamViewNotView'
-import { useTeamStore } from '../../store/useTeamStore'
+import TeamViewNotView from '../teamInfo/TeamViewNotView'
+import { useTeamStore } from '@/features/team/store/useTeamStore'
 import { useQuery } from '@tanstack/react-query'
 import { getTeamRecruitmentList } from '@/features/team-view/api/TeamDataViewApi'
 import Link from 'next/link'
 import Image from 'next/image'
+import TeamViewReruitComponent from './TeamViewReruitComponent'
 
 export default function TeamViewRecruitment({ teamName }: { teamName: string }) {
   const [filter, setFilter] = useState<'ALL' | 'IN_PROGRESS' | 'CLOSED'>('ALL')

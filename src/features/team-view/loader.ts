@@ -5,6 +5,7 @@ import {
   getTeamList,
   getTeamMembers,
   getTeamProducts,
+  getTeamRecruitment,
   getTeamRecruitmentList,
 } from './api/TeamDataViewApi'
 import { getTeamRepresentLog } from './api/TeamDataItemsApi'
@@ -52,6 +53,18 @@ export async function loadTeamRecruitments(teamName: string) {
   await queryClient.prefetchQuery({
     queryKey: ['teamRecruitment', teamName],
     queryFn: () => getTeamRecruitmentList(teamName),
+  })
+
+  return dehydrate(queryClient)
+}
+
+// 팀 채용 공고 상세 조회
+export async function loadTeamRecruitment(teamName: string, id: string) {
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: ['teamRecruitment', teamName, id],
+    queryFn: () => getTeamRecruitment(teamName, Number(id)),
   })
 
   return dehydrate(queryClient)

@@ -41,6 +41,8 @@ export interface Announcement {
   teamMemberAnnouncementId: number
   isAnnouncementScrap: boolean
   majorPosition: string
+  viewCount: number
+  createdAt: string
   subPosition: string
   announcementScrapCount: number
   announcementDDay: number

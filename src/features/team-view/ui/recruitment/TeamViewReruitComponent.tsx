@@ -6,7 +6,7 @@ import { useAuthStore } from '@/shared/store/useAuthStore'
 import { useState } from 'react'
 import { announcementScrap } from '@/shared/api/commonApi'
 import { useRouter } from 'next/navigation'
-import { Announcement } from '../../types/team.types'
+import { Announcement } from '../../../team/types/team.types'
 
 export default function TeamViewReruitComponent({
   announcement,
