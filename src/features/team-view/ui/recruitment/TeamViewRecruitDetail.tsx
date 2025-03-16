@@ -1,5 +1,6 @@
 'use client'
 
+import { Announcement } from '@/features/team/types/team.types'
 import { announcementScrap } from '@/shared/api/commonApi'
 import { useToast } from '@/shared/hooks/useToast'
 import { useAuthStore } from '@/shared/store/useAuthStore'
@@ -7,7 +8,6 @@ import Linkify from 'linkify-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { TeamAnnouncementDetail } from '../../api/teamApi'
 
 function calculateDday(endDate: string): string {
   const today = new Date()
@@ -23,11 +23,7 @@ function calculateDday(endDate: string): string {
   return `D-${diffDays}`
 }
 
-interface TeamViewRecruitDetailProps {
-  recruitmentDetail: TeamAnnouncementDetail['result']
-}
-
-export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRecruitDetailProps) {
+export default function TeamViewRecruitDetail({ recruitmentDetail }: { recruitmentDetail: Announcement }) {
   const [isScraped, setIsScraped] = useState(recruitmentDetail?.isAnnouncementScrap)
   const [scrapCount, setScrapCount] = useState(recruitmentDetail?.announcementScrapCount)
   const [isLoading, setIsLoading] = useState(false)
@@ -72,7 +68,7 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
         >
           {recruitmentDetail?.isPermanentRecruitment
             ? '상시 모집'
-            : calculateDday(recruitmentDetail?.announcementEndDate)}
+            : calculateDday(recruitmentDetail?.announcementEndDate ?? '')}
         </div>
         {/* 스크랩 */}
         <div className="flex gap-2">
@@ -123,7 +119,6 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
                 {recruitmentDetail?.mainTasks}
               </Linkify>
             </span>
-
           </div>
         )}
 
@@ -136,7 +131,6 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
                 {recruitmentDetail?.idealCandidate}
               </Linkify>
             </span>
-
           </div>
         )}
 
@@ -149,7 +143,6 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
                 {recruitmentDetail?.workMethod}
               </Linkify>
             </span>
-
           </div>
         )}
 
@@ -157,11 +150,9 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">우대 사항</h3>
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
-
               <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>
                 {recruitmentDetail?.preferredQualifications}
               </Linkify>
-
             </span>
           </div>
         )}
@@ -175,7 +166,6 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
                 {recruitmentDetail?.joiningProcess}
               </Linkify>
             </span>
-
           </div>
         )}
 
@@ -186,7 +176,6 @@ export default function TeamViewRecruitDetail({ recruitmentDetail }: TeamViewRec
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
               <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>{recruitmentDetail?.benefits}</Linkify>
             </span>
-
           </div>
         )}
       </div>

@@ -10,11 +10,11 @@ import { TeamAnnouncementDetail } from '@/features/team/api/teamApi'
 import { sendMatchingRequest } from '@/features/match/api/MatchApi'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 import { useToast } from '@/shared/hooks/useToast'
-import { TeamData } from '@/features/team/types/team.types'
+import { Announcement, TeamData } from '@/features/team/types/team.types'
 
 interface ApplyModalProps {
   teamInfo: TeamData['teamInformMenu']
-  recruitmentDetail: TeamAnnouncementDetail['result']
+  recruitmentDetail: Announcement
   onClose: () => void
 }
 

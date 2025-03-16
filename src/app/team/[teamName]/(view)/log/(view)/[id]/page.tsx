@@ -15,7 +15,7 @@ export default async function TeamViewLogDetailPage({ params }: { params: { id: 
             <TeamViewDetail teamName={teamName} id={id} />
             <div className="flex justify-center">
               <div>
-                <MiniTeamCard teamInfo={teamInfo.result} />
+                <MiniTeamCard teamInfo={teamInfo.result.teamInformMenu} />
               </div>
             </div>
           </div>
