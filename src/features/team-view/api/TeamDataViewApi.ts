@@ -9,6 +9,7 @@ import {
 
 import { fetchWithCSR, fetchWithSSR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'
+import { ProfileVisitor } from '@/shared/types/profile/ProfileDetailType'
 
 // ✅ 팀 Info 조회
 export async function getTeamDetail(teamName: string): Promise<ApiResponse<TeamData>> {
@@ -47,4 +48,9 @@ export async function getTeamProducts(teamName: string): Promise<ApiResponse<{ t
 // 팀 목록 조회
 export async function getTeamList(): Promise<ApiResponse<{ teamInformMenus: TeamCard[] }>> {
   return fetchWithCSR(`/my/teams`)
+}
+
+// 팀 방문자 목록 조회
+export async function getTeamVisitors(teamCode: string): Promise<ApiResponse<{ visitInforms: ProfileVisitor[] }>> {
+  return fetchWithCSR(`/team/${teamCode}/visit`)
 }

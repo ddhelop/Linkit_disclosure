@@ -17,7 +17,6 @@ export interface TeamCard {
 }
 
 // 팀 정보
-
 export interface TeamData {
   isMyTeam: boolean
   isTeamManager: boolean
