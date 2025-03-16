@@ -8,25 +8,15 @@ import { TeamInvitationActions } from './TeamInvitationActions'
 import { TeamDropdownMenu } from './TeamDropdownMenu'
 import { getTeamDetail } from '@/features/team-view/api/TeamDataViewApi'
 import { useQuery } from '@tanstack/react-query'
-import { useTeamStore } from '@/features/team/store/useTeamStore'
-import { useEffect } from 'react'
 
 export default function TeamInfo({ teamName }: { teamName: string }) {
   const router = useRouter()
-  const { setIsTeamManager } = useTeamStore()
 
   const { data } = useQuery({
     queryKey: ['teamInfo', teamName],
     queryFn: () => getTeamDetail(teamName),
   })
   const teamData = data?.result.teamInformMenu
-
-  // teamData.isTeamManager 값을 팀 스토어에 저장
-  useEffect(() => {
-    if (teamData) {
-      setIsTeamManager(data?.result.isTeamManager)
-    }
-  }, [teamData])
 
   return (
     <>

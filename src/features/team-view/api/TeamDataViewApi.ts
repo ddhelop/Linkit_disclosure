@@ -29,7 +29,7 @@ export async function getTeamLogList(teamName: string): Promise<ApiResponse<{ te
 // ✅ 팀 채용 공고 목록 조회
 export async function getTeamRecruitmentList(
   teamName: string,
-): Promise<ApiResponse<{ teamMemberAnnouncementItems: Announcement[] }>> {
+): Promise<ApiResponse<{ isTeamManager: boolean; teamMemberAnnouncementItems: Announcement[] }>> {
   return fetchWithCSR(`/team/${teamName}/announcement`)
 }
 
@@ -46,7 +46,9 @@ export async function getTeamMembers(
 }
 
 // ✅ 팀 프로덕트 목록 조회
-export async function getTeamProducts(teamName: string): Promise<ApiResponse<{ teamProductItems: TeamProductView[] }>> {
+export async function getTeamProducts(
+  teamName: string,
+): Promise<ApiResponse<{ isTeamManager: boolean; teamProductItems: TeamProductView[] }>> {
   return fetchWithCSR(`/team/${teamName}/product/view`)
 }
 
