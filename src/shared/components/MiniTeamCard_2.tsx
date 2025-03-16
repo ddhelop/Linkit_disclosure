@@ -58,7 +58,7 @@ export default function MiniTeamCard_2({ team }: MiniTeamCard_2Props) {
       <div className="flex justify-between">
         <div className="flex gap-2">
           <div className="rounded-[0.38rem] bg-[#EDF3FF] px-2 py-1 text-xs text-[#3774F4]">
-            {team?.teamCurrentStates[0]?.teamStateName}
+            {team?.teamCurrentStates?.[0]?.teamStateName}
           </div>
 
           {team?.teamCurrentStates?.length > 1 && (

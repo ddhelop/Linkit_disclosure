@@ -4,13 +4,7 @@ import { useState, useEffect } from 'react'
 import MatchScrapFilter from './MatchScrapFilter'
 import MiniProfileCard_2 from '@/shared/components/MiniProfileCard_2'
 import { getAnnouncementScraps, getProfileScraps, getTeamScraps } from '../api/MatchApi'
-import {
-  AnnouncementScrapResponse,
-  ProfileInform,
-  TeamInformMenu,
-  FilterType,
-  AnnouncementInformMenu,
-} from '../types/MatchTypes'
+import { FilterType } from '../types/MatchTypes'
 import MiniTeamCard_2 from '@/shared/components/MiniTeamCard_2'
 import AnnouncementCard from '@/shared/components/AnnouncementCard'
 import { Profile } from '@/shared/types/ProfileCardTypes'
@@ -60,7 +54,7 @@ export default function MatchScrap() {
               <span className="text-grey50">아직 스크랩한 프로필이 없어요</span>
             </div>
           ) : (
-            (scrapData as Profile[]).map((profile) => <MiniProfileCard_2 key={profile.emailId} profile={profile} />)
+            (scrapData as Profile[]).map((profile) => <MiniProfileCard_2 key={profile?.emailId} profile={profile} />)
           )
         ) : selectedFilter === 'TEAM' ? (
           Array.isArray(scrapData) && scrapData.length === 0 ? (
