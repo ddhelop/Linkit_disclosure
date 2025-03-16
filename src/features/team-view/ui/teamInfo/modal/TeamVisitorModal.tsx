@@ -24,7 +24,7 @@ export function TeamVisitorModal({ isOpen, onClose, teamName }: TeamVisitorModal
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="flex h-[25rem] w-[22.8rem] flex-col overflow-y-auto px-5 pt-7">
+      <div className="flex h-[25rem] flex-col overflow-y-auto px-5 pt-7 md:w-[22.8rem]">
         <h2 className="pl-2 text-sm text-grey90">{teamName}을 방문한 사람들이에요</h2>
 
         {/* 방문자 목록 */}
