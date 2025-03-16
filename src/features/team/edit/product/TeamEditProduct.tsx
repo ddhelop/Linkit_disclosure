@@ -13,7 +13,7 @@ export default function TeamEditProduct({ teamName }: { teamName: string }) {
     const fetchProducts = async () => {
       try {
         const data = await getTeamProducts(teamName)
-        setProducts(data.result.teamProductItems)
+        setProducts(data.result.teamProductViewItems)
       } catch (error) {
         console.error('Failed to fetch products:', error)
       }

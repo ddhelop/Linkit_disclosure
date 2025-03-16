@@ -14,7 +14,7 @@ export default function TeamViewLog({ teamName }: { teamName: string }) {
   })
 
   const log = data?.result
-  const isEmpty = !log || Object.keys(log).length === 0
+  const isEmpty = !log?.teamLogItems || Object.keys(log?.teamLogItems).length === 0
 
   return (
     // 데이터가 {}일때
@@ -43,7 +43,7 @@ export default function TeamViewLog({ teamName }: { teamName: string }) {
                 </Link>
               </div>
             )}
-            <TeamViewRepresentLog log={log.teamLogItems} teamName={teamName} />
+            <TeamViewRepresentLog log={log.teamLogItems?.[0]} teamName={teamName} />
           </div>
           <div className="mt-10 flex justify-center">
             <Link href={`/team/${teamName}/log/list`}>
