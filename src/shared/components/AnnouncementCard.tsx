@@ -89,7 +89,7 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
         <span className="text-sm text-grey90">{announcement?.teamName}</span>
       </div>
       <div className="flex w-[90%] flex-col gap-1 ">
-        <span className="text-lg font-semibold text-grey90">{announcement?.announcementTitle}</span>
+        <span className="line-clamp-2 text-lg font-semibold text-grey90">{announcement?.announcementTitle}</span>
         <span className="text-xs text-grey70">스크랩수 {scrapCount}</span>
       </div>
 

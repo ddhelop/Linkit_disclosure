@@ -36,7 +36,7 @@ export default function MiniTeamCard({ teamInfo }: { teamInfo: TeamCard }) {
         />
         <div className="flex flex-col justify-center">
           <div className="flex items-center gap-3">
-            <span className="text-lg font-semibold text-grey90">{teamInfo?.teamName}</span>
+            <span className="line-clamp-2 text-lg font-semibold text-grey90">{teamInfo?.teamName}</span>
           </div>
 
           <div className="mt-1 flex flex-col ">
