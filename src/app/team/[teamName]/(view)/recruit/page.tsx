@@ -1,9 +1,18 @@
-import TeamViewRecruitment from '@/features/team/view/recruitment/TeamViewRecruitment'
+import { loadTeamRecruitments } from '@/features/team-view/loader'
+import TeamViewRecruitment from '@/features/team-view/ui/recruitment/TeamViewRecruitment'
 
-export default function TeamRecruitPage({ params }: { params: { teamName: string } }) {
+import { HydrationBoundary } from '@tanstack/react-query'
+
+export default async function TeamRecruitPage({ params }: { params: { teamName: string } }) {
+  const { teamName } = params
+
+  const dehydratedState = await loadTeamRecruitments(teamName)
+
   return (
-    <div className="">
-      <TeamViewRecruitment teamName={params.teamName} />
-    </div>
+    <HydrationBoundary state={dehydratedState}>
+      <div className="">
+        <TeamViewRecruitment teamName={teamName} />
+      </div>
+    </HydrationBoundary>
   )
 }

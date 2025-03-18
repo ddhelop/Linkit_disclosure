@@ -2,11 +2,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import MiniTeamCard_2 from '@/shared/components/MiniTeamCard_2'
-import { FindTeamSearchParams } from '../FindTeamType'
+
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { getStaticFindTeamData } from '../api/FindTeamApi'
 import { getFindTeamProfile } from '@/features/find-private/api/FindTeamApi'
 import MiniTeamCardSkeleton from '@/shared/components/MiniTeamCardSkeleton'
+import { FindTeamSearchParams } from '../FindTeamType'
 
 export default function TeamFilterResult() {
   const searchParams = useSearchParams()
@@ -34,7 +35,6 @@ export default function TeamFilterResult() {
   const { data: staticTeams, isLoading: isStaticLoading } = useQuery({
     queryKey: ['staticFindTeamData'],
     queryFn: getStaticFindTeamData,
-    staleTime: 1000 * 60 * 5, // 5분
   })
 
   // 무한 스크롤을 위한 프로필 데이터 가져오기
@@ -108,7 +108,7 @@ export default function TeamFilterResult() {
             {isStaticLoading
               ? renderSkeletons(4)
               : staticTeams?.result?.ventureTeams?.map((team, index) => (
-                  <article key={`${team.teamName}-${index}`}>
+                  <article key={`${team?.teamName}-${index}`}>
                     <MiniTeamCard_2 team={team} />
                   </article>
                 ))}
@@ -126,7 +126,7 @@ export default function TeamFilterResult() {
             {isStaticLoading
               ? renderSkeletons(4)
               : staticTeams?.result?.supportProjectTeams?.map((team, index) => (
-                  <article key={`${team.teamName}-${index}`}>
+                  <article key={`${team?.teamName}-${index}`}>
                     <MiniTeamCard_2 team={team} />
                   </article>
                 ))}
@@ -143,7 +143,7 @@ export default function TeamFilterResult() {
           {isInfiniteLoading
             ? renderSkeletons(12)
             : allTeams.map((team, index) => (
-                <article key={`${team.teamName}-${index}`}>
+                <article key={`${team?.teamName}-${index}`}>
                   <MiniTeamCard_2 team={team} />
                 </article>
               ))}
@@ -163,7 +163,7 @@ export default function TeamFilterResult() {
       <div ref={loadMoreRef} className="h-10" aria-hidden="true" />
 
       {/* 필터링된 결과가 없을 때 */}
-      {isFilterApplied() && allTeams.length === 0 && !isInfiniteLoading && (
+      {isFilterApplied() && allTeams?.length === 0 && !isInfiniteLoading && (
         <section aria-label="검색 결과 없음" className="py-10 text-center">
           <p className="text-lg text-gray-500">검색 결과가 없습니다.</p>
         </section>

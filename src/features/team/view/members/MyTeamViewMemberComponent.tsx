@@ -1,9 +1,10 @@
 import Image from 'next/image'
-import { TeamMember } from '../../types/teamView.types'
+
 import Link from 'next/link'
+import { TeamMember } from '../../types/team.types'
 
 export default function MyTeamViewMemberComponent({ member }: { member: TeamMember }) {
-  const hasProfileInfo = member.majorPosition?.length > 0 && member?.regionDetail?.cityName !== null
+  const hasProfileInfo = member.majorPosition?.length > 0 && member.regionDetail?.cityName !== null
 
   return (
     <Link

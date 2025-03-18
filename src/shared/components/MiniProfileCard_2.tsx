@@ -14,7 +14,6 @@ interface MiniProfileCardProps {
 
 export default function MiniProfileCard_2({ profile }: MiniProfileCardProps) {
   const [isHovered, setIsHovered] = useState(false)
-  const [isScrap, setIsScrap] = useState(profile?.isProfileScrap ?? false)
   const [scrapCount, setScrapCount] = useState(profile?.profileScrapCount ?? 0)
   const [isScrapLoading, setIsScrapLoading] = useState(false)
   const toast = useToast()
@@ -32,10 +31,10 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCardProps) {
         return
       }
       setIsScrapLoading(true)
-      const response = await profileScrap(profile.emailId, !isScrap)
+      const response = await profileScrap(profile.emailId, !profile.isProfileScrap)
       if (response.ok) {
-        setIsScrap(!isScrap)
-        setScrapCount((prev) => (isScrap ? prev - 1 : prev + 1))
+        profile.isProfileScrap = !profile.isProfileScrap
+        setScrapCount((prev) => (profile.isProfileScrap ? prev - 1 : prev + 1))
         toast.success('스크랩 상태가 변경되었습니다.')
       }
     } catch (error) {
@@ -73,7 +72,7 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCardProps) {
           className="cursor-pointer p-1"
         >
           <Image
-            src={isScrap || isHovered ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
+            src={profile.isProfileScrap || isHovered ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
             width={18}
             height={18}
             alt="save"

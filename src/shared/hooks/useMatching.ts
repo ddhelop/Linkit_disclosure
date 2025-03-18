@@ -17,6 +17,7 @@ export const useMatching = ({ type, id }: MatchingType) => {
     null,
   )
   const [selectedProfile, setSelectedProfile] = useState<TeamInformation | null>(null)
+  const [isTeamMatching, setIsTeamMatching] = useState(false)
 
   const { isLogin } = useAuthStore()
   const router = useRouter()
@@ -37,6 +38,7 @@ export const useMatching = ({ type, id }: MatchingType) => {
       } else {
         data = await getTeamMatchingRequestMenu(id)
         setMatchingData(data.result)
+        setIsTeamMatching(data.result.isTeamMatching)
       }
 
       if (data) {
@@ -45,7 +47,7 @@ export const useMatching = ({ type, id }: MatchingType) => {
     } catch (error) {
       console.error('Error fetching matching data:', error)
     }
-  }, [type, id])
+  }, [type, id, isLogin, router, toast])
 
   const handleSelectProfile = useCallback((profile: TeamInformation) => {
     setSelectedProfile(profile)
@@ -68,5 +70,6 @@ export const useMatching = ({ type, id }: MatchingType) => {
     handleSelectProfile,
     handleCloseModals,
     type,
+    isTeamMatching,
   }
 }

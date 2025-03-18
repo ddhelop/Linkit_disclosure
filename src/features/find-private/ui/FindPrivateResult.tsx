@@ -36,7 +36,6 @@ export default function FindPrivateResult() {
   const { data: staticProfiles, isLoading: isStaticLoading } = useQuery({
     queryKey: ['staticFindPrivateData'],
     queryFn: getStaticFindPrivateData,
-    staleTime: 1000 * 60 * 5, // 5분
   })
 
   // 무한 스크롤을 위한 프로필 데이터 가져오기

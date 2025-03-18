@@ -1,16 +1,7 @@
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
-import { TeamInfoResponse, TeamResponse, TeamLogsResponse } from '../types/team.types'
-import { TeamProduct } from '../edit/product/TeamEditProduct'
 
-interface CreateTeamRequest {
-  teamName: string
-  teamShortDescription: string
-  scaleName: string
-  cityName: string
-  divisionName: string
-  teamStateNames: string[]
-  isTeamPublic: boolean
-}
+import { Announcement, TeamCard, TeamData, TeamLog, TeamProductView } from '../types/team.types'
+import { ApiResponse } from '@/shared/types/ApiResponse'
 
 export const createTeam = async (formData: FormData) => {
   try {
@@ -31,34 +22,15 @@ export const createTeam = async (formData: FormData) => {
   }
 }
 
-export const getMyTeams = async (): Promise<TeamResponse> => {
+export const getMyTeams = async (): Promise<ApiResponse<TeamData[]>> => {
   const response = await fetchWithAuth('/api/v1/my/teams')
   if (!response.ok) {
     throw new Error('Failed to fetch teams')
   }
   return response.json()
 }
-// 팀 상세조회
-export async function getTeamInfo(teamName: string) {
-  try {
-    const response = await fetchWithAuth(`/api/v1/team/${teamName}`)
-    if (!response.ok) {
-      console.error('Team info fetch failed:', {
-        status: response.status,
-        statusText: response.statusText,
-      })
-      const errorData = await response.json().catch(() => ({}))
-      console.error('Error details:', errorData)
-      throw new Error(`Failed to fetch team info: ${response.status}`)
-    }
-    return response.json()
-  } catch (error) {
-    console.error('Team info fetch error:', error)
-    throw error
-  }
-}
 
-export async function getTeamLogs(teamName: string): Promise<TeamLogsResponse> {
+export async function getTeamLogs(teamName: string): Promise<ApiResponse<TeamLog[]>> {
   const response = await fetchWithAuth(`/api/v1/team/${teamName}/log`)
   if (!response.ok) {
     throw new Error('Failed to fetch team logs')
@@ -336,12 +308,14 @@ interface TeamProductResponse {
   code: string
   message: string
   result: {
-    teamProductItems: TeamProduct[]
+    teamProductItems: TeamProductView[]
   }
 }
 
-export async function getTeamProducts(teamName: string): Promise<TeamProductResponse> {
-  const response = await fetchWithAuth(`/api/v1/team/${teamName}/product`)
+export async function getTeamProducts(
+  teamName: string,
+): Promise<ApiResponse<{ isTeamManager: boolean; teamProductViewItems: TeamProductView[] }>> {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/product/view`)
   if (!response.ok) {
     throw new Error('Failed to fetch team products')
   }
@@ -439,22 +413,6 @@ export async function updateTeamHistory(teamName: string, historyId: number, dat
   })
 }
 
-export interface TeamAnnouncement {
-  announcementScrapCount: number
-  announcementDDay: number
-  teamMemberAnnouncementId: number
-  announcementTitle: string
-  majorPosition: string
-  isAnnouncementScrap: boolean
-  isClosed: boolean
-  announcementSkillNames: {
-    announcementSkillName: string
-  }[]
-  isAnnouncementPublic: boolean
-  isPermanentRecruitment: boolean
-  isAnnouncementInProgress: boolean
-  announcementEndDate: string
-}
 export interface TeamAnnouncementDetail {
   isSuccess: boolean
   code: string
@@ -489,7 +447,7 @@ interface TeamAnnouncementResponse {
   code: string
   message: string
   result: {
-    teamMemberAnnouncementItems: TeamAnnouncement[]
+    teamMemberAnnouncementItems: Announcement[]
   }
 }
 
@@ -535,14 +493,6 @@ interface TeamMembersResponse {
   }
 }
 
-export async function getTeamMembers(teamName: string): Promise<TeamMembersResponse> {
-  const response = await fetchWithAuth(`/api/v1/team/${teamName}/members/edit`)
-  if (!response.ok) {
-    throw new Error('Failed to fetch team members')
-  }
-  return response.json()
-}
-
 // 팀원 공고 삭제
 export async function deleteTeamAnnouncement(teamName: string, announcementId: number) {
   const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement/${announcementId}`, {
@@ -558,6 +508,19 @@ export async function toggleTeamAnnouncementPublic(teamName: string, announcemen
 
   if (!response.ok) {
     throw new Error('Failed to toggle team announcement public')
+  }
+
+  return response.json()
+}
+
+// 팀원 공고 모집 마감 여부 수정
+export async function toggleTeamAnnouncementClose(teamName: string, announcementId: number) {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/announcement/close/${announcementId}`, {
+    method: 'POST',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to toggle team announcement close')
   }
 
   return response.json()

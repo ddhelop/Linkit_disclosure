@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import { TeamInformation } from './types/team.types'
+import { TeamCard, TeamData } from './types/team.types'
 
 interface TeamItemProps {
-  team: TeamInformation
+  team: TeamCard
   onClick?: () => void
 }
 

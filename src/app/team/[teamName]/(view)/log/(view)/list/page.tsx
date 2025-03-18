@@ -1,11 +1,13 @@
-import { getTeamInfo } from '@/features/team/api/teamApi'
-import TeamViewLogList from '@/features/team/view/log/TeamViewLogList'
+import { getTeamCard, getTeamLogList } from '@/features/team-view/api/TeamDataViewApi'
+import TeamViewLogComponent from '@/features/team/view/log/TeamViewLogComponent'
 import MiniTeamCard from '@/shared/components/MiniTeamCard'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default async function TeamViewLogListPage({ params }: { params: { teamName: string } }) {
-  const teamInfo = await getTeamInfo(params.teamName)
+  const { teamName } = params
+  const teamlogs = await getTeamLogList(teamName)
+  const teamInfo = await getTeamCard(teamName)
 
   return (
     <>
@@ -16,14 +18,18 @@ export default async function TeamViewLogListPage({ params }: { params: { teamNa
             <Link href={`/team/${params.teamName}/log`}>
               <Image src={'/common/icons/arrow-left.svg'} alt="arrow-left" width={24} height={24} />
             </Link>
-            <h1 className="text-xl font-semibold">{teamInfo.result.teamInformMenu.teamName}의 로그</h1>
+            <h1 className="text-xl font-semibold">{teamName}의 로그</h1>
           </div>
 
           <div className="flex w-full gap-8">
-            <TeamViewLogList params={params} />
+            <div className="flex w-full flex-col gap-3 lg:gap-6">
+              {teamlogs?.result.teamLogItems.map((log) => (
+                <TeamViewLogComponent key={log.teamLogId} log={log} teamName={params.teamName} />
+              ))}
+            </div>
 
             <div className="hidden lg:block">
-              <MiniTeamCard teamInfo={teamInfo} />
+              <MiniTeamCard teamInfo={teamInfo.result.teamInformMenu} />
             </div>
           </div>
         </div>

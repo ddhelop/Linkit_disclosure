@@ -6,7 +6,7 @@ import { SearchParams } from '../FindPrivateType'
 
 // ✅ 고정 프로필 데이터 가져오기
 export async function getStaticFindPrivateData(): Promise<ApiResponse<{ topCompletionProfiles: Profile[] }>> {
-  return fetchWithISR('/profile/search/featured', 1)
+  return fetchWithCSR('/profile/search/featured')
 }
 
 // 검색 파라미터로 프로필 데이터 가져오기 (무한 스크롤용)

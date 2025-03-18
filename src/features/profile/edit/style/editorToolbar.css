@@ -6,10 +6,8 @@
 /* 툴바 스타일링 */
 .ql-toolbar.ql-snow {
   border: none !important;
-  overflow-x: auto !important;
   white-space: nowrap !important;
   scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
 }
 
 .ql-toolbar.ql-snow::-webkit-scrollbar {
@@ -40,18 +38,10 @@
   border: 1px solid #e2e8f0 !important;
   border-radius: 4px !important;
   height: 28px !important;
-  padding: 0 8px !important;
   display: flex !important;
   align-items: center !important;
   font-size: 14px !important;
   color: #475569 !important;
-  min-width: 70px !important;
-}
-
-@media (min-width: 768px) {
-  .ql-toolbar .ql-picker-label {
-    min-width: 90px !important;
-  }
 }
 
 .ql-toolbar .ql-picker-options {
@@ -65,7 +55,6 @@
 
 .ql-toolbar .ql-picker-item {
   padding: 6px 12px !important;
-  font-size: 14px !important;
   color: #475569 !important;
 }
 
@@ -87,6 +76,20 @@
 .ql-toolbar .ql-picker.ql-header .ql-picker-label[data-value='2']::before,
 .ql-toolbar .ql-picker.ql-header .ql-picker-item[data-value='2']::before {
   content: '중제목' !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item::before {
+  content: "16px" !important;
+}
+
+.ql-toolbar .ql-picker.ql-size .ql-picker-label[data-value]::before,
+.ql-toolbar .ql-picker.ql-size .ql-picker-item[data-value]::before {
+  content: attr(data-value) !important;
+}
+
+.ql-toolbar .ql-picker.ql-size .ql-picker-item[data-value]::before {
+  font-size: attr(data-value type(<length>)) !important;
 }
 
 /* 에디터 내용 스타일링 */

@@ -12,9 +12,9 @@ import {
   SenderType,
 } from '../types/MatchTypes'
 import { Profile } from '@/shared/types/ProfileCardTypes'
-import { Team } from '@/shared/types/TeamCardTypes'
-import { Announcement } from '@/shared/types/AnnouncementTypes'
+
 import { ApiResponse } from '@/shared/types/ApiResponse'
+import { TeamCard, TeamData } from '@/features/team/types/team.types'
 
 export const getProfileScraps = async (): Promise<ApiResponse<{ profileInformMenus: Profile[] }>> => {
   try {
@@ -29,7 +29,7 @@ export const getProfileScraps = async (): Promise<ApiResponse<{ profileInformMen
   }
 }
 
-export const getTeamScraps = async (): Promise<ApiResponse<{ teamInformMenus: Team[] }>> => {
+export const getTeamScraps = async (): Promise<ApiResponse<{ teamInformMenus: TeamCard[] }>> => {
   try {
     const response = await fetchWithAuth('/api/v1/team/scrap')
     if (!response.ok) {

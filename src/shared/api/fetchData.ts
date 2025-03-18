@@ -1,26 +1,31 @@
 // src/shared/api/fetchData.ts
 const BASE_URL = process.env.NEXT_PUBLIC_LINKIT_SERVER_URL || ''
 
-/**
- * 데이터 가져오기 옵션 타입
- */
+import { deleteCookie, useAuthStore } from '@/shared/store/useAuthStore'
+import useWebSocketStore from '@/shared/store/useWebSocketStore'
+import { useToast } from '../hooks/useToast'
+
 type FetchOptions = {
   revalidate?: number | false // ISR: 숫자(초), SSR: false, 기본값은 false(SSR)
   cache?: RequestCache // 캐시 전략
   tags?: string[] // 캐시 태그 (Next.js 캐시 무효화용)
 }
 
-/**
- * 공통 API 요청 함수
- * @param endpoint API 엔드포인트 (예: '/popular-log')
- * @param options 데이터 가져오기 옵션 (revalidate, cache, tags 등)
- * @returns JSON 데이터 반환
- */
+function getAccessToken() {
+  if (typeof document === 'undefined') return null
+  const cookies = document.cookie.split(';')
+  const tokenCookie = cookies.find((cookie) => cookie.trim().startsWith('accessToken='))
+  return tokenCookie ? tokenCookie.split('=')[1].trim() : null
+}
+
 export async function fetchApi<T>(endpoint: string, options: FetchOptions = {}): Promise<T> {
   const { revalidate = false, cache, tags } = options
 
   try {
     const fetchOptions: RequestInit & { next?: any } = {}
+
+    // credentials 설정
+    fetchOptions.credentials = 'include'
 
     // 데이터 가져오기 전략 설정
     if (revalidate !== false) {
@@ -55,39 +60,80 @@ export async function fetchApi<T>(endpoint: string, options: FetchOptions = {}):
   }
 }
 
-/**
- * ISR 방식으로 데이터를 가져오는 함수
- * @param endpoint API 엔드포인트
- * @param revalidate 재검증 시간(초)
- * @returns JSON 데이터
- */
 export async function fetchWithISR<T>(endpoint: string, revalidate: number = 60): Promise<T> {
   return fetchApi(endpoint, { revalidate })
 }
 
-/**
- * SSR 방식으로 데이터를 가져오는 함수 (항상 최신 데이터)
- * @param endpoint API 엔드포인트
- * @returns JSON 데이터
- */
 export async function fetchWithSSR<T>(endpoint: string): Promise<T> {
   return fetchApi(endpoint, { revalidate: false })
 }
 
-/**
- * CSR 방식으로 데이터를 가져오는 함수 (클라이언트 측에서 호출)
- * @param endpoint API 엔드포인트
- * @returns JSON 데이터
- */
-export async function fetchWithCSR<T>(endpoint: string): Promise<T> {
-  try {
-    const res = await fetch(`${BASE_URL}/api/v1${endpoint}`)
+export async function fetchWithCSR<T>(endpoint: string, options: RequestInit = {}, retry = true): Promise<T> {
+  const accessToken = getAccessToken()
 
-    if (!res.ok) {
-      throw new Error(`API 요청 실패: ${res.status} ${res.statusText}`)
+  options.headers = {
+    ...options.headers,
+    Authorization: `Bearer ${accessToken || ''}`,
+  }
+
+  // credentials 설정
+  options.credentials = 'include'
+
+  try {
+    let response = await fetch(`${BASE_URL}/api/v1${endpoint}`, options)
+
+    // 회원탈퇴 API 호출인 경우 모든 상태 코드를 정상 응답으로 처리
+    if (endpoint.includes('/withdraw')) {
+      const apiResponse = await response.json()
+      return apiResponse
     }
 
-    const apiResponse = await res.json()
+    // 액세스 토큰 만료 시 (411)
+    if (response.status === 411 && retry) {
+      const refreshResponse = await fetch(`${BASE_URL}/api/v1/renew/token`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken || ''}`,
+        },
+      })
+
+      if (refreshResponse.status === 411) {
+        useAuthStore.getState().setLoginState(false)
+        deleteCookie('accessToken')
+
+        throw new Error('인증이 만료되었습니다. 다시 로그인해주세요.')
+      }
+
+      if (refreshResponse.ok) {
+        const data = await refreshResponse.json()
+        document.cookie = `accessToken=${data.result.accessToken}; path=/`
+
+        useWebSocketStore.getState().initializeClient(data.result.accessToken)
+
+        // 새 토큰으로 재요청
+        response = await fetch(`${BASE_URL}/api/v1${endpoint}`, {
+          ...options,
+          headers: {
+            ...options.headers,
+            Authorization: `Bearer ${data.result.accessToken}`,
+          },
+        })
+      }
+    }
+
+    // 리프레시 토큰 만료 시 (403)
+    if (response.status === 403) {
+      useAuthStore.getState().setLoginState(false)
+      deleteCookie('accessToken')
+      throw new Error('인증이 만료되었습니다. 다시 로그인해주세요.')
+    }
+
+    if (!response.ok) {
+      throw new Error(`API 요청 실패: ${response.status} ${response.statusText}`)
+    }
+
+    const apiResponse = await response.json()
     return apiResponse
   } catch (error) {
     console.error(`❌ API 호출 오류 (${endpoint}):`, error)

@@ -15,8 +15,9 @@ export const metadata: Metadata = {
   title: '링킷ㅣ일하는 사람들의 연결점',
   description: '팀 빌딩 서비스, 링킷',
   icons: {
-    icon: '/logo.png',
+    icon: '/common/logo.png',
   },
+
   openGraph: {
     title: 'Linkit',
     description: '팀 빌딩 서비스, 링킷',
@@ -32,7 +33,9 @@ export const metadata: Metadata = {
       },
     ],
   },
-  verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_CONTENT },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_CONTENT,
+  },
 }
 
 const pretendard = localFont({
@@ -51,8 +54,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <head>
-        <meta name="google-site-verification" content="PP9z5zXtPDA9QeD8TEvKvlzTGIDZt3R9tCpcUZfoFZ4" />
-        <meta name="naver-site-verification" content="17163296e94f835f71bb3d1994ea168bd456675b" />
+        <meta name="naver-site-verification" content={process.env.NEXT_PUBLIC_NAVER_SITE_CONTENT} />
       </head>
       <body className={`${pretendard.className} bg-[#FCFCFD]`}>
         <CustomClient>

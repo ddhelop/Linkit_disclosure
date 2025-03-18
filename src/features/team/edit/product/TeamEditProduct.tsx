@@ -4,31 +4,16 @@ import { useEffect, useState } from 'react'
 import TeamProductComponent from './TeamProductComponent'
 import { getTeamProducts } from '@/features/team/api/teamApi'
 import NotContentsUi from '@/features/profile/edit/components/common/NotContentsUi'
-
-export interface TeamProduct {
-  teamProductId: number
-  productName: string
-  productLineDescription: string
-  productStartDate: string
-  productEndDate: string
-  isProductInProgress: boolean
-  productRepresentImagePath: string
-  teamProductLinks: {
-    productLinkId: number
-    productLinkName: string
-    productLinkPath: string
-  }[]
-  productDescription: string
-}
+import { TeamProductView } from '../../types/team.types'
 
 export default function TeamEditProduct({ teamName }: { teamName: string }) {
-  const [products, setProducts] = useState<TeamProduct[]>([])
+  const [products, setProducts] = useState<TeamProductView[]>([])
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const data = await getTeamProducts(teamName)
-        setProducts(data.result.teamProductItems)
+        setProducts(data.result.teamProductViewItems)
       } catch (error) {
         console.error('Failed to fetch products:', error)
       }

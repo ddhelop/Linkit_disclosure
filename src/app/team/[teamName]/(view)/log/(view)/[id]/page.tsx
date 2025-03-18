@@ -1,4 +1,4 @@
-import { getTeamInfo } from '@/features/team/api/teamApi'
+import { getTeamDetail } from '@/features/team-view/api/TeamDataViewApi'
 import TeamViewDetail from '@/features/team/view/log/TeamViewDetail'
 import MiniTeamCard from '@/shared/components/MiniTeamCard'
 import { Button } from '@/shared/ui/Button/Button'
@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export default async function TeamViewLogDetailPage({ params }: { params: { id: number; teamName: string } }) {
   const { teamName, id } = params
-  const teamInfo = await getTeamInfo(teamName)
+  const teamInfo = await getTeamDetail(teamName)
   return (
     <>
       <div className="flex w-full justify-center px-4 pb-10">
@@ -15,7 +15,7 @@ export default async function TeamViewLogDetailPage({ params }: { params: { id: 
             <TeamViewDetail teamName={teamName} id={id} />
             <div className="flex justify-center">
               <div>
-                <MiniTeamCard teamInfo={teamInfo} />
+                <MiniTeamCard teamInfo={teamInfo.result.teamInformMenu} />
               </div>
             </div>
           </div>

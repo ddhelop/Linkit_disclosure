@@ -18,8 +18,8 @@ import Radio from '@/shared/ui/Radio/Radio'
 
 Quill.register('modules/imageResize', ImageResize)
 
-const Size = Quill.import('formats/size')
-Size.whitelist = ['16px', '18px', '24px']
+const Size = Quill.import('attributors/style/size')
+Size.whitelist = ['10px', '12px', '14px', '18px', '20px', '22px', '24px']
 Quill.register(Size, true)
 
 type LogWriteFormProps = {

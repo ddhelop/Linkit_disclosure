@@ -163,7 +163,7 @@ export default function TeamCreate() {
 
   return (
     <>
-      <div className="flex flex-col gap-10 rounded-xl bg-white px-[2.88rem] py-10">
+      <div className="flex flex-col gap-8 rounded-xl bg-white p-3 md:gap-10 md:p-5 lg:px-[2.88rem] lg:py-10">
         {/* 팀 로고 */}
         <div className="flex flex-col">
           <div className="flex w-full justify-between">
@@ -173,18 +173,18 @@ export default function TeamCreate() {
             </span>
           </div>
 
-          <div className="mt-3 flex gap-8">
+          <div className="mt-3 flex flex-col gap-6 md:flex-row md:gap-8">
             <Image
               src={teamLogoPreview || teamLogoPath || '/common/default_profile.svg'}
               width={150}
               height={150}
               alt="team logo"
-              className="h-[150px] w-[150px] rounded-[1.25rem] object-cover"
+              className="h-[120px] w-[120px] rounded-[1.25rem] object-cover md:h-[150px] md:w-[150px]"
             />
 
             <div className="flex flex-col justify-end">
               <p className="text-xs text-grey50">*10MB 이하의 PNG, JPG, GIF, SVG 파일을 업로드 해주세요</p>
-              <div className="flex items-end gap-4">
+              <div className="flex items-end gap-3 md:gap-4">
                 <input
                   type="file"
                   id="teamLogoInput"
@@ -209,7 +209,7 @@ export default function TeamCreate() {
         </div>
 
         {/* 팀명 */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 md:gap-3">
           <span className="flex text-grey80">
             팀명<p className="text-main">*</p>
           </span>
@@ -226,7 +226,7 @@ export default function TeamCreate() {
         </div>
 
         {/* 팀 아이디 */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 md:gap-3">
           <span className="flex text-grey80">
             팀 아이디<p className="text-main">*</p>
           </span>
@@ -242,7 +242,7 @@ export default function TeamCreate() {
         </div>
 
         {/* 한줄 소개 */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 md:gap-3">
           <span className="flex text-grey80">
             한 줄 소개<p className="text-main">*</p>
           </span>
@@ -254,17 +254,17 @@ export default function TeamCreate() {
         </div>
 
         {/* 팀 규모 */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 md:gap-3">
           <span className="flex text-grey80">
             규모 <p className="text-main">*</p>
           </span>
 
-          <div className="flex gap-5">
+          <div className="flex flex-wrap gap-3 md:gap-5">
             {teamSizeOptions.map((size) => (
               <div
                 key={size}
                 onClick={() => setSelectedTeamSize(selectedTeamSize === size ? '' : size)}
-                className={`w-[5.75rem] cursor-pointer rounded-full border py-[0.38rem] text-center text-sm font-normal
+                className={`w-[4.5rem] cursor-pointer rounded-full border py-[0.38rem] text-center text-xs font-normal md:w-[5.75rem] md:text-sm
                   ${
                     selectedTeamSize === size
                       ? 'border-main bg-[#EEF4FF] text-main'
@@ -278,13 +278,13 @@ export default function TeamCreate() {
         </div>
 
         {/* 활동 지역 */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 md:gap-3">
           <span className="flex text-grey80">
             활동 지역 <p className="text-main">*</p>
           </span>
 
-          <div className="flex w-full gap-[1.38rem]">
-            <div className="flex w-[48%] flex-col gap-2">
+          <div className="flex w-full flex-col gap-4 md:flex-row md:gap-[1.38rem]">
+            <div className="flex w-full flex-col gap-2 md:w-[48%]">
               <span className="text-sm text-grey70">시/도</span>
               <Select
                 options={mainAreaOptions}
@@ -294,7 +294,7 @@ export default function TeamCreate() {
               />
             </div>
 
-            <div className="flex w-[48%] flex-col gap-2">
+            <div className="flex w-full flex-col gap-2 md:w-[48%]">
               <span className="text-sm text-grey70">시/군/구</span>
               <Select
                 options={selectedCity ? subAreaOptions : []}
@@ -309,30 +309,32 @@ export default function TeamCreate() {
         {/* 팀 현재 상태 */}
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-3">
-            <span className="itmes-center flex text-grey80">
+            <span className="flex items-center text-grey80">
               현재 상태<p className="text-main">*</p>
             </span>
 
-            <div className="flex flex-wrap gap-2">
+            {/* 선택된 상태 표시 */}
+            <div className="flex flex-wrap gap-2 md:gap-3">
               {recruitmentStatus.map((status) => (
                 <div
                   onClick={() => handleRemoveStatus(status)}
                   key={status}
-                  className="flex cursor-pointer items-center rounded-lg border border-main bg-[#EEF4FF] px-4 py-3 text-sm text-main"
+                  className="flex min-w-fit cursor-pointer items-center rounded-lg border border-main bg-[#EEF4FF] px-2 py-2 text-xs text-main md:px-4 md:py-3 md:text-sm"
                 >
-                  <span>{status}</span>
-                  <button className="ml-2 text-main">✕</button>
+                  <span className="whitespace-nowrap">{status}</span>
+                  <button className="ml-1 text-main md:ml-2">✕</button>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="flex w-full flex-wrap gap-3 rounded-xl bg-grey10 px-6 py-7">
+          {/* 상태 선택 옵션 */}
+          <div className="flex w-full flex-wrap gap-2 rounded-xl bg-grey10 p-4 md:gap-3 md:px-6 md:py-7">
             {recruitmentOptions.map((status) => (
               <span
                 key={status}
                 onClick={() => handleStatusClick(status)}
-                className={`cursor-pointer rounded-lg border px-4 py-3 text-sm ${
+                className={`min-w-fit cursor-pointer whitespace-nowrap rounded-lg border px-2 py-2 text-xs md:px-4 md:py-3 md:text-sm ${
                   recruitmentStatus.includes(status)
                     ? 'border-main bg-[#EEF4FF] text-main'
                     : 'border-grey40 bg-[#FCFCFD] text-grey50'
@@ -345,7 +347,7 @@ export default function TeamCreate() {
         </div>
 
         {/* 팀 공개 여부 */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 md:gap-3">
           <span className="flex text-grey80">
             팀 공개 여부 <p className="text-main">*</p>
           </span>
@@ -359,9 +361,9 @@ export default function TeamCreate() {
         </div>
       </div>
 
-      <div className="mt-[1.31rem] flex w-full justify-end">
+      <div className="mt-4 flex  w-full justify-center md:mt-[1.31rem] lg:justify-end">
         <Button
-          className="w-full rounded-xl px-5 py-3"
+          className="w-[97%] rounded-xl px-4 py-3 md:px-5 lg:w-full"
           animationMode="main"
           mode="main"
           onClick={handleSubmit}
