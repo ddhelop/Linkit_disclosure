@@ -30,7 +30,7 @@ export default function TeamViewHistory({ teamName }: { teamName: string }) {
 
   return (
     <>
-      <div className="p-6">
+      <div className="mt-7">
         {/* 제목 및 수정하기 버튼 */}
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold">연혁</h1>

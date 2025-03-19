@@ -9,7 +9,7 @@ export default async function TeamHistoryPage({ params }: { params: { teamName: 
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <div className="h-full ">
+      <div className="h-full">
         <TeamViewHistory teamName={teamName} />
       </div>
     </HydrationBoundary>
