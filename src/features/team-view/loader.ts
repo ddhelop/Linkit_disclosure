@@ -2,6 +2,7 @@
 import { QueryClient, dehydrate } from '@tanstack/react-query'
 import {
   getTeamDetail,
+  getTeamHistoryCalendar,
   getTeamList,
   getTeamMembers,
   getTeamProducts,
@@ -89,6 +90,18 @@ export async function loadTeamProducts(teamName: string) {
   await queryClient.prefetchQuery({
     queryKey: ['teamProducts', teamName],
     queryFn: () => getTeamProducts(teamName),
+  })
+
+  return dehydrate(queryClient)
+}
+
+// 팀 연혁 조회
+export async function loadTeamHistory(teamName: string) {
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: ['teamHistoryCalendar', teamName],
+    queryFn: () => getTeamHistoryCalendar(teamName),
   })
 
   return dehydrate(queryClient)

@@ -2,6 +2,7 @@ import {
   Announcement,
   TeamCard,
   TeamData,
+  teamHistoryCalendar,
   TeamLog,
   TeamMember,
   TeamProductView,
@@ -50,6 +51,13 @@ export async function getTeamProducts(
   teamName: string,
 ): Promise<ApiResponse<{ isTeamManager: boolean; teamProductItems: TeamProductView[] }>> {
   return fetchWithCSR(`/team/${teamName}/product/view`)
+}
+
+// ✅ 팀 연혁 조회
+export async function getTeamHistoryCalendar(
+  teamName: string,
+): Promise<ApiResponse<{ isTeamManager: boolean; teamHistoryCalendar: teamHistoryCalendar[] }>> {
+  return fetchWithCSR(`/team/${teamName}/history/view`)
 }
 
 // 팀 목록 조회
