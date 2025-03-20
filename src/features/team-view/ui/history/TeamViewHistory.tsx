@@ -1,10 +1,11 @@
 'use client'
 import { getTeamHistoryCalendar } from '@/features/team-view/api/TeamDataViewApi'
 import TeamViewNotView from '@/features/team-view/ui/teamInfo/TeamViewNotView'
+import { TeamHistoryCalendar, YearHistory, MonthHistory, TeamHistory } from '@/features/team/types/team.types'
+
 import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
-import { TeamHistoryCalendar } from '../../types/team.types'
 
 export default function TeamViewHistory({ teamName }: { teamName: string }) {
   const { data: historyData } = useQuery({
@@ -12,7 +13,7 @@ export default function TeamViewHistory({ teamName }: { teamName: string }) {
     queryFn: () => getTeamHistoryCalendar(teamName),
   })
   const isTeamManager = historyData?.result.isTeamManager
-  const historyCalendar = historyData?.result.teamHistoryCalendar as TeamHistoryCalendar
+  const historyCalendar = historyData?.result.teamHistoryCalendar
 
   if (!historyCalendar || historyCalendar.length === 0) {
     return (
@@ -47,7 +48,7 @@ export default function TeamViewHistory({ teamName }: { teamName: string }) {
 
         {/* 연혁 리스트 */}
         <div className="mt-8 space-y-8">
-          {historyCalendar.map((yearData, yearIndex) => {
+          {historyCalendar.map((yearData: YearHistory) => {
             const year = Object.keys(yearData)[0]
             const monthsData = yearData[year]
 
@@ -55,7 +56,7 @@ export default function TeamViewHistory({ teamName }: { teamName: string }) {
               <div key={year}>
                 <h2 className="mb-4 text-2xl font-bold text-[#4263EB]">{year}</h2>
                 <div className="">
-                  {monthsData.map((monthData) => {
+                  {monthsData.map((monthData: MonthHistory) => {
                     const month = Object.keys(monthData)[0]
                     const histories = monthData[month]
 

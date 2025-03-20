@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { deleteTeamHistory, getTeamHistory } from '../../api/teamApi'
+import { deleteTeamHistory } from '../../api/teamApi'
 
 import Link from 'next/link'
 import { useToast } from '@/shared/hooks/useToast'
@@ -9,28 +8,25 @@ import NotContentsUi from '@/features/profile/edit/components/common/NotContents
 import DropdownMenu from '@/shared/components/DropdownMenu'
 import { useRouter } from 'next/navigation'
 import { TeamHistory } from '../../types/team.types'
+import { useQuery } from '@tanstack/react-query'
+import { getTeamHistoryList } from '@/features/team-view/api/TeamDataViewApi'
 
 export default function TeamEditHistoy({ teamName }: { teamName: string }) {
-  const [history, setHistory] = useState<TeamHistory[]>([])
   const toast = useToast()
   const router = useRouter()
 
-  useEffect(() => {
-    fetchHistory()
-  }, [teamName])
-
-  // 연혁 조회 함수
-  const fetchHistory = async () => {
-    const history = await getTeamHistory(teamName)
-    setHistory(history.result.teamHistoryItems)
-  }
+  const { data: historyData, refetch } = useQuery({
+    queryKey: ['teamHistoryList', teamName],
+    queryFn: () => getTeamHistoryList(teamName),
+  })
+  const history = historyData?.result.teamHistoryItems
 
   // 연혁 삭제하기
   const handleDeleteHistory = async (teamHistoryId: number) => {
     try {
       if (confirm('정말로 삭제하시겠습니까?')) {
         await deleteTeamHistory(teamName, teamHistoryId)
-        setHistory(history.filter((item) => item.teamHistoryId !== teamHistoryId))
+        await refetch()
         toast.success('연혁이 삭제되었습니다.')
       }
     } catch (error) {
@@ -54,7 +50,7 @@ export default function TeamEditHistoy({ teamName }: { teamName: string }) {
 
   return (
     <div className="mt-5 flex flex-col gap-3">
-      {history.length > 0 ? (
+      {history && history.length > 0 ? (
         history.map((item) => (
           <Link
             href={`/team/${teamName}/edit/history/new?id=${item.teamHistoryId}`}
