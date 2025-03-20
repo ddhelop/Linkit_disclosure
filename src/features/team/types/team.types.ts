@@ -113,8 +113,8 @@ export interface TeamProductView {
   }
 }
 
-// 팀 연혁 관련 타입들
-interface TeamHistory {
+// 팀 연혁 캘린더 타입들
+export interface TeamHistory {
   teamHistoryId: number
   historyName: string
   historyStartDate: string
@@ -123,11 +123,11 @@ interface TeamHistory {
   historyDescription: string
 }
 
-interface MonthHistory {
+export interface MonthHistory {
   [month: string]: TeamHistory[]
 }
 
-interface YearHistory {
+export interface YearHistory {
   [year: string]: MonthHistory[]
 }
 

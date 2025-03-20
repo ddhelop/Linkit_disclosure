@@ -1,12 +1,18 @@
 import ProfileEditBottomNav from '@/features/profile/edit/components/common/ProfileEditBottomNav'
+import { loadTeamHistory } from '@/features/team-view/loader'
 import TeamEditHistoy from '@/features/team/edit/history/TeamEditHistoy'
 import { Button } from '@/shared/ui/Button/Button'
+import { HydrationBoundary } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function TeamEditHistoryPage({ params }: { params: { teamName: string } }) {
+export default async function TeamEditHistoryPage({ params }: { params: { teamName: string } }) {
+  const { teamName } = params
+
+  const dehydratedState = await loadTeamHistory(teamName)
+
   return (
-    <>
+    <HydrationBoundary state={dehydratedState}>
       <div className="flex flex-col pb-16 md:pb-0">
         <h1 className="mb-5 text-xl font-bold">연혁</h1>
 
@@ -25,6 +31,6 @@ export default function TeamEditHistoryPage({ params }: { params: { teamName: st
         <TeamEditHistoy teamName={params.teamName} />
       </div>
       <ProfileEditBottomNav prevPath={`/team/${params.teamName}/edit/products`} isLastPage={true} />
-    </>
+    </HydrationBoundary>
   )
 }

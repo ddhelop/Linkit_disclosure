@@ -2,7 +2,8 @@ import {
   Announcement,
   TeamCard,
   TeamData,
-  teamHistoryCalendar,
+  TeamHistory,
+  TeamHistoryCalendar,
   TeamLog,
   TeamMember,
   TeamProductView,
@@ -53,10 +54,17 @@ export async function getTeamProducts(
   return fetchWithCSR(`/team/${teamName}/product/view`)
 }
 
-// ✅ 팀 연혁 조회
+// ✅ 팀 연혁 리스트 전체 조회
+export async function getTeamHistoryList(teamName: string): Promise<ApiResponse<{ teamHistoryItems: TeamHistory[] }>> {
+  return fetchWithCSR(`/team/${teamName}/history`, {
+    cache: 'no-store',
+  })
+}
+
+// ✅ 팀 연혁 캘린더 조회
 export async function getTeamHistoryCalendar(
   teamName: string,
-): Promise<ApiResponse<{ isTeamManager: boolean; teamHistoryCalendar: teamHistoryCalendar[] }>> {
+): Promise<ApiResponse<{ isTeamManager: boolean; teamHistoryCalendar: TeamHistoryCalendar }>> {
   return fetchWithCSR(`/team/${teamName}/history/view`)
 }
 

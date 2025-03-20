@@ -1,5 +1,5 @@
 import { loadTeamHistory } from '@/features/team-view/loader'
-import TeamViewHistory from '@/features/team/view/history/TeamViewHistory'
+import TeamViewHistory from '@/features/team-view/ui/history/TeamViewHistory'
 import { HydrationBoundary } from '@tanstack/react-query'
 
 export default async function TeamHistoryPage({ params }: { params: { teamName: string } }) {
