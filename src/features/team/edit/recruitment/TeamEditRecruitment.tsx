@@ -35,10 +35,16 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
   const {
     selectedCategory,
     selectedSubCategory,
+    selectedProjectType,
+    selectedWorkType,
     mainPositionOptions,
     subPositionOptions,
+    projectTypeOptions,
+    workTypeOptions,
     setSelectedCategory,
     setSelectedSubCategory,
+    setSelectedProjectType,
+    setSelectedWorkType,
   } = usePositionSelect()
 
   const [selectedSkills, setSelectedSkills] = useState<string[]>([])
@@ -106,7 +112,16 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
   }
 
   const isFormValid = () => {
-    const requiredFields = [title, selectedCategory, selectedSubCategory, mainTasks, workMethod, idealCandidate]
+    const requiredFields = [
+      title,
+      selectedCategory,
+      selectedSubCategory,
+      mainTasks,
+      workMethod,
+      idealCandidate,
+      selectedProjectType,
+      selectedWorkType,
+    ]
 
     const hasRequiredFields = requiredFields.every((field) => field.trim() !== '')
     const isDateValid = isPermanentRecruitment || (endDate !== '' && validateDate(endDate))
@@ -132,10 +147,12 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
         isRegionFlexible: false,
         mainTasks: mainTasks,
         workMethod: workMethod,
+        workTypeName: selectedWorkType,
         idealCandidate: idealCandidate,
         preferredQualifications: isExpanded ? preferredQualifications : undefined,
         joiningProcess: isExpanded ? joiningProcess : undefined,
         benefits: isExpanded ? benefits : undefined,
+        projectTypeName: selectedProjectType,
       }
 
       if (id) {
@@ -170,6 +187,8 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
           setEndDate(data.result.isPermanentRecruitment ? '' : data.result.announcementEndDate)
           setMainTasks(data.result.mainTasks)
           setWorkMethod(data.result.workMethod)
+          setSelectedProjectType(data.result.projectType)
+          setSelectedWorkType(data.result.workType)
           setIdealCandidate(data.result.idealCandidate)
 
           if (data.result.preferredQualifications || data.result.joiningProcess || data.result.benefits) {
@@ -226,6 +245,8 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
     selectedSkills,
     endDate,
     mainTasks,
+    selectedProjectType,
+    selectedWorkType,
     workMethod,
     idealCandidate,
     preferredQualifications,
@@ -313,6 +334,41 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
             />
           </div>
         </div>
+
+        {/* 프로젝트 유형 */}
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <span className="text-grey80">
+              프로젝트 유형<span className="pl-1 text-main">*</span>
+            </span>
+          </div>
+          <div className="flex w-full flex-col gap-2 ">
+            <Select
+              options={projectTypeOptions}
+              value={selectedProjectType}
+              placeholder="프로젝트 유형 선택"
+              onChange={setSelectedProjectType}
+            />
+          </div>
+        </div>
+
+        {/* 업무 형태 */}
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <span className="text-grey80">
+              업무 형태<span className="pl-1 text-main">*</span>
+            </span>
+          </div>
+          <div className="flex w-full flex-col gap-2 ">
+            <Select
+              options={workTypeOptions}
+              value={selectedWorkType}
+              placeholder="업무 형태 선택"
+              onChange={setSelectedWorkType}
+            />
+          </div>
+        </div>
+
         {/* 모집기간 */}
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">

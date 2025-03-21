@@ -416,6 +416,8 @@ export interface TeamAnnouncementDetail {
     announcementSkillNames: {
       announcementSkillName: string
     }[]
+    projectType: string
+    workType: string
     isAnnouncementPublic: boolean
     isAnnouncementInProgress: boolean
     announcementEndDate: string
