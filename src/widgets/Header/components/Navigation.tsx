@@ -15,7 +15,7 @@ export default function Navigation() {
         }`}
         aria-current={pathname === '/find/private' ? 'page' : undefined}
       >
-        팀원
+        팀원 찾기
       </Link>
       <Link
         href="/find/team"
@@ -24,7 +24,7 @@ export default function Navigation() {
         }`}
         aria-current={pathname === '/find/team' ? 'page' : undefined}
       >
-        팀
+        팀 찾기
       </Link>
       <Link
         href="/find/announcement"
