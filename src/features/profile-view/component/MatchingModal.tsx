@@ -63,7 +63,7 @@ export default function MatchingModal({
                 emailId: teamData.senderProfileInformation.emailId,
               })
             }
-            className="flex w-full cursor-pointer items-center gap-4 rounded-xl border border-grey30 px-[1.88rem] py-4 hover:bg-grey20"
+            className="flex w-full cursor-pointer items-center gap-4 rounded-xl border border-grey30 p-4 hover:bg-grey20"
           >
             <div className="h-[50px] w-[50px] flex-shrink-0">
               <Image
@@ -127,20 +127,24 @@ export default function MatchingModal({
                   emailId: profileData.senderProfileInformation.emailId,
                 })
               }
-              className="flex w-full  cursor-pointer items-center gap-4 rounded-xl border border-grey30 px-[1.88rem] py-4 hover:bg-grey20"
+              className="flex w-full  cursor-pointer items-center justify-between gap-4 rounded-xl border border-grey30 p-5 hover:bg-grey20"
             >
-              <div className="h-[50px] w-[50px] flex-shrink-0">
-                <Image
-                  src={profileData.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
-                  alt="profile"
-                  width={50}
-                  height={50}
-                  className="h-full w-full rounded-lg object-cover"
-                />
+              <div className="flex items-center gap-4">
+                <div className="h-[50px] w-[50px] flex-shrink-0">
+                  <Image
+                    src={profileData.senderProfileInformation.profileImagePath || '/common/default_profile.svg'}
+                    alt="profile"
+                    width={50}
+                    height={50}
+                    className="h-full w-full rounded-lg object-cover"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-semibold text-grey90">{profileData.senderProfileInformation.memberName}</span>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <span className="font-semibold text-grey90">{profileData.senderProfileInformation.memberName}</span>
-              </div>
+
+              <div className="ml-5 rounded-[0.38rem] border border-grey30 px-2 py-1 text-xs text-main">개인</div>
             </div>
           )}
           <div className="mt-3 flex w-full flex-col gap-3">
@@ -148,20 +152,23 @@ export default function MatchingModal({
               <div
                 key={team.teamCode}
                 onClick={() => handleProfileSelect(team)}
-                className="flex w-full cursor-pointer items-center gap-4 rounded-xl border border-grey30 px-[1.88rem] py-4 hover:bg-grey20"
+                className="flex w-full cursor-pointer items-center justify-between gap-4 rounded-xl border border-grey30 p-5 hover:bg-grey20"
               >
-                <div className="h-[50px] w-[50px] flex-shrink-0">
-                  <Image
-                    src={team.teamLogoImagePath || '/common/default_profile.svg'}
-                    alt="team"
-                    width={50}
-                    height={50}
-                    className="h-full w-full rounded-lg object-cover"
-                  />
+                <div className="flex items-center gap-4">
+                  <div className="h-[50px] w-[50px] flex-shrink-0">
+                    <Image
+                      src={team.teamLogoImagePath || '/common/default_profile.svg'}
+                      alt="team"
+                      width={50}
+                      height={50}
+                      className="h-full w-full rounded-lg object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-semibold text-grey90">{team.teamName}</span>
+                  </div>
                 </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-grey90">{team.teamName}</span>
-                </div>
+                <div className="ml-5 rounded-[0.38rem] border border-grey30 px-2 py-1 text-xs text-main">팀</div>
               </div>
             ))}
           </div>
@@ -172,8 +179,8 @@ export default function MatchingModal({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="z-[110] flex w-full flex-col items-center rounded-xl bg-white p-8 md:w-[18.375rem]">
-        <div className="mb-6 flex items-center justify-between">
+      <div className="z-[110] flex w-full flex-col items-center rounded-xl bg-white p-5 md:w-[20.375rem]">
+        <div className="mb-6 ml-2 flex w-full items-start justify-between">
           <h2 className="text-sm font-semibold text-grey90">어떤 프로필로 매칭 요청을 보낼까요?</h2>
         </div>
         {renderContent()}
