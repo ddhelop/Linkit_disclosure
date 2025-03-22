@@ -2,6 +2,11 @@ import { loadFindAnnouncementData } from '@/features/find-announcement/FindAnnou
 import FindAnnouncementFilter from '@/features/find-announcement/ui/FindAnnouncementFilter'
 import AnnouncementFilterResult from '@/features/find-announcement/ui/FindAnnouncementFilterResult'
 import { HydrationBoundary } from '@tanstack/react-query'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: '모집 공고',
+}
 
 export default async function FindAnnouncementPage({
   searchParams,

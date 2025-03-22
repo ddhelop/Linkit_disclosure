@@ -2,6 +2,11 @@ import { loadFindPrivateData } from '@/features/find-private/FindPrivateLoader'
 import FindPrivateFilter from '@/features/find-private/ui/FindPrivateFilter'
 import FindPrivateResult from '@/features/find-private/ui/FindPrivateResult'
 import { HydrationBoundary } from '@tanstack/react-query'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: '팀원 찾기',
+}
 
 export default async function FindPrivatePage({
   searchParams,

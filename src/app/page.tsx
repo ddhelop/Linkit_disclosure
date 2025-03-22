@@ -20,7 +20,7 @@ export default async function HomePage() {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <div className="flex w-full flex-col items-center bg-white">
+      <main className="flex w-full flex-col items-center bg-white">
         <Banner />
 
         {/*  */}
@@ -40,7 +40,7 @@ export default async function HomePage() {
 
         {/* 푸터 */}
         <Footer />
-      </div>
+      </main>
     </HydrationBoundary>
   )
 }
