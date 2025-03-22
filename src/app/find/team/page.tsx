@@ -2,6 +2,11 @@ import { loadFindTeamData } from '@/features/find-team/FindTeamLoader'
 import FindTeamFilter from '@/features/find-team/ui/FindTeamFilter'
 import FindTeamFilterResult from '@/features/find-team/ui/FindTeamFilterResult'
 import { HydrationBoundary } from '@tanstack/react-query'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: '팀 찾기',
+}
 
 export default async function FindTeamPage({ searchParams }: { searchParams: { [key: string]: string | string[] } }) {
   const dehydratedState = await loadFindTeamData(searchParams)

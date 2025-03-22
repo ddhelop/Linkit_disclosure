@@ -82,7 +82,7 @@ export default function CompletedMessage({ message }: CompletedMessageProps) {
           <span className="text-lg font-semibold text-main">{getMessageTitle()}</span>
           <span className="line-clamp-1 text-sm font-normal text-grey70">{message.requestMessage}</span>
         </div>
-        <div className="absolute right-6 hidden flex-shrink-0 flex-col items-end gap-2 sm:flex">
+        <div className="absolute right-6 top-4 hidden flex-shrink-0 flex-col items-end gap-2 sm:flex">
           <span className="whitespace-pre-line text-xs font-normal text-grey80">{message.modifiedAt}</span>
         </div>
       </div>

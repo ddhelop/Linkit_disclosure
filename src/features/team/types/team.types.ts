@@ -113,11 +113,22 @@ export interface TeamProductView {
   }
 }
 
-// 팀 연혁
+// 팀 연혁 캘린더 타입들
 export interface TeamHistory {
   teamHistoryId: number
   historyName: string
   historyStartDate: string
   historyEndDate: string | null
   isHistoryInProgress: boolean
+  historyDescription: string
 }
+
+export interface MonthHistory {
+  [month: string]: TeamHistory[]
+}
+
+export interface YearHistory {
+  [year: string]: MonthHistory[]
+}
+
+export type TeamHistoryCalendar = YearHistory[]

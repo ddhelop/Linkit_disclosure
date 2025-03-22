@@ -7,6 +7,30 @@ import ProfileViewAwards from '@/features/profile-view/ui/ProfileViewAwards'
 import ProfileViewLicense from '@/features/profile-view/ui/ProfileViewLicense'
 import ProfileViewLinks from '@/features/profile-view/ui/ProfileViewLinks'
 import ProfileProgress from '@/features/profile-view/ui/ProfileViewProgress'
+import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
+
+export async function generateMetadata({ params }: { params: { emailId: string } }) {
+  const emailId = params.emailId
+  const userData = await getProfileDetail(emailId)
+  const name = userData.result.profileInformMenu.memberName
+  const profileImage = userData.result.profileInformMenu.profileImagePath
+  return {
+    title: `${name}`,
+    description: `${name}님의 포트폴리오`,
+    openGraph: {
+      title: `${name} 프로필`,
+      description: '경력, 프로젝트, 스킬 정보를 포함한 프로필 페이지입니다.',
+      url: `https://linkit.im/profile/${emailId}`,
+      images: [
+        {
+          url: profileImage,
+          width: 600,
+          height: 600,
+        },
+      ],
+    },
+  }
+}
 
 export default function UserProfilePage({ params }: { params: { emailId: string } }) {
   const emailId = params.emailId

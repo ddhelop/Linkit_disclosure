@@ -231,11 +231,6 @@ export async function createRecruitment(data: CreateRecruitmentRequest, teamName
   return response.json()
 }
 
-interface InviteMemberRequest {
-  teamMemberInvitationEmail: string
-  teamMemberType: 'TEAM_MANAGER' | 'TEAM_VIEWER'
-}
-
 export async function inviteTeamMember(
   data: { teamMemberInvitationEmail: string; teamMemberType: string },
   teamName: string,
@@ -301,15 +296,6 @@ export async function createTeamProduct(
   }
 
   return response.json()
-}
-
-interface TeamProductResponse {
-  isSuccess: boolean
-  code: string
-  message: string
-  result: {
-    teamProductItems: TeamProductView[]
-  }
 }
 
 export async function getTeamProducts(
@@ -430,6 +416,8 @@ export interface TeamAnnouncementDetail {
     announcementSkillNames: {
       announcementSkillName: string
     }[]
+    projectType: string
+    workType: string
     isAnnouncementPublic: boolean
     isAnnouncementInProgress: boolean
     announcementEndDate: string
