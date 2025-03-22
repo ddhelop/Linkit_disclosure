@@ -9,7 +9,7 @@ import { Metadata } from 'next'
 import { loadHomeData } from '@/features/home/loader'
 
 export const metadata: Metadata = {
-  title: '링킷ㅣ일하는 사람들의 연결점',
+  title: '링킷',
   description: '예비·초기 스타트업부터 사이드 프로젝트 팀, 대학생부터 예비 창업가를 위한 팀빌딩 서비스',
   keywords:
     '팀빌딩, 팀 매칭, 팀 구성, 팀원 모집, 창업, 스타트업, 사이드프로젝트, 스타트업 팀빌딩, 창업 팀원 모집, 해커톤 팀원 모집, 대학생 팀원 모집',

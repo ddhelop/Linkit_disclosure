@@ -12,10 +12,16 @@ import CustomClient from '@/components/CustomClient'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export const metadata: Metadata = {
-  title: '링킷ㅣ일하는 사람들의 연결점',
+  title: {
+    default: '링킷',
+    template: '%s',
+  },
   description: '팀 빌딩 서비스, 링킷',
   icons: {
-    icon: '/common/logo.png',
+    icon: [
+      { url: '/favicon.ico' }, // 기본 파비콘
+      { url: '/common/logo.png', type: 'image/png' }, // 추가 아이콘
+    ],
   },
 
   openGraph: {
