@@ -98,7 +98,7 @@ export default function OutboxMessage({ message }: OutboxMessageProps) {
             </span>
             <span className="line-clamp-1 text-sm font-normal text-grey70">{message.requestMessage}</span>
           </div>
-          <div className="absolute right-6 top-6 hidden flex-col items-end gap-2 sm:flex">
+          <div className="absolute right-6 top-4 hidden flex-col items-end gap-2 sm:flex">
             <span className="text-xs font-normal text-grey80">{message.modifiedAt}</span>
           </div>
         </div>
