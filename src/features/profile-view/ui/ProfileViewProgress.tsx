@@ -19,7 +19,7 @@ export default function ProfileProgress({ emailId }: { emailId: string }) {
   const progress = data?.result?.profileCompletionMenu?.profileCompletion || 0
 
   return (
-    <div className="flex w-[17.5rem] flex-col gap-4 rounded-lg border border-grey40 px-[0.94rem] py-5">
+    <div className="flex w-[17.5rem] flex-col gap-4 rounded-lg border border-grey20 bg-white px-[0.94rem] py-5">
       <div className="mb-1 text-grey80">프로필 완성도</div>
       <div className="relative h-1.5 rounded-full bg-grey40">
         {/* 시작 지점 동그라미 */}
