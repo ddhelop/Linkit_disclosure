@@ -7,10 +7,15 @@ export interface NotificationDetails {
   teamLogoImagePath?: string
   teamCode: string
   isTeamDeleted?: boolean
+  itemId?: number
+  itemType?: 'ACTIVITY' | 'EDUCATION' | 'AWARD' | 'LICENSE'
+  emailId?: string
+  visitorCount?: number
+  visitedType?: 'PROFILE' | 'TEAM'
 }
 
 export interface NotificationItem {
-  notificationType: 'TEAM_INVITATION' | 'CHATTING' | 'MATCHING' | 'TEAM' | 'SYSTEM'
+  notificationType: 'TEAM_INVITATION' | 'CHATTING' | 'MATCHING' | 'TEAM' | 'SYSTEM' | 'CERTIFICATION' | 'VISITOR'
   subNotificationType:
     | 'TEAM_INVITATION_REQUESTED'
     | 'TEAM_MEMBER_JOINED'
@@ -23,6 +28,17 @@ export interface NotificationItem {
     | 'REMOVE_TEAM_COMPLETED'
     | 'WELCOME_LINKIT'
     | 'COMPLETE_PROFILE'
+    //
+    | 'ACTIVITY_CERTIFICATION_ACCEPTED'
+    | 'ACTIVITY_CERTIFICATION_REJECTED'
+    | 'EDUCATION_CERTIFICATION_ACCEPTED'
+    | 'EDUCATION_CERTIFICATION_REJECTED'
+    | 'AWARDS_CERTIFICATION_ACCEPTED'
+    | 'AWARDS_CERTIFICATION_REJECTED'
+    | 'LICENSE_CERTIFICATION_ACCEPTED'
+    | 'LICENSE_CERTIFICATION_REJECTED'
+    | 'PROFILE_VISITOR'
+    | 'TEAM_VISITOR'
     | 'ETC'
   notificationReadStatus: 'READ' | 'UNREAD'
   notificationOccurTime: string
