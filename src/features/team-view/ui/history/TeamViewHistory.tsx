@@ -47,7 +47,7 @@ export default function TeamViewHistory({ teamName }: { teamName: string }) {
         </div>
 
         {/* 연혁 리스트 */}
-        <div className="mt-8 space-y-8">
+        <div className="my-8 space-y-8">
           {historyCalendar.map((yearData: YearHistory) => {
             const year = Object.keys(yearData)[0]
             const monthsData = yearData[year]
