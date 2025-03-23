@@ -30,14 +30,6 @@ export const getMyTeams = async (): Promise<ApiResponse<TeamData[]>> => {
   return response.json()
 }
 
-export async function getTeamLogs(teamName: string): Promise<ApiResponse<TeamLog[]>> {
-  const response = await fetchWithAuth(`/api/v1/team/${teamName}/log`)
-  if (!response.ok) {
-    throw new Error('Failed to fetch team logs')
-  }
-  return response.json()
-}
-
 // 팀 대표 로그 단일 조회
 export async function getTeamRepresentativeLog(teamName: string) {
   const response = await fetchWithAuth(`/api/v1/team/${teamName}/log/represent`)
