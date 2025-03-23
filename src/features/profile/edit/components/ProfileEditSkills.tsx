@@ -125,6 +125,7 @@ export default function ProfileEditSkills() {
             filterFunction={(tool, searchTerm) => tool.toLowerCase().includes(searchTerm.toLowerCase())}
             onSelect={handleAddSkill}
             placeholder="스킬을 영어로 검색해 보세요"
+            getItemLogo={(skillName) => skillsData.find((s) => s.name === skillName)?.logoUrl || ''}
           />
         </div>
 
