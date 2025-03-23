@@ -4,7 +4,7 @@ export const skillsData = [
   {
     id: 1,
     name: '2B Advice',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/2B+Advice.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/2B%20Advice.svg',
   },
   {
     id: 2,
@@ -44,17 +44,17 @@ export const skillsData = [
   {
     id: 9,
     name: 'AB Tasty',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AB+Tasty.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AB%20Tasty.svg',
   },
   {
     id: 10,
     name: 'ABP Framework',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ABP+Framework.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ABP%20Framework.svg',
   },
   {
     id: 11,
     name: 'AD EBiS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AD+EBiS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AD%20EBiS.svg',
   },
   {
     id: 12,
@@ -74,7 +74,7 @@ export const skillsData = [
   {
     id: 15,
     name: 'AMP for WordPress',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AMP+for+WordPress.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AMP%20for%20WordPress.svg',
   },
   {
     id: 16,
@@ -89,22 +89,22 @@ export const skillsData = [
   {
     id: 18,
     name: 'ARI Network Services',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ARI+Network+Services.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ARI%20Network%20Services.svg',
   },
   {
     id: 19,
     name: 'ASP.NET Boilerplate',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ASP.NET+Boilerplate.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ASP.NET%20Boilerplate.svg',
   },
   {
     id: 20,
     name: 'AT Internet Analyzer',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AT+Internet+Analyzer.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AT%20Internet%20Analyzer.svg',
   },
   {
     id: 21,
     name: 'AT Internet XiTi',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AT+Internet+XiTi.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AT%20Internet%20XiTi.svg',
   },
   {
     id: 22,
@@ -119,7 +119,7 @@ export const skillsData = [
   {
     id: 24,
     name: 'AWS Certificate Manager',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AWS+Certificate+Manager.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AWS%20Certificate%20Manager.svg',
   },
   {
     id: 25,
@@ -139,7 +139,7 @@ export const skillsData = [
   {
     id: 28,
     name: 'Accentuate Custom Fields',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Accentuate+Custom+Fields.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Accentuate%20Custom%20Fields.svg',
   },
   {
     id: 29,
@@ -174,57 +174,57 @@ export const skillsData = [
   {
     id: 35,
     name: 'Acoustic Experience Analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acoustic+Experience+Analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acoustic%20Experience%20Analytics.svg',
   },
   {
     id: 36,
     name: 'Acquia Campaign Factory',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia+Campaign+Factory.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia%20Campaign%20Factory.svg',
   },
   {
     id: 37,
     name: 'Acquia Cloud IDE',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia+Cloud+IDE.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia%20Cloud%20IDE.svg',
   },
   {
     id: 38,
     name: 'Acquia Cloud Platform',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia+Cloud+Platform.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia%20Cloud%20Platform.svg',
   },
   {
     id: 39,
     name: 'Acquia Cloud Platform CDN',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia+Cloud+Platform+CDN.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia%20Cloud%20Platform%20CDN.svg',
   },
   {
     id: 40,
     name: 'Acquia Cloud Site Factory',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia+Cloud+Site+Factory.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia%20Cloud%20Site%20Factory.svg',
   },
   {
     id: 41,
     name: 'Acquia Content Hub',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia+Content+Hub.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia%20Content%20Hub.svg',
   },
   {
     id: 42,
     name: 'Acquia Customer Data Platform',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia+Customer+Data+Platform.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia%20Customer%20Data%20Platform.svg',
   },
   {
     id: 43,
     name: 'Acquia Personalization',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia+Personalization.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia%20Personalization.svg',
   },
   {
     id: 44,
     name: 'Acquia Site Studio',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia+Site+Studio.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquia%20Site%20Studio.svg',
   },
   {
     id: 45,
     name: 'Acquire Live Chat',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquire+Live+Chat.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acquire%20Live%20Chat.svg',
   },
   {
     id: 46,
@@ -249,7 +249,7 @@ export const skillsData = [
   {
     id: 50,
     name: 'Acuity Scheduling',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acuity+Scheduling.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Acuity%20Scheduling.svg',
   },
   {
     id: 51,
@@ -259,7 +259,7 @@ export const skillsData = [
   {
     id: 52,
     name: 'Ad Lightning',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ad+Lightning.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ad%20Lightning.svg',
   },
   {
     id: 53,
@@ -289,7 +289,7 @@ export const skillsData = [
   {
     id: 58,
     name: 'AdRoll CMP System',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AdRoll+CMP+System.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AdRoll%20CMP%20System.svg',
   },
   {
     id: 59,
@@ -309,7 +309,7 @@ export const skillsData = [
   {
     id: 62,
     name: 'Ada Site Compliance',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ada+Site+Compliance.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ada%20Site%20Compliance.svg',
   },
   {
     id: 63,
@@ -354,7 +354,7 @@ export const skillsData = [
   {
     id: 71,
     name: 'AddToAny Share Buttons',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AddToAny+Share+Buttons.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AddToAny%20Share%20Buttons.svg',
   },
   {
     id: 72,
@@ -419,97 +419,97 @@ export const skillsData = [
   {
     id: 84,
     name: 'Adobe Acrobat',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+Acrobat.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20Acrobat.svg',
   },
   {
     id: 85,
     name: 'Adobe After Effects',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+After+Effects.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20After%20Effects.svg',
   },
   {
     id: 86,
     name: 'Adobe Analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+Analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20Analytics.svg',
   },
   {
     id: 87,
     name: 'Adobe Audience Manager',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+Audience+Manager.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20Audience%20Manager.svg',
   },
   {
     id: 88,
     name: 'Adobe Client Data Layer',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+Client+Data+Layer.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20Client%20Data%20Layer.svg',
   },
   {
     id: 89,
     name: 'Adobe ColdFusion',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+ColdFusion.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20ColdFusion.svg',
   },
   {
     id: 90,
     name: 'Adobe Commerce (Magneto)',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+Commerce+(Magneto).svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20Commerce%20%28Magneto%29.svg',
   },
   {
     id: 91,
     name: 'Adobe DTM',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+DTM.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20DTM.svg',
   },
   {
     id: 92,
     name: 'Adobe Experience Manager',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+Experience+Manager.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20Experience%20Manager.svg',
   },
   {
     id: 93,
     name: 'Adobe Experience Platform Launch',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+Experience+Platform+Launch.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20Experience%20Platform%20Launch.svg',
   },
   {
     id: 94,
     name: 'Adobe Flash',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+Flash.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20Flash.svg',
   },
   {
     id: 95,
     name: 'Adobe GoLive',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+GoLive.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20GoLive.svg',
   },
   {
     id: 96,
     name: 'Adobe Illustrator',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+Illustrator.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20Illustrator.svg',
   },
   {
     id: 97,
     name: 'Adobe Photoshop',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+Photoshop.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20Photoshop.svg',
   },
   {
     id: 98,
     name: 'Adobe Portfolio',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+Portfolio.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20Portfolio.svg',
   },
   {
     id: 99,
     name: 'Adobe Premiere Pro',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+Premiere+Pro.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20Premiere%20Pro.svg',
   },
   {
     id: 100,
     name: 'Adobe RoboHelp',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+RoboHelp.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20RoboHelp.svg',
   },
   {
     id: 101,
     name: 'Adobe Target',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+Target.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20Target.svg',
   },
   {
     id: 102,
     name: 'Adobe XD',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe+XD.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Adobe%20XD.svg',
   },
   {
     id: 103,
@@ -524,7 +524,7 @@ export const skillsData = [
   {
     id: 105,
     name: 'Advanced Custom Fields',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Advanced+Custom+Fields.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Advanced%20Custom%20Fields.svg',
   },
   {
     id: 106,
@@ -544,7 +544,7 @@ export const skillsData = [
   {
     id: 109,
     name: 'Aero Commerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Aero+Commerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Aero%20Commerce.svg',
   },
   {
     id: 110,
@@ -554,7 +554,7 @@ export const skillsData = [
   {
     id: 111,
     name: 'Affiliate Future',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Affiliate+Future.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Affiliate%20Future.svg',
   },
   {
     id: 112,
@@ -594,7 +594,7 @@ export const skillsData = [
   {
     id: 119,
     name: 'AfterShip Returns Center',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AfterShip+Returns+Center.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AfterShip%20Returns%20Center.svg',
   },
   {
     id: 120,
@@ -649,17 +649,17 @@ export const skillsData = [
   {
     id: 130,
     name: 'Akamai Bot Manager',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Akamai+Bot+Manager.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Akamai%20Bot%20Manager.svg',
   },
   {
     id: 131,
     name: 'Akamai Web Application Protector',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Akamai+Web+Application+Protector.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Akamai%20Web%20Application%20Protector.svg',
   },
   {
     id: 132,
     name: 'Akamai mPulse',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Akamai+mPulse.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Akamai%20mPulse.svg',
   },
   {
     id: 133,
@@ -669,7 +669,7 @@ export const skillsData = [
   {
     id: 134,
     name: 'Akilli Ticaret',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Akilli+Ticaret.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Akilli%20Ticaret.svg',
   },
   {
     id: 135,
@@ -689,7 +689,7 @@ export const skillsData = [
   {
     id: 138,
     name: 'Akka HTTP',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Akka+HTTP.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Akka%20HTTP.svg',
   },
   {
     id: 139,
@@ -714,32 +714,32 @@ export const skillsData = [
   {
     id: 143,
     name: 'Algolia DocSearch',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Algolia+DocSearch.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Algolia%20DocSearch.svg',
   },
   {
     id: 144,
     name: 'Ali Reviews',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ali+Reviews.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ali%20Reviews.svg',
   },
   {
     id: 145,
     name: 'Alibaba Cloud CDN',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Alibaba+Cloud+CDN.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Alibaba%20Cloud%20CDN.svg',
   },
   {
     id: 146,
     name: 'Alibaba Cloud Object Storage Service',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Alibaba+Cloud+Object+Storage+Service.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Alibaba%20Cloud%20Object%20Storage%20Service.svg',
   },
   {
     id: 147,
     name: 'Alibaba Cloud Verification Code',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Alibaba+Cloud+Verification+Code.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Alibaba%20Cloud%20Verification%20Code.svg',
   },
   {
     id: 148,
     name: 'All in One SEO',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/All+in+One+SEO.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/All%20in%20One%20SEO.svg',
   },
   {
     id: 149,
@@ -749,7 +749,7 @@ export const skillsData = [
   {
     id: 150,
     name: 'Alliance Auth',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Alliance+Auth.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Alliance%20Auth.svg',
   },
   {
     id: 151,
@@ -769,7 +769,7 @@ export const skillsData = [
   {
     id: 154,
     name: 'Alpine Linux',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Alpine+Linux.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Alpine%20Linux.svg',
   },
   {
     id: 155,
@@ -794,82 +794,82 @@ export const skillsData = [
   {
     id: 159,
     name: 'Amazon ALB',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+ALB.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20ALB.svg',
   },
   {
     id: 160,
     name: 'Amazon Advertising',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+Advertising.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20Advertising.svg',
   },
   {
     id: 161,
     name: 'Amazon Associates',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+Associates.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20Associates.svg',
   },
   {
     id: 162,
     name: 'Amazon Aurora',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+Aurora.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20Aurora.svg',
   },
   {
     id: 163,
     name: 'Amazon CloudFront',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+CloudFront.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20CloudFront.svg',
   },
   {
     id: 164,
     name: 'Amazon Cognito',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+Cognito.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20Cognito.svg',
   },
   {
     id: 165,
     name: 'Amazon EC2',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+EC2.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20EC2.svg',
   },
   {
     id: 166,
     name: 'Amazon ECS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+ECS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20ECS.svg',
   },
   {
     id: 167,
     name: 'Amazon EFS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+EFS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20EFS.svg',
   },
   {
     id: 168,
     name: 'Amazon ELB',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+ELB.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20ELB.svg',
   },
   {
     id: 169,
     name: 'Amazon Pay',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+Pay.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20Pay.svg',
   },
   {
     id: 170,
     name: 'Amazon S3',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+S3.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20S3.svg',
   },
   {
     id: 171,
     name: 'Amazon SES',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+SES.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20SES.svg',
   },
   {
     id: 172,
     name: 'Amazon Web Services',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+Web+Services.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20Web%20Services.svg',
   },
   {
     id: 173,
     name: 'Amazon Webstore',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon+Webstore.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Amazon%20Webstore.svg',
   },
   {
     id: 174,
     name: 'American Express',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/American+Express.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/American%20Express.svg',
   },
   {
     id: 175,
@@ -934,7 +934,7 @@ export const skillsData = [
   {
     id: 187,
     name: 'Angular Material',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Angular+Material.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Angular%20Material.svg',
   },
   {
     id: 188,
@@ -954,12 +954,12 @@ export const skillsData = [
   {
     id: 191,
     name: 'Aniview Ad Server',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Aniview+Ad+Server.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Aniview%20Ad%20Server.svg',
   },
   {
     id: 192,
     name: 'Aniview Video Ad Player',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Aniview+Video+Ad+Player.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Aniview%20Video%20Ad%20Player.svg',
   },
   {
     id: 193,
@@ -974,7 +974,7 @@ export const skillsData = [
   {
     id: 195,
     name: 'Ant Design',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ant+Design.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ant%20Design.svg',
   },
   {
     id: 196,
@@ -984,27 +984,27 @@ export const skillsData = [
   {
     id: 197,
     name: 'AntV G2',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AntV+G2.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AntV%20G2.svg',
   },
   {
     id: 198,
     name: 'AntV G6',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AntV+G6.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/AntV%20G6.svg',
   },
   {
     id: 199,
     name: 'Antee IPO',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Antee+IPO.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Antee%20IPO.svg',
   },
   {
     id: 200,
     name: 'Anthology Encompass',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Anthology+Encompass.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Anthology%20Encompass.svg',
   },
   {
     id: 201,
     name: 'Antsomi CDP 365',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Antsomi+CDP+365.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Antsomi%20CDP%20365.svg',
   },
   {
     id: 202,
@@ -1019,32 +1019,32 @@ export const skillsData = [
   {
     id: 204,
     name: 'Apache APISIX',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apache+APISIX.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apache%20APISIX.svg',
   },
   {
     id: 205,
     name: 'Apache HTTP Server',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apache+HTTP+Server.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apache%20HTTP%20Server.svg',
   },
   {
     id: 206,
     name: 'Apache JSPWiki',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apache+JSPWiki.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apache%20JSPWiki.svg',
   },
   {
     id: 207,
     name: 'Apache Tomcat',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apache+Tomcat.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apache%20Tomcat.svg',
   },
   {
     id: 208,
     name: 'Apache Traffic Server',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apache+Traffic+Server.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apache%20Traffic%20Server.svg',
   },
   {
     id: 209,
     name: 'Apache Wicket',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apache+Wicket.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apache%20Wicket.svg',
   },
   {
     id: 210,
@@ -1094,7 +1094,7 @@ export const skillsData = [
   {
     id: 219,
     name: 'Apereo CAS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apereo+CAS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apereo%20CAS.svg',
   },
   {
     id: 220,
@@ -1134,7 +1134,7 @@ export const skillsData = [
   {
     id: 227,
     name: 'Apollo13Themes Rife',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apollo13Themes+Rife.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apollo13Themes%20Rife.svg',
   },
   {
     id: 228,
@@ -1169,22 +1169,22 @@ export const skillsData = [
   {
     id: 234,
     name: 'Apple Business Chat',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apple+Business+Chat.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apple%20Business%20Chat.svg',
   },
   {
     id: 235,
     name: 'Apple MapKit JS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apple+MapKit+JS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apple%20MapKit%20JS.svg',
   },
   {
     id: 236,
     name: 'Apple Pay',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apple+Pay.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apple%20Pay.svg',
   },
   {
     id: 237,
     name: 'Apple iCloud Mail',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apple+iCloud+Mail.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Apple%20iCloud%20Mail.svg',
   },
   {
     id: 238,
@@ -1229,7 +1229,7 @@ export const skillsData = [
   {
     id: 246,
     name: 'Arc XP',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Arc+XP.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Arc%20XP.svg',
   },
   {
     id: 247,
@@ -1294,12 +1294,12 @@ export const skillsData = [
   {
     id: 259,
     name: 'Asgaros Forum',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Asgaros+Forum.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Asgaros%20Forum.svg',
   },
   {
     id: 260,
     name: 'Assertive Yield',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Assertive+Yield.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Assertive%20Yield.svg',
   },
   {
     id: 261,
@@ -1309,7 +1309,7 @@ export const skillsData = [
   {
     id: 262,
     name: 'Astra Widgets',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Astra+Widgets.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Astra%20Widgets.svg',
   },
   {
     id: 263,
@@ -1319,7 +1319,7 @@ export const skillsData = [
   {
     id: 264,
     name: 'Astute Solutions',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Astute+Solutions.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Astute%20Solutions.svg',
   },
   {
     id: 265,
@@ -1334,22 +1334,22 @@ export const skillsData = [
   {
     id: 267,
     name: 'Atlassian Bitbucket',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Atlassian+Bitbucket.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Atlassian%20Bitbucket.svg',
   },
   {
     id: 268,
     name: 'Atlassian FishEye',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Atlassian+FishEye.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Atlassian%20FishEye.svg',
   },
   {
     id: 269,
     name: 'Atlassian Jira',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Atlassian+Jira.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Atlassian%20Jira.svg',
   },
   {
     id: 270,
     name: 'Atlassian Statuspage',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Atlassian+Statuspage.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Atlassian%20Statuspage.svg',
   },
   {
     id: 271,
@@ -1399,7 +1399,7 @@ export const skillsData = [
   {
     id: 280,
     name: 'Australia Post',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Australia+Post.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Australia%20Post.svg',
   },
   {
     id: 281,
@@ -1444,22 +1444,22 @@ export const skillsData = [
   {
     id: 289,
     name: 'Avada AVASHIP',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Avada+AVASHIP.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Avada%20AVASHIP.svg',
   },
   {
     id: 290,
     name: 'Avada Boost Sales',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Avada+Boost+Sales.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Avada%20Boost%20Sales.svg',
   },
   {
     id: 291,
     name: 'Avada SEO',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Avada+SEO.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Avada%20SEO.svg',
   },
   {
     id: 292,
     name: 'Avada Size Chart',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Avada+Size+Chart.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Avada%20Size%20Chart.svg',
   },
   {
     id: 293,
@@ -1524,22 +1524,22 @@ export const skillsData = [
   {
     id: 305,
     name: 'Azure AD B2C',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Azure+AD+B2C.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Azure%20AD%20B2C.svg',
   },
   {
     id: 306,
     name: 'Azure CDN',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Azure+CDN.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Azure%20CDN.svg',
   },
   {
     id: 307,
     name: 'Azure Front Door',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Azure+Front+Door.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Azure%20Front%20Door.svg',
   },
   {
     id: 308,
     name: 'Azure Monitor',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Azure+Monitor.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Azure%20Monitor.svg',
   },
   {
     id: 309,
@@ -1554,7 +1554,7 @@ export const skillsData = [
   {
     id: 311,
     name: 'BON Loyalty',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/BON+Loyalty.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/BON%20Loyalty.svg',
   },
   {
     id: 312,
@@ -1634,7 +1634,7 @@ export const skillsData = [
   {
     id: 327,
     name: 'Basis Technologies',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Basis+Technologies.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Basis%20Technologies.svg',
   },
   {
     id: 328,
@@ -1644,17 +1644,17 @@ export const skillsData = [
   {
     id: 329,
     name: 'Bazaarvoice Curation',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bazaarvoice+Curation.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bazaarvoice%20Curation.svg',
   },
   {
     id: 330,
     name: 'Bazaarvoice Reviews',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bazaarvoice+Reviews.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bazaarvoice%20Reviews.svg',
   },
   {
     id: 331,
     name: 'Beam AfterSell',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Beam+AfterSell.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Beam%20AfterSell.svg',
   },
   {
     id: 332,
@@ -1664,7 +1664,7 @@ export const skillsData = [
   {
     id: 333,
     name: 'Better Stack',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Better+Stack.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Better%20Stack.svg',
   },
   {
     id: 334,
@@ -1674,7 +1674,7 @@ export const skillsData = [
   {
     id: 335,
     name: 'Big Cartel',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Big+Cartel.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Big%20Cartel.svg',
   },
   {
     id: 336,
@@ -1689,7 +1689,7 @@ export const skillsData = [
   {
     id: 338,
     name: 'Binance Pay',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Binance+Pay.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Binance%20Pay.svg',
   },
   {
     id: 339,
@@ -1699,7 +1699,7 @@ export const skillsData = [
   {
     id: 340,
     name: 'Blackbaud CRM',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Blackbaud+CRM.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Blackbaud%20CRM.svg',
   },
   {
     id: 341,
@@ -1719,7 +1719,7 @@ export const skillsData = [
   {
     id: 344,
     name: 'Blocksy Companion',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Blocksy+Companion.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Blocksy%20Companion.svg',
   },
   {
     id: 345,
@@ -1729,7 +1729,7 @@ export const skillsData = [
   {
     id: 346,
     name: 'Bloomreach Discovery',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bloomreach+Discovery.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bloomreach%20Discovery.svg',
   },
   {
     id: 347,
@@ -1739,22 +1739,22 @@ export const skillsData = [
   {
     id: 348,
     name: 'Blue Triangle',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Blue+Triangle.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Blue%20Triangle.svg',
   },
   {
     id: 349,
     name: 'Boats Group',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Boats+Group.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Boats%20Group.svg',
   },
   {
     id: 350,
     name: 'Bold Page Builder',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bold+Page+Builder.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bold%20Page%20Builder.svg',
   },
   {
     id: 351,
     name: 'Bolt Payments',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bolt+Payments.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bolt%20Payments.svg',
   },
   {
     id: 352,
@@ -1769,7 +1769,7 @@ export const skillsData = [
   {
     id: 354,
     name: 'Booster Page Speed Optimizer',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Booster+Page+Speed+Optimizer.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Booster%20Page%20Speed%20Optimizer.svg',
   },
   {
     id: 355,
@@ -1779,12 +1779,12 @@ export const skillsData = [
   {
     id: 356,
     name: 'Bootstrap Icons',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bootstrap+Icons.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bootstrap%20Icons.svg',
   },
   {
     id: 357,
     name: 'Bootstrap Table',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bootstrap+Table.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Bootstrap%20Table.svg',
   },
   {
     id: 358,
@@ -1824,7 +1824,7 @@ export const skillsData = [
   {
     id: 365,
     name: 'Breadcrumb NavXT',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Breadcrumb+NavXT.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Breadcrumb%20NavXT.svg',
   },
   {
     id: 366,
@@ -1884,12 +1884,12 @@ export const skillsData = [
   {
     id: 377,
     name: 'C#-(CSharp)',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/C#-(CSharp).svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/C%23-%28CSharp%29.svg',
   },
   {
     id: 378,
     name: 'C++-(CPlusPlus)',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/C++-(CPlusPlus).svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/C%2B%2B-%28CPlusPlus%29.svg',
   },
   {
     id: 379,
@@ -1899,7 +1899,7 @@ export const skillsData = [
   {
     id: 380,
     name: 'CJDropshipping app',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/CJDropshipping+app.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/CJDropshipping%20app.svg',
   },
   {
     id: 381,
@@ -1909,7 +1909,7 @@ export const skillsData = [
   {
     id: 382,
     name: 'CMS Made Simple',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/CMS+Made+Simple.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/CMS%20Made%20Simple.svg',
   },
   {
     id: 383,
@@ -1924,7 +1924,7 @@ export const skillsData = [
   {
     id: 385,
     name: 'CS Cart',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/CS+Cart.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/CS%20Cart.svg',
   },
   {
     id: 386,
@@ -1979,7 +1979,7 @@ export const skillsData = [
   {
     id: 396,
     name: 'Caldera Forms',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Caldera+Forms.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Caldera%20Forms.svg',
   },
   {
     id: 397,
@@ -2009,12 +2009,12 @@ export const skillsData = [
   {
     id: 402,
     name: 'Campaign Monitor',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Campaign+Monitor.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Campaign%20Monitor.svg',
   },
   {
     id: 403,
     name: 'Candid Themes Fairy',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Candid+Themes+Fairy.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Candid%20Themes%20Fairy.svg',
   },
   {
     id: 404,
@@ -2034,7 +2034,7 @@ export const skillsData = [
   {
     id: 407,
     name: 'Canvas LMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Canvas+LMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Canvas%20LMS.svg',
   },
   {
     id: 408,
@@ -2049,7 +2049,7 @@ export const skillsData = [
   {
     id: 410,
     name: 'Captch Me',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Captch+Me.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Captch%20Me.svg',
   },
   {
     id: 411,
@@ -2059,7 +2059,7 @@ export const skillsData = [
   {
     id: 412,
     name: 'Carbon Ads',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Carbon+Ads.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Carbon%20Ads.svg',
   },
   {
     id: 413,
@@ -2069,7 +2069,7 @@ export const skillsData = [
   {
     id: 414,
     name: 'CareCart Sales Pop Up',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/CareCart+Sales+Pop+Up.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/CareCart%20Sales%20Pop%20Up.svg',
   },
   {
     id: 415,
@@ -2089,12 +2089,12 @@ export const skillsData = [
   {
     id: 418,
     name: 'Carrot quest',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Carrot+quest.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Carrot%20quest.svg',
   },
   {
     id: 419,
     name: 'Cart Functionality',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cart+Functionality.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cart%20Functionality.svg',
   },
   {
     id: 420,
@@ -2119,7 +2119,7 @@ export const skillsData = [
   {
     id: 424,
     name: 'Carts Guru',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Carts+Guru.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Carts%20Guru.svg',
   },
   {
     id: 425,
@@ -2134,12 +2134,12 @@ export const skillsData = [
   {
     id: 427,
     name: 'Catch Themes Catch Box',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Catch+Themes+Catch+Box.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Catch%20Themes%20Catch%20Box.svg',
   },
   {
     id: 428,
     name: 'Catch Themes Fotografie',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Catch+Themes+Fotografie.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Catch%20Themes%20Fotografie.svg',
   },
   {
     id: 429,
@@ -2169,7 +2169,7 @@ export const skillsData = [
   {
     id: 434,
     name: 'Chakra UI',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Chakra+UI.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Chakra%20UI.svg',
   },
   {
     id: 435,
@@ -2179,7 +2179,7 @@ export const skillsData = [
   {
     id: 436,
     name: 'Chameleon system',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Chameleon+system.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Chameleon%20system.svg',
   },
   {
     id: 437,
@@ -2249,7 +2249,7 @@ export const skillsData = [
   {
     id: 450,
     name: 'Chicago Boss',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Chicago+Boss.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Chicago%20Boss.svg',
   },
   {
     id: 451,
@@ -2284,7 +2284,7 @@ export const skillsData = [
   {
     id: 457,
     name: 'Claris FileMaker',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Claris+FileMaker.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Claris%20FileMaker.svg',
   },
   {
     id: 458,
@@ -2309,7 +2309,7 @@ export const skillsData = [
   {
     id: 462,
     name: 'Clearbit Reveal',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Clearbit+Reveal.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Clearbit%20Reveal.svg',
   },
   {
     id: 463,
@@ -2359,7 +2359,7 @@ export const skillsData = [
   {
     id: 472,
     name: 'Closure Library',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Closure+Library.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Closure%20Library.svg',
   },
   {
     id: 473,
@@ -2379,37 +2379,37 @@ export const skillsData = [
   {
     id: 476,
     name: 'Cloudflare Bot Management',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare+Bot+Management.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare%20Bot%20Management.svg',
   },
   {
     id: 477,
     name: 'Cloudflare Browser Insights',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare+Browser+Insights.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare%20Browser%20Insights.svg',
   },
   {
     id: 478,
     name: 'Cloudflare Rocket Loader',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare+Rocket+Loader.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare%20Rocket%20Loader.svg',
   },
   {
     id: 479,
     name: 'Cloudflare Stream',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare+Stream.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare%20Stream.svg',
   },
   {
     id: 480,
     name: 'Cloudflare Turnstile',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare+Turnstile.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare%20Turnstile.svg',
   },
   {
     id: 481,
     name: 'Cloudflare Workers',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare+Workers.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare%20Workers.svg',
   },
   {
     id: 482,
     name: 'Cloudflare Zaraz',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare+Zaraz.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cloudflare%20Zaraz.svg',
   },
   {
     id: 483,
@@ -2434,12 +2434,12 @@ export const skillsData = [
   {
     id: 487,
     name: 'ClustrMaps Widget',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ClustrMaps+Widget.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ClustrMaps%20Widget.svg',
   },
   {
     id: 488,
     name: 'Coaster CMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Coaster+CMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Coaster%20CMS.svg',
   },
   {
     id: 489,
@@ -2484,7 +2484,7 @@ export const skillsData = [
   {
     id: 497,
     name: 'Coinbase Commerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Coinbase+Commerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Coinbase%20Commerce.svg',
   },
   {
     id: 498,
@@ -2494,12 +2494,12 @@ export const skillsData = [
   {
     id: 499,
     name: 'Commanders Act TagCommander',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Commanders+Act+TagCommander.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Commanders%20Act%20TagCommander.svg',
   },
   {
     id: 500,
     name: 'Commanders Act TrustCommander',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Commanders+Act+TrustCommander.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Commanders%20Act%20TrustCommander.svg',
   },
   {
     id: 501,
@@ -2529,7 +2529,7 @@ export const skillsData = [
   {
     id: 506,
     name: 'Constant Contact',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Constant+Contact.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Constant%20Contact.svg',
   },
   {
     id: 507,
@@ -2544,12 +2544,12 @@ export const skillsData = [
   {
     id: 509,
     name: 'Contact Form 7',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Contact+Form+7.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Contact%20Form%207.svg',
   },
   {
     id: 510,
     name: 'Container Media Group',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Container+Media+Group.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Container%20Media%20Group.svg',
   },
   {
     id: 511,
@@ -2569,7 +2569,7 @@ export const skillsData = [
   {
     id: 514,
     name: 'Conversio App',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Conversio+App.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Conversio%20App.svg',
   },
   {
     id: 515,
@@ -2594,7 +2594,7 @@ export const skillsData = [
   {
     id: 519,
     name: 'CoreMedia Content Cloud',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/CoreMedia+Content+Cloud.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/CoreMedia%20Content%20Cloud.svg',
   },
   {
     id: 520,
@@ -2614,17 +2614,17 @@ export const skillsData = [
   {
     id: 523,
     name: 'Cozy AntiTheft',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cozy+AntiTheft.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Cozy%20AntiTheft.svg',
   },
   {
     id: 524,
     name: 'Craft CMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Craft+CMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Craft%20CMS.svg',
   },
   {
     id: 525,
     name: 'Craft Commerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Craft+Commerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Craft%20Commerce.svg',
   },
   {
     id: 526,
@@ -2639,7 +2639,7 @@ export const skillsData = [
   {
     id: 528,
     name: 'Crazy Egg',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Crazy+Egg.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Crazy%20Egg.svg',
   },
   {
     id: 529,
@@ -2649,7 +2649,7 @@ export const skillsData = [
   {
     id: 530,
     name: 'Crisp Live Chat',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Crisp+Live+Chat.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Crisp%20Live%20Chat.svg',
   },
   {
     id: 531,
@@ -2744,7 +2744,7 @@ export const skillsData = [
   {
     id: 549,
     name: 'DataLife Engine',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/DataLife+Engine.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/DataLife%20Engine.svg',
   },
   {
     id: 550,
@@ -2784,7 +2784,7 @@ export const skillsData = [
   {
     id: 557,
     name: 'Dealer Spike',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Dealer+Spike.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Dealer%20Spike.svg',
   },
   {
     id: 558,
@@ -2809,7 +2809,7 @@ export const skillsData = [
   {
     id: 562,
     name: 'DeskPro Chat',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/DeskPro+Chat.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/DeskPro%20Chat.svg',
   },
   {
     id: 563,
@@ -2829,7 +2829,7 @@ export const skillsData = [
   {
     id: 566,
     name: 'Digismoothie Candy Rack',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Digismoothie+Candy+Rack.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Digismoothie%20Candy%20Rack.svg',
   },
   {
     id: 567,
@@ -2839,7 +2839,7 @@ export const skillsData = [
   {
     id: 568,
     name: 'DigitalOcean Spaces',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/DigitalOcean+Spaces.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/DigitalOcean%20Spaces.svg',
   },
   {
     id: 569,
@@ -2869,7 +2869,7 @@ export const skillsData = [
   {
     id: 574,
     name: 'Django CMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Django+CMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Django%20CMS.svg',
   },
   {
     id: 575,
@@ -2904,7 +2904,7 @@ export const skillsData = [
   {
     id: 581,
     name: 'Dominate WooCommerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Dominate+WooCommerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Dominate%20WooCommerce.svg',
   },
   {
     id: 582,
@@ -2919,7 +2919,7 @@ export const skillsData = [
   {
     id: 584,
     name: 'Dotdigital Chat',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Dotdigital+Chat.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Dotdigital%20Chat.svg',
   },
   {
     id: 585,
@@ -2929,17 +2929,17 @@ export const skillsData = [
   {
     id: 586,
     name: 'Doteasy Website Builder',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Doteasy+Website+Builder.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Doteasy%20Website%20Builder.svg',
   },
   {
     id: 587,
     name: 'DoubleClick Ad Exchange (AdX)',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/DoubleClick+Ad+Exchange+(AdX).svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/DoubleClick%20Ad%20Exchange%20%28AdX%29.svg',
   },
   {
     id: 588,
     name: 'DoubleClick Campaign Manager (DCM)',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/DoubleClick+Campaign+Manager+(DCM).svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/DoubleClick%20Campaign%20Manager%20%28DCM%29.svg',
   },
   {
     id: 589,
@@ -2984,7 +2984,7 @@ export const skillsData = [
   {
     id: 597,
     name: 'Drop A Hint',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Drop+A+Hint.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Drop%20A%20Hint.svg',
   },
   {
     id: 598,
@@ -3004,7 +3004,7 @@ export const skillsData = [
   {
     id: 601,
     name: 'Drupal Commerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Drupal+Commerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Drupal%20Commerce.svg',
   },
   {
     id: 602,
@@ -3024,7 +3024,7 @@ export const skillsData = [
   {
     id: 605,
     name: 'Dynamic Yield',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Dynamic+Yield.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Dynamic%20Yield.svg',
   },
   {
     id: 606,
@@ -3039,7 +3039,7 @@ export const skillsData = [
   {
     id: 608,
     name: 'Dynatrace RUM',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Dynatrace+RUM.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Dynatrace%20RUM.svg',
   },
   {
     id: 609,
@@ -3054,22 +3054,22 @@ export const skillsData = [
   {
     id: 611,
     name: 'EWWW Image Optimizer',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/EWWW+Image+Optimizer.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/EWWW%20Image%20Optimizer.svg',
   },
   {
     id: 612,
     name: 'Easy Hide PayPal',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Easy+Hide+PayPal.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Easy%20Hide%20PayPal.svg',
   },
   {
     id: 613,
     name: 'Easy Orders',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Easy+Orders.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Easy%20Orders.svg',
   },
   {
     id: 614,
     name: 'Easy Redirects',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Easy+Redirects.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Easy%20Redirects.svg',
   },
   {
     id: 615,
@@ -3124,7 +3124,7 @@ export const skillsData = [
   {
     id: 625,
     name: 'Elastic APM',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Elastic+APM.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Elastic%20APM.svg',
   },
   {
     id: 626,
@@ -3154,7 +3154,7 @@ export const skillsData = [
   {
     id: 631,
     name: 'Eleanor CMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Eleanor+CMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Eleanor%20CMS.svg',
   },
   {
     id: 632,
@@ -3169,7 +3169,7 @@ export const skillsData = [
   {
     id: 634,
     name: 'Eleventy-(11ty)',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Eleventy-(11ty).svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Eleventy-%2811ty%29.svg',
   },
   {
     id: 635,
@@ -3184,7 +3184,7 @@ export const skillsData = [
   {
     id: 637,
     name: 'Ellucian CRM Recruit',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ellucian+CRM+Recruit.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ellucian%20CRM%20Recruit.svg',
   },
   {
     id: 638,
@@ -3209,7 +3209,7 @@ export const skillsData = [
   {
     id: 642,
     name: 'Ematic Solutions',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ematic+Solutions.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ematic%20Solutions.svg',
   },
   {
     id: 643,
@@ -3259,7 +3259,7 @@ export const skillsData = [
   {
     id: 652,
     name: 'Essential Addons for Elementor',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Essential+Addons+for+Elementor.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Essential%20Addons%20for%20Elementor.svg',
   },
   {
     id: 653,
@@ -3304,17 +3304,17 @@ export const skillsData = [
   {
     id: 661,
     name: 'ExtendThemes Calliope',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ExtendThemes+Calliope.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ExtendThemes%20Calliope.svg',
   },
   {
     id: 662,
     name: 'FARFETCH Black & White',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/FARFETCH+Black+&+White.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/FARFETCH%20Black%20%26%20White.svg',
   },
   {
     id: 663,
     name: 'FSharp-(F#)',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/FSharp-(F#).svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/FSharp-%28F%23%29.svg',
   },
   {
     id: 664,
@@ -3324,27 +3324,27 @@ export const skillsData = [
   {
     id: 665,
     name: 'Facebook Ads',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Facebook+Ads.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Facebook%20Ads.svg',
   },
   {
     id: 666,
     name: 'Facebook Chat Plugin',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Facebook+Chat+Plugin.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Facebook%20Chat%20Plugin.svg',
   },
   {
     id: 667,
     name: 'Facebook Login',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Facebook+Login.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Facebook%20Login.svg',
   },
   {
     id: 668,
     name: 'Facebook Pay',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Facebook+Pay.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Facebook%20Pay.svg',
   },
   {
     id: 669,
     name: 'Facebook Pixel',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Facebook+Pixel.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Facebook%20Pixel.svg',
   },
   {
     id: 670,
@@ -3369,7 +3369,7 @@ export const skillsData = [
   {
     id: 674,
     name: 'Fast Bundle',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fast+Bundle.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fast%20Bundle.svg',
   },
   {
     id: 675,
@@ -3404,12 +3404,12 @@ export const skillsData = [
   {
     id: 681,
     name: 'Fat Zebra',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fat+Zebra.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fat%20Zebra.svg',
   },
   {
     id: 682,
     name: 'Fat-Free Framework',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fat-Free+Framework.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fat-Free%20Framework.svg',
   },
   {
     id: 683,
@@ -3444,7 +3444,7 @@ export const skillsData = [
   {
     id: 689,
     name: 'Feedback Fish',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Feedback+Fish.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Feedback%20Fish.svg',
   },
   {
     id: 690,
@@ -3454,7 +3454,7 @@ export const skillsData = [
   {
     id: 691,
     name: 'Fera Product Reviews App',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fera+Product+Reviews+App.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fera%20Product%20Reviews%20App.svg',
   },
   {
     id: 692,
@@ -3479,7 +3479,7 @@ export const skillsData = [
   {
     id: 696,
     name: 'FireApps Ali Reviews',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/FireApps+Ali+Reviews.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/FireApps%20Ali%20Reviews.svg',
   },
   {
     id: 697,
@@ -3494,7 +3494,7 @@ export const skillsData = [
   {
     id: 699,
     name: 'Fit Analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fit+Analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fit%20Analytics.svg',
   },
   {
     id: 700,
@@ -3534,17 +3534,17 @@ export const skillsData = [
   {
     id: 707,
     name: 'Flying Analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Flying+Analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Flying%20Analytics.svg',
   },
   {
     id: 708,
     name: 'Font Awesome',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Font+Awesome.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Font%20Awesome.svg',
   },
   {
     id: 709,
     name: 'FooPlugins FooGallery',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/FooPlugins+FooGallery.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/FooPlugins%20FooGallery.svg',
   },
   {
     id: 710,
@@ -3554,7 +3554,7 @@ export const skillsData = [
   {
     id: 711,
     name: 'Fork Awesome',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fork+Awesome.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fork%20Awesome.svg',
   },
   {
     id: 712,
@@ -3569,7 +3569,7 @@ export const skillsData = [
   {
     id: 714,
     name: 'Formidable Form',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Formidable+Form.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Formidable%20Form.svg',
   },
   {
     id: 715,
@@ -3579,7 +3579,7 @@ export const skillsData = [
   {
     id: 716,
     name: 'Fortinet FortiGate',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fortinet+FortiGate.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fortinet%20FortiGate.svg',
   },
   {
     id: 717,
@@ -3604,17 +3604,17 @@ export const skillsData = [
   {
     id: 721,
     name: 'Framer Sites',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Framer+Sites.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Framer%20Sites.svg',
   },
   {
     id: 722,
     name: 'France Express',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/France+Express.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/France%20Express.svg',
   },
   {
     id: 723,
     name: 'FraudLabs Pro',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/FraudLabs+Pro.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/FraudLabs%20Pro.svg',
   },
   {
     id: 724,
@@ -3629,12 +3629,12 @@ export const skillsData = [
   {
     id: 726,
     name: 'Friendly Captcha',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Friendly+Captcha.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Friendly%20Captcha.svg',
   },
   {
     id: 727,
     name: 'Froala Editor',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Froala+Editor.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Froala%20Editor.svg',
   },
   {
     id: 728,
@@ -3664,7 +3664,7 @@ export const skillsData = [
   {
     id: 733,
     name: 'Fundraise Up',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fundraise+Up.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Fundraise%20Up.svg',
   },
   {
     id: 734,
@@ -3684,12 +3684,12 @@ export const skillsData = [
   {
     id: 737,
     name: 'GOV.UK Template',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/GOV.UK+Template.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/GOV.UK%20Template.svg',
   },
   {
     id: 738,
     name: 'GPT AI Power',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/GPT+AI+Power.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/GPT%20AI%20Power.svg',
   },
   {
     id: 739,
@@ -3704,7 +3704,7 @@ export const skillsData = [
   {
     id: 741,
     name: 'GTranslate app',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/GTranslate+app.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/GTranslate%20app.svg',
   },
   {
     id: 742,
@@ -3794,37 +3794,37 @@ export const skillsData = [
   {
     id: 759,
     name: 'Google Docs',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google+Docs.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google%20Docs.svg',
   },
   {
     id: 760,
     name: 'Google Meet',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google+Meet.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google%20Meet.svg',
   },
   {
     id: 761,
     name: 'Google Slides',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google+Slides.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google%20Slides.svg',
   },
   {
     id: 762,
     name: 'Google Tag Manager',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google+Tag+Manager.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google%20Tag%20Manager.svg',
   },
   {
     id: 763,
     name: 'Google Tag Manager for WordPress',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google+Tag+Manager+for+WordPress.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google%20Tag%20Manager%20for%20WordPress.svg',
   },
   {
     id: 764,
     name: 'Google Wallet',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google+Wallet.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google%20Wallet.svg',
   },
   {
     id: 765,
     name: 'Google Workspace',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google+Workspace.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Google%20Workspace.svg',
   },
   {
     id: 766,
@@ -3849,7 +3849,7 @@ export const skillsData = [
   {
     id: 770,
     name: 'Grab Pay Later',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Grab+Pay+Later.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Grab%20Pay%20Later.svg',
   },
   {
     id: 771,
@@ -3909,7 +3909,7 @@ export const skillsData = [
   {
     id: 782,
     name: 'Gravity Forms',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Gravity+Forms.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Gravity%20Forms.svg',
   },
   {
     id: 783,
@@ -3944,12 +3944,12 @@ export const skillsData = [
   {
     id: 789,
     name: 'HCL Digital Experience',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HCL+Digital+Experience.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HCL%20Digital%20Experience.svg',
   },
   {
     id: 790,
     name: 'HP Compact Server',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HP+Compact+Server.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HP%20Compact%20Server.svg',
   },
   {
     id: 791,
@@ -3969,7 +3969,7 @@ export const skillsData = [
   {
     id: 794,
     name: 'Hancom Office',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hancom+Office.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hancom%20Office.svg',
   },
   {
     id: 795,
@@ -3984,17 +3984,17 @@ export const skillsData = [
   {
     id: 797,
     name: 'Happy Returns',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Happy+Returns.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Happy%20Returns.svg',
   },
   {
     id: 798,
     name: 'HappyFox Helpdesk',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HappyFox+Helpdesk.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HappyFox%20Helpdesk.svg',
   },
   {
     id: 799,
     name: 'HappyFox Live Chat',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HappyFox+Live+Chat.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HappyFox%20Live%20Chat.svg',
   },
   {
     id: 800,
@@ -4024,7 +4024,7 @@ export const skillsData = [
   {
     id: 805,
     name: 'HashThemes Total',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HashThemes+Total.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HashThemes%20Total.svg',
   },
   {
     id: 806,
@@ -4049,7 +4049,7 @@ export const skillsData = [
   {
     id: 810,
     name: 'Hashtag Labs',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hashtag+Labs.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hashtag%20Labs.svg',
   },
   {
     id: 811,
@@ -4059,7 +4059,7 @@ export const skillsData = [
   {
     id: 812,
     name: 'Hatena Blog',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hatena+Blog.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hatena%20Blog.svg',
   },
   {
     id: 813,
@@ -4074,12 +4074,12 @@ export const skillsData = [
   {
     id: 815,
     name: 'Header Bidding Ai',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Header+Bidding+Ai.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Header%20Bidding%20Ai.svg',
   },
   {
     id: 816,
     name: 'Headless UI',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Headless+UI.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Headless%20UI.svg',
   },
   {
     id: 817,
@@ -4089,17 +4089,17 @@ export const skillsData = [
   {
     id: 818,
     name: 'Heartland Payment Systems',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Heartland+Payment+Systems.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Heartland%20Payment%20Systems.svg',
   },
   {
     id: 819,
     name: 'Helix Ultimate',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Helix+Ultimate.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Helix%20Ultimate.svg',
   },
   {
     id: 820,
     name: 'Hello Bar',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hello+Bar.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hello%20Bar.svg',
   },
   {
     id: 821,
@@ -4114,17 +4114,17 @@ export const skillsData = [
   {
     id: 823,
     name: 'Hextom Free Shipping Bar',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hextom+Free+Shipping+Bar.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hextom%20Free%20Shipping%20Bar.svg',
   },
   {
     id: 824,
     name: 'Hextom Ultimate Sales Boost',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hextom+Ultimate+Sales+Boost.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hextom%20Ultimate%20Sales%20Boost.svg',
   },
   {
     id: 825,
     name: 'Hi Platform',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hi+Platform.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hi%20Platform.svg',
   },
   {
     id: 826,
@@ -4144,7 +4144,7 @@ export const skillsData = [
   {
     id: 829,
     name: 'Hinza Advanced CMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hinza+Advanced+CMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hinza%20Advanced%20CMS.svg',
   },
   {
     id: 830,
@@ -4174,7 +4174,7 @@ export const skillsData = [
   {
     id: 835,
     name: 'Hosting Ukraine',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hosting+Ukraine.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hosting%20Ukraine.svg',
   },
   {
     id: 836,
@@ -4184,7 +4184,7 @@ export const skillsData = [
   {
     id: 837,
     name: 'Hotaru CMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hotaru+CMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hotaru%20CMS.svg',
   },
   {
     id: 838,
@@ -4194,7 +4194,7 @@ export const skillsData = [
   {
     id: 839,
     name: 'Hotjar Incoming Feedback',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hotjar+Incoming+Feedback.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hotjar%20Incoming%20Feedback.svg',
   },
   {
     id: 840,
@@ -4204,17 +4204,17 @@ export const skillsData = [
   {
     id: 841,
     name: 'HubSpot Analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HubSpot+Analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HubSpot%20Analytics.svg',
   },
   {
     id: 842,
     name: 'HubSpot Chat',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HubSpot+Chat.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HubSpot%20Chat.svg',
   },
   {
     id: 843,
     name: 'HubSpot Cookie Policy Banner',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HubSpot+Cookie+Policy+Banner.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HubSpot%20Cookie%20Policy%20Banner.svg',
   },
   {
     id: 844,
@@ -4229,7 +4229,7 @@ export const skillsData = [
   {
     id: 846,
     name: 'Huberway Analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Huberway+Analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Huberway%20Analytics.svg',
   },
   {
     id: 847,
@@ -4239,42 +4239,42 @@ export const skillsData = [
   {
     id: 848,
     name: 'HulkApps Age Verification',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HulkApps+Age+Verification.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HulkApps%20Age%20Verification.svg',
   },
   {
     id: 849,
     name: 'HulkApps Form Builder',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HulkApps+Form+Builder.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HulkApps%20Form%20Builder.svg',
   },
   {
     id: 850,
     name: 'HulkApps GDPR/CCPA Compliance Manager',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HulkApps+GDPR_CCPA+Compliance+Manager.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HulkApps%20GDPR/CCPA%20Compliance%20Manager.svg',
   },
   {
     id: 851,
     name: 'HulkApps Infinite Product Options',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HulkApps+Infinite+Product+Options.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HulkApps%20Infinite%20Product%20Options.svg',
   },
   {
     id: 852,
     name: 'HulkApps Product Reviews',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HulkApps+Product+Reviews.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/HulkApps%20Product%20Reviews.svg',
   },
   {
     id: 853,
     name: 'Hypervisual Page Builder',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hypervisual+Page+Builder.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hypervisual%20Page%20Builder.svg',
   },
   {
     id: 854,
     name: 'Hyva Themes',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hyva+Themes.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Hyva%20Themes.svg',
   },
   {
     id: 855,
     name: 'IBM DataPower',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/IBM+DataPower.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/IBM%20DataPower.svg',
   },
   {
     id: 856,
@@ -4294,7 +4294,7 @@ export const skillsData = [
   {
     id: 859,
     name: 'Ibexa DXP',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ibexa+DXP.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ibexa%20DXP.svg',
   },
   {
     id: 860,
@@ -4319,7 +4319,7 @@ export const skillsData = [
   {
     id: 864,
     name: 'Imagely NextGEN Gallery',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Imagely+NextGEN+Gallery.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Imagely%20NextGEN%20Gallery.svg',
   },
   {
     id: 865,
@@ -4344,7 +4344,7 @@ export const skillsData = [
   {
     id: 869,
     name: 'In Cart Upsell & Cross-Sell',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/In+Cart+Upsell+&+Cross-Sell.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/In%20Cart%20Upsell%20%26%20Cross-Sell.svg',
   },
   {
     id: 870,
@@ -4364,7 +4364,7 @@ export const skillsData = [
   {
     id: 873,
     name: 'Index Exchange',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Index+Exchange.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Index%20Exchange.svg',
   },
   {
     id: 874,
@@ -4434,12 +4434,12 @@ export const skillsData = [
   {
     id: 887,
     name: 'Integral Ad Science',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Integral+Ad+Science.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Integral%20Ad%20Science.svg',
   },
   {
     id: 888,
     name: 'Intel Active Management Technology',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Intel+Active+Management+Technology.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Intel%20Active%20Management%20Technology.svg',
   },
   {
     id: 889,
@@ -4454,12 +4454,12 @@ export const skillsData = [
   {
     id: 891,
     name: 'Intercom Articles',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Intercom+Articles.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Intercom%20Articles.svg',
   },
   {
     id: 892,
     name: 'Internet Brands',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Internet+Brands.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Internet%20Brands.svg',
   },
   {
     id: 893,
@@ -4484,17 +4484,17 @@ export const skillsData = [
   {
     id: 897,
     name: 'Ivory Search',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ivory+Search.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ivory%20Search.svg',
   },
   {
     id: 898,
     name: 'JBoss Application Server',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/JBoss+Application+Server.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/JBoss%20Application%20Server.svg',
   },
   {
     id: 899,
     name: 'JS Charts',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/JS+Charts.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/JS%20Charts.svg',
   },
   {
     id: 900,
@@ -4509,7 +4509,7 @@ export const skillsData = [
   {
     id: 902,
     name: 'JW Player',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/JW+Player.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/JW%20Player.svg',
   },
   {
     id: 903,
@@ -4519,7 +4519,7 @@ export const skillsData = [
   {
     id: 904,
     name: 'Jahia DX',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Jahia+DX.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Jahia%20DX.svg',
   },
   {
     id: 905,
@@ -4544,7 +4544,7 @@ export const skillsData = [
   {
     id: 909,
     name: 'Java Servlet',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Java+Servlet.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Java%20Servlet.svg',
   },
   {
     id: 910,
@@ -4554,17 +4554,17 @@ export const skillsData = [
   {
     id: 911,
     name: 'JavaScript Infovis Toolkit',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/JavaScript+Infovis+Toolkit.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/JavaScript%20Infovis%20Toolkit.svg',
   },
   {
     id: 912,
     name: 'JavaServer Faces',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/JavaServer+Faces.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/JavaServer%20Faces.svg',
   },
   {
     id: 913,
     name: 'JavaServer Pages',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/JavaServer+Pages.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/JavaServer%20Pages.svg',
   },
   {
     id: 914,
@@ -4604,7 +4604,7 @@ export const skillsData = [
   {
     id: 921,
     name: 'Jetpack Boost',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Jetpack+Boost.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Jetpack%20Boost.svg',
   },
   {
     id: 922,
@@ -4664,7 +4664,7 @@ export const skillsData = [
   {
     id: 933,
     name: 'Justuno App',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Justuno+App.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Justuno%20App.svg',
   },
   {
     id: 934,
@@ -4684,17 +4684,17 @@ export const skillsData = [
   {
     id: 937,
     name: 'Kadence WP Blocks',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kadence+WP+Blocks.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kadence%20WP%20Blocks.svg',
   },
   {
     id: 938,
     name: 'Kadence WP Kadence',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kadence+WP+Kadence.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kadence%20WP%20Kadence.svg',
   },
   {
     id: 939,
     name: 'Kadence WP Virtue',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kadence+WP+Virtue.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kadence%20WP%20Virtue.svg',
   },
   {
     id: 940,
@@ -4729,12 +4729,12 @@ export const skillsData = [
   {
     id: 946,
     name: 'Kapix Studio',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kapix+Studio.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kapix%20Studio.svg',
   },
   {
     id: 947,
     name: 'Kapture CRM',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kapture+CRM.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kapture%20CRM.svg',
   },
   {
     id: 948,
@@ -4784,7 +4784,7 @@ export const skillsData = [
   {
     id: 957,
     name: 'Kibo Personalization',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kibo+Personalization.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kibo%20Personalization.svg',
   },
   {
     id: 958,
@@ -4799,7 +4799,7 @@ export const skillsData = [
   {
     id: 960,
     name: 'Kirki Customizer Framework',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kirki+Customizer+Framework.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kirki%20Customizer%20Framework.svg',
   },
   {
     id: 961,
@@ -4809,7 +4809,7 @@ export const skillsData = [
   {
     id: 962,
     name: 'Klarna Checkout',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Klarna+Checkout.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Klarna%20Checkout.svg',
   },
   {
     id: 963,
@@ -4889,7 +4889,7 @@ export const skillsData = [
   {
     id: 978,
     name: 'Kubernetes Dashboard',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kubernetes+Dashboard.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kubernetes%20Dashboard.svg',
   },
   {
     id: 979,
@@ -4899,7 +4899,7 @@ export const skillsData = [
   {
     id: 980,
     name: 'Kwai pixel',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kwai+pixel.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Kwai%20pixel.svg',
   },
   {
     id: 981,
@@ -4944,7 +4944,7 @@ export const skillsData = [
   {
     id: 989,
     name: 'Laravel Echo',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Laravel+Echo.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Laravel%20Echo.svg',
   },
   {
     id: 990,
@@ -5034,7 +5034,7 @@ export const skillsData = [
   {
     id: 1007,
     name: 'Legal Monster',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Legal+Monster.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Legal%20Monster.svg',
   },
   {
     id: 1008,
@@ -5079,7 +5079,7 @@ export const skillsData = [
   {
     id: 1016,
     name: 'Limit Login Attempts Reloaded',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Limit+Login+Attempts+Reloaded.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Limit%20Login%20Attempts%20Reloaded.svg',
   },
   {
     id: 1017,
@@ -5089,12 +5089,12 @@ export const skillsData = [
   {
     id: 1018,
     name: 'Linkedin Ads',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Linkedin+Ads.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Linkedin%20Ads.svg',
   },
   {
     id: 1019,
     name: 'Linkedin Insight Tag',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Linkedin+Insight+Tag.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Linkedin%20Insight%20Tag.svg',
   },
   {
     id: 1020,
@@ -5114,7 +5114,7 @@ export const skillsData = [
   {
     id: 1023,
     name: 'Litespeed Cache',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Litespeed+Cache.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Litespeed%20Cache.svg',
   },
   {
     id: 1024,
@@ -5144,12 +5144,12 @@ export const skillsData = [
   {
     id: 1029,
     name: 'LiveRamp DPM',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/LiveRamp+DPM.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/LiveRamp%20DPM.svg',
   },
   {
     id: 1030,
     name: 'LiveRamp PCM',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/LiveRamp+PCM.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/LiveRamp%20PCM.svg',
   },
   {
     id: 1031,
@@ -5169,7 +5169,7 @@ export const skillsData = [
   {
     id: 1034,
     name: 'LlamaLink Cloud Server',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/LlamaLink+Cloud+Server.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/LlamaLink%20Cloud%20Server.svg',
   },
   {
     id: 1035,
@@ -5199,7 +5199,7 @@ export const skillsData = [
   {
     id: 1040,
     name: 'Login with Amazon',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Login+with+Amazon.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Login%20with%20Amazon.svg',
   },
   {
     id: 1041,
@@ -5214,17 +5214,17 @@ export const skillsData = [
   {
     id: 1043,
     name: 'Loja Integrada',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Loja+Integrada.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Loja%20Integrada.svg',
   },
   {
     id: 1044,
     name: 'Loja Mestre',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Loja+Mestre.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Loja%20Mestre.svg',
   },
   {
     id: 1045,
     name: 'Loja Virtual',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Loja+Virtual.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Loja%20Virtual.svg',
   },
   {
     id: 1046,
@@ -5249,7 +5249,7 @@ export const skillsData = [
   {
     id: 1050,
     name: 'Lucky Orange',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Lucky+Orange.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Lucky%20Orange.svg',
   },
   {
     id: 1051,
@@ -5259,7 +5259,7 @@ export const skillsData = [
   {
     id: 1052,
     name: 'LyraThemes Kale',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/LyraThemes+Kale.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/LyraThemes%20Kale.svg',
   },
   {
     id: 1053,
@@ -5279,7 +5279,7 @@ export const skillsData = [
   {
     id: 1056,
     name: 'MDBootstrap WP theme',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MDBootstrap+WP+theme.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MDBootstrap%20WP%20theme.svg',
   },
   {
     id: 1057,
@@ -5289,7 +5289,7 @@ export const skillsData = [
   {
     id: 1058,
     name: 'MIYN Online Appointment',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MIYN+Online+Appointment.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MIYN%20Online%20Appointment.svg',
   },
   {
     id: 1059,
@@ -5314,7 +5314,7 @@ export const skillsData = [
   {
     id: 1063,
     name: 'MachoThemes NewsMag',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MachoThemes+NewsMag.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MachoThemes%20NewsMag.svg',
   },
   {
     id: 1064,
@@ -5324,7 +5324,7 @@ export const skillsData = [
   {
     id: 1065,
     name: 'MadCap Software',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MadCap+Software.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MadCap%20Software.svg',
   },
   {
     id: 1066,
@@ -5334,7 +5334,7 @@ export const skillsData = [
   {
     id: 1067,
     name: 'MageWorx Search Autocomplete',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MageWorx+Search+Autocomplete.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MageWorx%20Search%20Autocomplete.svg',
   },
   {
     id: 1068,
@@ -5359,12 +5359,12 @@ export const skillsData = [
   {
     id: 1072,
     name: 'MailChimp for WooCommerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MailChimp+for+WooCommerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MailChimp%20for%20WooCommerce.svg',
   },
   {
     id: 1073,
     name: 'MailChimp for WordPress',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MailChimp+for+WordPress.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MailChimp%20for%20WordPress.svg',
   },
   {
     id: 1074,
@@ -5374,12 +5374,12 @@ export const skillsData = [
   {
     id: 1075,
     name: 'MailerLite Website Builder',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MailerLite+Website+Builder.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MailerLite%20Website%20Builder.svg',
   },
   {
     id: 1076,
     name: 'MailerLite plugin',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MailerLite+plugin.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MailerLite%20plugin.svg',
   },
   {
     id: 1077,
@@ -5454,12 +5454,12 @@ export const skillsData = [
   {
     id: 1091,
     name: 'MapLibre GL JS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MapLibre+GL+JS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MapLibre%20GL%20JS.svg',
   },
   {
     id: 1092,
     name: 'Mapbox GL JS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Mapbox+GL+JS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Mapbox%20GL%20JS.svg',
   },
   {
     id: 1093,
@@ -5524,12 +5524,12 @@ export const skillsData = [
   {
     id: 1105,
     name: 'Marketo Forms',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Marketo+Forms.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Marketo%20Forms.svg',
   },
   {
     id: 1106,
     name: 'Marketpath CMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Marketpath+CMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Marketpath%20CMS.svg',
   },
   {
     id: 1107,
@@ -5549,7 +5549,7 @@ export const skillsData = [
   {
     id: 1110,
     name: 'Material Design Lite',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Material+Design+Lite.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Material%20Design%20Lite.svg',
   },
   {
     id: 1111,
@@ -5564,7 +5564,7 @@ export const skillsData = [
   {
     id: 1113,
     name: 'Materialize CSS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Materialize+CSS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Materialize%20CSS.svg',
   },
   {
     id: 1114,
@@ -5574,12 +5574,12 @@ export const skillsData = [
   {
     id: 1115,
     name: 'Matomo Analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Matomo+Analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Matomo%20Analytics.svg',
   },
   {
     id: 1116,
     name: 'Matomo Tag Manager',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Matomo+Tag+Manager.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Matomo%20Tag%20Manager.svg',
   },
   {
     id: 1117,
@@ -5644,7 +5644,7 @@ export const skillsData = [
   {
     id: 1129,
     name: 'Megagroup CMS.S3',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Megagroup+CMS.S3.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Megagroup%20CMS.S3.svg',
   },
   {
     id: 1130,
@@ -5654,7 +5654,7 @@ export const skillsData = [
   {
     id: 1131,
     name: 'Melis Platform',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Melis+Platform.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Melis%20Platform.svg',
   },
   {
     id: 1132,
@@ -5664,7 +5664,7 @@ export const skillsData = [
   {
     id: 1133,
     name: 'Mercado Shops',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Mercado+Shops.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Mercado%20Shops.svg',
   },
   {
     id: 1134,
@@ -5679,72 +5679,72 @@ export const skillsData = [
   {
     id: 1136,
     name: 'Microsoft 365',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+365.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20365.svg',
   },
   {
     id: 1137,
     name: 'Microsoft ASP.NET',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+ASP.NET.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20ASP.NET.svg',
   },
   {
     id: 1138,
     name: 'Microsoft Advertising',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+Advertising.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20Advertising.svg',
   },
   {
     id: 1139,
     name: 'Microsoft Ajax Content Delivery Network',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+Ajax+Content+Delivery+Network.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20Ajax%20Content%20Delivery%20Network.svg',
   },
   {
     id: 1140,
     name: 'Microsoft Application Insights',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+Application+Insights.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20Application%20Insights.svg',
   },
   {
     id: 1141,
     name: 'Microsoft Authentication',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+Authentication.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20Authentication.svg',
   },
   {
     id: 1142,
     name: 'Microsoft Azure',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+Azure.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20Azure.svg',
   },
   {
     id: 1143,
     name: 'Microsoft Azure Maps',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+Azure+Maps.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20Azure%20Maps.svg',
   },
   {
     id: 1144,
     name: 'Microsoft Clarity',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+Clarity.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20Clarity.svg',
   },
   {
     id: 1145,
     name: 'Microsoft Dynamics 365 Commerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+Dynamics+365+Commerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20Dynamics%20365%20Commerce.svg',
   },
   {
     id: 1146,
     name: 'Microsoft HTTPAPI',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+HTTPAPI.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20HTTPAPI.svg',
   },
   {
     id: 1147,
     name: 'Microsoft SharePoint',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+SharePoint.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20SharePoint.svg',
   },
   {
     id: 1148,
     name: 'Microsoft Teams',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+Teams.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20Teams.svg',
   },
   {
     id: 1149,
     name: 'Microsoft Visual Studio',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft+Visual+Studio.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Microsoft%20Visual%20Studio.svg',
   },
   {
     id: 1150,
@@ -5814,7 +5814,7 @@ export const skillsData = [
   {
     id: 1163,
     name: 'Module Federation',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Module+Federation.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Module%20Federation.svg',
   },
   {
     id: 1164,
@@ -5834,22 +5834,22 @@ export const skillsData = [
   {
     id: 1167,
     name: 'Monaco Editor',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Monaco+Editor.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Monaco%20Editor.svg',
   },
   {
     id: 1168,
     name: 'Mondial Relay',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Mondial+Relay.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Mondial%20Relay.svg',
   },
   {
     id: 1169,
     name: 'Mondo Media',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Mondo+Media.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Mondo%20Media.svg',
   },
   {
     id: 1170,
     name: 'Moneris Payment Gateway',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Moneris+Payment+Gateway.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Moneris%20Payment%20Gateway.svg',
   },
   {
     id: 1171,
@@ -5874,17 +5874,17 @@ export const skillsData = [
   {
     id: 1175,
     name: 'Movable Ink',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Movable+Ink.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Movable%20Ink.svg',
   },
   {
     id: 1176,
     name: 'Movable Type',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Movable+Type.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Movable%20Type.svg',
   },
   {
     id: 1177,
     name: 'Mozard Suite',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Mozard+Suite.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Mozard%20Suite.svg',
   },
   {
     id: 1178,
@@ -5894,7 +5894,7 @@ export const skillsData = [
   {
     id: 1179,
     name: 'Mura CMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Mura+CMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Mura%20CMS.svg',
   },
   {
     id: 1180,
@@ -5914,7 +5914,7 @@ export const skillsData = [
   {
     id: 1183,
     name: 'MysteryThemes News Portal',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MysteryThemes+News+Portal.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/MysteryThemes%20News%20Portal.svg',
   },
   {
     id: 1184,
@@ -5924,7 +5924,7 @@ export const skillsData = [
   {
     id: 1185,
     name: 'NEO - Omnichannel Commerce Platform',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/NEO+-+Omnichannel+Commerce+Platform.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/NEO%20-%20Omnichannel%20Commerce%20Platform.svg',
   },
   {
     id: 1186,
@@ -5944,7 +5944,7 @@ export const skillsData = [
   {
     id: 1189,
     name: 'NW.js-(node-webkit)',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/NW.js-(node-webkit).svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/NW.js-%28node-webkit%29.svg',
   },
   {
     id: 1190,
@@ -5964,7 +5964,7 @@ export const skillsData = [
   {
     id: 1193,
     name: 'Naive UI',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Naive+UI.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Naive%20UI.svg',
   },
   {
     id: 1194,
@@ -6004,27 +6004,27 @@ export const skillsData = [
   {
     id: 1201,
     name: 'Naver Analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Naver+Analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Naver%20Analytics.svg',
   },
   {
     id: 1202,
     name: 'Naver Maps',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Naver+Maps.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Naver%20Maps.svg',
   },
   {
     id: 1203,
     name: 'Naver RUA',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Naver+RUA.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Naver%20RUA.svg',
   },
   {
     id: 1204,
     name: 'Navidium Shipping Protection',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Navidium+Shipping+Protection.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Navidium%20Shipping%20Protection.svg',
   },
   {
     id: 1205,
     name: 'Neat A/B testing',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Neat+A_B+testing.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Neat%20A/B%20testing.svg',
   },
   {
     id: 1206,
@@ -6044,7 +6044,7 @@ export const skillsData = [
   {
     id: 1209,
     name: 'Nette Framework',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Nette+Framework.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Nette%20Framework.svg',
   },
   {
     id: 1210,
@@ -6064,7 +6064,7 @@ export const skillsData = [
   {
     id: 1213,
     name: 'Newspack by Automattic',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Newspack+by+Automattic.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Newspack%20by%20Automattic.svg',
   },
   {
     id: 1214,
@@ -6079,12 +6079,12 @@ export const skillsData = [
   {
     id: 1216,
     name: 'NextGEN Gallery',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/NextGEN+Gallery.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/NextGEN%20Gallery.svg',
   },
   {
     id: 1217,
     name: 'Nextdoor Ads',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Nextdoor+Ads.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Nextdoor%20Ads.svg',
   },
   {
     id: 1218,
@@ -6119,7 +6119,7 @@ export const skillsData = [
   {
     id: 1224,
     name: 'Ninja Forms',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ninja+Forms.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ninja%20Forms.svg',
   },
   {
     id: 1225,
@@ -6149,12 +6149,12 @@ export const skillsData = [
   {
     id: 1230,
     name: 'Norton Shopping Guarantee',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Norton+Shopping+Guarantee.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Norton%20Shopping%20Guarantee.svg',
   },
   {
     id: 1231,
     name: 'Nosto Visual UGC',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Nosto+Visual+UGC.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Nosto%20Visual%20UGC.svg',
   },
   {
     id: 1232,
@@ -6184,12 +6184,12 @@ export const skillsData = [
   {
     id: 1237,
     name: 'OWL Carousel',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/OWL+Carousel.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/OWL%20Carousel.svg',
   },
   {
     id: 1238,
     name: 'OXID eShop Professional Edition',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/OXID+eShop+Professional+Edition.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/OXID%20eShop%20Professional%20Edition.svg',
   },
   {
     id: 1239,
@@ -6199,12 +6199,12 @@ export const skillsData = [
   {
     id: 1240,
     name: 'Obsidian Incentivize',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Obsidian+Incentivize.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Obsidian%20Incentivize.svg',
   },
   {
     id: 1241,
     name: 'Obsidian Publish',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Obsidian+Publish.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Obsidian%20Publish.svg',
   },
   {
     id: 1242,
@@ -6219,12 +6219,12 @@ export const skillsData = [
   {
     id: 1244,
     name: 'Octane AI',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Octane+AI.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Octane%20AI.svg',
   },
   {
     id: 1245,
     name: 'Oh Dear',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oh+Dear.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oh%20Dear.svg',
   },
   {
     id: 1246,
@@ -6259,12 +6259,12 @@ export const skillsData = [
   {
     id: 1252,
     name: 'Omnisend Email Marketing & SMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Omnisend+Email+Marketing+&+SMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Omnisend%20Email%20Marketing%20%26%20SMS.svg',
   },
   {
     id: 1253,
     name: 'Omurga Sistemi',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Omurga+Sistemi.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Omurga%20Sistemi.svg',
   },
   {
     id: 1254,
@@ -6289,12 +6289,12 @@ export const skillsData = [
   {
     id: 1258,
     name: 'OnePage Express',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/OnePage+Express.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/OnePage%20Express.svg',
   },
   {
     id: 1259,
     name: 'OnePress Social Locker',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/OnePress+Social+Locker.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/OnePress%20Social%20Locker.svg',
   },
   {
     id: 1260,
@@ -6309,37 +6309,37 @@ export const skillsData = [
   {
     id: 1262,
     name: 'Ookla Speedtest Custom',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ookla+Speedtest+Custom.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ookla%20Speedtest%20Custom.svg',
   },
   {
     id: 1263,
     name: 'Open AdStream',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Open+AdStream.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Open%20AdStream.svg',
   },
   {
     id: 1264,
     name: 'Open Classifieds',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Open+Classifieds.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Open%20Classifieds.svg',
   },
   {
     id: 1265,
     name: 'Open Graph',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Open+Graph.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Open%20Graph.svg',
   },
   {
     id: 1266,
     name: 'Open Journal Systems',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Open+Journal+Systems.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Open%20Journal%20Systems.svg',
   },
   {
     id: 1267,
     name: 'Open Web Analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Open+Web+Analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Open%20Web%20Analytics.svg',
   },
   {
     id: 1268,
     name: 'Open-Xchange App Suite',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Open-Xchange+App+Suite.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Open-Xchange%20App%20Suite.svg',
   },
   {
     id: 1269,
@@ -6424,7 +6424,7 @@ export const skillsData = [
   {
     id: 1285,
     name: 'Optimizely Content Management',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Optimizely+Content+Management.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Optimizely%20Content%20Management.svg',
   },
   {
     id: 1286,
@@ -6434,62 +6434,62 @@ export const skillsData = [
   {
     id: 1287,
     name: 'Oracle Application Express',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle+Application+Express.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle%20Application%20Express.svg',
   },
   {
     id: 1288,
     name: 'Oracle Application Server',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle+Application+Server.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle%20Application%20Server.svg',
   },
   {
     id: 1289,
     name: 'Oracle BlueKai',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle+BlueKai.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle%20BlueKai.svg',
   },
   {
     id: 1290,
     name: 'Oracle Commerce Cloud',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle+Commerce+Cloud.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle%20Commerce%20Cloud.svg',
   },
   {
     id: 1291,
     name: 'Oracle Dynamic Monitoring Service',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle+Dynamic+Monitoring+Service.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle%20Dynamic%20Monitoring%20Service.svg',
   },
   {
     id: 1292,
     name: 'Oracle HTTP Server',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle+HTTP+Server.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle%20HTTP%20Server.svg',
   },
   {
     id: 1293,
     name: 'Oracle Infinity',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle+Infinity.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle%20Infinity.svg',
   },
   {
     id: 1294,
     name: 'Oracle Maxymiser',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle+Maxymiser.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle%20Maxymiser.svg',
   },
   {
     id: 1295,
     name: 'Oracle Moat Measurement',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle+Moat+Measurement.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle%20Moat%20Measurement.svg',
   },
   {
     id: 1296,
     name: 'Oracle Recommendations On Demand',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle+Recommendations+On+Demand.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle%20Recommendations%20On%20Demand.svg',
   },
   {
     id: 1297,
     name: 'Oracle Web Cache',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle+Web+Cache.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle%20Web%20Cache.svg',
   },
   {
     id: 1298,
     name: 'Oracle WebLogic Server',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle+WebLogic+Server.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oracle%20WebLogic%20Server.svg',
   },
   {
     id: 1299,
@@ -6499,7 +6499,7 @@ export const skillsData = [
   {
     id: 1300,
     name: 'Orchard Core',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Orchard+Core.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Orchard%20Core.svg',
   },
   {
     id: 1301,
@@ -6514,12 +6514,12 @@ export const skillsData = [
   {
     id: 1303,
     name: 'OrderLogic app',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/OrderLogic+app.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/OrderLogic%20app.svg',
   },
   {
     id: 1304,
     name: 'Ordersify Product Alerts',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ordersify+Product+Alerts.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ordersify%20Product%20Alerts.svg',
   },
   {
     id: 1305,
@@ -6529,7 +6529,7 @@ export const skillsData = [
   {
     id: 1306,
     name: 'OutTheBoxThemes Panoramic',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/OutTheBoxThemes+Panoramic.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/OutTheBoxThemes%20Panoramic.svg',
   },
   {
     id: 1307,
@@ -6539,7 +6539,7 @@ export const skillsData = [
   {
     id: 1308,
     name: 'Outlook Web App',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Outlook+Web+App.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Outlook%20Web%20App.svg',
   },
   {
     id: 1309,
@@ -6549,7 +6549,7 @@ export const skillsData = [
   {
     id: 1310,
     name: 'Oxi Social Login',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oxi+Social+Login.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Oxi%20Social%20Login.svg',
   },
   {
     id: 1311,
@@ -6564,7 +6564,7 @@ export const skillsData = [
   {
     id: 1313,
     name: 'POLi Payment',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/POLi+Payment.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/POLi%20Payment.svg',
   },
   {
     id: 1314,
@@ -6574,7 +6574,7 @@ export const skillsData = [
   {
     id: 1315,
     name: 'PWA Studio',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PWA+Studio.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PWA%20Studio.svg',
   },
   {
     id: 1316,
@@ -6589,7 +6589,7 @@ export const skillsData = [
   {
     id: 1318,
     name: 'Packlink PRO',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Packlink+PRO.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Packlink%20PRO.svg',
   },
   {
     id: 1319,
@@ -6609,7 +6609,7 @@ export const skillsData = [
   {
     id: 1322,
     name: 'Page Builder Framework',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Page+Builder+Framework.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Page%20Builder%20Framework.svg',
   },
   {
     id: 1323,
@@ -6619,7 +6619,7 @@ export const skillsData = [
   {
     id: 1324,
     name: 'Pagefai CMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pagefai+CMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pagefai%20CMS.svg',
   },
   {
     id: 1325,
@@ -6649,7 +6649,7 @@ export const skillsData = [
   {
     id: 1330,
     name: 'Panda CSS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Panda+CSS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Panda%20CSS.svg',
   },
   {
     id: 1331,
@@ -6684,12 +6684,12 @@ export const skillsData = [
   {
     id: 1337,
     name: 'Parmin Cloud',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Parmin+Cloud.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Parmin%20Cloud.svg',
   },
   {
     id: 1338,
     name: 'Pars Elecom Portal',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pars+Elecom+Portal.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pars%20Elecom%20Portal.svg',
   },
   {
     id: 1339,
@@ -6709,7 +6709,7 @@ export const skillsData = [
   {
     id: 1342,
     name: 'Parttrap ONE',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Parttrap+ONE.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Parttrap%20ONE.svg',
   },
   {
     id: 1343,
@@ -6729,12 +6729,12 @@ export const skillsData = [
   {
     id: 1346,
     name: 'Pattern by Etsy',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pattern+by+Etsy.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pattern%20by%20Etsy.svg',
   },
   {
     id: 1347,
     name: 'Pay It Later',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pay+It+Later.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pay%20It%20Later.svg',
   },
   {
     id: 1348,
@@ -6769,12 +6769,12 @@ export const skillsData = [
   {
     id: 1354,
     name: 'PayPal Credit',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PayPal+Credit.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PayPal%20Credit.svg',
   },
   {
     id: 1355,
     name: 'PayPal Marketing Solutions',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PayPal+Marketing+Solutions.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PayPal%20Marketing%20Solutions.svg',
   },
   {
     id: 1356,
@@ -6829,7 +6829,7 @@ export const skillsData = [
   {
     id: 1366,
     name: 'PerfectApps Swift',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PerfectApps+Swift.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PerfectApps%20Swift.svg',
   },
   {
     id: 1367,
@@ -6839,7 +6839,7 @@ export const skillsData = [
   {
     id: 1368,
     name: 'Performance Lab',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Performance+Lab.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Performance%20Lab.svg',
   },
   {
     id: 1369,
@@ -6869,7 +6869,7 @@ export const skillsData = [
   {
     id: 1374,
     name: 'Phoenix Framework',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Phoenix+Framework.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Phoenix%20Framework.svg',
   },
   {
     id: 1375,
@@ -6879,7 +6879,7 @@ export const skillsData = [
   {
     id: 1376,
     name: 'PhotoShelter for Brands',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PhotoShelter+for+Brands.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PhotoShelter%20for%20Brands.svg',
   },
   {
     id: 1377,
@@ -6894,7 +6894,7 @@ export const skillsData = [
   {
     id: 1379,
     name: 'Phusion Passenger',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Phusion+Passenger.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Phusion%20Passenger.svg',
   },
   {
     id: 1380,
@@ -6909,7 +6909,7 @@ export const skillsData = [
   {
     id: 1382,
     name: 'Pin Payments',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pin+Payments.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pin%20Payments.svg',
   },
   {
     id: 1383,
@@ -6924,12 +6924,12 @@ export const skillsData = [
   {
     id: 1385,
     name: 'Pinterest Ads',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pinterest+Ads.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pinterest%20Ads.svg',
   },
   {
     id: 1386,
     name: 'Pinterest Conversion Tag',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pinterest+Conversion+Tag.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pinterest%20Conversion%20Tag.svg',
   },
   {
     id: 1387,
@@ -6989,7 +6989,7 @@ export const skillsData = [
   {
     id: 1398,
     name: 'Plug&Pay',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Plug&Pay.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Plug%26Pay.svg',
   },
   {
     id: 1399,
@@ -7019,7 +7019,7 @@ export const skillsData = [
   {
     id: 1404,
     name: 'Popup Maker',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Popup+Maker.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Popup%20Maker.svg',
   },
   {
     id: 1405,
@@ -7029,7 +7029,7 @@ export const skillsData = [
   {
     id: 1406,
     name: 'Post Affiliate Pro',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Post+Affiliate+Pro.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Post%20Affiliate%20Pro.svg',
   },
   {
     id: 1407,
@@ -7039,7 +7039,7 @@ export const skillsData = [
   {
     id: 1408,
     name: 'Poste Italiane',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Poste+Italiane.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Poste%20Italiane.svg',
   },
   {
     id: 1409,
@@ -7079,17 +7079,17 @@ export const skillsData = [
   {
     id: 1416,
     name: 'Premio Chaty',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Premio+Chaty.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Premio%20Chaty.svg',
   },
   {
     id: 1417,
     name: 'Press Hueman',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Press+Hueman.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Press%20Hueman.svg',
   },
   {
     id: 1418,
     name: 'PressMaximum Customify',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PressMaximum+Customify.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PressMaximum%20Customify.svg',
   },
   {
     id: 1419,
@@ -7114,7 +7114,7 @@ export const skillsData = [
   {
     id: 1423,
     name: 'Privy App',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Privy+App.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Privy%20App.svg',
   },
   {
     id: 1424,
@@ -7124,7 +7124,7 @@ export const skillsData = [
   {
     id: 1425,
     name: 'Product Personalizer',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Product+Personalizer.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Product%20Personalizer.svg',
   },
   {
     id: 1426,
@@ -7134,7 +7134,7 @@ export const skillsData = [
   {
     id: 1427,
     name: 'Proton Mail',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Proton+Mail.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Proton%20Mail.svg',
   },
   {
     id: 1428,
@@ -7144,12 +7144,12 @@ export const skillsData = [
   {
     id: 1429,
     name: 'Proxmox Mail Gateway',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Proxmox+Mail+Gateway.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Proxmox%20Mail%20Gateway.svg',
   },
   {
     id: 1430,
     name: 'Pterodactyl Panel',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pterodactyl+Panel.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pterodactyl%20Panel.svg',
   },
   {
     id: 1431,
@@ -7164,7 +7164,7 @@ export const skillsData = [
   {
     id: 1433,
     name: 'Pure Chat',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pure+Chat.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Pure%20Chat.svg',
   },
   {
     id: 1434,
@@ -7189,7 +7189,7 @@ export const skillsData = [
   {
     id: 1438,
     name: 'PushOwl Web Push Notifications',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PushOwl+Web+Push+Notifications.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/PushOwl%20Web%20Push%20Notifications.svg',
   },
   {
     id: 1439,
@@ -7264,17 +7264,17 @@ export const skillsData = [
   {
     id: 1453,
     name: 'Quantcast Choice',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Quantcast+Choice.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Quantcast%20Choice.svg',
   },
   {
     id: 1454,
     name: 'Quantcast Measure',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Quantcast+Measure.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Quantcast%20Measure.svg',
   },
   {
     id: 1455,
     name: 'Quantum Metric',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Quantum+Metric.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Quantum%20Metric.svg',
   },
   {
     id: 1456,
@@ -7294,7 +7294,7 @@ export const skillsData = [
   {
     id: 1459,
     name: 'Quora Pixel',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Quora+Pixel.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Quora%20Pixel.svg',
   },
   {
     id: 1460,
@@ -7309,7 +7309,7 @@ export const skillsData = [
   {
     id: 1462,
     name: 'RD Station',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/RD+Station.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/RD%20Station.svg',
   },
   {
     id: 1463,
@@ -7334,7 +7334,7 @@ export const skillsData = [
   {
     id: 1467,
     name: 'Radix UI',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Radix+UI.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Radix%20UI.svg',
   },
   {
     id: 1468,
@@ -7359,12 +7359,12 @@ export const skillsData = [
   {
     id: 1472,
     name: 'Rakuten Advertising',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Rakuten+Advertising.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Rakuten%20Advertising.svg',
   },
   {
     id: 1473,
     name: 'Rakuten Digital Commerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Rakuten+Digital+Commerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Rakuten%20Digital%20Commerce.svg',
   },
   {
     id: 1474,
@@ -7379,7 +7379,7 @@ export const skillsData = [
   {
     id: 1476,
     name: 'RankMath SEO',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/RankMath+SEO.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/RankMath%20SEO.svg',
   },
   {
     id: 1477,
@@ -7434,7 +7434,7 @@ export const skillsData = [
   {
     id: 1487,
     name: 'Re:amaze',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Re:amaze.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Re%3Aamaze.svg',
   },
   {
     id: 1488,
@@ -7449,22 +7449,22 @@ export const skillsData = [
   {
     id: 1490,
     name: 'React Bricks',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/React+Bricks.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/React%20Bricks.svg',
   },
   {
     id: 1491,
     name: 'React Query',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/React+Query.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/React%20Query.svg',
   },
   {
     id: 1492,
     name: 'React Redux',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/React+Redux.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/React%20Redux.svg',
   },
   {
     id: 1493,
     name: 'React Router',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/React+Router.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/React%20Router.svg',
   },
   {
     id: 1494,
@@ -7509,7 +7509,7 @@ export const skillsData = [
   {
     id: 1502,
     name: 'Red Hat',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Red+Hat.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Red%20Hat.svg',
   },
   {
     id: 1503,
@@ -7529,7 +7529,7 @@ export const skillsData = [
   {
     id: 1506,
     name: 'Reddit Ads',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Reddit+Ads.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Reddit%20Ads.svg',
   },
   {
     id: 1507,
@@ -7544,7 +7544,7 @@ export const skillsData = [
   {
     id: 1509,
     name: 'Redux Framework',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Redux+Framework.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Redux%20Framework.svg',
   },
   {
     id: 1510,
@@ -7554,12 +7554,12 @@ export const skillsData = [
   {
     id: 1511,
     name: 'Relais Colis',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Relais+Colis.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Relais%20Colis.svg',
   },
   {
     id: 1512,
     name: 'Remarkable Commerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Remarkable+Commerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Remarkable%20Commerce.svg',
   },
   {
     id: 1513,
@@ -7579,7 +7579,7 @@ export const skillsData = [
   {
     id: 1516,
     name: 'Retail Rocket',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Retail+Rocket.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Retail%20Rocket.svg',
   },
   {
     id: 1517,
@@ -7619,7 +7619,7 @@ export const skillsData = [
   {
     id: 1524,
     name: 'Robot-Operating-System-(ROS)',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Robot-Operating-System-(ROS).svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Robot-Operating-System-%28ROS%29.svg',
   },
   {
     id: 1525,
@@ -7649,7 +7649,7 @@ export const skillsData = [
   {
     id: 1530,
     name: 'Royal Mail',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Royal+Mail.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Royal%20Mail.svg',
   },
   {
     id: 1531,
@@ -7659,7 +7659,7 @@ export const skillsData = [
   {
     id: 1532,
     name: 'Ruby on Rails',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ruby+on+Rails.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ruby%20on%20Rails.svg',
   },
   {
     id: 1533,
@@ -7694,17 +7694,17 @@ export const skillsData = [
   {
     id: 1539,
     name: 'SAP Commerce Cloud',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SAP+Commerce+Cloud.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SAP%20Commerce%20Cloud.svg',
   },
   {
     id: 1540,
     name: 'SAP Customer Data Cloud Sign-in',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SAP+Customer+Data+Cloud+Sign-in.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SAP%20Customer%20Data%20Cloud%20Sign-in.svg',
   },
   {
     id: 1541,
     name: 'SAP Upscale Commerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SAP+Upscale+Commerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SAP%20Upscale%20Commerce.svg',
   },
   {
     id: 1542,
@@ -7714,12 +7714,12 @@ export const skillsData = [
   {
     id: 1543,
     name: 'SHE Media',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SHE+Media.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SHE%20Media.svg',
   },
   {
     id: 1544,
     name: 'SIDEARM Sports',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SIDEARM+Sports.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SIDEARM%20Sports.svg',
   },
   {
     id: 1545,
@@ -7774,7 +7774,7 @@ export const skillsData = [
   {
     id: 1555,
     name: 'Sakura Internet',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sakura+Internet.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sakura%20Internet.svg',
   },
   {
     id: 1556,
@@ -7809,37 +7809,37 @@ export const skillsData = [
   {
     id: 1562,
     name: 'Salesforce Audience Studio',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce+Audience+Studio.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce%20Audience%20Studio.svg',
   },
   {
     id: 1563,
     name: 'Salesforce Commerce Cloud',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce+Commerce+Cloud.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce%20Commerce%20Cloud.svg',
   },
   {
     id: 1564,
     name: 'Salesforce Desk',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce+Desk.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce%20Desk.svg',
   },
   {
     id: 1565,
     name: 'Salesforce Interaction Studio',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce+Interaction+Studio.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce%20Interaction%20Studio.svg',
   },
   {
     id: 1566,
     name: 'Salesforce Marketing Cloud Account Engagement',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce+Marketing+Cloud+Account+Engagement.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce%20Marketing%20Cloud%20Account%20Engagement.svg',
   },
   {
     id: 1567,
     name: 'Salesforce Marketing Cloud Email Studio',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce+Marketing+Cloud+Email+Studio.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce%20Marketing%20Cloud%20Email%20Studio.svg',
   },
   {
     id: 1568,
     name: 'Salesforce Service Cloud',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce+Service+Cloud.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Salesforce%20Service%20Cloud.svg',
   },
   {
     id: 1569,
@@ -7874,7 +7874,7 @@ export const skillsData = [
   {
     id: 1575,
     name: 'Sana Commerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sana+Commerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sana%20Commerce.svg',
   },
   {
     id: 1576,
@@ -7899,7 +7899,7 @@ export const skillsData = [
   {
     id: 1580,
     name: 'Satori Studio Bento',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Satori+Studio+Bento.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Satori%20Studio%20Bento.svg',
   },
   {
     id: 1581,
@@ -7944,7 +7944,7 @@ export const skillsData = [
   {
     id: 1589,
     name: 'Seal Subscriptions',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Seal+Subscriptions.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Seal%20Subscriptions.svg',
   },
   {
     id: 1590,
@@ -7999,17 +7999,17 @@ export const skillsData = [
   {
     id: 1600,
     name: 'Semantic UI',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Semantic+UI.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Semantic%20UI.svg',
   },
   {
     id: 1601,
     name: 'Sencha Touch',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sencha+Touch.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sencha%20Touch.svg',
   },
   {
     id: 1602,
     name: 'Sensors Data',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sensors+Data.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sensors%20Data.svg',
   },
   {
     id: 1603,
@@ -8024,12 +8024,12 @@ export const skillsData = [
   {
     id: 1605,
     name: 'Service Management Group',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Service+Management+Group.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Service%20Management%20Group.svg',
   },
   {
     id: 1606,
     name: 'Shaka Player',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shaka+Player.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shaka%20Player.svg',
   },
   {
     id: 1607,
@@ -8059,7 +8059,7 @@ export const skillsData = [
   {
     id: 1612,
     name: 'SharpSpring Ads',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SharpSpring+Ads.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SharpSpring%20Ads.svg',
   },
   {
     id: 1613,
@@ -8074,22 +8074,22 @@ export const skillsData = [
   {
     id: 1615,
     name: 'Shogun Landing Page Builder',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shogun+Landing+Page+Builder.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shogun%20Landing%20Page%20Builder.svg',
   },
   {
     id: 1616,
     name: 'Shogun Page Builder',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shogun+Page+Builder.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shogun%20Page%20Builder.svg',
   },
   {
     id: 1617,
     name: 'Shop Pay',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shop+Pay.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shop%20Pay.svg',
   },
   {
     id: 1618,
     name: 'Shop Pay Installments',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shop+Pay+Installments.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shop%20Pay%20Installments.svg',
   },
   {
     id: 1619,
@@ -8119,17 +8119,17 @@ export const skillsData = [
   {
     id: 1624,
     name: 'Shopify Chat',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shopify+Chat.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shopify%20Chat.svg',
   },
   {
     id: 1625,
     name: 'Shopify Consent Management',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shopify+Consent+Management.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shopify%20Consent%20Management.svg',
   },
   {
     id: 1626,
     name: 'Shopify Geolocation App',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shopify+Geolocation+App.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Shopify%20Geolocation%20App.svg',
   },
   {
     id: 1627,
@@ -8154,7 +8154,7 @@ export const skillsData = [
   {
     id: 1631,
     name: 'ShortPixel Image Optimizer',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ShortPixel+Image+Optimizer.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ShortPixel%20Image%20Optimizer.svg',
   },
   {
     id: 1632,
@@ -8164,17 +8164,17 @@ export const skillsData = [
   {
     id: 1633,
     name: 'Simple Analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Simple+Analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Simple%20Analytics.svg',
   },
   {
     id: 1634,
     name: 'Simple Machines Forum',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Simple+Machines+Forum.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Simple%20Machines%20Forum.svg',
   },
   {
     id: 1635,
     name: 'Simple-DirectMedia-Layer-(SDL)',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Simple-DirectMedia-Layer-(SDL).svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Simple-DirectMedia-Layer-%28SDL%29.svg',
   },
   {
     id: 1636,
@@ -8194,12 +8194,12 @@ export const skillsData = [
   {
     id: 1639,
     name: 'Site Search 360',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Site+Search+360.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Site%20Search%20360.svg',
   },
   {
     id: 1640,
     name: 'SiteGuard WP Plugin',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SiteGuard+WP+Plugin.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SiteGuard%20WP%20Plugin.svg',
   },
   {
     id: 1641,
@@ -8214,12 +8214,12 @@ export const skillsData = [
   {
     id: 1643,
     name: 'SiteOrigin Page Builder',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SiteOrigin+Page+Builder.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SiteOrigin%20Page%20Builder.svg',
   },
   {
     id: 1644,
     name: 'SiteOrigin Vantage',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SiteOrigin+Vantage.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SiteOrigin%20Vantage.svg',
   },
   {
     id: 1645,
@@ -8229,22 +8229,22 @@ export const skillsData = [
   {
     id: 1646,
     name: 'Sitecore Engagement Cloud',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sitecore+Engagement+Cloud.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sitecore%20Engagement%20Cloud.svg',
   },
   {
     id: 1647,
     name: 'Sitecore Experience Platform',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sitecore+Experience+Platform.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sitecore%20Experience%20Platform.svg',
   },
   {
     id: 1648,
     name: 'Sitepark IES',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sitepark+IES.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sitepark%20IES.svg',
   },
   {
     id: 1649,
     name: 'Sitepark InfoSite',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sitepark+InfoSite.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Sitepark%20InfoSite.svg',
   },
   {
     id: 1650,
@@ -8289,17 +8289,17 @@ export const skillsData = [
   {
     id: 1658,
     name: 'Slider Captcha',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Slider+Captcha.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Slider%20Captcha.svg',
   },
   {
     id: 1659,
     name: 'Smart Ad Server',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smart+Ad+Server.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smart%20Ad%20Server.svg',
   },
   {
     id: 1660,
     name: 'Smart Slider 3',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smart+Slider+3.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smart%20Slider%203.svg',
   },
   {
     id: 1661,
@@ -8319,7 +8319,7 @@ export const skillsData = [
   {
     id: 1664,
     name: 'Smarter Click',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smarter+Click.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smarter%20Click.svg',
   },
   {
     id: 1665,
@@ -8339,12 +8339,12 @@ export const skillsData = [
   {
     id: 1668,
     name: 'Smartstore Page Builder',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smartstore+Page+Builder.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smartstore%20Page%20Builder.svg',
   },
   {
     id: 1669,
     name: 'Smartstore biz',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smartstore+biz.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smartstore%20biz.svg',
   },
   {
     id: 1670,
@@ -8354,12 +8354,12 @@ export const skillsData = [
   {
     id: 1671,
     name: 'Smash Balloon Instagram Feed',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smash+Balloon+Instagram+Feed.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smash%20Balloon%20Instagram%20Feed.svg',
   },
   {
     id: 1672,
     name: 'Smile App',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smile+App.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Smile%20App.svg',
   },
   {
     id: 1673,
@@ -8369,7 +8369,7 @@ export const skillsData = [
   {
     id: 1674,
     name: 'Snap Pixel',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Snap+Pixel.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Snap%20Pixel.svg',
   },
   {
     id: 1675,
@@ -8399,7 +8399,7 @@ export const skillsData = [
   {
     id: 1680,
     name: 'Snowplow Analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Snowplow+Analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Snowplow%20Analytics.svg',
   },
   {
     id: 1681,
@@ -8419,7 +8419,7 @@ export const skillsData = [
   {
     id: 1684,
     name: 'Societe des Avis Garantis',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Societe+des+Avis+Garantis.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Societe%20des%20Avis%20Garantis.svg',
   },
   {
     id: 1685,
@@ -8444,12 +8444,12 @@ export const skillsData = [
   {
     id: 1689,
     name: 'Solusquare OmniCommerce Cloud',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Solusquare+OmniCommerce+Cloud.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Solusquare%20OmniCommerce%20Cloud.svg',
   },
   {
     id: 1690,
     name: 'Solve Media',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Solve+Media.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Solve%20Media.svg',
   },
   {
     id: 1691,
@@ -8489,17 +8489,17 @@ export const skillsData = [
   {
     id: 1698,
     name: 'Spatie Laravel Cookie Consent',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Spatie+Laravel+Cookie+Consent.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Spatie%20Laravel%20Cookie%20Consent.svg',
   },
   {
     id: 1699,
     name: 'Spatie Media Library Pro',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Spatie+Media+Library+Pro.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Spatie%20Media%20Library%20Pro.svg',
   },
   {
     id: 1700,
     name: 'Spatie Support Bubble',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Spatie+Support+Bubble.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Spatie%20Support%20Bubble.svg',
   },
   {
     id: 1701,
@@ -8529,7 +8529,7 @@ export const skillsData = [
   {
     id: 1706,
     name: 'Spotify Web API',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Spotify+Web+API.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Spotify%20Web%20API.svg',
   },
   {
     id: 1707,
@@ -8539,27 +8539,27 @@ export const skillsData = [
   {
     id: 1708,
     name: 'Spring for creators',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Spring+for+creators.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Spring%20for%20creators.svg',
   },
   {
     id: 1709,
     name: 'SpurIT Abandoned Cart Reminder',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SpurIT+Abandoned+Cart+Reminder.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SpurIT%20Abandoned%20Cart%20Reminder.svg',
   },
   {
     id: 1710,
     name: 'SpurIT Loyalty App',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SpurIT+Loyalty+App.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SpurIT%20Loyalty%20App.svg',
   },
   {
     id: 1711,
     name: 'SpurIT Partial Payments App',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SpurIT+Partial+Payments+App.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SpurIT%20Partial%20Payments%20App.svg',
   },
   {
     id: 1712,
     name: 'SpurIT Recurring Payments App',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SpurIT+Recurring+Payments+App.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SpurIT%20Recurring%20Payments%20App.svg',
   },
   {
     id: 1713,
@@ -8579,7 +8579,7 @@ export const skillsData = [
   {
     id: 1716,
     name: 'Square Online',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Square+Online.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Square%20Online.svg',
   },
   {
     id: 1717,
@@ -8589,7 +8589,7 @@ export const skillsData = [
   {
     id: 1718,
     name: 'Squarespace Commerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Squarespace+Commerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Squarespace%20Commerce.svg',
   },
   {
     id: 1719,
@@ -8599,12 +8599,12 @@ export const skillsData = [
   {
     id: 1720,
     name: 'Squiz Matrix',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Squiz+Matrix.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Squiz%20Matrix.svg',
   },
   {
     id: 1721,
     name: 'Stack Analytix',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Stack+Analytix.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Stack%20Analytix.svg',
   },
   {
     id: 1722,
@@ -8644,7 +8644,7 @@ export const skillsData = [
   {
     id: 1729,
     name: 'Stage Try',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Stage+Try.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Stage%20Try.svg',
   },
   {
     id: 1730,
@@ -8734,7 +8734,7 @@ export const skillsData = [
   {
     id: 1747,
     name: 'Strato Website',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Strato+Website.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Strato%20Website.svg',
   },
   {
     id: 1748,
@@ -8774,12 +8774,12 @@ export const skillsData = [
   {
     id: 1755,
     name: 'Super Socializer',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Super+Socializer.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Super%20Socializer.svg',
   },
   {
     id: 1756,
     name: 'SuperLemon app',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SuperLemon+app.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/SuperLemon%20app.svg',
   },
   {
     id: 1757,
@@ -8804,7 +8804,7 @@ export const skillsData = [
   {
     id: 1761,
     name: 'Swagger UI',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Swagger+UI.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Swagger%20UI.svg',
   },
   {
     id: 1762,
@@ -8844,7 +8844,7 @@ export const skillsData = [
   {
     id: 1769,
     name: 'Synology DiskStation',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Synology+DiskStation.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Synology%20DiskStation.svg',
   },
   {
     id: 1770,
@@ -8854,12 +8854,12 @@ export const skillsData = [
   {
     id: 1771,
     name: 'T1 Paginas',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/T1+Paginas.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/T1%20Paginas.svg',
   },
   {
     id: 1772,
     name: 'T1 Pagos',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/T1+Pagos.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/T1%20Pagos.svg',
   },
   {
     id: 1773,
@@ -8869,7 +8869,7 @@ export const skillsData = [
   {
     id: 1774,
     name: 'TNS Payments',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/TNS+Payments.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/TNS%20Payments.svg',
   },
   {
     id: 1775,
@@ -8949,7 +8949,7 @@ export const skillsData = [
   {
     id: 1790,
     name: 'Tailwind CSS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tailwind+CSS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tailwind%20CSS.svg',
   },
   {
     id: 1791,
@@ -9039,12 +9039,12 @@ export const skillsData = [
   {
     id: 1808,
     name: 'Tealium AudienceStream',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tealium+AudienceStream.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tealium%20AudienceStream.svg',
   },
   {
     id: 1809,
     name: 'Tealium Consent Management',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tealium+Consent+Management.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tealium%20Consent%20Management.svg',
   },
   {
     id: 1810,
@@ -9064,12 +9064,13 @@ export const skillsData = [
   {
     id: 1813,
     name: 'Tencent Analytics (腾讯分析)',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tencent+Analytics+(腾讯分析).svg',
+    logoUrl:
+      'https://image-prod.linkit.im/skills/image_data/Tencent%20Analytics%20%28%E8%85%BE%E8%AE%AF%E5%88%86%E6%9E%90%29.svg',
   },
   {
     id: 1814,
     name: 'Tencent Waterproof Wall',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tencent+Waterproof+Wall.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tencent%20Waterproof%20Wall.svg',
   },
   {
     id: 1815,
@@ -9094,27 +9095,27 @@ export const skillsData = [
   {
     id: 1819,
     name: 'Textpattern CMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Textpattern+CMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Textpattern%20CMS.svg',
   },
   {
     id: 1820,
     name: 'The Arena Group',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/The+Arena+Group.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/The%20Arena%20Group.svg',
   },
   {
     id: 1821,
     name: 'The Events Calendar',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/The+Events+Calendar.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/The%20Events%20Calendar.svg',
   },
   {
     id: 1822,
     name: 'The SEO Framework',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/The+SEO+Framework.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/The%20SEO%20Framework.svg',
   },
   {
     id: 1823,
     name: 'The Theme Foundry Make',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/The+Theme+Foundry+Make.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/The%20Theme%20Foundry%20Make.svg',
   },
   {
     id: 1824,
@@ -9129,92 +9130,92 @@ export const skillsData = [
   {
     id: 1826,
     name: 'Theme Freesia Edge',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Theme+Freesia+Edge.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Theme%20Freesia%20Edge.svg',
   },
   {
     id: 1827,
     name: 'Theme Freesia Photograph',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Theme+Freesia+Photograph.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Theme%20Freesia%20Photograph.svg',
   },
   {
     id: 1828,
     name: 'Theme Freesia ShoppingCart',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Theme+Freesia+ShoppingCart.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Theme%20Freesia%20ShoppingCart.svg',
   },
   {
     id: 1829,
     name: 'Theme Horse Attitude',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Theme+Horse+Attitude.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Theme%20Horse%20Attitude.svg',
   },
   {
     id: 1830,
     name: 'Theme Horse NewsCard',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Theme+Horse+NewsCard.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Theme%20Horse%20NewsCard.svg',
   },
   {
     id: 1831,
     name: 'Theme Vision Agama',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Theme+Vision+Agama.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Theme%20Vision%20Agama.svg',
   },
   {
     id: 1832,
     name: 'ThemeGrill Accelerate',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemeGrill+Accelerate.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemeGrill%20Accelerate.svg',
   },
   {
     id: 1833,
     name: 'ThemeGrill ColorMag',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemeGrill+ColorMag.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemeGrill%20ColorMag.svg',
   },
   {
     id: 1834,
     name: 'ThemeGrill Flash',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemeGrill+Flash.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemeGrill%20Flash.svg',
   },
   {
     id: 1835,
     name: 'ThemeGrill Radiate',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemeGrill+Radiate.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemeGrill%20Radiate.svg',
   },
   {
     id: 1836,
     name: 'ThemeGrill Spacious',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemeGrill+Spacious.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemeGrill%20Spacious.svg',
   },
   {
     id: 1837,
     name: 'ThemeZee Donovan',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemeZee+Donovan.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemeZee%20Donovan.svg',
   },
   {
     id: 1838,
     name: 'Themebeez Cream Magazine',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Themebeez+Cream+Magazine.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Themebeez%20Cream%20Magazine.svg',
   },
   {
     id: 1839,
     name: 'Themegraphy Graphy',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Themegraphy+Graphy.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Themegraphy%20Graphy.svg',
   },
   {
     id: 1840,
     name: 'ThemezHut Bam',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemezHut+Bam.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemezHut%20Bam.svg',
   },
   {
     id: 1841,
     name: 'ThemezHut HitMag',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemezHut+HitMag.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThemezHut%20HitMag.svg',
   },
   {
     id: 1842,
     name: 'ThimPress Gradebook',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThimPress+Gradebook.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThimPress%20Gradebook.svg',
   },
   {
     id: 1843,
     name: 'ThimPress LearnPress',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThimPress+LearnPress.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ThimPress%20LearnPress.svg',
   },
   {
     id: 1844,
@@ -9234,22 +9235,22 @@ export const skillsData = [
   {
     id: 1847,
     name: 'Thrive Apprentice',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Thrive+Apprentice.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Thrive%20Apprentice.svg',
   },
   {
     id: 1848,
     name: 'Thrive Architect',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Thrive+Architect.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Thrive%20Architect.svg',
   },
   {
     id: 1849,
     name: 'Thrive Leads',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Thrive+Leads.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Thrive%20Leads.svg',
   },
   {
     id: 1850,
     name: 'Thrive Ultimatum',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Thrive+Ultimatum.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Thrive%20Ultimatum.svg',
   },
   {
     id: 1851,
@@ -9274,12 +9275,12 @@ export const skillsData = [
   {
     id: 1855,
     name: 'Tiki Wiki CMS Groupware',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tiki+Wiki+CMS+Groupware.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tiki%20Wiki%20CMS%20Groupware.svg',
   },
   {
     id: 1856,
     name: 'Tiktak Pro',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tiktak+Pro.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tiktak%20Pro.svg',
   },
   {
     id: 1857,
@@ -9309,7 +9310,7 @@ export const skillsData = [
   {
     id: 1862,
     name: 'TomTom Maps',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/TomTom+Maps.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/TomTom%20Maps.svg',
   },
   {
     id: 1863,
@@ -9359,7 +9360,7 @@ export const skillsData = [
   {
     id: 1872,
     name: 'Trackify X',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Trackify+X.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Trackify%20X.svg',
   },
   {
     id: 1873,
@@ -9424,7 +9425,7 @@ export const skillsData = [
   {
     id: 1885,
     name: 'Treasure Data',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Treasure+Data.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Treasure%20Data.svg',
   },
   {
     id: 1886,
@@ -9434,17 +9435,17 @@ export const skillsData = [
   {
     id: 1887,
     name: 'Trinity Audio',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Trinity+Audio.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Trinity%20Audio.svg',
   },
   {
     id: 1888,
     name: 'Triple Whale',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Triple+Whale.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Triple%20Whale.svg',
   },
   {
     id: 1889,
     name: 'Tritac Katana Commerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tritac+Katana+Commerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tritac%20Katana%20Commerce.svg',
   },
   {
     id: 1890,
@@ -9464,7 +9465,7 @@ export const skillsData = [
   {
     id: 1893,
     name: 'Twilio Authy',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Twilio+Authy.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Twilio%20Authy.svg',
   },
   {
     id: 1894,
@@ -9474,7 +9475,7 @@ export const skillsData = [
   {
     id: 1895,
     name: 'Twitter Ads',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Twitter+Ads.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Twitter%20Ads.svg',
   },
   {
     id: 1896,
@@ -9489,12 +9490,12 @@ export const skillsData = [
   {
     id: 1898,
     name: 'Tyslo EasySell',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tyslo+EasySell.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Tyslo%20EasySell.svg',
   },
   {
     id: 1899,
     name: 'UK Mail',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/UK+Mail.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/UK%20Mail.svg',
   },
   {
     id: 1900,
@@ -9519,12 +9520,12 @@ export const skillsData = [
   {
     id: 1904,
     name: 'Ultimate Addons for Elementor',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ultimate+Addons+for+Elementor.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ultimate%20Addons%20for%20Elementor.svg',
   },
   {
     id: 1905,
     name: 'Ultimate GDPR & CCPA',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ultimate+GDPR+&+CCPA.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ultimate%20GDPR%20%26%20CCPA.svg',
   },
   {
     id: 1906,
@@ -9559,12 +9560,12 @@ export const skillsData = [
   {
     id: 1912,
     name: 'Unicorn Platform',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Unicorn+Platform.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Unicorn%20Platform.svg',
   },
   {
     id: 1913,
     name: 'Unified-Modelling-Language-(UML)',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Unified-Modelling-Language-(UML).svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Unified-Modelling-Language-%28UML%29.svg',
   },
   {
     id: 1914,
@@ -9589,7 +9590,7 @@ export const skillsData = [
   {
     id: 1918,
     name: 'User Accessibility',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/User+Accessibility.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/User%20Accessibility.svg',
   },
   {
     id: 1919,
@@ -9619,7 +9620,7 @@ export const skillsData = [
   {
     id: 1924,
     name: 'VWO Engage',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/VWO+Engage.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/VWO%20Engage.svg',
   },
   {
     id: 1925,
@@ -9639,7 +9640,7 @@ export const skillsData = [
   {
     id: 1928,
     name: 'Vanco Payment Solutions',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Vanco+Payment+Solutions.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Vanco%20Payment%20Solutions.svg',
   },
   {
     id: 1929,
@@ -9669,7 +9670,7 @@ export const skillsData = [
   {
     id: 1934,
     name: 'Ve Global',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ve+Global.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Ve%20Global.svg',
   },
   {
     id: 1935,
@@ -9694,7 +9695,7 @@ export const skillsData = [
   {
     id: 1939,
     name: 'Vercel Analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Vercel+Analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Vercel%20Analytics.svg',
   },
   {
     id: 1940,
@@ -9704,7 +9705,7 @@ export const skillsData = [
   {
     id: 1941,
     name: 'Verizon Media',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Verizon+Media.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Verizon%20Media.svg',
   },
   {
     id: 1942,
@@ -9739,7 +9740,7 @@ export const skillsData = [
   {
     id: 1948,
     name: 'Viral Loops',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Viral+Loops.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Viral%20Loops.svg',
   },
   {
     id: 1949,
@@ -9769,32 +9770,32 @@ export const skillsData = [
   {
     id: 1954,
     name: 'Visa Checkout',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visa+Checkout.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visa%20Checkout.svg',
   },
   {
     id: 1955,
     name: 'Visual Basic',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visual+Basic.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visual%20Basic.svg',
   },
   {
     id: 1956,
     name: 'Visual Composer',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visual+Composer.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visual%20Composer.svg',
   },
   {
     id: 1957,
     name: 'Visual Portfolio',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visual+Portfolio.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visual%20Portfolio.svg',
   },
   {
     id: 1958,
     name: 'Visual Quiz Builder',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visual+Quiz+Builder.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visual%20Quiz%20Builder.svg',
   },
   {
     id: 1959,
     name: 'Visual Studio',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visual+Studio.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visual%20Studio.svg',
   },
   {
     id: 1960,
@@ -9804,7 +9805,7 @@ export const skillsData = [
   {
     id: 1961,
     name: 'Visual-Studio-Code-(VS-Code)',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visual-Studio-Code-(VS-Code).svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Visual-Studio-Code-%28VS-Code%29.svg',
   },
   {
     id: 1962,
@@ -9839,7 +9840,7 @@ export const skillsData = [
   {
     id: 1968,
     name: 'Vonage Video API',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Vonage+Video+API.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Vonage%20Video%20API.svg',
   },
   {
     id: 1969,
@@ -9869,7 +9870,7 @@ export const skillsData = [
   {
     id: 1974,
     name: 'W3 Total Cache',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/W3+Total+Cache.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/W3%20Total%20Cache.svg',
   },
   {
     id: 1975,
@@ -9879,12 +9880,12 @@ export const skillsData = [
   {
     id: 1976,
     name: 'WP Automatic',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/WP+Automatic.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/WP%20Automatic.svg',
   },
   {
     id: 1977,
     name: 'WPS Office',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/WPS+Office.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/WPS%20Office.svg',
   },
   {
     id: 1978,
@@ -9929,7 +9930,7 @@ export const skillsData = [
   {
     id: 1986,
     name: 'Web Shop Manager',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Web+Shop+Manager.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Web%20Shop%20Manager.svg',
   },
   {
     id: 1987,
@@ -9944,12 +9945,12 @@ export const skillsData = [
   {
     id: 1989,
     name: 'WebFactory Maintenance',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/WebFactory+Maintenance.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/WebFactory%20Maintenance.svg',
   },
   {
     id: 1990,
     name: 'WebFactory Under Construction',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/WebFactory+Under+Construction.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/WebFactory%20Under%20Construction.svg',
   },
   {
     id: 1991,
@@ -9959,12 +9960,13 @@ export const skillsData = [
   {
     id: 1992,
     name: 'WebToffee Stripe Payment Plugin for WooCommerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/WebToffee+Stripe+Payment+Plugin+for+WooCommerce.svg',
+    logoUrl:
+      'https://image-prod.linkit.im/skills/image_data/WebToffee%20Stripe%20Payment%20Plugin%20for%20WooCommerce.svg',
   },
   {
     id: 1993,
     name: 'Webasyst Shop-Script',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Webasyst+Shop-Script.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Webasyst%20Shop-Script.svg',
   },
   {
     id: 1994,
@@ -10039,17 +10041,17 @@ export const skillsData = [
   {
     id: 2008,
     name: 'With Reach',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/With+Reach.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/With%20Reach.svg',
   },
   {
     id: 2009,
     name: 'Wix Answers',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Wix+Answers.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Wix%20Answers.svg',
   },
   {
     id: 2010,
     name: 'Woltlab Community Framework',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Woltlab+Community+Framework.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Woltlab%20Community%20Framework.svg',
   },
   {
     id: 2011,
@@ -10059,7 +10061,7 @@ export const skillsData = [
   {
     id: 2012,
     name: 'WooCommerce Multilingual',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/WooCommerce+Multilingual.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/WooCommerce%20Multilingual.svg',
   },
   {
     id: 2013,
@@ -10079,7 +10081,7 @@ export const skillsData = [
   {
     id: 2016,
     name: 'WordPress Super Cache',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/WordPress+Super+Cache.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/WordPress%20Super%20Cache.svg',
   },
   {
     id: 2017,
@@ -10114,7 +10116,7 @@ export const skillsData = [
   {
     id: 2023,
     name: 'XGen Ai',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/XGen+Ai.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/XGen%20Ai.svg',
   },
   {
     id: 2024,
@@ -10159,42 +10161,42 @@ export const skillsData = [
   {
     id: 2032,
     name: 'YMQ Product Options Variant Option',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/YMQ+Product+Options+Variant+Option.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/YMQ%20Product%20Options%20Variant%20Option.svg',
   },
   {
     id: 2033,
     name: 'Yahoo Advertising',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yahoo+Advertising.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yahoo%20Advertising.svg',
   },
   {
     id: 2034,
     name: 'Yahoo! Ecommerce',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yahoo!+Ecommerce.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yahoo%21%20Ecommerce.svg',
   },
   {
     id: 2035,
     name: 'Yahoo! Tag Manager',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yahoo!+Tag+Manager.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yahoo%21%20Tag%20Manager.svg',
   },
   {
     id: 2036,
     name: 'Yahoo! Web Analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yahoo!+Web+Analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yahoo%21%20Web%20Analytics.svg',
   },
   {
     id: 2037,
     name: 'Yampi Checkout',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yampi+Checkout.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yampi%20Checkout.svg',
   },
   {
     id: 2038,
     name: 'Yampi Virtual store',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yampi+Virtual+store.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yampi%20Virtual%20store.svg',
   },
   {
     id: 2039,
     name: 'Yandex SmartCaptcha',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yandex+SmartCaptcha.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yandex%20SmartCaptcha.svg',
   },
   {
     id: 2040,
@@ -10204,7 +10206,7 @@ export const skillsData = [
   {
     id: 2041,
     name: 'Yandex.Cloud CDN',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yandex.Cloud+CDN.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yandex.Cloud%20CDN.svg',
   },
   {
     id: 2042,
@@ -10249,22 +10251,22 @@ export const skillsData = [
   {
     id: 2050,
     name: 'Yoast Duplicate Post',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yoast+Duplicate+Post.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yoast%20Duplicate%20Post.svg',
   },
   {
     id: 2051,
     name: 'Yoast SEO',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yoast+SEO.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yoast%20SEO.svg',
   },
   {
     id: 2052,
     name: 'Yoast SEO Premium',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yoast+SEO+Premium.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yoast%20SEO%20Premium.svg',
   },
   {
     id: 2053,
     name: 'Yoast SEO for Shopify',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yoast+SEO+for+Shopify.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yoast%20SEO%20for%20Shopify.svg',
   },
   {
     id: 2054,
@@ -10274,7 +10276,7 @@ export const skillsData = [
   {
     id: 2055,
     name: 'Yotpo Loyalty & Referrals',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yotpo+Loyalty+&+Referrals.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Yotpo%20Loyalty%20%26%20Referrals.svg',
   },
   {
     id: 2056,
@@ -10304,7 +10306,7 @@ export const skillsData = [
   {
     id: 2061,
     name: 'ZURB Foundation',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ZURB+Foundation.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/ZURB%20Foundation.svg',
   },
   {
     id: 2062,
@@ -10319,12 +10321,12 @@ export const skillsData = [
   {
     id: 2064,
     name: 'Zakeke Interactive Product Designer',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zakeke+Interactive+Product+Designer.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zakeke%20Interactive%20Product%20Designer.svg',
   },
   {
     id: 2065,
     name: 'Zakeke Visual Customizer',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zakeke+Visual+Customizer.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zakeke%20Visual%20Customizer.svg',
   },
   {
     id: 2066,
@@ -10349,7 +10351,7 @@ export const skillsData = [
   {
     id: 2070,
     name: 'Zen Cart',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zen+Cart.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zen%20Cart.svg',
   },
   {
     id: 2071,
@@ -10359,7 +10361,7 @@ export const skillsData = [
   {
     id: 2072,
     name: 'Zendesk Sunshine Conversations',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zendesk+Sunshine+Conversations.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zendesk%20Sunshine%20Conversations.svg',
   },
   {
     id: 2073,
@@ -10389,22 +10391,22 @@ export const skillsData = [
   {
     id: 2078,
     name: 'Zipify Pages',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zipify+Pages.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zipify%20Pages.svg',
   },
   {
     id: 2079,
     name: 'Zmags Creator',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zmags+Creator.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zmags%20Creator.svg',
   },
   {
     id: 2080,
     name: 'Zoho Mail',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zoho+Mail.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zoho%20Mail.svg',
   },
   {
     id: 2081,
     name: 'Zoho PageSense',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zoho+PageSense.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zoho%20PageSense.svg',
   },
   {
     id: 2082,
@@ -10414,7 +10416,7 @@ export const skillsData = [
   {
     id: 2083,
     name: 'Zoominfo Chat',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zoominfo+Chat.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/Zoominfo%20Chat.svg',
   },
   {
     id: 2084,
@@ -10424,37 +10426,37 @@ export const skillsData = [
   {
     id: 2085,
     name: 'a-blog cms',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/a-blog+cms.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/a-blog%20cms.svg',
   },
   {
     id: 2086,
     name: 'a3 Lazy Load',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/a3+Lazy+Load.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/a3%20Lazy%20Load.svg',
   },
   {
     id: 2087,
     name: 'aThemes Airi',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/aThemes+Airi.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/aThemes%20Airi.svg',
   },
   {
     id: 2088,
     name: 'aThemes Astrid',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/aThemes+Astrid.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/aThemes%20Astrid.svg',
   },
   {
     id: 2089,
     name: 'aThemes Hiero',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/aThemes+Hiero.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/aThemes%20Hiero.svg',
   },
   {
     id: 2090,
     name: 'aThemes Moesia',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/aThemes+Moesia.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/aThemes%20Moesia.svg',
   },
   {
     id: 2091,
     name: 'aThemes Sydney',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/aThemes+Sydney.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/aThemes%20Sydney.svg',
   },
   {
     id: 2092,
@@ -10514,7 +10516,7 @@ export const skillsData = [
   {
     id: 2103,
     name: 'eBay Partner Network',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/eBay+Partner+Network.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/eBay%20Partner%20Network.svg',
   },
   {
     id: 2104,
@@ -10539,7 +10541,7 @@ export const skillsData = [
   {
     id: 2108,
     name: 'eWAY Payments',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/eWAY+Payments.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/eWAY%20Payments.svg',
   },
   {
     id: 2109,
@@ -10559,12 +10561,12 @@ export const skillsData = [
   {
     id: 2112,
     name: 'google drive',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/google+drive.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/google%20drive.svg',
   },
   {
     id: 2113,
     name: 'google sheets',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/google+sheets.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/google%20sheets.svg',
   },
   {
     id: 2114,
@@ -10589,7 +10591,7 @@ export const skillsData = [
   {
     id: 2118,
     name: 'imperia CMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/imperia+CMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/imperia%20CMS.svg',
   },
   {
     id: 2119,
@@ -10654,22 +10656,22 @@ export const skillsData = [
   {
     id: 2131,
     name: 'jQuery DevBridge Autocomplete',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/jQuery+DevBridge+Autocomplete.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/jQuery%20DevBridge%20Autocomplete.svg',
   },
   {
     id: 2132,
     name: 'jQuery Migrate',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/jQuery+Migrate.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/jQuery%20Migrate.svg',
   },
   {
     id: 2133,
     name: 'jQuery Modal',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/jQuery+Modal.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/jQuery%20Modal.svg',
   },
   {
     id: 2134,
     name: 'jQuery Sparklines',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/jQuery+Sparklines.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/jQuery%20Sparklines.svg',
   },
   {
     id: 2135,
@@ -10694,7 +10696,7 @@ export const skillsData = [
   {
     id: 2139,
     name: 'microsoft power bi',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/microsoft+power+bi.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/microsoft%20power%20bi.svg',
   },
   {
     id: 2140,
@@ -10724,7 +10726,7 @@ export const skillsData = [
   {
     id: 2145,
     name: 'office 365',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/office+365.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/office%20365.svg',
   },
   {
     id: 2146,
@@ -10744,7 +10746,7 @@ export const skillsData = [
   {
     id: 2149,
     name: 'papaya CMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/papaya+CMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/papaya%20CMS.svg',
   },
   {
     id: 2150,
@@ -10774,7 +10776,7 @@ export const skillsData = [
   {
     id: 2155,
     name: 'pirobase CMS',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/pirobase+CMS.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/pirobase%20CMS.svg',
   },
   {
     id: 2156,
@@ -10809,7 +10811,7 @@ export const skillsData = [
   {
     id: 2162,
     name: 'shadcn/ui',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/shadcn_ui.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/shadcn/ui.svg',
   },
   {
     id: 2163,
@@ -10829,12 +10831,12 @@ export const skillsData = [
   {
     id: 2166,
     name: 'snigel AdConsent',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/snigel+AdConsent.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/snigel%20AdConsent.svg',
   },
   {
     id: 2167,
     name: 'snigel AdEngine',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/snigel+AdEngine.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/snigel%20AdEngine.svg',
   },
   {
     id: 2168,
@@ -10889,7 +10891,7 @@ export const skillsData = [
   {
     id: 2178,
     name: 'v4Guard Checkpoint',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/v4Guard+Checkpoint.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/v4Guard%20Checkpoint.svg',
   },
   {
     id: 2179,
@@ -10944,11 +10946,11 @@ export const skillsData = [
   {
     id: 2189,
     name: 'google analytics',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/google+analytics.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/google%20analytics.svg',
   },
   {
     id: 2190,
     name: 'React Native',
-    logoUrl: 'https://image-prod.linkit.im/skills/image_data/React+Native.svg',
+    logoUrl: 'https://image-prod.linkit.im/skills/image_data/React%20Native.svg',
   },
 ]
