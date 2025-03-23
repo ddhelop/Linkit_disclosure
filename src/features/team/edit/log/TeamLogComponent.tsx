@@ -35,13 +35,14 @@ export default function TeamLogComponent({ log, onDelete }: TeamLogComponentProp
     isEnabled: isMenuOpen,
   })
 
-  const handleDelete = async () => {
+  const handleDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
     if (window.confirm('정말로 이 로그를 삭제하시겠습니까?')) {
       try {
         await deleteTeamLog(teamName, log.teamLogId)
         setIsMenuOpen(false)
         toast.success('로그가 삭제되었습니다.')
-        onDelete?.() // 삭제 후 목록 새로고침
+        onDelete?.()
       } catch (error) {
         console.error('Failed to delete log:', error)
         toast.alert('로그 삭제에 실패했습니다.')

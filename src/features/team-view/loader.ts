@@ -11,6 +11,7 @@ import {
   getTeamRecruitmentList,
 } from './api/TeamDataViewApi'
 import { getTeamRepresentLog } from './api/TeamDataItemsApi'
+import { getTeamLogs } from '../team/api/teamViewApi'
 
 // 팀 정보 조회
 export async function loadTeamData(teamName: string) {
@@ -43,6 +44,18 @@ export async function loadTeamRepresentLog(teamName: string) {
   await queryClient.prefetchQuery({
     queryKey: ['teamRepresentLog', teamName],
     queryFn: () => getTeamRepresentLog(teamName),
+  })
+
+  return dehydrate(queryClient)
+}
+
+// 팀 로그 리스트 조회
+export async function loadTeamLogs(teamName: string) {
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: ['teamLogs', teamName],
+    queryFn: () => getTeamLogs(teamName),
   })
 
   return dehydrate(queryClient)
