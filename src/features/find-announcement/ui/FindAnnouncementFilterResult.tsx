@@ -105,9 +105,7 @@ export default function AnnouncementFilterResult() {
             {isStaticLoading
               ? renderSkeletons(6)
               : staticAnnouncements?.result?.hotAnnouncements?.map((announcement, index) => (
-                  <article key={`announcement-${index}`}>
-                    <AnnouncementCard announcement={announcement} />
-                  </article>
+                  <AnnouncementCard key={`announcement-${index}`} announcement={announcement} />
                 ))}
           </div>
         </section>
