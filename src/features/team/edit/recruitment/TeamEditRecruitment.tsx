@@ -269,7 +269,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
             </span>
           </div>
           <Input
-            placeholder="공고 제목을 작성해 주세요 (100자 이내)"
+            placeholder="공고 제목을 작성해 주세요 (50자 이내)"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
