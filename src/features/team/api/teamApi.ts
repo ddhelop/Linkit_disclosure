@@ -408,8 +408,8 @@ export interface TeamAnnouncementDetail {
     announcementSkillNames: {
       announcementSkillName: string
     }[]
-    projectType: string
-    workType: string
+    projectTypeName: string
+    workTypeName: string
     isAnnouncementPublic: boolean
     isAnnouncementInProgress: boolean
     announcementEndDate: string

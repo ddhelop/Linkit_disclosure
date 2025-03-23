@@ -147,12 +147,12 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
         isRegionFlexible: false,
         mainTasks: mainTasks,
         workMethod: workMethod,
+        projectTypeName: selectedProjectType,
         workTypeName: selectedWorkType,
         idealCandidate: idealCandidate,
         preferredQualifications: isExpanded ? preferredQualifications : undefined,
         joiningProcess: isExpanded ? joiningProcess : undefined,
         benefits: isExpanded ? benefits : undefined,
-        projectTypeName: selectedProjectType,
       }
 
       if (id) {
@@ -187,8 +187,8 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
           setEndDate(data.result.isPermanentRecruitment ? '' : data.result.announcementEndDate)
           setMainTasks(data.result.mainTasks)
           setWorkMethod(data.result.workMethod)
-          setSelectedProjectType(data.result.projectType)
-          setSelectedWorkType(data.result.workType)
+          setSelectedProjectType(data.result.projectTypeName)
+          setSelectedWorkType(data.result.workTypeName)
           setIdealCandidate(data.result.idealCandidate)
 
           if (data.result.preferredQualifications || data.result.joiningProcess || data.result.benefits) {
