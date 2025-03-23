@@ -79,8 +79,30 @@ export default function NotificationMenu({ isOpen, onClose }: NotificationMenuPr
             router.push('/profile/edit/basic')
           }
           break
-        default:
+        case 'CERTIFICATION':
+          switch (notification.subNotificationType) {
+            case 'ACTIVITY_CERTIFICATION_ACCEPTED':
+              router.push('/profile/edit/activity')
+              break
+            case 'EDUCATION_CERTIFICATION_ACCEPTED':
+              router.push('/profile/edit/education')
+              break
+            case 'AWARDS_CERTIFICATION_ACCEPTED':
+              router.push('/profile/edit/awards')
+              break
+            case 'LICENSE_CERTIFICATION_ACCEPTED':
+              router.push('/profile/edit/license')
+              break
+          }
           break
+        case 'VISITOR':
+          if (notification.notificationDetails.visitedType === 'PROFILE') {
+            router.push(`/profile/${notification.notificationDetails.emailId}`)
+          } else if (notification.notificationDetails.visitedType === 'TEAM') {
+            router.push(`/team/${notification.notificationDetails.teamCode}/log`)
+          }
+          break
+        default:
       }
       onClose()
     } catch (error) {
@@ -113,19 +135,21 @@ export default function NotificationMenu({ isOpen, onClose }: NotificationMenuPr
                     notification.notificationReadStatus === 'UNREAD' ? 'bg-[#EDF3FF]' : ''
                   }`}
                 >
-                  <div className="h-10 w-10 flex-shrink-0">
-                    <Image
-                      src={
-                        notification.notificationDetails.matchingTargetLogoImagePath ||
-                        notification.notificationDetails.teamLogoImagePath ||
-                        '/common/default_profile.svg'
-                      }
-                      alt="profile"
-                      width={40}
-                      height={40}
-                      className="rounded-lg"
-                    />
-                  </div>
+                  {!['SYSTEM', 'VISITOR', 'CERTIFICATION'].includes(notification.notificationType) && (
+                    <div className="h-10 w-10 flex-shrink-0">
+                      <Image
+                        src={
+                          notification.notificationDetails.matchingTargetLogoImagePath ||
+                          notification.notificationDetails.teamLogoImagePath ||
+                          '/common/default_profile.svg'
+                        }
+                        alt="profile"
+                        width={40}
+                        height={40}
+                        className="rounded-lg"
+                      />
+                    </div>
+                  )}
                   <div className="flex flex-1 flex-col">
                     <span className="text-sm font-medium text-grey90">
                       {getNotificationMessage(
