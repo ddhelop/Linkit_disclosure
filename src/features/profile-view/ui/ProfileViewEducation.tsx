@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
 import ProfileViewEducationSkeleton from './skeleton/ProfileViewEducationSkeleton'
+import { logoLists } from '@/shared/data/university_logo_lists_pretty'
 
 export default function ProfileViewEducation({ emailId }: { emailId: string }) {
   // 모든 훅은 여기에 선언해야 합니다 - 조건문 이전에
@@ -50,14 +51,12 @@ export default function ProfileViewEducation({ emailId }: { emailId: string }) {
             <div className="flex w-full items-center text-sm text-grey60">아직 추가하지 않았어요</div>
           ))}
         {educationItems.map((education) => (
-          <div key={education.profileEducationId} className="flex gap-3 rounded-lg bg-grey10 px-6 py-4">
+          <div key={education.profileEducationId} className="flex items-center gap-4 rounded-lg bg-grey10 px-6 py-4">
             {/* 이미지 */}
-            {/* <Image
-              src={`/common/icons/universityLogo/${education.universityName}.svg`}
-              alt="university"
-              width={40}
-              height={40}
-            /> */}
+            {(() => {
+              const logoUrl = logoLists.logo.find((logo) => logo.university === education.universityName)?.logoUrl
+              return logoUrl ? <Image src={logoUrl} alt="university" width={40} height={40} /> : null
+            })()}
             {/* 학교 정보 */}
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">

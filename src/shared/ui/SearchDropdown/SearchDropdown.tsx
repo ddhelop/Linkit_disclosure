@@ -8,6 +8,7 @@ interface SearchDropdownProps<T> {
   placeholder?: string
   renderItem?: (item: T, isSelected: boolean) => React.ReactNode
   className?: string
+  getItemLogo?: (item: T) => string
 }
 
 export function SearchDropdown<T>({
@@ -17,6 +18,7 @@ export function SearchDropdown<T>({
   placeholder = '',
   renderItem,
   className = '',
+  getItemLogo,
 }: SearchDropdownProps<T>) {
   const { searchTerm, setSearchTerm, showResults, setShowResults, focusedIndex, filteredItems, handleKeyDown } =
     useSearchDropdown({ items, filterFunction })
@@ -45,13 +47,18 @@ export function SearchDropdown<T>({
             filteredItems.map((item, index) => (
               <div
                 key={index}
-                className={`cursor-pointer px-6 py-3 ${focusedIndex === index ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
+                className={`flex cursor-pointer items-center gap-2 px-6 py-3 ${
+                  focusedIndex === index ? 'bg-gray-100' : 'hover:bg-gray-100'
+                }`}
                 onClick={() => {
                   onSelect(item)
                   setSearchTerm('')
                   setShowResults(false)
                 }}
               >
+                {getItemLogo && (
+                  <Image src={getItemLogo(item)} alt="logo" width={24} height={24} className="h-6 w-6 rounded-lg" />
+                )}
                 {renderItem ? renderItem(item, focusedIndex === index) : String(item)}
               </div>
             ))

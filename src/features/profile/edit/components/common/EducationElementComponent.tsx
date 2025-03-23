@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { logoLists } from '@/shared/data/university_logo_lists_pretty'
 
 interface ElementComponentProps {
   id: number
@@ -67,7 +68,11 @@ export default function EducationElementComponent({
       href={`${editPath}?id=${id}`}
       className="flex cursor-pointer items-center gap-5 rounded-lg border border-transparent bg-white p-5 hover:border-main md:px-10"
     >
-      {/* <Image src={`/common/icons/universityLogo/${title}.svg`} alt="education" width={52} height={52} /> */}
+      {(() => {
+        const logoUrl = logoLists.logo.find((logo) => logo.university === title)?.logoUrl
+        console.log(logoUrl)
+        return logoUrl ? <Image src={logoUrl} alt="university logo" width={52} height={52} /> : null
+      })()}
       <div className="relative flex w-full items-center justify-between gap-1 ">
         <div className="gap-2">
           <Link
