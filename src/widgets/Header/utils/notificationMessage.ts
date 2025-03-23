@@ -1,4 +1,12 @@
-type NotificationType = 'MATCHING' | 'CHATTING' | 'TEAM_INVITATION' | 'TEAM' | 'SYSTEM' | 'ANNOUNCEMENT'
+type NotificationType =
+  | 'MATCHING'
+  | 'CHATTING'
+  | 'TEAM_INVITATION'
+  | 'TEAM'
+  | 'SYSTEM'
+  | 'ANNOUNCEMENT'
+  | 'CERTIFICATION'
+  | 'VISITOR'
 type SubNotificationType =
   | 'MATCHING_REQUESTED'
   | 'MATCHING_ACCEPTED'
@@ -15,12 +23,25 @@ type SubNotificationType =
   | 'ANNOUNCEMENT_REQUESTED'
   | 'ANNOUNCEMENT_ACCEPTED'
   | 'ANNOUNCEMENT_REJECTED'
+  | 'ACTIVITY_CERTIFICATION_ACCEPTED'
+  | 'ACTIVITY_CERTIFICATION_REJECTED'
+  | 'EDUCATION_CERTIFICATION_ACCEPTED'
+  | 'EDUCATION_CERTIFICATION_REJECTED'
+  | 'AWARDS_CERTIFICATION_ACCEPTED'
+  | 'AWARDS_CERTIFICATION_REJECTED'
+  | 'LICENSE_CERTIFICATION_ACCEPTED'
+  | 'LICENSE_CERTIFICATION_REJECTED'
+  | 'PROFILE_VISITOR'
+  | 'TEAM_VISITOR'
 
 interface NotificationDetails {
   matchingTargetName?: string
   chatSenderName?: string
   teamName?: string
   teamMemberName?: string
+  itemType?: 'ACTIVITY' | 'EDUCATION' | 'AWARD' | 'LICENSE'
+  visitorCount?: number
+  visitedType?: 'PROFILE' | 'TEAM'
 }
 
 export const getNotificationMessage = (
@@ -91,6 +112,38 @@ export const getNotificationMessage = (
           return '시스템 알림이 있습니다.'
         default:
           return '알 수 없는 시스템 알림입니다.'
+      }
+
+    case 'CERTIFICATION':
+      switch (subType) {
+        case 'ACTIVITY_CERTIFICATION_ACCEPTED':
+          return '이력 인증 완료!'
+        case 'ACTIVITY_CERTIFICATION_REJECTED':
+          return '이력 인증 거절되었습니다.'
+        case 'EDUCATION_CERTIFICATION_ACCEPTED':
+          return '학력 인증 완료!'
+        case 'EDUCATION_CERTIFICATION_REJECTED':
+          return '학력 인증이 거절되었습니다.'
+        case 'AWARDS_CERTIFICATION_ACCEPTED':
+          return '수상 인증 완료!'
+        case 'AWARDS_CERTIFICATION_REJECTED':
+          return '수상 인증이 거절되었습니다.'
+        case 'LICENSE_CERTIFICATION_ACCEPTED':
+          return '자격증 인증 완료!'
+        case 'LICENSE_CERTIFICATION_REJECTED':
+          return '자격증 인증이 거절되었습니다.'
+        default:
+          return '알 수 없는 인증 알림입니다.'
+      }
+
+    case 'VISITOR':
+      switch (subType) {
+        case 'PROFILE_VISITOR':
+          return `${details.visitorCount}명이 내 프로필을 조회했어요! 확인하러가볼까요?`
+        case 'TEAM_VISITOR':
+          return `${details.visitorCount}명이 ${details.teamName}을 조회했어요! 확인하러가볼까요?`
+        default:
+          return '알 수 없는 방문자 알림입니다.'
       }
 
     default:
