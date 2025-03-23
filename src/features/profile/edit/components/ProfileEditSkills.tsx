@@ -144,7 +144,16 @@ export default function ProfileEditSkills() {
             {selectedSkills.length > 0 ? (
               selectedSkills.map((skill, index) => (
                 <div key={index} className="flex w-full gap-5">
-                  <div className="flex-1 rounded-xl bg-grey20 py-3 pl-6 text-lg text-grey80">{skill.name}</div>
+                  <div className="flex w-full gap-5 rounded-xl bg-grey20 py-3 pl-6 text-grey80">
+                    <Image
+                      src={skillsData.find((s) => s.name === skill.name)?.logoUrl || ''}
+                      alt="skill"
+                      width={24}
+                      height={24}
+                      className="h-6 w-6 rounded-lg"
+                    />
+                    <p className=" text-grey80">{skill.name}</p>
+                  </div>
                   <Select
                     className="md:w-32"
                     value={skill.proficiency}
