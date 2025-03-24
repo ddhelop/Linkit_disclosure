@@ -9,7 +9,13 @@ import { useAuthStore } from '../store/useAuthStore'
 import { useRouter } from 'next/navigation'
 import { Announcement } from '@/features/team/types/team.types'
 
-export default function AnnouncementCard({ announcement }: { announcement: Announcement }) {
+export default function AnnouncementCard({
+  announcement,
+  variant,
+}: {
+  announcement: Announcement
+  variant?: 'narrow' | 'wide'
+}) {
   const [isScrapLoading, setIsScrapLoading] = useState(false)
 
   const { isLogin } = useAuthStore()
@@ -45,7 +51,11 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
   return (
     <Link
       href={`/team/${announcement?.teamCode}/recruit/${announcement?.teamMemberAnnouncementId}`}
-      className="flex min-w-[17rem] cursor-pointer flex-col gap-3 border-b border-grey40 px-10 py-6 last:border-none hover:bg-grey10 md:min-w-[unset]"
+      className={
+        variant == 'wide'
+          ? 'flex min-w-[17rem] cursor-pointer flex-col gap-3 border-b border-grey40 px-10 py-6 last:border-none hover:bg-grey10 md:min-w-[unset]'
+          : 'shadow-announcement flex min-w-[17rem] cursor-pointer flex-col gap-3 rounded-lg border bg-grey10 px-[1.62rem] py-[1.38rem] hover:border-[#7EA5F8] md:min-w-[unset]'
+      }
     >
       <div className="flex justify-between">
         <span

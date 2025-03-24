@@ -90,7 +90,7 @@ export default function AnnouncementFilterResult() {
   const renderSkeletons = (count: number) => {
     return Array(count)
       .fill(0)
-      .map((_, index) => <AnnouncementCardSkeleton key={`skeleton-${index}`} />)
+      .map((_, index) => <AnnouncementCardSkeleton key={`skeleton-${index}`} variant="wide" />)
   }
 
   return (
@@ -105,7 +105,7 @@ export default function AnnouncementFilterResult() {
             {isStaticLoading
               ? renderSkeletons(6)
               : staticAnnouncements?.result?.hotAnnouncements?.map((announcement, index) => (
-                  <AnnouncementCard key={`announcement-${index}`} announcement={announcement} />
+                  <AnnouncementCard key={`announcement-${index}`} announcement={announcement} variant="wide" />
                 ))}
           </div>
         </section>
@@ -120,7 +120,7 @@ export default function AnnouncementFilterResult() {
           {isInfiniteLoading
             ? renderSkeletons(6)
             : allAnnouncements.map((announcement, index) => (
-                <AnnouncementCard key={`announcement-${index}`} announcement={announcement} />
+                <AnnouncementCard key={`announcement-${index}`} announcement={announcement} variant="wide" />
               ))}
         </div>
       </section>
