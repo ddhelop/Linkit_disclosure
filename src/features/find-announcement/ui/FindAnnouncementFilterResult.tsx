@@ -94,14 +94,14 @@ export default function AnnouncementFilterResult() {
   }
 
   return (
-    <main className="flex flex-col gap-6 md:px-12">
+    <main className="flex flex-col md:px-12">
       {!isFilterApplied() && (
         <section aria-labelledby="hot-announcements-heading">
           <h2 id="hot-announcements-heading" className="text-lg font-semibold text-black">
             🔥 지금 핫한 공고예요!
           </h2>
 
-          <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3 xl:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1">
             {isStaticLoading
               ? renderSkeletons(6)
               : staticAnnouncements?.result?.hotAnnouncements?.map((announcement, index) => (
@@ -116,13 +116,11 @@ export default function AnnouncementFilterResult() {
         <h2 id="announcement-list-heading" className="text-lg font-semibold text-black">
           {isFilterApplied() ? '검색 결과' : '🔍 나에게 맞는 모집 공고를 더 찾아보세요!'}
         </h2>
-        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3 xl:grid-cols-3">
+        <div className="mt-6 grid grid-cols-1">
           {isInfiniteLoading
-            ? renderSkeletons(12)
+            ? renderSkeletons(6)
             : allAnnouncements.map((announcement, index) => (
-                <article key={`announcement-${index}`}>
-                  <AnnouncementCard announcement={announcement} />
-                </article>
+                <AnnouncementCard key={`announcement-${index}`} announcement={announcement} />
               ))}
         </div>
       </section>
@@ -130,8 +128,8 @@ export default function AnnouncementFilterResult() {
       {/* 추가 데이터 로딩 중 스켈레톤 UI */}
       {isFetchingNextPage && (
         <section aria-label="추가 데이터 로딩 중">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {renderSkeletons(6)} {/* 추가 로딩 시 스켈레톤 6개 표시 */}
+          <div className="grid grid-cols-1">
+            {renderSkeletons(3)} {/* 추가 로딩 시 스켈레톤 3개 표시 */}
           </div>
         </section>
       )}
