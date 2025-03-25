@@ -2,9 +2,11 @@
 import { useEffect, useState } from 'react'
 import { getTeamLogDetail } from '../../api/teamViewApi'
 import { TeamLog } from '../../types/team.types'
+import { useScrollTopOnMount } from '@/shared/hooks/useScrollTopOnMount'
 
 export default function TeamViewDetail({ teamName, id }: { teamName: string; id: number }) {
   const [log, setLog] = useState<TeamLog | null>(null)
+  useScrollTopOnMount()
 
   useEffect(() => {
     const fetchData = async () => {
