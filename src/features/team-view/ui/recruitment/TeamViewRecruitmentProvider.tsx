@@ -9,8 +9,10 @@ import { useAuthStore } from '@/shared/store/useAuthStore'
 import { getTeamCard, getTeamRecruitment } from '../../api/TeamDataViewApi'
 import { useQuery } from '@tanstack/react-query'
 import TeamViewRecruitDetail from './TeamViewRecruitDetail'
+import { useScrollTopOnMount } from '@/shared/hooks/useScrollTopOnMount'
 
 export default function TeamViewRecruitmentProvider() {
+  useScrollTopOnMount()
   const [showApplyModal, setShowApplyModal] = useState(false)
   const router = useRouter()
   const toast = useToast()
