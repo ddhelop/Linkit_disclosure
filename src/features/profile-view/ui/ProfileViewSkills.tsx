@@ -3,6 +3,8 @@ import { useQuery } from '@tanstack/react-query'
 import { EditableContainer } from '../component/EditableContainer'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
 import ProfileViewSkillsSkeleton from './skeleton/ProfileViewSkillsSkeleton'
+import Image from 'next/image'
+import { skillsData } from '@/shared/data/skillsData'
 
 export default function ProfileViewSkills({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
@@ -37,7 +39,14 @@ export default function ProfileViewSkills({ emailId }: { emailId: string }) {
           ))}
         {skillItems.map((skill) => (
           <div key={skill.profileSkillId} className="group relative w-fit">
-            <div className="min-w-[100px] rounded-[62.5rem] bg-[#D3E1FE] px-7 py-1 text-center text-sm font-semibold text-grey80 transition-opacity duration-300 group-hover:opacity-0">
+            <div className="flex min-w-[100px] items-center justify-center gap-2 rounded-[62.5rem] bg-[#D3E1FE] px-4 py-1 text-center text-sm font-semibold text-grey80 transition-opacity duration-300 group-hover:opacity-0">
+              <Image
+                src={skillsData.find((s) => s.name === skill.skillName)?.logoUrl || ''}
+                alt="logo"
+                width={15}
+                height={15}
+                className="rounded-lg"
+              />
               {skill.skillName}
             </div>
             <div className="absolute left-0 top-0 w-full min-w-[100px] rounded-[62.5rem] bg-[#D3E1FE] px-7 py-1 text-center text-sm font-semibold text-grey80 opacity-0 transition-opacity duration-300 group-hover:opacity-100">

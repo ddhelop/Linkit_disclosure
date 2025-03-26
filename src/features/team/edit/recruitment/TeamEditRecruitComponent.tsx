@@ -109,7 +109,7 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
             <Image src="/common/icons/more_row.svg" alt="edit" width={20} height={20} className="cursor-pointer" />
           </div>
           {isMenuOpen && (
-            <div ref={menuRef} className="absolute right-0 mt-2 w-32 rounded-lg bg-white py-2 shadow-lg">
+            <div ref={menuRef} className="absolute right-0 z-10 mt-2 w-32 rounded-lg bg-white py-2 shadow-lg">
               <Link
                 href={`/team/${teamName}/edit/recruit/new?id=${announcement.teamMemberAnnouncementId}`}
                 className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
@@ -153,7 +153,7 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
         >
           {announcement.majorPosition}
         </div>
-        {announcement.announcementSkillNames.map((skill, index) => (
+        {announcement.announcementSkillNames.slice(0, 1).map((skill, index) => (
           <div
             key={`${skill.announcementSkillName}-${index}`}
             className={twMerge(
@@ -164,6 +164,16 @@ export default function TeamEditRecruitComponent({ announcement, teamName, onDel
             {skill.announcementSkillName}
           </div>
         ))}
+        {announcement.announcementSkillNames.length > 1 && (
+          <div
+            className={twMerge(
+              'rounded-[0.38rem] bg-[#EDF3FF] px-4 py-2 text-xs text-main',
+              isClosed && 'bg-grey20 text-grey60',
+            )}
+          >
+            +{announcement.announcementSkillNames.length - 1}
+          </div>
+        )}
       </div>
     </Link>
   )

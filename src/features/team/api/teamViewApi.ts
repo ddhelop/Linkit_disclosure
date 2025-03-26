@@ -1,4 +1,6 @@
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
+import { ApiResponse } from '@/shared/types/ApiResponse'
+import { TeamLog } from '../types/team.types'
 
 // --------------
 // 팀 로그 상세 페이지 조회
@@ -6,6 +8,15 @@ export async function getTeamLogDetail(teamName: string, logId: number) {
   const response = await fetchWithAuth(`/api/v1/team/${teamName}/log/${logId}`)
   if (!response.ok) {
     throw new Error('Failed to fetch team log detail')
+  }
+  return response.json()
+}
+
+// 팀 로그 리스트 조회
+export async function getTeamLogs(teamName: string): Promise<ApiResponse<{ teamLogItems: TeamLog[] }>> {
+  const response = await fetchWithAuth(`/api/v1/team/${teamName}/log`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch team logs')
   }
   return response.json()
 }

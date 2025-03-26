@@ -53,7 +53,6 @@ export default function AnnouncementFilterResult() {
       }
       return undefined
     },
-    staleTime: 1000 * 60 * 5, // 5분
   })
 
   // 무한 스크롤 설정
