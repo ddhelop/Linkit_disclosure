@@ -37,7 +37,7 @@ export default function TeamViewReruitComponent({
       if (response.ok) {
         setIsScrap(!isScrap)
         setScrapCount((prev: number) => (!isScrap ? prev + 1 : prev - 1))
-        toast.success('스크랩 상태가 변경되었습니다.')
+        toast.success(!isScrap ? '스크랩이 완료되었어요.' : '스크랩이 취소되었어요.')
       }
     } catch (error) {
       console.error('Failed to update scrap:', error)
