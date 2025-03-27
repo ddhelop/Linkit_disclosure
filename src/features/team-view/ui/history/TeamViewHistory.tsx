@@ -1,7 +1,7 @@
 'use client'
 import { getTeamHistoryCalendar } from '@/features/team-view/api/TeamDataViewApi'
 import TeamViewNotView from '@/features/team-view/ui/teamInfo/TeamViewNotView'
-import { TeamHistoryCalendar, YearHistory, MonthHistory, TeamHistory } from '@/features/team/types/team.types'
+import { MonthHistory, YearHistory } from '@/features/team/types/team.types'
 
 import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
@@ -67,13 +67,7 @@ export default function TeamViewHistory({ teamName }: { teamName: string }) {
                           {histories.map((history, index) => (
                             <>
                               <li key={history.teamHistoryId} className="flex flex-col gap-2">
-                                <div className="flex items-center gap-2">
-                                  <p className="font-semibold text-grey80">{history.historyName}</p>
-                                  <p className=" text-xs text-grey60">
-                                    {history.historyStartDate} -{' '}
-                                    {history.isHistoryInProgress ? '진행 중' : history.historyEndDate || ''}
-                                  </p>
-                                </div>
+                                <p className="font-semibold text-grey80">{history.historyName}</p>
                                 {history.historyDescription && (
                                   <p className="text-xs text-grey60">{history.historyDescription}</p>
                                 )}
