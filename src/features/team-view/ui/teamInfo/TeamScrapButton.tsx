@@ -38,7 +38,7 @@ export const TeamScrapButton = ({ teamName, initialIsScrap, teamScrapCount }: Te
       const data = await teamScrap(teamName, newScrapState)
 
       if (data.isSuccess) {
-        toast.success('스크랩 상태가 변경되었습니다.')
+        toast.success(newScrapState ? '스크랩이 완료되었어요.' : '스크랩이 취소되었어요.')
       } else {
         // API 실패시 원래 상태로 롤백
         setIsTeamScrap(!newScrapState)
