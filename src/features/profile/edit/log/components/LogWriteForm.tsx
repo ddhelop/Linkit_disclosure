@@ -1,22 +1,24 @@
 // LogWriteForm.tsx
 'use client'
 
-import 'react-quill/dist/quill.snow.css'
-import ReactQuill, { Quill } from 'react-quill'
-import { useRef, useMemo, useState, useEffect } from 'react'
-import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import EditorToolbar, { formats } from './EditorToolbar'
-import ImageResize from 'quill-image-resize-module-react'
-import { Button } from '@/shared/ui/Button/Button'
-import Link from 'next/link'
 import { createProfileLog, updateProfileLog } from '@/features/profile/api/createProfileLog'
-import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 import { getProfileLog } from '@/features/profile/api/getProfileLogs'
-import { getTeamLog, createTeamLog, updateTeamLog } from '@/features/team/api/teamApi'
+import { createTeamLog, getTeamLog, updateTeamLog } from '@/features/team/api/teamApi'
 import { useToast } from '@/shared/hooks/useToast'
+import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
+import { Button } from '@/shared/ui/Button/Button'
 import Radio from '@/shared/ui/Radio/Radio'
+import Link from 'next/link'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import AutoLinks from 'quill-auto-links'
+import ImageResize from 'quill-image-resize-module-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import ReactQuill, { Quill } from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
+import EditorToolbar, { formats } from './EditorToolbar'
 
 Quill.register('modules/imageResize', ImageResize)
+Quill.register('modules/autoLinks', AutoLinks)
 
 const Size = Quill.import('attributors/style/size')
 Size.whitelist = ['10px', '12px', '14px', '18px', '20px', '22px', '24px']
@@ -137,6 +139,7 @@ export default function LogWriteForm({ domainType = 'PROFILE', teamCode }: LogWr
       imageResize: {
         modules: ['Resize', 'DisplaySize', 'Toolbar'],
       },
+      autoLinks: true,
     }),
     [],
   )
