@@ -1,10 +1,13 @@
 'use client'
 
-export default function AnnouncementCardSkeleton() {
+export default function AnnouncementCardSkeleton({ variant }: { variant?: 'narrow' | 'wide' }) {
   return (
     <div
-      className="flex min-w-[17rem] flex-col gap-3 rounded-lg border bg-white px-[1.62rem] py-[1.38rem] md:min-w-[unset]"
-      style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
+      className={
+        variant == 'wide'
+          ? 'flex min-w-[17rem] flex-col gap-3 border-t border-grey40 px-[1.62rem] py-[1.38rem] md:min-w-[unset]'
+          : 'shadow-announcement flex min-w-[17rem] flex-col gap-3 rounded-lg border bg-white px-[1.62rem] py-[1.38rem] md:min-w-[unset]'
+      }
     >
       <div className="flex justify-between">
         {/* 모집 상태 스켈레톤 */}

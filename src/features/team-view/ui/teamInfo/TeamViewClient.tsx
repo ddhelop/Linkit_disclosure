@@ -1,26 +1,15 @@
 'use client'
-import { getTeamAnnouncements } from '@/features/team/api/teamApi'
-import { Announcement } from '@/features/team/types/team.types'
+import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { getTeamRepresentLog } from '../../api/TeamDataItemsApi'
 import TeamInfo from './TeamInfo'
 
 export default function TeamViewClient({ teamName }: { teamName: string }) {
-  const [announcements, setAnnouncements] = useState<Announcement[]>([])
-
-  useEffect(() => {
-    const fetchAnnouncements = async () => {
-      try {
-        const response = await getTeamAnnouncements(teamName)
-        setAnnouncements(response.result.teamMemberAnnouncementItems)
-      } catch (error) {
-        console.error('Failed to fetch announcements:', error)
-      }
-    }
-
-    fetchAnnouncements()
-  }, [teamName])
+  const { data } = useQuery({
+    queryKey: ['teamRepresentLog', teamName],
+    queryFn: () => getTeamRepresentLog(teamName),
+  })
   const pathname = usePathname()
 
   // 선택된 메뉴의 스타일
@@ -50,7 +39,7 @@ export default function TeamViewClient({ teamName }: { teamName: string }) {
               <Link href={`/team/${teamName}/log`} className={pathname.includes('/log') ? selectedStyle : defaultStyle}>
                 팀 로그
               </Link>
-              {announcements.length == 0 && (
+              {data && data.result.teamLogItems.length == 0 && (
                 <div className="absolute left-0 top-0 -translate-y-full pb-1">
                   <CreateLogAndMeetMoreApplicants />
                 </div>

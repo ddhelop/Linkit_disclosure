@@ -4,5 +4,6 @@
   "singleQuote": true,
   "trailingComma": "all",
   "semi": false,
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindFunctions": ["twMerge", "twJoin"]
 }

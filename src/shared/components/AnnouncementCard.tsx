@@ -9,8 +9,13 @@ import { useAuthStore } from '../store/useAuthStore'
 import { useRouter } from 'next/navigation'
 import { Announcement } from '@/features/team/types/team.types'
 
-export default function AnnouncementCard({ announcement }: { announcement: Announcement }) {
-  const [scrapCount, setScrapCount] = useState(announcement.announcementScrapCount ?? 0)
+export default function AnnouncementCard({
+  announcement,
+  variant,
+}: {
+  announcement: Announcement
+  variant?: 'narrow' | 'wide'
+}) {
   const [isScrapLoading, setIsScrapLoading] = useState(false)
 
   const { isLogin } = useAuthStore()
@@ -34,8 +39,10 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
       )
       if (response.ok) {
         announcement.isAnnouncementScrap = !announcement.isAnnouncementScrap
+
         setScrapCount((prev) => (!announcement.isAnnouncementScrap ? prev + 1 : prev - 1))
         toast.success(!announcement.isAnnouncementScrap ? '스크랩이 완료되었어요.' : '스크랩이 취소되었어요.')
+
       }
     } catch (error) {
       toast.alert('오류가 발생하였습니다.')
@@ -47,8 +54,11 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
   return (
     <Link
       href={`/team/${announcement?.teamCode}/recruit/${announcement?.teamMemberAnnouncementId}`}
-      className="flex min-w-[17rem] cursor-pointer flex-col gap-3 rounded-lg border bg-grey10 px-[1.62rem] py-[1.38rem] hover:border-[#7EA5F8] md:min-w-[unset]"
-      style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
+      className={
+        variant == 'wide'
+          ? 'flex min-w-[17rem] cursor-pointer flex-col gap-3 border-b border-grey40 px-10 py-6 last:border-none hover:bg-grey10 md:min-w-[unset]'
+          : 'shadow-announcement flex min-w-[17rem] cursor-pointer flex-col gap-3 rounded-lg border bg-grey10 px-[1.62rem] py-[1.38rem] hover:border-[#7EA5F8] md:min-w-[unset]'
+      }
     >
       <div className="flex justify-between">
         <span
@@ -88,15 +98,21 @@ export default function AnnouncementCard({ announcement }: { announcement: Annou
         )}
         <span className="text-sm text-grey90">{announcement?.teamName}</span>
       </div>
+
+      <div className="text-xs text-grey60">{announcement.createdAt}</div>
+
       <div className="flex w-[90%] flex-col gap-1 ">
         <span className="line-clamp-2 text-lg font-semibold text-grey90">{announcement?.announcementTitle}</span>
-        <span className="text-xs text-grey70">스크랩수 {scrapCount}</span>
       </div>
 
       <div className="flex gap-2">
         <div className="flex items-center rounded-[0.38rem] bg-[#D3E1FE] px-3 py-1 text-sm text-main">
           {announcement?.announcementPositionItem?.subPosition}
         </div>
+      </div>
+
+      <div>
+        <span className="text-xs text-grey70">조회수 {announcement.viewCount}</span>
       </div>
     </Link>
   )
