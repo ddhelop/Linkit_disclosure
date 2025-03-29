@@ -2,12 +2,11 @@ import {
   Announcement,
   TeamCard,
   TeamData,
-  TeamHistory,
-  TeamHistoryCalendar,
   TeamLog,
   TeamMember,
   TeamProductView,
 } from '@/features/team/types/team.types'
+import { TeamHistory, TeamHistoryCalendar } from '@/features/team/types/teamHistory.types'
 
 import { fetchWithCSR, fetchWithSSR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'

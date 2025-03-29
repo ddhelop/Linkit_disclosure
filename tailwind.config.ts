@@ -62,6 +62,7 @@ const config: Config = {
         'gray-07': '151.669px 78.968px 171.689px 0px rgba(109, 114, 120, 0.25)',
         'logo-shadow': '11.99px 5.595px 11.67px 0px rgba(53, 54, 66, 0.04)',
         'resume-box-shadow': '0px 9px 30px 0px rgba(31, 41, 53, 0.05);',
+        announcement: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)',
       },
       backdropFilter: {
         'blur-lg': 'blur(32px)',

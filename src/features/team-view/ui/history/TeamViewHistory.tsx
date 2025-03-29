@@ -1,7 +1,9 @@
 'use client'
 import { getTeamHistoryCalendar } from '@/features/team-view/api/TeamDataViewApi'
 import TeamViewNotView from '@/features/team-view/ui/teamInfo/TeamViewNotView'
-import { MonthHistory, YearHistory } from '@/features/team/types/team.types'
+
+import { MonthHistory, YearHistory } from '@/features/team/types/teamHistory.types'
+
 
 import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'

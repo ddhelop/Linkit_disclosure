@@ -29,7 +29,7 @@ export default function ProfileMatchButton() {
         className="flex w-[12.5rem] justify-center gap-2 rounded-full bg-white py-4 hover:border hover:border-[#4D82F3]"
       >
         <Image src="/common/icons/not_send.svg" alt="scrap" width={20} height={20} />
-        <span className="text-sm text-[#4D82F3]">요청 보내기</span>
+        <span className="text-sm text-[#4D82F3]">매칭 요청하기</span>
       </button>
 
       <MatchingModal

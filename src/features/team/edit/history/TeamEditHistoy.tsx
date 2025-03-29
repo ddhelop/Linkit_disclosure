@@ -7,9 +7,10 @@ import { useToast } from '@/shared/hooks/useToast'
 import NotContentsUi from '@/features/profile/edit/components/common/NotContentsUi'
 import DropdownMenu from '@/shared/components/DropdownMenu'
 import { useRouter } from 'next/navigation'
-import { TeamHistory } from '../../types/team.types'
+
 import { useQuery } from '@tanstack/react-query'
 import { getTeamHistoryList } from '@/features/team-view/api/TeamDataViewApi'
+import { TeamHistory } from '../../types/teamHistory.types'
 
 export default function TeamEditHistoy({ teamName }: { teamName: string }) {
   const toast = useToast()

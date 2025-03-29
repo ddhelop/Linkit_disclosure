@@ -2,105 +2,87 @@
 
 import { Button } from '@/shared/ui/Button/Button'
 import Input from '@/shared/ui/Input/Input'
-import DateRangePicker from '@/shared/ui/Select/DateRangePicker'
 import Textarea from '@/shared/ui/TextArea/TextArea'
-import { useEffect, useState } from 'react'
-import { createTeamHistory, getTeamHistory, getTeamHistoryDetail, updateTeamHistory } from '../../api/teamApi'
+import { useForm } from 'react-hook-form'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useToast } from '@/shared/hooks/useToast'
+import { getTeamSingleHistory } from '../../api/teamHistoryApi'
+import { useQuery } from '@tanstack/react-query'
+import { createTeamHistory, updateTeamHistory } from '../../api/teamApi'
+import { TeamHistory } from '../../types/teamHistory.types'
+import { ApiResponse } from '@/shared/types/ApiResponse'
+import DatePicker from '@/shared/ui/Select/DatePicker'
+import { useEffect } from 'react'
 
 export default function TeamEditHistoryNew({ teamName }: { teamName: string }) {
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
   const toast = useToast()
-
-  const [originalData, setOriginalData] = useState({
-    historyName: '',
-    historyStartDate: '',
-    historyEndDate: '',
-    isHistoryInProgress: false,
-    historyDescription: '',
-  })
-
-  useEffect(() => {
-    const fetchHistory = async () => {
-      if (id) {
-        const history = await getTeamHistoryDetail(teamName, Number(id))
-        const historyData = history.result
-        setOriginalData({
-          historyName: historyData.historyName,
-          historyStartDate: historyData.historyStartDate,
-          historyEndDate: historyData.historyEndDate,
-          isHistoryInProgress: historyData.isHistoryInProgress,
-          historyDescription: historyData.historyDescription,
-        })
-        setHistoryName(historyData.historyName)
-        setStartDate(historyData.historyStartDate)
-        setEndDate(historyData.historyEndDate)
-        setIsOngoing(historyData.isHistoryInProgress)
-        setDescription(historyData.historyDescription)
-      }
-    }
-    fetchHistory()
-  }, [teamName, id])
-
-  const [historyName, setHistoryName] = useState('')
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
-  const [isOngoing, setIsOngoing] = useState(false)
-  const [description, setDescription] = useState('')
   const router = useRouter()
 
-  const handleStartDateChange = (date: string) => {
-    setStartDate(date)
-  }
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    reset,
+    formState: { isDirty },
+  } = useForm<TeamHistory>({
+    defaultValues: {
+      historyName: '',
+      historyStartDate: '',
+      historyEndDate: '',
+      historyDescription: '',
+      isHistoryInProgress: false,
+    },
+  })
 
-  const handleEndDateChange = (date: string) => {
-    setEndDate(date)
-  }
+  // 연혁 단일 조회
+  const { data: history } = useQuery<ApiResponse<TeamHistory>, Error>({
+    queryKey: ['teamEditHistory', teamName, id],
+    queryFn: () => getTeamSingleHistory(teamName, Number(id)),
+    enabled: !!id,
+  })
 
-  const handleToggleOngoing = () => {
-    setIsOngoing(!isOngoing)
-  }
+  // history 데이터 로드되면 reset으로 초기화
+  useEffect(() => {
+    if (history) {
+      const result = history.result
+      reset({
+        historyName: result.historyName,
+        historyStartDate: result.historyStartDate,
+        historyEndDate: result.historyEndDate,
+        isHistoryInProgress: result.isHistoryInProgress,
+        historyDescription: result.historyDescription,
+      })
+    }
+  }, [history, reset])
 
-  const handleSubmit = async () => {
+  const onSubmit = async (data: TeamHistory) => {
     try {
-      const historyData = {
-        historyName,
-        historyStartDate: startDate,
-        historyEndDate: isOngoing ? null : endDate,
-        isHistoryInProgress: isOngoing,
-        historyDescription: description,
+      const payload = {
+        historyName: data.historyName,
+        historyStartDate: data.historyStartDate,
+        historyEndDate: data.isHistoryInProgress ? null : data.historyEndDate,
+        isHistoryInProgress: data.isHistoryInProgress,
+        historyDescription: data.historyDescription,
       }
 
       if (id) {
-        await updateTeamHistory(teamName, Number(id), historyData)
+        await updateTeamHistory(teamName, Number(id), payload)
       } else {
-        await createTeamHistory(teamName, historyData)
+        await createTeamHistory(teamName, payload)
       }
 
       toast.success('연혁이 생성되었습니다.')
       router.push(`/team/${teamName}/edit/history`)
     } catch (error) {
       console.error('Failed to create team history:', error)
-      // TODO: 에러 처리
     }
   }
 
-  const isDataChanged = () => {
-    if (!id) return true
-
-    return (
-      originalData.historyName !== historyName ||
-      originalData.historyStartDate !== startDate ||
-      originalData.historyEndDate !== endDate ||
-      originalData.isHistoryInProgress !== isOngoing ||
-      originalData.historyDescription !== description
-    )
-  }
-
   return (
-    <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-10 rounded-xl bg-white p-5 md:px-[2.87rem] md:py-10">
         {/* 연혁명 */}
         <div className="flex w-full flex-col justify-between gap-3 ">
@@ -114,45 +96,39 @@ export default function TeamEditHistoryNew({ teamName }: { teamName: string }) {
           </div>
           <Input
             placeholder="연혁명을 입력해 주세요 (50자 이내)"
-            value={historyName}
-            onChange={(e) => setHistoryName(e.target.value)}
+            {...register('historyName', { required: true, maxLength: 50 })}
           />
         </div>
 
         {/* 기간 */}
         <div className="flex w-full flex-col justify-between gap-3 ">
-          <DateRangePicker
-            startDate={startDate}
-            endDate={endDate}
-            isOngoing={isOngoing}
-            onStartDateChange={handleStartDateChange}
-            onEndDateChange={handleEndDateChange}
-            onToggleOngoing={handleToggleOngoing}
+          <DatePicker
+            date={watch('historyStartDate')}
+            onDateChange={(date) => setValue('historyStartDate', date, { shouldDirty: true })}
+            placeholder="YYYY.MM"
+            label="날짜"
+            required
+            className="w-full"
+            isOngoing={watch('isHistoryInProgress')}
+            onOngoingChange={(isOngoing) => setValue('isHistoryInProgress', isOngoing, { shouldDirty: true })}
           />
         </div>
 
         {/* 설명 */}
         <div className="flex w-full flex-col justify-between gap-3 ">
           <span className="flex gap-1 text-grey80">설명</span>
-
           <Textarea
             placeholder="설명을 입력해 주세요 (300자 이내)"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            {...register('historyDescription', { maxLength: 300 })}
           />
         </div>
       </div>
-      <div className="flex justify-end">
-        <Button
-          mode="main2"
-          animationMode="main"
-          className="rounded-[0.69rem] py-2"
-          onClick={handleSubmit}
-          disabled={!isDataChanged()}
-        >
+
+      <div className="mt-3 flex justify-end">
+        <Button mode="main2" animationMode="main" className="rounded-[0.69rem] py-2" type="submit" disabled={!isDirty}>
           저장하기
         </Button>
       </div>
-    </>
+    </form>
   )
 }
