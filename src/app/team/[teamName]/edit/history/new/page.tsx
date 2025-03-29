@@ -2,7 +2,9 @@ import TeamEditHistoryNew from '@/features/team/edit/history/TeamEditHistoryNew'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function TeamEditHistoryNewPage({ params }: { params: { teamName: string } }) {
+export default async function TeamEditHistoryNewPage({ params }: { params: { teamName: string } }) {
+  const teamName = params.teamName
+
   return (
     <div className="flex flex-col gap-5">
       <Link href={`/team/${params.teamName}/edit/history`} className="flex gap-2">

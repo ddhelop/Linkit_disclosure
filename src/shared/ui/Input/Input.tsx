@@ -12,7 +12,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   disabled?: boolean
   maxLength?: number
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
-  onBlur?: () => void
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
+
   error?: boolean
 }
 
