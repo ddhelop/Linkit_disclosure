@@ -17,6 +17,7 @@ export default function AnnouncementCard({
   variant?: 'narrow' | 'wide'
 }) {
   const [isScrapLoading, setIsScrapLoading] = useState(false)
+  const [scrapCount, setScrapCount] = useState(announcement.announcementScrapCount || 0)
 
   const { isLogin } = useAuthStore()
   const toast = useToast()
@@ -42,7 +43,6 @@ export default function AnnouncementCard({
 
         setScrapCount((prev) => (!announcement.isAnnouncementScrap ? prev + 1 : prev - 1))
         toast.success(!announcement.isAnnouncementScrap ? '스크랩이 완료되었어요.' : '스크랩이 취소되었어요.')
-
       }
     } catch (error) {
       toast.alert('오류가 발생하였습니다.')
