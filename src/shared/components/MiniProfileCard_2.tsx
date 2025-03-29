@@ -35,7 +35,7 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCardProps) {
       if (response.ok) {
         profile.isProfileScrap = !profile.isProfileScrap
         setScrapCount((prev) => (profile.isProfileScrap ? prev - 1 : prev + 1))
-        toast.success('스크랩 상태가 변경되었습니다.')
+        toast.success(!profile.isProfileScrap ? '스크랩이 완료되었어요.' : '스크랩이 취소되었어요.')
       }
     } catch (error) {
       toast.alert('스크랩 상태 변경에 실패했습니다.')

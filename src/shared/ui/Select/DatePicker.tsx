@@ -1,6 +1,7 @@
 'use client'
 
 import Input from '@/shared/ui/Input/Input'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 
 interface DatePickerProps {
@@ -10,6 +11,8 @@ interface DatePickerProps {
   label?: string
   required?: boolean
   className?: string
+  isOngoing?: boolean
+  onOngoingChange?: (isOngoing: boolean) => void
 }
 
 const DatePicker: React.FC<DatePickerProps> = ({
@@ -19,6 +22,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
   label = '날짜',
   required = false,
   className = '',
+  isOngoing = false,
+  onOngoingChange,
 }) => {
   const [localDate, setLocalDate] = useState(date)
   const [isDateValid, setIsDateValid] = useState(true)
@@ -66,6 +71,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
     }
   }
 
+  const handleOngoingToggle = () => {
+    onOngoingChange?.(!isOngoing)
+  }
+
   return (
     <div className="flex flex-col gap-3">
       {label && (
@@ -81,6 +90,25 @@ const DatePicker: React.FC<DatePickerProps> = ({
         onChange={handleDateChange}
         maxLength={7}
       />
+      {isOngoing !== undefined && (
+        <div className="flex w-full gap-2" onClick={handleOngoingToggle}>
+          <div className="flex w-full items-center gap-2">
+            <div
+              className={`cursor-pointer rounded-[0.32rem] border p-[0.32rem] ${
+                isOngoing ? 'bg-[#D3E1FE]' : 'border-grey40 bg-grey20'
+              }`}
+            >
+              <Image
+                src={`/common/icons/${isOngoing ? 'btn_blue_check.svg' : 'btn_check.svg'}`}
+                width={13}
+                height={13}
+                alt="check-icon"
+              />
+            </div>
+            <span>진행 중</span>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

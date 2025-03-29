@@ -104,9 +104,9 @@ export default function TeamViewRecruitDetail({
 
       <span className="mt-3 text-xs text-grey70">{formatDate(recruitmentDetail?.createdAt)} 업로드</span>
       <div className="flex items-start justify-between">
-        <div className="flex items-start gap-3">
-          <span className="max-w-[80%] text-2xl font-semibold text-grey90">{recruitmentDetail?.announcementTitle}</span>
-          <span className="mt-2 text-xs text-grey70">조회수 {recruitmentDetail?.viewCount}</span>
+        <div className="mt-1 flex flex-col gap-1">
+          <span className="text-2xl font-semibold text-grey90">{recruitmentDetail?.announcementTitle}</span>
+          <span className="text-xs text-grey70">조회수 {recruitmentDetail?.viewCount}</span>
         </div>
 
         {isTeamManager && (
