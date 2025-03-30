@@ -6,8 +6,8 @@ import ProfileMenu from './ProfileMenu'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
-import ChatButton from './IconButtons/ChatButton'
-import NotificationButton from './IconButtons/NotificationButton'
+
+import HeaderActionButtons from './HeaderActionButtons'
 
 export default function UserMenu() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -33,11 +33,6 @@ export default function UserMenu() {
 
   return (
     <div className="flex items-center gap-[2rem]">
-      <div className="flex gap-5">
-        <ChatButton />
-        <NotificationButton emailId={emailId || ''} />
-      </div>
-
       <div className="relative w-[6.5rem]">
         <button
           ref={buttonRef}

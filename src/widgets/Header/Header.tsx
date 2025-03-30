@@ -13,6 +13,7 @@ import MobileMenu from './components/MobileMenu'
 import ChatButton from './components/IconButtons/ChatButton'
 import NotificationButton from './components/IconButtons/NotificationButton'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
+import HeaderActionButtons from './components/HeaderActionButtons'
 
 export default function Header() {
   const pathname = usePathname()
@@ -54,10 +55,6 @@ export default function Header() {
     return null
   }
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen)
-  }
-
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
@@ -71,12 +68,7 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-4 font-normal text-grey90">
-          {isLogin && (
-            <div className="flex gap-3 md:hidden">
-              <ChatButton />
-              <NotificationButton emailId={emailId || ''} />
-            </div>
-          )}
+          {isLogin && <HeaderActionButtons emailId={emailId || ''} />}
           <div className="hidden md:flex">{isLogin ? <UserMenu /> : <GuestMenu />}</div>
 
           <button

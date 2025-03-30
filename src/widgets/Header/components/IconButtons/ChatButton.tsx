@@ -1,11 +1,12 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
-import useNotificationStore from '@/shared/store/useNotificationStore'
 
-export default function ChatButton() {
-  const unreadChatCount = useNotificationStore((state) => state.unreadChatCount)
+interface ChatButtonProps {
+  unreadChatCount: number
+}
 
+export default function ChatButton({ unreadChatCount }: ChatButtonProps) {
   return (
     <Link href="/chat">
       <div className="relative flex cursor-pointer items-center">
