@@ -116,7 +116,7 @@ export default function AnnouncementFilterResult() {
 
       {/* 공고 리스트 */}
       <section aria-labelledby="announcement-list-heading">
-        <h2 id="announcement-list-heading" className="text-lg font-semibold text-black">
+        <h2 id="announcement-list-heading" className="mt-5 text-lg font-semibold text-black">
           {isFilterApplied() ? '검색 결과' : '🔍 나에게 맞는 모집 공고를 더 찾아보세요!'}
         </h2>
         <div className="mt-6 grid grid-cols-1">

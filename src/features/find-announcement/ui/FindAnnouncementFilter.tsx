@@ -8,7 +8,6 @@ export default function FindAnnouncementFilter() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [activeSection, setActiveSection] = useState<'position' | 'location' | 'size' | 'projectType' | null>(null)
-
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   // URL에서 필터 상태 가져오기 - 여러 값을 배열로 가져오도록 수정
@@ -16,8 +15,15 @@ export default function FindAnnouncementFilter() {
   const selectedLocations = searchParams.getAll('cityName')
   const selectedSize = searchParams.getAll('scaleName')
   const selectedProjectType = searchParams.getAll('projectType')
+
   const handleSectionClick = (section: 'position' | 'location' | 'size' | 'projectType') => {
     setActiveSection(section)
+    setIsFilterOpen(true)
+  }
+
+  // 모바일에서 필터 버튼 클릭 시 모달 열기
+  const handleMobileFilterClick = () => {
+    setActiveSection('position') // 기본 섹션 설정
     setIsFilterOpen(true)
   }
 
@@ -116,7 +122,17 @@ export default function FindAnnouncementFilter() {
           style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
           aria-label="필터 옵션"
         >
-          <div className="grid grid-cols-4 gap-4">
+          {/* 모바일용 버튼 (md 화면 크기 미만에서만 표시) */}
+          <button
+            onClick={handleMobileFilterClick}
+            className="flex w-full cursor-pointer items-center gap-2 rounded-xl border border-grey30 p-3 text-sm hover:bg-[#EDF3FF] md:hidden"
+            aria-label="필터 열기"
+          >
+            <span className="ml-2 text-xs text-grey70">필터로 검색하기</span>
+          </button>
+
+          {/* 데스크톱용 버튼 (md 화면 크기 이상에서만 표시) */}
+          <div className="hidden grid-cols-4 gap-4 md:grid">
             <button
               onClick={() => handleSectionClick('position')}
               className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 p-3 text-xs hover:bg-[#EDF3FF] sm:px-5 sm:py-4 sm:text-sm"
