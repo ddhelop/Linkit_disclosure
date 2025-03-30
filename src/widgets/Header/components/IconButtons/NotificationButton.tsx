@@ -1,16 +1,15 @@
 'use client'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import NotificationMenu from '../NotificationMenu'
-import useNotificationStore from '@/shared/store/useNotificationStore'
 
 interface NotificationButtonProps {
   emailId: string
+  unreadNotificationCount: number
 }
 
-export default function NotificationButton({ emailId }: NotificationButtonProps) {
+export default function NotificationButton({ emailId, unreadNotificationCount }: NotificationButtonProps) {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false)
-  const unreadNotificationCount = useNotificationStore((state) => state.unreadNotificationCount)
 
   const toggleNotification = () => {
     setIsNotificationOpen(!isNotificationOpen)

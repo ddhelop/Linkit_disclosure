@@ -8,6 +8,7 @@ import { getNotificationList, readNotification } from '../api/NotificationApi'
 import { getNotificationMessage } from '../utils/notificationMessage'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/shared/hooks/useToast'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface NotificationMenuProps {
   isOpen: boolean
@@ -15,11 +16,12 @@ interface NotificationMenuProps {
   emailId: string
 }
 
-export default function NotificationMenu({ isOpen, onClose }: NotificationMenuProps) {
+export default function NotificationMenu({ isOpen, onClose, emailId }: NotificationMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null)
   const [notifications, setNotifications] = useState<NotificationItem[]>([])
   const router = useRouter()
   const toast = useToast()
+  const queryClient = useQueryClient()
 
   useOnClickOutside({
     refs: [menuRef],
@@ -55,6 +57,18 @@ export default function NotificationMenu({ isOpen, onClose }: NotificationMenuPr
     try {
       // 알림 읽음 처리 API 호출
       await readNotification(notification.notificationId)
+
+      // 알림 읽음 처리 후 알림 카운트 감소
+      queryClient.setQueryData(['unreadCounts', emailId], (oldData: any) => {
+        if (!oldData) return oldData
+        return {
+          ...oldData,
+          result: {
+            ...oldData.result,
+            unreadNotificationCount: Math.max(oldData.result.unreadNotificationCount - 1, 0),
+          },
+        }
+      })
 
       // 라우팅 처리
       switch (notification.notificationType) {
