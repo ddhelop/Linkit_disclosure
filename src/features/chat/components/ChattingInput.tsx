@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, KeyboardEvent } from 'react'
+import { useState, useRef, KeyboardEvent } from 'react'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
 import { useParams } from 'next/navigation'
 
@@ -17,6 +17,7 @@ interface ChattingInputProps {
 
 export default function ChattingInput({ onMessageSent }: ChattingInputProps) {
   const [message, setMessage] = useState('')
+  const [isComposing, setIsComposing] = useState(false)
   const { getClient } = useWebSocketStore()
   const params = useParams()
 
@@ -53,16 +54,12 @@ export default function ChattingInput({ onMessageSent }: ChattingInputProps) {
     }
   }
 
-  const handleKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
-
-      // 한글 입력 중인지 확인
-      if (e.nativeEvent.isComposing) {
-        return
+      if (!isComposing) {
+        handleSubmit()
       }
-
-      handleSubmit()
     }
   }
 
@@ -71,7 +68,9 @@ export default function ChattingInput({ onMessageSent }: ChattingInputProps) {
       <textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        onKeyDown={handleKeyPress}
+        onKeyDown={handleKeyDown}
+        onCompositionStart={() => setIsComposing(true)}
+        onCompositionEnd={() => setIsComposing(false)}
         placeholder="메시지를 입력해 주세요"
         className="min-h-[6rem] w-full resize-none rounded-lg border border-grey30 bg-white px-4 py-3 text-sm outline-none focus:border-main"
       />
