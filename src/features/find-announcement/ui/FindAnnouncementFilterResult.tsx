@@ -97,7 +97,7 @@ export default function AnnouncementFilterResult() {
   }
 
   return (
-    <main className="flex flex-col md:px-12">
+    <main className="flex flex-col  md:px-5">
       {!isFilterApplied() && (
         <section aria-labelledby="hot-announcements-heading">
           <h2 id="hot-announcements-heading" className="text-lg font-semibold text-black">
