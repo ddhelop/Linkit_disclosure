@@ -29,6 +29,12 @@ export async function loadFindAnnouncementData(searchParams: { [key: string]: st
       : searchParams.scaleName
         ? [searchParams.scaleName]
         : [],
+    projectType: Array.isArray(searchParams.projectType)
+      ? searchParams.projectType
+      : searchParams.projectType
+        ? [searchParams.projectType]
+        : [],
+    sortBy: searchParams.sortBy as string | null,
     size: 20,
   }
 
