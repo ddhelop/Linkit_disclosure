@@ -12,7 +12,6 @@ import GuestMenu from './components/GuestMenu'
 import MobileMenu from './components/MobileMenu'
 import ChatButton from './components/IconButtons/ChatButton'
 import NotificationButton from './components/IconButtons/NotificationButton'
-import useNotificationSubscription from '@/shared/components/webSocket/useNotificationSubscription'
 import useWebSocketStore from '@/shared/store/useWebSocketStore'
 
 export default function Header() {
@@ -33,15 +32,13 @@ export default function Header() {
       const accessToken = getAccessToken()
       if (accessToken) {
         checkLogin()
-        initializeClient(accessToken)
+        // initializeClient(accessToken)
       } else {
         setLoginState(false)
       }
       setLoading(false)
     }
   }, [checkLogin, initializeClient, setLoginState])
-
-  useNotificationSubscription(emailId || '')
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false)

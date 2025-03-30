@@ -1,13 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
 import { useState, useRef } from 'react'
 import ProfileMenu from './ProfileMenu'
-import NotificationMenu from './NotificationMenu'
-import useNotificationStore from '@/shared/store/useNotificationStore'
 import { useAuthStore } from '@/shared/store/useAuthStore'
-import useNotificationSubscription from '@/shared/components/webSocket/useNotificationSubscription'
+
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside'
 import ChatButton from './IconButtons/ChatButton'
 import NotificationButton from './IconButtons/NotificationButton'
@@ -19,9 +16,6 @@ export default function UserMenu() {
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   const { emailId } = useAuthStore()
-  const unreadChatCount = useNotificationStore((state) => state.unreadChatCount)
-  const unreadNotificationCount = useNotificationStore((state) => state.unreadNotificationCount)
-  useNotificationSubscription(emailId || '')
 
   useOnClickOutside({
     refs: [menuRef, buttonRef],
