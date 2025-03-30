@@ -7,27 +7,43 @@ import AnnouncementFilterModal from './FindAnnoucementFilterModal'
 export default function FindAnnouncementFilter() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [activeSection, setActiveSection] = useState<'position' | 'location' | 'size' | null>(null)
-
+  const [activeSection, setActiveSection] = useState<'position' | 'location' | 'size' | 'projectType' | null>(null)
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   // URL에서 필터 상태 가져오기 - 여러 값을 배열로 가져오도록 수정
   const selectedPositions = searchParams.getAll('subPosition')
   const selectedLocations = searchParams.getAll('cityName')
   const selectedSize = searchParams.getAll('scaleName')
+  const selectedProjectType = searchParams.getAll('projectType')
 
-  const handleSectionClick = (section: 'position' | 'location' | 'size') => {
+  const handleSectionClick = (section: 'position' | 'location' | 'size' | 'projectType') => {
     setActiveSection(section)
     setIsFilterOpen(true)
   }
 
+  // 모바일에서 필터 버튼 클릭 시 모달 열기
+  const handleMobileFilterClick = () => {
+    setActiveSection('position') // 기본 섹션 설정
+    setIsFilterOpen(true)
+  }
+
   // 필터 적용 핸들러
-  const handleApplyFilters = (filters: { subPositions: string[]; cityNames: string[]; scaleName: string[] }) => {
+  const handleApplyFilters = (filters: {
+    subPositions: string[]
+    cityNames: string[]
+    scaleName: string[]
+    projectType: string[]
+  }) => {
     updateURLParams(filters)
   }
 
   // URL 파라미터 업데이트 함수
-  const updateURLParams = (filters: { subPositions: string[]; cityNames: string[]; scaleName: string[] }) => {
+  const updateURLParams = (filters: {
+    subPositions: string[]
+    cityNames: string[]
+    scaleName: string[]
+    projectType: string[]
+  }) => {
     const params = new URLSearchParams()
 
     // 각 필터 타입별로 여러 값을 추가
@@ -43,6 +59,10 @@ export default function FindAnnouncementFilter() {
       params.append('scaleName', size)
     })
 
+    filters.projectType.forEach((projectType) => {
+      params.append('projectType', projectType)
+    })
+
     params.set('page', '1')
     router.push(`/find/announcement?${params.toString()}`)
   }
@@ -53,6 +73,7 @@ export default function FindAnnouncementFilter() {
       subPositions: selectedPositions.filter((p) => p !== position),
       cityNames: selectedLocations,
       scaleName: selectedSize,
+      projectType: selectedProjectType,
     })
   }
 
@@ -61,6 +82,7 @@ export default function FindAnnouncementFilter() {
       subPositions: selectedPositions,
       cityNames: selectedLocations.filter((l) => l !== location),
       scaleName: selectedSize,
+      projectType: selectedProjectType,
     })
   }
 
@@ -69,6 +91,7 @@ export default function FindAnnouncementFilter() {
       subPositions: selectedPositions,
       cityNames: selectedLocations,
       scaleName: selectedSize.filter((s) => s !== size),
+      projectType: selectedProjectType,
     })
   }
 
@@ -78,6 +101,7 @@ export default function FindAnnouncementFilter() {
       subPositions: [],
       cityNames: [],
       scaleName: [],
+      projectType: [],
     })
   }
 
@@ -98,7 +122,17 @@ export default function FindAnnouncementFilter() {
           style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
           aria-label="필터 옵션"
         >
-          <div className="grid grid-cols-3 gap-4">
+          {/* 모바일용 버튼 (md 화면 크기 미만에서만 표시) */}
+          <button
+            onClick={handleMobileFilterClick}
+            className="flex w-full cursor-pointer items-center gap-2 rounded-xl border border-grey30 p-3 text-sm hover:bg-[#EDF3FF] md:hidden"
+            aria-label="필터 열기"
+          >
+            <span className="ml-2 text-xs text-grey70">필터로 검색하기</span>
+          </button>
+
+          {/* 데스크톱용 버튼 (md 화면 크기 이상에서만 표시) */}
+          <div className="hidden grid-cols-4 gap-4 md:grid">
             <button
               onClick={() => handleSectionClick('position')}
               className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 p-3 text-xs hover:bg-[#EDF3FF] sm:px-5 sm:py-4 sm:text-sm"
@@ -106,6 +140,14 @@ export default function FindAnnouncementFilter() {
             >
               <h3 className="flex justify-center text-grey70 md:justify-start">포지션</h3>
               <p className="hidden text-grey50 md:flex">포지션을 선택해 주세요</p>
+            </button>
+            <button
+              onClick={() => handleSectionClick('projectType')}
+              className="flex cursor-pointer flex-col gap-2 rounded-xl border border-grey30 p-3 text-xs hover:bg-[#EDF3FF] sm:px-5 sm:py-4 sm:text-sm"
+              aria-label="활동 지역 필터"
+            >
+              <h3 className="flex justify-center text-grey70 md:justify-start">프로젝트 유형</h3>
+              <p className="hidden text-grey50 md:flex">어떤 프로젝트를 찾고 계신가요?</p>
             </button>
             <button
               onClick={() => handleSectionClick('location')}
@@ -175,6 +217,7 @@ export default function FindAnnouncementFilter() {
             subPositions: selectedPositions,
             cityNames: selectedLocations,
             scaleName: selectedSize,
+            projectType: selectedProjectType,
           }}
           activeSection={activeSection}
         />

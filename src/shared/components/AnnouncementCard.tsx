@@ -56,7 +56,7 @@ export default function AnnouncementCard({
       href={`/team/${announcement?.teamCode}/recruit/${announcement?.teamMemberAnnouncementId}`}
       className={
         variant == 'wide'
-          ? 'flex min-w-[17rem] cursor-pointer flex-col gap-3 border-b border-grey40 px-10 py-6 last:border-none hover:bg-grey10 md:min-w-[unset]'
+          ? 'flex min-w-[17rem] cursor-pointer flex-col gap-3 border-b border-grey40 px-2 py-6 last:border-none hover:bg-grey10 md:min-w-[unset] md:px-4'
           : 'shadow-announcement flex min-w-[17rem] cursor-pointer flex-col gap-3 rounded-lg border bg-grey10 px-[1.62rem] py-[1.38rem] hover:border-[#7EA5F8] md:min-w-[unset]'
       }
     >

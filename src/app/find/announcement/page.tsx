@@ -34,7 +34,7 @@ export default async function FindAnnouncementPage({
             <header className="flex flex-col gap-2 px-3 lg:px-16">
               <h1 className="text-xs text-grey30 sm:text-base">모집 공고</h1>
               <p className="whitespace-pre-wrap text-sm font-semibold text-white sm:text-2xl">
-                모집 중인 공고를 확인하고 원하는 팀에 지원해 보세요
+                나에게 맞는 팀에 합류해보세요.
               </p>
             </header>
 

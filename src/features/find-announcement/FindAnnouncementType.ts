@@ -5,8 +5,10 @@ export type FindAnnouncementSearchParams = {
   subPosition: string[]
   cityName: string[]
   scaleName: string[]
+  projectType: string[]
   size: number
   cursor?: number
+  sortBy?: string | null
 }
 
 // 무한 스크롤 응답 타입

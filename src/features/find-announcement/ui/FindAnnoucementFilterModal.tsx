@@ -2,8 +2,9 @@ import { useState, useRef, useEffect } from 'react'
 import Modal from '@/shared/ui/Modal/Modal'
 import { jobCategoriesData } from '@/shared/data/roleSelectData'
 import { addressData } from '@/shared/data/addressSelectData'
-import { PrivateStatusData, TeamSizeData } from '@/shared/data/FilterData'
+import { TeamSizeData } from '@/shared/data/FilterData'
 import Image from 'next/image'
+import { projectTypeData } from '@/shared/data/ProjectTypeData'
 
 export default function AnnouncementFilterModal({
   isFilterOpen,
@@ -14,13 +15,19 @@ export default function AnnouncementFilterModal({
 }: {
   isFilterOpen: boolean
   setIsFilterOpen: (isFilterOpen: boolean) => void
-  onApplyFilters: (filters: { subPositions: string[]; cityNames: string[]; scaleName: string[] }) => void
+  onApplyFilters: (filters: {
+    subPositions: string[]
+    cityNames: string[]
+    scaleName: string[]
+    projectType: string[]
+  }) => void
   initialFilters: {
     subPositions: string[]
     cityNames: string[]
     scaleName: string[]
+    projectType: string[]
   }
-  activeSection: 'position' | 'location' | 'size' | null
+  activeSection: 'position' | 'location' | 'size' | 'projectType' | null
 }) {
   // 포지션 관련 상태
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(initialFilters.subPositions)
@@ -31,6 +38,9 @@ export default function AnnouncementFilterModal({
 
   // 팀 규모 관련 상태
   const [selectedSize, setSelectedSize] = useState<string[]>(initialFilters.scaleName)
+
+  // 프로젝트 유형 관련 상태
+  const [selectedProjectType, setSelectedProjectType] = useState<string[]>(initialFilters.projectType)
 
   // 선택된 소분류들의 부모 카테고리들을 계산
   const selectedCategories = Array.from(
@@ -46,13 +56,14 @@ export default function AnnouncementFilterModal({
   const locationRef = useRef<HTMLDivElement>(null)
   const sizeRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
-
+  const projectTypeRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (isFilterOpen && activeSection) {
       const refs = {
         position: positionRef,
         location: locationRef,
         size: sizeRef,
+        projectType: projectTypeRef,
       }
 
       const targetRef = refs[activeSection]
@@ -74,6 +85,7 @@ export default function AnnouncementFilterModal({
     setActiveCategory(activeCategory === categoryName ? null : categoryName)
   }
 
+  // 포지션 소분류 관련 핸들러
   const handlePositionSubCategoryClick = (subCategory: string | 'all') => {
     if (subCategory === 'all' && activeCategory) {
       const currentCategorySubItems = jobCategoriesData.find((cat) => cat.name === activeCategory)?.subCategory || []
@@ -90,6 +102,28 @@ export default function AnnouncementFilterModal({
     )
   }
 
+  // 프로젝트 유형 관련 핸들러
+  const handleProjectTypeClick = (projectType: string | 'all') => {
+    if (projectType === 'all') {
+      setSelectedProjectType((prev) =>
+        prev.length === projectTypeData.length ? [] : projectTypeData.map((type) => type.value),
+      )
+      return
+    }
+    setSelectedProjectType((prev) =>
+      prev.includes(projectType) ? prev.filter((type) => type !== projectType) : [...prev, projectType],
+    )
+  }
+
+  // 팀 규모 관련 핸들러
+  const handleSizeClick = (size: string) => {
+    if (size === 'all') {
+      setSelectedSize((prev) => (prev.length === TeamSizeData.length ? [] : TeamSizeData.map((size) => size)))
+      return
+    }
+    setSelectedSize((prev) => (prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]))
+  }
+
   // 활동 지역 관련 핸들러
   const handleAddressClick = (address: string | 'all') => {
     if (address === 'all') {
@@ -102,21 +136,13 @@ export default function AnnouncementFilterModal({
     )
   }
 
-  // 현재 상태 관련 핸들러
-  const handleSizeClick = (size: string) => {
-    if (size === 'all') {
-      setSelectedSize((prev) => (prev.length === TeamSizeData.length ? [] : TeamSizeData.map((size) => size)))
-      return
-    }
-    setSelectedSize((prev) => (prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]))
-  }
-
   // 필터 적용 핸들러
   const handleApplyFilters = () => {
     onApplyFilters({
       subPositions: selectedSubCategories,
       cityNames: selectedAddresses,
       scaleName: selectedSize,
+      projectType: selectedProjectType,
     })
     setIsFilterOpen(false)
   }
@@ -126,6 +152,7 @@ export default function AnnouncementFilterModal({
     setSelectedSubCategories([])
     setSelectedAddresses([])
     setSelectedSize([])
+    setSelectedProjectType([])
     setActiveCategory(null)
   }
 
@@ -178,7 +205,7 @@ export default function AnnouncementFilterModal({
                     {/* 전체 */}
                     <li
                       onClick={() => handlePositionSubCategoryClick('all')}
-                      className={`cursor-pointer rounded-full border px-5 py-2 text-sm ${
+                      className={`cursor-pointer  rounded-full border px-5 py-2 text-sm ${
                         jobCategoriesData
                           .find((cat) => cat.name === activeCategory)
                           ?.subCategory.every((sub) => selectedSubCategories.includes(sub))
@@ -206,6 +233,36 @@ export default function AnnouncementFilterModal({
                   </ul>
                 </div>
               )}
+            </div>
+
+            {/* 프로젝트 유형 섹션 */}
+            <div ref={projectTypeRef} className="flex flex-col gap-5">
+              <h3 className="font-semibold text-grey80">프로젝트 유형</h3>
+              <div className="flex flex-wrap gap-3">
+                <li
+                  onClick={() => handleProjectTypeClick('all')}
+                  className={`cursor-pointer list-none rounded-full border px-5 py-2 text-sm ${
+                    selectedProjectType.length === projectTypeData.length
+                      ? 'border-[#B5CDFF] bg-[#EDF3FF] text-main'
+                      : 'border-grey40 bg-grey20 text-grey50'
+                  }`}
+                >
+                  전체
+                </li>
+                {projectTypeData.map((type) => (
+                  <li
+                    key={type.value}
+                    onClick={() => handleProjectTypeClick(type.value)}
+                    className={`cursor-pointer list-none rounded-full border px-5 py-2 text-sm ${
+                      selectedProjectType.includes(type.value)
+                        ? 'border-[#B5CDFF] bg-[#EDF3FF] text-main'
+                        : 'border-grey40 bg-grey20 text-grey50'
+                    }`}
+                  >
+                    {type.label}
+                  </li>
+                ))}
+              </div>
             </div>
 
             {/* 활동 지역 섹션 */}

@@ -7,6 +7,7 @@ import { FindAnnouncementSearchParams } from '../FindAnnouncementType'
 import { getFindAnnouncementProfile, getStaticFindAnnouncementData } from '../api/FindAnnouncementApi'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import AnnouncementCardSkeleton from '@/shared/components/AnnouncementCardSkeleton'
+import SortToggleButtons from '@/features/find/ui/\bSortToggleButtons'
 
 export default function AnnouncementFilterResult() {
   const searchParams = useSearchParams()
@@ -18,12 +19,16 @@ export default function AnnouncementFilterResult() {
     subPosition: searchParams.getAll('subPosition'),
     cityName: searchParams.getAll('cityName'),
     scaleName: searchParams.getAll('scaleName'),
+    projectType: searchParams.getAll('projectType'),
     size: 20,
   }
 
   const isFilterApplied = () => {
     return (
-      searchParams.getAll('subPosition').length > 0 || searchParams.has('cityName') || searchParams.has('scaleName')
+      searchParams.getAll('subPosition').length > 0 ||
+      searchParams.getAll('cityName').length > 0 ||
+      searchParams.getAll('scaleName').length > 0 ||
+      searchParams.getAll('projectType').length > 0
     )
   }
 
@@ -33,6 +38,7 @@ export default function AnnouncementFilterResult() {
     queryFn: getStaticFindAnnouncementData,
   })
 
+  const sortBy = searchParams.get('sortBy')
   // 무한 스크롤을 위한 프로필 데이터 가져오기
   const {
     data: infiniteAnnouncements,
@@ -41,9 +47,9 @@ export default function AnnouncementFilterResult() {
     isFetchingNextPage,
     isLoading: isInfiniteLoading,
   } = useInfiniteQuery({
-    queryKey: ['infiniteAnnouncements', params],
+    queryKey: ['infiniteAnnouncements', params, sortBy],
     queryFn: ({ pageParam }: { pageParam: number | undefined }) =>
-      getFindAnnouncementProfile({ ...params, cursor: pageParam }),
+      getFindAnnouncementProfile({ ...params, cursor: pageParam, sortBy }),
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
       // 다음 페이지가 있는지 확인하고, 있다면 마지막 프로필의 emailId를 cursor로 사용
@@ -93,7 +99,7 @@ export default function AnnouncementFilterResult() {
   }
 
   return (
-    <main className="flex flex-col md:px-12">
+    <main className="flex flex-col  md:px-5">
       {!isFilterApplied() && (
         <section aria-labelledby="hot-announcements-heading">
           <h2 id="hot-announcements-heading" className="text-lg font-semibold text-black">
@@ -112,9 +118,12 @@ export default function AnnouncementFilterResult() {
 
       {/* 공고 리스트 */}
       <section aria-labelledby="announcement-list-heading">
-        <h2 id="announcement-list-heading" className="text-lg font-semibold text-black">
-          {isFilterApplied() ? '검색 결과' : '🔍 나에게 맞는 모집 공고를 더 찾아보세요!'}
-        </h2>
+        <div className="flex w-full items-center justify-between">
+          <h2 id="announcement-list-heading" className="mt-5 text-lg font-semibold text-black">
+            {isFilterApplied() ? '검색 결과' : '🔍 나에게 맞는 모집 공고를 더 찾아보세요!'}
+          </h2>
+          <div className="hidden md:block">{isFilterApplied() && <SortToggleButtons />}</div>
+        </div>
         <div className="mt-6 grid grid-cols-1">
           {isInfiniteLoading
             ? renderSkeletons(6)
