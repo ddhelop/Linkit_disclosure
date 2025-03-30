@@ -5,6 +5,7 @@ export type FindAnnouncementSearchParams = {
   subPosition: string[]
   cityName: string[]
   scaleName: string[]
+  projectType: string[]
   size: number
   cursor?: number
 }

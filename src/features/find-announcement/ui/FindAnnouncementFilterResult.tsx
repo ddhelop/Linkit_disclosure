@@ -18,12 +18,16 @@ export default function AnnouncementFilterResult() {
     subPosition: searchParams.getAll('subPosition'),
     cityName: searchParams.getAll('cityName'),
     scaleName: searchParams.getAll('scaleName'),
+    projectType: searchParams.getAll('projectType'),
     size: 20,
   }
 
   const isFilterApplied = () => {
     return (
-      searchParams.getAll('subPosition').length > 0 || searchParams.has('cityName') || searchParams.has('scaleName')
+      searchParams.getAll('subPosition').length > 0 ||
+      searchParams.getAll('cityName').length > 0 ||
+      searchParams.getAll('scaleName').length > 0 ||
+      searchParams.getAll('projectType').length > 0
     )
   }
 
