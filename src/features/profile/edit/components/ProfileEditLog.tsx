@@ -2,7 +2,7 @@
 import { Button } from '@/shared/ui/Button/Button'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { getProfileLogs, ProfileLogItem } from '@/features/profile/api/getProfileLogs'
+import { getProfileLogs } from '@/features/profile/api/getProfileLogs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { deleteProfileLog, updateProfileLogPublic, updateProfileLogType } from '../../api/profileLogApi'
@@ -12,10 +12,11 @@ import { stripHtmlAndImages } from '@/shared/hooks/useHtmlToString'
 import { truncateText } from '@/shared/utils/stringUtils'
 import { useToast } from '@/shared/hooks/useToast'
 import NotContentsUi from './common/NotContentsUi'
+import { ProfileLogDetailType } from '../../types/profile.type'
 
 export default function ProfileEditLog() {
   const router = useRouter()
-  const [logs, setLogs] = useState<ProfileLogItem[]>([])
+  const [logs, setLogs] = useState<ProfileLogDetailType[]>([])
   const [loading, setLoading] = useState(true)
   const [showMenu, setShowMenu] = useState<number | null>(null)
   const toast = useToast()
@@ -48,7 +49,7 @@ export default function ProfileEditLog() {
   const fetchLogs = async () => {
     try {
       const data = await getProfileLogs()
-      setLogs(data)
+      setLogs(data.result.profileLogItems)
     } catch (error) {
       console.error('Failed to fetch logs:', error)
       toast.alert('로그 조회에 실패했습니다.')

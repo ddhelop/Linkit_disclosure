@@ -1,8 +1,8 @@
-import { ProfileLogItem } from '@/features/profile/api/getProfileLogs'
 import { stripHtmlAndImages } from '@/shared/utils/stringUtils'
 import Link from 'next/link'
+import { ProfileLogDetailType } from '@/features/profile/types/profile.type'
 
-export default function ProfileLogCard({ logItem, emailId }: { logItem: ProfileLogItem; emailId: string }) {
+export default function ProfileLogCard({ logItem, emailId }: { logItem: ProfileLogDetailType; emailId: string }) {
   return (
     <Link
       href={`/${emailId}/logs/${logItem?.profileLogId}`}
