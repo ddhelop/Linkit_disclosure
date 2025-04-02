@@ -9,7 +9,7 @@ export default async function TeamViewRecruitDetailPage({ params }: { params: { 
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <div className="absolute left-0 flex w-full justify-center bg-[#FCFCFD] pb-28 lg:py-[3.63rem]">
+      <div className="absolute left-0 flex w-full justify-center bg-[#FCFCFD] pb-28 lg:pb-[3.63rem]">
         <TeamViewRecruitmentProvider />
       </div>
     </HydrationBoundary>

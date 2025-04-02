@@ -1,8 +1,6 @@
 'use client'
 import { useState } from 'react'
 import ApplyModal from './ApplyModal'
-
-import MiniTeamCard from '@/shared/components/MiniTeamCard'
 import { useParams, useRouter } from 'next/navigation'
 import { useToast } from '@/shared/hooks/useToast'
 import { useAuthStore } from '@/shared/store/useAuthStore'
@@ -10,6 +8,7 @@ import { getTeamCard, getTeamRecruitment } from '../../api/TeamDataViewApi'
 import { useQuery } from '@tanstack/react-query'
 import TeamViewRecruitDetail from './TeamViewRecruitDetail'
 import { useScrollTopOnMount } from '@/shared/hooks/useScrollTopOnMount'
+import TeamViewWideInfo from '../TeamViewWideInfo'
 
 export default function TeamViewRecruitmentProvider() {
   useScrollTopOnMount()
@@ -44,18 +43,16 @@ export default function TeamViewRecruitmentProvider() {
 
   return (
     <>
-      <div className="flex w-full flex-col items-center justify-center gap-8 lg:w-[83%] lg:flex-row lg:items-start ">
-        <div className="lg:w-[49rem]0 w-full">
+      <div className="flex w-full flex-col items-center justify-center gap-10  ">
+        <div className="w-full">{teamInfo && <TeamViewWideInfo teamInfo={teamInfo} />}</div>
+
+        <div className="w-full lg:w-[90%] ">
           {recruitmentDetail && (
             <TeamViewRecruitDetail
               recruitmentDetail={recruitmentDetail}
               isTeamManager={teamInfo?.isTeamManager ?? false}
             />
           )}
-        </div>
-
-        <div className="">
-          <div>{teamInfo && <MiniTeamCard teamInfo={teamInfo?.teamInformMenu} />}</div>
         </div>
       </div>
 
