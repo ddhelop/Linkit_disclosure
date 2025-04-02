@@ -1,4 +1,4 @@
-import { fetchWithCSR } from '@/shared/api/fetchData'
+import { fetchWithCSR, fetchWithSSR } from '@/shared/api/fetchData'
 import { ApiResponse } from '@/shared/types/ApiResponse'
 import { ProfileDetail, ProfileInformMenu, ProfileVisitor } from '@/shared/types/profile/ProfileDetailType'
 
