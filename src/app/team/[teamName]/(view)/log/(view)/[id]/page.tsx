@@ -1,15 +1,16 @@
-import { getTeamDetail } from '@/features/team-view/api/TeamDataViewApi'
-import TeamViewWideInfo from '@/features/team-view/ui/TeamViewWideInfo'
+import { loadTeamLogDetail } from '@/features/team-view/loader'
 import TeamViewDetail from '@/features/team/view/log/TeamViewDetail'
 import { Button } from '@/shared/ui/Button/Button'
+import { HydrationBoundary } from '@tanstack/react-query'
 import Link from 'next/link'
 
 export default async function TeamViewLogDetailPage({ params }: { params: { id: number; teamName: string } }) {
   const { teamName, id } = params
-  const teamInfo = await getTeamDetail(teamName)
+
+  const dehydratedState = await loadTeamLogDetail(teamName, id.toString())
 
   return (
-    <>
+    <HydrationBoundary state={dehydratedState}>
       <div className="flex w-full flex-col items-center gap-10 pb-10">
         <div className="flex w-full flex-col gap-8 lg:w-[90%] lg:flex-row">
           <TeamViewDetail teamName={teamName} id={id} />
@@ -25,6 +26,6 @@ export default async function TeamViewLogDetailPage({ params }: { params: { id: 
           </Button>
         </Link>
       </div>
-    </>
+    </HydrationBoundary>
   )
 }
