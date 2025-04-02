@@ -1,4 +1,15 @@
+import { fetchWithCSR } from '@/shared/api/fetchData'
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
+import { ApiResponse } from '@/shared/types/ApiResponse'
+import { ProfileLogDetailType } from '../types/profile.type'
+
+// GET
+// 프로필 로그 상세 조회
+export const getProfileLogDetail = async (profileLogId: number): Promise<ApiResponse<ProfileLogDetailType>> => {
+  return fetchWithCSR(`/profile/log/view/detail/${profileLogId}`, {
+    cache: 'no-store',
+  })
+}
 
 export const deleteProfileLog = async (logId: number) => {
   const response = await fetchWithAuth(`/api/v1/profile/log/${logId}`, {
@@ -40,14 +51,5 @@ export const getProfileLogs = async (emailId: string) => {
     method: 'GET',
   })
   if (!response.ok) throw new Error('Failed to get profile logs')
-  return response.json()
-}
-
-// 프로필 로그 상세 조회
-export const getProfileLog = async (profileLogId: number) => {
-  const response = await fetchWithAuth(`/api/v1/profile/log/view/detail/${profileLogId}`, {
-    method: 'GET',
-  })
-  if (!response.ok) throw new Error('Failed to get profile log')
   return response.json()
 }

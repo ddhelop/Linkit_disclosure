@@ -1,52 +1,42 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { getTeamLogDetail } from '../../api/teamViewApi'
-import { TeamLog } from '../../types/team.types'
+
+import { useQuery } from '@tanstack/react-query'
 import { useScrollTopOnMount } from '@/shared/hooks/useScrollTopOnMount'
+import { getTeamLogDetail } from '@/features/team-view/api/TeamDataViewApi'
+import useLinkifyContent from '@/shared/hooks/useLinkifyContent'
 
 export default function TeamViewDetail({ teamName, id }: { teamName: string; id: number }) {
-  const [log, setLog] = useState<TeamLog | null>(null)
+  const { data: log } = useQuery({
+    queryKey: ['teamLogDetail', teamName, id],
+    queryFn: () => getTeamLogDetail(teamName, id),
+  })
+
+  // 페이지 마운트 시 스크롤 상단으로 이동
   useScrollTopOnMount()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getTeamLogDetail(teamName, id)
-      // URL 처리를 위해 logContent의 a 태그 href 수정
-      if (response.result?.logContent) {
-        const parser = new DOMParser()
-        const doc = parser.parseFromString(response.result.logContent, 'text/html')
-        const links = doc.getElementsByTagName('a')
-
-        for (let link of links) {
-          const href = link.getAttribute('href')
-          if (href) {
-            // URL에 프로토콜이 없으면 추가
-            const hasProtocol = href.startsWith('http://') || href.startsWith('https://')
-            link.href = hasProtocol ? href : `https://${href}`
-            link.target = '_blank' // 새 탭에서 열기
-            link.rel = 'noopener noreferrer' // 보안을 위한 속성 추가
-          }
-        }
-
-        response.result.logContent = doc.body.innerHTML
-      }
-      setLog(response.result)
-    }
-    fetchData()
-  }, [id, teamName])
+  // 링크 자동 변환 훅 사용
+  useLinkifyContent('log-content', log?.result?.logContent)
 
   return (
-    <div className="flex w-full flex-col gap-6 rounded-xl border-grey30 bg-white lg:border lg:px-5 lg:py-7">
-      <div className="flex items-center gap-2 lg:pl-5">
-        <span className="text-xl font-semibold text-grey80">{log?.logTitle}</span>
-        <span className="text-sm font-normal text-grey60">|</span>
-        <span className="text-sm font-normal text-grey60">{new Date(log?.modifiedAt ?? '').toLocaleDateString()}</span>
+    <div className="flex w-full flex-col rounded-xl border-grey40 bg-white p-8 lg:border">
+      <div className="flex items-center gap-2">
+        {log?.result?.logType === 'REPRESENTATIVE_LOG' && (
+          <div className="rounded-md bg-grey20 px-2 py-1 text-xs text-main">대표글</div>
+        )}
+        <span className="text-lg font-semibold text-grey80">{log?.result?.logTitle}</span>
       </div>
 
-      <div
-        className="prose w-full max-w-none rounded-xl text-sm text-grey70 lg:bg-grey10 lg:p-6"
-        dangerouslySetInnerHTML={{ __html: log?.logContent ?? '' }}
-      />
+      <div className="mt-3 flex gap-2">
+        <span className="text-sm font-normal text-grey60">
+          {new Date(log?.result?.modifiedAt ?? '').toLocaleDateString()}
+        </span>
+        <span className="text-sm font-normal text-grey60"> · </span>
+        <span className="text-sm font-normal text-grey60">조회수 {log?.result?.logViewCount}</span>
+      </div>
+
+      <hr className="my-7" />
+
+      <div id="log-content" className="prose w-full max-w-none rounded-xl text-sm text-grey70 "></div>
     </div>
   )
 }

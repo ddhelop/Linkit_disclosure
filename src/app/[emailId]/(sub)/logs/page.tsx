@@ -1,13 +1,13 @@
 'use client'
-import { ProfileLogItem } from '@/features/profile/api/getProfileLogs'
 import { getProfileLogs } from '@/features/profile/api/profileLogApi'
+import { ProfileLogDetailType } from '@/features/profile/types/profile.type'
 import ProfileLogCard from '@/shared/components/Card/ProfileLogCard'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export default function ProfileViewLogsPage({ params }: { params: { emailId: string } }) {
-  const [profileLogs, setProfileLogs] = useState<ProfileLogItem[]>([])
+  const [profileLogs, setProfileLogs] = useState<ProfileLogDetailType[]>([])
 
   useEffect(() => {
     const fetchProfileLogs = async () => {

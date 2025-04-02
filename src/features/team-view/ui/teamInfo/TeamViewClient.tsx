@@ -39,7 +39,7 @@ export default function TeamViewClient({ teamName }: { teamName: string }) {
               <Link href={`/team/${teamName}/log`} className={pathname.includes('/log') ? selectedStyle : defaultStyle}>
                 팀 로그
               </Link>
-              {data && data.result.teamLogItems.length == 0 && (
+              {data && data?.result?.teamLogItems?.length == 0 && (
                 <div className="absolute left-0 top-0 -translate-y-full pb-1">
                   <CreateLogAndMeetMoreApplicants />
                 </div>

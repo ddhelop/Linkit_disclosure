@@ -27,6 +27,11 @@ export async function getTeamLogList(teamName: string): Promise<ApiResponse<{ te
   return fetchWithCSR(`/team/${teamName}/log`)
 }
 
+// ✅ 팀 로그 상세 조회
+export async function getTeamLogDetail(teamName: string, id: number): Promise<ApiResponse<TeamLog>> {
+  return fetchWithCSR(`/team/${teamName}/log/${id}`)
+}
+
 // ✅ 팀 채용 공고 목록 조회
 export async function getTeamRecruitmentList(
   teamName: string,

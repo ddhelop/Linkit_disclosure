@@ -5,6 +5,7 @@ import {
   getTeamHistoryCalendar,
   getTeamHistoryList,
   getTeamList,
+  getTeamLogDetail,
   getTeamMembers,
   getTeamProducts,
   getTeamRecruitment,
@@ -44,6 +45,18 @@ export async function loadTeamRepresentLog(teamName: string) {
   await queryClient.prefetchQuery({
     queryKey: ['teamRepresentLog', teamName],
     queryFn: () => getTeamRepresentLog(teamName),
+  })
+
+  return dehydrate(queryClient)
+}
+
+// 팀 로그 상세 조회
+export async function loadTeamLogDetail(teamName: string, id: string) {
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: ['teamLogDetail', teamName, id],
+    queryFn: () => getTeamLogDetail(teamName, Number(id)),
   })
 
   return dehydrate(queryClient)

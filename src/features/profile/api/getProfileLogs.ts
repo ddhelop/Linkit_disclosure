@@ -1,32 +1,19 @@
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
-
-export interface ProfileLogItem {
-  profileLogId: number
-  isLogPublic: boolean
-  logType: 'REPRESENTATIVE_LOG' | 'GENERAL_LOG'
-  modifiedAt: string
-  logTitle: string
-  logContent: string
-}
+import { ApiResponse } from '@/shared/types/ApiResponse'
+import { ProfileLogDetailType } from '../types/profile.type'
 
 interface ProfileLogsResponse {
-  isSuccess: boolean
-  code: string
-  message: string
-  result: {
-    profileLogItems: ProfileLogItem[]
-  }
+  profileLogItems: ProfileLogDetailType[]
 }
 
-export const getProfileLogs = async (): Promise<ProfileLogItem[]> => {
+export const getProfileLogs = async (): Promise<ApiResponse<ProfileLogsResponse>> => {
   const response = await fetchWithAuth('/api/v1/profile/log')
 
   if (!response.ok) {
     throw new Error('Failed to fetch profile logs')
   }
 
-  const data: ProfileLogsResponse = await response.json()
-  return data.result.profileLogItems
+  return await response.json()
 }
 
 interface ProfileLogDetail {
