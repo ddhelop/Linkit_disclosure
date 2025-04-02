@@ -17,7 +17,7 @@ export default function ProfileViewLogDetail({ profileLogId }: { profileLogId: n
 
   return (
     <>
-      <div className="flex w-full flex-col gap-4 border border-grey40  bg-white p-6 lg:rounded-xl  ">
+      <div className="flex w-full flex-col gap-4 border-grey40 bg-white p-4 lg:rounded-xl lg:border lg:border-grey40 lg:p-6  ">
         <div className="flex items-center gap-2">
           {profileLog?.logType === 'REPRESENTATIVE_LOG' && (
             <div className="rounded-md bg-grey20 p-2 text-xs font-normal text-main">대표글</div>
