@@ -1,39 +1,15 @@
-'use client'
-import { ProfileLogItem } from '@/features/profile/api/getProfileLogs'
-import { getProfileLog } from '@/features/profile/api/profileLogApi'
-import { stripHtmlAndImages } from '@/shared/utils/stringUtils'
-import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { loadProfileLogDetailData } from '@/features/profile-view/loader'
+import { HydrationBoundary } from '@tanstack/react-query'
+import ProfileViewLogDetail from '@/features/profile-view/ui/ProfileViewLogDetail'
 
-export default function ProfileLogDetailPage({ params }: { params: { emailId: string; profileLogId: number } }) {
-  const [profileLog, setProfileLog] = useState<ProfileLogItem>()
+export default async function ProfileLogDetailPage({ params }: { params: { emailId: string; profileLogId: number } }) {
+  const dehydratedState = await loadProfileLogDetailData(params.profileLogId)
 
-  useEffect(() => {
-    const fetchProfileLog = async () => {
-      const response = await getProfileLog(params.profileLogId)
-      setProfileLog(response.result)
-    }
-    fetchProfileLog()
-  }, [params.profileLogId])
   return (
-    <>
-      <div className="lg::py-[3.62rem] flex flex-col pt-10 lg:px-[4.62rem]">
-        <div className="flex w-full flex-col gap-4 border border-transparent bg-white p-4 lg:rounded-xl lg:px-[2.75rem] lg:py-[1.88rem]">
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-grey80">{profileLog?.logTitle}</span>
-            <span className="text-xs text-grey50">|</span>
-            <span className="text-xs font-normal text-grey60">
-              {profileLog?.modifiedAt ? new Date(profileLog?.modifiedAt).toLocaleDateString() : ''}
-            </span>
-          </div>
-
-          <div
-            className="rounded-xl text-sm leading-7 text-grey70 lg:bg-grey10 lg:px-6 lg:py-[1.31rem] [&>h1]:text-2xl [&>h1]:font-semibold [&>h2]:text-xl [&>h2]:font-semibold"
-            dangerouslySetInnerHTML={{ __html: profileLog?.logContent ?? '' }}
-          />
-        </div>
-
+    <HydrationBoundary state={dehydratedState}>
+      <div className="flex flex-col lg:px-[4.62rem] lg:pb-[3.62rem]">
+        <ProfileViewLogDetail profileLogId={params.profileLogId} />
         <div className="mt-5 flex">
           <Link
             href={`/${params.emailId}/logs`}
@@ -43,6 +19,6 @@ export default function ProfileLogDetailPage({ params }: { params: { emailId: st
           </Link>
         </div>
       </div>
-    </>
+    </HydrationBoundary>
   )
 }
