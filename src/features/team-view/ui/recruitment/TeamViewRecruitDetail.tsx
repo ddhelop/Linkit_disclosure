@@ -2,6 +2,7 @@
 
 import { Announcement } from '@/features/team/types/team.types'
 import { announcementScrap } from '@/shared/api/commonApi'
+import { useDateFormat } from '@/shared/hooks/useDateFormat'
 import { useToast } from '@/shared/hooks/useToast'
 import { useAuthStore } from '@/shared/store/useAuthStore'
 import Linkify from 'linkify-react'
@@ -24,15 +25,6 @@ function calculateDday(endDate: string): string {
   return `D-${diffDays}`
 }
 
-function formatDate(dateString: string) {
-  const date = new Date(dateString)
-  const year = date.getFullYear()
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const day = String(date.getDate()).padStart(2, '0')
-
-  return `${year}년 ${month}월 ${day}일`
-}
-
 export default function TeamViewRecruitDetail({
   recruitmentDetail,
   isTeamManager,
@@ -47,6 +39,7 @@ export default function TeamViewRecruitDetail({
   const router = useRouter()
   const { isLogin } = useAuthStore()
   const { teamName, id } = useParams()
+  const { formatToKorean } = useDateFormat()
 
   const handleScrap = async () => {
     if (!isLogin) {
@@ -101,12 +94,37 @@ export default function TeamViewRecruitDetail({
           />
         </div>
       </div>
-
-      <span className="mt-3 text-xs text-grey70">{formatDate(recruitmentDetail?.createdAt)} 업로드</span>
+      <div className="mt-2 flex gap-1">
+        <span className="rounded-md bg-grey20 px-2 py-1 text-xs font-normal text-main">
+          {recruitmentDetail?.projectTypeName}
+        </span>
+        <span className="rounded-md bg-grey20 px-2 py-1 text-xs font-normal text-main">
+          {recruitmentDetail?.workTypeName}
+        </span>
+      </div>
+      <span className="mt-2 text-sm text-grey60">
+        {recruitmentDetail?.announcementPositionItem?.majorPosition}
+        {' > '}
+        {recruitmentDetail?.announcementPositionItem?.subPosition}
+      </span>
       <div className="flex items-start justify-between">
-        <div className="mt-1 flex flex-col gap-1">
+        <div className="mt-1 flex flex-col gap-3">
           <span className="text-2xl font-semibold text-grey90">{recruitmentDetail?.announcementTitle}</span>
-          <span className="text-xs text-grey70">조회수 {recruitmentDetail?.viewCount}</span>
+          {/* 기술 스택 */}
+          <div className=" flex gap-2">
+            {recruitmentDetail?.announcementSkillNames?.map((skill) => (
+              <div
+                key={skill?.announcementSkillName}
+                className="rounded-[0.38rem] bg-[#EDF3FF] px-4 py-1 text-sm text-[#2563EB]"
+              >
+                {skill?.announcementSkillName}
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-grey70">{formatToKorean(recruitmentDetail?.createdAt)} ·</span>
+            <span className="text-xs text-grey70">조회수 {recruitmentDetail?.viewCount}</span>
+          </div>
         </div>
 
         {isTeamManager && (
@@ -119,30 +137,10 @@ export default function TeamViewRecruitDetail({
         )}
       </div>
 
-      {/* 포지션 */}
-      <div className="mt-3 flex gap-2">
-        <div className="rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-[#2563EB]">
-          {recruitmentDetail?.announcementPositionItem?.majorPosition}
-        </div>
-        <div className="rounded-[0.38rem] bg-[#D3E1FE] px-4 py-1 text-sm text-[#2563EB]">
-          {recruitmentDetail?.announcementPositionItem?.subPosition}
-        </div>
-      </div>
-
-      {/* 기술 스택 */}
-      <div className="mt-2 flex gap-2">
-        {recruitmentDetail?.announcementSkillNames?.map((skill) => (
-          <div
-            key={skill?.announcementSkillName}
-            className="rounded-[0.38rem] bg-[#EDF3FF] px-4 py-1 text-sm text-[#2563EB]"
-          >
-            {skill?.announcementSkillName}
-          </div>
-        ))}
-      </div>
+      <hr className="my-6 border-grey30" />
 
       {/* 내용 */}
-      <div className="mt-[3.62rem] flex flex-col gap-12">
+      <div className="flex flex-col gap-12">
         {recruitmentDetail?.mainTasks && (
           <div className="flex flex-col">
             <h3 className="text-lg font-bold text-grey90">주요업무</h3>

@@ -50,6 +50,8 @@ export interface Announcement {
   isPermanentRecruitment: boolean
   isAnnouncementPublic: boolean
   isAnnouncementInProgress: boolean
+  projectTypeName: string
+  workTypeName: string
   announcementTitle: string
   announcementPositionItem: {
     majorPosition: string
