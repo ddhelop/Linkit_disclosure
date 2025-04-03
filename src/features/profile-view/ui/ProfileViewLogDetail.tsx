@@ -3,11 +3,12 @@ import { getProfileLogDetail } from '@/features/profile/api/profileLogApi'
 import useLinkifyContent from '@/shared/hooks/useLinkifyContent'
 import { useScrollTopOnMount } from '@/shared/hooks/useScrollTopOnMount'
 import ShareLinkButton from '@/shared/components/ShareLinkButton'
+import { useDateFormat } from '@/shared/hooks/useDateFormat'
 import { useQuery } from '@tanstack/react-query'
-import Image from 'next/image'
 
 export default function ProfileViewLogDetail({ profileLogId }: { profileLogId: number }) {
   useScrollTopOnMount()
+  const { formatToKorean } = useDateFormat()
   const { data } = useQuery({
     queryKey: ['profileLogDetail', profileLogId],
     queryFn: () => getProfileLogDetail(profileLogId),
@@ -31,9 +32,7 @@ export default function ProfileViewLogDetail({ profileLogId }: { profileLogId: n
           <ShareLinkButton />
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs font-normal text-grey60">
-            {profileLog?.modifiedAt ? new Date(profileLog?.modifiedAt).toLocaleDateString() : ''}
-          </span>
+          <span className="text-xs font-normal text-grey60">{formatToKorean(profileLog?.modifiedAt)}</span>
           <span className="text-xs text-grey50">·</span>
           <span className="text-xs text-grey60">조회수 {profileLog?.logViewCount}</span>
         </div>
