@@ -5,10 +5,12 @@ import { useScrollTopOnMount } from '@/shared/hooks/useScrollTopOnMount'
 import ShareLinkButton from '@/shared/components/ShareLinkButton'
 import { useDateFormat } from '@/shared/hooks/useDateFormat'
 import { useQuery } from '@tanstack/react-query'
+import CommentSection from '@/shared/components/Comment/CommentSection'
 
 export default function ProfileViewLogDetail({ profileLogId }: { profileLogId: number }) {
   useScrollTopOnMount()
   const { formatToKorean } = useDateFormat()
+
   const { data } = useQuery({
     queryKey: ['profileLogDetail', profileLogId],
     queryFn: () => getProfileLogDetail(profileLogId),
@@ -42,6 +44,11 @@ export default function ProfileViewLogDetail({ profileLogId }: { profileLogId: n
           id="log-content"
           className="rounded-xl text-sm leading-7 text-grey70 [&>h1]:text-2xl [&>h1]:font-semibold [&>h2]:text-xl [&>h2]:font-semibold"
         />
+
+        {/* 댓글 영역 */}
+        <hr className="my-6 border-grey30" />
+
+        <CommentSection profileLogId={profileLogId} />
       </div>
     </>
   )
