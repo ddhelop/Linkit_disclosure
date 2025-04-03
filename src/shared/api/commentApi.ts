@@ -1,16 +1,26 @@
 import { fetchWithCSR } from './fetchData'
 import {
   CommentResponse,
+  CommentTargetType,
   CreateCommentRequest,
   CreateCommentResponse,
   DeleteCommentResponse,
 } from '../types/commentTypes'
 
 /**
- * 특정 프로필 로그의 댓글 목록을 가져옵니다.
+ * 댓글 목록을 가져옵니다.
  */
-export const getComments = async (profileLogId: number, size = 10): Promise<CommentResponse> => {
-  return fetchWithCSR<CommentResponse>(`/profile/log/${profileLogId}/comments?size=${size}`, {
+export const getComments = async (
+  targetId: number,
+  targetType: CommentTargetType,
+  size = 10,
+): Promise<CommentResponse> => {
+  const endpoints = {
+    PROFILE_LOG: `/profile/log/${targetId}/comments?size=${size}`,
+    TEAM_LOG: `/team/log/${targetId}/comments?size=${size}`,
+  }
+
+  return fetchWithCSR<CommentResponse>(endpoints[targetType], {
     method: 'GET',
   })
 }
@@ -19,10 +29,16 @@ export const getComments = async (profileLogId: number, size = 10): Promise<Comm
  * 새 댓글을 작성합니다.
  */
 export const createComment = async (
-  profileLogId: number,
+  targetId: number,
+  targetType: CommentTargetType,
   request: CreateCommentRequest,
 ): Promise<CreateCommentResponse> => {
-  return fetchWithCSR<CreateCommentResponse>(`/profile/log/${profileLogId}/comment`, {
+  const endpoints = {
+    PROFILE_LOG: `/profile/log/${targetId}/comment`,
+    TEAM_LOG: `/team/log/${targetId}/comment`,
+  }
+
+  return fetchWithCSR<CreateCommentResponse>(endpoints[targetType], {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -34,8 +50,17 @@ export const createComment = async (
 /**
  * 댓글을 수정합니다.
  */
-export const updateComment = async (commentId: number, content: string): Promise<CreateCommentResponse> => {
-  return fetchWithCSR<CreateCommentResponse>(`/profile/log/comment/${commentId}`, {
+export const updateComment = async (
+  commentId: number,
+  targetType: CommentTargetType,
+  content: string,
+): Promise<CreateCommentResponse> => {
+  const endpoints = {
+    PROFILE_LOG: `/profile/log/comment/${commentId}`,
+    TEAM_LOG: `/team/log/comment/${commentId}`,
+  }
+
+  return fetchWithCSR<CreateCommentResponse>(endpoints[targetType], {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -47,8 +72,16 @@ export const updateComment = async (commentId: number, content: string): Promise
 /**
  * 댓글을 삭제합니다.
  */
-export const deleteComment = async (commentId: number): Promise<DeleteCommentResponse> => {
-  return fetchWithCSR<DeleteCommentResponse>(`/profile/log/comment/${commentId}/delete`, {
+export const deleteComment = async (
+  commentId: number,
+  targetType: CommentTargetType,
+): Promise<DeleteCommentResponse> => {
+  const endpoints = {
+    PROFILE_LOG: `/profile/log/comment/${commentId}/delete`,
+    TEAM_LOG: `/team/log/comment/${commentId}/delete`,
+  }
+
+  return fetchWithCSR<DeleteCommentResponse>(endpoints[targetType], {
     method: 'POST',
   })
 }

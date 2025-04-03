@@ -48,7 +48,7 @@ export default function ProfileViewLogDetail({ profileLogId }: { profileLogId: n
         {/* 댓글 영역 */}
         <hr className="my-6 border-grey30" />
 
-        <CommentSection profileLogId={profileLogId} />
+        <CommentSection targetId={profileLogId} targetType="PROFILE_LOG" />
       </div>
     </>
   )

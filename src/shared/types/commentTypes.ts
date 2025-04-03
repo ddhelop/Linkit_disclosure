@@ -1,4 +1,4 @@
-export type CommentTargetType = 'PROFILE_LOG' | 'TEAM_POST' | 'TEAM_RECRUITMENT'
+export type CommentTargetType = 'PROFILE_LOG' | 'TEAM_LOG'
 
 export interface Comment {
   id: number
@@ -36,7 +36,8 @@ export interface CreateCommentResponse {
   message: string
   result: {
     commentId: number
-    profileLogId: number
+    profileLogId?: number
+    teamLogId?: number
     authorName: string
     authorProfileImagePath?: string
     emailId: string
@@ -53,6 +54,7 @@ export interface DeleteCommentResponse {
   message: string
   result: {
     commentId: number
-    profileLogId: number
+    profileLogId?: number
+    teamLogId?: number
   }
 }
