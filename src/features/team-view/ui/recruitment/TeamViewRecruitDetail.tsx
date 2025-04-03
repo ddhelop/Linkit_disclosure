@@ -102,11 +102,13 @@ export default function TeamViewRecruitDetail({
           {recruitmentDetail?.workTypeName}
         </span>
       </div>
-      <span className="mt-2 text-sm text-grey60">
-        {recruitmentDetail?.announcementPositionItem?.majorPosition}
-        {' > '}
-        {recruitmentDetail?.announcementPositionItem?.subPosition}
-      </span>
+      {recruitmentDetail?.announcementPositionItem?.majorPosition && (
+        <span className="mt-2 text-sm text-grey60">
+          {recruitmentDetail?.announcementPositionItem?.majorPosition}
+          {' > '}
+          {recruitmentDetail?.announcementPositionItem?.subPosition}
+        </span>
+      )}
       <div className="flex items-start justify-between">
         <div className="mt-1 flex flex-col gap-3">
           <span className="text-2xl font-semibold text-grey90">{recruitmentDetail?.announcementTitle}</span>
