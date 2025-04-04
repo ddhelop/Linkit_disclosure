@@ -5,6 +5,7 @@ import { useScrollTopOnMount } from '@/shared/hooks/useScrollTopOnMount'
 import { getTeamLogDetail } from '@/features/team-view/api/TeamDataViewApi'
 import useLinkifyContent from '@/shared/hooks/useLinkifyContent'
 import ShareLinkButton from '@/shared/components/ShareLinkButton'
+import CommentSection from '@/shared/components/Comment/CommentSection'
 
 export default function TeamViewDetail({ teamName, id }: { teamName: string; id: number }) {
   const { data: log } = useQuery({
@@ -41,6 +42,10 @@ export default function TeamViewDetail({ teamName, id }: { teamName: string; id:
       <hr className="my-7" />
 
       <div id="log-content" className="prose w-full max-w-none rounded-xl text-sm text-grey70 "></div>
+
+      <hr className="my-7" />
+
+      <CommentSection targetId={id} targetType="TEAM_LOG" />
     </div>
   )
 }
