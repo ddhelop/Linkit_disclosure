@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://linkit.im',
+  siteUrl: 'https://www.linkit.im',
   generateRobotsTxt: true, // robots.txt 생성 여부
   exclude: [], // 제외할 경로 설정
   changefreq: 'daily',
