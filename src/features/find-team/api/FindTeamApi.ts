@@ -10,7 +10,9 @@ import { TeamCard, TeamData } from '@/features/team/types/team.types'
 export async function getStaticFindTeamData(): Promise<
   ApiResponse<{ ventureTeams: TeamCard[]; supportProjectTeams: TeamCard[] }>
 > {
-  return fetchWithCSR('/team/search/featured')
+  return fetchWithCSR('/team/search/featured', {
+    cache: 'no-store',
+  })
 }
 
 // 검색 파라미터로 프로필 데이터 가져오기 (무한 스크롤용)
