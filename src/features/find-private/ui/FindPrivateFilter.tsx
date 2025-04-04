@@ -1,78 +1,121 @@
 'use client'
-import { useState } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 import PrivateFilterModal from './FindPrivateFilterModal'
+import { useQueryClient } from '@tanstack/react-query'
+import { usePrivateFilterStore } from '../store/usePrivateFilterStore'
 
 export default function FindPrivateFilter() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const queryClient = useQueryClient()
 
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [activeSection, setActiveSection] = useState<'position' | 'location' | 'status' | null>(null)
 
-  // URL에서 필터 상태 가져오기 - 여러 값을 배열로 가져오도록 수정
-  const selectedPositions = searchParams.getAll('subPosition')
-  const selectedLocations = searchParams.getAll('cityName')
-  const selectedStatus = searchParams.getAll('profileStateName')
+  // Zustand 스토어에서 필터 상태와 액션들 가져오기
+  const { filters, setFilters, removePosition, removeLocation, removeStatus, resetFilters } = usePrivateFilterStore()
+
+  // URL 파라미터에서 필터 상태 가져올 때 사용할 변수
+  const selectedPositions = filters.subPositions
+  const selectedLocations = filters.cityNames
+  const selectedStatus = filters.profileStateNames
+
+  // 컴포넌트 마운트 시 URL 파라미터 확인하여 필터 설정
+  useEffect(() => {
+    const hasUrlParams =
+      searchParams.getAll('subPosition').length > 0 ||
+      searchParams.getAll('cityName').length > 0 ||
+      searchParams.getAll('profileStateName').length > 0
+
+    // URL 파라미터가 있으면 Zustand 상태 업데이트
+    if (hasUrlParams) {
+      setFilters({
+        subPositions: searchParams.getAll('subPosition'),
+        cityNames: searchParams.getAll('cityName'),
+        profileStateNames: searchParams.getAll('profileStateName'),
+      })
+    } else {
+      // URL 파라미터가 없으면 Zustand 스토어 상태(로컬스토리지)로 URL 업데이트
+      if (selectedPositions.length > 0 || selectedLocations.length > 0 || selectedStatus.length > 0) {
+        updateURLParams(filters)
+      }
+    }
+  }, []) // 컴포넌트 마운트 시 한 번만 실행
 
   // 필터 적용 핸들러
-  const handleApplyFilters = (filters: {
+  const handleApplyFilters = (newFilters: {
     subPositions: string[]
     cityNames: string[]
     profileStateNames: string[]
   }) => {
-    updateURLParams(filters)
+    // Zustand 스토어 업데이트
+    setFilters(newFilters)
+    // URL 업데이트
+    updateURLParams(newFilters)
   }
 
   // URL 파라미터 업데이트 함수
-  const updateURLParams = (filters: { subPositions: string[]; cityNames: string[]; profileStateNames: string[] }) => {
-    const params = new URLSearchParams()
+  const updateURLParams = useCallback(
+    (filtersToApply: { subPositions: string[]; cityNames: string[]; profileStateNames: string[] }) => {
+      // React Query 캐시를 먼저 무효화
+      queryClient.invalidateQueries({ queryKey: ['infinitePrivateProfiles'] })
 
-    // 각 필터 타입별로 여러 값을 추가
-    filters.subPositions.forEach((position) => {
-      params.append('subPosition', position)
+      // requestAnimationFrame을 사용하여 브라우저 렌더링 사이클에 맞춰 URL 업데이트
+      requestAnimationFrame(() => {
+        const params = new URLSearchParams()
+
+        // 각 필터 타입별로 여러 값을 추가
+        filtersToApply.subPositions.forEach((position) => {
+          params.append('subPosition', position)
+        })
+
+        filtersToApply.cityNames.forEach((city) => {
+          params.append('cityName', city)
+        })
+
+        filtersToApply.profileStateNames.forEach((state) => {
+          params.append('profileStateName', state)
+        })
+
+        params.set('page', '1')
+
+        // URL을 업데이트하기만 하고 페이지 리프레시는 하지 않습니다
+        router.push(`/find/private?${params.toString()}`, { scroll: false })
+      })
+    },
+    [queryClient, router],
+  )
+
+  // 필터 제거 핸들러 - Zustand 액션 사용 및 URL 업데이트
+  const handleRemovePosition = (position: string) => {
+    removePosition(position)
+    updateURLParams({
+      ...filters,
+      subPositions: filters.subPositions.filter((p) => p !== position),
     })
-
-    filters.cityNames.forEach((city) => {
-      params.append('cityName', city)
-    })
-
-    filters.profileStateNames.forEach((state) => {
-      params.append('profileStateName', state)
-    })
-
-    params.set('page', '1')
-    router.push(`/find/private?${params.toString()}`)
   }
 
-  // 개별 필터 제거 핸들러
-  const removePosition = (position: string) => {
+  const handleRemoveLocation = (location: string) => {
+    removeLocation(location)
     updateURLParams({
-      subPositions: selectedPositions.filter((p) => p !== position),
-      cityNames: selectedLocations,
-      profileStateNames: selectedStatus,
+      ...filters,
+      cityNames: filters.cityNames.filter((l) => l !== location),
     })
   }
 
-  const removeLocation = (location: string) => {
+  const handleRemoveStatus = (status: string) => {
+    removeStatus(status)
     updateURLParams({
-      subPositions: selectedPositions,
-      cityNames: selectedLocations.filter((l) => l !== location),
-      profileStateNames: selectedStatus,
-    })
-  }
-
-  const removeStatus = (status: string) => {
-    updateURLParams({
-      subPositions: selectedPositions,
-      cityNames: selectedLocations,
-      profileStateNames: selectedStatus.filter((s) => s !== status),
+      ...filters,
+      profileStateNames: filters.profileStateNames.filter((s) => s !== status),
     })
   }
 
   // 필터 초기화 핸들러
-  const resetFilters = () => {
+  const handleResetFilters = () => {
+    resetFilters()
     updateURLParams({
       subPositions: [],
       cityNames: [],
@@ -90,7 +133,7 @@ export default function FindPrivateFilter() {
       <section className="relative space-y-4" aria-label="프로필 필터">
         {/* Reset button */}
         <button
-          onClick={resetFilters}
+          onClick={handleResetFilters}
           className="absolute right-0 top-[-2.3rem] flex items-center gap-1 px-3 py-2 text-xs text-grey70 sm:text-sm"
           aria-label="필터 초기화"
         >
@@ -135,7 +178,7 @@ export default function FindPrivateFilter() {
               {selectedPositions.map((position) => (
                 <li
                   key={position}
-                  onClick={() => removePosition(position)}
+                  onClick={() => handleRemovePosition(position)}
                   className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
                   aria-label={`선택된 포지션: ${position} (클릭하여 제거)`}
                 >
@@ -146,7 +189,7 @@ export default function FindPrivateFilter() {
               {selectedLocations.map((location) => (
                 <li
                   key={location}
-                  onClick={() => removeLocation(location)}
+                  onClick={() => handleRemoveLocation(location)}
                   className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
                   aria-label={`선택된 지역: ${location} (클릭하여 제거)`}
                 >
@@ -157,7 +200,7 @@ export default function FindPrivateFilter() {
               {selectedStatus.map((status) => (
                 <li
                   key={status}
-                  onClick={() => removeStatus(status)}
+                  onClick={() => handleRemoveStatus(status)}
                   className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
                   aria-label={`선택된 상태: ${status} (클릭하여 제거)`}
                 >

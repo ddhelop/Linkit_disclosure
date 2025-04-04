@@ -1,34 +1,41 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import MiniProfileCard_2 from '@/shared/components/MiniProfileCard_2'
 import MiniProfileCardSkeleton from '@/shared/components/MiniProfileCardSkeleton'
 import { getStaticFindPrivateData, getFindPrivateProfile } from '../api/FindPrivateApi'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { SearchParams } from '../FindPrivateType'
+import { usePrivateFilterStore } from '../store/usePrivateFilterStore'
 
 export default function FindPrivateResult() {
   const searchParams = useSearchParams()
   const observerRef = useRef<IntersectionObserver | null>(null)
   const loadMoreRef = useRef<HTMLDivElement>(null)
 
-  // URL 파라미터에서 검색 조건 추출
+  // 스켈레톤 UI가 갑자기 나타나고 사라지는 것을 방지하기 위한 상태
+  const [showSkeleton, setShowSkeleton] = useState(false)
+
+  // Zustand 스토어에서 필터 상태 가져오기
+  const { filters } = usePrivateFilterStore()
+
+  // URL 파라미터에서 검색 조건 추출 - Zustand 스토어 사용
   const params: SearchParams = {
-    subPosition: searchParams.getAll('subPosition'),
-    cityName: searchParams.getAll('cityName'),
-    profileStateName: searchParams.getAll('profileStateName'),
-    skillName: searchParams.getAll('skillName'),
+    subPosition: filters.subPositions,
+    cityName: filters.cityNames,
+    profileStateName: filters.profileStateNames,
+    skillName: searchParams.getAll('skillName'), // 스킬은 URL 파라미터에서 가져옴
     size: 20,
   }
 
-  // 필터 적용 여부 확인
+  // 필터 적용 여부 확인 - Zustand 스토어 사용
   const isFilterApplied = () => {
     return (
-      params.subPosition.length > 0 ||
+      filters.subPositions.length > 0 ||
       params.skillName.length > 0 ||
-      params.cityName.length > 0 ||
-      params.profileStateName.length > 0
+      filters.cityNames.length > 0 ||
+      filters.profileStateNames.length > 0
     )
   }
 
@@ -45,8 +52,9 @@ export default function FindPrivateResult() {
     hasNextPage,
     isFetchingNextPage,
     isLoading: isInfiniteLoading,
+    isFetching,
   } = useInfiniteQuery({
-    queryKey: ['infiniteProfiles', params],
+    queryKey: ['infinitePrivateProfiles', params],
     queryFn: ({ pageParam }: { pageParam: string | undefined }) =>
       getFindPrivateProfile({ ...params, cursor: pageParam }),
     initialPageParam: undefined,
@@ -87,8 +95,30 @@ export default function FindPrivateResult() {
     }
   }, [fetchNextPage, hasNextPage, isFetchingNextPage])
 
+  // 로딩 상태가 변경될 때 부드러운 전환을 위한 효과
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout
+
+    if (isFetching || isInfiniteLoading) {
+      // 로딩이 시작되면 즉시 스켈레톤 표시
+      setShowSkeleton(true)
+    } else {
+      // 로딩이 끝나면 약간의 지연 후 스켈레톤 숨김 (부드러운 전환을 위해)
+      timeoutId = setTimeout(() => {
+        setShowSkeleton(false)
+      }, 300)
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+  }, [isFetching, isInfiniteLoading])
+
   // 모든 프로필 데이터 합치기
   const allProfiles = infiniteProfiles?.pages.flatMap((page) => page.result.content) || []
+
+  // 데이터 로딩 상태 - 초기 로딩이나 필터 변경시 로딩
+  const isLoadingResults = showSkeleton || isInfiniteLoading
 
   // 스켈레톤 UI 렌더링 함수
   const renderSkeletons = (count: number) => {
@@ -123,7 +153,7 @@ export default function FindPrivateResult() {
           {isFilterApplied() ? '검색 결과' : '🔍 나에게 필요한 팀원을 더 찾아보세요!'}
         </h2>
         <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-          {isInfiniteLoading
+          {isLoadingResults
             ? renderSkeletons(12) // 무한 스크롤 데이터 로딩 중 스켈레톤 12개 표시
             : allProfiles.map((profile, index) => (
                 <article key={`${profile.emailId}-${index}`}>
@@ -146,7 +176,7 @@ export default function FindPrivateResult() {
       <div ref={loadMoreRef} className="h-10" aria-hidden="true" />
 
       {/* 필터링된 결과가 없을 때 */}
-      {isFilterApplied() && allProfiles.length === 0 && !isInfiniteLoading && (
+      {isFilterApplied() && allProfiles.length === 0 && !isLoadingResults && (
         <section aria-label="검색 결과 없음" className="py-10 text-center">
           <p className="text-lg text-gray-500">검색 결과가 없습니다.</p>
         </section>
