@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://linkit.im
+Host: https://www.linkit.im
 
 # Sitemaps
-Sitemap: https://linkit.im/sitemap.xml
+Sitemap: https://www.linkit.im/sitemap-0.xml

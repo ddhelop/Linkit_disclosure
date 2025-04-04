@@ -1,20 +1,56 @@
 'use client'
-import { useState } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 import AnnouncementFilterModal from './FindAnnoucementFilterModal'
+import { useQueryClient } from '@tanstack/react-query'
+import { useFilterStore } from '../store/useFilterStore'
 
 export default function FindAnnouncementFilter() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const queryClient = useQueryClient()
   const [activeSection, setActiveSection] = useState<'position' | 'location' | 'size' | 'projectType' | null>(null)
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
-  // URL에서 필터 상태 가져오기 - 여러 값을 배열로 가져오도록 수정
-  const selectedPositions = searchParams.getAll('subPosition')
-  const selectedLocations = searchParams.getAll('cityName')
-  const selectedSize = searchParams.getAll('scaleName')
-  const selectedProjectType = searchParams.getAll('projectType')
+  // Zustand 스토어에서 필터 상태와 액션들 가져오기
+  const { filters, setFilters, removePosition, removeLocation, removeSize, removeProjectType, resetFilters } =
+    useFilterStore()
+
+  // URL 파라미터에서 필터 상태 가져올 때 사용할 변수
+  const selectedPositions = filters.subPositions
+  const selectedLocations = filters.cityNames
+  const selectedSize = filters.scaleName
+  const selectedProjectType = filters.projectType
+
+  // 컴포넌트 마운트 시 URL 파라미터 확인하여 필터 설정
+  useEffect(() => {
+    const hasUrlParams =
+      searchParams.getAll('subPosition').length > 0 ||
+      searchParams.getAll('cityName').length > 0 ||
+      searchParams.getAll('scaleName').length > 0 ||
+      searchParams.getAll('projectType').length > 0
+
+    // URL 파라미터가 있으면 Zustand 상태 업데이트
+    if (hasUrlParams) {
+      setFilters({
+        subPositions: searchParams.getAll('subPosition'),
+        cityNames: searchParams.getAll('cityName'),
+        scaleName: searchParams.getAll('scaleName'),
+        projectType: searchParams.getAll('projectType'),
+      })
+    } else {
+      // URL 파라미터가 없으면 Zustand 스토어 상태(로컬스토리지)로 URL 업데이트
+      if (
+        selectedPositions.length > 0 ||
+        selectedLocations.length > 0 ||
+        selectedSize.length > 0 ||
+        selectedProjectType.length > 0
+      ) {
+        updateURLParams(filters)
+      }
+    }
+  }, []) // 컴포넌트 마운트 시 한 번만 실행
 
   const handleSectionClick = (section: 'position' | 'location' | 'size' | 'projectType') => {
     setActiveSection(section)
@@ -28,75 +64,90 @@ export default function FindAnnouncementFilter() {
   }
 
   // 필터 적용 핸들러
-  const handleApplyFilters = (filters: {
+  const handleApplyFilters = (newFilters: {
     subPositions: string[]
     cityNames: string[]
     scaleName: string[]
     projectType: string[]
   }) => {
-    updateURLParams(filters)
+    // Zustand 스토어 업데이트
+    setFilters(newFilters)
+    // URL 업데이트
+    updateURLParams(newFilters)
   }
 
   // URL 파라미터 업데이트 함수
-  const updateURLParams = (filters: {
-    subPositions: string[]
-    cityNames: string[]
-    scaleName: string[]
-    projectType: string[]
-  }) => {
-    const params = new URLSearchParams()
+  const updateURLParams = useCallback(
+    (filtersToApply: { subPositions: string[]; cityNames: string[]; scaleName: string[]; projectType: string[] }) => {
+      // React Query 캐시를 먼저 무효화
+      queryClient.invalidateQueries({ queryKey: ['infiniteAnnouncements'] })
 
-    // 각 필터 타입별로 여러 값을 추가
-    filters.subPositions.forEach((position) => {
-      params.append('subPosition', position)
-    })
+      // requestAnimationFrame을 사용하여 브라우저 렌더링 사이클에 맞춰 URL 업데이트
+      requestAnimationFrame(() => {
+        const params = new URLSearchParams()
 
-    filters.cityNames.forEach((city) => {
-      params.append('cityName', city)
-    })
+        // 각 필터 타입별로 여러 값을 추가
+        filtersToApply.subPositions.forEach((position) => {
+          params.append('subPosition', position)
+        })
 
-    filters.scaleName.forEach((size) => {
-      params.append('scaleName', size)
-    })
+        filtersToApply.cityNames.forEach((city) => {
+          params.append('cityName', city)
+        })
 
-    filters.projectType.forEach((projectType) => {
-      params.append('projectType', projectType)
-    })
+        filtersToApply.scaleName.forEach((size) => {
+          params.append('scaleName', size)
+        })
 
-    params.set('page', '1')
-    router.push(`/find/announcement?${params.toString()}`)
-  }
+        filtersToApply.projectType.forEach((projectType) => {
+          params.append('projectType', projectType)
+        })
 
-  // 개별 필터 제거 핸들러
-  const removePosition = (position: string) => {
+        params.set('page', '1')
+
+        // URL을 업데이트하기만 하고 페이지 리프레시는 하지 않습니다
+        router.push(`/find/announcement?${params.toString()}`, { scroll: false })
+      })
+    },
+    [queryClient, router],
+  )
+
+  // 필터 제거 핸들러 - Zustand 액션 사용 및 URL 업데이트
+  const handleRemovePosition = (position: string) => {
+    removePosition(position)
     updateURLParams({
-      subPositions: selectedPositions.filter((p) => p !== position),
-      cityNames: selectedLocations,
-      scaleName: selectedSize,
-      projectType: selectedProjectType,
-    })
-  }
-
-  const removeLocation = (location: string) => {
-    updateURLParams({
-      subPositions: selectedPositions,
-      cityNames: selectedLocations.filter((l) => l !== location),
-      scaleName: selectedSize,
-      projectType: selectedProjectType,
+      ...filters,
+      subPositions: filters.subPositions.filter((p) => p !== position),
     })
   }
 
-  const removeSize = (size: string) => {
+  const handleRemoveLocation = (location: string) => {
+    removeLocation(location)
     updateURLParams({
-      subPositions: selectedPositions,
-      cityNames: selectedLocations,
-      scaleName: selectedSize.filter((s) => s !== size),
-      projectType: selectedProjectType,
+      ...filters,
+      cityNames: filters.cityNames.filter((l) => l !== location),
+    })
+  }
+
+  const handleRemoveSize = (size: string) => {
+    removeSize(size)
+    updateURLParams({
+      ...filters,
+      scaleName: filters.scaleName.filter((s) => s !== size),
+    })
+  }
+
+  const handleRemoveProjectType = (type: string) => {
+    removeProjectType(type)
+    updateURLParams({
+      ...filters,
+      projectType: filters.projectType.filter((t) => t !== type),
     })
   }
 
   // 필터 초기화 핸들러
-  const resetFilters = () => {
+  const handleResetFilters = () => {
+    resetFilters()
     updateURLParams({
       subPositions: [],
       cityNames: [],
@@ -110,7 +161,7 @@ export default function FindAnnouncementFilter() {
       <section className="relative space-y-4" aria-label="공고 필터">
         {/* Reset button */}
         <button
-          onClick={resetFilters}
+          onClick={handleResetFilters}
           className="absolute right-0 top-[-2.3rem] flex items-center gap-1 px-3 py-2 text-sm text-grey70"
           aria-label="필터 초기화"
         >
@@ -168,7 +219,10 @@ export default function FindAnnouncementFilter() {
           </div>
 
           {/* 선택된 필터들 표시 */}
-          {(selectedPositions.length > 0 || selectedLocations.length > 0 || selectedSize.length > 0) && (
+          {(selectedPositions.length > 0 ||
+            selectedLocations.length > 0 ||
+            selectedSize.length > 0 ||
+            selectedProjectType.length > 0) && (
             <ul className="mt-2 flex w-full items-center gap-2 overflow-x-auto" aria-label="선택된 필터 목록">
               {selectedPositions.map((position) => (
                 <li
@@ -200,6 +254,17 @@ export default function FindAnnouncementFilter() {
                   aria-label={`선택된 규모: ${size} (클릭하여 제거)`}
                 >
                   <span className="text-sm text-main">{size}</span>
+                  <Image src="/common/icons/delete_icon.svg" alt="삭제" width={16} height={16} />
+                </li>
+              ))}
+              {selectedProjectType.map((type) => (
+                <li
+                  key={type}
+                  onClick={() => removeProjectType(type)}
+                  className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
+                  aria-label={`선택된 프로젝트 유형: ${type} (클릭하여 제거)`}
+                >
+                  <span className="text-sm text-main">{type}</span>
                   <Image src="/common/icons/delete_icon.svg" alt="삭제" width={16} height={16} />
                 </li>
               ))}

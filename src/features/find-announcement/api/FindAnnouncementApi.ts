@@ -21,6 +21,7 @@ export async function getFindAnnouncementProfile(
   params.subPosition.forEach((pos) => queryParams.append('subPosition', pos))
   params.cityName.forEach((city) => queryParams.append('cityName', city))
   params.scaleName.forEach((state) => queryParams.append('scaleName', state))
+  params.projectType.forEach((type) => queryParams.append('projectType', type))
 
   if (params.cursor) {
     queryParams.append('cursor', params.cursor.toString())

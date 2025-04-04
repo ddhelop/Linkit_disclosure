@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 import AnnouncementCard from '@/shared/components/AnnouncementCard'
@@ -8,27 +8,34 @@ import { getFindAnnouncementProfile, getStaticFindAnnouncementData } from '../ap
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import AnnouncementCardSkeleton from '@/shared/components/AnnouncementCardSkeleton'
 import SortToggleButtons from '@/features/find/ui/\bSortToggleButtons'
+import { useFilterStore } from '../store/useFilterStore'
 
 export default function AnnouncementFilterResult() {
   const searchParams = useSearchParams()
   const observerRef = useRef<IntersectionObserver | null>(null)
   const loadMoreRef = useRef<HTMLDivElement>(null)
 
-  // URL 파라미터에서 검색 조건 추출
+  // 스켈레톤 UI가 갑자기 나타나고 사라지는 것을 방지하기 위한 상태
+  const [showSkeleton, setShowSkeleton] = useState(false)
+
+  // Zustand 스토어에서 필터 상태 가져오기
+  const { filters } = useFilterStore()
+
+  // URL 파라미터에서 검색 조건 추출 - Zustand 스토어 사용
   const params: FindAnnouncementSearchParams = {
-    subPosition: searchParams.getAll('subPosition'),
-    cityName: searchParams.getAll('cityName'),
-    scaleName: searchParams.getAll('scaleName'),
-    projectType: searchParams.getAll('projectType'),
+    subPosition: filters.subPositions,
+    cityName: filters.cityNames,
+    scaleName: filters.scaleName,
+    projectType: filters.projectType,
     size: 20,
   }
 
   const isFilterApplied = () => {
     return (
-      searchParams.getAll('subPosition').length > 0 ||
-      searchParams.getAll('cityName').length > 0 ||
-      searchParams.getAll('scaleName').length > 0 ||
-      searchParams.getAll('projectType').length > 0
+      filters.subPositions.length > 0 ||
+      filters.cityNames.length > 0 ||
+      filters.scaleName.length > 0 ||
+      filters.projectType.length > 0
     )
   }
 
@@ -46,6 +53,7 @@ export default function AnnouncementFilterResult() {
     hasNextPage,
     isFetchingNextPage,
     isLoading: isInfiniteLoading,
+    isFetching,
   } = useInfiniteQuery({
     queryKey: ['infiniteAnnouncements', params, sortBy],
     queryFn: ({ pageParam }: { pageParam: number | undefined }) =>
@@ -88,8 +96,30 @@ export default function AnnouncementFilterResult() {
     }
   }, [fetchNextPage, hasNextPage, isFetchingNextPage])
 
+  // 로딩 상태가 변경될 때 부드러운 전환을 위한 효과
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout
+
+    if (isFetching || isInfiniteLoading) {
+      // 로딩이 시작되면 즉시 스켈레톤 표시
+      setShowSkeleton(true)
+    } else {
+      // 로딩이 끝나면 약간의 지연 후 스켈레톤 숨김 (부드러운 전환을 위해)
+      timeoutId = setTimeout(() => {
+        setShowSkeleton(false)
+      }, 300)
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+  }, [isFetching, isInfiniteLoading])
+
   // 모든 프로필 데이터 합치기
   const allAnnouncements = infiniteAnnouncements?.pages.flatMap((page) => page.result.content) || []
+
+  // 데이터 로딩 상태 - 초기 로딩이나 필터 변경시 로딩
+  const isLoadingResults = showSkeleton
 
   // 스켈레톤 UI 렌더링 함수
   const renderSkeletons = (count: number) => {
@@ -99,7 +129,7 @@ export default function AnnouncementFilterResult() {
   }
 
   return (
-    <main className="flex flex-col  md:px-5">
+    <main className="flex flex-col md:px-5">
       {!isFilterApplied() && (
         <section aria-labelledby="hot-announcements-heading">
           <h2 id="hot-announcements-heading" className="text-lg font-semibold text-black">
@@ -124,8 +154,10 @@ export default function AnnouncementFilterResult() {
           </h2>
           <div className="hidden md:block">{isFilterApplied() && <SortToggleButtons />}</div>
         </div>
+
+        {/* 스켈레톤 UI와 결과 목록 간의 부드러운 전환을 위한 컨테이너 */}
         <div className="mt-6 grid grid-cols-1">
-          {isInfiniteLoading
+          {isLoadingResults
             ? renderSkeletons(6)
             : allAnnouncements.map((announcement, index) => (
                 <AnnouncementCard key={`announcement-${index}`} announcement={announcement} variant="wide" />
@@ -146,7 +178,7 @@ export default function AnnouncementFilterResult() {
       <div ref={loadMoreRef} className="h-10" aria-hidden="true" />
 
       {/* 필터링된 결과가 없을 때 */}
-      {isFilterApplied() && allAnnouncements.length === 0 && !isInfiniteLoading && (
+      {isFilterApplied() && allAnnouncements.length === 0 && !isLoadingResults && (
         <section aria-label="검색 결과 없음" className="py-10 text-center">
           <p className="text-lg text-gray-500">검색 결과가 없습니다.</p>
         </section>

@@ -8,27 +8,27 @@ import { getStaticFindTeamData } from '../api/FindTeamApi'
 import { getFindTeamProfile } from '@/features/find-private/api/FindTeamApi'
 import MiniTeamCardSkeleton from '@/shared/components/MiniTeamCardSkeleton'
 import { FindTeamSearchParams } from '../FindTeamType'
+import { useTeamFilterStore } from '../store/useTeamFilterStore'
 
 export default function TeamFilterResult() {
   const searchParams = useSearchParams()
   const observerRef = useRef<IntersectionObserver | null>(null)
   const loadMoreRef = useRef<HTMLDivElement>(null)
 
-  // URL 파라미터에서 검색 조건 추출
+  // Zustand 스토어에서 필터 상태 가져오기
+  const filters = useTeamFilterStore((state) => state.filters)
+
+  // URL 파라미터에서 검색 조건 추출 대신 Zustand 스토어 사용
   const params: FindTeamSearchParams = {
-    scaleName: searchParams.getAll('scaleName'),
-    cityName: searchParams.getAll('cityName'),
-    teamStateName: searchParams.getAll('teamStateName'),
+    scaleName: filters.scaleNames,
+    cityName: filters.cityNames,
+    teamStateName: filters.teamStateNames,
     size: 20,
   }
 
-  // 필터 적용 여부 확인
+  // 필터 적용 여부 확인 - Zustand 스토어 기반으로 변경
   const isFilterApplied = () => {
-    return (
-      searchParams.getAll('scaleName').length > 0 ||
-      searchParams.getAll('cityName').length > 0 ||
-      searchParams.getAll('teamStateName').length > 0
-    )
+    return filters.scaleNames.length > 0 || filters.cityNames.length > 0 || filters.teamStateNames.length > 0
   }
 
   // 정적 프로필 데이터 가져오기
