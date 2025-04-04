@@ -3,10 +3,17 @@ import FindTeamFilter from '@/features/find-team/ui/FindTeamFilter'
 import FindTeamFilterResult from '@/features/find-team/ui/FindTeamFilterResult'
 import { HydrationBoundary } from '@tanstack/react-query'
 import { Metadata } from 'next'
+import { createMetadata } from '@/shared/utils/metadata'
+import { BASE_SITE_URL } from '@/shared/constants/seo'
 
-export const metadata: Metadata = {
+// 페이지별 메타데이터 생성
+export const metadata: Metadata = createMetadata({
   title: '팀 찾기',
-}
+  description:
+    '링킷에서 함께할 팀을 찾아보세요. 사이드 프로젝트부터 창업까지, 다양한 팀들이 여러분의 합류를 기다리고 있습니다.',
+  url: `${BASE_SITE_URL}/find/team`,
+  keywords: ['팀 찾기', '팀 합류', '팀 매칭', '프로젝트 팀', '스타트업 팀', '링킷'],
+})
 
 export default async function FindTeamPage({ searchParams }: { searchParams: { [key: string]: string | string[] } }) {
   const dehydratedState = await loadFindTeamData(searchParams)

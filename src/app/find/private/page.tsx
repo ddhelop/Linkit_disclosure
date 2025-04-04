@@ -3,10 +3,17 @@ import FindPrivateFilter from '@/features/find-private/ui/FindPrivateFilter'
 import FindPrivateResult from '@/features/find-private/ui/FindPrivateResult'
 import { HydrationBoundary } from '@tanstack/react-query'
 import { Metadata } from 'next'
+import { createMetadata } from '@/shared/utils/metadata'
+import { BASE_SITE_URL } from '@/shared/constants/seo'
 
-export const metadata: Metadata = {
-  title: '팀원 찾기',
-}
+// 페이지별 메타데이터 생성
+export const metadata: Metadata = createMetadata({
+  title: '개인 프로필 찾기',
+  description:
+    '링킷에서 프로젝트에 적합한 팀원을 찾아보세요. 다양한 재능을 가진 개인들이 프로젝트 참여를 기다리고 있습니다.',
+  url: `${BASE_SITE_URL}/find/private`,
+  keywords: ['개인 프로필', '팀원 찾기', '프로젝트 팀원', '개발자 찾기', '디자이너 찾기', '기획자 찾기'],
+})
 
 export default async function FindPrivatePage({
   searchParams,

@@ -9,36 +9,18 @@ import Header from '@/widgets/Header/Header'
 import WebSocketInitializer from '@/shared/components/webSocket/WebSocketInitializer'
 import Toast from '@/shared/components/Toast/Toast'
 import CustomClient from '@/components/CustomClient'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/react-query'
+import { headers } from 'next/headers'
+import { createMetadata } from '@/shared/utils/metadata'
+import { AUTHOR_NAME, BASE_SITE_DESCRIPTION, BASE_SITE_TITLE, BASE_SITE_URL } from '@/shared/constants/seo'
 
 export const metadata: Metadata = {
-  title: {
-    default: '링킷',
-    template: '%s',
-  },
-  description: '팀 빌딩 서비스, 링킷',
-  icons: {
-    icon: [
-      { url: '/favicon.ico' }, // 기본 파비콘
-      { url: '/common/logo.png', type: 'image/png' }, // 추가 아이콘
-    ],
-  },
-
-  openGraph: {
-    title: 'Linkit',
-    description: '팀 빌딩 서비스, 링킷',
-
-    siteName: 'Linkit',
-    locale: 'ko_KR',
-    type: 'website',
-    url: 'https://linkit.im',
-    images: [
-      {
-        url: 'https://www.linkit.im/og:image.png',
-        alt: '사이트 썸네일',
-      },
-    ],
-  },
+  ...createMetadata({
+    title: BASE_SITE_TITLE,
+    description: BASE_SITE_DESCRIPTION,
+    url: BASE_SITE_URL,
+    authors: AUTHOR_NAME,
+  }),
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_CONTENT,
   },
@@ -57,10 +39,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   const queryClient = new QueryClient()
+  // 현재 경로 가져오기
+  const headersList = headers()
+  const pathname = headersList.get('x-pathname') || ''
+
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
       <head>
         <meta name="naver-site-verification" content={process.env.NEXT_PUBLIC_NAVER_SITE_CONTENT} />
+        <link rel="canonical" href={`https://www.linkit.im${pathname}`} />
       </head>
       <body className={`${pretendard.className} bg-[#FCFCFD]`}>
         <CustomClient>

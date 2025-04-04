@@ -3,10 +3,16 @@ import FindAnnouncementFilter from '@/features/find-announcement/ui/FindAnnounce
 import AnnouncementFilterResult from '@/features/find-announcement/ui/FindAnnouncementFilterResult'
 import { HydrationBoundary } from '@tanstack/react-query'
 import { Metadata } from 'next'
+import { createMetadata } from '@/shared/utils/metadata'
+import { BASE_SITE_URL } from '@/shared/constants/seo'
 
-export const metadata: Metadata = {
-  title: '모집 공고',
-}
+// 페이지별 메타데이터 생성
+export const metadata: Metadata = createMetadata({
+  title: '모집 공고 찾기',
+  description: '링킷에서 다양한 프로젝트와 팀의 모집 공고를 확인하세요. 나에게 맞는 팀에 지원해보세요.',
+  url: `${BASE_SITE_URL}/find/announcement`,
+  keywords: ['모집 공고', '프로젝트 공고', '팀원 모집', '스타트업 채용', '프로젝트 참여'],
+})
 
 export default async function FindAnnouncementPage({
   searchParams,
