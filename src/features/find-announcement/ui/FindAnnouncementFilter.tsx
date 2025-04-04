@@ -95,6 +95,15 @@ export default function FindAnnouncementFilter() {
     })
   }
 
+  const removeProjectType = (type: string) => {
+    updateURLParams({
+      subPositions: selectedPositions,
+      cityNames: selectedLocations,
+      scaleName: selectedSize,
+      projectType: selectedProjectType.filter((t) => t !== type),
+    })
+  }
+
   // 필터 초기화 핸들러
   const resetFilters = () => {
     updateURLParams({
@@ -168,7 +177,10 @@ export default function FindAnnouncementFilter() {
           </div>
 
           {/* 선택된 필터들 표시 */}
-          {(selectedPositions.length > 0 || selectedLocations.length > 0 || selectedSize.length > 0) && (
+          {(selectedPositions.length > 0 ||
+            selectedLocations.length > 0 ||
+            selectedSize.length > 0 ||
+            selectedProjectType.length > 0) && (
             <ul className="mt-2 flex w-full items-center gap-2 overflow-x-auto" aria-label="선택된 필터 목록">
               {selectedPositions.map((position) => (
                 <li
@@ -200,6 +212,17 @@ export default function FindAnnouncementFilter() {
                   aria-label={`선택된 규모: ${size} (클릭하여 제거)`}
                 >
                   <span className="text-sm text-main">{size}</span>
+                  <Image src="/common/icons/delete_icon.svg" alt="삭제" width={16} height={16} />
+                </li>
+              ))}
+              {selectedProjectType.map((type) => (
+                <li
+                  key={type}
+                  onClick={() => removeProjectType(type)}
+                  className="flex shrink-0 cursor-pointer items-center gap-2 rounded-[0.25rem] bg-grey10 px-3 py-2"
+                  aria-label={`선택된 프로젝트 유형: ${type} (클릭하여 제거)`}
+                >
+                  <span className="text-sm text-main">{type}</span>
                   <Image src="/common/icons/delete_icon.svg" alt="삭제" width={16} height={16} />
                 </li>
               ))}
