@@ -4,7 +4,7 @@
  */
 
 export const BASE_SITE_URL = 'https://www.linkit.im'
-export const BASE_SITE_NAME = '링킷 (Linkit)'
+export const BASE_SITE_NAME = '링킷'
 export const BASE_SITE_TITLE = '링킷'
 export const BASE_TEMPLETE_TITLE = '링킷'
 export const BASE_SITE_DESCRIPTION =
