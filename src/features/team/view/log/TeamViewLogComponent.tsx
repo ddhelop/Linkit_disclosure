@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { TeamLog } from '../../types/team.types'
 import { useDateFormat } from '@/shared/hooks/useDateFormat'
-import useExtractText from '@/shared/hooks/useExtractText'
+
 import { extractTextFromHtml } from '@/shared/lib/extractTextFromHtml'
 
 export default function TeamViewLogComponent({ log, teamName }: { log: TeamLog; teamName: string }) {

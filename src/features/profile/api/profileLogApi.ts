@@ -1,7 +1,7 @@
 import { fetchWithCSR } from '@/shared/api/fetchData'
 import { fetchWithAuth } from '@/shared/lib/api/fetchWithAuth'
 import { ApiResponse } from '@/shared/types/ApiResponse'
-import { ProfileLogDetailType } from '../types/profile.type'
+import { ProfileLogDetailType } from '../log/types'
 
 // GET
 // 프로필 로그 상세 조회
@@ -42,14 +42,5 @@ export const updateProfileLogPublic = async (logId: number) => {
     },
   })
   if (!response.ok) throw new Error('Failed to update log public')
-  return response.json()
-}
-
-// 프로필 로그 리스트 조회
-export const getProfileLogs = async (emailId: string) => {
-  const response = await fetchWithAuth(`/api/v1/profile/log/view/${emailId}`, {
-    method: 'GET',
-  })
-  if (!response.ok) throw new Error('Failed to get profile logs')
   return response.json()
 }
