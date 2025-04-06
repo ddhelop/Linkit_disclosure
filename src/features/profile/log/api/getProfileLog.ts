@@ -11,3 +11,6 @@ export const getProfileLogs = async (
 }
 
 // CSR
+export const getProfileLogDetail = async (profileLogId: number): Promise<ApiResponse<ProfileLogDetailType>> => {
+  return fetchWithCSR(`/profile/log/view/detail/${profileLogId}`)
+}

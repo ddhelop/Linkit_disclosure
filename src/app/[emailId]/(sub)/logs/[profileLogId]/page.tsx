@@ -1,9 +1,14 @@
-import { loadProfileLogDetailData } from '@/features/profile-view/loader'
-import { HydrationBoundary } from '@tanstack/react-query'
-import ProfileViewLogDetail from '@/features/profile-view/ui/ProfileViewLogDetail'
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+import ProfileViewLogDetail from '@/features/profile/log/ui/ProfileViewLogDetail'
+import { queryClient } from '@/shared/lib/react-query/queryClient'
+import { getProfileLogDetail } from '@/features/profile/log/api/getProfileLog'
 
 export default async function ProfileLogDetailPage({ params }: { params: { emailId: string; profileLogId: number } }) {
-  const dehydratedState = await loadProfileLogDetailData(params.profileLogId)
+  await queryClient.prefetchQuery({
+    queryKey: ['profileLogDetail', params.profileLogId],
+    queryFn: () => getProfileLogDetail(params.profileLogId),
+  })
+  const dehydratedState = dehydrate(queryClient)
 
   return (
     <HydrationBoundary state={dehydratedState}>

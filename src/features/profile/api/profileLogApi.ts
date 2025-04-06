@@ -4,12 +4,6 @@ import { ApiResponse } from '@/shared/types/ApiResponse'
 import { ProfileLogDetailType } from '../log/types'
 
 // GET
-// 프로필 로그 상세 조회
-export const getProfileLogDetail = async (profileLogId: number): Promise<ApiResponse<ProfileLogDetailType>> => {
-  return fetchWithCSR(`/profile/log/view/detail/${profileLogId}`, {
-    cache: 'no-store',
-  })
-}
 
 export const deleteProfileLog = async (logId: number) => {
   const response = await fetchWithAuth(`/api/v1/profile/log/${logId}`, {

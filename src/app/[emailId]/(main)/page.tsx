@@ -1,4 +1,4 @@
-import ProfileViewLog from '@/features/profile-view/ui/ProfileViewLog'
+import ProfileViewLog from '@/features/profile/log/ui/ProfileViewLog'
 import ProfileViewSkills from '@/features/profile-view/ui/ProfileViewSkills'
 import ProfileViewHistory from '@/features/profile-view/ui/ProfileViewHistory'
 import ProfileViewPortFolio from '@/features/profile-view/ui/ProfileViewPortFolio'
