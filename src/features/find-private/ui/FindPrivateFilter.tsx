@@ -91,26 +91,23 @@ export default function FindPrivateFilter() {
   // 필터 제거 핸들러 - Zustand 액션 사용 및 URL 업데이트
   const handleRemovePosition = (position: string) => {
     removePosition(position)
-    updateURLParams({
-      ...filters,
-      subPositions: filters.subPositions.filter((p) => p !== position),
-    })
+    // 액션 실행 후 즉시 업데이트된 스토어 상태 가져오기
+    const updatedFilters = usePrivateFilterStore.getState().filters
+    updateURLParams(updatedFilters)
   }
 
   const handleRemoveLocation = (location: string) => {
     removeLocation(location)
-    updateURLParams({
-      ...filters,
-      cityNames: filters.cityNames.filter((l) => l !== location),
-    })
+    // 액션 실행 후 즉시 업데이트된 스토어 상태 가져오기
+    const updatedFilters = usePrivateFilterStore.getState().filters
+    updateURLParams(updatedFilters)
   }
 
   const handleRemoveStatus = (status: string) => {
     removeStatus(status)
-    updateURLParams({
-      ...filters,
-      profileStateNames: filters.profileStateNames.filter((s) => s !== status),
-    })
+    // 액션 실행 후 즉시 업데이트된 스토어 상태 가져오기
+    const updatedFilters = usePrivateFilterStore.getState().filters
+    updateURLParams(updatedFilters)
   }
 
   // 필터 초기화 핸들러
