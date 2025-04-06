@@ -1,6 +1,7 @@
 'use client'
 
 import './editorToolbar.css'
+import { Quill } from 'react-quill'
 
 export const modules = {
   toolbar: {
@@ -10,6 +11,10 @@ export const modules = {
     delay: 500,
     maxStack: 100,
     userOnly: true,
+  },
+  imageResize: {
+    parchment: Quill.import('parchment'),
+    modules: ['Resize', 'DisplaySize'],
   },
 }
 

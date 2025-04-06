@@ -17,6 +17,11 @@ import { QuillToolbar, modules, formats } from './EditorToolbar'
 import { useLogEditorState } from '../model/useLogEditorState'
 import { useLogSubmit } from '../model/useLogSubmit'
 import { useLogDetail } from '../model/useLogDetail'
+import ImageResize from 'quill-image-resize-module-react'
+import { Quill } from 'react-quill'
+
+// Quill에 이미지 리사이즈 모듈 등록
+Quill.register('modules/imageResize', ImageResize)
 
 type LogWriteFormProps = {
   domainType?: 'TEAM' | 'PROFILE'
