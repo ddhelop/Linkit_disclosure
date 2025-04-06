@@ -115,34 +115,30 @@ export default function FindAnnouncementFilter() {
   // 필터 제거 핸들러 - Zustand 액션 사용 및 URL 업데이트
   const handleRemovePosition = (position: string) => {
     removePosition(position)
-    updateURLParams({
-      ...filters,
-      subPositions: filters.subPositions.filter((p) => p !== position),
-    })
+    // 액션 실행 후 즉시 업데이트된 스토어 상태 가져오기
+    const updatedFilters = useFilterStore.getState().filters
+    updateURLParams(updatedFilters)
   }
 
   const handleRemoveLocation = (location: string) => {
     removeLocation(location)
-    updateURLParams({
-      ...filters,
-      cityNames: filters.cityNames.filter((l) => l !== location),
-    })
+    // 액션 실행 후 즉시 업데이트된 스토어 상태 가져오기
+    const updatedFilters = useFilterStore.getState().filters
+    updateURLParams(updatedFilters)
   }
 
   const handleRemoveSize = (size: string) => {
     removeSize(size)
-    updateURLParams({
-      ...filters,
-      scaleName: filters.scaleName.filter((s) => s !== size),
-    })
+    // 액션 실행 후 즉시 업데이트된 스토어 상태 가져오기
+    const updatedFilters = useFilterStore.getState().filters
+    updateURLParams(updatedFilters)
   }
 
   const handleRemoveProjectType = (type: string) => {
     removeProjectType(type)
-    updateURLParams({
-      ...filters,
-      projectType: filters.projectType.filter((t) => t !== type),
-    })
+    // 액션 실행 후 즉시 업데이트된 스토어 상태 가져오기
+    const updatedFilters = useFilterStore.getState().filters
+    updateURLParams(updatedFilters)
   }
 
   // 필터 초기화 핸들러

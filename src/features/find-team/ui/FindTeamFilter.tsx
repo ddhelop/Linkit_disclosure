@@ -87,26 +87,23 @@ export default function FindTeamFilter() {
   // 필터 제거 핸들러 - Zustand 액션 사용 및 URL 업데이트
   const handleRemoveSize = (size: string) => {
     removeSize(size)
-    updateURLParams({
-      ...filters,
-      scaleNames: filters.scaleNames.filter((s) => s !== size),
-    })
+    // 액션 실행 후 즉시 업데이트된 스토어 상태 가져오기
+    const updatedFilters = useTeamFilterStore.getState().filters
+    updateURLParams(updatedFilters)
   }
 
   const handleRemoveLocation = (location: string) => {
     removeLocation(location)
-    updateURLParams({
-      ...filters,
-      cityNames: filters.cityNames.filter((l) => l !== location),
-    })
+    // 액션 실행 후 즉시 업데이트된 스토어 상태 가져오기
+    const updatedFilters = useTeamFilterStore.getState().filters
+    updateURLParams(updatedFilters)
   }
 
   const handleRemoveStatus = (status: string) => {
     removeStatus(status)
-    updateURLParams({
-      ...filters,
-      teamStateNames: filters.teamStateNames.filter((s) => s !== status),
-    })
+    // 액션 실행 후 즉시 업데이트된 스토어 상태 가져오기
+    const updatedFilters = useTeamFilterStore.getState().filters
+    updateURLParams(updatedFilters)
   }
 
   // 필터 초기화 핸들러
