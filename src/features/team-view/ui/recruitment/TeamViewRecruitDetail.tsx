@@ -70,7 +70,7 @@ export default function TeamViewRecruitDetail({
   }
 
   return (
-    <div className="group flex flex-col px-6 py-8 lg:px-8">
+    <div className="group flex flex-col p-4 lg:px-8">
       <div className="flex justify-between">
         <div
           className={`rounded-full  px-3 py-1 text-xs  ${
@@ -94,14 +94,16 @@ export default function TeamViewRecruitDetail({
           />
         </div>
       </div>
-      <div className="mt-2 flex gap-1">
-        <span className="rounded-md bg-grey20 px-2 py-1 text-xs font-normal text-main">
-          {recruitmentDetail?.projectTypeName}
-        </span>
-        <span className="rounded-md bg-grey20 px-2 py-1 text-xs font-normal text-main">
-          {recruitmentDetail?.workTypeName}
-        </span>
-      </div>
+      {recruitmentDetail?.projectTypeName && (
+        <div className="mt-2 flex gap-1">
+          <span className="rounded-md bg-grey20 px-2 py-1 text-xs font-normal text-main">
+            {recruitmentDetail?.projectTypeName}
+          </span>
+          <span className="rounded-md bg-grey20 px-2 py-1 text-xs font-normal text-main">
+            {recruitmentDetail?.workTypeName}
+          </span>
+        </div>
+      )}
       {recruitmentDetail?.announcementPositionItem?.majorPosition && (
         <span className="mt-2 text-sm text-grey60">
           {recruitmentDetail?.announcementPositionItem?.majorPosition}

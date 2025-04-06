@@ -43,7 +43,7 @@ export default function TeamViewRecruitmentProvider() {
 
   return (
     <>
-      <div className="flex w-full flex-col items-center justify-center gap-10  ">
+      <div className="flex w-full flex-col items-center justify-center gap-3 lg:gap-10   ">
         <div className="w-full">{teamInfo && <TeamViewWideInfo teamInfo={teamInfo} />}</div>
 
         <div className="w-full lg:w-[90%] ">
