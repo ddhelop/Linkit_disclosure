@@ -24,7 +24,7 @@ export async function getTeamCard(teamName: string): Promise<ApiResponse<TeamDat
 
 // ✅ 팀 로그 목록 조회
 export async function getTeamLogList(teamName: string): Promise<ApiResponse<{ teamLogItems: TeamLog[] }>> {
-  return fetchWithCSR(`/team/${teamName}/log`)
+  return fetchWithSSR(`/team/${teamName}/log`)
 }
 
 // ✅ 팀 로그 상세 조회

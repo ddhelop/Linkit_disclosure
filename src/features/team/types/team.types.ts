@@ -35,6 +35,7 @@ export interface TeamLog {
   logTitle: string
   logContent: string
   logViewCount: number
+  commentCount: number
 }
 
 // 모집공고
