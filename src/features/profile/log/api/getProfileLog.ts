@@ -14,3 +14,8 @@ export const getProfileLogs = async (
 export const getProfileLogDetail = async (profileLogId: number): Promise<ApiResponse<ProfileLogDetailType>> => {
   return fetchWithCSR(`/profile/log/view/detail/${profileLogId}`)
 }
+
+// 내 프로필 로그 조회
+export const getMyProfileLogs = async (): Promise<ApiResponse<{ profileLogItems: ProfileLogDetailType[] }>> => {
+  return fetchWithCSR(`/profile/log`)
+}
