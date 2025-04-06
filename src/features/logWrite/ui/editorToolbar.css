@@ -80,7 +80,7 @@
 
 .ql-snow .ql-picker.ql-size .ql-picker-label::before,
 .ql-snow .ql-picker.ql-size .ql-picker-item::before {
-  content: "16px" !important;
+  content: '16px' !important;
 }
 
 .ql-toolbar .ql-picker.ql-size .ql-picker-label[data-value]::before,
@@ -89,7 +89,7 @@
 }
 
 .ql-toolbar .ql-picker.ql-size .ql-picker-item[data-value]::before {
-  font-size: attr(data-value type(<length>)) !important;
+  font-size: attr(data-value) !important;
 }
 
 /* 에디터 내용 스타일링 */

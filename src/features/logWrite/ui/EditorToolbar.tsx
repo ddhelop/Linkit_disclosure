@@ -1,6 +1,6 @@
 'use client'
 
-import '../../style/editorToolbar.css'
+import './editorToolbar.css'
 
 export const modules = {
   toolbar: {
@@ -96,5 +96,3 @@ export const QuillToolbar = () => (
     </div>
   </div>
 )
-
-export default QuillToolbar
