@@ -22,8 +22,13 @@ export default function ProfileViewWideInfo() {
     >
       <div className="flex w-full flex-col gap-3 lg:w-[90%]">
         <div className="flex items-center gap-4">
-          <div className="relative h-[46px] w-[46px]">
-            <Image src={profileInformMenu?.profileImagePath || '/common/default_profile.svg'} alt="profile logo" fill />
+          <div className="relative h-[46px] w-[46px] rounded-md">
+            <Image
+              src={profileInformMenu?.profileImagePath || '/common/default_profile.svg'}
+              alt="profile logo"
+              fill
+              className="rounded-md"
+            />
           </div>
           <div className="flex flex-col gap-1">
             <h1 className="text-sm font-semibold text-grey90">{profileInformMenu?.memberName}</h1>
