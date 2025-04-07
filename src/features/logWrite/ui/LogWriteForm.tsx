@@ -93,7 +93,7 @@ export default function LogWriteForm({ domainType = 'PROFILE', teamCode }: LogWr
                 value={contents}
                 onChange={setContents}
                 placeholder="내용을 입력해 주세요."
-                className="min-h-[200px] rounded-b-xl border border-grey30"
+                className="rounded-b-xl"
               />
             </div>
           </div>

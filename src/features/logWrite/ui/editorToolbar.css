@@ -106,3 +106,34 @@
     padding: 2px 6px;
   }
 }
+
+/* =========================
+  🧩 에디터 입력창 스타일
+========================= */
+.ql-container.ql-snow {
+  border: 1px solid #e2e8f0 !important; /* 툴바 테두리와 동일 */
+  border-top: none !important; /* 툴바와 자연스럽게 연결 */
+  border-radius: 0 0 12px 12px !important; /* 아래 모서리만 라운드 */
+  overflow: hidden;
+}
+
+.ql-editor {
+  min-height: 300px;
+  padding: 16px;
+  font-size: 16px;
+  line-height: 1.7;
+  word-break: break-word;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .ql-editor {
+    min-height: 500px;
+  }
+}
+.quill-editor-container {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
