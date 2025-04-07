@@ -5,8 +5,10 @@ import { getMyProfileLogs } from '../api/getProfileLog'
 import ProfileEditLogItem from './ProfileEditLogItem'
 import { LogListSkeleton } from '../../edit/components/skeletons/LogListSkeleton'
 import NotContentsUi from '../../edit/components/common/NotContentsUi'
+import { useScrollTopOnMount } from '@/shared/hooks/useScrollTopOnMount'
 
 export default function ProfileEditLogs() {
+  useScrollTopOnMount()
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['myProfileLogs'],
     queryFn: getMyProfileLogs,
