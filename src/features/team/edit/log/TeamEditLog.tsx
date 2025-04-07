@@ -1,15 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
 import TeamLogComponent from './TeamLogComponent'
 
 import NotContentsUi from '@/features/profile/edit/components/common/NotContentsUi'
 import { TeamLog } from '../../types/team.types'
 import { useQuery } from '@tanstack/react-query'
 import { getTeamLogs } from '../../api/teamViewApi'
+import { useScrollTopOnMount } from '@/shared/hooks/useScrollTopOnMount'
 
 export default function TeamEditLog({ teamName }: { teamName: string }) {
+  useScrollTopOnMount()
   const { data, refetch } = useQuery({
     queryKey: ['teamLogs', teamName],
     queryFn: () => getTeamLogs(teamName),

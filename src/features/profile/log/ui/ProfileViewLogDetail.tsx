@@ -1,11 +1,12 @@
 'use client'
-import { getProfileLogDetail } from '@/features/profile/api/profileLogApi'
+
 import useLinkifyContent from '@/shared/hooks/useLinkifyContent'
 import { useScrollTopOnMount } from '@/shared/hooks/useScrollTopOnMount'
 import ShareLinkButton from '@/shared/components/ShareLinkButton'
 import { useDateFormat } from '@/shared/hooks/useDateFormat'
 import { useQuery } from '@tanstack/react-query'
 import CommentSection from '@/shared/components/Comment/CommentSection'
+import { getProfileLogDetail } from '@/features/profile/log/api/getProfileLog'
 
 export default function ProfileViewLogDetail({ profileLogId }: { profileLogId: number }) {
   useScrollTopOnMount()

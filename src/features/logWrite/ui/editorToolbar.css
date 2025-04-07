@@ -1,0 +1,204 @@
+/* =========================
+  🧩 툴바 영역 스타일
+========================= */
+#toolbar,
+.ql-toolbar.ql-snow {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px 12px 0 0;
+  padding: 12px 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  z-index: 30;
+  scrollbar-width: none;
+}
+
+.ql-toolbar.ql-snow::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================
+  🧩 버튼 공통 스타일
+========================= */
+.ql-toolbar button {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+  border: none;
+}
+
+.ql-toolbar button:hover {
+  background-color: #f1f5f9;
+}
+
+/* =========================
+  🧩 드롭다운 (폰트, 컬러 등)
+========================= */
+.ql-toolbar .ql-picker {
+  height: 32px;
+}
+
+.ql-toolbar .ql-picker-label {
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 14px;
+  color: #334155;
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.ql-toolbar .ql-picker-options {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  padding: 4px 0;
+  margin-top: 6px;
+  z-index: 40;
+}
+
+.ql-toolbar .ql-picker-item {
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #334155;
+}
+
+.ql-toolbar .ql-picker-item:hover {
+  background-color: #f1f5f9;
+}
+
+/* =========================
+  🧩 Divider
+========================= */
+.divider {
+  width: 1px;
+  height: 28px;
+  background-color: #e2e8f0;
+  margin: 0 6px;
+}
+
+/* =========================
+  🧩 반응형
+========================= */
+@media (max-width: 640px) {
+  #toolbar {
+    padding: 8px;
+    gap: 6px;
+  }
+
+  .ql-toolbar button {
+    width: 28px;
+    height: 28px;
+    padding: 3px;
+  }
+
+  .ql-toolbar .ql-picker-label {
+    font-size: 12px;
+    padding: 2px 6px;
+  }
+}
+
+/* =========================
+  🧩 에디터 입력창 스타일
+========================= */
+.ql-container.ql-snow {
+  border: 1px solid #e2e8f0 !important; /* 툴바 테두리와 동일 */
+  border-top: none !important; /* 툴바와 자연스럽게 연결 */
+  border-radius: 0 0 12px 12px !important; /* 아래 모서리만 라운드 */
+  overflow: hidden;
+}
+
+.ql-editor {
+  min-height: 300px;
+  padding: 16px;
+  font-size: 16px;
+  line-height: 1.7;
+  word-break: break-word;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .ql-editor {
+    min-height: 500px;
+  }
+}
+.quill-editor-container {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* =========================
+  🧩 이미지 스타일
+========================= */
+.ql-editor p {
+  margin-bottom: 1em;
+}
+
+.ql-editor img {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  margin: 1em auto !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 이미지 호버 시 시각적 피드백 */
+.ql-editor img:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 이미지 드래그 핸들 스타일 */
+.image-resize-module-tool {
+  box-sizing: border-box !important;
+  border: 2px solid #4a8cff !important;
+  border-radius: 4px !important;
+}
+
+/* 이미지 리사이즈 모서리 포인트 */
+.image-resize-module-tool-handle {
+  width: 10px !important;
+  height: 10px !important;
+  background: #4a8cff !important;
+  border-radius: 50% !important;
+}
+
+/* 이미지 크기 표시 */
+.image-resize-module-tool-display-size {
+  background: rgba(0, 0, 0, 0.7) !important;
+  color: white !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  font-family: sans-serif !important;
+}
+
+/* 이미지 업로드 중 표시 */
+.ql-editor .image-uploading {
+  position: relative !important;
+  opacity: 0.7 !important;
+}
+
+.ql-editor .image-uploading::after {
+  content: '업로드 중...' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  color: white !important;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+}

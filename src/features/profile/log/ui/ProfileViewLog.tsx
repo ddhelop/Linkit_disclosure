@@ -2,16 +2,15 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { EditableContainer } from '../component/EditableContainer'
+import { EditableContainer } from '../../../profile-view/component/EditableContainer'
 import { useQuery } from '@tanstack/react-query'
 import { getProfileDetail } from '@/features/profile-view/api/ProfileViewApi'
-import ProfileViewLogSkeleton from './skeleton/ProfileViewLogSkeleton'
+import ProfileViewLogSkeleton from './ProfileViewLogSkeleton'
 
 export default function ProfileViewLog({ emailId }: { emailId: string }) {
   const { data, isLoading } = useQuery({
     queryKey: ['profileDetail', emailId],
     queryFn: () => getProfileDetail(emailId),
-    staleTime: 60000, // 1분 동안 캐싱 유지
   })
 
   // 로딩 중일 때 스켈레톤 UI 표시

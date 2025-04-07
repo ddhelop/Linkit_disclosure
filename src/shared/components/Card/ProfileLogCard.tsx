@@ -1,31 +1,34 @@
-import { stripHtmlAndImages } from '@/shared/utils/stringUtils'
 import Link from 'next/link'
-import { ProfileLogDetailType } from '@/features/profile/types/profile.type'
 
-export default function ProfileLogCard({ logItem, emailId }: { logItem: ProfileLogDetailType; emailId: string }) {
+import { useDateFormat } from '@/shared/hooks/useDateFormat'
+
+import { extractTextFromHtml } from '@/shared/lib/extractTextFromHtml'
+import { ProfileLogDetailType } from '@/features/profile/log/types'
+
+export default function ProfileLogCard({ log, emailId }: { log: ProfileLogDetailType; emailId: string }) {
+  const { formatToKorean } = useDateFormat()
   return (
     <Link
-      href={`/${emailId}/logs/${logItem?.profileLogId}`}
-      className="flex w-full flex-col gap-4 rounded-xl border border-transparent bg-white p-4 hover:border-main lg:px-[2.75rem] lg:py-[1.88rem]"
+      href={`/${emailId}/logs/${log.profileLogId}`}
+      className="flex w-full cursor-pointer flex-col gap-5 rounded-xl border border-grey30 bg-white p-5 transition-all hover:border-main"
     >
-      <div className="flex items-center gap-2">
-        <span className="font-semibold text-grey80">{logItem?.logTitle}</span>
-        <span className="text-xs text-grey50">|</span>
-        <span className="text-xs font-normal text-grey60">{new Date(logItem?.modifiedAt).toLocaleDateString()}</span>
+      <div className="flex items-center justify-between">
+        <div className="flex gap-2">
+          {log.logType === 'REPRESENTATIVE_LOG' && (
+            <span className="rounded-md bg-grey20 px-2 py-1 text-xs font-normal text-main">대표글</span>
+          )}
+          <h1 className="font-semibold text-grey80">{log.logTitle}</h1>
+        </div>
+        <div>
+          <span className="text-xs font-normal text-grey60">{formatToKorean(log.modifiedAt)}</span>
+          <span className="text-xs font-normal text-grey60"> · </span>
+          <span className="text-xs font-normal text-grey60">댓글 {log.commentCount}</span>
+        </div>
       </div>
-      <div className="overflow-hidden rounded-xl bg-grey10 px-6 py-[1.31rem] text-sm text-grey70">
-        <div
-          className="overflow-hidden"
-          style={{
-            display: '-webkit-box',
-            WebkitLineClamp: '6',
-            WebkitBoxOrient: 'vertical',
-          }}
-          dangerouslySetInnerHTML={{
-            __html: logItem?.logContent,
-          }}
-        />
-      </div>
+
+      <hr className="" />
+
+      <div className="text-sm leading-6 text-grey60">{extractTextFromHtml(log.logContent, { maxLength: 250 })}</div>
     </Link>
   )
 }

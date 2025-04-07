@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 // LogWriteForm을 동적으로 임포트
-const LogWriteForm = dynamic(() => import('@/features/profile/edit/log/components/LogWriteForm'), { ssr: false })
+const LogWriteForm = dynamic(() => import('@/features/logWrite/ui/LogWriteForm'), { ssr: false })
 
 export default function TeamEditLogNewPage({ params }: { params: { teamName: string } }) {
   const teamName = params.teamName

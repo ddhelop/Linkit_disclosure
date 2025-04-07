@@ -6,4 +6,5 @@ export interface ProfileLogDetailType {
   logTitle: string
   logContent: string
   logViewCount: number
+  commentCount: number
 }
