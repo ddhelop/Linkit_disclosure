@@ -69,7 +69,7 @@ export async function updateTeamLog(
   const response = await fetchWithAuth(`/api/v1/team/${teamName}/log/${logId}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8',
     },
     body: JSON.stringify(logData),
   })
