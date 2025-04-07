@@ -74,16 +74,13 @@ export const imageHandler = () => {
             // 이미지 다음으로 커서 이동
             quillInstance.setSelection(insertIndex + 1, 0)
 
-            console.log('이미지가 에디터에 삽입되었습니다')
             return
           } catch (err) {
-            console.error('Quill 인스턴스 메서드 호출 오류:', err)
             // 오류 발생 시 DOM 직접 조작 방식으로 대체
           }
         }
 
         // quillInstance가 없거나 오류 발생 시 대체 방법 (DOM 직접 조작)
-        console.log('DOM 직접 조작 방식으로 이미지 삽입')
         const editorDiv = document.querySelector('.ql-editor')
         if (editorDiv) {
           // 이미지 요소 생성
@@ -114,10 +111,8 @@ export const imageHandler = () => {
           editorDiv.dispatchEvent(event)
         }
       } else {
-        console.error('이미지 URL을 받아오지 못했습니다:', data)
       }
     } catch (error) {
-      console.error('이미지 업로드 오류:', error)
       alert('이미지 업로드에 실패했습니다.')
     }
   }

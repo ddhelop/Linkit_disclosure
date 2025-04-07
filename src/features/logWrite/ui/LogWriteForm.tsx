@@ -112,8 +112,6 @@ export default function LogWriteForm({ domainType = 'PROFILE', teamCode }: LogWr
             // 에디터 내용 변경 이벤트 발생시켜 React 상태 업데이트
             const inputEvent = new Event('input', { bubbles: true })
             editorElement.dispatchEvent(inputEvent)
-
-            console.log('이미지가 성공적으로 삭제되었습니다')
           }
         } catch (error) {
           console.error('이미지 삭제 오류:', error)
@@ -179,7 +177,6 @@ export default function LogWriteForm({ domainType = 'PROFILE', teamCode }: LogWr
       // Quill 인스턴스 찾기
       const quillInstance = getQuillInstanceSafely()
       if (quillInstance) {
-        console.log('Quill 인스턴스를 성공적으로 찾았습니다')
         // Quill 인스턴스를 EditorToolbar로 전달하여 초기화
         initQuillEditor(quillInstance)
 
