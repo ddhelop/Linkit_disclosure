@@ -137,3 +137,68 @@
   overflow: hidden;
   background: #fff;
 }
+
+/* =========================
+  🧩 이미지 스타일
+========================= */
+.ql-editor p {
+  margin-bottom: 1em;
+}
+
+.ql-editor img {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  margin: 1em auto !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 이미지 호버 시 시각적 피드백 */
+.ql-editor img:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 이미지 드래그 핸들 스타일 */
+.image-resize-module-tool {
+  box-sizing: border-box !important;
+  border: 2px solid #4a8cff !important;
+  border-radius: 4px !important;
+}
+
+/* 이미지 리사이즈 모서리 포인트 */
+.image-resize-module-tool-handle {
+  width: 10px !important;
+  height: 10px !important;
+  background: #4a8cff !important;
+  border-radius: 50% !important;
+}
+
+/* 이미지 크기 표시 */
+.image-resize-module-tool-display-size {
+  background: rgba(0, 0, 0, 0.7) !important;
+  color: white !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  font-family: sans-serif !important;
+}
+
+/* 이미지 업로드 중 표시 */
+.ql-editor .image-uploading {
+  position: relative !important;
+  opacity: 0.7 !important;
+}
+
+.ql-editor .image-uploading::after {
+  content: '업로드 중...' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  color: white !important;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+}
