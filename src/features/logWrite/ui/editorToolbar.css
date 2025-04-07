@@ -1,58 +1,17 @@
 /* =========================
-  🧩 에디터 기본 설정
-========================= */
-.ql-container.ql-snow {
-  border: none !important;
-}
-
-.ql-editor {
-  min-height: 300px !important;
-  padding: 16px !important;
-  font-size: 16px !important;
-  line-height: 1.7 !important;
-  word-break: break-word;
-}
-
-/* 반응형 높이 */
-@media (min-width: 768px) {
-  .ql-editor {
-    min-height: 600px !important;
-  }
-}
-
-/* 제목 크기 */
-.ql-editor h1 {
-  font-size: 24px !important;
-  font-weight: 600 !important;
-}
-
-.ql-editor h2 {
-  font-size: 20px !important;
-  font-weight: 600 !important;
-}
-
-/* 이미지 리사이징 대응 */
-.ql-editor img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  object-fit: contain;
-}
-
-/* =========================
-  🧩 툴바 스타일
+  🧩 툴바 영역 스타일
 ========================= */
 #toolbar,
 .ql-toolbar.ql-snow {
-  position: relative;
-  z-index: 20;
-  border: none !important;
-  background-color: #fff;
-  padding: 8px 12px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px 12px 0 0;
+  padding: 12px 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  white-space: nowrap;
+  gap: 10px;
+  z-index: 30;
   scrollbar-width: none;
 }
 
@@ -60,120 +19,90 @@
   display: none;
 }
 
+/* =========================
+  🧩 버튼 공통 스타일
+========================= */
 .ql-toolbar button {
-  width: 28px !important;
-  height: 28px !important;
-  padding: 5px !important;
-  border-radius: 6px !important;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.15s ease;
+  border: none;
 }
 
 .ql-toolbar button:hover {
-  background-color: #f1f5f9 !important;
+  background-color: #f1f5f9;
 }
 
+/* =========================
+  🧩 드롭다운 (폰트, 컬러 등)
+========================= */
 .ql-toolbar .ql-picker {
-  height: 28px !important;
+  height: 32px;
 }
 
 .ql-toolbar .ql-picker-label {
-  border: 1px solid #e2e8f0 !important;
-  border-radius: 6px !important;
-  padding: 0 6px !important;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 4px 8px;
   font-size: 14px;
-  height: 28px !important;
-  color: #334155 !important;
+  color: #334155;
+  height: 32px;
+  display: flex;
+  align-items: center;
 }
 
 .ql-toolbar .ql-picker-options {
   background: white;
   border: 1px solid #e2e8f0;
-  border-radius: 6px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
   padding: 4px 0;
   margin-top: 6px;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
-  z-index: 30;
+  z-index: 40;
 }
 
 .ql-toolbar .ql-picker-item {
-  padding: 6px 12px !important;
+  padding: 6px 12px;
+  font-size: 14px;
   color: #334155;
 }
 
 .ql-toolbar .ql-picker-item:hover {
-  background-color: #f1f5f9 !important;
-}
-
-/* 드롭다운 항목 텍스트 표기 */
-.ql-toolbar .ql-picker.ql-header .ql-picker-label::before,
-.ql-toolbar .ql-picker.ql-header .ql-picker-item::before {
-  content: '본문' !important;
-}
-
-.ql-toolbar .ql-picker.ql-header .ql-picker-label[data-value='1']::before,
-.ql-toolbar .ql-picker.ql-header .ql-picker-item[data-value='1']::before {
-  content: '대제목' !important;
-}
-
-.ql-toolbar .ql-picker.ql-header .ql-picker-label[data-value='2']::before,
-.ql-toolbar .ql-picker.ql-header .ql-picker-item[data-value='2']::before {
-  content: '중제목' !important;
-}
-
-.ql-toolbar .ql-picker.ql-size .ql-picker-label::before,
-.ql-toolbar .ql-picker.ql-size .ql-picker-item::before {
-  content: attr(data-value) !important;
-}
-
-.ql-toolbar .ql-picker.ql-size .ql-picker-item[data-value]::before {
-  font-size: attr(data-value) !important;
+  background-color: #f1f5f9;
 }
 
 /* =========================
-  🧩 모바일 대응
+  🧩 Divider
+========================= */
+.divider {
+  width: 1px;
+  height: 28px;
+  background-color: #e2e8f0;
+  margin: 0 6px;
+}
+
+/* =========================
+  🧩 반응형
 ========================= */
 @media (max-width: 640px) {
+  #toolbar {
+    padding: 8px;
+    gap: 6px;
+  }
+
   .ql-toolbar button {
-    width: 24px !important;
-    height: 24px !important;
-    padding: 4px !important;
+    width: 28px;
+    height: 28px;
+    padding: 3px;
   }
 
   .ql-toolbar .ql-picker-label {
-    font-size: 12px !important;
+    font-size: 12px;
+    padding: 2px 6px;
   }
-
-  #toolbar {
-    padding: 4px !important;
-    gap: 4px !important;
-  }
-}
-
-.ql-editor img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-}
-
-/* 이미지 리사이즈 핸들러 */
-.ql-container .ql-image-resize .ql-resize-handle {
-  border: 2px solid #3b82f6;
-  width: 10px;
-  height: 10px;
-  background: #fff;
-  border-radius: 50%;
-}
-
-/* 사이즈 숫자 스타일 */
-.ql-container .ql-image-resize .ql-size-display {
-  background: #1e293b;
-  color: #fff;
-  padding: 2px 6px;
-  font-size: 12px;
-  border-radius: 4px;
-  margin-top: 4px;
 }
