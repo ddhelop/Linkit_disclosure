@@ -22,6 +22,7 @@ import { useLogSubmit } from '../model/useLogSubmit'
 import { useLogDetail } from '../model/useLogDetail'
 import ImageResize from 'quill-image-resize-module-react'
 import { Quill } from 'react-quill'
+import Image from 'next/image'
 
 // Quill에 이미지 리사이즈 모듈 등록
 Quill.register('modules/imageResize', ImageResize)
@@ -298,7 +299,17 @@ export default function LogWriteForm({ domainType = 'PROFILE', teamCode }: LogWr
 
           {/* 에디터 */}
           <div className="mt-6 flex flex-col gap-3">
-            <span className="font-semibold text-grey80">내용</span>
+            <div className="flex items-center justify-between">
+              <span className="font-semibold text-grey80">내용</span>
+              <Link
+                href="https://bit.ly/4kWGsug"
+                target="_blank"
+                className="flex cursor-pointer gap-1 rounded-full border border-transparent bg-[#EDF3FF] px-3 py-1 hover:border-main"
+              >
+                <p className="text-xs text-main">작성 팁</p>
+                <Image src="/common/icons/share.svg" alt="arrow-right" width={16} height={16} />
+              </Link>
+            </div>
             <div className="quill-editor-container">
               <QuillToolbar />
               <ReactQuill
