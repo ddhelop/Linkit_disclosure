@@ -8,7 +8,7 @@ export default function TeamViewWideInfo({ teamInfo }: { teamInfo: TeamData }) {
   return (
     <Link
       href={`/team/${teamInformMenu.teamCode}/log`}
-      className="flex w-full cursor-pointer justify-center bg-[#EDF3FF] px-6 py-8 hover:bg-grey10"
+      className="flex w-full cursor-pointer justify-center bg-grey10 px-6 py-8 hover:bg-[#EDF3FF]"
     >
       <div className="flex w-full flex-col gap-3 lg:w-[90%]">
         <div className="flex items-center gap-4">
