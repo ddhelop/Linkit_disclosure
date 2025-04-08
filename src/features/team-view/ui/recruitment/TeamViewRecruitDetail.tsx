@@ -147,7 +147,7 @@ export default function TeamViewRecruitDetail({
       <div className="flex flex-col gap-12">
         {recruitmentDetail?.mainTasks && (
           <div className="flex flex-col">
-            <h3 className="text-lg font-bold text-grey90">주요업무</h3>
+            <h3 className="text-lg font-bold text-grey90">주요 업무</h3>
 
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
               <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>
@@ -159,7 +159,7 @@ export default function TeamViewRecruitDetail({
 
         {recruitmentDetail?.idealCandidate && (
           <div className="flex flex-col">
-            <h3 className="text-lg font-bold text-grey90">요구 사항</h3>
+            <h3 className="text-lg font-bold text-grey90">필수 요건</h3>
 
             <span className="mt-3 whitespace-pre-wrap pl-1 text-grey80">
               <Linkify options={{ className: 'text-[#2563EB] hover:underline' }}>
