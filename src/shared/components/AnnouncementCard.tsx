@@ -101,6 +101,15 @@ export default function AnnouncementCard({
         <span className="text-sm text-grey90">{announcement?.teamName}</span>
       </div>
 
+      <div className="flex gap-2">
+        {announcement?.projectTypeName && (
+          <span className="rounded-md bg-[#EDF3FF] px-2 py-1 text-xs text-main">{announcement?.projectTypeName}</span>
+        )}
+        {announcement?.workTypeName && (
+          <span className="rounded-md bg-[#EDF3FF] px-2 py-1 text-xs text-main">{announcement?.workTypeName}</span>
+        )}
+      </div>
+
       <div className="text-xs text-grey60">{announcement.createdAt}</div>
 
       <div className="flex w-[90%] flex-col gap-1 ">

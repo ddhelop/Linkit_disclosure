@@ -10,6 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { skillsData } from '@/shared/data/skillsData'
 
 function calculateDday(endDate: string): string {
   const today = new Date()
@@ -115,15 +116,30 @@ export default function TeamViewRecruitDetail({
         <div className="mt-1 flex flex-col gap-3">
           <span className="text-2xl font-semibold text-grey90">{recruitmentDetail?.announcementTitle}</span>
           {/* 기술 스택 */}
-          <div className=" flex gap-2">
-            {recruitmentDetail?.announcementSkillNames?.map((skill) => (
-              <div
-                key={skill?.announcementSkillName}
-                className="rounded-[0.38rem] bg-[#EDF3FF] px-4 py-1 text-sm text-[#2563EB]"
-              >
-                {skill?.announcementSkillName}
-              </div>
-            ))}
+          <div className="flex gap-2">
+            {recruitmentDetail?.announcementSkillNames?.map((skill) => {
+              const skillInfo = skillsData.find(
+                (item) => item.name.toLowerCase() === skill?.announcementSkillName.toLowerCase(),
+              )
+
+              return (
+                <div
+                  key={skill?.announcementSkillName}
+                  className="flex items-center rounded-[0.38rem] bg-[#EDF3FF] px-4 py-1 text-sm text-[#2563EB]"
+                >
+                  {skillInfo?.logoUrl && (
+                    <Image
+                      src={skillInfo.logoUrl}
+                      alt={`${skill?.announcementSkillName} logo`}
+                      width={16}
+                      height={16}
+                      className="mr-2 rounded-full"
+                    />
+                  )}
+                  {skill?.announcementSkillName}
+                </div>
+              )
+            })}
           </div>
           <div className="flex items-center gap-1">
             <span className="text-xs text-grey70">{formatToKorean(recruitmentDetail?.createdAt)} ·</span>
