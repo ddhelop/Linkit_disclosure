@@ -48,6 +48,7 @@ export default function RootLayout({
       <head>
         <meta name="naver-site-verification" content={process.env.NEXT_PUBLIC_NAVER_SITE_CONTENT} />
         <link rel="canonical" href={`https://www.linkit.im${pathname}`} />
+        <title>링킷</title>
       </head>
       <body className={`${pretendard.className} bg-[#FCFCFD]`}>
         <CustomClient>
