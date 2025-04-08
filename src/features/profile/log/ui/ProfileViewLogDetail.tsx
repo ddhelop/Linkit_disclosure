@@ -35,7 +35,7 @@ export default function ProfileViewLogDetail({ profileLogId }: { profileLogId: n
           <ShareLinkButton />
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs font-normal text-grey60">{formatToKorean(profileLog?.modifiedAt)}</span>
+          <span className="text-xs font-normal text-grey60">{profileLog?.createdAt}</span>
           <span className="text-xs text-grey50">·</span>
           <span className="text-xs text-grey60">조회수 {profileLog?.logViewCount}</span>
         </div>
