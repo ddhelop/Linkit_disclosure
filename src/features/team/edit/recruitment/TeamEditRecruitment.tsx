@@ -398,7 +398,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
             </span>
           </div>
           <Textarea
-            placeholder="새롭게 합류할 팀원의 주요 업무를 작성해 주세요 (500자 이내)"
+            placeholder="합류 후 담당하게 될 업무에 대해 작성해 주세요"
             value={mainTasks}
             onChange={(e) => setMainTasks(e.target.value)}
           />
@@ -408,11 +408,11 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <span className="text-grey80">
-              요구 사항<span className="placeholder:-1 text-main">*</span>
+              필수 요건<span className="placeholder:-1 text-main">*</span>
             </span>
           </div>
           <Textarea
-            placeholder="새롭게 합류할 팀원이 갖춰야 할 역량이나 자격을 작성해 주세요 (500자 이내)"
+            placeholder="팀원이 갖춰야 할 역량이나 자격을 작성해 주세요"
             value={idealCandidate}
             onChange={(e) => setIdealCandidate(e.target.value)}
           />
@@ -426,7 +426,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
             </span>
           </div>
           <Textarea
-            placeholder="팀의 업무 방식에 대해 설명해 주세요 (500자 이내)"
+            placeholder="팀의 업무 방식에 대해 작성해 주세요"
             value={workMethod}
             onChange={(e) => setWorkMethod(e.target.value)}
           />
@@ -454,10 +454,10 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
             {/* 우대사항 */}
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between">
-                <span className="text-grey80">우대사항</span>
+                <span className="text-grey80">우대 사항</span>
               </div>
               <Textarea
-                placeholder="추가적으로 고려할 우대 사항을 작성해 주세요 (500자 이내)"
+                placeholder="우대하고 싶은 기술, 성향, 경험 등을 자유롭게 작성해 주세요"
                 value={preferredQualifications}
                 onChange={(e) => setPreferredQualifications(e.target.value)}
               />
@@ -469,7 +469,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
                 <span className="text-grey80">합류 절차</span>
               </div>
               <Textarea
-                placeholder="새롭게 합류할 팀원이 거치게 될 절차와 일정에 대해 작성해 주세요 (500자 이내)"
+                placeholder="새롭게 합류할 팀원이 거치게 될 절차와 일정에 대해 작성해 주세요 "
                 value={joiningProcess}
                 onChange={(e) => setJoiningProcess(e.target.value)}
               />
@@ -481,7 +481,7 @@ export default function TeamEditRecruitment({ params }: { params: { teamName: st
                 <span className="text-grey80">기타 사항</span>
               </div>
               <Textarea
-                placeholder="추가로 전달하고 싶은 내용을 작성해 주세요 (500자 이내)"
+                placeholder="추가로 전달하고 싶은 내용이 있다면 자유롭게 작성해 주세요"
                 value={benefits}
                 onChange={(e) => setBenefits(e.target.value)}
               />

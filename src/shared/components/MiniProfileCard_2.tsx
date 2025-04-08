@@ -47,7 +47,7 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCardProps) {
   return (
     <Link
       href={`/${profile.emailId}`}
-      className=" flex min-w-[20rem] cursor-pointer flex-col rounded-xl border border-transparent bg-[#EDF3FF] p-[1.37rem] pb-7 hover:border-main lg:min-w-[16rem] "
+      className=" flex min-w-[20rem] cursor-pointer flex-col rounded-xl border border-grey30 bg-[#EDF3FF] p-[1.37rem] pb-7 hover:border-[#4D82F3] lg:min-w-[16rem] "
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.10)' }}
     >
       {/* 첫째줄 */}
@@ -89,9 +89,9 @@ export default function MiniProfileCard_2({ profile }: MiniProfileCardProps) {
           className="h-20 w-20 rounded-lg object-cover"
         />
         <div className="flex flex-col justify-center">
+          <span className="text-xs text-grey70">스크랩 수 {scrapCount}</span>
           <div className="flex items-center gap-3">
             <span className="text-lg font-bold text-grey90">{profile?.memberName}</span>
-            <span className="text-xs text-grey70">스크랩 수 {scrapCount}</span>
           </div>
           <span className="flex gap-1">
             <span className="text-xs text-grey50">포지션</span>

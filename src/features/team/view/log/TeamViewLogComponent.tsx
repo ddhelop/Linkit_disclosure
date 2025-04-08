@@ -19,7 +19,7 @@ export default function TeamViewLogComponent({ log, teamName }: { log: TeamLog; 
           <h1 className="font-semibold text-grey80">{log.logTitle}</h1>
         </div>
         <div>
-          <span className="text-xs font-normal text-grey60">{formatToKorean(log.modifiedAt)}</span>
+          <span className="text-xs font-normal text-grey60">{log.createdAt}</span>
           <span className="text-xs font-normal text-grey60"> · </span>
           <span className="text-xs font-normal text-grey60">댓글 {log.commentCount}</span>
         </div>
