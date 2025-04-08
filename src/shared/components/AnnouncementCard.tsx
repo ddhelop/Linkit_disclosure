@@ -57,7 +57,7 @@ export default function AnnouncementCard({
       className={
         variant == 'wide'
           ? 'flex min-w-[17rem] cursor-pointer flex-col gap-3 border-b border-grey40 px-2 py-6 last:border-none hover:bg-grey10 md:min-w-[unset] md:px-4'
-          : 'shadow-announcement flex min-w-[17rem] cursor-pointer flex-col gap-3 rounded-lg border bg-grey10 px-[1.62rem] py-[1.38rem] hover:border-[#7EA5F8] md:min-w-[unset]'
+          : 'flex min-w-[17rem] cursor-pointer flex-col gap-3 rounded-lg border border-grey30 bg-[#FCFCFD] px-[1.62rem] py-[1.38rem] shadow-announcement hover:border-[#4D82F3] md:min-w-[unset]'
       }
     >
       <div className="flex justify-between">
@@ -72,14 +72,16 @@ export default function AnnouncementCard({
               ? '마감'
               : `D-${announcement?.announcementDDay}`}
         </span>
-        <Image
-          src={announcement.isAnnouncementScrap ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
-          alt="announcement-icon"
-          width={20}
-          height={20}
-          onClick={handleScrap}
-          className="cursor-pointer"
-        />
+        {variant === 'wide' && (
+          <Image
+            src={announcement.isAnnouncementScrap ? '/common/icons/save.svg' : '/common/icons/not_save.svg'}
+            alt="announcement-icon"
+            width={20}
+            height={20}
+            onClick={handleScrap}
+            className="cursor-pointer"
+          />
+        )}
       </div>
 
       <div className="flex items-center gap-2">
@@ -111,9 +113,11 @@ export default function AnnouncementCard({
         </div>
       </div>
 
-      <div>
-        <span className="text-xs text-grey70">조회수 {announcement.viewCount}</span>
-      </div>
+      {variant === 'wide' && (
+        <div>
+          <span className="text-xs text-grey70">조회수 {announcement.viewCount}</span>
+        </div>
+      )}
     </Link>
   )
 }
